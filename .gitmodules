@@ -1,0 +1,3 @@
+[submodule "KlangRageAudioLibrary"]
+	path = KlangRageAudioLibrary
+	url = https://github.com/bttfv/KlangRageAudioLibrary

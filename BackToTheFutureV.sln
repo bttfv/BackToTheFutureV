@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.960
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackToTheFutureV", "BackToTheFutureV\BackToTheFutureV.csproj", "{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AECF1C8D-C84E-4605-8922-447592AFF690}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Performance1.psess = Performance1.psess
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlangRageAudioLibrary", "KlangRageAudioLibrary\KlangRageAudioLibrary.csproj", "{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Debug|Any CPU.Build.0 = Debug|x64
+		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Debug|x64.ActiveCfg = Debug|x64
+		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Debug|x64.Build.0 = Debug|x64
+		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Release|x64.ActiveCfg = Release|Any CPU
+		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Release|x64.Build.0 = Release|Any CPU
+		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Debug|x64.ActiveCfg = Debug|x64
+		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Debug|x64.Build.0 = Debug|x64
+		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Release|x64.ActiveCfg = Release|x64
+		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A4965B9E-1023-43CE-AF03-F21D2EEC070B}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal

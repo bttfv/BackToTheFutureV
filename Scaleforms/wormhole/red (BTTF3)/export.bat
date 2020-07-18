@@ -1,0 +1,1 @@
+gfxexport.exe -strip_images bttf_wormhole_scaleform_red.swf

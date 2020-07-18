@@ -1,0 +1,1 @@
+gfxexport.exe -strip_images bttf_flux_scaleform.swf

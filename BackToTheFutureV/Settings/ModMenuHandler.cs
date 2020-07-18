@@ -1,0 +1,254 @@
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
+using BackToTheFutureV.Delorean;
+using BackToTheFutureV.GUI;
+using BackToTheFutureV.InteractionMenu;
+using BackToTheFutureV.Settings;
+using BackToTheFutureV.Utility;
+using GTA;
+using GTA.UI;
+using NativeUI;
+
+namespace BackToTheFutureV
+{
+    public class ModMenuHandler
+    {
+        public static UIMenu MainMenu { get; private set; }
+        private static UIMenu settingsMenu;
+        private static UIMenu tcdMenu;
+
+        private static UIMenuItem rcMenu;
+        private static UIMenuItem spawnDelorean1;
+        private static UIMenuItem spawnDelorean2;
+        private static UIMenuItem spawnDelorean3;
+        private static UIMenuItem spawnDelorean;
+        private static UIMenuItem spawnCustomDelorean;
+        private static UIMenuItem spawnPresetDelorean;
+        private static UIMenuItem removeAllDeloreans;
+        private static UIMenuItem removeDelorean;
+
+        // Settings
+        private static UIMenuCheckboxItem cinematicSpawn;
+        private static UIMenuCheckboxItem playFluxCapacitorSound;
+        private static UIMenuCheckboxItem playDiodeSound;
+        private static UIMenuCheckboxItem playEngineSounds;
+        private static UIMenuCheckboxItem useInputToggle;
+        private static UIMenuCheckboxItem forceFlyMode;
+        private static UIMenuCheckboxItem playSpeedoBeep;
+        private static UIMenuListItem tcdBackground;
+        private static UIMenuCheckboxItem GlowingWormholeEmitter;
+        private static UIMenuCheckboxItem GlowingPlutoniumReactor;
+        
+        // TCD stuff
+        private static UIMenuItem changeTCD;
+        private static UIMenuItem resetToDefaultTCD;
+
+        public static void Initialize()
+        {
+            MainMenu = new UIMenu("BackToTheFutureV", Game.GetLocalizedString("BTTFV_Menu_Description"));
+            MainMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");
+
+            MainMenu.AddItem(spawnDelorean = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_Spawn") + " " + Game.GetLocalizedString("BTTFV_Menu_DMC12"), Game.GetLocalizedString("BTTFV_Menu_SpawnDMC12_Description")));
+            MainMenu.AddItem(spawnDelorean1 = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_Spawn") + " " + Game.GetLocalizedString("BTTFV_Menu_BTTF1"), Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF1_Description")));
+            MainMenu.AddItem(spawnDelorean2 = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_Spawn") + " " + Game.GetLocalizedString("BTTFV_Menu_BTTF2"), Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF2_Description")));
+            MainMenu.AddItem(spawnDelorean3 = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_Spawn") + " " + Game.GetLocalizedString("BTTFV_Menu_BTTF3"), Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF3_Description")));
+
+            spawnPresetDelorean = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.PresetsMenu, Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset"), Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset_Description"));
+            spawnCustomDelorean = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.SpawnMenu, Game.GetLocalizedString("BTTFV_Menu_Build_Delorean"), Game.GetLocalizedString("BTTFV_Menu_Build_Delorean_Description"));
+
+            rcMenu = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.RCMenu, Game.GetLocalizedString("BTTFV_Menu_RCMenu"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_Description"));
+
+            MainMenu.AddItem(removeDelorean = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine_Description")));
+            MainMenu.AddItem(removeAllDeloreans = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines_Description")));
+
+            MainMenu.OnMenuOpen += MainMenu_OnMenuOpen;
+            MainMenu.OnItemSelect += MainMenu_OnItemSelect;
+            Main.MenuPool.Add(MainMenu);
+
+            settingsMenu = Main.MenuPool.AddSubMenu(MainMenu, Game.GetLocalizedString("BTTFV_Menu_Settings"), Game.GetLocalizedString("BTTFV_Menu_Settings_Description"));
+            settingsMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");
+
+            settingsMenu.AddItem(playFluxCapacitorSound = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_FluxCapacitorSound"), ModSettings.PlayFluxCapacitorSound, Game.GetLocalizedString("BTTFV_Menu_FluxCapacitorSound_Description")));
+            settingsMenu.AddItem(playDiodeSound = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep"), ModSettings.PlayDiodeBeep, Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep_Description")));
+            settingsMenu.AddItem(playSpeedoBeep = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep"), ModSettings.PlaySpeedoBeep, Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep_Description")));
+            settingsMenu.AddItem(playEngineSounds = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_EngineSounds"), ModSettings.PlayEngineSounds, Game.GetLocalizedString("BTTFV_Menu_EngineSounds_Description")));
+            settingsMenu.AddItem(cinematicSpawn = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn"), ModSettings.CinematicSpawn, Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn_Description")));
+            settingsMenu.AddItem(useInputToggle = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_InputToggle"), ModSettings.UseInputToggle, Game.GetLocalizedString("BTTFV_Menu_InputToggle_Description")));
+            settingsMenu.AddItem(forceFlyMode = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode"), ModSettings.ForceFlyMode, Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode_Description")));
+            settingsMenu.AddItem(GlowingWormholeEmitter = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter"), ModSettings.GlowingWormholeEmitter, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter_Description")));
+            settingsMenu.AddItem(GlowingPlutoniumReactor = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor"), ModSettings.GlowingPlutoniumReactor, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor_Description")));
+            
+            settingsMenu.OnItemSelect += SettingsMenu_OnItemSelect;
+            settingsMenu.OnCheckboxChange += SettingsMenu_OnCheckboxChange;
+
+            tcdMenu = Main.MenuPool.AddSubMenu(settingsMenu, Game.GetLocalizedString("BTTFV_Menu_TCDMenu"), Game.GetLocalizedString("BTTFV_Menu_TCDMenu_Description"));
+            tcdMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");
+
+            tcdMenu.AddItem(tcdBackground = new UIMenuListItem(Game.GetLocalizedString("BTTFV_Menu_TCDBackground"), Enum.GetValues(typeof(TCDBackground)).Cast<object>().ToList(), 0, Game.GetLocalizedString("BTTFV_Menu_TCDBackground_Description")));
+            tcdMenu.AddItem(changeTCD = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_TCDEditMode"), Game.GetLocalizedString("BTTFV_Menu_TCDEditMode_Description")));
+            tcdMenu.AddItem(resetToDefaultTCD = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_TCDReset"), Game.GetLocalizedString("BTTFV_Menu_TCDReset_Description")));
+
+            tcdBackground.OnListChanged += TcdBackground_OnListChanged;
+            tcdMenu.OnItemSelect += TcdMenu_OnItemSelect;
+        }
+
+        private static void SettingsMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
+        {
+
+        }
+
+        private static void MainMenu_OnMenuOpen(UIMenu sender)
+        {
+            if (DeloreanModsCopy.ListPresets().Count > 0)
+            {
+                MainMenu.ReleaseMenuFromItem(spawnPresetDelorean);
+                MainMenu.BindMenuToItem(InteractionMenuManager.PresetsMenu, spawnPresetDelorean);
+            }
+            else
+            {
+                MainMenu.ReleaseMenuFromItem(spawnPresetDelorean);
+                MainMenu.BindMenuToItem(InteractionMenuManager.SpawnMenu, spawnPresetDelorean);
+            }
+
+            rcMenu.Enabled = Main.PlayerVehicle == null;
+        }
+
+        private static void TcdBackground_OnListChanged(UIMenuListItem sender, int newIndex)
+        {
+            TCDBackground item = (TCDBackground)tcdBackground.Items[newIndex];
+            ModSettings.TCDBackground = item;
+            ModSettings.SaveSettings();
+        }
+
+        private static void SettingsMenu_OnCheckboxChange(UIMenu sender, UIMenuCheckboxItem checkboxItem, bool Checked)
+        {
+            if (checkboxItem == playDiodeSound)
+            {
+                ModSettings.PlayDiodeBeep = Checked;
+            }
+            else if (checkboxItem == useInputToggle)
+            {
+                ModSettings.UseInputToggle = Checked;
+            }
+            else if (checkboxItem == forceFlyMode)
+            {
+                ModSettings.ForceFlyMode = Checked;
+            }
+            else if (checkboxItem == playSpeedoBeep)
+            {
+                ModSettings.PlaySpeedoBeep = Checked;
+            }
+            else if (checkboxItem == GlowingWormholeEmitter)
+            {
+                ModSettings.GlowingWormholeEmitter = Checked;
+            }
+            else if (checkboxItem == GlowingPlutoniumReactor)
+            {
+                ModSettings.GlowingPlutoniumReactor = Checked;
+            }
+            else if (checkboxItem == playFluxCapacitorSound)
+            {
+                ModSettings.PlayFluxCapacitorSound = Checked;
+            }
+            else if (checkboxItem == playEngineSounds)
+            {
+                ModSettings.PlayEngineSounds = Checked;
+            }
+            else if (checkboxItem == cinematicSpawn)
+            {
+                ModSettings.CinematicSpawn = Checked;
+            }
+
+            ModSettings.SaveSettings();
+        }
+
+        private static void TcdMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
+        {
+            if (selectedItem == changeTCD)
+            {
+                TcdEditer.SetEditMode(true);
+
+                Main.MenuPool.CloseAllMenus();
+            }
+            else if (selectedItem == resetToDefaultTCD)
+            {
+                TcdEditer.ResetToDefault();
+            }
+        }
+
+        private static void MainMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
+        {
+            if (selectedItem == spawnPresetDelorean && DeloreanModsCopy.ListPresets().Count == 0)
+                Notification.Show(Game.GetLocalizedString("BTTFV_Menu_Presets_Not_Found"));
+
+            if (selectedItem == spawnCustomDelorean || selectedItem == spawnPresetDelorean)
+                return;
+
+            if (selectedItem == spawnDelorean)
+            {
+                DeloreanHandler.Spawn(DeloreanType.DMC12);
+                Main.MenuPool.CloseAllMenus();
+            }
+
+            if (selectedItem == spawnDelorean1)
+            {
+                if (ModSettings.CinematicSpawn)
+                    DeloreanHandler.SpawnWithReentry(DeloreanType.BTTF1);
+                else
+                    DeloreanHandler.Spawn(DeloreanType.BTTF1);
+                Main.MenuPool.CloseAllMenus();
+            }
+
+            if (selectedItem == spawnDelorean2)
+            {
+                if (ModSettings.CinematicSpawn)
+                    DeloreanHandler.SpawnWithReentry(DeloreanType.BTTF2);
+                else
+                    DeloreanHandler.Spawn(DeloreanType.BTTF2);
+                Main.MenuPool.CloseAllMenus();
+            }
+
+            if (selectedItem == spawnDelorean3)
+            {
+                if (ModSettings.CinematicSpawn)
+                    DeloreanHandler.SpawnWithReentry(DeloreanType.BTTF3);
+                else
+                    DeloreanHandler.Spawn(DeloreanType.BTTF3);
+                Main.MenuPool.CloseAllMenus();
+            }
+
+            if (selectedItem == removeAllDeloreans)
+            {
+                DeloreanHandler.RemoveAllDeloreans();
+                RemoteDeloreansHandler.DeleteAll();
+                Notification.Show(Game.GetLocalizedString("BTTFV_RemovedAllTimeMachines"));
+            }
+
+            if(selectedItem == removeDelorean)
+            {
+                var delorean = DeloreanHandler.GetDeloreanFromVehicle(Main.PlayerVehicle);
+
+                if(delorean == null)
+                {
+                    Notification.Show(Game.GetLocalizedString("BTTFV_NotSeatedInTimeMachine"));
+                    return;
+                }
+
+                DeloreanHandler.RemoveDelorean(delorean);
+            }
+        }
+
+        public static void KeyDown(KeyEventArgs key)
+        {
+            if(key.KeyCode == Keys.F8 && key.Control && !TcdEditer.IsEditing)
+            {
+                if(DeloreanHandler.CurrentTimeMachine != null)
+                    if (DeloreanHandler.CurrentTimeMachine.Circuits.IsTimeTraveling || DeloreanHandler.CurrentTimeMachine.Circuits.IsReentering)
+                        return;
+
+                MainMenu.Visible = true;
+            }
+        }
+    }
+}
