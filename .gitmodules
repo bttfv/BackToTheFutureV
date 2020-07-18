@@ -1,3 +1,6 @@
 [submodule "KlangRageAudioLibrary"]
 	path = KlangRageAudioLibrary
 	url = https://github.com/bttfv/KlangRageAudioLibrary
+[submodule "RogerSierra"]
+	path = RogerSierra
+	url = https://github.com/bttfv/RogerSierra
