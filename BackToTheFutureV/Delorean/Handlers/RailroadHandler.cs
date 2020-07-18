@@ -97,6 +97,9 @@ namespace BackToTheFutureV.Delorean.Handlers
                 
             if (IsOnTracks)
             {
+                if (RogersSierra.Manager.RogersSierra.isDeLoreanAttached && RogersSierra.Manager.RogersSierra.AttachedDeLorean == Vehicle)
+                    return;
+
                 if (Game.GameTime > _checkTime)
                 {
                     _checkTime = Game.GameTime + 1000;

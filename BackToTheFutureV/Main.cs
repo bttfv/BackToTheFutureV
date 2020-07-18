@@ -149,6 +149,7 @@ namespace BackToTheFutureV
             MissionHandler.Process();            
             TrainManager.Process();
             PlayerSwitch.Process();
+            RogersSierraManager.Process();
 
             DeloreanHandler.SaveAllDeLoreans();         
         }
