@@ -77,11 +77,11 @@
  	BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor_Description = Permet d'activer/désactiver l'éclairage du Réacteur au Plutonium.
 	BTTFV_Menu_Description = SELECTIONNEZ UNE OPTION
 	BTTFV_Menu_DMC12 = DMC-12
-	BTTFV_Menu_BTTF1 = BTTF1
-	BTTFV_Menu_BTTF1H = BTTF1 avec crochet
-	BTTFV_Menu_BTTF2 = BTTF2
-	BTTFV_Menu_BTTF3 = BTTF3
-	BTTFV_Menu_BTTF3RR = BTTF3RR
+	BTTFV_Menu_BTTF1 = RVLF1
+	BTTFV_Menu_BTTF1H = RVLF1 avec crochet
+	BTTFV_Menu_BTTF2 = RVLF2
+	BTTFV_Menu_BTTF3 = RVLF3
+	BTTFV_Menu_BTTF3RR = RVLF3RF
 	BTTFV_Menu_SIERRA = Rogers Sierra Num. 3
 	BTTFV_Menu_FluxCapacitorSound = Son du Convecteur Temporel
 	BTTFV_Menu_FluxCapacitorSound_Description = Permet d'activer/désactiver le son du Convecteur Temporel.
