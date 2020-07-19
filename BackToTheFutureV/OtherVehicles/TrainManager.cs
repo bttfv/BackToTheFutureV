@@ -32,11 +32,11 @@ namespace BackToTheFutureV.Utility
 
             trainHandlers.Last().Train.IsCollisionEnabled = false;
 
-            trainHandlers.Last().Train.IsVisible = false;
+            //trainHandlers.Last().Train.IsVisible = false;
             Function.Call(Hash.SET_HORN_ENABLED, trainHandlers.Last().Train, false);
             Function.Call(Hash._FORCE_VEHICLE_ENGINE_AUDIO, trainHandlers.Last().Train, "ADDER");
 
-            trainHandlers.Last().Carriage(1).IsVisible = false;
+            //trainHandlers.Last().Carriage(1).IsVisible = false;
             Function.Call(Hash.SET_HORN_ENABLED, trainHandlers.Last().Carriage(1), false);
             Function.Call(Hash._FORCE_VEHICLE_ENGINE_AUDIO, trainHandlers.Last().Carriage(1), "ADDER");
 

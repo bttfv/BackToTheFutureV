@@ -87,10 +87,10 @@ namespace BackToTheFutureV.Delorean
 
             Vehicle.IsRadioEnabled = false;
 
-            if (!Utils.IsAllTiresBurst(Vehicle) && Mods.Wheel == WheelType.RailroadInvisible)
-            {
-                Utils.SetTiresBurst(Vehicle, true);
-            }
+            //if (!Utils.IsAllTiresBurst(Vehicle) && Mods.Wheel == WheelType.RailroadInvisible)
+            //{
+            //    Utils.SetTiresBurst(Vehicle, true);
+            //}
 
             VehicleWindowCollection windows = Vehicle.Windows;
             windows[VehicleWindowIndex.BackLeftWindow].Remove();
