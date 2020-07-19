@@ -50,6 +50,8 @@ namespace BackToTheFutureV
 
         private IAsyncResult ar_ = null;
 
+        private int _saveDelay;
+
         private void Receive(IAsyncResult ar)
         {
             IPEndPoint ip = new IPEndPoint(IPAddress.Any, 1985);
@@ -150,7 +152,11 @@ namespace BackToTheFutureV
             TrainManager.Process();
             PlayerSwitch.Process();
 
-            DeloreanHandler.SaveAllDeLoreans();         
+            if (Game.GameTime > _saveDelay)
+            {
+                DeloreanHandler.SaveAllDeLoreans();
+                _saveDelay = Game.GameTime + 2000;
+            }            
         }
     }
 }

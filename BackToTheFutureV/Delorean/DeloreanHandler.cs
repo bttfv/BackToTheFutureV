@@ -31,6 +31,8 @@ namespace BackToTheFutureV.Delorean
 
         public const int MAX_TIME_MACHINES = 50;
 
+        private static int _getAllDelay;
+
         private static List<DMC12> _deloreans = new List<DMC12>();
         private static List<DeloreanTimeMachine> _timeMachines = new List<DeloreanTimeMachine>();
         private static Dictionary<DMC12, bool> _delosToRemove = new Dictionary<DMC12, bool>();
@@ -229,23 +231,28 @@ namespace BackToTheFutureV.Delorean
         {
             UpdateClosestDeloreans();
 
-            foreach (var veh in World.GetAllVehicles(ModelHandler.DMC12))
+            if (Game.GameTime > _getAllDelay)
             {
-                if (GetDeloreanFromVehicle(veh) == null && veh.IsDead == false && veh.IsAlive)
+                foreach (var veh in World.GetAllVehicles())
                 {
-                    DMC12 _dmc12 = DMC12.CreateDelorean(veh);
-
-                    if (_dmc12.IsTimeMachine)
+                    if (veh.Model.Hash == ModelHandler.DMC12.Hash && GetDeloreanFromVehicle(veh) == null && veh.IsDead == false && veh.IsAlive)
                     {
-                        DeloreanTimeMachine _deloreanTimeMachine = (DeloreanTimeMachine)_dmc12;
+                        DMC12 _dmc12 = DMC12.CreateDelorean(veh);
 
-                        if (_deloreanTimeMachine.LastDisplacementCopy == null)
+                        if (_dmc12.IsTimeMachine)
                         {
-                            _deloreanTimeMachine.LastDisplacementCopy = _deloreanTimeMachine.Copy;
-                            _deloreanTimeMachine.LastDisplacementCopy.Circuits.DestinationTime = Main.CurrentTime;
-                        }                            
-                    }   
-                }                    
+                            DeloreanTimeMachine _deloreanTimeMachine = (DeloreanTimeMachine)_dmc12;
+
+                            if (_deloreanTimeMachine.LastDisplacementCopy == null)
+                            {
+                                _deloreanTimeMachine.LastDisplacementCopy = _deloreanTimeMachine.Copy;
+                                _deloreanTimeMachine.LastDisplacementCopy.Circuits.DestinationTime = Main.CurrentTime;
+                            }
+                        }
+                    }
+                }
+
+                _getAllDelay = Game.GameTime + 1000;
             }
 
             foreach (var delo in _delosToRemoveSounds)
