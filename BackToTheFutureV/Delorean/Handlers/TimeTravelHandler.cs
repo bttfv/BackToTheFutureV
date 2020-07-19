@@ -90,9 +90,6 @@ namespace BackToTheFutureV.Delorean.Handlers
             if (Game.GameTime < gameTimer) 
                 return;
 
-            Main.PlayerPed.IsVisible = false;
-            Vehicle.IsVisible = false;
-
             switch(_currentStep)
             {
                 case 0:
@@ -101,8 +98,6 @@ namespace BackToTheFutureV.Delorean.Handlers
 
                     TimeCircuits.Delorean.LastVelocity = Vehicle.Velocity;
 
-                    TimeCircuits.WasOnTracks = TimeCircuits.IsOnTracks;
-                                      
                     // Set previous time
                     PreviousTime = Utils.GetWorldTime();
 
@@ -155,6 +150,12 @@ namespace BackToTheFutureV.Delorean.Handlers
 
                     timeTravelAudioCutscene.Play();
 
+                    // Play the effects
+                    _timeTravelEffect.Play();
+
+                    // Play the light explosion
+                    _lightExplosion.Play();
+
                     trails = FireTrailsHandler.SpawnForDelorean(
                         TimeCircuits,
                         is99,
@@ -174,7 +175,13 @@ namespace BackToTheFutureV.Delorean.Handlers
                         RemoteDeloreansHandler.AddDelorean(TimeCircuits.Delorean.Copy);
 
                         // Delete delorean
-                        DeloreanHandler.RemoveDelorean(TimeCircuits.Delorean);
+                        //DeloreanHandler.RemoveDelorean(TimeCircuits.Delorean);
+
+                        Utils.HideVehicle(Vehicle, true);
+
+                        gameTimer = Game.GameTime + 300;
+
+                        _currentStep++;
                         return;
                     }
 
@@ -192,12 +199,6 @@ namespace BackToTheFutureV.Delorean.Handlers
 
                     Utils.HideVehicle(Vehicle, true);
 
-                    // Play the effects
-                    _timeTravelEffect.Play();
-
-                    // Play the light explosion
-                    _lightExplosion.Play();
-
                     TimeCircuits.Delorean.IsInTime = true;
 
                     gameTimer = Game.GameTime + 300;
@@ -207,6 +208,13 @@ namespace BackToTheFutureV.Delorean.Handlers
 
                 case 1:
                     _timeTravelEffect.Stop();
+
+                    if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Main.PlayerPed)
+                    {
+                        DeloreanHandler.RemoveDelorean(TimeCircuits.Delorean, true, true);
+                        return;
+                    }
+
                     gameTimer = Game.GameTime + 3700;
                     _currentStep++;
 
@@ -263,6 +271,8 @@ namespace BackToTheFutureV.Delorean.Handlers
             timeTravelAudioCutscene.Dispose();
             timeTravelAudioInstant.Dispose();
             _whiteSphere?.DeleteProp();
+            _lightExplosion.Dispose();
+            _timeTravelEffect.Dispose();
         }
 
         public override void KeyPress(Keys key)
