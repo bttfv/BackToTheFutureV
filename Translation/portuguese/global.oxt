@@ -29,8 +29,8 @@
 	BTTFV_Menu_CircuitsBeep_Description = Permite ativar/desativar o Beep do Circuitos de Tempo, se você não gosta dele.
 	BTTFV_Menu_SpeedoBeep = Beep do Velocimetro
 	BTTFV_Menu_SpeedoBeep_Description = Permite ativar/desativar o Beep do Velocimetro, se você não gosta dele.
-	BTTFV_Menu_InputToggle = Use Input Toggle
-	BTTFV_Menu_InputToggle_Description = Allows you to enable/disable the use for toggling Input Mode.
+	BTTFV_Menu_InputToggle = Usar o Modo de Entrada
+	BTTFV_Menu_InputToggle_Description = Permite ativar/desativar o Modo de Entrada.
 	BTTFV_Menu_ForceFlyMode = Controle de Altude
 	BTTFV_Menu_ForceFlyMode_Description = Deixa você controlar a altitude do DeLorean Mark 2.
 	BTTFV_Menu_TCDMenu = Display dos Circuitos de Tempo
@@ -38,7 +38,7 @@
 	BTTFV_Menu_TCDBackground = Background
 	BTTFV_Menu_TCDBackground_Description = Permite mudar o background do Display dos Circuitos de Tempo.
 	BTTFV_Menu_TCDEditMode = Editar a TCD
-	BTTFV_Menu_TCDEditMode_Description = Permite entrar o menu de editar a TCP, que permite mudar a posição e o tamanho do Display dos Circuitos de Tempo (TCD).
+	BTTFV_Menu_TCDEditMode_Description = Permite entrar o menu de editar a TCD, que permite mudar a posição e o tamanho do Display dos Circuitos de Tempo (TCD).
 	BTTFV_MENU_TCDEditMode_Save = Configurações salvas!
 	BTTFV_MENU_TCDEditMode_Cancel = Alterações canceladas!
 	BTTFV_Menu_TCDReset = Resetar ao Padrão
@@ -47,7 +47,7 @@
 	BTTFV_Menu_OnFoot_Refuel = Reabastercer
 	BTTFV_Menu_OnFoot_Refuel_Description = Permite reabastecer o Reator da sua Maquina do Tempo.
 	BTTFV_Menu_OnFoot_Refuel_Error = Você não está proximo de uma Maquina do Tempo!
-	BTTFV_Menu_OnFoot_Refuel_Full = Reator já esta cheio.
+  BTTFV_Menu_OnFoot_Refuel_Full = Reator já está cheio.
 	BTTFV_Menu_GoBackToMainMenu = Ir ao menu pricipal
 	BTTFV_Menu_GoBackToMainMenu_Description = Leva você ao menu principal do mod.
 	BTTFV_Menu_RCMenu = Controle Remoto
@@ -70,7 +70,7 @@
 	BTTFV_Menu_TimeMachineMenu_AltitudeControl = Controle de Altitude
 	BTTFV_Menu_TimeMachineMenu_AltitudeControl_Description = Permite ligar o Controle de Altitude, Isto ira previnir seu DeLorean de ir para cima ou para baixo no Modo Hover.
 	BTTFV_Menu_TimeMachineMenu_RemoteControl = Controle Remoto
-	BTTFV_Menu_TimeMachineMenu_RemoteControl_Description = Permite desligar o Controle Remoto, Para entrar no modo de Controle RemotoAllows you to turn off Remote Control. In order to Remote Control this Time Machine, step out of the Delorean and open the Interaction menu there.
+	BTTFV_Menu_TimeMachineMenu_RemoteControl_Description = Permite desligar o Controle Remoto, Para entrar no modo de Controle Remoto, Saia do DeLorean e Abra o Menu de Interação.
 	BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter = Emissor do Buraco de Minhoca Brilhando
 	BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter_Description = Permite ativar/desativar o brilho do Emissor do Buraco de Minhoca.
 	BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor = Reator de Plutonio Brilhando
@@ -89,7 +89,7 @@
 	BTTFV_Hoodbox_Warmup_Start = Aperte ~INPUT_CONTEXT~ para aquecer os Tubos de Controle dos Circuitos de Tempo.
 	BTTFV_Hoodbox_Warmup_Error = Tubos de Controle dos Circuitos de Tempo estão aquecidos.
 	BTTFV_Hoodbox_Warmup_TfcError = Tubos de Controle dos Circuitos de Tempo não estão aquecidos.
-	BTTFV_Input_Mode = Input mode now
+	BTTFV_Input_Mode = Modo de Entrada agora está
 	BTTFV_Input_SpawnMenu = Menu de Customizar
 	BTTFV_Input_SpawnMenu_Description = CRIAR/EDITAR MAQUINA DO TEMPO
 	BTTFV_Input_SpawnMenu_Wormhole = Tipo do Buraco de Minhoca
@@ -100,7 +100,7 @@
 	BTTFV_Input_SpawnMenu_Wheel_Description = Escolha um tipo de Roda
 	BTTFV_Input_SpawnMenu_Hover = Modo Hover (Voar)
 	BTTFV_Input_SpawnMenu_Hover_Description = Adiciona Hover para o carro.
-	BTTFV_Input_SpawnMenu_ControlTubes = Tubos de Controle dos Circuitos de Tempo
+	BTTFV_Input_SpawnMenu_ControlTubes = Tubos de Controle do Circuitos de Tempo
 	BTTFV_Input_SpawnMenu_ControlTubes_Description = Adiciona os Tubos de Controle do Circuitos de Tempo
 	BTTFV_Input_SpawnMenu_Hook = Gancho na Porta
 	BTTFV_Input_SpawnMenu_Hook_Description = Adiciona o Gancho
@@ -139,7 +139,7 @@
 	BTTFV_Input_PresetsMenu_New = Novo
 	BTTFV_Input_PresetsMenu_Save = Salvar
 	BTTFV_Input_PresetsMenu_Save_Description = Salva o DeLorean que o Player estiver dentro.
-	BTTFV_Menu_EngineSounds = Sons do Motor Custom
+	BTTFV_Menu_EngineSounds = Sons do Motor Customizados
 	BTTFV_Menu_EngineSounds_Description = Se ativado, o script ira usar um som customizado para os DeLoreans.
 	BTTFV_Menu_CinematicSpawn = Spawn cinematico
 	BTTFV_Menu_CinematicSpawn_Description = Se ativado, DeLoreans gerados vão aparecer do mesmo jeito se tivessem voltando de uma Viagem no Tempo.
