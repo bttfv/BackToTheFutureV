@@ -310,7 +310,7 @@ namespace BackToTheFutureV.Utility
         {
             float result = -1;
 
-            position.Z += 20f;
+            position.Z += 2.5f;
             unsafe
             {
                 Function.Call(Hash.GET_GROUND_Z_FOR_3D_COORD, position.X, position.Y, position.Z, &result, false);
