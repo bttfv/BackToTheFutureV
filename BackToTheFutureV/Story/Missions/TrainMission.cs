@@ -7,6 +7,7 @@ using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
 using GTA.Native;
+using KlangRageAudioLibrary;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,11 +19,11 @@ namespace BackToTheFutureV.Story
     public class TrainMission : Mission
     {
 
-        public float TimeMultiplier = 1.0f;
+        public float TimeMultiplier = 0.1f;
         public bool PlayMusic = true;
 
-        private AudioPlayer _funnelExpl = new AudioPlayer($"story/trainMission/funnelExplosion.wav", false);
-        private AudioPlayer _missionMusic = new AudioPlayer($"story/trainMission/music.wav", false, 0.8f);
+        private AudioPlayer _funnelExpl;
+        private AudioPlayer _missionMusic;
         //private AudioPlayer _missionMusic = new AudioPlayer($"TrainMissionWithVoices.wav", false, 0.8f);
 
         private PtfxEntityBonePlayer _funnelExplPtfx;
@@ -86,7 +87,7 @@ namespace BackToTheFutureV.Story
 
                 TimedEventManager.RunEvents(CurrentTime);
 
-                if (TimedEventManager.AllExecuted(CurrentTime) && _missionMusic.Finished)
+                if (TimedEventManager.AllExecuted(CurrentTime))
                     StartExplodingScene();
 
                 if (_justAttached)
@@ -107,7 +108,7 @@ namespace BackToTheFutureV.Story
                 if (TimedEventManager.IsCustomCameraActive)
                     TimedEventManager.ResetCamera();
 
-                if (_missionMusic.IsPlaying)
+                if (_missionMusic.IsAnyInstancePlaying)
                     _missionMusic.Stop();
 
                 _wheelPtfxes?.ForEach(x => x?.Stop());
@@ -147,7 +148,12 @@ namespace BackToTheFutureV.Story
                 IsPlaying = false;
                 return;
             }
-               
+
+            RogersSierra.Manager.RogersSierra.AudioEngine.BaseSoundFolder = "BackToTheFutureV\\Sounds";
+
+            _funnelExpl = RogersSierra.Manager.RogersSierra.AudioEngine.Create($"story/trainMission/funnelExplosion.wav", Presets.ExteriorLoud);
+            _missionMusic = RogersSierra.Manager.RogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.Exterior);
+
             CurrentTime = TimeSpan.Zero;
 
             TimedEventManager.ClearEvents();
@@ -286,7 +292,7 @@ namespace BackToTheFutureV.Story
             if (timedEvent.FirstExecution)
             {               
                 _funnelExplPtfx.Play();
-                _funnelExpl.Play(tRogersSierra.Locomotive, 50f);
+                _funnelExpl.Play();
 
                 switch (tRogersSierra.FunnelSmoke)
                 {

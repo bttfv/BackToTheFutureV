@@ -27,6 +27,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         public float MPHSpeed { get => TimeCircuits.MphSpeed; set => TimeCircuits.MphSpeed = value; }
         public DeloreanMods Mods => TimeCircuits.Delorean.Mods;
         public bool IsOnTracks { get => TimeCircuits.IsOnTracks; set => TimeCircuits.IsOnTracks = value; }
+        public bool IsAttachedToRogersSierra { get => TimeCircuits.IsAttachedToRogersSierra; set => TimeCircuits.IsAttachedToRogersSierra = value; }
 
         public Handler(TimeCircuits circuits)
         {
