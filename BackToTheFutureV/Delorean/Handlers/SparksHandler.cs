@@ -234,7 +234,9 @@ namespace BackToTheFutureV.Delorean.Handlers
         private void SparksEnded()
         {
             Stop();
-          
+
+            TimeCircuits.WasOnTracks = TimeCircuits.IsOnTracks;
+
             if (IsOnTracks)
                 TimeCircuits.GetHandler<RailroadHandler>().StopTrain();
 

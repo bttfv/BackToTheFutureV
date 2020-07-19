@@ -34,6 +34,7 @@ namespace BackToTheFutureV.Delorean
         private static List<DMC12> _deloreans = new List<DMC12>();
         private static List<DeloreanTimeMachine> _timeMachines = new List<DeloreanTimeMachine>();
         private static Dictionary<DMC12, bool> _delosToRemove = new Dictionary<DMC12, bool>();
+        private static Dictionary<DMC12, bool> _delosToRemoveSounds = new Dictionary<DMC12, bool>();
         private static List<DeloreanCopy> _delosToAdd = new List<DeloreanCopy>();
 
         public static void SaveAllDeLoreans()
@@ -88,6 +89,9 @@ namespace BackToTheFutureV.Delorean
 
         public static void RemoveInstantlyDelorean(DMC12 vehicle, bool deleteVeh = true)
         {
+            if (_delosToRemoveSounds.ContainsKey(vehicle))
+                _delosToRemoveSounds.Remove(vehicle);
+
             if (vehicle.IsTimeMachine)
                 _timeMachines.Remove((DeloreanTimeMachine)vehicle);
 
@@ -95,11 +99,14 @@ namespace BackToTheFutureV.Delorean
             _deloreans.Remove(vehicle);
         }
 
-        public static void RemoveDelorean(DMC12 vehicle, bool deleteVeh = true)
+        public static void RemoveDelorean(DMC12 vehicle, bool deleteVeh = true, bool checkPlayingSounds = false)
         {
             if (vehicle == null || _delosToRemove.ContainsKey(vehicle)) return;
 
-            _delosToRemove.Add(vehicle, deleteVeh);  
+            if (!checkPlayingSounds)
+                _delosToRemove.Add(vehicle, deleteVeh);
+            else if (!_delosToRemoveSounds.ContainsKey(vehicle))
+                _delosToRemoveSounds.Add(vehicle, deleteVeh);
         }
 
         public static void RemoveAllDeloreans()
@@ -239,6 +246,14 @@ namespace BackToTheFutureV.Delorean
                         }                            
                     }   
                 }                    
+            }
+
+            foreach (var delo in _delosToRemoveSounds)
+            {
+                DeloreanTimeMachine deloreanTimeMachine = (DeloreanTimeMachine)delo.Key;
+
+                if (!deloreanTimeMachine.Circuits.AudioEngine.IsAnyInstancePlaying)
+                    RemoveDelorean(delo.Key, delo.Value);
             }
 
             foreach (var delo in _delosToRemove)
