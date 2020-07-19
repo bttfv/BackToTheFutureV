@@ -28,7 +28,7 @@ namespace BackToTheFutureV.InteractionMenu
             _instrumentalMenu.AddControl(Control.PhoneSelect, Game.GetLocalizedString("HUD_INPUT2"));
             _instrumentalMenu.AddControl(Control.PhoneRight, Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Delete"));
             _instrumentalMenu.AddControl(Control.PhoneLeft, Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Rename"));
-            _instrumentalMenu.AddControl(Control.PhoneDown, Game.GetLocalizedString("BTTFV_Input_PresetsMenu_New"));
+            _instrumentalMenu.AddControl(Control.PhoneExtraOption, Game.GetLocalizedString("BTTFV_Input_PresetsMenu_New"));
         }
 
         public void Process()
@@ -53,7 +53,7 @@ namespace BackToTheFutureV.InteractionMenu
                 ReloadList();
             }
 
-            if (Game.IsControlJustPressed(Control.PhoneDown))
+            if (Game.IsControlJustPressed(Control.PhoneExtraOption))
             {
                 Main.MenuPool.CloseAllMenus();
 

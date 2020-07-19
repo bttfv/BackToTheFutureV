@@ -149,7 +149,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                             Mods.GlowingEmitter = ModState.On;
                     }
 
-                    if(!_sparksAudio.IsAnyInstancePlaying)
+                    if(!_sparksAudio.IsAnyInstancePlaying && !_sparkStabilized.IsAnyInstancePlaying)
                     {
                         if (Mods.HoverUnderbody == ModState.On)
                             TimeCircuits.GetHandler<FlyingHandler>().CanConvert = false;
