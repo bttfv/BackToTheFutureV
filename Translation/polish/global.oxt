@@ -109,7 +109,7 @@
 	BTTFV_Input_SpawnMenu_Confirm = POTWIERDŹ
 	BTTFV_Input_SpawnMenu_MrFusion = Reaktor fuzyjny
 	BTTFV_Input_SpawnMenu_Nuclear = Reaktor nuklearny
-	BTTFV_Input_SpawnMenu_Wheel_Stock = Zasób
+	BTTFV_Input_SpawnMenu_Wheel_Stock = Standardowe
 	BTTFV_Input_SpawnMenu_Wheel_RedWhite = Opony z lat '55
 	BTTFV_Input_SpawnMenu_Wheel_Railroads = Same felgi
 	BTTFV_Input_SpawnMenu_Plate_Empty = Puste
