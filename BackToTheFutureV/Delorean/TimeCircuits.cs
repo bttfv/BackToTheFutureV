@@ -83,6 +83,11 @@ namespace BackToTheFutureV.Delorean
         public bool WasOnTracks { get; set; }
 
         /// <summary>
+        /// Whether this Delorean is attached to Rogers Sierra.
+        /// </summary>
+        public bool IsAttachedToRogersSierra { get; set; }
+
+        /// <summary>
         /// Whether the Time Circuits are fueled or not.
         /// </summary>
         public bool IsFueled { get; set; } = true;

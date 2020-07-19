@@ -57,6 +57,9 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private void TrainHandler_OnTrainDeleted()
         {
+            if (IsAttachedToRogersSierra)
+                return;
+
             Stop();
         }
 
@@ -97,8 +100,13 @@ namespace BackToTheFutureV.Delorean.Handlers
                 
             if (IsOnTracks)
             {
-                if (RogersSierra.Manager.RogersSierra != null && RogersSierra.Manager.RogersSierra.isDeLoreanAttached && RogersSierra.Manager.RogersSierra.AttachedDeLorean == Vehicle)
+                if (IsAttachedToRogersSierra)
+                {
+                    if (trainHandler != null && trainHandler.Exists)
+                        trainHandler.DeleteTrain();
+
                     return;
+                }
 
                 if (Game.GameTime > _checkTime)
                 {
@@ -146,9 +154,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (Mods.Wheel == WheelType.RailroadInvisible && (trainHandler == null || !trainHandler.Exists))
             {
-                if (Main.PlayerVehicle == Vehicle && Main.PlayerVehicle.Speed < 1)
-                {
-                    var wheelPos = new List<Vector3>
+                var wheelPos = new List<Vector3>
                     {
                         Vehicle.Bones["wheel_lf"].Position,
                         Vehicle.Bones["wheel_rf"].Position,
@@ -156,15 +162,17 @@ namespace BackToTheFutureV.Delorean.Handlers
                         Vehicle.Bones["wheel_lr"].Position
                     };
 
-                    if (wheelPos.TrueForAll(x => Utils.IsWheelOnTracks(x, Vehicle)))
-                        StartDriving();
-                }
+                if (wheelPos.TrueForAll(x => Utils.IsWheelOnTracks(x, Vehicle)))
+                    StartDriving();
             }
         }
 
         public void StopTrain()
         {
-            trainHandler.SpeedMPH = 0;
+            if (IsAttachedToRogersSierra)
+                RogersSierraManager.DetachDeLorean();
+            else
+                trainHandler.SpeedMPH = 0;
         }
 
         public override void Stop()
