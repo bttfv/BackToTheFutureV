@@ -39,7 +39,7 @@ namespace BackToTheFutureV.Delorean
             {
                 if (_lastDisplacementCopy == null)
                 {
-                    _lastDisplacementCopy = Copy;
+                    _lastDisplacementCopy = new DeloreanCopy(this, true);
                     _lastDisplacementCopy.Circuits.DestinationTime = Main.CurrentTime;
                 }
                     
