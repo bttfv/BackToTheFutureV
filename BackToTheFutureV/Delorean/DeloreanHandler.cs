@@ -33,6 +33,7 @@ namespace BackToTheFutureV.Delorean
 
         private static int _getAllDelay;
         private static bool _savedEmpty;
+        private static int _getClosestDelay;
 
         private static List<DMC12> _deloreans = new List<DMC12>();
         private static List<DeloreanTimeMachine> _timeMachines = new List<DeloreanTimeMachine>();
@@ -145,6 +146,8 @@ namespace BackToTheFutureV.Delorean
 
             Utils.HideVehicle(deloreanTimeMachine.Vehicle, true);
 
+            deloreanTimeMachine.Circuits.DestinationTime = Main.CurrentTime;
+
             deloreanTimeMachine.Circuits.GetHandler<TimeTravelHandler>().Reenter(true);
             return deloreanTimeMachine;
         }
@@ -235,8 +238,12 @@ namespace BackToTheFutureV.Delorean
 
         public static void Tick()
         {
-            UpdateClosestDeloreans();
-
+            if (Game.GameTime > _getClosestDelay)
+            {
+                UpdateClosestDeloreans();
+                _getClosestDelay = Game.GameTime + 250;
+            }
+            
             if (Game.GameTime > _getAllDelay)
             {
                 foreach (var veh in World.GetAllVehicles())
