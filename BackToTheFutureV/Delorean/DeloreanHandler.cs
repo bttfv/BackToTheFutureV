@@ -247,23 +247,8 @@ namespace BackToTheFutureV.Delorean
             if (Game.GameTime > _getAllDelay)
             {
                 foreach (var veh in World.GetAllVehicles())
-                {
-                    if (veh.Model.Hash == ModelHandler.DMC12.Hash && GetDeloreanFromVehicle(veh) == null && veh.IsDead == false && veh.IsAlive)
-                    {
-                        DMC12 _dmc12 = DMC12.CreateDelorean(veh);
-
-                        if (_dmc12.IsTimeMachine)
-                        {
-                            DeloreanTimeMachine _deloreanTimeMachine = (DeloreanTimeMachine)_dmc12;
-
-                            if (_deloreanTimeMachine.LastDisplacementCopy == null)
-                            {
-                                _deloreanTimeMachine.LastDisplacementCopy = _deloreanTimeMachine.Copy;
-                                _deloreanTimeMachine.LastDisplacementCopy.Circuits.DestinationTime = Main.CurrentTime;
-                            }
-                        }
-                    }
-                }
+                    if (veh.Model.Hash == ModelHandler.DMC12.Hash && !veh.IsDead && veh.IsAlive && GetDeloreanFromVehicle(veh) == null)
+                        DMC12.CreateDelorean(veh);
 
                 _getAllDelay = Game.GameTime + 1000;
             }
