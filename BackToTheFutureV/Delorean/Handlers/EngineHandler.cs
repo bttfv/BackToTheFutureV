@@ -457,6 +457,9 @@ namespace BackToTheFutureV.Delorean.Handlers
         #region EVENTS
         private void OnGearUpEvent()
         {
+            if (Utils.IsAnyTireBurst(Vehicle))
+                return;
+
             if ((WheelSpeed < 12) || (Acceleration < 0.2f)) 
                 return;
 
