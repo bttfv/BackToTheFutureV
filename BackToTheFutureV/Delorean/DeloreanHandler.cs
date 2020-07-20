@@ -32,6 +32,7 @@ namespace BackToTheFutureV.Delorean
         public const int MAX_TIME_MACHINES = 50;
 
         private static int _getAllDelay;
+        private static bool _savedEmpty;
 
         private static List<DMC12> _deloreans = new List<DMC12>();
         private static List<DeloreanTimeMachine> _timeMachines = new List<DeloreanTimeMachine>();
@@ -41,7 +42,12 @@ namespace BackToTheFutureV.Delorean
 
         public static void SaveAllDeLoreans()
         {
+            if (TimeMachineCount == 0 && _savedEmpty)
+                return;
+
             DeloreanCopyManager.Save(_timeMachines);
+
+            _savedEmpty = TimeMachineCount == 0;
         }
 
         public static void LoadAllDeLoreans()
