@@ -111,6 +111,9 @@ namespace BackToTheFutureV
             ModMenuHandler.KeyDown(e);
             DeloreanHandler.KeyPressed(e.KeyCode);
             RCManager.KeyPress(e.KeyCode);
+
+            if (e.KeyCode == Keys.L)
+                MissionHandler.TrainMission.Start();
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)
@@ -153,6 +156,7 @@ namespace BackToTheFutureV
             MissionHandler.Process();            
             TrainManager.Process();
             PlayerSwitch.Process();
+            RogersSierraManager.Process();
 
             if (Game.GameTime > _saveDelay)
             {

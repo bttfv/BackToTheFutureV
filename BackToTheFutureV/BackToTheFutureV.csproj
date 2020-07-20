@@ -137,12 +137,14 @@
     <Compile Include="Memory\phArchetypeDamp.cs" />
     <Compile Include="Memory\phBound.cs" />
     <Compile Include="Memory\phBoundComposite.cs" />
+    <Compile Include="OtherVehicles\RogersSierraManager.cs" />
     <Compile Include="Players\SparkPlayer.cs" />
     <Compile Include="Story\Missions\FirstExperiment.cs" />
     <Compile Include="Story\Mission.cs" />
     <Compile Include="Settings\ModMenuHandler.cs" />
     <Compile Include="Story\MissionHandler.cs" />
     <Compile Include="Utility\CustomStopwatch.cs" />
+    <Compile Include="Story\Missions\TrainMission.cs" />
     <Compile Include="Utility\PlayerSwitch.cs" />
     <Compile Include="Utility\TimedEvent.cs" />
     <Compile Include="Utility\TimedEventManager.cs" />
@@ -196,6 +198,10 @@
     <ProjectReference Include="..\KlangRageAudioLibrary\KlangRageAudioLibrary.csproj">
       <Project>{e52db215-0aa9-453a-b5f3-91f3ff35c1d9}</Project>
       <Name>KlangRageAudioLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RogerSierra\RogersSierra.vbproj">
+      <Project>{ef32b843-71f4-4af6-93e3-bec5f727c9a3}</Project>
+      <Name>RogersSierra</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

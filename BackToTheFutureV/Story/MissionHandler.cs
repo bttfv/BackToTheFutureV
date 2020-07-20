@@ -10,6 +10,8 @@ namespace BackToTheFutureV.Story
     {
         private static List<Mission> _missions = new List<Mission>();
 
+        public static Mission TrainMission = new TrainMission();
+
         public static void Add(Mission mission)
         {
             _missions.Add(mission);

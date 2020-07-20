@@ -60,6 +60,8 @@ namespace BackToTheFutureV
 
             // Remove spawned Deloreans with destination time > new current time and set them as remote deloreans
             DeloreanHandler.SetDeloreansInTime(time);
+
+            RogersSierra.Manager.RogersSierra?.Delete();
         }
 
         public static void TimeTravelTo(TimeCircuits timeCircuits, DateTime time)
