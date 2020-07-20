@@ -66,10 +66,10 @@ namespace BackToTheFutureV.Delorean
         public TimeCircuitsCopy Circuits;
         public VehicleInfo VehicleInfo;
 
-        public DeloreanCopy(DeloreanTimeMachine sourceCar)
+        public DeloreanCopy(DeloreanTimeMachine sourceCar, bool noLastDisplacementCopy = false)
         {
             Mods = new DeloreanModsCopy(sourceCar.Mods);
-            Circuits = new TimeCircuitsCopy(sourceCar.Circuits);
+            Circuits = new TimeCircuitsCopy(sourceCar.Circuits, noLastDisplacementCopy);
             VehicleInfo = new VehicleInfo(sourceCar.Vehicle);
         }
 
@@ -138,9 +138,10 @@ namespace BackToTheFutureV.Delorean
         public bool IsRemoteControlled { get; }
         public Vector3 LastVelocity { get;  }
         
-        public TimeCircuitsCopy(TimeCircuits circuits)
+        public TimeCircuitsCopy(TimeCircuits circuits, bool noLastDisplacementCopy = false)
         {
-            LastDisplacementCopy = circuits.Delorean.LastDisplacementCopy;
+            if (!noLastDisplacementCopy)
+                LastDisplacementCopy = circuits.Delorean.LastDisplacementCopy;
             IsOn = circuits.IsOn;
             DestinationTime = circuits.DestinationTime;
             PreviousTime = circuits.PreviousTime;

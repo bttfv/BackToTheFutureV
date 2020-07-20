@@ -33,6 +33,7 @@ namespace BackToTheFutureV.Delorean
 
         private static int _getAllDelay;
         private static bool _savedEmpty;
+        private static int _getClosestDelay;
 
         private static List<DMC12> _deloreans = new List<DMC12>();
         private static List<DeloreanTimeMachine> _timeMachines = new List<DeloreanTimeMachine>();
@@ -145,6 +146,8 @@ namespace BackToTheFutureV.Delorean
 
             Utils.HideVehicle(deloreanTimeMachine.Vehicle, true);
 
+            deloreanTimeMachine.Circuits.DestinationTime = Main.CurrentTime;
+
             deloreanTimeMachine.Circuits.GetHandler<TimeTravelHandler>().Reenter(true);
             return deloreanTimeMachine;
         }
@@ -235,49 +238,48 @@ namespace BackToTheFutureV.Delorean
 
         public static void Tick()
         {
-            UpdateClosestDeloreans();
+            if (Game.GameTime > _getClosestDelay)
+            {
+                UpdateClosestDeloreans();
 
+                _getClosestDelay = Game.GameTime + 1000;
+            }
+            
             if (Game.GameTime > _getAllDelay)
             {
                 foreach (var veh in World.GetAllVehicles())
-                {
-                    if (veh.Model.Hash == ModelHandler.DMC12.Hash && GetDeloreanFromVehicle(veh) == null && veh.IsDead == false && veh.IsAlive)
-                    {
-                        DMC12 _dmc12 = DMC12.CreateDelorean(veh);
-
-                        if (_dmc12.IsTimeMachine)
-                        {
-                            DeloreanTimeMachine _deloreanTimeMachine = (DeloreanTimeMachine)_dmc12;
-
-                            if (_deloreanTimeMachine.LastDisplacementCopy == null)
-                            {
-                                _deloreanTimeMachine.LastDisplacementCopy = _deloreanTimeMachine.Copy;
-                                _deloreanTimeMachine.LastDisplacementCopy.Circuits.DestinationTime = Main.CurrentTime;
-                            }
-                        }
-                    }
-                }
+                    if (veh.Model.Hash == ModelHandler.DMC12.Hash && !veh.IsDead && veh.IsAlive && GetDeloreanFromVehicle(veh) == null)
+                        DMC12.CreateDelorean(veh);
 
                 _getAllDelay = Game.GameTime + 1000;
             }
 
-            foreach (var delo in _delosToRemoveSounds)
+            if (_delosToRemoveSounds.Count > 0)
             {
-                DeloreanTimeMachine deloreanTimeMachine = (DeloreanTimeMachine)delo.Key;
+                foreach (var delo in _delosToRemoveSounds)
+                {
+                    DeloreanTimeMachine deloreanTimeMachine = (DeloreanTimeMachine)delo.Key;
 
-                if (!deloreanTimeMachine.Circuits.AudioEngine.IsAnyInstancePlaying)
-                    RemoveDelorean(delo.Key, delo.Value);
+                    if (!deloreanTimeMachine.Circuits.AudioEngine.IsAnyInstancePlaying)
+                        RemoveDelorean(delo.Key, delo.Value);
+                }
+            }
+            
+            if (_delosToRemove.Count > 0)
+            {
+                foreach (var delo in _delosToRemove)
+                    RemoveInstantlyDelorean(delo.Key, delo.Value);
+
+                _delosToRemove.Clear();
             }
 
-            foreach (var delo in _delosToRemove)
-                RemoveInstantlyDelorean(delo.Key, delo.Value);
+            if (_delosToAdd.Count > 0)
+            {
+                foreach (var delo in _delosToAdd)
+                    delo.Spawn();
 
-            _delosToRemove.Clear();
-
-            foreach (var delo in _delosToAdd)
-                delo.Spawn();
-
-            _delosToAdd.Clear();
+                _delosToAdd.Clear();
+            }
 
             foreach (var delorean in _deloreans)
             {

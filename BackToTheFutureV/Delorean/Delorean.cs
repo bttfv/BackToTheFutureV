@@ -33,7 +33,18 @@ namespace BackToTheFutureV.Delorean
 
         public DeloreanCopy Copy { get { return new DeloreanCopy(this); } }
 
-        public DeloreanCopy LastDisplacementCopy { get; set; }
+        private DeloreanCopy _lastDisplacementCopy = null;
+
+        public DeloreanCopy LastDisplacementCopy { get
+            {
+                if (_lastDisplacementCopy == null)
+                {
+                    _lastDisplacementCopy = new DeloreanCopy(this, true);
+                    _lastDisplacementCopy.Circuits.DestinationTime = Main.CurrentTime;
+                }
+                    
+                return _lastDisplacementCopy;
+            } set => _lastDisplacementCopy = value; }
         
         public DeloreanTimeMachine(Vehicle vehicle, bool isNew, DeloreanType deloreanType = DeloreanType.Unknown) : base(vehicle, isNew)
         {
