@@ -44,6 +44,8 @@ namespace BackToTheFutureV
 
         public static AudioEngine CommonAudioEngine = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
+        public static CustomStopwatch CustomStopwatch = new CustomStopwatch();
+
         private bool _firstTick = true;        
 
         private readonly UdpClient udp = new UdpClient(1985);

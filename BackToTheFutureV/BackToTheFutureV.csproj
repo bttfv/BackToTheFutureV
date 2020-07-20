@@ -142,6 +142,7 @@
     <Compile Include="Story\Mission.cs" />
     <Compile Include="Settings\ModMenuHandler.cs" />
     <Compile Include="Story\MissionHandler.cs" />
+    <Compile Include="Utility\CustomStopwatch.cs" />
     <Compile Include="Utility\PlayerSwitch.cs" />
     <Compile Include="Utility\TimedEvent.cs" />
     <Compile Include="Utility\TimedEventManager.cs" />
