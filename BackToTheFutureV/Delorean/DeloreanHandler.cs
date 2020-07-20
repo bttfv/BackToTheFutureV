@@ -241,7 +241,8 @@ namespace BackToTheFutureV.Delorean
             if (Game.GameTime > _getClosestDelay)
             {
                 UpdateClosestDeloreans();
-                _getClosestDelay = Game.GameTime + 250;
+
+                _getClosestDelay = Game.GameTime + 1000;
             }
             
             if (Game.GameTime > _getAllDelay)
@@ -253,23 +254,32 @@ namespace BackToTheFutureV.Delorean
                 _getAllDelay = Game.GameTime + 1000;
             }
 
-            foreach (var delo in _delosToRemoveSounds)
+            if (_delosToRemoveSounds.Count > 0)
             {
-                DeloreanTimeMachine deloreanTimeMachine = (DeloreanTimeMachine)delo.Key;
+                foreach (var delo in _delosToRemoveSounds)
+                {
+                    DeloreanTimeMachine deloreanTimeMachine = (DeloreanTimeMachine)delo.Key;
 
-                if (!deloreanTimeMachine.Circuits.AudioEngine.IsAnyInstancePlaying)
-                    RemoveDelorean(delo.Key, delo.Value);
+                    if (!deloreanTimeMachine.Circuits.AudioEngine.IsAnyInstancePlaying)
+                        RemoveDelorean(delo.Key, delo.Value);
+                }
+            }
+            
+            if (_delosToRemove.Count > 0)
+            {
+                foreach (var delo in _delosToRemove)
+                    RemoveInstantlyDelorean(delo.Key, delo.Value);
+
+                _delosToRemove.Clear();
             }
 
-            foreach (var delo in _delosToRemove)
-                RemoveInstantlyDelorean(delo.Key, delo.Value);
+            if (_delosToAdd.Count > 0)
+            {
+                foreach (var delo in _delosToAdd)
+                    delo.Spawn();
 
-            _delosToRemove.Clear();
-
-            foreach (var delo in _delosToAdd)
-                delo.Spawn();
-
-            _delosToAdd.Clear();
+                _delosToAdd.Clear();
+            }
 
             foreach (var delorean in _deloreans)
             {
