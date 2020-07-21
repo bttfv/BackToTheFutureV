@@ -51,11 +51,11 @@
 	BTTFV_Menu_GoBackToMainMenu = Idź do Głównego menu
 	BTTFV_Menu_GoBackToMainMenu_Description = Przekieruje cię do głównego menu moda.
 	BTTFV_Menu_RCMenu = Zdalne sterowanie
-	BTTFV_Menu_RCMenu_Description = Umożliwia zdalne sterowanie wehikułami czasu na świecie.
+	BTTFV_Menu_RCMenu_Description = Umożliwia zdalne sterowanie DeLoreanami.
 	BTTFV_Menu_RCMenu_Deloreans = Deloreany
 	BTTFV_Menu_RCMenu_Deloreans_Description = Naciśnij Enter by aktywować zdalne sterowanie.
-	BTTFV_Menu_RCMenu_FuelChamberFilled = Bak paliwa pełny
-	BTTFV_Menu_RCMenu_FuelChamberFilled_Description = Informuje, czy bak paliwa w obecnym wehikule czasu jest pełny, czy nie.
+	BTTFV_Menu_RCMenu_FuelChamberFilled = Komora paliwowa pełny
+	BTTFV_Menu_RCMenu_FuelChamberFilled_Description = Informuje, czy komora paliwowa w obecnym wehikule czasu jest pełna, czy nie.
 	BTTFV_Menu_RCMenu_TimeCircuitsOn = Obwody czasowe włączone
 	BTTFV_Menu_RCMenu_TimeCircuitsOn_Description = Informuje, czy obecne obwody czasowe wehikułu czasu są włączone, czy nie.
 	BTTFV_Menu_RCMenu_DestinationTime = Czas celu podróży:
@@ -114,7 +114,7 @@
 	BTTFV_Input_SpawnMenu_Wheel_Railroads = Same felgi
 	BTTFV_Input_SpawnMenu_Plate_Empty = Puste
 	BTTFV_Input_SpawnMenu_Plate_Outatime = Outatime
-	BTTFV_Input_SpawnMenu_Plate_Futuristic = Futurystyczny
+	BTTFV_Input_SpawnMenu_Plate_Futuristic = Futurystyczna
 	BTTFV_TCD_Edit_Save = Zapisz
 	BTTFV_TCD_Edit_Cancel = Anuluj
 	BTTFV_TCD_Edit_ScaleDown = Skala w dół
@@ -124,8 +124,8 @@
 	BTTFV_TCD_Edit_MoveUp = Przesuń w góre
 	BTTFV_TCD_Edit_MoveDown = Przesuń w dół
 	BTTFV_Chip_Damaged = Mikroukład sterujący obwodów czasowych jest uszkodzony.
-	BTTFV_Refuel_Hotkey = Naciśnij ~INPUT_CONTEXT~ by napełnić Fuzyjny / Plutonu Reaktor.
-	BTTFV_Input_SpawnMenu_Exhaust_Stock = Zasób
+	BTTFV_Refuel_Hotkey = Naciśnij ~INPUT_CONTEXT~ by napełnić reaktor Fuzyjny/Plutonu.
+	BTTFV_Input_SpawnMenu_Exhaust_Stock = Standardowe
 	BTTFV_Input_SpawnMenu_Exhaust_BTTF = Bok
 	BTTFV_Input_SpawnMenu_Exhaust_None = Nic
 	BTTFV_Input_SpawnMenu_Exhaust = Rodzaj wydechu
