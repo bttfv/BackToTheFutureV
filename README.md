@@ -3,6 +3,17 @@
 ### Requirements:
 - Script Hook V
 - Community Script Hook V .NET 3.0.4
+- .NET Framework 4.8
+
+In order to open solution, you need Visual Studio 2017+ and create **ProjectReference.txt** file in solution root folder with this contents:
+
+```xml
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <GTAPath>PUT GTA5 PATH HERE</GTAPath>
+    </PropertyGroup>
+</Project>
+```
 
 ### Controls:
 #### Keyboard / Controller
