@@ -249,6 +249,9 @@ namespace BackToTheFutureV
 
                 MainMenu.Visible = true;
             }
+
+            if (key.KeyCode == Keys.F7 && key.Control && !TcdEditer.IsEditing)
+                InteractionMenuManager.TrainMissionMenu.Visible = true;
         }
     }
 }

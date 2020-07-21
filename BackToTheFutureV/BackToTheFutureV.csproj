@@ -122,6 +122,7 @@
     <Compile Include="InteractionMenu\InteractionMenuManager.cs" />
     <Compile Include="InteractionMenu\RCMenu.cs" />
     <Compile Include="InteractionMenu\TimeMachineMenu.cs" />
+    <Compile Include="InteractionMenu\TrainMissionMenu.cs" />
     <Compile Include="Memory\CEntityCustomization.cs" />
     <Compile Include="Memory\CEntitySkeleton.cs" />
     <Compile Include="Memory\crSkeletonData.cs" />

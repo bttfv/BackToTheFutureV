@@ -235,11 +235,6 @@ namespace BackToTheFutureV.Delorean.Handlers
         {
             Stop();
 
-            TimeCircuits.WasOnTracks = TimeCircuits.IsOnTracks;
-
-            if (IsOnTracks)
-                TimeCircuits.GetHandler<RailroadHandler>().StopTrain();
-
             Function.Call(Hash.DETACH_VEHICLE_FROM_ANY_TOW_TRUCK, Vehicle.Handle);
 
             TimeCircuits?.GetHandler<TimeTravelHandler>()?.StartTimeTravelling();

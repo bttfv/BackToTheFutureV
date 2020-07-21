@@ -5,6 +5,7 @@ using GTA.Math;
 using GTA.Native;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using BackToTheFutureV.Story;
 
 namespace BackToTheFutureV.Delorean.Handlers
 {
@@ -170,7 +171,12 @@ namespace BackToTheFutureV.Delorean.Handlers
         public void StopTrain()
         {
             if (IsAttachedToRogersSierra)
-                RogersSierraManager.DetachDeLorean();
+            {
+                if (MissionHandler.TrainMission.IsPlaying)
+                    MissionHandler.TrainMission.StartExplodingScene();
+                else
+                    RogersSierraManager.DetachDeLorean();
+            }                
             else
                 trainHandler.SpeedMPH = 0;
         }

@@ -12,7 +12,7 @@ namespace BackToTheFutureV.InteractionMenu
 {
     public class TrainMissionMenu : UIMenu
     {
-
+        public UIMenuItem SpawnTrain { get; }
         public UIMenuCheckboxItem TrainMission { get; }
         public UIMenuCheckboxItem PlayMusic { get; }
         public UIMenuDynamicListItem TimeSpeed { get; }
@@ -20,19 +20,28 @@ namespace BackToTheFutureV.InteractionMenu
         private float _speed = 1.0f;
 
         public TrainMissionMenu() : base("Train Mission", "SELECT AN OPTION")
-        {            
-            //AddItem(TrainMission = new UIMenuCheckboxItem("Toggle train mission", MissionHandler.TrainMission.IsPlaying, "Start (or stop) train mission."));
-            //AddItem(PlayMusic = new UIMenuCheckboxItem("Play music", MissionHandler.TrainMission.PlayMusic, "If true, movie's soundtrack will be played in background."));
-            //AddItem(TimeSpeed = new UIMenuDynamicListItem("Speed", "Set speed multipier of the mission. Lower the value, faster the speed and vice versa.", _speed.ToString(), ChangeCallback));
-            
-            //OnCheckboxChange += TrainMissionMenu_OnCheckboxChange;
-            //OnMenuOpen += TrainMissionMenu_OnMenuOpen;
+        {
+            AddItem(SpawnTrain = new UIMenuItem("Spawn train"));
+            AddItem(TrainMission = new UIMenuCheckboxItem("Toggle train mission", MissionHandler.TrainMission.IsPlaying, "Start (or stop) train mission."));
+            AddItem(PlayMusic = new UIMenuCheckboxItem("Play music", MissionHandler.TrainMission.PlayMusic, "If true, movie's soundtrack will be played in background."));
+            AddItem(TimeSpeed = new UIMenuDynamicListItem("Speed", "Set speed multipier of the mission. Lower the value, faster the speed and vice versa.", _speed.ToString(), ChangeCallback));
+
+            OnItemSelect += TrainMissionMenu_OnItemSelect;
+            OnCheckboxChange += TrainMissionMenu_OnCheckboxChange;
+            OnMenuOpen += TrainMissionMenu_OnMenuOpen;
+        }
+
+        private void TrainMissionMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
+        {
+            if (selectedItem == SpawnTrain)
+                RogersSierra.Manager.CreateRogersSierra(Main.PlayerPed.Position.Around(5), true);
+
+            Main.MenuPool.CloseAllMenus();
         }
 
         private void TrainMissionMenu_OnMenuOpen(UIMenu sender)
         {
-            //if (Main.ExperimentalFeatures)
-            //    TrainMission.Enabled = RogersSierra.Manager.RogersSierra != null;
+            TrainMission.Enabled = RogersSierra.Manager.RogersSierra != null;
             TrainMission.Checked = MissionHandler.TrainMission.IsPlaying;
         }
 
@@ -43,12 +52,7 @@ namespace BackToTheFutureV.InteractionMenu
                 if (Checked)
                     MissionHandler.TrainMission.Start();
                 else
-                    MissionHandler.TrainMission.End();
-
-                //if (RogersSierra.TrainMission.NoStop)
-                //    checkboxItem.Checked = !checkboxItem.Checked;
-
-                //RogersSierra.TrainMission.ToggleMission();                
+                    MissionHandler.TrainMission.End();            
             }
             else if (checkboxItem == PlayMusic)
             {

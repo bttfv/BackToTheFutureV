@@ -152,7 +152,9 @@ namespace BackToTheFutureV.Story
             RogersSierra.Manager.RogersSierra.AudioEngine.BaseSoundFolder = "BackToTheFutureV\\Sounds";
 
             _funnelExpl = RogersSierra.Manager.RogersSierra.AudioEngine.Create($"story/trainMission/funnelExplosion.wav", Presets.ExteriorLoud);
-            _missionMusic = RogersSierra.Manager.RogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.Exterior);
+            _funnelExpl.SourceBone = "funnel_dummy";
+            
+            _missionMusic = RogersSierra.Manager.RogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
 
             CurrentTime = TimeSpan.Zero;
 
@@ -231,7 +233,9 @@ namespace BackToTheFutureV.Story
             //TimedEventManager.Add(5, 56, 450, 7, 12, 627, TimeMultiplier); //reach 88mph
             TimedEventManager.Add(5, 56, 450, 7, 4, 627, TimeMultiplier); //reach 88mph
             TimedEventManager.Last.SetSpeed(80, 88);
-            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;                                   
+            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
+
+            TimedEventManager.Add(5, 56, 450, 9, 12, 627, TimeMultiplier); //reach 88mph
 
             tRogersSierra.isOnTrainMission = true;
 

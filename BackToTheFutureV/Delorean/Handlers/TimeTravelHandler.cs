@@ -69,6 +69,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         public override void Process()
         {
             _reentryTimer += Game.LastFrameTime;
+
             if (_reentryTimer > 2)
             {
                 if(Vehicle.Driver == null)
@@ -97,6 +98,11 @@ namespace BackToTheFutureV.Delorean.Handlers
                     RemoteDeloreansHandler.AddDelorean(TimeCircuits.Delorean.LastDisplacementCopy);
 
                     TimeCircuits.Delorean.LastVelocity = Vehicle.Velocity;
+
+                    TimeCircuits.WasOnTracks = TimeCircuits.IsOnTracks;
+
+                    if (IsOnTracks)
+                        TimeCircuits.GetHandler<RailroadHandler>().StopTrain();
 
                     // Set previous time
                     PreviousTime = Utils.GetWorldTime();

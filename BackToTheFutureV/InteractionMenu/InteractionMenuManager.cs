@@ -23,10 +23,12 @@ namespace BackToTheFutureV.InteractionMenu
 
         public static PresetsMenu PresetsMenu { get; private set; }
 
+        public static TrainMissionMenu TrainMissionMenu { get; private set; }
+
         public static UIMenu CurrentlyOpen { get; private set; }
 
         public static bool MenuOpen { get; private set; }
-
+        
         public static void Init()
         {
             // Build the initial menu            
@@ -35,6 +37,7 @@ namespace BackToTheFutureV.InteractionMenu
             Main.MenuPool.Add(SpawnMenuContext = new SpawnMenu());
             Main.MenuPool.Add(PresetsMenu = new PresetsMenu());
             Main.MenuPool.Add(TimeMachineMenu = new TimeMachineMenu());
+            Main.MenuPool.Add(TrainMissionMenu = new TrainMissionMenu());
         }
 
         public static void Process()
@@ -64,7 +67,7 @@ namespace BackToTheFutureV.InteractionMenu
                     RCMenu.Visible = false;
             }
 
-            MenuOpen = TimeMachineMenu.Visible || RCMenu.Visible || SpawnMenu.Visible || SpawnMenuContext.Visible || PresetsMenu.Visible;
+            MenuOpen = TimeMachineMenu.Visible || RCMenu.Visible || SpawnMenu.Visible || SpawnMenuContext.Visible || PresetsMenu.Visible || TrainMissionMenu.Visible;
 
             if (MenuOpen)
             {
