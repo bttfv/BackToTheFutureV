@@ -86,6 +86,10 @@ namespace BackToTheFutureV.Utility
         public static Model FreightCarModel = new Model("freightcar");
         public static Model TankerCarModel = new Model("tankercar");
 
+        public static Model SierraModel = new Model("sierra");
+        public static Model SierraTenderModel = new Model("sierratender");
+        public static Model SierraDebugModel = new Model("sierra_debug");
+
         private static string[] tcdTypes = new string[3]
         {
             "red",

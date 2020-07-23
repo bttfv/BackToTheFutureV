@@ -20,6 +20,8 @@ namespace BackToTheFutureV.Delorean.Handlers
         private float _speedDifference;
         private int _checkTime;
 
+        private Vehicle _train;
+
         public RailroadHandler(TimeCircuits circuits) : base(circuits)
         {
             
@@ -113,16 +115,16 @@ namespace BackToTheFutureV.Delorean.Handlers
                 {
                     _checkTime = Game.GameTime + 1000;
 
-                    var train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel);
-                    if (train != null)
-                    {
-                        // Speed difference between delorean and train
-                        var trainSpeed = train.Speed;
-                        _speedDifference = Math.Abs(trainSpeed - Vehicle.Speed);
-                    }
+                    _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.SierraModel, ModelHandler.SierraTenderModel, ModelHandler.SierraDebugModel);
+
+                    if (_train != null)
+                        _speedDifference = Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed());
+                    else
+                        _train = null;
+
                 }
 
-                if (Function.Call<bool>(Hash.IS_ENTITY_TOUCHING_MODEL, Vehicle, ModelHandler.FreightModel))
+                if (Vehicle.IsTouching(_train))
                 {
                     Stop();
 

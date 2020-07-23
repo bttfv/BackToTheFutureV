@@ -150,8 +150,8 @@ namespace BackToTheFutureV.Utility
                 if (SpeedMPH > 90)
                     SpeedMPH = 90;
 
-                if (SpeedMPH < -20)
-                    SpeedMPH = -20;
+                if (SpeedMPH < -25)
+                    SpeedMPH = -25;
 
                 Function.Call(Hash.SET_TRAIN_SPEED, Train, Speed);
             }

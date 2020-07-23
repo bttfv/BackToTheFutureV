@@ -144,6 +144,7 @@ namespace BackToTheFutureV
             if (DisablePlayerSwitching)
                 Function.Call(Hash.DISABLE_CONTROL_ACTION, 2, 19, true);
 
+            TrainManager.Process();
             DeloreanHandler.Tick();
             AnimatePropsHandler.Tick();
             RCManager.Process();
@@ -153,8 +154,7 @@ namespace BackToTheFutureV
             InteractionMenuManager.Process();
             ScreenFlash.Process();
             TcdEditer.Tick();
-            MissionHandler.Process();            
-            TrainManager.Process();
+            MissionHandler.Process();                        
             PlayerSwitch.Process();
             RogersSierraManager.Process();
 
