@@ -36,7 +36,7 @@ namespace BackToTheFutureV.InteractionMenu
         private void TrainMissionMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
         {
             if (selectedItem == SpawnTrain)
-                RogersSierra.Manager.CreateRogersSierra(Main.PlayerPed.Position.Around(5), true);
+                RogersSierra.Manager.CreateRogersSierra(Main.PlayerPed.Position, true);
 
             if (selectedItem == DeleteTrain)
                 RogersSierra.Manager.RogersSierra?.Delete();

@@ -15,6 +15,7 @@ using System.Net;
 using System.Text;
 using BackToTheFutureV.Delorean.Handlers;
 using KlangRageAudioLibrary;
+using RogersSierra;
 
 namespace BackToTheFutureV
 {
@@ -31,6 +32,8 @@ namespace BackToTheFutureV
         public static Ped PlayerPed => Game.Player.Character;
 
         public static Vehicle PlayerVehicle => PlayerPed.CurrentVehicle;
+
+        public static cRogersSierra RogersSierra => Manager.RogersSierra;
 
         public static bool IsPlayerSwitchInProgress => Function.Call<bool>(Hash.IS_PLAYER_SWITCH_IN_PROGRESS);
 
@@ -111,9 +114,6 @@ namespace BackToTheFutureV
             ModMenuHandler.KeyDown(e);
             DeloreanHandler.KeyPressed(e.KeyCode);
             RCManager.KeyPress(e.KeyCode);
-
-            if (e.KeyCode == Keys.L)
-                MissionHandler.TrainMission.Start();
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)
@@ -155,8 +155,7 @@ namespace BackToTheFutureV
             ScreenFlash.Process();
             TcdEditer.Tick();
             MissionHandler.Process();                        
-            PlayerSwitch.Process();
-            RogersSierraManager.Process();
+            PlayerSwitch.Process();            
 
             if (Game.GameTime > _saveDelay)
             {

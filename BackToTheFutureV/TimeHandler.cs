@@ -55,11 +55,9 @@ namespace BackToTheFutureV
                 momentsInTime.Add(newMoment);
             }
 
-            // Spawns remote Deloreans with destination time < new current time
-            RemoteDeloreansHandler.SetDeloreansInTime(time);
+            DeloreanHandler.ExistenceCheck(time);
 
-            // Remove spawned Deloreans with destination time > new current time and set them as remote deloreans
-            DeloreanHandler.SetDeloreansInTime(time);
+            RemoteDeloreansHandler.ExistenceCheck(time);
 
             RogersSierra.Manager.RogersSierra?.Delete();
         }

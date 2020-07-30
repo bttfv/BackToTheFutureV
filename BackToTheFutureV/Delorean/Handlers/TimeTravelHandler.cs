@@ -23,7 +23,6 @@ namespace BackToTheFutureV.Delorean.Handlers
         private AudioPlayer timeTravelAudioInstant;
         private int _currentStep;
         private float gameTimer;
-        private bool noTimeSet;
         private bool is99;
         private FireTrail trails;
         private readonly PtfxEntityPlayer _lightExplosion;
@@ -94,9 +93,6 @@ namespace BackToTheFutureV.Delorean.Handlers
             switch(_currentStep)
             {
                 case 0:
-                    // Sets a new remote Delorean using last copy
-                    RemoteDeloreansHandler.AddDelorean(TimeCircuits.Delorean.LastDisplacementCopy);
-
                     TimeCircuits.Delorean.LastVelocity = Vehicle.Velocity;
 
                     TimeCircuits.WasOnTracks = TimeCircuits.IsOnTracks;
@@ -151,6 +147,10 @@ namespace BackToTheFutureV.Delorean.Handlers
 
                         // Stop handling
                         Stop();
+
+                        //Add LastDisplacementCopy to remote Deloreans list
+                        RemoteDeloreansHandler.AddDelorean(TimeCircuits.Delorean.LastDisplacementCopy);
+
                         return;
                     }
 
@@ -179,9 +179,6 @@ namespace BackToTheFutureV.Delorean.Handlers
 
                         // Add to time travelled list
                         RemoteDeloreansHandler.AddDelorean(TimeCircuits.Delorean.Copy);
-
-                        // Delete delorean
-                        //DeloreanHandler.RemoveDelorean(TimeCircuits.Delorean);
 
                         Utils.HideVehicle(Vehicle, true);
 
@@ -252,6 +249,9 @@ namespace BackToTheFutureV.Delorean.Handlers
                     break;
 
                 case 5:
+                    //Add LastDisplacementCopy to remote Deloreans list
+                    RemoteDeloreansHandler.AddDelorean(TimeCircuits.Delorean.LastDisplacementCopy);
+
                     Reenter();
 
                     ResetFields();
@@ -298,16 +298,14 @@ namespace BackToTheFutureV.Delorean.Handlers
             gameTimer = 0;
         }
 
-        public void Reenter(bool noTimeSet = false)
+        public void Reenter()
         {
             var reentryHandler = TimeCircuits.GetHandler<ReentryHandler>();
 
-            this.noTimeSet = noTimeSet;
-
-            if(!reentryHandler.IsReentering)
+            if (!reentryHandler.IsReentering)
             {
                 TimeCircuits.OnReentryComplete = OnReentryComplete;
-                reentryHandler.StartReentering(noTimeSet);
+                reentryHandler.StartReentering();
             }
         }
 
@@ -317,11 +315,9 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             _reentryTimer = 0;
 
-            if (!noTimeSet)
+            if (Main.PlayerVehicle == Vehicle)
                 TimeCircuits.GetHandler<SparksHandler>().StartTimeTravelCooldown();
-
-            noTimeSet = false;
-
+            
             if (TimeCircuits.WasOnTracks)
                 TimeCircuits.GetHandler<RailroadHandler>().StartDriving(true);
             else
@@ -337,11 +333,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (!IsOnTracks && Vehicle.Driver == null)
             {
-                Random rand = new Random();
-
-                int angle = rand.Next(-100, 100) >= 0 ? 35 : -35;
-
-                Vehicle.SteeringAngle = angle;
+                Vehicle.SteeringAngle = Utils.Random.NextDouble() >= 0.5f ? 35 : -35;
                 Vehicle.IsHandbrakeForcedOn = true;
                 Vehicle.Speed = Vehicle.Speed / 2;
 

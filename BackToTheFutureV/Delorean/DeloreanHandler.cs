@@ -40,6 +40,7 @@ namespace BackToTheFutureV.Delorean
         private static Dictionary<DMC12, bool> _delosToRemove = new Dictionary<DMC12, bool>();
         private static Dictionary<DMC12, bool> _delosToRemoveSounds = new Dictionary<DMC12, bool>();
         private static List<DeloreanCopy> _delosToAdd = new List<DeloreanCopy>();
+        private static List<DeloreanTimeMachine> _delosToAddNextTick = new List<DeloreanTimeMachine>();
 
         public static void SaveAllDeLoreans()
         {
@@ -56,33 +57,29 @@ namespace BackToTheFutureV.Delorean
             DeloreanCopyManager.Load()?.SpawnAll();
         }
 
-        public static void SetDeloreansInTime(DateTime time)
-        {
-            foreach (var x in _timeMachines)
-            {
-                if (Main.PlayerVehicle != x.Vehicle && x.LastDisplacementCopy?.Circuits.DestinationTime > time)
-                {
-                    RemoteDeloreansHandler.AddDelorean(x.LastDisplacementCopy);
-                    RemoveDelorean(x);
-                }
-            }
-        }
-
         public static void AddDelorean(DMC12 vehicle)
         {
             if(!_deloreans.Contains(vehicle))
                 _deloreans.Add(vehicle);
         }
 
-        public static void AddTimeMachine(DeloreanTimeMachine timeMachine)
+        public static void AddTimeMachine(DeloreanTimeMachine timeMachine, bool addNextTick = false)
         {
             if (TimeMachineCount == MAX_TIME_MACHINES - 1)
                 RemoveDelorean(FurthestTimeMachine);
 
             AddDelorean(timeMachine);
 
-            if (!_timeMachines.Contains(timeMachine))
-                _timeMachines.Add(timeMachine);
+            if (addNextTick)
+            {
+                if (!_delosToAddNextTick.Contains(timeMachine))
+                    _delosToAddNextTick.Add(timeMachine);
+            }
+            else
+            {
+                if (!_timeMachines.Contains(timeMachine))
+                    _timeMachines.Add(timeMachine);
+            }           
         }
 
         public static void AddInQuequeTimeMachine(DeloreanCopy deloreanCopy)
@@ -148,7 +145,7 @@ namespace BackToTheFutureV.Delorean
 
             deloreanTimeMachine.Circuits.DestinationTime = Main.CurrentTime;
 
-            deloreanTimeMachine.Circuits.GetHandler<TimeTravelHandler>().Reenter(true);
+            deloreanTimeMachine.Circuits.GetHandler<TimeTravelHandler>().Reenter();
             return deloreanTimeMachine;
         }
 
@@ -177,6 +174,15 @@ namespace BackToTheFutureV.Delorean
             delorean.MPHSpeed = 1;
 
             return delorean;
+        }
+
+        public static void ExistenceCheck(DateTime time)
+        {
+            _timeMachines.ForEach(x =>
+            {
+                if (x.LastDisplacementCopy.Circuits.DestinationTime > time && Main.PlayerVehicle != x.Vehicle)
+                    RemoveDelorean(x);
+            });
         }
 
         public static bool IsVehicleADelorean(Vehicle vehicle)
@@ -279,6 +285,12 @@ namespace BackToTheFutureV.Delorean
                     delo.Spawn();
 
                 _delosToAdd.Clear();
+            }
+
+            if (_delosToAddNextTick.Count > 0)
+            {
+                _timeMachines.AddRange(_delosToAddNextTick);
+                _delosToAddNextTick.Clear();
             }
 
             foreach (var delorean in _deloreans)

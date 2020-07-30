@@ -18,7 +18,6 @@ namespace BackToTheFutureV.Story
 {
     public class TrainMission : Mission
     {
-
         public float TimeMultiplier = 0.1f;
         public bool PlayMusic = true;
 
@@ -35,8 +34,8 @@ namespace BackToTheFutureV.Story
 
         public TrainMission()
         {
-            RogersSierraManager.OnAttachedDelorean += RogersSierraManager_OnAttachedDelorean;
-            RogersSierraManager.OnDetachedDelorean += RogersSierraManager_OnDetachedDelorean;
+            //RogersSierraManager.OnAttachedDelorean += RogersSierraManager_OnAttachedDelorean;
+            //RogersSierraManager.OnDetachedDelorean += RogersSierraManager_OnDetachedDelorean;
         }
 
         private void RogersSierraManager_OnDetachedDelorean(DeloreanTimeMachine deloreanTimeMachine)
@@ -77,7 +76,7 @@ namespace BackToTheFutureV.Story
             }
         }
 
-        private RogersSierra.cRogersSierra tRogersSierra => RogersSierra.Manager.RogersSierra;
+        private RogersSierra.cRogersSierra tRogersSierra => Main.RogersSierra;
 
         public override void Process()
         {
@@ -123,8 +122,8 @@ namespace BackToTheFutureV.Story
 
         public void StartExplodingScene()
         {
-            if (tRogersSierra.isDeLoreanAttached)
-                RogersSierraManager.DetachDeLorean();
+            //if (tRogersSierra.isDeLoreanAttached)
+            //    RogersSierraManager.DetachDeLorean();
 
             TimedEventManager.ClearEvents();
 
@@ -149,12 +148,12 @@ namespace BackToTheFutureV.Story
                 return;
             }
 
-            RogersSierra.Manager.RogersSierra.AudioEngine.BaseSoundFolder = "BackToTheFutureV\\Sounds";
+            Main.RogersSierra.AudioEngine.BaseSoundFolder = "BackToTheFutureV\\Sounds";
 
-            _funnelExpl = RogersSierra.Manager.RogersSierra.AudioEngine.Create($"story/trainMission/funnelExplosion.wav", Presets.ExteriorLoud);
+            _funnelExpl = Main.RogersSierra.AudioEngine.Create($"story/trainMission/funnelExplosion.wav", Presets.ExteriorLoud);
             _funnelExpl.SourceBone = "funnel_dummy";
             
-            _missionMusic = RogersSierra.Manager.RogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
+            _missionMusic = Main.RogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
 
             CurrentTime = TimeSpan.Zero;
 
@@ -265,15 +264,15 @@ namespace BackToTheFutureV.Story
 
         private void WheelieDown_OnExecute(TimedEvent timedEvent)
         {
-            if (timedEvent.FirstExecution)           
-                tRogersSierra.DeLoreanWheelie = RogersSierra.Commons.AnimationStep.Second;                            
+            //if (timedEvent.FirstExecution)           
+            //    tRogersSierra.DeLoreanWheelie = RogersSierra.Commons.AnimationStep.Second;                            
         }
 
         private void WheelieUp_OnExecute(TimedEvent timedEvent)
         {
             if (timedEvent.FirstExecution)
             {
-                tRogersSierra.DeLoreanWheelie = RogersSierra.Commons.AnimationStep.First;
+                //tRogersSierra.DeLoreanWheelie = RogersSierra.Commons.AnimationStep.First;
                 SetupRearWheelsPTFXs("des_bigjobdrill", "ent_ray_big_drill_start_sparks", new Vector3(0, -0.3f, 0), new Vector3(0, 90f, 0), 1f, true);
                 SetupRearWheelsPTFXs("veh_impexp_rocket", "veh_rocket_boost", new Vector3(0.2f, 0, 0), new Vector3(0, 0, 90f), 2.5f);
             }                

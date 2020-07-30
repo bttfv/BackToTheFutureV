@@ -19,10 +19,6 @@ namespace BackToTheFutureV
 
         public static void AddDelorean(DeloreanCopy deloreanCopy)
         {
-            foreach (var x in remoteDeloreans)
-                if (x.DeloreanCopy == deloreanCopy)
-                    return;
-
             if (remoteDeloreans.Count > MAX_REMOTE_DELOREANS)
             {
                 remoteDeloreans[0].Dispose();
@@ -33,6 +29,11 @@ namespace BackToTheFutureV
 
             remoteDeloreans.Add(new RemoteDelorean(deloreanCopy));
             Save();
+        }
+
+        public static void ExistenceCheck(DateTime time)
+        {
+            remoteDeloreans.ForEach(x => x.ExistenceCheck(time));
         }
 
         public static void Tick()
@@ -46,15 +47,6 @@ namespace BackToTheFutureV
 
             if (File.Exists(_saveFile))
                 File.Delete(_saveFile);
-        }
-
-        public static void SetDeloreansInTime(DateTime time)
-        {
-            remoteDeloreans.ForEach(x => x?.Dispose());
-
-            foreach (var x in remoteDeloreans)
-                if (x.DeloreanCopy.Circuits.DestinationTime < time)
-                    DeloreanHandler.AddInQuequeTimeMachine(x.DeloreanCopy);
         }
 
         private static string _saveFile = "./scripts/BackToTheFutureV/RemoteTimeMachines.dmc12";

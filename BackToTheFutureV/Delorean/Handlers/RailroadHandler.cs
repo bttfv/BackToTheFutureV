@@ -11,7 +11,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 {
     public class RailroadHandler : Handler
     {
-        private TrainHandler trainHandler;
+        public TrainHandler trainHandler;
 
         private bool _direction = false;
 
@@ -47,8 +47,12 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             trainHandler.IsAccelerationOn = true;
             trainHandler.IsAutomaticBrakeOn = true;
-            trainHandler.SetToAttach(Vehicle, Vector3.Zero, 1, 0);
-            trainHandler.SetToDestroy(1);
+
+            trainHandler.SetCollision(false);
+
+            trainHandler.SetToAttach(Vehicle, new Vector3(0, 4.28f, 0), 1, 0); //new Vector3(0, 4.48f, 0)
+
+            //trainHandler.CruiseSpeedMPH = 1;
 
             trainHandler.SetPosition(Vehicle.Position);
 
@@ -60,15 +64,17 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private void TrainHandler_OnTrainDeleted()
         {
-            if (IsAttachedToRogersSierra)
-                return;
-
             Stop();
         }
 
         private void TrainHandler_OnVehicleAttached()
         {
             trainHandler.DisableToDestroy();
+
+            trainHandler.CruiseSpeedMPH = 0;
+            trainHandler.SpeedMPH = 0;
+            trainHandler.IsAutomaticBrakeOn = true;
+
             IsOnTracks = true;
 
             if (_isReentryOn)
@@ -85,60 +91,57 @@ namespace BackToTheFutureV.Delorean.Handlers
             
         }
 
-        private void UpdateAttachOffset()
-        {
-            trainHandler.AttachOffset = trainHandler.Carriage(1).GetPositionOffset(trainHandler.Train.Position);
-            trainHandler.AttachOffset.Z -= 1.35f;
-        }
-
         public override void Process()
         {
-            if (trainHandler != null && trainHandler.Exists)
+            if (Mods.Wheel != WheelType.RailroadInvisible)
             {
-                UpdateAttachOffset();
+                if (IsOnTracks)
+                    Stop();
 
-                trainHandler.IsAccelerationOn = Main.PlayerVehicle == Vehicle && Vehicle.IsVisible && Vehicle.IsEngineRunning;
-                trainHandler.Carriage(trainHandler.CarriageIndexForAttach).IsCollisionEnabled = trainHandler.IsAccelerationOn;
+                return;
             }
-                
+
             if (IsOnTracks)
             {
+                IsAttachedToRogersSierra = trainHandler.IsRogersSierra;
+
                 if (IsAttachedToRogersSierra)
                 {
-                    if (trainHandler != null && trainHandler.Exists)
-                        trainHandler.DeleteTrain();
+                    if (Main.PlayerVehicle == Vehicle && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+                        trainHandler.SwitchToRegular();
+
+                    if (Main.RogersSierra.Locomotive.Speed > 0 && Utils.EntitySpeedVector(Main.RogersSierra.Locomotive).Y < 0)
+                        trainHandler.SwitchToRegular();
 
                     return;
-                }
+                } else
+                    trainHandler.IsAccelerationOn = Main.PlayerVehicle == Vehicle && Vehicle.IsVisible && Vehicle.IsEngineRunning;
 
-                if (Game.GameTime > _checkTime)
-                {
-                    _checkTime = Game.GameTime + 1000;
+                if (Main.PlayerVehicle == Vehicle)
+                    Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
 
-                    _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.SierraModel, ModelHandler.SierraTenderModel, ModelHandler.SierraDebugModel);
+                //if (Game.GameTime > _checkTime)
+                //{
+                //    _checkTime = Game.GameTime + 1000;
 
-                    if (_train != null)
-                        _speedDifference = Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed());
-                    else
-                        _train = null;
+                //    _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.SierraModel, ModelHandler.SierraTenderModel, ModelHandler.SierraDebugModel);
 
-                }
+                //    if (_train != null)
+                //        _speedDifference = Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed());
+                //    else
+                //        _train = null;
 
-                if (Vehicle.IsTouching(_train))
-                {
-                    Stop();
+                //}
 
-                    if (_speedDifference > 20)
-                        Vehicle.Explode();
+                //if (Vehicle.IsTouching(_train))
+                //{
+                //    Stop();
 
-                    return;
-                }
+                //    if (_speedDifference > 20)
+                //        Vehicle.Explode();
 
-                if (!trainHandler.AttachedToTarget || Mods.Wheel != WheelType.RailroadInvisible)
-                {
-                    Stop();
-                    return;
-                }
+                //    return;
+                //}
 
                 if (_isReentryOn && trainHandler.AttachedToTarget && trainHandler.SpeedMPH == 0)
                 {
@@ -149,11 +152,11 @@ namespace BackToTheFutureV.Delorean.Handlers
                     return;
                 }
 
-                if (Main.PlayerVehicle == Vehicle)
-                    Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
-
                 return;
             }
+
+            //if (Utils.IsVehicleOnTracks(Vehicle))
+            //    StartDriving();
 
             if (Mods.Wheel == WheelType.RailroadInvisible && (trainHandler == null || !trainHandler.Exists))
             {
@@ -177,7 +180,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                 if (MissionHandler.TrainMission.IsPlaying)
                     MissionHandler.TrainMission.StartExplodingScene();
                 else
-                    RogersSierraManager.DetachDeLorean();
+                    trainHandler.SwitchToRegular();
             }                
             else
                 trainHandler.SpeedMPH = 0;
@@ -196,8 +199,10 @@ namespace BackToTheFutureV.Delorean.Handlers
                 trainHandler.OnVehicleAttached -= TrainHandler_OnVehicleAttached;
                 trainHandler.OnTrainDeleted -= TrainHandler_OnTrainDeleted;
 
-                if (trainHandler.Exists)
+                if (trainHandler.Exists && !trainHandler.IsRogersSierra)
                     trainHandler.DeleteTrain();
+
+                trainHandler = null;
             }
         }
     }

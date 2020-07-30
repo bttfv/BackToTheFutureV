@@ -101,7 +101,7 @@ namespace BackToTheFutureV.Delorean
             }
         }
 
-        public DeloreanTimeMachine Spawn()
+        public DeloreanTimeMachine Spawn(bool addNextTick = false)
         {
             Model model = new Model(VehicleInfo.Model);
 
@@ -116,7 +116,7 @@ namespace BackToTheFutureV.Delorean
                 veh = World.CreateVehicle(model, VehicleInfo.Position, VehicleInfo.Heading);
             }
                 
-            DeloreanTimeMachine _destinationCar = new DeloreanTimeMachine(veh, true, Mods.DeloreanType);
+            DeloreanTimeMachine _destinationCar = new DeloreanTimeMachine(veh, true, Mods.DeloreanType, addNextTick);
             ApplyTo(_destinationCar);
 
             return _destinationCar;

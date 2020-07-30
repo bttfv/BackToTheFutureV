@@ -15,7 +15,6 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private int _currentStep;
         private int _gameTimer;
-        private bool _noTimeSet;
 
         public bool IsReentering { get; private set; }
 
@@ -35,8 +34,6 @@ namespace BackToTheFutureV.Delorean.Handlers
         public void StartReentering(bool noTimeSet = false)
         {
             IsReentering = true;
-
-            _noTimeSet = noTimeSet;
         }
 
         public override void Process()
@@ -45,10 +42,9 @@ namespace BackToTheFutureV.Delorean.Handlers
             if (Game.GameTime < _gameTimer) return;
 
             // Time will be fixed to your destination time until reentry is completed.
-            if (!_noTimeSet)
-                Utils.SetWorldTime(DestinationTime);
+            Utils.SetWorldTime(DestinationTime);
 
-            switch(_currentStep)
+            switch (_currentStep)
             {
                 case 0:
                     _reentryAudio.Play();
@@ -114,7 +110,6 @@ namespace BackToTheFutureV.Delorean.Handlers
             _currentStep = 0;
             _gameTimer = 0;
             IsReentering = false;
-            _noTimeSet = false;
 
             if (Mods.HoverUnderbody == ModState.On)
                 TimeCircuits.GetHandler<FlyingHandler>().CanConvert = true;

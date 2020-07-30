@@ -28,6 +28,13 @@ namespace BackToTheFutureV.Utility
         RearRight = 5
     }
 
+    public enum Coordinate
+    {
+        X,
+        Y,
+        Z
+    }
+
     public class Utils
     {
         static readonly float radToDeg = (float)(180.0 / Math.PI);
@@ -883,6 +890,22 @@ namespace BackToTheFutureV.Utility
         public static float Magnitude(Vector3 vector3)
         {
             return Function.Call<float>(Hash.VMAG2, vector3.X, vector3.Z, vector3.Y);
+        }
+
+        public static List<Vector3> GetWheelsPositions(Vehicle vehicle)
+        {
+            return new List<Vector3>
+                    {
+                        vehicle.Bones["wheel_lf"].Position,
+                        vehicle.Bones["wheel_rf"].Position,
+                        vehicle.Bones["wheel_rr"].Position,
+                        vehicle.Bones["wheel_lr"].Position
+                    };
+        }
+
+        public static bool IsVehicleOnTracks(Vehicle vehicle)
+        {
+            return GetWheelsPositions(vehicle).TrueForAll(x => IsWheelOnTracks(x, vehicle));
         }
 
         public static bool IsWheelOnTracks(Vector3 pos, Vehicle vehicle)

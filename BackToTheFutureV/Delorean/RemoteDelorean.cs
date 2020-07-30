@@ -10,7 +10,7 @@ namespace BackToTheFutureV.Delorean
     {
         public DeloreanCopy DeloreanCopy { get; }
 
-        public DeloreanTimeMachine DeloreanSpawned;
+        private DeloreanTimeMachine DeloreanSpawned;
 
         private int _timer;
         private bool _hasPlayedWarningSound;
@@ -47,11 +47,7 @@ namespace BackToTheFutureV.Delorean
 
             if (Utils.GetWorldTime() > DeloreanCopy.Circuits.DestinationTime && Utils.GetWorldTime() < (DeloreanCopy.Circuits.DestinationTime + new TimeSpan(0, 0, 10)))
             {
-                DeloreanSpawned = DeloreanCopy.Spawn();
-
-                DeloreanSpawned.LastDisplacementCopy = DeloreanCopy;
-
-                DeloreanSpawned.Vehicle.IsVisible = false;
+                Spawn();
 
                 DeloreanSpawned.Circuits.GetHandler<TimeTravelHandler>().Reenter();
 
@@ -60,14 +56,33 @@ namespace BackToTheFutureV.Delorean
             }
         }
 
+        private void Spawn(bool addNextTick = false)
+        {
+            DeloreanSpawned = DeloreanCopy.Spawn(addNextTick);
+
+            DeloreanSpawned.LastDisplacementCopy = DeloreanCopy;
+        }
+
+        public void ExistenceCheck(DateTime time)
+        {
+            if (DeloreanCopy.Circuits.DestinationTime > time)
+            {
+                if (DeloreanSpawned != null && DeloreanSpawned.Vehicle.Exists() && Main.PlayerVehicle != DeloreanSpawned.Vehicle)
+                {
+                    DeloreanHandler.RemoveDelorean(DeloreanSpawned);
+                    DeloreanSpawned = null;
+                }
+            }
+            else if (DeloreanCopy.Circuits.DestinationTime < time)
+            {
+                if (DeloreanSpawned == null || !DeloreanSpawned.Vehicle.Exists())
+                    Spawn(true);
+            }
+        }
+
         public void Dispose()
         {
-            if (DeloreanSpawned == null || DeloreanSpawned.LastDisplacementCopy != DeloreanCopy) 
-                return;
-
-            DeloreanHandler.RemoveDelorean(DeloreanSpawned);
-            DeloreanSpawned = null;
-            _warningSound?.Dispose();
+            _warningSound?.Dispose();         
         }
     }
 }
