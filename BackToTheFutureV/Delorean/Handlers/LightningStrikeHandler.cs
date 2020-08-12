@@ -72,15 +72,10 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (Mods.HoverUnderbody == ModState.Off || !_flyingHandler.IsFlying || World.Weather != Weather.ThunderStorm || TimeCircuits.IsTimeTraveling || TimeCircuits.IsReentering || Game.GameTime < _nextCheck || Vehicle.HeightAboveGround < 20) return;
 
-            var random = Utils.Random.NextDouble();
-            if (random < 0.2)
-            {
+            if (Utils.Random.NextDouble() < 0.2)
                 Strike();
-            }
             else
-            {
                 _nextCheck = Game.GameTime + 10000;
-            }
         }
 
         private void Strike()
@@ -89,7 +84,13 @@ namespace BackToTheFutureV.Delorean.Handlers
             _lightningStrike.Play();
 
             if (IsOn)
+            {
                 TimeCircuits.GetHandler<TimeTravelHandler>().StartTimeTravelling(true, 2000);
+
+                DeloreanCopy deloreanCopy = TimeCircuits.Delorean.Copy;
+                deloreanCopy.Circuits.DestinationTime.AddYears(70);
+                RemoteDeloreansHandler.AddDelorean(deloreanCopy);
+            }
             //else
             //    _flyingHandler.SetFlyMode(false);
 
