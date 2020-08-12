@@ -26,6 +26,7 @@ namespace BackToTheFutureV
         private static UIMenuItem spawnCustomDelorean;
         private static UIMenuItem spawnPresetDelorean;
         private static UIMenuItem removeAllDeloreans;
+        private static UIMenuItem removeOtherDeloreans;
         private static UIMenuItem removeDelorean;
 
         // Settings
@@ -60,6 +61,7 @@ namespace BackToTheFutureV
             rcMenu = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.RCMenu, Game.GetLocalizedString("BTTFV_Menu_RCMenu"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_Description"));
 
             MainMenu.AddItem(removeDelorean = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine_Description")));
+            MainMenu.AddItem(removeOtherDeloreans = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines_Description")));
             MainMenu.AddItem(removeAllDeloreans = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines_Description")));
 
             MainMenu.OnMenuOpen += MainMenu_OnMenuOpen;
@@ -216,6 +218,13 @@ namespace BackToTheFutureV
                 else
                     DeloreanHandler.Spawn(DeloreanType.BTTF3);
                 Main.MenuPool.CloseAllMenus();
+            }
+
+            if (selectedItem == removeOtherDeloreans)
+            {
+                DeloreanHandler.RemoveAllDeloreans(true);
+                RemoteDeloreansHandler.DeleteAll();
+                Notification.Show(Game.GetLocalizedString("BTTFV_RemovedOtherTimeMachines"));
             }
 
             if (selectedItem == removeAllDeloreans)

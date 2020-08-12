@@ -115,10 +115,13 @@ namespace BackToTheFutureV.Delorean
                 _delosToRemoveSounds.Add(vehicle, deleteVeh);
         }
 
-        public static void RemoveAllDeloreans()
+        public static void RemoveAllDeloreans(bool exceptCurrent = false)
         {
             foreach(var delorean in _deloreans.ToList())
             {
+                if (exceptCurrent && delorean.Vehicle == Main.PlayerVehicle)
+                    continue;
+
                 RemoveDelorean(delorean);
             }
         }
