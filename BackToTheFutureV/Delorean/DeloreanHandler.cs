@@ -54,7 +54,14 @@ namespace BackToTheFutureV.Delorean
 
         public static void LoadAllDeLoreans()
         {
-            DeloreanCopyManager.Load()?.SpawnAll();
+            try
+            {
+                DeloreanCopyManager.Load()?.SpawnAll();
+            }
+            catch 
+            {
+                DeloreanCopyManager.Delete();
+            }            
         }
 
         public static void AddDelorean(DMC12 vehicle)

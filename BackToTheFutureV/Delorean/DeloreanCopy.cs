@@ -33,6 +33,12 @@ namespace BackToTheFutureV.Delorean
 
         private static string _saveFile = "./scripts/BackToTheFutureV/TimeMachines.dmc12";
 
+        public static void Delete()
+        {
+            if (File.Exists(_saveFile))
+                File.Delete(_saveFile);
+        }
+
         public static void Save(List<DeloreanTimeMachine> deloreanTimeMachines)
         {
             IFormatter formatter = new BinaryFormatter();
