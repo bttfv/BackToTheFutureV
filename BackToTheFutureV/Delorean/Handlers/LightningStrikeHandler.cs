@@ -60,7 +60,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     }
                 }
 
-                if(Game.GameTime > _nextForce)
+                if(_flyingHandler.IsFlying && Game.GameTime > _nextForce)
                 {
                     Vehicle.ApplyForce(Vector3.RandomXYZ() * 3f, Vector3.RandomXYZ());
 
@@ -70,12 +70,15 @@ namespace BackToTheFutureV.Delorean.Handlers
                 return;
             }
 
-            if (Mods.HoverUnderbody == ModState.Off || !_flyingHandler.IsFlying || World.Weather != Weather.ThunderStorm || TimeCircuits.IsTimeTraveling || TimeCircuits.IsReentering || Game.GameTime < _nextCheck || Vehicle.HeightAboveGround < 20) return;
-
-            if (Utils.Random.NextDouble() < 0.2)
-                Strike();
-            else
-                _nextCheck = Game.GameTime + 10000;
+            if (World.Weather != Weather.ThunderStorm || TimeCircuits.IsTimeTraveling || TimeCircuits.IsReentering || Game.GameTime < _nextCheck) return;
+          
+            if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88) | (_flyingHandler.IsFlying && Vehicle.HeightAboveGround >= 20)) 
+            {
+                if (Utils.Random.NextDouble() < 0.2)
+                    Strike();
+                else
+                    _nextCheck = Game.GameTime + 10000;
+            }
         }
 
         private void Strike()
@@ -85,14 +88,23 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (IsOn)
             {
-                TimeCircuits.GetHandler<TimeTravelHandler>().StartTimeTravelling(true, 2000);
-
+                if (Mods.Hook == HookState.On && !_flyingHandler.IsFlying)
+                {
+                    TimeCircuits.GetHandler<TimeTravelHandler>().StartTimeTravelling(false, 700);
+                    _flashes = 2;
+                }
+                else
+                {
+                    TimeCircuits.GetHandler<TimeTravelHandler>().StartTimeTravelling(true, 2000);
+                    _flashes = 0;
+                }
+              
                 DeloreanCopy deloreanCopy = TimeCircuits.Delorean.Copy;
-                deloreanCopy.Circuits.DestinationTime.AddYears(70);
+                deloreanCopy.Circuits.DestinationTime = deloreanCopy.Circuits.DestinationTime.AddYears(70);
                 RemoteDeloreansHandler.AddDelorean(deloreanCopy);
             }
-            //else
-            //    _flyingHandler.SetFlyMode(false);
+            else
+                _flyingHandler.SetFlyMode(false);
 
             TimeCircuits.IsOn = false;
             TimeCircuits.OnTimeCircuitsToggle?.Invoke();
@@ -101,8 +113,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             _flyingHandler.CanConvert = false;
             HasBeenStruckByLightning = true;
-            _isFlashing = true;
-            _flashes = 0;
+            _isFlashing = true;            
         }
 
         public override void KeyPress(Keys key)
