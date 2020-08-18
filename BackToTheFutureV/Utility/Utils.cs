@@ -15,6 +15,13 @@ using BackToTheFutureV.Delorean;
 
 namespace BackToTheFutureV.Utility
 {
+    public enum LightsMode
+    {
+        Default,
+        Disabled,
+        AlwaysOn
+    }
+
     public enum MapArea
     {
         County = 2072609373,

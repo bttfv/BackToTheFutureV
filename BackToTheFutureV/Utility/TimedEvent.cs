@@ -24,6 +24,11 @@ namespace BackToTheFutureV.Story
         public TimeSpan Duration => EndTime - StartTime;
         public bool FirstExecution => _executionCount != 2;
 
+        public float CurrentFloat { get; private set; }
+        public float StartFloat = 0;
+        public float EndFloat = 0;
+        private bool _setFloat = false;
+
         public double CurrentSpeed { get; private set; }    
         public int StartSpeed = 0;
         public int EndSpeed = 0;
@@ -58,6 +63,10 @@ namespace BackToTheFutureV.Story
                 EndTime = tEndTime;
             }
         }
+        public void ResetExecution()
+        {
+            _executionCount = 0;
+        }
 
         public void SetSpeed(int tStartSpeedMPH, int tEndSpeedMPH)
         {
@@ -65,6 +74,14 @@ namespace BackToTheFutureV.Story
             EndSpeed = tEndSpeedMPH;
 
             _setSpeed = true;
+        }
+
+        public void SetFloat(float tStartFloat, float tEndFloat)
+        {
+            StartFloat = tStartFloat;
+            EndFloat = tEndFloat;
+
+            _setFloat = true;
         }
 
         public void SetCamera(Entity tOnEntity, Vector3 tCameraOffset, Entity tLookAtEntity, Vector3 tLookAtOffset, bool tUpdateCamera = true)
@@ -84,6 +101,11 @@ namespace BackToTheFutureV.Story
         private void CalculateCurrentSpeed()
         {
             CurrentSpeed = (Utils.MphToMs(EndSpeed - StartSpeed + 2) / Duration.TotalSeconds) * Game.LastFrameTime;
+        }
+
+        private void CalculateCurrentFloat()
+        {
+            CurrentFloat = ((EndFloat - StartFloat) / (float)Duration.TotalSeconds) * Game.LastFrameTime;
         }
 
         private void PlaceCamera()
@@ -121,6 +143,9 @@ namespace BackToTheFutureV.Story
 
                 if (_setSpeed)
                     CalculateCurrentSpeed();
+
+                if (_setFloat)
+                    CalculateCurrentFloat();
 
                 if (tManageCamera && IsSettingCamera && !_disableUpdate)
                     PlaceCamera();
