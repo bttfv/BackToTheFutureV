@@ -4,6 +4,7 @@ using BackToTheFutureV.Players;
 using System.Windows.Forms;
 using BackToTheFutureV.Utility;
 using KlangRageAudioLibrary;
+using GTA.Native;
 
 namespace BackToTheFutureV.Delorean.Handlers
 {
@@ -50,6 +51,8 @@ namespace BackToTheFutureV.Delorean.Handlers
                     _reentryAudio.Play();
 
                     _flash.Play();
+
+                    Function.Call(Hash.ADD_SHOCKING_EVENT_AT_POSITION, 88, Vehicle.Position.X, Vehicle.Position.Y, Vehicle.Position.Z, 1f);
 
                     var timeToAdd = 500;
 
