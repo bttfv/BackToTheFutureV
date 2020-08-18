@@ -36,6 +36,8 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private int _nextModeChangeAllowed;
 
+        private int _nextForce;
+
         private bool _startHoverGlowLater;
 
         private readonly List<PtfxEntityPlayer> _smokeParticles = new List<PtfxEntityPlayer>();
@@ -229,6 +231,23 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (!IsFlying)
                 return;
+
+            if (World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)
+            {
+                if (Game.GameTime > _nextForce)
+                {
+                    float _force = World.Weather == Weather.Raining ? 0.75f : 1;
+
+                    _force *= (Vehicle.HeightAboveGround / 20f);
+
+                    if (_force > 1)
+                        _force = 1;
+
+                    Vehicle.ApplyForce(Vector3.RandomXYZ() * _force, Vector3.RandomXYZ() * _force);
+
+                    _nextForce = Game.GameTime + 100;
+                }
+            }
 
             if (TimeCircuits.HasBeenStruckByLightning)
             {

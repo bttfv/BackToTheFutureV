@@ -55,6 +55,9 @@ namespace BackToTheFutureV.Delorean.Handlers
                     // Dont do it anymore if flashed enough times
                     if (_flashes > 3)
                     {
+                        if (Mods.Hook == HookState.On && !_flyingHandler.IsFlying)
+                            HasBeenStruckByLightning = false;
+
                         _isFlashing = false;
                         _flashes = 0;
                     }
@@ -96,7 +99,11 @@ namespace BackToTheFutureV.Delorean.Handlers
                 else
                 {
                     TimeCircuits.GetHandler<TimeTravelHandler>().StartTimeTravelling(true, 2000);
+                    _flyingHandler.CanConvert = false;
                     _flashes = 0;
+
+                    TimeCircuits.IsOn = false;
+                    TimeCircuits.OnTimeCircuitsToggle?.Invoke();
                 }
               
                 DeloreanCopy deloreanCopy = TimeCircuits.Delorean.Copy;
@@ -106,12 +113,8 @@ namespace BackToTheFutureV.Delorean.Handlers
             else
                 _flyingHandler.SetFlyMode(false);
 
-            TimeCircuits.IsOn = false;
-            TimeCircuits.OnTimeCircuitsToggle?.Invoke();
-
             Vehicle.EngineHealth -= 700;
-
-            _flyingHandler.CanConvert = false;
+            
             HasBeenStruckByLightning = true;
             _isFlashing = true;            
         }
