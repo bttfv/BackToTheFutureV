@@ -139,6 +139,9 @@ namespace BackToTheFutureV.Delorean.Handlers
                 if (_wormholeAnims == null)
                     return;
 
+                Function.Call(Hash.SPECIAL_ABILITY_LOCK, Main.PlayerPed.Model);
+                //Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
+
                 if (IsFueled)
                 {
                     if (!_wormholeAnims.IsPlaying)

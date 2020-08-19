@@ -343,6 +343,9 @@ namespace BackToTheFutureV.Delorean.Handlers
             TimeCircuits.Delorean.IsInTime = false;
 
             TimeCircuits.GetHandler<FreezeHandler>().StartFreezeHandling(!is99);
+
+            Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, Main.PlayerPed.Model);
+            //Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
         }
 
     }
