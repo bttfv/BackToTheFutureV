@@ -256,7 +256,9 @@ namespace BackToTheFutureV.Delorean.Handlers
             if (TimeCircuits.HasBeenStruckByLightning)
             {
                 var force = Vehicle.UpVector;
-                force.Z = -force.Z;
+
+                if (!Vehicle.IsUpsideDown)
+                    force.Z = -force.Z;
 
                 force *= 12 * Game.LastFrameTime;
 
