@@ -20,6 +20,8 @@ namespace BackToTheFutureV.Delorean.Handlers
         public bool CanConvert { get; set; } = true;
         public bool IsPlayingAnim => wheelAnims != null && wheelAnims.IsPlaying;
 
+        public bool FlyingCircuitsBroken;
+
         private WheelAnimationPlayer wheelAnims;
 
         private readonly AudioPlayer _flyOn;
@@ -107,6 +109,8 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             foreach (AnimateProp x in _underbodyLights)
                 x?.DeleteProp();
+
+            FlyingCircuitsBroken = false;
         }
         
         private void OnAnimCompleted()
@@ -129,7 +133,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private void OnFlyModeControlJustPressed()
         {
-            if(Mods.HoverUnderbody == ModState.On && CanConvert && !Game.IsControlPressed(GTA.Control.CharacterWheel) && !Main.MenuPool.IsAnyMenuOpen() && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+            if(Mods.HoverUnderbody == ModState.On && CanConvert && !FlyingCircuitsBroken && !Game.IsControlPressed(GTA.Control.CharacterWheel) && !Main.MenuPool.IsAnyMenuOpen() && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
             {
                 if (TimeCircuits.HasBeenStruckByLightning)
                     return;

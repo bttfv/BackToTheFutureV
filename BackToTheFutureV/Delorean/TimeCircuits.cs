@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BackToTheFutureV.Settings;
 using KlangRageAudioLibrary;
+using GTA.Math;
 
 namespace BackToTheFutureV.Delorean
 {
@@ -101,6 +102,8 @@ namespace BackToTheFutureV.Delorean
         /// Whether the Time Machine is in hover mode
         /// </summary>
         public bool IsFlying => GetHandler<FlyingHandler>().IsFlying;
+
+        public bool FlyingCircuitsBroken => GetHandler<FlyingHandler>().FlyingCircuitsBroken;
 
         /// <summary>
         /// Whether the boost is active

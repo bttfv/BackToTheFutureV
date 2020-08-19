@@ -8,7 +8,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 {
     public class LightningStrikeHandler : Handler
     {
-        public bool HasBeenStruckByLightning { get; private set; }
+        public bool HasBeenStruckByLightning { get; set; }
 
         private int _nextCheck;
         private readonly AudioPlayer _lightningStrike;
@@ -39,6 +39,24 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public override void Process()
         {
+            if (HasBeenStruckByLightning && !Main.PlayerPed.IsInVehicle())
+            {
+                var dist = Main.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position);
+
+                if (!(dist <= 2f * 2f))
+                    return;
+
+                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Repair_TimeCircuits"));
+
+                if (Game.IsControlJustPressed(GTA.Control.Context))
+                {
+                    Mods.Hoodbox = ModState.On;
+
+                    TimeCircuits.IsOn = false;
+                    TimeCircuits.OnTimeCircuitsToggle?.Invoke();                    
+                }                    
+            }
+
             if (HasBeenStruckByLightning && _isFlashing && _flashes <= 3)
             {
                 if(Game.GameTime > _nextFlash)
@@ -99,13 +117,14 @@ namespace BackToTheFutureV.Delorean.Handlers
                 else
                 {
                     TimeCircuits.GetHandler<TimeTravelHandler>().StartTimeTravelling(true, 2000);
-                    _flyingHandler.CanConvert = false;
                     _flashes = 0;
 
                     TimeCircuits.IsOn = false;
                     TimeCircuits.OnTimeCircuitsToggle?.Invoke();
+
+                    _flyingHandler.FlyingCircuitsBroken = true;
                 }
-              
+                
                 DeloreanCopy deloreanCopy = TimeCircuits.Delorean.Copy;
                 deloreanCopy.Circuits.DestinationTime = deloreanCopy.Circuits.DestinationTime.AddYears(70);
                 RemoteDeloreansHandler.AddDelorean(deloreanCopy);

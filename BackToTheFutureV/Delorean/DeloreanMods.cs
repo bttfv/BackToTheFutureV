@@ -345,6 +345,9 @@ namespace BackToTheFutureV.Delorean
             {
                 Vehicle.Mods[VehicleModType.Livery].Index = (int)value;
                 DamagedBumper = value;
+
+                if (value == ModState.On)
+                    TimeMachine.Circuits.GetHandler<LightningStrikeHandler>().HasBeenStruckByLightning = false;
             }
         }
 
