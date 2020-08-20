@@ -210,10 +210,10 @@ namespace BackToTheFutureV.Delorean
                     HoverUnderbody = ModState.On;
                     break;
                 case DeloreanType.BTTF3:
+                    SuspensionsType = SuspensionsType.LiftFrontLowerRear;
                     Hoodbox = ModState.On;
                     Wheel = WheelType.Red;
-                    DamagedBumper = ModState.On;
-                    SuspensionsType = SuspensionsType.LiftFrontLowerRear;
+                    DamagedBumper = ModState.On;                    
                     break;
             }
         }
@@ -226,7 +226,7 @@ namespace BackToTheFutureV.Delorean
             {
                 switch (value)
                 {
-                    case SuspensionsType.Stock:
+                    case SuspensionsType.Stock:                        
                         Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
                         Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
                         Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
@@ -238,6 +238,8 @@ namespace BackToTheFutureV.Delorean
                         Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 0f);
                         break;
                     default:
+                        HoverUnderbody = ModState.Off;
+
                         Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, true);
                         Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, true);
 
@@ -329,6 +331,9 @@ namespace BackToTheFutureV.Delorean
                     if (Exhaust != ExhaustType.None)
                         Exhaust = ExhaustType.None;
 
+                    if (SuspensionsType != SuspensionsType.Stock)
+                        SuspensionsType = SuspensionsType.Stock;
+
                     TimeMachine?.Circuits.GetHandler<FlyingHandler>().LoadWheelAnim();
                 }                    
                 else
@@ -400,7 +405,7 @@ namespace BackToTheFutureV.Delorean
                 DamagedBumper = value;
 
                 if (value == ModState.On)
-                    TimeMachine.Circuits.GetHandler<LightningStrikeHandler>().HasBeenStruckByLightning = false;
+                    TimeMachine?.Circuits.GetHandler<LightningStrikeHandler>().Stop();
             }
         }
 

@@ -12,7 +12,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private int _nextCheck;
         private readonly AudioPlayer _lightningStrike;
-        private readonly FlyingHandler _flyingHandler;
+        private FlyingHandler _flyingHandler => TimeCircuits?.GetHandler<FlyingHandler>();
 
         private int _flashes;
         private int _nextFlash;
@@ -23,8 +23,6 @@ namespace BackToTheFutureV.Delorean.Handlers
         public LightningStrikeHandler(TimeCircuits circuits) : base(circuits)
         {
             _lightningStrike = circuits.AudioEngine.Create("bttf2/timeTravel/lightingStrike.wav", Presets.Exterior);
-
-            _flyingHandler = TimeCircuits.GetHandler<FlyingHandler>();
 
             TimeCircuits.OnTimeTravelComplete += OnTimeTravelComplete;
         }
@@ -93,7 +91,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (World.Weather != Weather.ThunderStorm || TimeCircuits.IsTimeTraveling || TimeCircuits.IsReentering || Game.GameTime < _nextCheck) return;
           
-            if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88) | (_flyingHandler.IsFlying && Vehicle.HeightAboveGround >= 20)) 
+            if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88) | (Vehicle.HeightAboveGround >= 20 && _flyingHandler.IsFlying)) 
             {
                 if (Utils.Random.NextDouble() < 0.2)
                     Strike();
@@ -145,7 +143,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public override void Stop()
         {
-
+            HasBeenStruckByLightning = false;
         }
 
         public override void Dispose()

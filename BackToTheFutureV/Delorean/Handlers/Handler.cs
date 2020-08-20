@@ -23,6 +23,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         public bool IsRemoteControlled { get => TimeCircuits.IsRemoteControlled; set => TimeCircuits.IsRemoteControlled = value; }
         public bool IsFueled { get => TimeCircuits.IsFueled; set => TimeCircuits.IsFueled = value; }
         public bool IsFreezing { get => TimeCircuits.IsFreezing; set => TimeCircuits.IsFreezing = value; }
+        public bool IsFlying => TimeCircuits.IsFlying;
         public bool IcePlaying { get => TimeCircuits.IcePlaying; set => TimeCircuits.IcePlaying = value; }
         public float MPHSpeed { get => TimeCircuits.MphSpeed; set => TimeCircuits.MphSpeed = value; }
         public DeloreanMods Mods => TimeCircuits.Delorean.Mods;

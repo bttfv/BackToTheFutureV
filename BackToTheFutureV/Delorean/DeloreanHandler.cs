@@ -150,7 +150,11 @@ namespace BackToTheFutureV.Delorean
 
             deloreanTimeMachine.Circuits.DestinationTime = Main.CurrentTime;
 
+            deloreanTimeMachine.Circuits.IsOn = true;
+            deloreanTimeMachine.Circuits.OnTimeCircuitsToggle?.Invoke();
+
             deloreanTimeMachine.Circuits.GetHandler<TimeTravelHandler>().Reenter();
+
             return deloreanTimeMachine;
         }
 

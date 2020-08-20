@@ -139,10 +139,8 @@ namespace BackToTheFutureV.InteractionMenu
             {
                 _tempTimeMachine.Mods.HoverUnderbody = ConvertFromBool(Checked);
 
-                if (!Checked)
-                    _wheelsType.Enabled = true;
-                else
-                    _exhaust.Index = 2;
+                _exhaust.Index = 2;
+                _suspensions.Index = 0;
             }
             else if (checkboxItem == _hoodBox)
             {               
@@ -242,8 +240,11 @@ namespace BackToTheFutureV.InteractionMenu
                 _canFly.Checked = false;
             }
             else if (listItem == _suspensions)
-            {
+            {                
                 _tempTimeMachine.Mods.SuspensionsType = (SuspensionsType)newIndex;
+
+                if (_tempTimeMachine.Mods.SuspensionsType != SuspensionsType.Stock)
+                    _canFly.Checked = false;
             }
         }
     }
