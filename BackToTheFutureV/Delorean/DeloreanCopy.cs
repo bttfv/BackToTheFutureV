@@ -217,6 +217,8 @@ namespace BackToTheFutureV.Delorean
 
         public HookState Hook;
 
+        public SuspensionsType SuspensionsType;
+
         public DeloreanModsCopy(DeloreanMods deloreanMods)
         {
             DeloreanType = deloreanMods.DeloreanType;
@@ -236,6 +238,7 @@ namespace BackToTheFutureV.Delorean
             Hoodbox = deloreanMods.Hoodbox;
             Hook = deloreanMods.Hook;
             Plate = deloreanMods.Plate;
+            SuspensionsType = deloreanMods.SuspensionsType;
         }
 
         public void ApplyTo(DeloreanTimeMachine timeMachine)
@@ -259,6 +262,7 @@ namespace BackToTheFutureV.Delorean
             deloreanMods.Hoodbox = Hoodbox;
             deloreanMods.Hook = Hook;
             deloreanMods.Plate = Plate;
+            deloreanMods.SuspensionsType = SuspensionsType;
         }
 
         public static string PresetsPath = "./scripts/BackToTheFutureV/presets";

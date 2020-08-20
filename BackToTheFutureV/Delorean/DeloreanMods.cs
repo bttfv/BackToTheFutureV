@@ -71,6 +71,19 @@ namespace BackToTheFutureV.Delorean
         Red = 3
     }
 
+    public enum SuspensionsType
+    {
+        Stock = 0,
+        LiftFrontLowerRear = 1,        
+        LiftFront = 2,
+        LiftRear = 3,
+        LiftFrontAndRear = 4,
+        LowerFrontLiftRear = 5,
+        LowerFront = 6,
+        LowerRear = 7,
+        LowerFrontAndRear = 8
+    }
+
     public class DeloreanMods
     {
         private Vehicle Vehicle;
@@ -78,6 +91,8 @@ namespace BackToTheFutureV.Delorean
         private DeloreanTimeMachine TimeMachine => DeloreanHandler.GetTimeMachineFromVehicle(Vehicle);
         
         private List<AnimateProp> _rrWheels = new List<AnimateProp>();
+
+        private SuspensionsType _suspensionsType = SuspensionsType.Stock;
 
         public void Save(string name) => new DeloreanModsCopy(this).Save(name);
 
@@ -198,7 +213,45 @@ namespace BackToTheFutureV.Delorean
                     Hoodbox = ModState.On;
                     Wheel = WheelType.Red;
                     DamagedBumper = ModState.On;
+                    SuspensionsType = SuspensionsType.LiftFrontLowerRear;
                     break;
+            }
+        }
+
+        public SuspensionsType SuspensionsType
+        {
+            get => _suspensionsType;
+
+            set
+            {
+                switch (value)
+                {
+                    case SuspensionsType.Stock:
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
+
+                        Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
+                        Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
+
+                        Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 0f);
+                        break;
+                    default:
+                        Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, true);
+                        Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, true);
+
+                        Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 40f);
+
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
+
+                        break;
+                }
+
+                _suspensionsType = value;
             }
         }
 

@@ -23,6 +23,7 @@ namespace BackToTheFutureV.InteractionMenu
         private UIMenuCheckboxItem _hook;
         private UIMenuListItem _plate;
         private UIMenuListItem _exhaust;
+        private UIMenuListItem _suspensions;
         private UIMenuItem _saveConf;
         private UIMenuItem _confirm;
 
@@ -31,6 +32,7 @@ namespace BackToTheFutureV.InteractionMenu
         private readonly List<object> _listWheelTypes = new List<object> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_RedWhite"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Railroads") };
         private readonly List<object> _listPlateTypes = new List<object> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Empty"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Outatime"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Futuristic") };
         private readonly List<object> _listExhaustTypes = new List<object> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_BTTF"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_None") };
+        private readonly List<object> _listSuspensionsTypes = new List<object> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontLowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontAndRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontLiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontLiftRear") };
 
         private bool _save = false;
         private DeloreanTimeMachine _tempTimeMachine;
@@ -53,6 +55,8 @@ namespace BackToTheFutureV.InteractionMenu
             AddItem(_plate = new UIMenuListItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_LicPlate"), _listPlateTypes, 0, Game.GetLocalizedString("BTTFV_Input_SpawnMenu_LicPlate_Description")));
 
             AddItem(_exhaust = new UIMenuListItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust"), _listExhaustTypes, 0, Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_Description")));
+
+            AddItem(_suspensions = new UIMenuListItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions"), _listSuspensionsTypes, 0, Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_Description")));
 
             AddItem(_saveConf = new UIMenuItem(Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Save"), Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Save_Description")));
 
@@ -105,6 +109,7 @@ namespace BackToTheFutureV.InteractionMenu
             _hook.Checked = _tempTimeMachine.Mods.Hook != HookState.Off;
             _plate.Index = (int)(_tempTimeMachine.Mods.Plate) + 1;
             _exhaust.Index = (int)(_tempTimeMachine.Mods.Exhaust) + 1;
+            _suspensions.Index = (int)_tempTimeMachine.Mods.SuspensionsType;
 
             switch (_tempTimeMachine.Mods.Wheel)
             {
@@ -235,6 +240,10 @@ namespace BackToTheFutureV.InteractionMenu
             {
                 _tempTimeMachine.Mods.Exhaust = (ExhaustType)(newIndex - 1);
                 _canFly.Checked = false;
+            }
+            else if (listItem == _suspensions)
+            {
+                _tempTimeMachine.Mods.SuspensionsType = (SuspensionsType)newIndex;
             }
         }
     }

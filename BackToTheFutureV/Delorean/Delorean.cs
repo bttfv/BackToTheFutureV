@@ -122,15 +122,48 @@ namespace BackToTheFutureV.Delorean
             if (Mods.Hoodbox == ModState.On)
                 Vehicle.Doors[VehicleDoorIndex.Hood].CanBeBroken = false;
 
+            switch (Mods.SuspensionsType)
+            {
+                case SuspensionsType.LiftFrontLowerRear:
+                    Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                    break;
+                case SuspensionsType.LiftFront:
+                    Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
+                    break;
+                case SuspensionsType.LiftRear:
+                    Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
+                    break;
+                case SuspensionsType.LiftFrontAndRear:
+                    Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
+                    break;
+                case SuspensionsType.LowerFront:
+                    Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
+                    break;
+                case SuspensionsType.LowerRear:
+                    Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                    break;
+                case SuspensionsType.LowerFrontAndRear:
+                    Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
+                    Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                    break;
+            }
+
             if (Mods.Wheel == WheelType.Red && Mods.HoverUnderbody == ModState.Off)
             {             
                 if (_firstRedSetup)
                 {
-                    Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, true);
-                    Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, true);
-
-                    Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 40f);
-
                     boneLf?.SetTranslation(leftSuspesionOffset);
                     boneRf?.SetTranslation(rightSuspesionOffset);
                   
@@ -139,26 +172,11 @@ namespace BackToTheFutureV.Delorean
 
                 if (VehicleControl.GetWheelSize(Vehicle) != 1.1f)
                     VehicleControl.SetWheelSize(Vehicle, 1.1f);
-
-                Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
-                Utils.LiftUpWheel(Vehicle, WheelId.FrontRight , 0.75f);
-                Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
-                Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
             }
             else if (!_firstRedSetup)
-            {
-                Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 0f);
-
+            {               
                 boneLf?.ResetTranslation();
                 boneRf?.ResetTranslation();
-
-                Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
-                Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
-                Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
-                Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
-
-                Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
-                Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
 
                 _firstRedSetup = true;
             }
