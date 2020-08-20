@@ -67,37 +67,21 @@ namespace BackToTheFutureV.Delorean
             }            
         }
 
-        public static void AddDelorean(DMC12 vehicle, bool addNextTick = false)
+        public static void AddDelorean(DMC12 vehicle)
         {
-            if (addNextTick)
-            {
-                if (!_delosToAdd.Contains(vehicle))
-                    _delosToAdd.Add(vehicle);
-            } 
-            else
-            {
-                if (!_deloreans.Contains(vehicle))
-                    _deloreans.Add(vehicle);
-            }
+            if (!_delosToAdd.Contains(vehicle))
+                _delosToAdd.Add(vehicle);
         }
 
-        public static void AddTimeMachine(DeloreanTimeMachine timeMachine, bool addNextTick = false)
+        public static void AddTimeMachine(DeloreanTimeMachine timeMachine)
         {
             if (TimeMachineCount == MAX_TIME_MACHINES - 1)
                 RemoveDelorean(FurthestTimeMachine);
 
-            AddDelorean(timeMachine, addNextTick);
+            AddDelorean(timeMachine);
 
-            if (addNextTick)
-            {
-                if (!_timeMachinesToAdd.Contains(timeMachine))
-                    _timeMachinesToAdd.Add(timeMachine);
-            }
-            else
-            {
-                if (!_timeMachines.Contains(timeMachine))
-                    _timeMachines.Add(timeMachine);
-            }           
+            if (!_timeMachinesToAdd.Contains(timeMachine))
+                _timeMachinesToAdd.Add(timeMachine);        
         }
 
         //public static void AddTimeMachineCopy(DeloreanCopy deloreanCopy)

@@ -46,7 +46,7 @@ namespace BackToTheFutureV.Delorean
                 return _lastDisplacementCopy;
             } set => _lastDisplacementCopy = value; }
         
-        public DeloreanTimeMachine(Vehicle vehicle, bool isNew, DeloreanType deloreanType = DeloreanType.Unknown, bool addNextTick = false) : base(vehicle, isNew)
+        public DeloreanTimeMachine(Vehicle vehicle, bool isNew, DeloreanType deloreanType = DeloreanType.Unknown) : base(vehicle, isNew)
         {
             if (isNew && Mods.DeloreanType == DeloreanType.Unknown)
             {
@@ -73,7 +73,7 @@ namespace BackToTheFutureV.Delorean
                 LastDisplacementCopy.Circuits.DestinationTime = Main.CurrentTime;
             }
 
-            DeloreanHandler.AddTimeMachine(this, addNextTick);
+            DeloreanHandler.AddTimeMachine(this);
         }
 
         private AnimateProp _BTTFDecals;

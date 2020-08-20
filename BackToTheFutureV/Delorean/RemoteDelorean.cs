@@ -58,9 +58,9 @@ namespace BackToTheFutureV.Delorean
             }
         }
 
-        private void Spawn(bool addNextTick = false)
+        private void Spawn()
         {
-            DeloreanSpawned = DeloreanCopy.Spawn(addNextTick);
+            DeloreanSpawned = DeloreanCopy.Spawn();
 
             DeloreanSpawned.LastDisplacementCopy = DeloreanCopy;
         }
@@ -78,7 +78,7 @@ namespace BackToTheFutureV.Delorean
             else if (DeloreanCopy.Circuits.DestinationTime < time)
             {
                 if (DeloreanSpawned == null || !DeloreanSpawned.Vehicle.Exists())
-                    Spawn(true);
+                    Spawn();
             }
         }
 
