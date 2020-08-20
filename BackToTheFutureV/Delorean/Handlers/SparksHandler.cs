@@ -4,6 +4,7 @@ using BackToTheFutureV.Players;
 using System.Windows.Forms;
 using KlangRageAudioLibrary;
 using AudioFlags = KlangRageAudioLibrary.AudioFlags;
+using BackToTheFutureV.Utility;
 
 namespace BackToTheFutureV.Delorean.Handlers
 {
@@ -139,8 +140,11 @@ namespace BackToTheFutureV.Delorean.Handlers
                 if (_wormholeAnims == null)
                     return;
 
-                Function.Call(Hash.SPECIAL_ABILITY_LOCK, Main.PlayerPed.Model);
-                //Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
+                Main.DisablePlayerSwitching = true;
+
+                //Function.Call(Hash.SPECIAL_ABILITY_LOCK, Main.PlayerPed.Model);
+                Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
+                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
 
                 if (IsFueled)
                 {
@@ -219,6 +223,9 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             _hasPlayedDiodeSound = false;
             _hasHit88 = false;
+
+            Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+            Main.DisablePlayerSwitching = false;
         }
 
         public override void Dispose()
@@ -237,6 +244,10 @@ namespace BackToTheFutureV.Delorean.Handlers
         private void SparksEnded()
         {
             Stop();
+
+            Main.DisablePlayerSwitching = true;
+
+            Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
 
             Function.Call(Hash.DETACH_VEHICLE_FROM_ANY_TOW_TRUCK, Vehicle.Handle);
 

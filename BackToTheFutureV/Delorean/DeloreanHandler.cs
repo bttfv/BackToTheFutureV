@@ -37,10 +37,13 @@ namespace BackToTheFutureV.Delorean
 
         private static List<DMC12> _deloreans = new List<DMC12>();
         private static List<DeloreanTimeMachine> _timeMachines = new List<DeloreanTimeMachine>();
+        
         private static Dictionary<DMC12, bool> _delosToRemove = new Dictionary<DMC12, bool>();
         private static Dictionary<DMC12, bool> _delosToRemoveSounds = new Dictionary<DMC12, bool>();
-        private static List<DeloreanCopy> _delosToAdd = new List<DeloreanCopy>();
-        private static List<DeloreanTimeMachine> _delosToAddNextTick = new List<DeloreanTimeMachine>();
+
+        private static List<DMC12> _delosToAdd = new List<DMC12>();
+        //private static List<DeloreanCopy> _timeMachinesCopyToAdd = new List<DeloreanCopy>();
+        private static List<DeloreanTimeMachine> _timeMachinesToAdd = new List<DeloreanTimeMachine>();
 
         public static void SaveAllDeLoreans()
         {
@@ -64,10 +67,18 @@ namespace BackToTheFutureV.Delorean
             }            
         }
 
-        public static void AddDelorean(DMC12 vehicle)
+        public static void AddDelorean(DMC12 vehicle, bool addNextTick = false)
         {
-            if(!_deloreans.Contains(vehicle))
-                _deloreans.Add(vehicle);
+            if (addNextTick)
+            {
+                if (!_delosToAdd.Contains(vehicle))
+                    _delosToAdd.Add(vehicle);
+            } 
+            else
+            {
+                if (!_deloreans.Contains(vehicle))
+                    _deloreans.Add(vehicle);
+            }
         }
 
         public static void AddTimeMachine(DeloreanTimeMachine timeMachine, bool addNextTick = false)
@@ -75,12 +86,12 @@ namespace BackToTheFutureV.Delorean
             if (TimeMachineCount == MAX_TIME_MACHINES - 1)
                 RemoveDelorean(FurthestTimeMachine);
 
-            AddDelorean(timeMachine);
+            AddDelorean(timeMachine, addNextTick);
 
             if (addNextTick)
             {
-                if (!_delosToAddNextTick.Contains(timeMachine))
-                    _delosToAddNextTick.Add(timeMachine);
+                if (!_timeMachinesToAdd.Contains(timeMachine))
+                    _timeMachinesToAdd.Add(timeMachine);
             }
             else
             {
@@ -89,16 +100,16 @@ namespace BackToTheFutureV.Delorean
             }           
         }
 
-        public static void AddInQuequeTimeMachine(DeloreanCopy deloreanCopy)
-        {
-            if (!_delosToAdd.Contains(deloreanCopy))
-            {
-                deloreanCopy.SetupTimeTravel(false);
+        //public static void AddTimeMachineCopy(DeloreanCopy deloreanCopy)
+        //{
+        //    if (!_timeMachinesCopyToAdd.Contains(deloreanCopy))
+        //    {
+        //        deloreanCopy.SetupTimeTravel(false);
 
-                _delosToAdd.Add(deloreanCopy);
-            }
+        //        _timeMachinesCopyToAdd.Add(deloreanCopy);
+        //    }
                 
-        }
+        //}
 
         public static void RemoveInstantlyDelorean(DMC12 vehicle, bool deleteVeh = true)
         {
@@ -289,18 +300,24 @@ namespace BackToTheFutureV.Delorean
                 _delosToRemove.Clear();
             }
 
-            if (_delosToAdd.Count > 0)
-            {
-                foreach (var delo in _delosToAdd)
-                    delo.Spawn();
+            //if (_timeMachinesCopyToAdd.Count > 0)
+            //{
+            //    foreach (var delo in _timeMachinesCopyToAdd)
+            //        delo.Spawn();
 
-                _delosToAdd.Clear();
+            //    _timeMachinesCopyToAdd.Clear();
+            //}
+
+            if (_timeMachinesToAdd.Count > 0)
+            {
+                _timeMachines.AddRange(_timeMachinesToAdd);
+                _timeMachinesToAdd.Clear();
             }
 
-            if (_delosToAddNextTick.Count > 0)
+            if (_delosToAdd.Count > 0)
             {
-                _timeMachines.AddRange(_delosToAddNextTick);
-                _delosToAddNextTick.Clear();
+                _deloreans.AddRange(_delosToAdd);
+                _delosToAdd.Clear();
             }
 
             foreach (var delorean in _deloreans)

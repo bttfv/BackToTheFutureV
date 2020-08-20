@@ -61,8 +61,6 @@ namespace BackToTheFutureV.Delorean
             _BTTFDecals = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFDecals), Vector3.Zero, Vector3.Zero);
             _BTTFDecals.SpawnProp();
 
-            DeloreanHandler.AddTimeMachine(this, addNextTick);
-
             if (isNew)
             {
                 VehicleBone.TryGetForVehicle(vehicle, "suspension_lf", out boneLf);
@@ -74,6 +72,8 @@ namespace BackToTheFutureV.Delorean
                 LastDisplacementCopy = Copy;
                 LastDisplacementCopy.Circuits.DestinationTime = Main.CurrentTime;
             }
+
+            DeloreanHandler.AddTimeMachine(this, addNextTick);
         }
 
         private AnimateProp _BTTFDecals;

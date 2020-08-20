@@ -151,6 +151,9 @@ namespace BackToTheFutureV.Delorean.Handlers
             if (open && TimeCircuits.HasBeenStruckByLightning)
                 return;
 
+            if (wheelAnims == null)
+                LoadWheelAnim();
+
             if (instant)
                 wheelAnims.SetInstant(open);
             else
@@ -236,11 +239,25 @@ namespace BackToTheFutureV.Delorean.Handlers
             if (!IsFlying)
                 return;
 
-            if (World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)
+            if (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)
             {
                 if (Game.GameTime > _nextForce)
                 {
-                    float _force = World.Weather == Weather.Raining ? 0.75f : 1;
+                    float _force = 0;
+
+                    switch (World.Weather)
+                    {
+                        case Weather.Clearing:
+                            _force = 0.5f;
+                            break;
+                        case Weather.Raining:
+                            _force = 0.75f;
+                            break;
+                        case Weather.ThunderStorm:
+                        case Weather.Blizzard:
+                            _force = 1;
+                            break;
+                    }
 
                     _force *= (Vehicle.HeightAboveGround / 20f);
 

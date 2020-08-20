@@ -49,6 +49,8 @@ namespace BackToTheFutureV.Delorean
             {
                 Spawn();
 
+                Utils.HideVehicle(DeloreanSpawned.Vehicle, true);
+
                 DeloreanSpawned.Circuits.GetHandler<TimeTravelHandler>().Reenter();
 
                 _hasPlayedWarningSound = false;
