@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BackToTheFutureV.Delorean;
+using BackToTheFutureV.Delorean.Handlers;
 using BackToTheFutureV.Entities;
 using BackToTheFutureV.Utility;
 using GTA;
@@ -26,6 +27,7 @@ namespace BackToTheFutureV.Players
 
         private Vehicle vehicle;
         private TimeCircuits TimeCircuits;
+        private FlyingHandler _flyingHandler => TimeCircuits?.GetHandler<FlyingHandler>();
         private WheelType _roadWheel;
 
         private List<AnimateProp> leftWheelProps = new List<AnimateProp>();
@@ -218,10 +220,13 @@ namespace BackToTheFutureV.Players
             {
                 SetAnimationPosition();
 
-                leftWheelProps.ForEach(x => x.DeleteProp());
-                rightWheelProps.ForEach(x => x.DeleteProp());
+                if (!_flyingHandler.IsLanding)
+                {
+                    leftWheelProps.ForEach(x => x.DeleteProp());
+                    rightWheelProps.ForEach(x => x.DeleteProp());
 
-                TimeCircuits.Delorean.Mods.Wheel = _roadWheel;
+                    TimeCircuits.Delorean.Mods.Wheel = _roadWheel;
+                }                
             }
         }
 

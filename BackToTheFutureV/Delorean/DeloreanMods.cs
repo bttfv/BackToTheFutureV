@@ -162,6 +162,8 @@ namespace BackToTheFutureV.Delorean
             HoverUnderbody = ModState.Off;
             Hoodbox = ModState.Off;
 
+            SuspensionsType = SuspensionsType.Stock;
+
             Wheel = WheelType.Stock;
 
             Vehicle.ToggleExtra(10, true);

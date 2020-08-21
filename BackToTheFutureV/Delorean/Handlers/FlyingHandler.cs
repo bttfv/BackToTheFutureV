@@ -8,17 +8,19 @@ using GTA.Native;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using KlangRageAudioLibrary;
+using Control = GTA.Control;
 
 namespace BackToTheFutureV.Delorean.Handlers
 {
     public class FlyingHandler : Handler
     {
         public bool Open { get; private set; }
-        public bool IsFlying { get; private set; }
+        public new bool IsFlying { get; private set; }
         public bool IsBoosting { get; private set; }
         public bool IsAltitudeHolding { get; private set; }
         public bool CanConvert { get; set; } = true;
         public bool IsPlayingAnim => wheelAnims != null && wheelAnims.IsPlaying;
+        public bool IsLanding { get; private set; }
 
         public bool FlyingCircuitsBroken;
 
@@ -41,6 +43,8 @@ namespace BackToTheFutureV.Delorean.Handlers
         private int _nextForce;
 
         private bool _startHoverGlowLater;
+
+        private bool _landingSmoke;
 
         private readonly List<PtfxEntityPlayer> _smokeParticles = new List<PtfxEntityPlayer>();
 
@@ -148,6 +152,8 @@ namespace BackToTheFutureV.Delorean.Handlers
         {
             Open = open;
 
+            IsLanding = !Open && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f;
+
             if (open && TimeCircuits.HasBeenStruckByLightning)
                 return;
 
@@ -162,7 +168,8 @@ namespace BackToTheFutureV.Delorean.Handlers
             // undocced native, changes delxuo transformation
             // from land to hover
             // (DOES NOT CHANGE FLY MODE!)
-            Function.Call((Hash)0x438b3d7ca026fe91, Vehicle, Open ? 1f : 0f);
+            if (!IsLanding)
+                Function.Call((Hash)0x438b3d7ca026fe91, Vehicle, Open ? 1f : 0f);
 
             if (Open && !instant)
             {
@@ -179,10 +186,10 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             Function.Call(Hash._FORCE_VEHICLE_ENGINE_AUDIO, Vehicle, IsFlying ? "DELUXO" : "VIRGO");
 
-            if (!IsFlying)
+            if (!IsLanding && !IsFlying)
             {
                 Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
-                Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
+                Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);                  
             }
 
             ventGlowing?.DeleteProp();
@@ -204,7 +211,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         }
 
         public override void Process()
-        {
+        {            
             if (Mods.HoverUnderbody == ModState.Off)
                 return;
 
@@ -216,7 +223,7 @@ namespace BackToTheFutureV.Delorean.Handlers
             }
 
             // Automatically set fly mode if deluxo is transformed in any other way.
-            if (!IsFlying && VehicleControl.GetDeluxoTransformation(Vehicle) > 0)
+            if (!IsFlying && VehicleControl.GetDeluxoTransformation(Vehicle) > 0 && !IsLanding)
             {
                 SetFlyMode(true);
             }
@@ -236,8 +243,35 @@ namespace BackToTheFutureV.Delorean.Handlers
             // Process underbody lights
             UnderbodyLights();
 
+            if (IsLanding)
+            {
+                // Reset force to be applied
+                _forceToBeApplied = Vector3.Zero;
+
+                // Process up/down movement
+                UpDown();
+
+                // Altitude holder
+                if (!Game.IsControlPressed(GTA.Control.VehicleFlyThrottleUp) && !Game.IsControlPressed(GTA.Control.VehicleFlyThrottleDown))
+                    HandleAltitudeHolding();
+
+                // Apply force
+                Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
+
+                if (Vehicle.HeightAboveGround < 3 && !_landingSmoke)
+                {
+                    _smokeParticles.ForEach(x => x.Play());
+                    _landingSmoke = true;
+                }
+
+                if (!Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 0.5f)
+                    return;
+
+                SetFlyMode(false);
+            }
+
             if (!IsFlying)
-                return;
+                return;            
 
             if (ModSettings.TurbolenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard))
             {
@@ -295,9 +329,10 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             // Process up/down movement
             UpDown();
-            
+
             // Altitude holder
-            HandleAltitudeHolding();
+            if (IsAltitudeHolding)
+                HandleAltitudeHolding();
 
             // Apply force
             Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
@@ -345,12 +380,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         }
 
         private void HandleAltitudeHolding()
-        {
-            if (!IsAltitudeHolding || !IsFlying)
-            {
-                return;
-            }
-
+        {            
             var velocity = Vehicle.Velocity;
             var zVel = velocity.Z;
 
@@ -361,7 +391,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         private void UpDown()
         {
             // What are you doing 
-            if (!IsFlying || Main.PlayerVehicle != Vehicle && IsAltitudeHolding) return;
+            //if (!IsFlying || Main.PlayerVehicle != Vehicle && IsAltitudeHolding) return;
 
             // Get how much value is moved up/down
             float upNormal = 0;
@@ -387,14 +417,16 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public void GoUpDown(float upNormal)
         {
-            _forceToBeApplied += Vehicle.UpVector * 15f * upNormal * Game.LastFrameTime;
+            if (!IsLanding || upNormal == 1)
+                _forceToBeApplied += Vehicle.UpVector * 15f * upNormal * Game.LastFrameTime;
+            else if (upNormal == -1)
+                _forceToBeApplied.Z = -Vehicle.Velocity.Z - 1;
 
             if (upNormal != 0)
             {
                 _forceToBeApplied.Y = -Vehicle.Velocity.Y;
                 _forceToBeApplied.X = -Vehicle.Velocity.X;
-            }
-                
+            }                
         }
 
         private void UnderbodyLights()
