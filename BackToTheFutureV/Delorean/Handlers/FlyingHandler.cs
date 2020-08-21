@@ -239,7 +239,7 @@ namespace BackToTheFutureV.Delorean.Handlers
             if (!IsFlying)
                 return;
 
-            if (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)
+            if (ModSettings.TurbolenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard))
             {
                 if (Game.GameTime > _nextForce)
                 {

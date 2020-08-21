@@ -17,6 +17,7 @@ namespace BackToTheFutureV
         public static UIMenu MainMenu { get; private set; }
         private static UIMenu settingsMenu;
         private static UIMenu tcdMenu;
+        private static UIMenu eventsMenu;
 
         private static UIMenuItem rcMenu;
         private static UIMenuItem spawnDelorean1;
@@ -40,7 +41,10 @@ namespace BackToTheFutureV
         private static UIMenuListItem tcdBackground;
         private static UIMenuCheckboxItem GlowingWormholeEmitter;
         private static UIMenuCheckboxItem GlowingPlutoniumReactor;
-        
+        private static UIMenuCheckboxItem LightningStrikeEvent;
+        private static UIMenuCheckboxItem EngineStallEvent;
+        private static UIMenuCheckboxItem TurbolenceEvent;
+
         // TCD stuff
         private static UIMenuItem changeTCD;
         private static UIMenuItem resetToDefaultTCD;
@@ -80,9 +84,17 @@ namespace BackToTheFutureV
             settingsMenu.AddItem(forceFlyMode = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode"), ModSettings.ForceFlyMode, Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode_Description")));
             settingsMenu.AddItem(GlowingWormholeEmitter = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter"), ModSettings.GlowingWormholeEmitter, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter_Description")));
             settingsMenu.AddItem(GlowingPlutoniumReactor = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor"), ModSettings.GlowingPlutoniumReactor, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor_Description")));
-            
+
             settingsMenu.OnItemSelect += SettingsMenu_OnItemSelect;
             settingsMenu.OnCheckboxChange += SettingsMenu_OnCheckboxChange;
+
+            eventsMenu = Main.MenuPool.AddSubMenu(settingsMenu, Game.GetLocalizedString("BTTFV_Menu_EventsMenu"), Game.GetLocalizedString("BTTFV_Menu_EventsMenu_Description"));
+            eventsMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");
+            eventsMenu.AddItem(LightningStrikeEvent = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent"), ModSettings.LightningStrikeEvent, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent_Description")));
+            eventsMenu.AddItem(EngineStallEvent = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_EngineStallEvent"), ModSettings.EngineStallEvent, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_EngineStallEvent_Description")));
+            eventsMenu.AddItem(TurbolenceEvent = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TurbolenceEvent"), ModSettings.TurbolenceEvent, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TurbolenceEvent_Description")));
+
+            eventsMenu.OnCheckboxChange += SettingsMenu_OnCheckboxChange;
 
             tcdMenu = Main.MenuPool.AddSubMenu(settingsMenu, Game.GetLocalizedString("BTTFV_Menu_TCDMenu"), Game.GetLocalizedString("BTTFV_Menu_TCDMenu_Description"));
             tcdMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");
@@ -160,6 +172,18 @@ namespace BackToTheFutureV
             else if (checkboxItem == cinematicSpawn)
             {
                 ModSettings.CinematicSpawn = Checked;
+            }
+            else if (checkboxItem == LightningStrikeEvent)
+            {
+                ModSettings.LightningStrikeEvent = Checked;
+            }
+            else if (checkboxItem == EngineStallEvent)
+            {
+                ModSettings.EngineStallEvent = Checked;
+            }
+            else if (checkboxItem == TurbolenceEvent)
+            {
+                ModSettings.TurbolenceEvent = Checked;
             }
 
             ModSettings.SaveSettings();

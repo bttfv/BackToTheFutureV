@@ -89,7 +89,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                 return;
             }
 
-            if (World.Weather != Weather.ThunderStorm || TimeCircuits.IsTimeTraveling || TimeCircuits.IsReentering || Game.GameTime < _nextCheck) return;
+            if (!ModSettings.LightningStrikeEvent || World.Weather != Weather.ThunderStorm || TimeCircuits.IsTimeTraveling || TimeCircuits.IsReentering || Game.GameTime < _nextCheck) return;
           
             if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88) | (Vehicle.HeightAboveGround >= 20 && _flyingHandler.IsFlying)) 
             {

@@ -41,7 +41,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private void OnTimeTravelComplete()
         {
-            if (Mods.Reactor == ReactorType.Nuclear)
+            if (ModSettings.EngineStallEvent && Mods.Reactor == ReactorType.Nuclear)
                 _firstTimeTravel = true;
         }
 
@@ -127,6 +127,15 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (_isDead)
             {
+                if (!ModSettings.EngineStallEvent)
+                {
+                    Stop();
+                    Vehicle.FuelLevel = _deloreanMaxFuelLevel;
+                    Vehicle.IsEngineRunning = true;
+                    _nextCheck = Game.GameTime + 10000;
+                    return;
+                }
+
                 if((Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && Main.PlayerVehicle == Vehicle)
                 {
                     if (timedEventManager.AllExecuted())

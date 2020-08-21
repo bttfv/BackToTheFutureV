@@ -163,4 +163,12 @@
 	BTTFV_Repair_TimeCircuits = Press ~INPUT_CONTEXT~ to repair time circuits.	
 	BTTFV_Menu_RemoveOtherTimeMachines = Remove others time machines
 	BTTFV_Menu_RemoveOtherTimeMachines_Description = Remove all time machines except current one.
+	BTTFV_Menu_EventsMenu = Scripted events
+	BTTFV_Menu_EventsMenu_Description = Opens the scripted events menu.
+	BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent = Lightning strike
+	BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent_Description = If enabled there is a change of being hit by a lightning during a thunderstorm.
+	BTTFV_Menu_TimeMachineMenu_EngineStallEvent = Engine stall
+	BTTFV_Menu_TimeMachineMenu_EngineStallEvent_Description = If enabled car engine may stall after time travel with nuclear reactor.
+	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent = Turbolence
+	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent_Description = If enabled car while hovering in bad weather will get into turbolence.
 }

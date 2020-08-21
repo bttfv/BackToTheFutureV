@@ -31,7 +31,9 @@ namespace BackToTheFutureV
         public static bool ForceFlyMode { get; set; }
         public static bool GlowingWormholeEmitter { get; set; }
         public static bool GlowingPlutoniumReactor { get; set; }
-        
+        public static bool LightningStrikeEvent { get; set; }
+        public static bool EngineStallEvent { get; set; }
+        public static bool TurbolenceEvent { get; set; }
         public static void LoadSettings()
         {
             string path = "./scripts/BackToTheFutureV/settings.ini";
@@ -64,6 +66,10 @@ namespace BackToTheFutureV
             GlowingWormholeEmitter = settings.GetValue("time_circuits", "GlowingWormholeEmitter", true);
             GlowingPlutoniumReactor = settings.GetValue("time_circuits", "GlowingPlutoniumReactor", true);
 
+            LightningStrikeEvent = settings.GetValue("events", "LightningStrikeEvent", true);
+            EngineStallEvent = settings.GetValue("events", "EngineStallEvent", true);
+            TurbolenceEvent = settings.GetValue("events", "TurbolenceEvent", true);
+
             SaveSettings();
         }
 
@@ -92,6 +98,10 @@ namespace BackToTheFutureV
 
             settings.SetValue("time_circuits", "GlowingWormholeEmitter", GlowingWormholeEmitter);
             settings.SetValue("time_circuits", "GlowingPlutoniumReactor", GlowingPlutoniumReactor);
+
+            settings.SetValue("events", "LightningStrikeEvent", LightningStrikeEvent);
+            settings.SetValue("events", "EngineStallEvent", EngineStallEvent);
+            settings.SetValue("events", "TurbolenceEvent", TurbolenceEvent);
 
             settings.Save();
         }

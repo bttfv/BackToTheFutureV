@@ -149,4 +149,27 @@
 	BTTFV_Menu_Build_Delorean_Description = Permet de construire sa propre DeLorean.
 	BTTFV_Menu_Presets_Not_Found = Pas de DeLorean prédéfinie trouvée. Menu Construction ouvert.
 	BTTFV_Apply_Hook = Appuyez sur ~INPUT_CONTEXT~ pour mettre le crochet en place.
+	<!-- TRANSLATE FROM HERE -->
+	BTTFV_Input_SpawnMenu_Suspensions = Suspensions
+	BTTFV_Input_SpawnMenu_Suspensions_Description = Change suspensions height.
+	BTTFV_Input_SpawnMenu_Suspensions_Stock = Stock
+	BTTFV_Input_SpawnMenu_Suspensions_LiftFrontLowerRear = ↑ front ↓ rear
+	BTTFV_Input_SpawnMenu_Suspensions_LiftFront = ↑ front
+	BTTFV_Input_SpawnMenu_Suspensions_LiftRear = ↑ rear
+	BTTFV_Input_SpawnMenu_Suspensions_LiftFrontAndRear = ↑ front ↑ rear
+	BTTFV_Input_SpawnMenu_Suspensions_LowerFrontLiftRear = ↓ front ↑ rear
+	BTTFV_Input_SpawnMenu_Suspensions_LowerFront = ↓ front
+	BTTFV_Input_SpawnMenu_Suspensions_LowerRear = ↓ rear
+	BTTFV_Input_SpawnMenu_Suspensions_LowerFrontAndRear = ↓ front ↓ rear	
+	BTTFV_Repair_TimeCircuits = Press ~INPUT_CONTEXT~ to repair time circuits.	
+	BTTFV_Menu_RemoveOtherTimeMachines = Remove others time machines
+	BTTFV_Menu_RemoveOtherTimeMachines_Description = Remove all time machines except current one.
+	BTTFV_Menu_EventsMenu = Scripted events
+	BTTFV_Menu_EventsMenu_Description = Opens the scripted events menu.
+	BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent = Lightning strike
+	BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent_Description = If enabled there is a change of being hit by a lightning during a thunderstorm.
+	BTTFV_Menu_TimeMachineMenu_EngineStallEvent = Engine stall
+	BTTFV_Menu_TimeMachineMenu_EngineStallEvent_Description = If enabled car engine may stall after time travel with nuclear reactor.
+	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent = Turbolence
+	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent_Description = If enabled car while hovering in bad weather will get into turbolence.
 }
