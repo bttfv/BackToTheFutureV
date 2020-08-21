@@ -150,4 +150,18 @@
 	BTTFV_Input_PresetsMenu_Save_Description = Permette di salvare la personalizzazione.
 	BTTFV_Menu_Presets_Not_Found = Nessuna DeLorean salvata trovata. Aperto il menu personalizzazione.
 	BTTFV_Apply_Hook = Premi ~INPUT_CONTEXT~ per mettere in posizione il gancio di connessione.
+	BTTFV_Input_SpawnMenu_Suspensions = Sospensioni
+	BTTFV_Input_SpawnMenu_Suspensions_Description = Modifica l'altezza delle sospensioni.
+	BTTFV_Input_SpawnMenu_Suspensions_Stock = Originale
+	BTTFV_Input_SpawnMenu_Suspensions_LiftFrontLowerRear = ↑ ant. ↓ post.
+	BTTFV_Input_SpawnMenu_Suspensions_LiftFront = ↑ ant.
+	BTTFV_Input_SpawnMenu_Suspensions_LiftRear = ↑ post.
+	BTTFV_Input_SpawnMenu_Suspensions_LiftFrontAndRear = ↑ ant. ↑ post.
+	BTTFV_Input_SpawnMenu_Suspensions_LowerFrontLiftRear = ↓ ant. ↑ post.
+	BTTFV_Input_SpawnMenu_Suspensions_LowerFront = ↓ ant.
+	BTTFV_Input_SpawnMenu_Suspensions_LowerRear = ↓ post.
+	BTTFV_Input_SpawnMenu_Suspensions_LowerFrontAndRear = ↓ ant. ↓ post.
+	BTTFV_Repair_TimeCircuits = Premi ~INPUT_CONTEXT~ per riparare i tempo circuiti.
+	BTTFV_Menu_RemoveOtherTimeMachines = Elimina altre macchine del tempo
+	BTTFV_Menu_RemoveOtherTimeMachines_Description = Elimina tutte le altre macchine del tempo.
 }

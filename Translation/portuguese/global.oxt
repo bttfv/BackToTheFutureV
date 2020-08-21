@@ -149,4 +149,19 @@
 	BTTFV_Menu_Build_Delorean_Description = Faça o seu propio DeLorean customizado.
 	BTTFV_Menu_Presets_Not_Found = Nenhum DeLorean salvo encontrado, abrindo menu de construir.
 	BTTFV_Apply_Hook = Aperte ~INPUT_CONTEXT~ para aplicar o Gancho.
-	}
+	<!-- TRANSLATE FROM HERE -->
+	BTTFV_Input_SpawnMenu_Suspensions = Suspensions
+	BTTFV_Input_SpawnMenu_Suspensions_Description = Change suspensions height.
+	BTTFV_Input_SpawnMenu_Suspensions_Stock = Stock
+	BTTFV_Input_SpawnMenu_Suspensions_LiftFrontLowerRear = ↑ front ↓ rear
+	BTTFV_Input_SpawnMenu_Suspensions_LiftFront = ↑ front
+	BTTFV_Input_SpawnMenu_Suspensions_LiftRear = ↑ rear
+	BTTFV_Input_SpawnMenu_Suspensions_LiftFrontAndRear = ↑ front ↑ rear
+	BTTFV_Input_SpawnMenu_Suspensions_LowerFrontLiftRear = ↓ front ↑ rear
+	BTTFV_Input_SpawnMenu_Suspensions_LowerFront = ↓ front
+	BTTFV_Input_SpawnMenu_Suspensions_LowerRear = ↓ rear
+	BTTFV_Input_SpawnMenu_Suspensions_LowerFrontAndRear = ↓ front ↓ rear	
+	BTTFV_Repair_TimeCircuits = Press ~INPUT_CONTEXT~ to repair time circuits.	
+	BTTFV_Menu_RemoveOtherTimeMachines = Remove others time machines
+	BTTFV_Menu_RemoveOtherTimeMachines_Description = Remove all time machines except current one.
+}

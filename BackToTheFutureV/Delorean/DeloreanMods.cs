@@ -209,11 +209,10 @@ namespace BackToTheFutureV.Delorean
                     Exhaust = ExhaustType.None;
                     HoverUnderbody = ModState.On;
                     break;
-                case DeloreanType.BTTF3:
-                    SuspensionsType = SuspensionsType.LiftFrontLowerRear;
+                case DeloreanType.BTTF3:                    
                     Hoodbox = ModState.On;
                     Wheel = WheelType.Red;
-                    DamagedBumper = ModState.On;                    
+                    SuspensionsType = SuspensionsType.LiftFrontLowerRear;
                     break;
             }
         }
@@ -275,7 +274,7 @@ namespace BackToTheFutureV.Delorean
                     Utils.SetTiresBurst(Vehicle, false);
                 }
 
-                Function.Call(Hash.SET_VEHICLE_WHEEL_TYPE, Vehicle, 11);
+                Function.Call(Hash.SET_VEHICLE_WHEEL_TYPE, Vehicle, 12);
                 Vehicle.Mods[VehicleModType.FrontWheel].Index = (int)value;
 
                 if (DeloreanType == DeloreanType.BTTF3)
