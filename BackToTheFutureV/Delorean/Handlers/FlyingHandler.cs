@@ -388,6 +388,13 @@ namespace BackToTheFutureV.Delorean.Handlers
         public void GoUpDown(float upNormal)
         {
             _forceToBeApplied += Vehicle.UpVector * 15f * upNormal * Game.LastFrameTime;
+
+            if (upNormal != 0)
+            {
+                _forceToBeApplied.Y = -Vehicle.Velocity.Y;
+                _forceToBeApplied.X = -Vehicle.Velocity.X;
+            }
+                
         }
 
         private void UnderbodyLights()
