@@ -252,8 +252,8 @@ namespace BackToTheFutureV.Delorean.Handlers
                 UpDown();
 
                 // Altitude holder
-                if (!Game.IsControlPressed(GTA.Control.VehicleFlyThrottleUp) && !Game.IsControlPressed(GTA.Control.VehicleFlyThrottleDown))
-                    HandleAltitudeHolding();
+                //if (!Game.IsControlPressed(GTA.Control.VehicleFlyThrottleUp) && !Game.IsControlPressed(GTA.Control.VehicleFlyThrottleDown))
+                //    HandleAltitudeHolding();
 
                 // Apply force
                 Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
