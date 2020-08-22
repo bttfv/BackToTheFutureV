@@ -74,7 +74,7 @@ namespace BackToTheFutureV
             Main.MenuPool.Add(MainMenu);
 
             settingsMenu = Main.MenuPool.AddSubMenu(MainMenu, Game.GetLocalizedString("BTTFV_Menu_Settings"), Game.GetLocalizedString("BTTFV_Menu_Settings_Description"));
-            settingsMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");            
+            settingsMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");  
 
             settingsMenu.AddItem(cinematicSpawn = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn"), ModSettings.CinematicSpawn, Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn_Description")));
             settingsMenu.AddItem(useInputToggle = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_InputToggle"), ModSettings.UseInputToggle, Game.GetLocalizedString("BTTFV_Menu_InputToggle_Description")));
@@ -86,6 +86,7 @@ namespace BackToTheFutureV
             settingsMenu.OnCheckboxChange += SettingsMenu_OnCheckboxChange;
 
             soundsMenu = Main.MenuPool.AddSubMenu(settingsMenu, Game.GetLocalizedString("BTTFV_Menu_SoundsMenu"), Game.GetLocalizedString("BTTFV_Menu_SoundsMenu_Description"));
+            soundsMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");
 
             soundsMenu.AddItem(playFluxCapacitorSound = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_FluxCapacitorSound"), ModSettings.PlayFluxCapacitorSound, Game.GetLocalizedString("BTTFV_Menu_FluxCapacitorSound_Description")));
             soundsMenu.AddItem(playDiodeSound = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep"), ModSettings.PlayDiodeBeep, Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep_Description")));
