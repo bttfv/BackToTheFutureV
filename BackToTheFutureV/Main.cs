@@ -114,9 +114,6 @@ namespace BackToTheFutureV
             ModMenuHandler.KeyDown(e);
             DeloreanHandler.KeyPressed(e.KeyCode);
             RCManager.KeyPress(e.KeyCode);
-
-            if (e.KeyCode == Keys.L)
-                DeloreanHandler.CurrentTimeMachine.Mods.SuspensionsType = SuspensionsType.LiftFrontLowerRear;
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)

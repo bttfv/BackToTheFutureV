@@ -178,7 +178,8 @@ namespace BackToTheFutureV.Delorean.Handlers
             }
             else if(!Open && !instant)
             {
-                _flyOff.Play();
+                if (IsFlying)
+                    _flyOff.Play();
                 _hoverGlowing.DeleteProp();
             }
 
@@ -396,14 +397,14 @@ namespace BackToTheFutureV.Delorean.Handlers
             // Get how much value is moved up/down
             float upNormal = 0;
 
-            if (Game.IsControlPressed(GTA.Control.VehicleSelectNextWeapon) && Game.IsControlPressed(GTA.Control.VehicleFlyThrottleUp))
+            if (Game.IsControlPressed(GTA.Control.VehicleAim) && Game.IsControlPressed(GTA.Control.VehicleFlyThrottleUp))
             {
                 Game.DisableControlThisFrame(GTA.Control.VehicleSelectNextWeapon);
                 Game.DisableControlThisFrame(GTA.Control.VehicleFlyThrottleUp);
 
                 upNormal = 1;
             }
-            else if (Game.IsControlPressed(GTA.Control.VehicleSelectNextWeapon) && Game.IsControlPressed(GTA.Control.VehicleFlyThrottleDown))
+            else if (Game.IsControlPressed(GTA.Control.VehicleAim) && Game.IsControlPressed(GTA.Control.VehicleFlyThrottleDown))
             {
                 Game.DisableControlThisFrame(GTA.Control.VehicleSelectNextWeapon);
                 Game.DisableControlThisFrame(GTA.Control.VehicleFlyThrottleDown);
@@ -422,7 +423,7 @@ namespace BackToTheFutureV.Delorean.Handlers
             else if (upNormal == -1)
                 _forceToBeApplied.Z = -Vehicle.Velocity.Z - 1;
 
-            if (upNormal != 0)
+            if (upNormal != 0 && !IsBoosting)
             {
                 _forceToBeApplied.Y = -Vehicle.Velocity.Y;
                 _forceToBeApplied.X = -Vehicle.Velocity.X;

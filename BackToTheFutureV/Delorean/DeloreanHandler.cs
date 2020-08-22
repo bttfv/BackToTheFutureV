@@ -252,23 +252,7 @@ namespace BackToTheFutureV.Delorean
         }
 
         public static void Tick()
-        {
-            if (Game.GameTime > _getClosestDelay)
-            {
-                UpdateClosestDeloreans();
-
-                _getClosestDelay = Game.GameTime + 1000;
-            }
-            
-            if (Game.GameTime > _getAllDelay)
-            {
-                foreach (var veh in World.GetAllVehicles())
-                    if (veh.Model.Hash == ModelHandler.DMC12.Hash && !veh.IsDead && veh.IsAlive && GetDeloreanFromVehicle(veh) == null)
-                        DMC12.CreateDelorean(veh);
-
-                _getAllDelay = Game.GameTime + 1000;
-            }
-
+        {           
             if (_delosToRemoveSounds.Count > 0)
             {
                 foreach (var delo in _delosToRemoveSounds)
@@ -306,6 +290,22 @@ namespace BackToTheFutureV.Delorean
             {
                 _deloreans.AddRange(_delosToAdd);
                 _delosToAdd.Clear();
+            }
+
+            if (Game.GameTime > _getAllDelay)
+            {
+                foreach (var veh in World.GetAllVehicles())
+                    if (veh.Model.Hash == ModelHandler.DMC12.Hash && !veh.IsDead && veh.IsAlive && GetDeloreanFromVehicle(veh) == null)
+                        DMC12.CreateDelorean(veh);
+
+                _getAllDelay = Game.GameTime + 1000;
+            }
+
+            if (Game.GameTime > _getClosestDelay)
+            {
+                UpdateClosestDeloreans();
+
+                _getClosestDelay = Game.GameTime + 1000;
             }
 
             foreach (var delorean in _deloreans)
