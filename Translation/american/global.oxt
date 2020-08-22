@@ -172,5 +172,8 @@
 	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent = Turbulence
 	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent_Description = If enabled car while hovering in bad weather will get into turbulence.
 	BTTFV_Menu_SoundsMenu = Sound effects
-	BTTFV_Menu_EventsMenu_Description = Opens the sound effects menu.
+	BTTFV_Menu_SoundsMenu_Description = Opens the sound effects menu.
+	BTTFV_Menu_LandingSystem = Landing system
+	BTTFV_Menu_LandingSystem_Description = If enabled after exiting hover mode car will not fall down (use VTOL to land manually).
+	BTTFV_Input_VTOL_Tip = Press ~INPUT_VEH_AIM~ and ~INPUT_VEH_FLY_THROTTLE_DOWN~ for landing.
 }

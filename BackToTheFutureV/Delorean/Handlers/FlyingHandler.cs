@@ -152,7 +152,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         {
             Open = open;
 
-            IsLanding = !Open && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f;
+            IsLanding = ModSettings.LandingSystem && !Open && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f;
 
             if (open && TimeCircuits.HasBeenStruckByLightning)
                 return;
@@ -170,6 +170,8 @@ namespace BackToTheFutureV.Delorean.Handlers
             // (DOES NOT CHANGE FLY MODE!)
             if (!IsLanding)
                 Function.Call((Hash)0x438b3d7ca026fe91, Vehicle, Open ? 1f : 0f);
+            else
+                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Input_VTOL_Tip"));
 
             if (Open && !instant)
             {
@@ -180,6 +182,7 @@ namespace BackToTheFutureV.Delorean.Handlers
             {
                 if (IsFlying)
                     _flyOff.Play();
+
                 _hoverGlowing.DeleteProp();
             }
 
@@ -265,7 +268,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     _landingSmoke = true;
                 }
 
-                if (!Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 0.5f)
+                if (!Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 0.5f && Vehicle.HeightAboveGround < 20)
                     return;
 
                 SetFlyMode(false);

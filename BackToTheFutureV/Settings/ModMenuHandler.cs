@@ -43,8 +43,9 @@ namespace BackToTheFutureV
         private static UIMenuCheckboxItem GlowingWormholeEmitter;
         private static UIMenuCheckboxItem GlowingPlutoniumReactor;
         private static UIMenuCheckboxItem LightningStrikeEvent;
-        private static UIMenuCheckboxItem EngineStallEvent;
+        private static UIMenuCheckboxItem EngineStallEvent;        
         private static UIMenuCheckboxItem TurbolenceEvent;
+        private static UIMenuCheckboxItem LandingSystem;
 
         // TCD stuff
         private static UIMenuItem changeTCD;
@@ -79,6 +80,7 @@ namespace BackToTheFutureV
             settingsMenu.AddItem(cinematicSpawn = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn"), ModSettings.CinematicSpawn, Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn_Description")));
             settingsMenu.AddItem(useInputToggle = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_InputToggle"), ModSettings.UseInputToggle, Game.GetLocalizedString("BTTFV_Menu_InputToggle_Description")));
             settingsMenu.AddItem(forceFlyMode = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode"), ModSettings.ForceFlyMode, Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode_Description")));
+            settingsMenu.AddItem(LandingSystem = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_LandingSystem"), ModSettings.LandingSystem, Game.GetLocalizedString("BTTFV_Menu_LandingSystem_Description")));
             settingsMenu.AddItem(GlowingWormholeEmitter = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter"), ModSettings.GlowingWormholeEmitter, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter_Description")));
             settingsMenu.AddItem(GlowingPlutoniumReactor = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor"), ModSettings.GlowingPlutoniumReactor, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor_Description")));
 
@@ -192,6 +194,10 @@ namespace BackToTheFutureV
             else if (checkboxItem == TurbolenceEvent)
             {
                 ModSettings.TurbolenceEvent = Checked;
+            }
+            else if (checkboxItem == LandingSystem)
+            {
+                ModSettings.LandingSystem = Checked;
             }
 
             ModSettings.SaveSettings();
