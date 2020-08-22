@@ -12,6 +12,8 @@ namespace BackToTheFutureV.Story
         private List<TimedEvent> _timedEvents = new List<TimedEvent>();
         private int _newStep = 0;
 
+        public int EventsCount => _timedEvents.Count;
+
         public bool ManageCamera = false;
         public bool IsCustomCameraActive { get; private set; }
 

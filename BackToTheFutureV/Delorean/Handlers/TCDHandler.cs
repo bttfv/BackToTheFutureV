@@ -10,6 +10,7 @@ using BackToTheFutureV.GUI;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Settings;
 using KlangRageAudioLibrary;
+using BackToTheFutureV.Story;
 
 namespace BackToTheFutureV.Delorean.Handlers
 {
@@ -59,8 +60,8 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public void SetDate(DateTime dateToSet)
         {
-            if(!TcdEditer.IsEditing)
-            { 
+            if (!TcdEditer.IsEditing)
+            {
                 ScreenTCD.SetDate(SlotType, dateToSet);
             }
 
@@ -149,7 +150,9 @@ namespace BackToTheFutureV.Delorean.Handlers
         //private DateTime oldDate;
         private DateTime errorDate = new DateTime(1885, 1, 1, 12, 0, 0);
 
-        //private bool doGlitch;
+        private TimedEventManager glitchEvents = new TimedEventManager();
+
+        private bool doGlitch;
         //private int nextGlitch;
         //private int glitchCount;
 
@@ -201,6 +204,53 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             TimeCircuits.OnTimeTravel += OnTimeTravel;
             TimeCircuits.OnTimeTravelComplete += OnTimeTravelComplete;
+
+            int _time = 0;
+
+            for (int i = 0; i < 7; i++)
+            {
+                glitchEvents.Add(0, 0, _time, 0, 0, _time + 499);
+                glitchEvents.Last.OnExecute += Blank_OnExecute;
+
+                _time += 500;
+
+                glitchEvents.Add(0, 0, _time, 0, 0, _time + 199);
+                glitchEvents.Last.OnExecute += RandomDate_OnExecute;
+
+                _time += 200;
+
+                glitchEvents.Add(0, 0, _time, 0, 0, _time + 499);
+                glitchEvents.Last.OnExecute += ErrorDate_OnExecute;
+
+                _time += 500;
+            }            
+        }
+
+        private void Blank_OnExecute(TimedEvent timedEvent)
+        {
+            if (timedEvent.FirstExecution)
+                destinationSlot.SetVisible(false);
+        }
+
+        private void ErrorDate_OnExecute(TimedEvent timedEvent)
+        {
+            if (timedEvent.FirstExecution)
+            {
+                if (timedEvent.Step == glitchEvents.EventsCount - 1)
+                    DestinationTime = errorDate;
+
+                destinationSlot.SetDate(errorDate);
+                destinationSlot.Update();
+            }                
+        }
+
+        private void RandomDate_OnExecute(TimedEvent timedEvent)
+        {
+            if (timedEvent.FirstExecution)
+            {
+                destinationSlot.SetDate(DateTime.Now.Random());
+                destinationSlot.Update();
+            }
         }
 
         private void OnScaleformPriority()
@@ -274,12 +324,9 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public void DoGlitch()
         {
-            //oldDate = DestinationTime;
-            DestinationTime = errorDate;
-            destinationSlot.SetDate(errorDate);
-            destinationSlot.SetVisible(false);
+            glitchEvents.ResetExecution();
 
-            //doGlitch = true;
+            doGlitch = true;
         }
 
         public override void Dispose()
@@ -365,6 +412,14 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private void HandleGlitching()
         {
+            if (doGlitch)
+            {
+                glitchEvents.RunEvents();
+
+                if (glitchEvents.AllExecuted())
+                    doGlitch = false;
+            }
+
             //if (doGlitch && Game.GameTime > nextGlitch)
             //{
             //    if (glitchCount <= 5)
