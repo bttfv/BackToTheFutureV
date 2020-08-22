@@ -18,6 +18,7 @@ namespace BackToTheFutureV
         private static UIMenu settingsMenu;
         private static UIMenu tcdMenu;
         private static UIMenu eventsMenu;
+        private static UIMenu soundsMenu;
 
         private static UIMenuItem rcMenu;
         private static UIMenuItem spawnDelorean1;
@@ -73,12 +74,8 @@ namespace BackToTheFutureV
             Main.MenuPool.Add(MainMenu);
 
             settingsMenu = Main.MenuPool.AddSubMenu(MainMenu, Game.GetLocalizedString("BTTFV_Menu_Settings"), Game.GetLocalizedString("BTTFV_Menu_Settings_Description"));
-            settingsMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");
+            settingsMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");            
 
-            settingsMenu.AddItem(playFluxCapacitorSound = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_FluxCapacitorSound"), ModSettings.PlayFluxCapacitorSound, Game.GetLocalizedString("BTTFV_Menu_FluxCapacitorSound_Description")));
-            settingsMenu.AddItem(playDiodeSound = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep"), ModSettings.PlayDiodeBeep, Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep_Description")));
-            settingsMenu.AddItem(playSpeedoBeep = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep"), ModSettings.PlaySpeedoBeep, Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep_Description")));
-            settingsMenu.AddItem(playEngineSounds = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_EngineSounds"), ModSettings.PlayEngineSounds, Game.GetLocalizedString("BTTFV_Menu_EngineSounds_Description")));
             settingsMenu.AddItem(cinematicSpawn = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn"), ModSettings.CinematicSpawn, Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn_Description")));
             settingsMenu.AddItem(useInputToggle = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_InputToggle"), ModSettings.UseInputToggle, Game.GetLocalizedString("BTTFV_Menu_InputToggle_Description")));
             settingsMenu.AddItem(forceFlyMode = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode"), ModSettings.ForceFlyMode, Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode_Description")));
@@ -88,7 +85,17 @@ namespace BackToTheFutureV
             settingsMenu.OnItemSelect += SettingsMenu_OnItemSelect;
             settingsMenu.OnCheckboxChange += SettingsMenu_OnCheckboxChange;
 
+            soundsMenu = Main.MenuPool.AddSubMenu(settingsMenu, Game.GetLocalizedString("BTTFV_Menu_SoundsMenu"), Game.GetLocalizedString("BTTFV_Menu_SoundsMenu_Description"));
+
+            soundsMenu.AddItem(playFluxCapacitorSound = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_FluxCapacitorSound"), ModSettings.PlayFluxCapacitorSound, Game.GetLocalizedString("BTTFV_Menu_FluxCapacitorSound_Description")));
+            soundsMenu.AddItem(playDiodeSound = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep"), ModSettings.PlayDiodeBeep, Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep_Description")));
+            soundsMenu.AddItem(playSpeedoBeep = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep"), ModSettings.PlaySpeedoBeep, Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep_Description")));
+            soundsMenu.AddItem(playEngineSounds = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_EngineSounds"), ModSettings.PlayEngineSounds, Game.GetLocalizedString("BTTFV_Menu_EngineSounds_Description")));
+
+            soundsMenu.OnCheckboxChange += SettingsMenu_OnCheckboxChange;
+
             eventsMenu = Main.MenuPool.AddSubMenu(settingsMenu, Game.GetLocalizedString("BTTFV_Menu_EventsMenu"), Game.GetLocalizedString("BTTFV_Menu_EventsMenu_Description"));
+
             eventsMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");
             eventsMenu.AddItem(LightningStrikeEvent = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent"), ModSettings.LightningStrikeEvent, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent_Description")));
             eventsMenu.AddItem(EngineStallEvent = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_EngineStallEvent"), ModSettings.EngineStallEvent, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_EngineStallEvent_Description")));

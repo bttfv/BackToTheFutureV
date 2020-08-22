@@ -172,4 +172,6 @@
 	BTTFV_Menu_TimeMachineMenu_EngineStallEvent_Description = Se abilitato il motore potrebbe avere problemi di accensione dopo un salto nel tempo con il reattore nucleare.
 	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent = Turbolenze in volo
 	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent_Description = Se abilitato l'auto mentre vola in una tempesta incappa in turbolenze.
+	BTTFV_Menu_SoundsMenu = Effetti sonori
+	BTTFV_Menu_EventsMenu_Description = Apre il menu degli effetti sonori.
 }
