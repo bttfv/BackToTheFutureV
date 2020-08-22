@@ -202,12 +202,24 @@ namespace BackToTheFutureV.Delorean
                     return true;
             }
 
+            foreach (var delorean in _delosToAdd)
+            {
+                if (delorean.Vehicle == vehicle)
+                    return true;
+            }
+
             return false;
         }
         
         public static bool IsVehicleATimeMachine(Vehicle vehicle)
         {
             foreach (var timeMachine in _timeMachines)
+            {
+                if (timeMachine.Vehicle == vehicle)
+                    return true;
+            }
+
+            foreach (var timeMachine in _timeMachinesToAdd)
             {
                 if (timeMachine.Vehicle == vehicle)
                     return true;
@@ -224,12 +236,24 @@ namespace BackToTheFutureV.Delorean
                     return delorean;
             }
 
+            foreach (var delorean in _delosToAdd)
+            {
+                if (delorean.Vehicle == vehicle)
+                    return delorean;
+            }
+
             return null;
         }
 
         public static DeloreanTimeMachine GetTimeMachineFromVehicle(Vehicle vehicle)
         {
             foreach (var timeMachine in _timeMachines)
+            {
+                if (timeMachine.Vehicle == vehicle)
+                    return timeMachine;
+            }
+
+            foreach (var timeMachine in _timeMachinesToAdd)
             {
                 if (timeMachine.Vehicle == vehicle)
                     return timeMachine;
