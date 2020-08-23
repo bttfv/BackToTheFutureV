@@ -152,7 +152,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         {
             Open = open;
 
-            IsLanding = ModSettings.LandingSystem && !Open && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f;
+            IsLanding = ModSettings.LandingSystem && !Open && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
 
             if (open && TimeCircuits.HasBeenStruckByLightning)
                 return;
@@ -203,9 +203,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         public override void KeyPress(Keys key)
         {
             if(key == Keys.G && Main.PlayerVehicle == Vehicle)
-            {
                 SetHoverMode(!IsAltitudeHolding);
-            }
         }
 
         public void SetHoverMode(bool mode)
@@ -222,15 +220,11 @@ namespace BackToTheFutureV.Delorean.Handlers
             // Automatically fold wheels in if fly mode is exited in any other way
             // Example: getting out of vehicle, flipping vehicle over, etc
             if (IsFlying && VehicleControl.GetDeluxoTransformation(Vehicle) <= 0 )
-            {
                 SetFlyMode(false);
-            }
 
             // Automatically set fly mode if deluxo is transformed in any other way.
             if (!IsFlying && VehicleControl.GetDeluxoTransformation(Vehicle) > 0 && !IsLanding)
-            {
                 SetFlyMode(true);
-            }
 
             // Process the wheel animations
             wheelAnims?.Process();
@@ -341,17 +335,13 @@ namespace BackToTheFutureV.Delorean.Handlers
             // Apply force
             Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
 
-            if(ModSettings.ForceFlyMode)
-            {
-                // Force fly mode
+            // Force fly mode
+            if (ModSettings.ForceFlyMode)
                 VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
-            }
 
             // Force brake lights on if flying
             if (IsFlying)
-            {
                 Vehicle.AreBrakeLightsOn = true;
-            }
 
             if (_startHoverGlowLater && Vehicle.IsEngineRunning)
                 SpawnHoverGlow();
