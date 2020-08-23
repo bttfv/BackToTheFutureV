@@ -52,12 +52,5 @@ namespace BackToTheFutureV.Utility
         {
             Function.Call(Hash.ATTACH_ENTITY_TO_ENTITY_PHYSICALLY, entity1, toEntity, 0, 0, offset.X, offset.Y, offset.Z, 0, 0, 0, rotation.X, rotation.Y, rotation.Z, 1000000.0f, true, true, false, false, 2);
         }
-
-        public static DateTime Random(this DateTime startDate)
-        {
-            int _sign = Utils.Random.NextDouble() < 0.5f ? -1 : 1;
-
-            return startDate.AddDays((Utils.Random.Next(500 * 365) * _sign));
-        }
     }
 }

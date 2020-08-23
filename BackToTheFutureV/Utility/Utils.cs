@@ -965,6 +965,20 @@ namespace BackToTheFutureV.Utility
             }
             return false;
         }
+
+        public static DateTime RandomDate()
+        {
+            var rand = new Random();
+
+            var second = rand.Next(0, 59);
+            var minute = rand.Next(0, 59);
+            var hour = rand.Next(0, 23);
+            var month = rand.Next(1, 12);
+            var year = rand.Next(0, 9999);
+            var day = rand.Next(0, DateTime.DaysInMonth(year, month));
+
+            return new DateTime(year, month, day, hour, minute, second);
+        }
     }
 
     public static class DrawingUtils

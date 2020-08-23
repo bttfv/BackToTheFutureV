@@ -246,11 +246,11 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private void RandomDate_OnExecute(TimedEvent timedEvent)
         {
-            if (timedEvent.FirstExecution)
-            {
-                destinationSlot.SetDate(DateTime.Now.Random());
-                destinationSlot.Update();
-            }
+            if (!timedEvent.FirstExecution) 
+                return;
+
+            destinationSlot.SetDate(Utils.RandomDate());
+            destinationSlot.Update();
         }
 
         private void OnScaleformPriority()
