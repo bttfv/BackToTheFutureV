@@ -16,7 +16,18 @@ namespace BackToTheFutureV
         private static List<RemoteDelorean> remoteDeloreans = new List<RemoteDelorean>();
 
         private const int MAX_REMOTE_DELOREANS = 10;
-
+        public static int TimeMachineCount => remoteDeloreans.Count;
+        public static RemoteDelorean GetTimeMachineFromIndex(int index) 
+        { 
+            try
+            {
+                return remoteDeloreans[index];
+            } catch
+            {
+                return null;
+            }
+        } 
+        
         public static void AddDelorean(DeloreanCopy deloreanCopy)
         {
             if (remoteDeloreans.Count > MAX_REMOTE_DELOREANS)

@@ -177,4 +177,12 @@
 	BTTFV_Menu_LandingSystem = Landing system
 	BTTFV_Menu_LandingSystem_Description = If enabled after exiting hover mode car will not fall down (use VTOL to land manually).
 	BTTFV_Input_VTOL_Tip = Press ~INPUT_VEH_AIM~ and ~INPUT_VEH_FLY_THROTTLE_DOWN~ for landing.
+	BTTFV_Menu_StatisticsMenu = Outatime
+	BTTFV_Menu_StatisticsMenu_Description = A brief history of time
+	BTTFV_Menu_StatisticsMenu_LastTime = Last Time:
+	BTTFV_Menu_StatisticsMenu_LastTime_Description = Last departure time.
+	BTTFV_Menu_StatisticsMenu_ShowBlip = Show blip on map
+	BTTFV_Menu_StatisticsMenu_ShowBlip_Description = Show a blip on map where the car will reenter.
+	BTTFV_Menu_StatisticsMenu_ForceReenter = Force time machine reenter
+	BTTFV_Menu_StatisticsMenu_ForceReenter_Description = An emergency system for make the car reenter manually.
 }

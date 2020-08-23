@@ -14,6 +14,8 @@ namespace BackToTheFutureV.InteractionMenu
 {
     public class RCMenu : UIMenu
     {
+        private static UIMenuItem statisticsMenu;
+
         public UIMenuDynamicListItem Deloreans { get; }
 
         public UIMenuCheckboxItem FuelChamberDescription { get; }
@@ -26,6 +28,8 @@ namespace BackToTheFutureV.InteractionMenu
             AddItem(FuelChamberDescription = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_FuelChamberFilled"), true, Game.GetLocalizedString("BTTFV_Menu_RCMenu_FuelChamberFilled_Description")));
             AddItem(TimeCircuitsOnDescription = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_TimeCircuitsOn"), true, Game.GetLocalizedString("BTTFV_Menu_RCMenu_TimeCircuitsOn_Description")));
             AddItem(DestinationTimeDescription = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime_Description")));
+
+            statisticsMenu = Utils.AttachSubmenu(this, InteractionMenuManager.StatisticsMenu, Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Description"));
 
             FuelChamberDescription.Enabled = false;
             TimeCircuitsOnDescription.Enabled = false;

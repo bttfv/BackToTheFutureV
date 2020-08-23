@@ -10,6 +10,8 @@ namespace BackToTheFutureV.Delorean
     {
         public DeloreanCopy DeloreanCopy { get; }
 
+        public Blip Blip;
+
         private DeloreanTimeMachine DeloreanSpawned;
 
         private int _timer;
@@ -47,19 +49,27 @@ namespace BackToTheFutureV.Delorean
 
             if (Utils.GetWorldTime() > DeloreanCopy.Circuits.DestinationTime && Utils.GetWorldTime() < (DeloreanCopy.Circuits.DestinationTime + new TimeSpan(0, 0, 10)))
             {
-                Spawn();
-
-                Utils.HideVehicle(DeloreanSpawned.Vehicle, true);
-
-                DeloreanSpawned.Circuits.GetHandler<TimeTravelHandler>().Reenter();
+                Reenter();
 
                 _hasPlayedWarningSound = false;
                 _timer = Game.GameTime + 3000;
             }
         }
 
+        public void Reenter()
+        {
+            Spawn();
+
+            Utils.HideVehicle(DeloreanSpawned.Vehicle, true);
+
+            DeloreanSpawned.Circuits.GetHandler<TimeTravelHandler>().Reenter();
+        }
+
         private void Spawn()
         {
+            if (Blip != null && Blip.Exists())
+                Blip.Delete();
+
             DeloreanSpawned = DeloreanCopy.Spawn();
 
             DeloreanSpawned.LastDisplacementCopy = DeloreanCopy;

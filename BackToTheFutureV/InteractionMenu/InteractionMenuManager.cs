@@ -8,11 +8,14 @@ using GTA;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Delorean;
 using BackToTheFutureV.Settings;
+using GTA.NaturalMotion;
 
 namespace BackToTheFutureV.InteractionMenu
 {
     public class InteractionMenuManager
     {
+        public static StatisticsMenu StatisticsMenu { get; private set; }
+
         public static RCMenu RCMenu { get; private set; }
 
         public static TimeMachineMenu TimeMachineMenu { get; private set; }
@@ -32,6 +35,7 @@ namespace BackToTheFutureV.InteractionMenu
         public static void Init()
         {
             // Build the initial menu            
+            Main.MenuPool.Add(StatisticsMenu = new StatisticsMenu());
             Main.MenuPool.Add(RCMenu = new RCMenu());
             Main.MenuPool.Add(SpawnMenu = new SpawnMenu());
             Main.MenuPool.Add(SpawnMenuContext = new SpawnMenu());
@@ -67,7 +71,7 @@ namespace BackToTheFutureV.InteractionMenu
                     RCMenu.Visible = false;
             }
 
-            MenuOpen = TimeMachineMenu.Visible || RCMenu.Visible || SpawnMenu.Visible || SpawnMenuContext.Visible || PresetsMenu.Visible || TrainMissionMenu.Visible;
+            MenuOpen = TimeMachineMenu.Visible || RCMenu.Visible || SpawnMenu.Visible || SpawnMenuContext.Visible || PresetsMenu.Visible || TrainMissionMenu.Visible || StatisticsMenu.Visible;
 
             if (MenuOpen)
             {
@@ -79,6 +83,9 @@ namespace BackToTheFutureV.InteractionMenu
 
                 if(PresetsMenu.Visible)
                     PresetsMenu.Process();
+
+                if (StatisticsMenu.Visible)
+                    StatisticsMenu.Process();
             }
 
         }

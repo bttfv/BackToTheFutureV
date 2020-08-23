@@ -109,6 +109,7 @@
     <Compile Include="Delorean\Handlers\TimeCircuitsErrorHandler.cs" />
     <Compile Include="GUI\InstrumentalMenu.cs" />
     <Compile Include="InteractionMenu\PresetsMenu.cs" />
+    <Compile Include="InteractionMenu\StatisticsMenu.cs" />
     <Compile Include="InteractionMenu\SpawnMenu.cs" />
     <Compile Include="Delorean\RCManager.cs" />
     <Compile Include="Delorean\RemotePedAi.cs" />

@@ -62,7 +62,7 @@ namespace BackToTheFutureV
             MainMenu.AddItem(spawnDelorean3 = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_Spawn") + " " + Game.GetLocalizedString("BTTFV_Menu_BTTF3"), Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF3_Description")));
 
             spawnPresetDelorean = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.PresetsMenu, Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset"), Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset_Description"));
-            spawnCustomDelorean = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.SpawnMenu, Game.GetLocalizedString("BTTFV_Menu_Build_Delorean"), Game.GetLocalizedString("BTTFV_Menu_Build_Delorean_Description"));
+            spawnCustomDelorean = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.SpawnMenu, Game.GetLocalizedString("BTTFV_Menu_Build_Delorean"), Game.GetLocalizedString("BTTFV_Menu_Build_Delorean_Description"));            
 
             rcMenu = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.RCMenu, Game.GetLocalizedString("BTTFV_Menu_RCMenu"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_Description"));
 
