@@ -2,6 +2,7 @@
 using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -142,12 +143,15 @@ namespace BackToTheFutureV.Delorean
         public bool IsFlying { get; }        
         public bool CutsceneMode { get; }
         public bool IsRemoteControlled { get; }
+        public bool IsFreezing { get; }
+        public float IceValue { get; }
         public Vector3 LastVelocity { get;  }
         
         public TimeCircuitsCopy(TimeCircuits circuits, bool noLastDisplacementCopy = false)
         {
             if (!noLastDisplacementCopy)
                 LastDisplacementCopy = circuits.Delorean.LastDisplacementCopy;
+
             IsOn = circuits.IsOn;
             DestinationTime = circuits.DestinationTime;
             PreviousTime = circuits.PreviousTime;
@@ -156,8 +160,12 @@ namespace BackToTheFutureV.Delorean
             IsWarmedUp = circuits.IsWarmedUp;
             IsFlying = circuits.IsFlying;
             CutsceneMode = circuits.GetHandler<TimeTravelHandler>().CutsceneMode;
-            IsRemoteControlled = circuits.IsRemoteControlled;
+            IsRemoteControlled = circuits.IsRemoteControlled;            
             LastVelocity = circuits.Delorean.LastVelocity;
+            IsFreezing = circuits.IsFreezing;
+
+            if (IsFreezing)
+                IceValue = Function.Call<float>(Hash.GET_VEHICLE_ENVEFF_SCALE, circuits.Vehicle);
         }
 
         public void ApplyTo(TimeCircuits circuits)
@@ -177,6 +185,12 @@ namespace BackToTheFutureV.Delorean
 
             if (IsFlying)
                 circuits.GetHandler<FlyingHandler>().SetFlyMode(true, true);
+
+            if (IsFreezing)
+            {
+                Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, circuits.Vehicle, IceValue);
+                circuits.IsFreezing = true;
+            }
         }
     }
 

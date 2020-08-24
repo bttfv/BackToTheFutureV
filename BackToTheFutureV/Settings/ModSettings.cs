@@ -33,7 +33,7 @@ namespace BackToTheFutureV
         public static bool GlowingPlutoniumReactor { get; set; }
         public static bool LightningStrikeEvent { get; set; }
         public static bool EngineStallEvent { get; set; }
-        public static bool TurbolenceEvent { get; set; }
+        public static bool TurbulenceEvent { get; set; }
         public static bool LandingSystem { get; set; }
 
         public static void LoadSettings()
@@ -72,7 +72,7 @@ namespace BackToTheFutureV
 
             LightningStrikeEvent = settings.GetValue("events", "LightningStrikeEvent", true);
             EngineStallEvent = settings.GetValue("events", "EngineStallEvent", true);
-            TurbolenceEvent = settings.GetValue("events", "TurbolenceEvent", true);
+            TurbulenceEvent = settings.GetValue("events", "TurbulenceEvent", true);
 
             SaveSettings();
         }
@@ -106,7 +106,7 @@ namespace BackToTheFutureV
 
             settings.SetValue("events", "LightningStrikeEvent", LightningStrikeEvent);
             settings.SetValue("events", "EngineStallEvent", EngineStallEvent);
-            settings.SetValue("events", "TurbolenceEvent", TurbolenceEvent);
+            settings.SetValue("events", "TurbulenceEvent", TurbulenceEvent);
 
             settings.Save();
         }

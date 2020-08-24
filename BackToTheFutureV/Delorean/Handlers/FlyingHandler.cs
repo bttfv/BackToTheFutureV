@@ -152,7 +152,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         {
             Open = open;
 
-            IsLanding = ModSettings.LandingSystem && !Open && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
+            IsLanding = ModSettings.LandingSystem && !Open && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
 
             if (open && TimeCircuits.HasBeenStruckByLightning)
                 return;
@@ -271,7 +271,7 @@ namespace BackToTheFutureV.Delorean.Handlers
             if (!IsFlying)
                 return;            
 
-            if (ModSettings.TurbolenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard))
+            if (ModSettings.TurbulenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard))
             {
                 if (Game.GameTime > _nextForce)
                 {

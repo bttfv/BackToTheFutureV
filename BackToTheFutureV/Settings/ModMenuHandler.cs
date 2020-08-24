@@ -44,7 +44,7 @@ namespace BackToTheFutureV
         private static UIMenuCheckboxItem GlowingPlutoniumReactor;
         private static UIMenuCheckboxItem LightningStrikeEvent;
         private static UIMenuCheckboxItem EngineStallEvent;        
-        private static UIMenuCheckboxItem TurbolenceEvent;
+        private static UIMenuCheckboxItem TurbulenceEvent;
         private static UIMenuCheckboxItem LandingSystem;
 
         // TCD stuff
@@ -102,7 +102,7 @@ namespace BackToTheFutureV
             eventsMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");
             eventsMenu.AddItem(LightningStrikeEvent = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent"), ModSettings.LightningStrikeEvent, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent_Description")));
             eventsMenu.AddItem(EngineStallEvent = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_EngineStallEvent"), ModSettings.EngineStallEvent, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_EngineStallEvent_Description")));
-            eventsMenu.AddItem(TurbolenceEvent = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TurbolenceEvent"), ModSettings.TurbolenceEvent, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TurbolenceEvent_Description")));
+            eventsMenu.AddItem(TurbulenceEvent = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TurbulenceEvent"), ModSettings.TurbulenceEvent, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TurbulenceEvent_Description")));
 
             eventsMenu.OnCheckboxChange += SettingsMenu_OnCheckboxChange;
 
@@ -191,9 +191,9 @@ namespace BackToTheFutureV
             {
                 ModSettings.EngineStallEvent = Checked;
             }
-            else if (checkboxItem == TurbolenceEvent)
+            else if (checkboxItem == TurbulenceEvent)
             {
-                ModSettings.TurbolenceEvent = Checked;
+                ModSettings.TurbulenceEvent = Checked;
             }
             else if (checkboxItem == LandingSystem)
             {
