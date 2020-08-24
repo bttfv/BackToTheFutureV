@@ -62,7 +62,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private void RcHandbrake_OnControlJustPressed()
         {
-            if (Mods.HoverUnderbody == ModState.On && TimeCircuits.GetHandler<FlyingHandler>().IsFlying)
+            if (Mods.HoverUnderbody == ModState.On && IsFlying)
                 return;
 
             if (_forcedHandbrake || Game.IsControlPressed(GTA.Control.VehicleDuck))

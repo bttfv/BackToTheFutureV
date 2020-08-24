@@ -43,7 +43,7 @@ namespace BackToTheFutureV.Delorean
             if (Delorean.IsInTime) return;
             if (Game.GameTime < timer) return;
 
-            var flyingHandler = Delorean.Circuits.GetHandler<FlyingHandler>();
+            var flyingHandler = Delorean.Circuits.FlyingHandler;
 
             switch (counter)
             {

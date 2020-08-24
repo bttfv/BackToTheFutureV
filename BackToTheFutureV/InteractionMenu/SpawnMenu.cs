@@ -201,7 +201,7 @@ namespace BackToTheFutureV.InteractionMenu
             }
             else if (listItem == _wheelsType)
             {
-                if (listItem.Enabled == false || _tempTimeMachine.Circuits.IsFlying || _tempTimeMachine.Circuits.GetHandler<FlyingHandler>().IsPlayingAnim)
+                if (listItem.Enabled == false || _tempTimeMachine.Circuits.IsFlying || _tempTimeMachine.Circuits.FlyingHandler.IsPlayingAnim)
                 {
                     listItem.Index = _wheelIndex;
                     return;

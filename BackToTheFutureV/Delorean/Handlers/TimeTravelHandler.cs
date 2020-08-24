@@ -165,7 +165,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     trails = FireTrailsHandler.SpawnForDelorean(
                         TimeCircuits,
                         is99,
-                        (is99 || (Mods.HoverUnderbody == ModState.On && TimeCircuits.GetHandler<FlyingHandler>().IsFlying)) ? 1f : 45,
+                        (is99 || (Mods.HoverUnderbody == ModState.On && IsFlying)) ? 1f : 45,
                         is99 ? -1 : 15,
                         DeloreanType == DeloreanType.BTTF1, Mods.Wheel == WheelType.RailroadInvisible ? 75 : 50);
 
@@ -192,7 +192,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     TimeCircuits.Delorean.LastDisplacementCopy = TimeCircuits.Delorean.Copy;
 
                     if (Mods.HoverUnderbody == ModState.On)
-                        TimeCircuits.GetHandler<FlyingHandler>().CanConvert = false;
+                        CanConvert = false;
 
                     Game.Player.IgnoredByPolice = true;
 

@@ -115,7 +115,7 @@ namespace BackToTheFutureV.Delorean.Handlers
             IsReentering = false;
 
             if (Mods.HoverUnderbody == ModState.On)
-                TimeCircuits.GetHandler<FlyingHandler>().CanConvert = true;
+                CanConvert = true;
 
             if (Mods.Hoodbox == ModState.On && !TimeCircuits.IsWarmedUp)
                 TimeCircuits.GetHandler<HoodboxHandler>().SetInstant();

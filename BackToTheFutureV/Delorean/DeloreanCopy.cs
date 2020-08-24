@@ -184,12 +184,15 @@ namespace BackToTheFutureV.Delorean
                 circuits.GetHandler<HoodboxHandler>().SetInstant();
 
             if (IsFlying)
-                circuits.GetHandler<FlyingHandler>().SetFlyMode(true, true);
+                circuits.FlyingHandler.SetFlyMode(true, true);
 
             if (IsFreezing)
             {
                 Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, circuits.Vehicle, IceValue);
                 circuits.IsFreezing = true;
+
+                if (circuits.Delorean.Mods.Reactor == ReactorType.Nuclear)
+                    circuits.IcePlaying = true;
             }
         }
     }

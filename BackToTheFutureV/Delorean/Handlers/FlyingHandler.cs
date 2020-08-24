@@ -15,15 +15,13 @@ namespace BackToTheFutureV.Delorean.Handlers
     public class FlyingHandler : Handler
     {
         public bool Open { get; private set; }
-        public new bool IsFlying { get; private set; }
-        public bool IsBoosting { get; private set; }
-        public bool IsAltitudeHolding { get; private set; }
-        public bool CanConvert { get; set; } = true;
+
+        public bool IsAltitudeHolding { get; private set; }        
+
         public bool IsPlayingAnim => wheelAnims != null && wheelAnims.IsPlaying;
+
         public bool IsLanding { get; private set; }
-
-        public bool FlyingCircuitsBroken;
-
+        
         private WheelAnimationPlayer wheelAnims;
 
         private readonly AudioPlayer _flyOn;

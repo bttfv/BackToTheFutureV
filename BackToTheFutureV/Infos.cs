@@ -28,6 +28,10 @@ namespace BackToTheFutureV
 
         public float Speed { get; set; }
 
+        public float Health { get; set; }
+
+        public float EngineHealth { get; set; }
+
         public bool IsStationary { get; }
 
         public bool EngineRunning { get; }
@@ -44,6 +48,8 @@ namespace BackToTheFutureV
             Rotation = veh.Rotation;
             Heading = veh.Heading;
             Speed = veh.Speed;
+            Health = veh.HealthFloat;
+            EngineHealth = veh.EngineHealth;
             EngineRunning = veh.IsEngineRunning;
             PrimaryColor = veh.Mods.PrimaryColor;
             SecondaryColor = veh.Mods.SecondaryColor;
@@ -63,9 +69,11 @@ namespace BackToTheFutureV
                 veh.Heading = Heading;
             }
 
-            veh.Velocity = Velocity;            
             veh.Rotation = Rotation;
-            Speed = veh.Speed;
+            veh.Velocity = Velocity;            
+            veh.Speed = Speed;
+            veh.HealthFloat = Health;
+            veh.EngineHealth = EngineHealth;
             veh.IsEngineRunning = EngineRunning;
             veh.Mods.PrimaryColor = PrimaryColor;
             veh.Mods.SecondaryColor = SecondaryColor;

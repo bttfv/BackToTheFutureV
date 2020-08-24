@@ -12,8 +12,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         private int _nextCheck;
         private readonly AudioPlayer _lightningStrike;
-        private FlyingHandler _flyingHandler => TimeCircuits?.GetHandler<FlyingHandler>();
-
+        
         private int _flashes;
         private int _nextFlash;
         private bool _isFlashing;
@@ -71,7 +70,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     // Dont do it anymore if flashed enough times
                     if (_flashes > 3)
                     {
-                        if (Mods.Hook == HookState.On && !_flyingHandler.IsFlying)
+                        if (Mods.Hook == HookState.On && !IsFlying)
                             HasBeenStruckByLightning = false;
 
                         _isFlashing = false;
@@ -79,7 +78,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     }
                 }
 
-                if(_flyingHandler.IsFlying && Game.GameTime > _nextForce)
+                if(IsFlying && Game.GameTime > _nextForce)
                 {
                     Vehicle.ApplyForce(Vector3.RandomXYZ() * 3f, Vector3.RandomXYZ());
 
@@ -91,7 +90,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (!ModSettings.LightningStrikeEvent || World.Weather != Weather.ThunderStorm || TimeCircuits.IsTimeTraveling || TimeCircuits.IsReentering || Game.GameTime < _nextCheck) return;
           
-            if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88) | (Vehicle.HeightAboveGround >= 20 && _flyingHandler.IsFlying)) 
+            if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88) | (Vehicle.HeightAboveGround >= 20 && IsFlying)) 
             {
                 if (Utils.Random.NextDouble() < 0.2)
                     Strike();
@@ -107,7 +106,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (IsOn)
             {
-                if (Mods.Hook == HookState.On && !_flyingHandler.IsFlying)
+                if (Mods.Hook == HookState.On && !IsFlying)
                 {
                     TimeCircuits.GetHandler<TimeTravelHandler>().StartTimeTravelling(false, 700);
                     _flashes = 2;
@@ -120,7 +119,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     TimeCircuits.IsOn = false;
                     TimeCircuits.OnTimeCircuitsToggle?.Invoke();
 
-                    _flyingHandler.FlyingCircuitsBroken = true;
+                    FlyingCircuitsBroken = true;
                 }
                 
                 DeloreanCopy deloreanCopy = TimeCircuits.Delorean.Copy;
@@ -128,7 +127,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                 RemoteDeloreansHandler.AddDelorean(deloreanCopy);
             }
             else
-                _flyingHandler.SetFlyMode(false);
+                SetFlyMode(false);
 
             Vehicle.EngineHealth -= 700;
             

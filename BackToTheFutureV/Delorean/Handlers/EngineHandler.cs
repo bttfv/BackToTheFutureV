@@ -390,7 +390,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                 return;
 
             // Play acceleration sound
-            if (TimeCircuits.IsBoosting)
+            if (IsBoosting)
             {
                 if (_engineAccell2Sound.IsAnyInstancePlaying)
                 {

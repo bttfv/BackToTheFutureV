@@ -204,11 +204,9 @@ namespace BackToTheFutureV.Delorean
         {
             if (DeloreanType == To | DeloreanType == DeloreanType.DMC12 | To == DeloreanType.DMC12)
                 return;
-
-            FlyingHandler flyingHandler = Circuits.GetHandler<FlyingHandler>();
-
-            if (flyingHandler.IsFlying)
-                flyingHandler.SetFlyMode(false, true);
+            
+            if (Circuits.IsFlying)
+                Circuits.FlyingHandler.SetFlyMode(false, true);
 
             Mods.Convert(To);
         }

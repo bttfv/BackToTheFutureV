@@ -159,7 +159,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     if(!_sparksAudio.IsAnyInstancePlaying && !_sparkStabilized.IsAnyInstancePlaying)
                     {
                         if (Mods.HoverUnderbody == ModState.On)
-                            TimeCircuits.GetHandler<FlyingHandler>().CanConvert = false;
+                            CanConvert = false;
 
                         _sparksAudio.Play();
                     }
@@ -219,7 +219,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                 _wormholeAnims?.Stop();
 
             if (Mods.HoverUnderbody == ModState.On)
-                TimeCircuits.GetHandler<FlyingHandler>().CanConvert = true;
+                CanConvert = true;
 
             _hasPlayedDiodeSound = false;
             _hasHit88 = false;

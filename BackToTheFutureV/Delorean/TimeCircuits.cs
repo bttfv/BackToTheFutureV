@@ -98,17 +98,27 @@ namespace BackToTheFutureV.Delorean
         /// </summary>
         public bool IsFreezing { get; set; }
 
+        public FlyingHandler FlyingHandler => GetHandler<FlyingHandler>();
+
         /// <summary>
         /// Whether the Time Machine is in hover mode
         /// </summary>
-        public bool IsFlying => GetHandler<FlyingHandler>().IsFlying;
+        public bool IsFlying { get; set; }
 
-        public bool FlyingCircuitsBroken => GetHandler<FlyingHandler>().FlyingCircuitsBroken;
+        /// <summary>
+        /// Whether the Time Machine can convert in hover mode
+        /// </summary>
+        public bool CanConvert { get; set; }
+
+        /// <summary>
+        /// Whether the Time Machine flying circuits are broken
+        /// </summary>
+        public bool FlyingCircuitsBroken { get; set; }
 
         /// <summary>
         /// Whether the boost is active
         /// </summary>
-        public bool IsBoosting => GetHandler<FlyingHandler>().IsBoosting;
+        public bool IsBoosting { get; set; }
 
         /// <summary>
         /// Whether the ice particle spawned around Delorean

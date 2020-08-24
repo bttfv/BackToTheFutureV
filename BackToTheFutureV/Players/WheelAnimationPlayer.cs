@@ -27,7 +27,6 @@ namespace BackToTheFutureV.Players
 
         private Vehicle vehicle;
         private TimeCircuits TimeCircuits;
-        private FlyingHandler _flyingHandler => TimeCircuits?.GetHandler<FlyingHandler>();
         private WheelType _roadWheel;
 
         private List<AnimateProp> leftWheelProps = new List<AnimateProp>();
@@ -220,7 +219,7 @@ namespace BackToTheFutureV.Players
             {
                 SetAnimationPosition();
 
-                if (!_flyingHandler.IsLanding)
+                if (!TimeCircuits.FlyingHandler.IsLanding)
                 {
                     leftWheelProps.ForEach(x => x.DeleteProp());
                     rightWheelProps.ForEach(x => x.DeleteProp());

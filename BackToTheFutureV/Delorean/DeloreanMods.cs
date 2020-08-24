@@ -335,10 +335,10 @@ namespace BackToTheFutureV.Delorean
                     if (SuspensionsType != SuspensionsType.Stock)
                         SuspensionsType = SuspensionsType.Stock;
 
-                    TimeMachine?.Circuits.GetHandler<FlyingHandler>().LoadWheelAnim();
+                    TimeMachine?.Circuits.FlyingHandler.LoadWheelAnim();
                 }                    
                 else
-                    TimeMachine?.Circuits.GetHandler<FlyingHandler>().DeleteWheelAnim();
+                    TimeMachine?.Circuits.FlyingHandler.DeleteWheelAnim();
             }
         }
 
