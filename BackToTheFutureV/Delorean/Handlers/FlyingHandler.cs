@@ -146,7 +146,7 @@ namespace BackToTheFutureV.Delorean.Handlers
             }
         }
 
-        public void SetFlyMode(bool open, bool instant = false)
+        public new void SetFlyMode(bool open, bool instant = false)
         {
             Open = open;
 

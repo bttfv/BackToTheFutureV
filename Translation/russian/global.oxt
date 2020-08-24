@@ -164,6 +164,7 @@
 	BTTFV_Repair_TimeCircuits = Press ~INPUT_CONTEXT~ to repair time circuits.	
 	BTTFV_Menu_RemoveOtherTimeMachines = Remove others time machines
 	BTTFV_Menu_RemoveOtherTimeMachines_Description = Remove all time machines except current one.
+	BTTFV_RemovedOtherTimeMachines = Removed all others Time Machines!
 	BTTFV_Menu_EventsMenu = Scripted events
 	BTTFV_Menu_EventsMenu_Description = Opens the scripted events menu.
 	BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent = Lightning strike

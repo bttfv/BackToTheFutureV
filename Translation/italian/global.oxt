@@ -164,6 +164,7 @@
 	BTTFV_Repair_TimeCircuits = Premi ~INPUT_CONTEXT~ per riparare i tempo circuiti.
 	BTTFV_Menu_RemoveOtherTimeMachines = Elimina altre macchine del tempo
 	BTTFV_Menu_RemoveOtherTimeMachines_Description = Elimina tutte le altre macchine del tempo.
+	BTTFV_RemovedOtherTimeMachines = Eliminate tutte le altre macchine del tempo!
 	BTTFV_Menu_EventsMenu = Gestione eventi
 	BTTFV_Menu_EventsMenu_Description = Apre il menu di gestione eventi scriptati.
 	BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent = Fulmine
