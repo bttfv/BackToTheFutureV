@@ -28,6 +28,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public bool IsOn { get => TimeCircuits.IsOn; set => TimeCircuits.IsOn = value; }
         public bool IsFueled { get => TimeCircuits.IsFueled; set => TimeCircuits.IsFueled = value; }
+        public bool TimeCircuitsBroken { get => TimeCircuits.TimeCircuitsBroken; set => TimeCircuits.TimeCircuitsBroken = value; }
 
         public bool IsRemoteControlled { get => TimeCircuits.IsRemoteControlled; set => TimeCircuits.IsRemoteControlled = value; }
        

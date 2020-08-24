@@ -90,6 +90,9 @@ namespace BackToTheFutureV.Delorean
         {
             base.Tick();
 
+            if (Mods.HoverUnderbody == ModState.Off)
+                VehicleControl.SetDeluxoTransformation(Vehicle, 0f); // Force Delorean to not transform, is a crude fix.
+
             if (!Circuits.IsRemoteControlled)
                 if (Circuits.IsTimeTraveling || Circuits.IsReentering)
                     Vehicle.LockStatus = VehicleLockStatus.StickPlayerInside;
@@ -298,7 +301,7 @@ namespace BackToTheFutureV.Delorean
 
         public virtual void Tick()
         {
-            if (DeloreanType == DeloreanType.DMC12 || DeloreanHandler.GetTimeMachineFromVehicle(Vehicle).Mods.HoverUnderbody == ModState.Off)
+            if (DeloreanType == DeloreanType.DMC12)
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f); // Force Delorean to not transform, is a crude fix.
 
             if (Main.PlayerVehicle == Vehicle)

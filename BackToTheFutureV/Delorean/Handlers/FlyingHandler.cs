@@ -137,7 +137,7 @@ namespace BackToTheFutureV.Delorean.Handlers
         {
             if(Mods.HoverUnderbody == ModState.On && CanConvert && !FlyingCircuitsBroken && !Game.IsControlPressed(GTA.Control.CharacterWheel) && !Main.MenuPool.IsAnyMenuOpen() && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
             {
-                if (TimeCircuits.HasBeenStruckByLightning)
+                if (TimeCircuits.FlyingCircuitsBroken)
                     return;
 
                 SetFlyMode(!Open);
@@ -148,15 +148,17 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public new void SetFlyMode(bool open, bool instant = false)
         {
+            if (open && TimeCircuits.FlyingCircuitsBroken)
+            {
+                if (VehicleControl.GetDeluxoTransformation(Vehicle) > 0)
+                    VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
+
+                return;
+            }
+                
             Open = open;
 
             IsLanding = ModSettings.LandingSystem && !Open && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
-
-            if (open && TimeCircuits.HasBeenStruckByLightning)
-                return;
-
-            if (wheelAnims == null)
-                LoadWheelAnim();
 
             if (instant)
                 wheelAnims.SetInstant(open);
@@ -302,7 +304,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                 }
             }
 
-            if (TimeCircuits.HasBeenStruckByLightning)
+            if (TimeCircuits.FlyingCircuitsBroken)
             {
                 var force = Vehicle.UpVector;
 

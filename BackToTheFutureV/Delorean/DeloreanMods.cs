@@ -406,7 +406,7 @@ namespace BackToTheFutureV.Delorean
                 DamagedBumper = value;
 
                 if (value == ModState.On)
-                    TimeMachine?.Circuits.GetHandler<LightningStrikeHandler>().Stop();
+                    TimeMachine?.Circuits.SetTimeCircuitsBroken(false);
             }
         }
 

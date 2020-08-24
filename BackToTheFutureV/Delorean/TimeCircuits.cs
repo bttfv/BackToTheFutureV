@@ -34,6 +34,11 @@ namespace BackToTheFutureV.Delorean
         public bool IsOn { get; set; }
 
         /// <summary>
+        /// Whether the Time Machine time circuits are broken
+        /// </summary>
+        public bool TimeCircuitsBroken { get; set; }
+
+        /// <summary>
         /// The Destination Time of the Time Circuits.
         /// </summary>
         public DateTime DestinationTime { get; set; } = new DateTime(2015, 10, 25, 14, 00, 00);
@@ -108,7 +113,7 @@ namespace BackToTheFutureV.Delorean
         /// <summary>
         /// Whether the Time Machine can convert in hover mode
         /// </summary>
-        public bool CanConvert { get; set; }
+        public bool CanConvert { get; set; } = true;
 
         /// <summary>
         /// Whether the Time Machine flying circuits are broken
@@ -139,11 +144,6 @@ namespace BackToTheFutureV.Delorean
         /// State of hoodbox control tubes.
         /// </summary>
         public bool IsWarmedUp => GetHandler<HoodboxHandler>().IsWarmedUp;
-
-        /// <summary>
-        /// Whether Delorean was struck by lighting.
-        /// </summary>
-        public bool HasBeenStruckByLightning => GetHandler<LightningStrikeHandler>().HasBeenStruckByLightning;
 
         /// <summary>
         /// Delegate called when the destination date is input.
@@ -305,13 +305,15 @@ namespace BackToTheFutureV.Delorean
             {
                 if (!TcdEditer.IsEditing)
                     Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hoodbox_Warmup_TfcError"));
+
                 return;
             }
 
-            if (!IsOn && HasBeenStruckByLightning)
+            if (!IsOn && TimeCircuitsBroken)
             {
                 if (!TcdEditer.IsEditing)
                     Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Chip_Damaged"));
+
                 return;
             }
 
@@ -330,6 +332,17 @@ namespace BackToTheFutureV.Delorean
             }
                 
             OnTimeCircuitsToggle?.Invoke();
+        }
+
+        public void SetTimeCircuitsBroken(bool state)
+        {
+            TimeCircuitsBroken = state;
+
+            IsOn = false;
+            OnTimeCircuitsToggle?.Invoke();
+
+            if (state == false && Delorean.Mods.Hoodbox == ModState.On)
+                Delorean.Mods.DeloreanType = DeloreanType.BTTF3;
         }
 
         public void DisposeAndRemoveHandler<T>()

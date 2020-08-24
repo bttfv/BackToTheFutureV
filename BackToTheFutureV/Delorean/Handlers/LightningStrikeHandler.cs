@@ -3,40 +3,31 @@ using GTA;
 using GTA.Math;
 using System.Windows.Forms;
 using KlangRageAudioLibrary;
+using BackToTheFutureV.Entities;
+using GTA.Native;
 
 namespace BackToTheFutureV.Delorean.Handlers
 {
     public class LightningStrikeHandler : Handler
     {
-        public bool HasBeenStruckByLightning { get; set; }
-
         private int _nextCheck;
         private readonly AudioPlayer _lightningStrike;
         
         private int _flashes;
         private int _nextFlash;
-        private bool _isFlashing;
 
         private int _nextForce;
+
+        private bool _hasBeenStruckByLightning;
 
         public LightningStrikeHandler(TimeCircuits circuits) : base(circuits)
         {
             _lightningStrike = circuits.AudioEngine.Create("bttf2/timeTravel/lightingStrike.wav", Presets.Exterior);
-
-            TimeCircuits.OnTimeTravelComplete += OnTimeTravelComplete;
-        }
-
-        private void OnTimeTravelComplete()
-        {
-            if(HasBeenStruckByLightning)
-            {
-                //_flyingHandler.SetFlyMode(false, true);
-            }
         }
 
         public override void Process()
         {
-            if (HasBeenStruckByLightning && !Main.PlayerPed.IsInVehicle())
+            if (TimeCircuitsBroken && !Main.PlayerPed.IsInVehicle())
             {
                 var dist = Main.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position);
 
@@ -46,15 +37,10 @@ namespace BackToTheFutureV.Delorean.Handlers
                 Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Repair_TimeCircuits"));
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))
-                {
                     Mods.Hoodbox = ModState.On;
-
-                    TimeCircuits.IsOn = false;
-                    TimeCircuits.OnTimeCircuitsToggle?.Invoke();                    
-                }                    
             }
 
-            if (HasBeenStruckByLightning && _isFlashing && _flashes <= 3)
+            if (_hasBeenStruckByLightning && _flashes <= 3)
             {
                 if(Game.GameTime > _nextFlash)
                 {
@@ -69,12 +55,9 @@ namespace BackToTheFutureV.Delorean.Handlers
 
                     // Dont do it anymore if flashed enough times
                     if (_flashes > 3)
-                    {
-                        if (Mods.Hook == HookState.On && !IsFlying)
-                            HasBeenStruckByLightning = false;
-
-                        _isFlashing = false;
+                    {                        
                         _flashes = 0;
+                        _hasBeenStruckByLightning = false;
                     }
                 }
 
@@ -90,9 +73,9 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (!ModSettings.LightningStrikeEvent || World.Weather != Weather.ThunderStorm || TimeCircuits.IsTimeTraveling || TimeCircuits.IsReentering || Game.GameTime < _nextCheck) return;
           
-            if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88) | (Vehicle.HeightAboveGround >= 20 && IsFlying)) 
+            if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !IsFlying) | (Vehicle.HeightAboveGround >= 20 && IsFlying)) 
             {
-                if (Utils.Random.NextDouble() < 0.2)
+                if (Utils.Random.NextDouble() < 1.1)
                     Strike();
                 else
                     _nextCheck = Game.GameTime + 10000;
@@ -100,12 +83,12 @@ namespace BackToTheFutureV.Delorean.Handlers
         }
 
         private void Strike()
-        {
-            // Time travel by lightning strike
-            _lightningStrike.Play();
-
+        {            
             if (IsOn)
             {
+                // Time travel by lightning strike
+                _lightningStrike.Play();
+
                 if (Mods.Hook == HookState.On && !IsFlying)
                 {
                     TimeCircuits.GetHandler<TimeTravelHandler>().StartTimeTravelling(false, 700);
@@ -116,10 +99,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     TimeCircuits.GetHandler<TimeTravelHandler>().StartTimeTravelling(true, 2000);
                     _flashes = 0;
 
-                    TimeCircuits.IsOn = false;
-                    TimeCircuits.OnTimeCircuitsToggle?.Invoke();
-
-                    FlyingCircuitsBroken = true;
+                    TimeCircuits.SetTimeCircuitsBroken(true);
                 }
                 
                 DeloreanCopy deloreanCopy = TimeCircuits.Delorean.Copy;
@@ -127,22 +107,29 @@ namespace BackToTheFutureV.Delorean.Handlers
                 RemoteDeloreansHandler.AddDelorean(deloreanCopy);
             }
             else
-                SetFlyMode(false);
+                Function.Call(Hash.FORCE_LIGHTNING_FLASH);
+
+            if (!IsFlying && !IsOn)
+                TimeCircuits.SetTimeCircuitsBroken(true);
+
+            if (IsFlying)
+                FlyingCircuitsBroken = true;
 
             Vehicle.EngineHealth -= 700;
-            
-            HasBeenStruckByLightning = true;
-            _isFlashing = true;            
+
+            _hasBeenStruckByLightning = true;
+            _nextCheck = Game.GameTime + 60000;
         }
 
         public override void KeyPress(Keys key)
         {
-
+            if (key == Keys.L)
+                Function.Call(Hash.FORCE_LIGHTNING_FLASH);
         }
 
         public override void Stop()
         {
-            HasBeenStruckByLightning = false;
+            
         }
 
         public override void Dispose()
