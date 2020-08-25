@@ -193,6 +193,8 @@
 	BTTFV_Menu_PhotoMenu_Description = Opens the photo menu.
 	BTTFV_Menu_PhotoMenu_Wormhole = Time travel effects
 	BTTFV_Menu_PhotoMenu_Wormhole_Description = Enables time travel effects on time machine.
+	BTTFV_Menu_PhotoMenu_Coils = Coils
+	BTTFV_Menu_PhotoMenu_Coils_Description = Enables coils on time machine.
 	BTTFV_Menu_PhotoMenu_Ice = Ice
 	BTTFV_Menu_PhotoMenu_Ice_Description = Enables ice on time machine.
 	BTTFV_Menu_PhotoMenu_FluxCapacitor = Flux Capacitor

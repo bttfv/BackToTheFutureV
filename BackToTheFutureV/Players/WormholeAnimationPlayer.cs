@@ -194,6 +194,10 @@ namespace BackToTheFutureV.Players
 
             //// Choose how many coil props can spawn at one time
             float by = (TimeCircuits.Delorean.MPHSpeed - 65f) / (88f - 65f);
+
+            if (TimeCircuits.IsPhotoModeOn)
+                by = (70 - 65f) / (88f - 65f);
+
             numOfProps = Utils.Lerp(1, 11, by);
 
             // Delete all other props
@@ -331,7 +335,7 @@ namespace BackToTheFutureV.Players
                 // Draw the wormhole RenderTarget, so that the animation appears on the prop
                 _wormholeRT.Draw();
 
-                if(!_wormholeRT.Prop.IsSpawned && _playWormhole && TimeCircuits.Delorean.MPHSpeed >= 88)
+                if(!_wormholeRT.Prop.IsSpawned && _playWormhole && (TimeCircuits.Delorean.MPHSpeed >= 88 || TimeCircuits.IsPhotoModeOn))
                 {
                     _wormholeRT.CreateProp();
                     _wormholeScaleform.CallFunction("START_ANIMATION");
@@ -347,7 +351,7 @@ namespace BackToTheFutureV.Players
                 }
             }
 
-            if (!_hasStartedWormhole && _playWormhole && TimeCircuits.Delorean.MPHSpeed >= 88)
+            if (!_hasStartedWormhole && _playWormhole && (TimeCircuits.Delorean.MPHSpeed >= 88 || TimeCircuits.IsPhotoModeOn))
             {
                 _startWormholeAt = Game.GameTime + 1000;
                 _endAt = _startWormholeAt + MaxTime;

@@ -29,10 +29,6 @@ namespace BackToTheFutureV.InteractionMenu
         public static PresetsMenu PresetsMenu { get; private set; }
 
         public static TrainMissionMenu TrainMissionMenu { get; private set; }
-
-        public static UIMenu CurrentlyOpen { get; private set; }
-
-        public static bool MenuOpen { get; private set; }
         
         public static void Init()
         {
@@ -57,26 +53,31 @@ namespace BackToTheFutureV.InteractionMenu
                         return;
                 }
 
-                MenuOpen = true;
-
                 OpenMenu();
             }
 
             if (DeloreanHandler.CurrentTimeMachine == null)
             {
-                if(TimeMachineMenu.Visible)
+                if (TimeMachineMenu.Visible)
                     TimeMachineMenu.Visible = false;
+
+                if (PhotoMenu.Visible)
+                    PhotoMenu.Visible = false;
+
+                if (SpawnMenuContext.Visible)
+                    SpawnMenuContext.Visible = false;
             }
 
             if (DeloreanHandler.CurrentTimeMachine != null)
             {
                 if (RCMenu.Visible)
                     RCMenu.Visible = false;
+
+                if (StatisticsMenu.Visible)
+                    StatisticsMenu.Visible = false;
             }
 
-            MenuOpen = TimeMachineMenu.Visible || RCMenu.Visible || SpawnMenu.Visible || SpawnMenuContext.Visible || PresetsMenu.Visible || TrainMissionMenu.Visible || StatisticsMenu.Visible || PhotoMenu.Visible;
-
-            if (MenuOpen)
+            if (Main.MenuPool.IsAnyMenuOpen())
             {
                 if (RCMenu.Visible)
                     RCMenu.Process();
@@ -84,7 +85,7 @@ namespace BackToTheFutureV.InteractionMenu
                 if (TimeMachineMenu.Visible)
                     TimeMachineMenu.Process();
 
-                if(PresetsMenu.Visible)
+                if (PresetsMenu.Visible)
                     PresetsMenu.Process();
 
                 if (StatisticsMenu.Visible)
@@ -93,33 +94,16 @@ namespace BackToTheFutureV.InteractionMenu
                 if (PhotoMenu.Visible)
                     PhotoMenu.Process();
             }
-
         }
 
-        private static void OpenMenu()
+        public static void OpenMenu()
         {
+            Main.MenuPool.CloseAllMenus();
+
             if (DeloreanHandler.CurrentTimeMachine != null)
-            {
-                if (!TimeMachineMenu.Visible)
-                    TimeMachineMenu.Visible = true;
-
-                if (RCMenu.Visible)
-                    RCMenu.Visible = false;
-
-                if (PhotoMenu.Visible)
-                    PhotoMenu.Visible = false;
-            }
+                TimeMachineMenu.Visible = true;
             else
-            {
-                if (!ModMenuHandler.MainMenu.Visible)
-                    ModMenuHandler.MainMenu.Visible = true;
-
-                if (TimeMachineMenu.Visible)
-                    TimeMachineMenu.Visible = false;
-
-                if (RCMenu.Visible)
-                    RCMenu.Visible = false;
-            }
+                ModMenuHandler.MainMenu.Visible = true;
         }
     }
 }

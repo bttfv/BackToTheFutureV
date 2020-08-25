@@ -13,6 +13,7 @@ namespace BackToTheFutureV.InteractionMenu
     public class PhotoMenu : UIMenu
     {
         private UIMenuCheckboxItem _wormhole;
+        private UIMenuCheckboxItem _coils;
         private UIMenuCheckboxItem _ice;
         private UIMenuCheckboxItem _fluxCapacitor;
 
@@ -27,6 +28,7 @@ namespace BackToTheFutureV.InteractionMenu
             OnMenuOpen += PhotoMenu_OnMenuOpen;
 
             AddItem(_wormhole = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole"), false, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole_Description")));
+            AddItem(_coils = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils"), false, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils_Description")));
             AddItem(_ice = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice"), false, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice_Description")));
             AddItem(_fluxCapacitor = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor"), false, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor_Description")));
         }
@@ -34,6 +36,7 @@ namespace BackToTheFutureV.InteractionMenu
         private void PhotoMenu_OnMenuOpen(UIMenu sender)
         {
             _wormhole.Checked = _photoHandler.WormholeActive;
+            _coils.Checked = _photoHandler.GlowingCoilsActive;
             _ice.Checked = _photoHandler.IceActive;
             _fluxCapacitor.Checked = _photoHandler.FluxCapacitorActive;
         }
@@ -65,6 +68,11 @@ namespace BackToTheFutureV.InteractionMenu
                 _photoHandler.WormholeActive = Checked;
             }
 
+            if (checkboxItem == _coils)
+            {
+                _photoHandler.GlowingCoilsActive = Checked;
+            }
+
             if (checkboxItem == _ice)
             {
                 _photoHandler.IceActive = Checked;
@@ -74,6 +82,8 @@ namespace BackToTheFutureV.InteractionMenu
             {
                 _photoHandler.FluxCapacitorActive = Checked;
             }
+
+            _photoHandler.SetPhotoMode();
         }
     }
 }

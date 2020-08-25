@@ -10,6 +10,7 @@ namespace BackToTheFutureV.Delorean.Handlers
     public class PhotoHandler : Handler
     {
         public bool WormholeActive;
+        public bool GlowingCoilsActive;
         public bool IceActive;
         public bool FluxCapacitorActive;
 
@@ -28,12 +29,18 @@ namespace BackToTheFutureV.Delorean.Handlers
             
         }
 
-        public override void Process()
+        public void SetPhotoMode()
         {
             if (WormholeActive && !TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
                 TimeCircuits.GetHandler<SparksHandler>().StartWormhole();
 
             if (!WormholeActive && TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
+                TimeCircuits.GetHandler<SparksHandler>().StopWormhole();
+
+            if (GlowingCoilsActive && !TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
+                TimeCircuits.GetHandler<SparksHandler>().StartWormhole();
+
+            if (!GlowingCoilsActive && TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
                 TimeCircuits.GetHandler<SparksHandler>().StopWormhole();
 
             if (FluxCapacitorActive && !TimeCircuits.GetHandler<FluxCapacitorHandler>().TimeTravelEffect)
@@ -47,8 +54,11 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (!IceActive && IsFreezing)
                 TimeCircuits.GetHandler<FreezeHandler>().Stop();
+        }
 
-            IsPhotoModeOn = WormholeActive | IceActive | FluxCapacitorActive;
+        public override void Process()
+        {
+            IsPhotoModeOn = WormholeActive | GlowingCoilsActive | IceActive | FluxCapacitorActive;
         }
 
         public override void Stop()

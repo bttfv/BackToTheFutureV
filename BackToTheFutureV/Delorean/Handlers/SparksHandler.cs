@@ -14,7 +14,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public bool IsWormholePlaying => _wormholeAnims.IsPlaying;
 
-        public void StartWormhole() => _wormholeAnims.Play();
+        public void StartWormhole() => _wormholeAnims.Play(true);
 
         public void StopWormhole() => _wormholeAnims.Stop();
 
