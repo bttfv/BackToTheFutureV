@@ -34,11 +34,8 @@ namespace BackToTheFutureV.Delorean.Handlers
             
         }
 
-        public override void Process()
+        public void SetPhotoMode()
         {
-            if (!IsPhotoModeOn)
-                return;
-
             if (WormholeActive && !TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
                 TimeCircuits.GetHandler<SparksHandler>().StartWormhole();
 
@@ -52,9 +49,9 @@ namespace BackToTheFutureV.Delorean.Handlers
                 else
                     _coilsProp.Model = ModelHandler.CoilsGlowing;
 
-                _coilsProp.SpawnProp();
+                _coilsProp.SpawnProp(false);
             }
-               
+
             if (!GlowingCoilsActive && _coilsProp.IsSpawned)
                 _coilsProp.DeleteProp();
 
@@ -71,6 +68,11 @@ namespace BackToTheFutureV.Delorean.Handlers
                 TimeCircuits.GetHandler<FreezeHandler>().Stop();
 
             IsPhotoModeOn = WormholeActive | GlowingCoilsActive | FluxCapacitorActive | IceActive;
+        }
+
+        public override void Process()
+        {
+
         }
 
         public override void Stop()

@@ -186,6 +186,8 @@
 	BTTFV_Menu_StatisticsMenu_Description = A brief history of time
 	BTTFV_Menu_StatisticsMenu_LastTime = Last Time:
 	BTTFV_Menu_StatisticsMenu_LastTime_Description = Last departure time.
+	BTTFV_Menu_StatisticsMenu_Spawned = Spawned
+	BTTFV_Menu_StatisticsMenu_Spawned_Description = If time machine is currently spawned.
 	BTTFV_Menu_StatisticsMenu_ShowBlip = Show blip on map
 	BTTFV_Menu_StatisticsMenu_ShowBlip_Description = Show a blip on map where the car will reenter.
 	BTTFV_Menu_StatisticsMenu_ForceReenter = Force time machine reenter

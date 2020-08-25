@@ -12,6 +12,8 @@ namespace BackToTheFutureV.Delorean
 
         public Blip Blip;
 
+        public bool Spawned => DeloreanSpawned != null && DeloreanSpawned.Vehicle != null && DeloreanSpawned.Vehicle.Exists();
+
         private DeloreanTimeMachine DeloreanSpawned;
 
         private int _timer;
@@ -54,6 +56,16 @@ namespace BackToTheFutureV.Delorean
                 _hasPlayedWarningSound = false;
                 _timer = Game.GameTime + 3000;
             }
+        }
+
+        public bool ForceReenter()
+        {
+            if (Spawned)
+                return false;
+
+            DeloreanCopy.Circuits.DestinationTime = Main.CurrentTime;
+
+            return true;
         }
 
         public void Reenter()

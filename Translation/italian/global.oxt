@@ -186,6 +186,8 @@
 	BTTFV_Menu_StatisticsMenu_Description = A brief history of time
 	BTTFV_Menu_StatisticsMenu_LastTime = Tempo di partenza:
 	BTTFV_Menu_StatisticsMenu_LastTime_Description = Tempo di partenza.
+	BTTFV_Menu_StatisticsMenu_Spawned = Esiste
+	BTTFV_Menu_StatisticsMenu_Spawned_Description = Se la macchina del tempo esiste in questo momento nel tempo.
 	BTTFV_Menu_StatisticsMenu_ShowBlip = Mostra indicatore su mappa
 	BTTFV_Menu_StatisticsMenu_ShowBlip_Description = Mostra un'indicatore sulla mappa dove l'auto rientrerà.
 	BTTFV_Menu_StatisticsMenu_ForceReenter = Rientro forzato

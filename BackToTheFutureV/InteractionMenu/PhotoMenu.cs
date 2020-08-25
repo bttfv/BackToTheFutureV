@@ -83,8 +83,7 @@ namespace BackToTheFutureV.InteractionMenu
                 _photoHandler.FluxCapacitorActive = Checked;
             }
 
-            if (Checked)
-                _photoHandler.IsPhotoModeOn = true;
+            _photoHandler.SetPhotoMode();
         }
     }
 }

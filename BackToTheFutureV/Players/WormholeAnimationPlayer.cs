@@ -291,7 +291,7 @@ namespace BackToTheFutureV.Players
 
             _wheelPtfxes?.ForEach(x => x?.Stop());
 
-            _wormholeRT.DeleteProp();
+            _wormholeRT?.DeleteProp();
         }
 
         public override void Process()
@@ -321,7 +321,7 @@ namespace BackToTheFutureV.Players
                 }
             }
 
-            if (TimeCircuits.IsFueled)
+            if (TimeCircuits.IsFueled || TimeCircuits.IsPhotoModeOn)
                 HandleSparks();
 
             if (_sparkPTFX != null && !_sparkPTFX.IsPlaying)
@@ -342,7 +342,7 @@ namespace BackToTheFutureV.Players
                     _hasStartedWormhole = true;
                 }
 
-                if (TimeCircuits.DeloreanType != DeloreanType.BTTF3 && Game.GameTime >= _endAt && _playWormhole)
+                if (TimeCircuits.DeloreanType != DeloreanType.BTTF3 && Game.GameTime >= _endAt && _playWormhole && !TimeCircuits.IsPhotoModeOn)
                 {
                     OnCompleted?.Invoke();
                     Stop();
