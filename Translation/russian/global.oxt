@@ -199,9 +199,8 @@
 	BTTFV_Menu_PhotoMenu_Ice_Description = Включет лед на машине времени.
 	BTTFV_Menu_PhotoMenu_FluxCapacitor = Потоковый конденсатор
 	BTTFV_Menu_PhotoMenu_FluxCapacitor_Description = Включает потоковый конденсатор на машине времени.
-	<!-- TRANSLATE FROM HERE -->
-	BTTFV_Menu_StatisticsMenu_Spawned = Spawned
-	BTTFV_Menu_StatisticsMenu_Spawned_Description = If time machine is currently spawned.
-	BTTFV_Menu_PhotoMenu_HideHUD = Hide HUD
-	BTTFV_Menu_PhotoMenu_HideHUD_Description = Hides all the game and mod HUD.
+	BTTFV_Menu_StatisticsMenu_Spawned = Доступна
+	BTTFV_Menu_StatisticsMenu_Spawned_Description = Показывает, доступна ли машина времени.
+	BTTFV_Menu_PhotoMenu_HideHUD = Интерфейс
+	BTTFV_Menu_PhotoMenu_HideHUD_Description = Позволяет скрыть интерфейс.
 }
