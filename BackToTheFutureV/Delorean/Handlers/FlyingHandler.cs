@@ -198,6 +198,9 @@ namespace BackToTheFutureV.Delorean.Handlers
                 Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 40f);
             }
 
+            if (!IsFlying && IsAltitudeHolding)
+                IsAltitudeHolding = false;
+
             ventGlowing?.DeleteProp();
             _hoverGlowing?.DeleteProp();
         }

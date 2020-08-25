@@ -104,7 +104,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     PreviousTime = Utils.GetWorldTime();
 
                     // Invoke delegate
-                    //TimeCircuits.OnTimeTravel?.Invoke();
+                    TimeCircuits.OnTimeTravel?.Invoke();
                     
                     if (!IsRemoteControlled && Vehicle.GetPedOnSeat(VehicleSeat.Driver) == Main.PlayerPed && (!CutsceneMode || Utils.IsPlayerUseFirstPerson()))
                     {

@@ -75,7 +75,7 @@ namespace BackToTheFutureV.Delorean.Handlers
           
             if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !IsFlying) | (Vehicle.HeightAboveGround >= 20 && IsFlying)) 
             {
-                if (Utils.Random.NextDouble() < 1.1)
+                if (Utils.Random.NextDouble() < 0.2)
                     Strike();
                 else
                     _nextCheck = Game.GameTime + 10000;
