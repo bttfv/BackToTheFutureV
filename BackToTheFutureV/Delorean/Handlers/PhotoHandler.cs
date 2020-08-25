@@ -68,7 +68,9 @@ namespace BackToTheFutureV.Delorean.Handlers
                 TimeCircuits.GetHandler<FreezeHandler>().StartFreezeHandling(false);
 
             if (!IceActive && IsFreezing)
-                TimeCircuits.GetHandler<FreezeHandler>().Stop();            
+                TimeCircuits.GetHandler<FreezeHandler>().Stop();
+
+            IsPhotoModeOn = WormholeActive | GlowingCoilsActive | FluxCapacitorActive | IceActive;
         }
 
         public override void Stop()
