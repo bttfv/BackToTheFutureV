@@ -178,6 +178,10 @@
 	BTTFV_Menu_LandingSystem = Sistema d'atterraggio
 	BTTFV_Menu_LandingSystem_Description = Se abilitato l'auto non cadrà giù ma bisognerà atterrare manualmente.
 	BTTFV_Input_VTOL_Tip = Premere ~INPUT_VEH_AIM~ e ~INPUT_VEH_FLY_THROTTLE_DOWN~ per atterrare.
+	BTTFV_Menu_StatisticsMenu_Deloreans = Macchina del tempo
+	BTTFV_Menu_StatisticsMenu_Deloreans_Description = Lista delle macchine del tempo bloccate nel tempo.
+	BTTFV_Menu_StatisticsMenu_Type = Tipo
+	BTTFV_Menu_StatisticsMenu_Type_Description = Tipo della macchina del tempo.
 	BTTFV_Menu_StatisticsMenu = Outatime
 	BTTFV_Menu_StatisticsMenu_Description = A brief history of time
 	BTTFV_Menu_StatisticsMenu_LastTime = Tempo di partenza:

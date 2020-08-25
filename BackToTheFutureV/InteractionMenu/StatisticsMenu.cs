@@ -27,8 +27,8 @@ namespace BackToTheFutureV.InteractionMenu
 
         public StatisticsMenu() : base(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Description"))
         {
-            AddItem(Deloreans = new UIMenuDynamicListItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_Deloreans"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_Deloreans_Description"), "0", ChangeCallback));
-            AddItem(TypeDescription = new UIMenuListItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wormhole"), _listTypes, 0, Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wormhole_Description")));
+            AddItem(Deloreans = new UIMenuDynamicListItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans_Description"), "0", ChangeCallback));
+            AddItem(TypeDescription = new UIMenuListItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type"), _listTypes, 0, Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type_Description")));
             AddItem(DestinationTimeDescription = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime_Description")));
             AddItem(LastTimeDescription = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime_Description")));
             AddItem(ShowBlip = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_ShowBlip"), false, Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_ShowBlip_Description")));
@@ -38,9 +38,9 @@ namespace BackToTheFutureV.InteractionMenu
             DestinationTimeDescription.Enabled = false;
             LastTimeDescription.Enabled = false;
 
-            OnItemSelect += RCMenu_OnItemSelect;
-            OnListChange += RCMenu_OnListChange;
-            OnMenuClose += RCMenu_OnMenuClose;
+            OnItemSelect += StatisticsMenu_OnItemSelect;
+            OnListChange += StatisticsMenu_OnListChange;
+            OnMenuClose += StatisticsMenu_OnMenuClose;
             OnCheckboxChange += StatisticsMenu_OnCheckboxChange;
         }
 
@@ -90,7 +90,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private RemoteDelorean _currentTimeMachine => RemoteDeloreansHandler.GetTimeMachineFromIndex(_selectedIndex);
 
-        private void RCMenu_OnListChange(UIMenu sender, UIMenuListItem listItem, int newIndex)
+        private void StatisticsMenu_OnListChange(UIMenu sender, UIMenuListItem listItem, int newIndex)
         {
             _selectedIndex = newIndex;
         }
@@ -125,12 +125,12 @@ namespace BackToTheFutureV.InteractionMenu
             return _selectedIndex.ToString();
         }
 
-        private void RCMenu_OnMenuClose(UIMenu sender)
+        private void StatisticsMenu_OnMenuClose(UIMenu sender)
         {
             
         }
 
-        private void RCMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
+        private void StatisticsMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
         {
             if (selectedItem == ForceReenter)
                 _currentTimeMachine.DeloreanCopy.Circuits.DestinationTime = Main.CurrentTime;
@@ -148,7 +148,7 @@ namespace BackToTheFutureV.InteractionMenu
             if (_currentTimeMachine != null)
             {
                 TypeDescription.Index = (int)_currentTimeMachine.DeloreanCopy.Mods.DeloreanType - 1;
-                DestinationTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime") + " " + _currentTimeMachine.DeloreanCopy.Circuits.DestinationTime.ToString();
+                DestinationTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_DestinationTime") + " " + _currentTimeMachine.DeloreanCopy.Circuits.DestinationTime.ToString();
                 LastTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime") + " " + _currentTimeMachine.DeloreanCopy.Circuits.PreviousTime.ToString();
 
                 ShowBlip.Checked = _currentTimeMachine.Blip != null && _currentTimeMachine.Blip.Exists();
@@ -156,7 +156,7 @@ namespace BackToTheFutureV.InteractionMenu
             else
             {
                 TypeDescription.Index = 0;
-                DestinationTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime");
+                DestinationTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_DestinationTime");
                 LastTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime");
 
                 ShowBlip.Checked = false;

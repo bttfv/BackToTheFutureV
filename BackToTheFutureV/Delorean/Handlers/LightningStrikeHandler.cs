@@ -123,8 +123,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public override void KeyPress(Keys key)
         {
-            if (key == Keys.L)
-                Function.Call(Hash.FORCE_LIGHTNING_FLASH);
+
         }
 
         public override void Stop()
