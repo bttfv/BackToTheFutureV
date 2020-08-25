@@ -40,7 +40,7 @@
 	BTTFV_Menu_TCDEditMode = Edit Mode
 	BTTFV_Menu_TCDEditMode_Description = Allows you to enter Edit Mode which allows you to change the position and size of the Time Circuits Display on your screen.
 	BTTFV_MENU_TCDEditMode_Save = Settings saved!
-	BTTFV_MENU_TCDEditMode_Cancel = Changes canceled!
+	BTTFV_MENU_TCDEditMode_Cancel = Changes cancelled!
 	BTTFV_Menu_TCDReset = Reset to default
 	BTTFV_Menu_TCDReset_Description = Resets the position and the size of the Time Circuits Display to default.
 	BTTFV_Menu_OnFoot = On Foot
