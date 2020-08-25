@@ -202,4 +202,6 @@
 	BTTFV_Menu_PhotoMenu_Ice_Description = Enables ice on time machine.
 	BTTFV_Menu_PhotoMenu_FluxCapacitor = Flux Capacitor
 	BTTFV_Menu_PhotoMenu_FluxCapacitor_Description = Enables flux capacitor on time machine.
+	BTTFV_Menu_PhotoMenu_HideHUD = Hide HUD
+	BTTFV_Menu_PhotoMenu_HideHUD_Description = Hides all the game and mod HUD.
 }

@@ -26,7 +26,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public override void Dispose()
         {
-            
+            _coilsProp?.DeleteProp();
         }
 
         public override void KeyPress(Keys key)
@@ -41,7 +41,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
             if (!WormholeActive && TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
                 TimeCircuits.GetHandler<SparksHandler>().StopWormhole();
-
+           
             if (GlowingCoilsActive && !_coilsProp.IsSpawned)
             {
                 if (Main.CurrentTime.Hour >= 20 || (Main.CurrentTime.Hour >= 0 && Main.CurrentTime.Hour <= 5))
@@ -49,11 +49,15 @@ namespace BackToTheFutureV.Delorean.Handlers
                 else
                     _coilsProp.Model = ModelHandler.CoilsGlowing;
 
+                Mods.OffCoils = ModState.Off;
                 _coilsProp.SpawnProp(false);
             }
 
             if (!GlowingCoilsActive && _coilsProp.IsSpawned)
+            {
+                Mods.OffCoils = ModState.On;
                 _coilsProp.DeleteProp();
+            }               
 
             if (FluxCapacitorActive && !TimeCircuits.GetHandler<FluxCapacitorHandler>().TimeTravelEffect)
                 TimeCircuits.GetHandler<FluxCapacitorHandler>().StartTimeTravelEffect();
@@ -77,7 +81,7 @@ namespace BackToTheFutureV.Delorean.Handlers
 
         public override void Stop()
         {
-            
+            _coilsProp?.DeleteProp();
         }
     }
 }

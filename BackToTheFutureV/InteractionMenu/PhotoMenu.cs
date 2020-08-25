@@ -16,6 +16,7 @@ namespace BackToTheFutureV.InteractionMenu
         private UIMenuCheckboxItem _coils;
         private UIMenuCheckboxItem _ice;
         private UIMenuCheckboxItem _fluxCapacitor;
+        private UIMenuCheckboxItem _hideHUD;
 
         private PhotoHandler _photoHandler => DeloreanHandler.CurrentTimeMachine.Circuits.GetHandler<PhotoHandler>();
         
@@ -31,6 +32,7 @@ namespace BackToTheFutureV.InteractionMenu
             AddItem(_coils = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils"), false, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils_Description")));
             AddItem(_ice = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice"), false, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice_Description")));
             AddItem(_fluxCapacitor = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor"), false, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor_Description")));
+            AddItem(_hideHUD = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_HideHUD"), false, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_HideHUD_Description")));
         }
 
         private void PhotoMenu_OnMenuOpen(UIMenu sender)
@@ -39,6 +41,7 @@ namespace BackToTheFutureV.InteractionMenu
             _coils.Checked = _photoHandler.GlowingCoilsActive;
             _ice.Checked = _photoHandler.IceActive;
             _fluxCapacitor.Checked = _photoHandler.FluxCapacitorActive;
+            _hideHUD.Checked = Main.HideGui;
         }
 
         public void Process()
@@ -81,6 +84,11 @@ namespace BackToTheFutureV.InteractionMenu
             if (checkboxItem == _fluxCapacitor)
             {
                 _photoHandler.FluxCapacitorActive = Checked;
+            }
+
+            if (checkboxItem == _hideHUD)
+            {
+                Main.HideGui = _hideHUD.Checked;
             }
 
             _photoHandler.SetPhotoMode();
