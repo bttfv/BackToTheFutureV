@@ -43,7 +43,9 @@ namespace BackToTheFutureV.Delorean.Handlers
         public void SetFlyMode(bool open, bool instant = false) => TimeCircuits?.FlyingHandler.SetFlyMode(open, instant);        
         
         public bool IsOnTracks { get => TimeCircuits.IsOnTracks; set => TimeCircuits.IsOnTracks = value; }
-        public bool IsAttachedToRogersSierra { get => TimeCircuits.IsAttachedToRogersSierra; set => TimeCircuits.IsAttachedToRogersSierra = value; }        
+        public bool IsAttachedToRogersSierra { get => TimeCircuits.IsAttachedToRogersSierra; set => TimeCircuits.IsAttachedToRogersSierra = value; }
+
+        public bool IsPhotoModeOn { get => TimeCircuits.IsPhotoModeOn; set => TimeCircuits.IsPhotoModeOn = value; }
 
         public Handler(TimeCircuits circuits)
         {

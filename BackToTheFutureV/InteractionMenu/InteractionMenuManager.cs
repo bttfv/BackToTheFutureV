@@ -14,6 +14,8 @@ namespace BackToTheFutureV.InteractionMenu
 {
     public class InteractionMenuManager
     {
+        public static PhotoMenu PhotoMenu { get; private set; }
+
         public static StatisticsMenu StatisticsMenu { get; private set; }
 
         public static RCMenu RCMenu { get; private set; }
@@ -34,7 +36,8 @@ namespace BackToTheFutureV.InteractionMenu
         
         public static void Init()
         {
-            // Build the initial menu            
+            // Build the initial menu           
+            Main.MenuPool.Add(PhotoMenu = new PhotoMenu());
             Main.MenuPool.Add(StatisticsMenu = new StatisticsMenu());
             Main.MenuPool.Add(RCMenu = new RCMenu());
             Main.MenuPool.Add(SpawnMenu = new SpawnMenu());
@@ -71,7 +74,7 @@ namespace BackToTheFutureV.InteractionMenu
                     RCMenu.Visible = false;
             }
 
-            MenuOpen = TimeMachineMenu.Visible || RCMenu.Visible || SpawnMenu.Visible || SpawnMenuContext.Visible || PresetsMenu.Visible || TrainMissionMenu.Visible || StatisticsMenu.Visible;
+            MenuOpen = TimeMachineMenu.Visible || RCMenu.Visible || SpawnMenu.Visible || SpawnMenuContext.Visible || PresetsMenu.Visible || TrainMissionMenu.Visible || StatisticsMenu.Visible || PhotoMenu.Visible;
 
             if (MenuOpen)
             {
@@ -86,6 +89,9 @@ namespace BackToTheFutureV.InteractionMenu
 
                 if (StatisticsMenu.Visible)
                     StatisticsMenu.Process();
+
+                if (PhotoMenu.Visible)
+                    PhotoMenu.Process();
             }
 
         }
@@ -99,6 +105,9 @@ namespace BackToTheFutureV.InteractionMenu
 
                 if (RCMenu.Visible)
                     RCMenu.Visible = false;
+
+                if (PhotoMenu.Visible)
+                    PhotoMenu.Visible = false;
             }
             else
             {

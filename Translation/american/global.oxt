@@ -188,5 +188,13 @@
 	BTTFV_Menu_StatisticsMenu_ShowBlip = Show blip on map
 	BTTFV_Menu_StatisticsMenu_ShowBlip_Description = Show a blip on map where the car will reenter.
 	BTTFV_Menu_StatisticsMenu_ForceReenter = Force time machine reenter
-	BTTFV_Menu_StatisticsMenu_ForceReenter_Description = An emergency system for make the car reenter manually.	
+	BTTFV_Menu_StatisticsMenu_ForceReenter_Description = An emergency system for make the car reenter manually.
+	BTTFV_Menu_PhotoMenu = Photo Menu
+	BTTFV_Menu_PhotoMenu_Description = Opens the photo menu.
+	BTTFV_Menu_PhotoMenu_Wormhole = Time travel effects
+	BTTFV_Menu_PhotoMenu_Wormhole_Description = Enables time travel effects on time machine.
+	BTTFV_Menu_PhotoMenu_Ice = Ice
+	BTTFV_Menu_PhotoMenu_Ice_Description = Enables ice on time machine.
+	BTTFV_Menu_PhotoMenu_FluxCapacitor = Flux Capacitor
+	BTTFV_Menu_PhotoMenu_FluxCapacitor_Description = Enables flux capacitor on time machine.
 }

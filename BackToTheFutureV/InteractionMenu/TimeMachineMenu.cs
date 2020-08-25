@@ -26,6 +26,9 @@ namespace BackToTheFutureV.InteractionMenu
             AddItem(RemoteControl = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_RemoteControl"), false, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_RemoteControl_Description")));
 
             SpawnMenu = Utils.AttachSubmenu(this, InteractionMenuManager.SpawnMenuContext, Game.GetLocalizedString("BTTFV_Input_SpawnMenu"), "");
+
+            Utils.AttachSubmenu(this, InteractionMenuManager.PhotoMenu, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Description"));
+
             AddItem(BackToMainMenu = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu"), Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu_Description")));
 
             OnCheckboxChange += TimeMachineMenu_OnCheckboxChange;

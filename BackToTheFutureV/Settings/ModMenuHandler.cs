@@ -105,7 +105,7 @@ namespace BackToTheFutureV
             eventsMenu.AddItem(TurbulenceEvent = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TurbolenceEvent"), ModSettings.TurbulenceEvent, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TurbolenceEvent_Description")));
 
             eventsMenu.OnCheckboxChange += SettingsMenu_OnCheckboxChange;
-
+            
             tcdMenu = Main.MenuPool.AddSubMenu(settingsMenu, Game.GetLocalizedString("BTTFV_Menu_TCDMenu"), Game.GetLocalizedString("BTTFV_Menu_TCDMenu_Description"));
             tcdMenu.SetBannerType("./scripts/BackToTheFutureV/BTTFV.png");
 

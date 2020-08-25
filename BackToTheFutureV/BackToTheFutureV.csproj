@@ -97,6 +97,7 @@
     <Compile Include="Delorean\Handlers\HookHandler.cs" />
     <Compile Include="Delorean\Handlers\InputHandler.cs" />
     <Compile Include="Delorean\Handlers\LightningStrikeHandler.cs" />
+    <Compile Include="Delorean\Handlers\PhotoHandler.cs" />
     <Compile Include="Delorean\Handlers\PlutoniumGaugeHandler.cs" />
     <Compile Include="Delorean\Handlers\PrestoLogsHandler.cs" />
     <Compile Include="Delorean\Handlers\RailroadHandler.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Delorean\Handlers\TFCHandler.cs" />
     <Compile Include="Delorean\Handlers\TimeCircuitsErrorHandler.cs" />
     <Compile Include="GUI\InstrumentalMenu.cs" />
+    <Compile Include="InteractionMenu\PhotoMenu.cs" />
     <Compile Include="InteractionMenu\PresetsMenu.cs" />
     <Compile Include="InteractionMenu\StatisticsMenu.cs" />
     <Compile Include="InteractionMenu\SpawnMenu.cs" />

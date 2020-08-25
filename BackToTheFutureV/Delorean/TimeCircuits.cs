@@ -146,6 +146,11 @@ namespace BackToTheFutureV.Delorean
         public bool IsWarmedUp => GetHandler<HoodboxHandler>().IsWarmedUp;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool IsPhotoModeOn { get; set; }
+
+        /// <summary>
         /// Delegate called when the destination date is input.
         /// </summary>
         public OnDestinationDateChange OnDestinationDateChange { get; set; }
@@ -377,6 +382,7 @@ namespace BackToTheFutureV.Delorean
             registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
             registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
             registeredHandlers.Add("EngineHandler", new EngineHandler(this));
+            registeredHandlers.Add("PhotoHandler", new PhotoHandler(this));
             //registeredHandlers.Add("CoilsIndicatorHandler", new CoilsIndicatorHandler(this));
         }
     }

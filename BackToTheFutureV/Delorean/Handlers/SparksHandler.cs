@@ -12,6 +12,12 @@ namespace BackToTheFutureV.Delorean.Handlers
     {
         private WormholeAnimationPlayer _wormholeAnims;
 
+        public bool IsWormholePlaying => _wormholeAnims.IsPlaying;
+
+        public void StartWormhole() => _wormholeAnims.Play();
+
+        public void StopWormhole() => _wormholeAnims.Stop();
+
         private AudioPlayer _sparksAudio;
         private readonly AudioPlayer _sparksEmptyAudio;
         private readonly AudioPlayer _diodesGlowingSound;
@@ -115,6 +121,9 @@ namespace BackToTheFutureV.Delorean.Handlers
             }
 
             _wormholeAnims?.Process();
+
+            if (IsPhotoModeOn)
+                return;
 
             if (MPHSpeed >= _playDiodeSoundAt)
             {

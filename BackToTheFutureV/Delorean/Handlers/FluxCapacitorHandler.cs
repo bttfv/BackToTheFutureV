@@ -14,6 +14,8 @@ namespace BackToTheFutureV.Delorean.Handlers
 {
     public class FluxCapacitorHandler : Handler
     {
+        public bool TimeTravelEffect;
+
         public FluxCapacitorHandler(TimeCircuits circuits) : base(circuits)
         {
             _fluxScaleform = new ScaleformGui("bttf_flux_scaleform");
@@ -36,11 +38,13 @@ namespace BackToTheFutureV.Delorean.Handlers
         public void StartTimeTravelEffect()
         {
             _fluxScaleform.CallFunction("START_BLUE_ANIMATION");
+            TimeTravelEffect = true;
         }
 
         public void StartNormalFluxing()
         {
             _fluxScaleform.CallFunction("START_ANIMATION");
+            TimeTravelEffect = false;
         }
 
         private void OnScaleformPriority()
@@ -68,6 +72,7 @@ namespace BackToTheFutureV.Delorean.Handlers
             if (!IsOn)
             {
                 _fluxScaleform.CallFunction("STOP_ANIMATION");
+                TimeTravelEffect = false;
             }
             else
             {
