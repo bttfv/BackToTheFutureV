@@ -194,8 +194,8 @@
 	BTTFV_Menu_PhotoMenu_Description = Apre il menu foto.
 	BTTFV_Menu_PhotoMenu_Wormhole = Effetti viaggio nel tempo
 	BTTFV_Menu_PhotoMenu_Wormhole_Description = Attiva gli effetti del viaggio del tempo sulla macchina.	
-	BTTFV_Menu_PhotoMenu_Coils = Coils
-	BTTFV_Menu_PhotoMenu_Coils_Description = Enables coils on time machine.
+	BTTFV_Menu_PhotoMenu_Coils = Bande luminescenti
+	BTTFV_Menu_PhotoMenu_Coils_Description = Abilita le bandi luminescenti sulla macchina del tempo.
 	BTTFV_Menu_PhotoMenu_Ice = Ghiaccio
 	BTTFV_Menu_PhotoMenu_Ice_Description = Attiva il ghiaccio sulla macchina del tempo
 	BTTFV_Menu_PhotoMenu_FluxCapacitor = Flusso Canalizzatore

@@ -19,7 +19,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private PhotoHandler _photoHandler => DeloreanHandler.CurrentTimeMachine.Circuits.GetHandler<PhotoHandler>();
         
-        public PhotoMenu() : base(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Description"))
+        public PhotoMenu() : base(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu"), Game.GetLocalizedString("BTTFV_Menu_Description"))
         {
             OnCheckboxChange += PhotoMenu_OnCheckboxChange;
             OnItemSelect += PhotoMenu_OnItemSelect;
@@ -65,7 +65,7 @@ namespace BackToTheFutureV.InteractionMenu
         {
             if (checkboxItem == _wormhole)
             {
-                _photoHandler.WormholeActive = Checked;
+                _photoHandler.WormholeActive = Checked;                
             }
 
             if (checkboxItem == _coils)
@@ -82,6 +82,9 @@ namespace BackToTheFutureV.InteractionMenu
             {
                 _photoHandler.FluxCapacitorActive = Checked;
             }
+
+            if (Checked)
+                _photoHandler.IsPhotoModeOn = true;
         }
     }
 }
