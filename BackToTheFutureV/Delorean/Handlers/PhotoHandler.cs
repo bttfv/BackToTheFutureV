@@ -29,19 +29,22 @@ namespace BackToTheFutureV.Delorean.Handlers
             
         }
 
-        public void SetPhotoMode()
+        public override void Process()
         {
+            if (!IsPhotoModeOn)
+                return;
+
             if (WormholeActive && !TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
                 TimeCircuits.GetHandler<SparksHandler>().StartWormhole();
 
             if (!WormholeActive && TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
                 TimeCircuits.GetHandler<SparksHandler>().StopWormhole();
 
-            if (GlowingCoilsActive && !TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
-                TimeCircuits.GetHandler<SparksHandler>().StartWormhole();
+            //if (GlowingCoilsActive && !TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
+            //    TimeCircuits.GetHandler<SparksHandler>().StartWormhole();
 
-            if (!GlowingCoilsActive && TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
-                TimeCircuits.GetHandler<SparksHandler>().StopWormhole();
+            //if (!GlowingCoilsActive && TimeCircuits.GetHandler<SparksHandler>().IsWormholePlaying)
+            //    TimeCircuits.GetHandler<SparksHandler>().StopWormhole();
 
             if (FluxCapacitorActive && !TimeCircuits.GetHandler<FluxCapacitorHandler>().TimeTravelEffect)
                 TimeCircuits.GetHandler<FluxCapacitorHandler>().StartTimeTravelEffect();
@@ -53,12 +56,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                 TimeCircuits.GetHandler<FreezeHandler>().StartFreezeHandling(false);
 
             if (!IceActive && IsFreezing)
-                TimeCircuits.GetHandler<FreezeHandler>().Stop();
-        }
-
-        public override void Process()
-        {
-            IsPhotoModeOn = WormholeActive | GlowingCoilsActive | IceActive | FluxCapacitorActive;
+                TimeCircuits.GetHandler<FreezeHandler>().Stop();            
         }
 
         public override void Stop()
