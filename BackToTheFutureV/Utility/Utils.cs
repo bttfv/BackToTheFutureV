@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using IrrKlang;
+//using IrrKlang;
 using BackToTheFutureV.Memory;
 using GTA.UI;
 using NativeUI;
@@ -799,10 +799,10 @@ namespace BackToTheFutureV.Utility
             return (int)((float)firstFloat + ((float)secondFloat - (float)firstFloat) * by);
         }
 
-        public static Vector3D Vector3ToVector3D(Vector3 vector)
-        {
-            return new Vector3D(vector.X, vector.Z, vector.Y);
-        }
+        //public static Vector3D Vector3ToVector3D(Vector3 vector)
+        //{
+        //    return new Vector3D(vector.X, vector.Z, vector.Y);
+        //}
 
         public static bool IsAnyOfFrontDoorsOpen(Vehicle vehicle)
         {
