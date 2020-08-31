@@ -48,6 +48,8 @@ namespace BackToTheFutureV.Delorean
         NOTIME = 2,
         TIMELESS = 3,
         TIMELESS2 = 4,
+        DMCFACTORY = 5,
+        DMCFACTORY2 = 6,
         BTTF2 = 1
     }
 
