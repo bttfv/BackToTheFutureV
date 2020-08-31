@@ -204,4 +204,6 @@
 	BTTFV_Menu_PhotoMenu_FluxCapacitor_Description = Attiva il flusso canalizzatore sulla macchina del tempo.
 	BTTFV_Menu_PhotoMenu_HideHUD = Nascondi HUD
 	BTTFV_Menu_PhotoMenu_HideHUD_Description = Nasconde l'HUD del gioco e della mod.
+	<!-- TRANSLATE FROM HERE -->
+	BTTFV_Input_SpawnMenu_Plate_NoTime = No Time
 }
