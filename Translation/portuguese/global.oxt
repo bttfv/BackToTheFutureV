@@ -47,7 +47,7 @@
 	BTTFV_Menu_OnFoot_Refuel = Reabastercer
 	BTTFV_Menu_OnFoot_Refuel_Description = Permite reabastecer o Reator da sua Maquina do Tempo.
 	BTTFV_Menu_OnFoot_Refuel_Error = Você não está proximo de uma Maquina do Tempo!
-  BTTFV_Menu_OnFoot_Refuel_Full = Reator já está cheio.
+	BTTFV_Menu_OnFoot_Refuel_Full = Reator já está cheio.
 	BTTFV_Menu_GoBackToMainMenu = Ir ao menu pricipal
 	BTTFV_Menu_GoBackToMainMenu_Description = Leva você ao menu principal do mod.
 	BTTFV_Menu_RCMenu = Controle Remoto
@@ -205,4 +205,8 @@
 	BTTFV_Menu_PhotoMenu_HideHUD = Hide HUD
 	BTTFV_Menu_PhotoMenu_HideHUD_Description = Hides all the game and mod HUD.
 	BTTFV_Input_SpawnMenu_Plate_NoTime = No Time
+	BTTFV_Input_SpawnMenu_Plate_Timeless = Timeless
+	BTTFV_Input_SpawnMenu_Plate_Timeless2 = Timeless (alt)
+	BTTFV_Input_SpawnMenu_Plate_DMCFactory = Factory DMC 
+	BTTFV_Input_SpawnMenu_Plate_DMCFactory2 = Factory DMC (alt)
 }

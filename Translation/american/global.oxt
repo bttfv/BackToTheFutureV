@@ -204,4 +204,8 @@
 	BTTFV_Menu_PhotoMenu_HideHUD = Hide HUD
 	BTTFV_Menu_PhotoMenu_HideHUD_Description = Hides all the game and mod HUD.
 	BTTFV_Input_SpawnMenu_Plate_NoTime = No Time
+	BTTFV_Input_SpawnMenu_Plate_Timeless = Timeless
+	BTTFV_Input_SpawnMenu_Plate_Timeless2 = Timeless (alt)
+	BTTFV_Input_SpawnMenu_Plate_DMCFactory = Factory DMC 
+	BTTFV_Input_SpawnMenu_Plate_DMCFactory2 = Factory DMC (alt)
 }

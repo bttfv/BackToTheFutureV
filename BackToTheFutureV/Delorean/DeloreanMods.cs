@@ -46,6 +46,8 @@ namespace BackToTheFutureV.Delorean
         Empty = -1,
         Outatime = 0,
         NOTIME = 2,
+        TIMELESS = 3,
+        TIMELESS2 = 4,
         BTTF2 = 1
     }
 
