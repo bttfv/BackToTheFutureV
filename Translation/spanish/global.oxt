@@ -203,4 +203,10 @@
 	BTTFV_Menu_PhotoMenu_FluxCapacitor_Description = Habilita el condensador de flujo en la máquina del tiempo. 
 	BTTFV_Menu_PhotoMenu_HideHUD = Ocultar HUD
 	BTTFV_Menu_PhotoMenu_HideHUD_Description = Ocultar todos los juegos y mod HUD.
+	<!-- TRANSLATE FROM HERE -->
+	BTTFV_Input_SpawnMenu_Plate_NoTime = No Time
+	BTTFV_Input_SpawnMenu_Plate_Timeless = Timeless
+	BTTFV_Input_SpawnMenu_Plate_Timeless2 = Timeless (alt)
+	BTTFV_Input_SpawnMenu_Plate_DMCFactory = Factory DMC 
+	BTTFV_Input_SpawnMenu_Plate_DMCFactory2 = Factory DMC (alt)
 }
