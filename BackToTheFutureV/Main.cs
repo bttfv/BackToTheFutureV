@@ -33,7 +33,7 @@ namespace BackToTheFutureV
 
         public static Vehicle PlayerVehicle => PlayerPed.CurrentVehicle;
 
-        public static cRogersSierra RogersSierra => Manager.RogersSierra;
+        public static cRogersSierra RogersSierra => Manager.CurrentRogersSierra;
 
         public static bool IsPlayerSwitchInProgress => Function.Call<bool>(Hash.IS_PLAYER_SWITCH_IN_PROGRESS);
 

@@ -59,7 +59,7 @@ namespace BackToTheFutureV
 
             RemoteDeloreansHandler.ExistenceCheck(time);
 
-            RogersSierra.Manager.RogersSierra?.Delete();
+            RogersSierra.Manager.RogersSierra?.ForEach(x => x?.Delete());
         }
 
         public static void TimeTravelTo(TimeCircuits timeCircuits, DateTime time)
