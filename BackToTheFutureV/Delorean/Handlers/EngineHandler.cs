@@ -443,7 +443,7 @@ namespace BackToTheFutureV.Delorean.Handlers
                     {
                         _currentAccel.Play();
                     }
-                    else if (!_accellSounds.Any(x => x.IsAnyInstancePlaying)
+                    else if (!_accellSounds.Any(x => x.IsAnyInstancePlaying))
                     {
                         _currentAccel.Play();
                     }
