@@ -439,12 +439,11 @@ namespace BackToTheFutureV.Delorean.Handlers
             {
                 if (_currentAccel != _engineAccell1Sound)
                 {
-                    if (_accellSounds.Any(x => x.IsAnyInstancePlaying))
+                    if (_accellSounds.Any(x => x.IsAnyInstancePlaying && x.PlayPosition >= 7000))
                     {
-                        if (_currentAccel.PlayPosition >= 7000)
-                            _currentAccel.Play();
+                        _currentAccel.Play();
                     }
-                    else
+                    else if (!_accellSounds.Any(x => x.IsAnyInstancePlaying)
                     {
                         _currentAccel.Play();
                     }
@@ -466,11 +465,9 @@ namespace BackToTheFutureV.Delorean.Handlers
             if (Speed <= 3.5f && !_possibleFastAccel)
                 return;
 
-            if (_accellSounds.Any(x => x.IsAnyInstancePlaying))
-            {
-                if (_accellSounds.Any(x => x.PlayPosition < 1000))
-                    return;
-            }
+            if (_accellSounds.Any(x => x.IsAnyInstancePlaying && x.PlayPosition < 1000))
+                return;
+
             _currentAccel.Play();
         }
 
