@@ -219,7 +219,7 @@ namespace BackToTheFutureV.Delorean
                 case DeloreanType.BTTF3:                    
                     Hoodbox = ModState.On;
                     Wheel = WheelType.Red;
-                    SuspensionsType = SuspensionsType.LiftFrontLowerRear;
+                    SuspensionsType = SuspensionsType.LiftFront;
                     break;
             }
         }
