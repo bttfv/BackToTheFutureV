@@ -86,7 +86,7 @@
 	BTTFV_Menu_FluxCapacitorSound = Dźwięk kondensatora strumienia
 	BTTFV_Menu_FluxCapacitorSound_Description = Umożliwia włączenie/wyłączenie dźwięku kondensatora strumienia.
 	BTTFV_RC_Signal = Siła sygnału
-	BTTFV_Hoodbox_Warmup_Start = Naciśnij ~INPUT_CONTEXT~ do uruchomienia obwodów czasowych sterujących nagrzewaniem rur.
+	BTTFV_Hoodbox_Warmup_Start = Naciśnij ~INPUT_CONTEXT~ by rozgrzać rury sterujące obwodami czasowymi.
 	BTTFV_Hoodbox_Warmup_Error = Rury sterownicze obwodów czasowych są rozgrzane.
 	BTTFV_Hoodbox_Warmup_TfcError = Rury sterujące obwodami czasowymi nie są rozgrzane.
 	BTTFV_Input_Mode = Tryb klawiatury numerycznej
@@ -111,7 +111,7 @@
 	BTTFV_Input_SpawnMenu_Nuclear = Reaktor nuklearny
 	BTTFV_Input_SpawnMenu_Wheel_Stock = Standardowe
 	BTTFV_Input_SpawnMenu_Wheel_RedWhite = Opony z lat '55
-	BTTFV_Input_SpawnMenu_Wheel_Railroads = Same felgi
+	BTTFV_Input_SpawnMenu_Wheel_Railroads = Felgi
 	BTTFV_Input_SpawnMenu_Plate_Empty = Puste
 	BTTFV_Input_SpawnMenu_Plate_Outatime = Outatime
 	BTTFV_Input_SpawnMenu_Plate_Futuristic = Futurystyczna
