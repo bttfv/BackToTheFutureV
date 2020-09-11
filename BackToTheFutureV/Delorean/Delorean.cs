@@ -295,8 +295,8 @@ namespace BackToTheFutureV.Delorean
         private void CreateBlip()
         {
             DeloreanBlip = Vehicle.AddBlip();
-            DeloreanBlip.Sprite = BlipSprite.Deluxo;
-            DeloreanBlip.Name = "DeLorean";
+            DeloreanBlip.Sprite = BlipSprite.Firewall;
+            DeloreanBlip.Name = "DMC-12";
         }
 
         public virtual void Tick()
@@ -314,11 +314,13 @@ namespace BackToTheFutureV.Delorean
                 switch (DeloreanType)
                 {
                     case DeloreanType.BTTF1:
+                        DeloreanBlip.Sprite = BlipSprite.Node;
                         DeloreanBlip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF1")}";
                         DeloreanBlip.Color = BlipColor.NetPlayer22;
                         break;
 
                     case DeloreanType.BTTF2:
+                        DeloreanBlip.Sprite = BlipSprite.StarterPackIdentifier;
                         DeloreanBlip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF2")}";
                         DeloreanBlip.Color = BlipColor.NetPlayer21;
                         break;
@@ -326,11 +328,13 @@ namespace BackToTheFutureV.Delorean
                     case DeloreanType.BTTF3:
                         if (Mods.Wheel == WheelType.RailroadInvisible)
                         {
+                            DeloreanBlip.Sprite = BlipSprite.StaticMirror;
                             DeloreanBlip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3RR")}";
                             DeloreanBlip.Color = BlipColor.Orange;
                         }
                         else
                         {
+                            DeloreanBlip.Sprite = BlipSprite.RotatingMirror;
                             DeloreanBlip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3")}";
                             DeloreanBlip.Color = BlipColor.Red;
                         }
