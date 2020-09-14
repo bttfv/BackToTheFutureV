@@ -75,6 +75,9 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (value == WheelType.RailroadInvisible)
                 {
                     TimeMachine.Props?.RRWheels?.ForEach(x => x?.SpawnProp());
+
+                    if (HoverUnderbody == ModState.On)
+                        HoverUnderbody = ModState.Off;
                 }
                 else
                 {
@@ -101,7 +104,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                     if (value == ModState.On)
                     {
                         SuspensionsType = SuspensionsType.Stock;
-                        Exhaust = ExhaustType.None;
+                        Exhaust = ExhaustType.None;                        
                     }
 
                     TimeMachine.DMC12.SetStockSuspensions?.Invoke(value == ModState.Off);
