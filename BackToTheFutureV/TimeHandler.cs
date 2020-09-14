@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BackToTheFutureV.Delorean;
 using BackToTheFutureV.Memory;
+using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using GTA;
 using GTA.UI;
@@ -22,7 +23,7 @@ namespace BackToTheFutureV
             }
         }
 
-        public static void SetupJump(TimeCircuits timeCircuits, DateTime time)
+        public static void SetupJump(TimeMachine timeMachine, DateTime time)
         {
             Utils.DeleteNearbyVehPed();
 
@@ -44,34 +45,34 @@ namespace BackToTheFutureV
 
                 // We didn't find a moment.
                 // Randomise.
-                Randomize(timeCircuits);
+                Randomize();
 
                 // Get the moment AFTER randomizing
                 var newMoment = GetMomentForNow();
-                newMoment.CurrentDate = timeCircuits.DestinationTime;
+                newMoment.CurrentDate = timeMachine.Properties.DestinationTime;
 
                 // Add both moments to stored Moments list.
                 momentsInTime.Add(moment);
                 momentsInTime.Add(newMoment);
             }
 
-            DeloreanHandler.ExistenceCheck(time);
+            TimeMachineHandler.ExistenceCheck(time);
 
-            RemoteDeloreansHandler.ExistenceCheck(time);
+            RemoteTimeMachineHandler.ExistenceCheck(time);
 
             RogersSierra.Manager.RogersSierra?.ForEach(x => x?.Delete());
         }
 
-        public static void TimeTravelTo(TimeCircuits timeCircuits, DateTime time)
+        public static void TimeTravelTo(TimeMachine timeMachine, DateTime time)
         {
             // Sets up the jump to that time period.
-            SetupJump(timeCircuits, time);
+            SetupJump(timeMachine, time);
 
             // Set the new GTA time.
             Utils.SetWorldTime(time);
         }
 
-        public static void Randomize(TimeCircuits timeCircuits)
+        public static void Randomize()
         {
             // Set the weather to a random weather
             World.Weather = Utils.GetRandomWeather();

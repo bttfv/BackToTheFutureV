@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using BackToTheFutureV.Delorean;
-using BackToTheFutureV.Delorean.Handlers;
 using BackToTheFutureV.Entities;
+using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -25,8 +25,6 @@ namespace BackToTheFutureV.Players
 
         public OnAnimCompleted OnAnimCompleted { get; set; }
 
-        private Vehicle vehicle;
-        private TimeCircuits TimeCircuits;
         private WheelType _roadWheel;
 
         private List<AnimateProp> leftWheelProps = new List<AnimateProp>();
@@ -61,17 +59,14 @@ namespace BackToTheFutureV.Players
         public Vector3 diskOffsetFromRearStrut = new Vector3(-0.2380092f, 0.002005455f, -0.1414804f);
         public Vector3 pistonOffsetFromRearDisk = new Vector3(-0.05293572f, -0.002848367f, 0.0005371129f);
 
-        public WheelAnimationPlayer(TimeCircuits circuits)
+        public WheelAnimationPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
-            vehicle = circuits.Vehicle;
-            TimeCircuits = circuits;
-
-            _roadWheel = TimeCircuits.Delorean.IsStockWheel ? WheelType.Stock : WheelType.Red;
+            _roadWheel = Properties.IsStockWheel ? WheelType.Stock : WheelType.Red;
 
             Model modelWheel = _roadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
             Model modelWheelRear = _roadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
             
-            foreach (var wheel in Utils.GetWheelPositions(vehicle))
+            foreach (var wheel in Utils.GetWheelPositions(Vehicle))
             {
                 string wheelName = wheel.Key;
                 Vector3 offset = wheel.Value;
@@ -94,11 +89,11 @@ namespace BackToTheFutureV.Players
                 else if (!leftWheel && !frontWheel)
                     strutOffset = new Vector3(-strutRearOffset.X, strutRearOffset.Y, strutRearOffset.Z);
 
-                AnimateProp wheelAnimateProp = new AnimateProp(vehicle, wheelModel, offset, Vector3.Zero);
+                AnimateProp wheelAnimateProp = new AnimateProp(Vehicle, wheelModel, offset, Vector3.Zero);
 
                 AnimateProp wheelGlowAnimateProp = new AnimateProp(null, wheelGlowModel, Vector3.Zero, Vector3.Zero);
 
-                AnimateProp strut = new AnimateProp(vehicle, ModelHandler.RequestModel(ModelHandler.Strut), strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
+                AnimateProp strut = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.Strut), strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
                 strut.SpawnProp();
 
                 AnimateProp disk = new AnimateProp(strut.Prop, ModelHandler.RequestModel(ModelHandler.Disk), frontWheel ? diskOffsetFromStrut : diskOffsetFromRearStrut, new Vector3(0, leftWheel ? 90 : -90, 0));
@@ -134,7 +129,7 @@ namespace BackToTheFutureV.Players
 
         private void ReloadWheelModels()
         {
-            if (_roadWheel == TimeCircuits.Delorean.Mods.Wheel)
+            if (_roadWheel == Mods.Wheel)
                 return;
 
             leftWheelProps.ForEach(x => x?.DeleteProp());
@@ -143,12 +138,12 @@ namespace BackToTheFutureV.Players
             rightWheelProps.ForEach(x => x?.DeleteProp());
             rightWheelProps.Clear();
 
-            _roadWheel = TimeCircuits.Delorean.IsStockWheel ? WheelType.Stock : WheelType.Red;
+            _roadWheel = Properties.IsStockWheel ? WheelType.Stock : WheelType.Red;
 
             Model modelWheel = _roadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
             Model modelWheelRear = _roadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
 
-            foreach (var wheel in Utils.GetWheelPositions(vehicle))
+            foreach (var wheel in Utils.GetWheelPositions(Vehicle))
             {
                 string wheelName = wheel.Key;
                 Vector3 offset = wheel.Value;
@@ -159,7 +154,7 @@ namespace BackToTheFutureV.Players
 
                 ModelHandler.RequestModel(wheelModel);
 
-                AnimateProp wheelAnimateProp = new AnimateProp(vehicle, wheelModel, offset, Vector3.Zero);
+                AnimateProp wheelAnimateProp = new AnimateProp(Vehicle, wheelModel, offset, Vector3.Zero);
 
                 if (leftWheel)
                     leftWheelProps.Add(wheelAnimateProp);
@@ -192,7 +187,7 @@ namespace BackToTheFutureV.Players
             if (IsWheelsOpen)
                 ReloadWheelModels();
 
-            TimeCircuits.Delorean.Mods.Wheel = Utils.GetVariantWheelType(_roadWheel);
+            Mods.Wheel = Utils.GetVariantWheelType(_roadWheel);
 
             IsPlaying = true;
 
@@ -210,7 +205,7 @@ namespace BackToTheFutureV.Players
                 if (trueInstant)
                 {
                     ReloadWheelModels();
-                    TimeCircuits.Delorean.Mods.Wheel = Utils.GetVariantWheelType(_roadWheel);
+                    Mods.Wheel = Utils.GetVariantWheelType(_roadWheel);
                 }
                                    
                 SetAnimationPosition();
@@ -219,12 +214,12 @@ namespace BackToTheFutureV.Players
             {
                 SetAnimationPosition();
 
-                if (!TimeCircuits.FlyingHandler.IsLanding)
+                if (!Properties.IsLanding)
                 {
                     leftWheelProps.ForEach(x => x.DeleteProp());
                     rightWheelProps.ForEach(x => x.DeleteProp());
 
-                    TimeCircuits.Delorean.Mods.Wheel = _roadWheel;
+                    Mods.Wheel = _roadWheel;
                 }                
             }
         }

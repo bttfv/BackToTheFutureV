@@ -1,5 +1,6 @@
-﻿using BackToTheFutureV.Delorean;
+﻿using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -53,25 +54,25 @@ namespace BackToTheFutureV.InteractionMenu
             {
                 if (Checked)
                 {
-                    Vector3 pos = _currentTimeMachine.DeloreanCopy.VehicleInfo.Position;
+                    Vector3 pos = _currentTimeMachine.TimeMachineClone.Vehicle.Position;
 
                     _currentTimeMachine.Blip = World.CreateBlip(pos);
                     _currentTimeMachine.Blip.Sprite = BlipSprite.SlowTime;
 
-                    switch (_currentTimeMachine.DeloreanCopy.Mods.DeloreanType)
+                    switch (_currentTimeMachine.TimeMachineClone.Mods.WormholeType)
                     {
-                        case DeloreanType.BTTF1:
+                        case WormholeType.BTTF1:
                             _currentTimeMachine.Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF1")}";
                             _currentTimeMachine.Blip.Color = BlipColor.NetPlayer22;
                             break;
 
-                        case DeloreanType.BTTF2:
+                        case WormholeType.BTTF2:
                             _currentTimeMachine.Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF2")}";
                             _currentTimeMachine.Blip.Color = BlipColor.NetPlayer21;
                             break;
 
-                        case DeloreanType.BTTF3:
-                            if (_currentTimeMachine.DeloreanCopy.Mods.Wheel == WheelType.RailroadInvisible)
+                        case WormholeType.BTTF3:
+                            if (_currentTimeMachine.TimeMachineClone.Mods.Wheel == WheelType.RailroadInvisible)
                             {
                                 _currentTimeMachine.Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3RR")}";
                                 _currentTimeMachine.Blip.Color = BlipColor.Orange;
@@ -91,7 +92,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private int _selectedIndex;
 
-        private RemoteDelorean _currentTimeMachine => RemoteDeloreansHandler.GetTimeMachineFromIndex(_selectedIndex);
+        private RemoteTimeMachine _currentTimeMachine => RemoteTimeMachineHandler.GetTimeMachineFromIndex(_selectedIndex);
 
         private void StatisticsMenu_OnListChange(UIMenu sender, UIMenuListItem listItem, int newIndex)
         {
@@ -104,22 +105,22 @@ namespace BackToTheFutureV.InteractionMenu
 
             if(direction == UIMenuDynamicListItem.ChangeDirection.Right)
             {
-                if(RemoteDeloreansHandler.TimeMachineCount > 0)
+                if(RemoteTimeMachineHandler.TimeMachineCount > 0)
                 {
                     index++;
 
-                    if (index > RemoteDeloreansHandler.TimeMachineCount - 1)
+                    if (index > RemoteTimeMachineHandler.TimeMachineCount - 1)
                         index = 0;
                 }
             }
             else
             {
-                if(RemoteDeloreansHandler.TimeMachineCount > 0)
+                if(RemoteTimeMachineHandler.TimeMachineCount > 0)
                 {
                     index--;
 
                     if (index < 0)
-                        index = RemoteDeloreansHandler.TimeMachineCount - 1;
+                        index = RemoteTimeMachineHandler.TimeMachineCount - 1;
                 }
             }
 
@@ -141,18 +142,18 @@ namespace BackToTheFutureV.InteractionMenu
 
         public void Process()
         {
-            if (_selectedIndex != 0 && _selectedIndex > RemoteDeloreansHandler.TimeMachineCount - 1)
-                _selectedIndex = RemoteDeloreansHandler.TimeMachineCount - 1;
+            if (_selectedIndex != 0 && _selectedIndex > RemoteTimeMachineHandler.TimeMachineCount - 1)
+                _selectedIndex = RemoteTimeMachineHandler.TimeMachineCount - 1;
 
-            Deloreans.Enabled = RemoteDeloreansHandler.TimeMachineCount != 0;
+            Deloreans.Enabled = RemoteTimeMachineHandler.TimeMachineCount != 0;
             ForceReenter.Enabled = Deloreans.Enabled;
             ShowBlip.Enabled = Deloreans.Enabled;
 
             if (_currentTimeMachine != null)
             {
-                TypeDescription.Index = (int)_currentTimeMachine.DeloreanCopy.Mods.DeloreanType - 1;
-                DestinationTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime") + " " + _currentTimeMachine.DeloreanCopy.Circuits.DestinationTime.ToString();
-                LastTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime") + " " + _currentTimeMachine.DeloreanCopy.Circuits.PreviousTime.ToString();
+                TypeDescription.Index = (int)_currentTimeMachine.TimeMachineClone.Mods.WormholeType - 1;
+                DestinationTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime") + " " + _currentTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString();
+                LastTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime") + " " + _currentTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString();
 
                 Spawned.Checked = _currentTimeMachine.Spawned;
 

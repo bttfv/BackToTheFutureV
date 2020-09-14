@@ -45,11 +45,6 @@ namespace BackToTheFutureV.Delorean
     {
         Empty = -1,
         Outatime = 0,
-        NOTIME = 2,
-        TIMELESS = 3,
-        TIMELESS2 = 4,
-        DMCFACTORY = 5,
-        DMCFACTORY2 = 6,
         BTTF2 = 1
     }
 
@@ -219,7 +214,7 @@ namespace BackToTheFutureV.Delorean
                 case DeloreanType.BTTF3:                    
                     Hoodbox = ModState.On;
                     Wheel = WheelType.Red;
-                    SuspensionsType = SuspensionsType.LiftFront;
+                    SuspensionsType = SuspensionsType.LiftFrontLowerRear;
                     break;
             }
         }

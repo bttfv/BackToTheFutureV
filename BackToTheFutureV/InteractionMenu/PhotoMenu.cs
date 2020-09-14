@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Delorean;
-using BackToTheFutureV.Delorean.Handlers;
+﻿using BackToTheFutureV.TimeMachineClasses;
 using GTA;
 using NativeUI;
 using System;
@@ -18,7 +17,7 @@ namespace BackToTheFutureV.InteractionMenu
         private UIMenuCheckboxItem _fluxCapacitor;
         private UIMenuCheckboxItem _hideHUD;
 
-        private PhotoHandler _photoHandler => DeloreanHandler.CurrentTimeMachine.Circuits.GetHandler<PhotoHandler>();
+        private TimeMachine TimeMachine => TimeMachineHandler.CurrentTimeMachine;
         
         public PhotoMenu() : base(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu"), Game.GetLocalizedString("BTTFV_Menu_Description"))
         {
@@ -37,10 +36,10 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void PhotoMenu_OnMenuOpen(UIMenu sender)
         {
-            _wormhole.Checked = _photoHandler.WormholeActive;
-            _coils.Checked = _photoHandler.GlowingCoilsActive;
-            _ice.Checked = _photoHandler.IceActive;
-            _fluxCapacitor.Checked = _photoHandler.FluxCapacitorActive;
+            _wormhole.Checked = TimeMachine.Properties.PhotoWormholeActive;
+            _coils.Checked = TimeMachine.Properties.PhotoGlowingCoilsActive;
+            _ice.Checked = TimeMachine.Properties.PhotoIceActive;
+            _fluxCapacitor.Checked = TimeMachine.Properties.PhotoFluxCapacitorActive;
             _hideHUD.Checked = Main.HideGui;
         }
 
@@ -68,30 +67,28 @@ namespace BackToTheFutureV.InteractionMenu
         {
             if (checkboxItem == _wormhole)
             {
-                _photoHandler.WormholeActive = Checked;                
+                TimeMachine.Properties.PhotoWormholeActive = Checked;                
             }
 
             if (checkboxItem == _coils)
             {
-                _photoHandler.GlowingCoilsActive = Checked;
+                TimeMachine.Properties.PhotoGlowingCoilsActive = Checked;
             }
 
             if (checkboxItem == _ice)
             {
-                _photoHandler.IceActive = Checked;
+                TimeMachine.Properties.PhotoIceActive = Checked;
             }
 
             if (checkboxItem == _fluxCapacitor)
             {
-                _photoHandler.FluxCapacitorActive = Checked;
+                TimeMachine.Properties.PhotoFluxCapacitorActive = Checked;
             }
 
             if (checkboxItem == _hideHUD)
             {
                 Main.HideGui = _hideHUD.Checked;
             }
-
-            _photoHandler.SetPhotoMode();
         }
     }
 }

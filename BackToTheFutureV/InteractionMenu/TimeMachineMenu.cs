@@ -1,6 +1,8 @@
-﻿using BackToTheFutureV.Delorean;
-using BackToTheFutureV.Delorean.Handlers;
+﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.Handlers;
+using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
 using GTA;
 using NativeUI;
 
@@ -14,7 +16,7 @@ namespace BackToTheFutureV.InteractionMenu
         public UIMenuCheckboxItem TimeCircuitsOn { get; }
         public UIMenuCheckboxItem CutsceneMode { get; }
         public UIMenuCheckboxItem FlyMode { get; }
-        public UIMenuCheckboxItem HoverMode { get; }
+        public UIMenuCheckboxItem AltitudeHold { get; }
         public UIMenuCheckboxItem RemoteControl { get; }
 
         public TimeMachineMenu() : base(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu"), Game.GetLocalizedString("BTTFV_Menu_Description"))
@@ -22,7 +24,7 @@ namespace BackToTheFutureV.InteractionMenu
             AddItem(TimeCircuitsOn = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn"), false, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn_Description")));
             AddItem(CutsceneMode = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_CutsceneMode"), true, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_CutsceneMode")));
             AddItem(FlyMode = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_HoverMode"), false, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_HoverMode_Description")));
-            AddItem(HoverMode = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_AltitudeControl"), false, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_AltitudeControl_Description")));
+            AddItem(AltitudeHold = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_AltitudeControl"), false, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_AltitudeControl_Description")));
             AddItem(RemoteControl = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_RemoteControl"), false, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_RemoteControl_Description")));
 
             SpawnMenu = Utils.AttachSubmenu(this, InteractionMenuManager.SpawnMenuContext, Game.GetLocalizedString("BTTFV_Input_SpawnMenu"), "");
@@ -52,27 +54,23 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void TimeMachineMenu_OnCheckboxChange(UIMenu sender, UIMenuCheckboxItem checkboxItem, bool Checked)
         {
-            if (DeloreanHandler.CurrentTimeMachine == null)
+            if (TimeMachineHandler.CurrentTimeMachine == null)
                 return;
-
-            TimeTravelHandler timeTravelHandler = DeloreanHandler.CurrentTimeMachine.Circuits.GetHandler<TimeTravelHandler>();
-
+            
             if (checkboxItem == TimeCircuitsOn)
-                DeloreanHandler.CurrentTimeMachine.Circuits.SetTimeCircuitsOn(Checked);
+                TimeMachineHandler.CurrentTimeMachine.Events.SetTimeCircuits?.Invoke(Checked);
             else if (checkboxItem == CutsceneMode)
-                timeTravelHandler.SetCutsceneMode(Checked);
+                TimeMachineHandler.CurrentTimeMachine.Events.SetCutsceneMode?.Invoke(Checked);
             else if (checkboxItem == RemoteControl)
                 RCManager.StopRemoteControl();
 
-            if (DeloreanHandler.CurrentTimeMachine.DeloreanType != DeloreanType.BTTF2)
+            if (TimeMachineHandler.CurrentTimeMachine.Mods.WormholeType != WormholeType.BTTF2)
                 return;
 
-            FlyingHandler flyingHandler = DeloreanHandler.CurrentTimeMachine.Circuits.GetHandler<FlyingHandler>();
-
             if (checkboxItem == FlyMode)
-                flyingHandler.SetFlyMode(Checked);
-            else if(checkboxItem == HoverMode)
-                flyingHandler.SetHoverMode(Checked);
+                TimeMachineHandler.CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
+            else if(checkboxItem == AltitudeHold)
+                TimeMachineHandler.CurrentTimeMachine.Events.SetAltitudeHold?.Invoke(Checked);
         }
 
         public void Open()
@@ -87,43 +85,41 @@ namespace BackToTheFutureV.InteractionMenu
 
         public void Process()
         {
-            if (DeloreanHandler.CurrentTimeMachine == null)
+            if (TimeMachineHandler.CurrentTimeMachine == null)
                 return;
 
-            if(DeloreanHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
+            if(TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
             {
-                var flyingHandler = DeloreanHandler.CurrentTimeMachine.Circuits.GetHandler<FlyingHandler>();
-
                 FlyMode.Enabled = true;
-                FlyMode.Checked = flyingHandler.IsFlying;
+                FlyMode.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
 
-                HoverMode.Enabled = true;
-                HoverMode.Checked = flyingHandler.IsAltitudeHolding;
+                AltitudeHold.Enabled = true;
+                AltitudeHold.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding;
             }
             else
             {
                 FlyMode.Enabled = false;
                 FlyMode.Checked = false;
 
-                HoverMode.Checked = false;
-                HoverMode.Enabled = false;
+                AltitudeHold.Checked = false;
+                AltitudeHold.Enabled = false;
             }
 
-            if (DeloreanHandler.CurrentTimeMachine.Circuits.GetHandler<TCDHandler>().IsDoingTimedVisible)
-            {
-                TimeCircuitsOn.Enabled = false;
-            }
-            else
-            {
-                TimeCircuitsOn.Enabled = !DeloreanHandler.CurrentTimeMachine.Circuits.IsRemoteControlled;
-                TimeCircuitsOn.Checked = DeloreanHandler.CurrentTimeMachine.Circuits.IsOn;
-            }
+            //if (TimeMachineHandler.CurrentTimeMachine.GetHandler<TCDHandler>().IsDoingTimedVisible)
+            //{
+            //    TimeCircuitsOn.Enabled = false;
+            //}
+            //else
+            //{
+            TimeCircuitsOn.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+            TimeCircuitsOn.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsOn;
+            //}
 
-            CutsceneMode.Enabled = !DeloreanHandler.CurrentTimeMachine.Circuits.IsRemoteControlled;
-            CutsceneMode.Checked = DeloreanHandler.CurrentTimeMachine.Circuits.GetHandler<TimeTravelHandler>().CutsceneMode;
+            CutsceneMode.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+            CutsceneMode.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.CutsceneMode;
 
-            RemoteControl.Checked = RCManager.RemoteControlling == DeloreanHandler.CurrentTimeMachine;
-            RemoteControl.Enabled = RCManager.RemoteControlling == DeloreanHandler.CurrentTimeMachine;
+            RemoteControl.Checked = RCManager.RemoteControlling == TimeMachineHandler.CurrentTimeMachine;
+            RemoteControl.Enabled = RCManager.RemoteControlling == TimeMachineHandler.CurrentTimeMachine;
         }
     }
 }

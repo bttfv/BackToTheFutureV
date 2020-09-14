@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.Delorean;
+﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
@@ -42,7 +43,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private int _selectedIndex;
 
-        private DeloreanTimeMachine _currentTimeMachine;
+        private TimeMachine _currentTimeMachine;
         private Camera _carCam;
 
         private void RCMenu_OnListChange(UIMenu sender, UIMenuListItem listItem, int newIndex)
@@ -58,22 +59,22 @@ namespace BackToTheFutureV.InteractionMenu
 
             if(direction == UIMenuDynamicListItem.ChangeDirection.Right)
             {
-                if(DeloreanHandler.TimeMachineCount > 0)
+                if(TimeMachineHandler.TimeMachineCount > 0)
                 {
                     index++;
 
-                    if (index > DeloreanHandler.TimeMachineCount - 1)
+                    if (index > TimeMachineHandler.TimeMachineCount - 1)
                         index = 0;
                 }
             }
             else
             {
-                if(DeloreanHandler.TimeMachineCount > 0)
+                if(TimeMachineHandler.TimeMachineCount > 0)
                 {
                     index--;
 
                     if (index < 0)
-                        index = DeloreanHandler.TimeMachineCount - 1;
+                        index = TimeMachineHandler.TimeMachineCount - 1;
                 }
             }
 
@@ -107,7 +108,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private bool TrySelectCar(int index, bool preview = true)
         {
-            DeloreanTimeMachine timeMachine = DeloreanHandler.GetTimeMachineFromIndex(index);
+            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromIndex(index);
 
             if(timeMachine != null)
             {
@@ -134,7 +135,7 @@ namespace BackToTheFutureV.InteractionMenu
             return false;
         }
 
-        public void PreviewCar(DeloreanTimeMachine timeMachine)
+        public void PreviewCar(TimeMachine timeMachine)
         {
             _currentTimeMachine = timeMachine;
 
@@ -162,12 +163,12 @@ namespace BackToTheFutureV.InteractionMenu
 
         public void Process()
         {
-            if (_selectedIndex != 0 && _selectedIndex > DeloreanHandler.TimeMachineCount - 1)
+            if (_selectedIndex != 0 && _selectedIndex > TimeMachineHandler.TimeMachineCount - 1)
             {
-                _selectedIndex = DeloreanHandler.TimeMachineCount - 1;
+                _selectedIndex = TimeMachineHandler.TimeMachineCount - 1;
             }
 
-            if (DeloreanHandler.TimeMachineCount == 0)
+            if (TimeMachineHandler.TimeMachineCount == 0)
             {
                 Deloreans.Enabled = false;
             }
@@ -179,9 +180,9 @@ namespace BackToTheFutureV.InteractionMenu
 
                 if(_currentTimeMachine != null)
                 {
-                    TimeCircuitsOnDescription.Checked = _currentTimeMachine.Circuits.IsOn;
-                    FuelChamberDescription.Checked = _currentTimeMachine.Circuits.IsFueled;
-                    DestinationTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime") + " " + _currentTimeMachine.Circuits.DestinationTime.ToString();
+                    TimeCircuitsOnDescription.Checked = _currentTimeMachine.Properties.AreTimeCircuitsOn;
+                    FuelChamberDescription.Checked = _currentTimeMachine.Properties.IsFueled;
+                    DestinationTimeDescription.Text = Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime") + " " + _currentTimeMachine.Properties.DestinationTime.ToString();
                 }
                 else
                 {

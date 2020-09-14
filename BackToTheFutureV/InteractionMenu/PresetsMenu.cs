@@ -1,6 +1,4 @@
-﻿using BackToTheFutureV.Delorean;
-using BackToTheFutureV.Delorean.Handlers;
-using GTA;
+﻿using GTA;
 using GTA.Math;
 using NativeUI;
 using System;
@@ -9,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BackToTheFutureV.GUI;
+using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.Vehicles;
 
 namespace BackToTheFutureV.InteractionMenu
 {
@@ -43,13 +43,13 @@ namespace BackToTheFutureV.InteractionMenu
                 if (_name == null || _name == "")
                     return;
 
-                DeloreanModsCopy.RenameSave(MenuItems[CurrentSelection].Text, _name);
+                TimeMachineMods.RenameSave(MenuItems[CurrentSelection].Text, _name);
                 ReloadList();
             }
 
             if (Game.IsControlJustPressed(Control.PhoneRight))
             {
-                DeloreanModsCopy.DeleteSave(MenuItems[CurrentSelection].Text);
+                TimeMachineMods.DeleteSave(MenuItems[CurrentSelection].Text);
                 ReloadList();
             }
 
@@ -65,9 +65,9 @@ namespace BackToTheFutureV.InteractionMenu
         private void PresetsMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
         {
             if (ModSettings.CinematicSpawn)
-                DeloreanHandler.SpawnWithReentry(DeloreanType.BTTF1, selectedItem.Text);
+                TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF1, selectedItem.Text);
             else
-                DeloreanHandler.Spawn(DeloreanType.BTTF1).Mods.Load(selectedItem.Text);
+                BaseMods.Load(selectedItem.Text).ApplyTo(TimeMachineHandler.Spawn(WormholeType.BTTF1));
 
             Main.MenuPool.CloseAllMenus();
         }
@@ -81,7 +81,7 @@ namespace BackToTheFutureV.InteractionMenu
         {
             Clear();
 
-            foreach (string preset in DeloreanModsCopy.ListPresets())
+            foreach (string preset in TimeMachineMods.ListPresets())
                 AddItem(new UIMenuItem(preset));
 
             RefreshIndex();

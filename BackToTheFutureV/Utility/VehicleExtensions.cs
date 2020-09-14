@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using BackToTheFutureV.Delorean;
+using BackToTheFutureV.TimeMachineClasses;
 using GTA;
 using GTA.Native;
 
@@ -24,7 +24,7 @@ namespace BackToTheFutureV.Utility
 
         public static bool IsTimeMachine(this Vehicle vehicle)
         {
-            return DeloreanHandler.IsVehicleADelorean(vehicle);
+            return TimeMachineHandler.IsVehicleATimeMachine(vehicle);
         }
 
         public static float GetMPHSpeed(this Vehicle vehicle)

@@ -1,6 +1,4 @@
-﻿using BackToTheFutureV.Delorean;
-using BackToTheFutureV.Delorean.Handlers;
-using BackToTheFutureV.Entities;
+﻿using BackToTheFutureV.Entities;
 using BackToTheFutureV.GUI;
 using BackToTheFutureV.Players;
 using BackToTheFutureV.Utility;
@@ -38,43 +36,43 @@ namespace BackToTheFutureV.Story
             //RogersSierraManager.OnDetachedDelorean += RogersSierraManager_OnDetachedDelorean;
         }
 
-        private void RogersSierraManager_OnDetachedDelorean(DeloreanTimeMachine deloreanTimeMachine)
-        {
-            if (IsPlaying && _justAttached)
-            {
-                if (DeloreanTimedEventManager.ManageCamera)
-                    DeloreanTimedEventManager.ResetCamera();
+        //private void RogersSierraManager_OnDetachedDelorean(DeloreanTimeMachine deloreanTimeMachine)
+        //{
+        //    if (IsPlaying && _justAttached)
+        //    {
+        //        if (DeloreanTimedEventManager.ManageCamera)
+        //            DeloreanTimedEventManager.ResetCamera();
 
-                DeloreanTimedEventManager.ClearEvents();
+        //        DeloreanTimedEventManager.ClearEvents();
 
-                _justAttached = false;
-            }
-        }
+        //        _justAttached = false;
+        //    }
+        //}
 
-        private void RogersSierraManager_OnAttachedDelorean(DeloreanTimeMachine deloreanTimeMachine)
-        {
-            if (IsPlaying && !_justAttached)
-            {
-                DeloreanTimedEventManager.ManageCamera = false;
+        //private void RogersSierraManager_OnAttachedDelorean(DeloreanTimeMachine deloreanTimeMachine)
+        //{
+        //    if (IsPlaying && !_justAttached)
+        //    {
+        //        DeloreanTimedEventManager.ManageCamera = false;
 
-                DeloreanTimedEventManager.Add(1, 31, 386, 1, 40, 137, TimeMultiplier);
-                DeloreanTimedEventManager.Last.SetCamera(deloreanTimeMachine.Vehicle, new Vector3(1f, 3f, 0), deloreanTimeMachine.Vehicle, Vector3.Zero);
+        //        DeloreanTimedEventManager.Add(1, 31, 386, 1, 40, 137, TimeMultiplier);
+        //        DeloreanTimedEventManager.Last.SetCamera(deloreanTimeMachine.Vehicle, new Vector3(1f, 3f, 0), deloreanTimeMachine.Vehicle, Vector3.Zero);
 
-                DeloreanTimedEventManager.Add(5, 19, 0, 5, 21, 0, TimeMultiplier); //wheelie up
-                DeloreanTimedEventManager.Last.OnExecute += WheelieUp_OnExecute;
+        //        DeloreanTimedEventManager.Add(5, 19, 0, 5, 21, 0, TimeMultiplier); //wheelie up
+        //        DeloreanTimedEventManager.Last.OnExecute += WheelieUp_OnExecute;
 
-                DeloreanTimedEventManager.Add(5, 26, 0, 5, 27, 0, TimeMultiplier); //wheelie down
-                DeloreanTimedEventManager.Last.OnExecute += WheelieDown_OnExecute;
+        //        DeloreanTimedEventManager.Add(5, 26, 0, 5, 27, 0, TimeMultiplier); //wheelie down
+        //        DeloreanTimedEventManager.Last.OnExecute += WheelieDown_OnExecute;
 
-                DeloreanTimedEventManager.Add(5, 27, 500, 5, 28, 500, TimeMultiplier); //add ptfx wheels on front
-                DeloreanTimedEventManager.Last.OnExecute += GlowingWheelsFront_OnExecute;
+        //        DeloreanTimedEventManager.Add(5, 27, 500, 5, 28, 500, TimeMultiplier); //add ptfx wheels on front
+        //        DeloreanTimedEventManager.Last.OnExecute += GlowingWheelsFront_OnExecute;
 
-                DeloreanTimedEventManager.Add(5, 29, 500, 5, 30, 500, TimeMultiplier); //delete wheelie effects
-                DeloreanTimedEventManager.Last.OnExecute += DeleteEffects_OnExecute;
+        //        DeloreanTimedEventManager.Add(5, 29, 500, 5, 30, 500, TimeMultiplier); //delete wheelie effects
+        //        DeloreanTimedEventManager.Last.OnExecute += DeleteEffects_OnExecute;
 
-                _justAttached = true;
-            }
-        }
+        //        _justAttached = true;
+        //    }
+        //}
 
         private RogersSierra.cRogersSierra tRogersSierra => Main.RogersSierra;
 

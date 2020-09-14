@@ -1,5 +1,5 @@
-﻿using BackToTheFutureV.Delorean;
-using BackToTheFutureV.Entities;
+﻿using BackToTheFutureV.Entities;
+using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
@@ -13,14 +13,10 @@ namespace BackToTheFutureV.Players
 {
     public class SparkPlayer : Player
     {
-        public Vehicle Vehicle { get; }
-
         public float Speed { get; set; }
 
-        public SparkPlayer(Vehicle vehicle, IEnumerable<Vector3> frames, Model model, float speed = 20f)
-        {
-            Vehicle = vehicle;
-
+        public SparkPlayer(TimeMachine timeMachine, IEnumerable<Vector3> frames, Model model, float speed = 20f) : base(timeMachine)
+        {            
             _frames = frames.ToList();
             _spark = new AnimateProp(Vehicle, model, _frames[0], Vector3.Zero);
 

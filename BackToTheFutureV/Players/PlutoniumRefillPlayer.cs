@@ -1,16 +1,14 @@
-﻿using BackToTheFutureV.Delorean;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
 using BackToTheFutureV.Entities;
 using GTA.UI;
+using BackToTheFutureV.TimeMachineClasses;
 
 namespace BackToTheFutureV.Players
 {
     public class PlutoniumRefillPlayer : Player
     {
-        public TimeCircuits Circuits { get; }
-
         private float currentRotation;
         private float currentOffset;
 
@@ -19,11 +17,9 @@ namespace BackToTheFutureV.Players
         private bool open;
         private int currentStep;
 
-        public PlutoniumRefillPlayer(TimeCircuits circuits)
+        public PlutoniumRefillPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
-            Circuits = circuits;
-
-            plutoniumCap = new AnimateProp(Circuits.Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFReactorCap), "bttf_reactorcap");
+            plutoniumCap = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFReactorCap), "bttf_reactorcap");
             plutoniumCap.SpawnProp();
         }
 

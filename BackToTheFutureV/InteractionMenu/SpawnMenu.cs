@@ -1,5 +1,6 @@
-﻿using BackToTheFutureV.Delorean;
-using BackToTheFutureV.Delorean.Handlers;
+﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
 using GTA;
 using GTA.Math;
 using NativeUI;
@@ -35,7 +36,7 @@ namespace BackToTheFutureV.InteractionMenu
         private readonly List<object> _listSuspensionsTypes = new List<object> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontLowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontAndRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontLiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontAndRear") };
 
         private bool _save = false;
-        private DeloreanTimeMachine _tempTimeMachine;
+        private TimeMachine _tempTimeMachine;
         private int _wheelIndex;
 
         public SpawnMenu() : base(Game.GetLocalizedString("BTTFV_Input_SpawnMenu"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Description"))
@@ -71,7 +72,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void SpawnMenu_OnMenuOpen(UIMenu sender)
         {
-            if (ForceNew || (Main.PlayerVehicle == null || !DeloreanHandler.IsVehicleATimeMachine(Main.PlayerVehicle)))
+            if (ForceNew || (Main.PlayerVehicle == null || !TimeMachineHandler.IsVehicleATimeMachine(Main.PlayerVehicle)))
             {
                 if (ForceNew)
                     ForceNew = false;
@@ -80,21 +81,32 @@ namespace BackToTheFutureV.InteractionMenu
 
                 if (Main.PlayerVehicle != null)
                     spawnPos = Main.PlayerVehicle.Position.Around(5f);
-
-                _tempTimeMachine = (DeloreanTimeMachine)DMC12.CreateDelorean(spawnPos, Main.PlayerPed.Heading, DeloreanType.BTTF1);
+                
+                _tempTimeMachine = TimeMachineHandler.CreateTimeMachine(spawnPos, Main.PlayerPed.Heading, WormholeType.BTTF1);
 
                 Main.PlayerPed.SetIntoVehicle(_tempTimeMachine.Vehicle, VehicleSeat.Driver);
 
                 _tempTimeMachine.Vehicle.PlaceOnGround();
 
-                _tempTimeMachine.MPHSpeed = 1;
+                _tempTimeMachine.Vehicle.SetMPHSpeed(1);
             }                
-            else if (DeloreanHandler.IsVehicleATimeMachine(Main.PlayerVehicle))
+            else if (TimeMachineHandler.IsVehicleATimeMachine(Main.PlayerVehicle))
             {
-                _tempTimeMachine = DeloreanHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
+                _tempTimeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
                 _save = true;
 
-                _wheelsType.Enabled = !_tempTimeMachine.Circuits.IsFlying;                
+                _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
+
+                _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                //_wheelsType.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                //_canFly.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _hoodBox.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _hook.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _plate.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _exhaust.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _suspensions.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
             }
                 
             LoadVehicleType();
@@ -102,7 +114,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void LoadVehicleType()
         {
-            _baseType.Index = (int)(_tempTimeMachine.DeloreanType) - 1;
+            _baseType.Index = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
             _powerSource.Index = (int)_tempTimeMachine.Mods.Reactor;
             _canFly.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
             _hoodBox.Checked = ConvertFromModState(_tempTimeMachine.Mods.Hoodbox);
@@ -191,9 +203,15 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void SpawnMenu_OnListChange(UIMenu sender, UIMenuListItem listItem, int newIndex)
         {
+            if (listItem.Enabled == false)
+            {
+                listItem.Index = _wheelIndex;
+                return;
+            }
+
             if (listItem == _baseType)
             {
-                _tempTimeMachine.Mods.DeloreanType = (DeloreanType)(newIndex + 1);
+                _tempTimeMachine.Mods.WormholeType = (WormholeType)(newIndex + 1);
             }
             else if (listItem == _powerSource)
             {
@@ -201,7 +219,7 @@ namespace BackToTheFutureV.InteractionMenu
             }
             else if (listItem == _wheelsType)
             {
-                if (listItem.Enabled == false || _tempTimeMachine.Circuits.IsFlying || _tempTimeMachine.Circuits.FlyingHandler.IsPlayingAnim)
+                if (listItem.Enabled == false || _tempTimeMachine.Properties.IsFlying || (_tempTimeMachine.Players.HoverModeWheels != null && _tempTimeMachine.Players.HoverModeWheels.IsPlaying))
                 {
                     listItem.Index = _wheelIndex;
                     return;

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using NativeUI;
 using GTA;
 using BackToTheFutureV.Utility;
-using BackToTheFutureV.Delorean;
 using BackToTheFutureV.Settings;
 using GTA.NaturalMotion;
+using BackToTheFutureV.TimeMachineClasses;
 
 namespace BackToTheFutureV.InteractionMenu
 {
@@ -47,16 +47,16 @@ namespace BackToTheFutureV.InteractionMenu
         {
             if (Game.IsControlPressed(Control.CharacterWheel) && Game.IsControlPressed(Control.VehicleHandbrake) && !Main.MenuPool.IsAnyMenuOpen() && !TcdEditer.IsEditing)
             {
-                if (DeloreanHandler.CurrentTimeMachine != null)
+                if (TimeMachineHandler.CurrentTimeMachine != null)
                 {
-                    if (DeloreanHandler.CurrentTimeMachine.Circuits.IsTimeTraveling || DeloreanHandler.CurrentTimeMachine.Circuits.IsReentering)
+                    if (TimeMachineHandler.CurrentTimeMachine.Properties.IsTimeTravelling || TimeMachineHandler.CurrentTimeMachine.Properties.IsReentering)
                         return;
                 }
 
                 OpenMenu();
             }
 
-            if (DeloreanHandler.CurrentTimeMachine == null)
+            if (TimeMachineHandler.CurrentTimeMachine == null)
             {
                 if (TimeMachineMenu.Visible)
                     TimeMachineMenu.Visible = false;
@@ -68,7 +68,7 @@ namespace BackToTheFutureV.InteractionMenu
                     SpawnMenuContext.Visible = false;
             }
 
-            if (DeloreanHandler.CurrentTimeMachine != null)
+            if (TimeMachineHandler.CurrentTimeMachine != null)
             {
                 if (RCMenu.Visible)
                     RCMenu.Visible = false;
@@ -100,7 +100,7 @@ namespace BackToTheFutureV.InteractionMenu
         {
             Main.MenuPool.CloseAllMenus();
 
-            if (DeloreanHandler.CurrentTimeMachine != null)
+            if (TimeMachineHandler.CurrentTimeMachine != null)
                 TimeMachineMenu.Visible = true;
             else
                 ModMenuHandler.MainMenu.Visible = true;

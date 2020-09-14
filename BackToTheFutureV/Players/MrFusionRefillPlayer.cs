@@ -1,16 +1,14 @@
-﻿using BackToTheFutureV.Delorean;
-using BackToTheFutureV.Entities;
+﻿using BackToTheFutureV.Entities;
 using GTA;
 using GTA.Math;
 using BackToTheFutureV.Utility;
 using KlangRageAudioLibrary;
+using BackToTheFutureV.TimeMachineClasses;
 
 namespace BackToTheFutureV.Players
 {
     public class MrFusionRefillPlayer : Player
     {
-        public TimeCircuits Circuits { get; }
-
         private float _currentRotation;
         private float _currentHandleRotation;
 
@@ -23,18 +21,16 @@ namespace BackToTheFutureV.Players
         private bool open;
         private int currentStep;
 
-        public MrFusionRefillPlayer(TimeCircuits circuits)
+        public MrFusionRefillPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
-            Circuits = circuits;
-
-            _mrFusion = new AnimateProp(Circuits.Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFMrFusion), "mr_fusion");
+            _mrFusion = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFMrFusion), "mr_fusion");
             _mrFusion.SpawnProp();
 
-            _mrFusionHandle = new AnimateProp(Circuits.Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFMrFusionHandle), "mr_fusion_handle");
+            _mrFusionHandle = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFMrFusionHandle), "mr_fusion_handle");
             _mrFusionHandle.SpawnProp();
 
-            _mrfusionOpen = circuits.AudioEngine.Create("general/mrfusionOpen.wav", Presets.Exterior);
-            _mrfusionClosed = circuits.AudioEngine.Create("general/mrfusionClose.wav", Presets.Exterior);
+            _mrfusionOpen = TimeMachine.Sounds.AudioEngine.Create("general/mrfusionOpen.wav", Presets.Exterior);
+            _mrfusionClosed = TimeMachine.Sounds.AudioEngine.Create("general/mrfusionClose.wav", Presets.Exterior);
 
             _mrfusionOpen.Volume = 0.4f;
             _mrfusionClosed.Volume = 0.4f;

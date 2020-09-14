@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using GTA;
-using BackToTheFutureV.Delorean;
 using GTA.Native;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Story;
@@ -13,14 +12,20 @@ using BackToTheFutureV.Settings;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
-using BackToTheFutureV.Delorean.Handlers;
 using KlangRageAudioLibrary;
 using RogersSierra;
+using BackToTheFutureV.Vehicles;
+using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.RC;
+using BackToTheFutureV.Players;
+using System.Collections.Generic;
 
 namespace BackToTheFutureV
 {
     public class Main : Script
     {
+        public List<Vehicle> modelList = new List<Vehicle>();
+
         public static MenuPool MenuPool { get; private set; }
 
         public static DateTime CurrentTime
@@ -63,15 +68,15 @@ namespace BackToTheFutureV
 
             string message = Encoding.ASCII.GetString(udp.EndReceive(ar, ref ip));
 
-            if (message.StartsWith("BTTFV="))
-            {
-                message = message.Replace("BTTFV=", "");
+            //if (message.StartsWith("BTTFV="))
+            //{
+            //    message = message.Replace("BTTFV=", "");
 
-                if (message == "enter")
-                    InputHandler.EnterInputBuffer = true;
-                else
-                    InputHandler.InputBuffer = message;
-            }
+            //    if (message == "enter")
+            //        InputHandler.EnterInputBuffer = true;
+            //    else
+            //        InputHandler.InputBuffer = message;
+            //}
 
             StartListening();
         }
@@ -103,17 +108,20 @@ namespace BackToTheFutureV
             if (RCManager.RemoteControlling != null)
                 RCManager.StopRemoteControl(true);
 
-            DeloreanHandler.Abort();            
+            TimeMachineHandler.Abort();            
             FireTrailsHandler.Stop();
-            TrainManager.Abort();
+            TrainHandler.Abort();
             ModSettings.SaveSettings();            
         }
 
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
         {
             ModMenuHandler.KeyDown(e);
-            DeloreanHandler.KeyPressed(e.KeyCode);
+            TimeMachineHandler.KeyDown(e.KeyCode);
             RCManager.KeyPress(e.KeyCode);
+
+            if (e.KeyCode == Keys.L)
+                TimeMachineHandler.CreateTimeMachine(Main.PlayerVehicle, WormholeType.BTTF1);
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)
@@ -127,13 +135,25 @@ namespace BackToTheFutureV
             {                
                 ModelHandler.RequestModels();
 
-                DeloreanHandler.LoadAllDeLoreans();
-                RemoteDeloreansHandler.Load();
+                TimeMachineHandler.LoadAllTimeMachines();
+                RemoteTimeMachineHandler.Load();
 
                 StartListening();
 
                 _firstTick = false;
             }
+
+            //foreach (var veh in World.GetAllVehicles())
+            //{
+            //    if (modelList.Contains(veh))
+            //        return;
+
+            //    if (veh.Bones["misc_c"].Index != 0 && veh.Bones["misc_c"].Index != -1 && veh.Bones["misc_f"].Index != 0 && veh.Bones["misc_f"].Index != -1)
+            //    {
+            //        veh.AddBlip();
+            //        modelList.Add(veh);
+            //    }                   
+            //}
 
             if (MenuPool != null && MenuPool.IsAnyMenuOpen())
                 MenuPool.ProcessMenus();
@@ -144,12 +164,13 @@ namespace BackToTheFutureV
             if (DisablePlayerSwitching)
                 Function.Call(Hash.DISABLE_CONTROL_ACTION, 2, 19, true);
 
-            TrainManager.Process();
-            DeloreanHandler.Tick();
+            TrainHandler.Process();
+            DMC12Handler.Process();
+            TimeMachineHandler.Process();
             AnimatePropsHandler.Tick();
             RCManager.Process();
             TimeHandler.Tick();
-            RemoteDeloreansHandler.Tick();
+            RemoteTimeMachineHandler.Tick();
             FireTrailsHandler.Process();
             InteractionMenuManager.Process();
             ScreenFlash.Process();
@@ -159,7 +180,7 @@ namespace BackToTheFutureV
 
             if (Game.GameTime > _saveDelay)
             {
-                DeloreanHandler.SaveAllDeLoreans();
+                TimeMachineHandler.SaveAllTimeMachines();
                 _saveDelay = Game.GameTime + 2000;
             }            
         }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using BackToTheFutureV.Delorean;
 using BackToTheFutureV.GUI;
 using BackToTheFutureV.InteractionMenu;
 using BackToTheFutureV.Settings;
+using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
 using GTA;
 using GTA.UI;
 using NativeUI;
@@ -124,7 +126,7 @@ namespace BackToTheFutureV
 
         private static void MainMenu_OnMenuOpen(UIMenu sender)
         {
-            if (DeloreanModsCopy.ListPresets().Count > 0)
+            if (TimeMachineMods.ListPresets().Count > 0)
             {
                 MainMenu.ReleaseMenuFromItem(spawnPresetDelorean);
                 MainMenu.BindMenuToItem(InteractionMenuManager.PresetsMenu, spawnPresetDelorean);
@@ -219,7 +221,7 @@ namespace BackToTheFutureV
 
         private static void MainMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
         {
-            if (selectedItem == spawnPresetDelorean && DeloreanModsCopy.ListPresets().Count == 0)
+            if (selectedItem == spawnPresetDelorean && TimeMachineMods.ListPresets().Count == 0)
                 Notification.Show(Game.GetLocalizedString("BTTFV_Menu_Presets_Not_Found"));
 
             if (selectedItem == spawnCustomDelorean || selectedItem == spawnPresetDelorean)
@@ -227,54 +229,54 @@ namespace BackToTheFutureV
 
             if (selectedItem == spawnDelorean)
             {
-                DeloreanHandler.Spawn(DeloreanType.DMC12);
+                DMC12Handler.CreateDMC12(Main.PlayerPed.Position, Main.PlayerPed.Heading);
                 Main.MenuPool.CloseAllMenus();
             }
 
             if (selectedItem == spawnDelorean1)
             {
                 if (ModSettings.CinematicSpawn)
-                    DeloreanHandler.SpawnWithReentry(DeloreanType.BTTF1);
+                    TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF1);
                 else
-                    DeloreanHandler.Spawn(DeloreanType.BTTF1);
+                    TimeMachineHandler.Spawn(WormholeType.BTTF1);
                 Main.MenuPool.CloseAllMenus();
             }
 
             if (selectedItem == spawnDelorean2)
             {
                 if (ModSettings.CinematicSpawn)
-                    DeloreanHandler.SpawnWithReentry(DeloreanType.BTTF2);
+                    TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF2);
                 else
-                    DeloreanHandler.Spawn(DeloreanType.BTTF2);
+                    TimeMachineHandler.Spawn(WormholeType.BTTF2);
                 Main.MenuPool.CloseAllMenus();
             }
 
             if (selectedItem == spawnDelorean3)
             {
                 if (ModSettings.CinematicSpawn)
-                    DeloreanHandler.SpawnWithReentry(DeloreanType.BTTF3);
+                    TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF3);
                 else
-                    DeloreanHandler.Spawn(DeloreanType.BTTF3);
+                    TimeMachineHandler.Spawn(WormholeType.BTTF3);
                 Main.MenuPool.CloseAllMenus();
             }
 
             if (selectedItem == removeOtherDeloreans)
             {
-                DeloreanHandler.RemoveAllDeloreans(true);
-                RemoteDeloreansHandler.DeleteAll();
+                TimeMachineHandler.RemoveAllTimeMachines(true);
+                RemoteTimeMachineHandler.DeleteAll();
                 Notification.Show(Game.GetLocalizedString("BTTFV_RemovedOtherTimeMachines"));
             }
 
             if (selectedItem == removeAllDeloreans)
             {
-                DeloreanHandler.RemoveAllDeloreans();
-                RemoteDeloreansHandler.DeleteAll();
+                TimeMachineHandler.RemoveAllTimeMachines();
+                RemoteTimeMachineHandler.DeleteAll();
                 Notification.Show(Game.GetLocalizedString("BTTFV_RemovedAllTimeMachines"));
             }
 
             if(selectedItem == removeDelorean)
             {
-                var delorean = DeloreanHandler.GetDeloreanFromVehicle(Main.PlayerVehicle);
+                var delorean = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
 
                 if(delorean == null)
                 {
@@ -282,7 +284,7 @@ namespace BackToTheFutureV
                     return;
                 }
 
-                DeloreanHandler.RemoveDelorean(delorean);
+                TimeMachineHandler.RemoveTimeMachine(delorean);
             }
         }
 
@@ -290,8 +292,8 @@ namespace BackToTheFutureV
         {
             if(key.KeyCode == Keys.F8 && key.Control && !TcdEditer.IsEditing)
             {
-                if(DeloreanHandler.CurrentTimeMachine != null)
-                    if (DeloreanHandler.CurrentTimeMachine.Circuits.IsTimeTraveling || DeloreanHandler.CurrentTimeMachine.Circuits.IsReentering)
+                if(TimeMachineHandler.CurrentTimeMachine != null)
+                    if (TimeMachineHandler.CurrentTimeMachine.Properties.IsTimeTravelling || TimeMachineHandler.CurrentTimeMachine.Properties.IsReentering)
                         return;
 
                 MainMenu.Visible = true;
