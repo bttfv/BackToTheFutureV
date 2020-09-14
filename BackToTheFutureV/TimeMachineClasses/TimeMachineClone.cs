@@ -116,6 +116,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void ApplyTo(TimeMachine timeMachine, bool asNew = false)
         {
+            timeMachine.Vehicle.Mods.InstallModKit();
+
             Vehicle.ApplyTo(timeMachine.Vehicle);
             Mods.ApplyTo(timeMachine);
             
