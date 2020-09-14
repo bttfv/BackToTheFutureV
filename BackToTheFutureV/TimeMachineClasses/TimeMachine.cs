@@ -5,6 +5,7 @@ using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using GTA;
 using GTA.Math;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,8 @@ namespace BackToTheFutureV.TimeMachineClasses
         private Vector3 rightSuspesionOffset;
 
         private bool _firstRedSetup = true;
+
+        private Blip Blip;
 
         public bool Disposed { get; private set; }
 
@@ -120,6 +123,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 leftSuspesionOffset = Vehicle.Bones["suspension_lf"].GetRelativeOffsetPosition(new Vector3(0.025f, 0, 0.005f));
                 rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.03f, 0, 0.005f));
+
+                Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
+                //Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
             }
 
             LastDisplacementClone = Clone;
@@ -243,42 +249,42 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Main.PlayerVehicle != Vehicle)
             {
-                if (Vehicle.AttachedBlips.Count() > 0)
+                if (Blip != null && Blip.Exists())
                 {
                     switch (Mods.WormholeType)
                     {
                         case WormholeType.BTTF1:
-                            Vehicle.AttachedBlip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF1")}";
-                            Vehicle.AttachedBlip.Color = BlipColor.NetPlayer22;
+                            Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF1")}";
+                            Blip.Color = BlipColor.NetPlayer22;
                             break;
 
                         case WormholeType.BTTF2:
-                            Vehicle.AttachedBlip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF2")}";
-                            Vehicle.AttachedBlip.Color = BlipColor.NetPlayer21;
+                            Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF2")}";
+                            Blip.Color = BlipColor.NetPlayer21;
                             break;
 
                         case WormholeType.BTTF3:
                             if (Mods.Wheel == WheelType.RailroadInvisible)
                             {
-                                Vehicle.AttachedBlip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3RR")}";
-                                Vehicle.AttachedBlip.Color = BlipColor.Orange;
+                                Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3RR")}";
+                                Blip.Color = BlipColor.Orange;
                             }
                             else
                             {
-                                Vehicle.AttachedBlip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3")}";
-                                Vehicle.AttachedBlip.Color = BlipColor.Red;
+                                Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3")}";
+                                Blip.Color = BlipColor.Red;
                             }
                             break;
                     }
                 }
                 else
                 {
-                    Vehicle.AddBlip();
-                    Vehicle.AttachedBlip.Sprite = Mods.IsDMC12 ? BlipSprite.Deluxo : BlipSprite.PersonalVehicleCar;
+                    Blip = Vehicle.AddBlip();
+                    Blip.Sprite = Mods.IsDMC12 ? BlipSprite.Deluxo : BlipSprite.PersonalVehicleCar;
                 }
             }
-            else if (Vehicle.AttachedBlips.Count() > 0)
-                Vehicle.AttachedBlip.Delete();
+            else if (Blip != null && Blip.Exists())
+                Blip.Delete();
 
             foreach (var entry in registeredHandlers)
                 entry.Value.Process();
