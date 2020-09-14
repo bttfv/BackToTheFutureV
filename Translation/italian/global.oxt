@@ -204,10 +204,11 @@
 	BTTFV_Menu_PhotoMenu_FluxCapacitor_Description = Attiva il flusso canalizzatore sulla macchina del tempo.
 	BTTFV_Menu_PhotoMenu_HideHUD = Nascondi HUD
 	BTTFV_Menu_PhotoMenu_HideHUD_Description = Nasconde l'HUD del gioco e della mod.
-	<!-- TRANSLATE FROM HERE -->
+	BTTFV_Menu_ConvertToTimeMachine = Transforma in macchina del tempo
+	BTTFV_Menu_ConvertToTimeMachine_Description = Transforma il veicolo corrente in una macchina del tempo.
 	BTTFV_Input_SpawnMenu_Plate_NoTime = No Time
 	BTTFV_Input_SpawnMenu_Plate_Timeless = Timeless
 	BTTFV_Input_SpawnMenu_Plate_Timeless2 = Timeless (alt)
-	BTTFV_Input_SpawnMenu_Plate_DMCFactory = Factory DMC 
-	BTTFV_Input_SpawnMenu_Plate_DMCFactory2 = Factory DMC (alt)
+	BTTFV_Input_SpawnMenu_Plate_DMCFactory = Originale DMC
+	BTTFV_Input_SpawnMenu_Plate_DMCFactory2 = Originale DMC (alt)	
 }

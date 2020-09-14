@@ -19,6 +19,7 @@ using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Players;
 using System.Collections.Generic;
+using BackToTheFutureV.TimeMachineClasses.Handlers;
 
 namespace BackToTheFutureV
 {
@@ -68,15 +69,15 @@ namespace BackToTheFutureV
 
             string message = Encoding.ASCII.GetString(udp.EndReceive(ar, ref ip));
 
-            //if (message.StartsWith("BTTFV="))
-            //{
-            //    message = message.Replace("BTTFV=", "");
+            if (message.StartsWith("BTTFV="))
+            {
+                message = message.Replace("BTTFV=", "");
 
-            //    if (message == "enter")
-            //        InputHandler.EnterInputBuffer = true;
-            //    else
-            //        InputHandler.InputBuffer = message;
-            //}
+                if (message == "enter")
+                    InputHandler.EnterInputBuffer = true;
+                else
+                    InputHandler.InputBuffer = message;
+            }
 
             StartListening();
         }
@@ -119,9 +120,6 @@ namespace BackToTheFutureV
             ModMenuHandler.KeyDown(e);
             TimeMachineHandler.KeyDown(e.KeyCode);
             RCManager.KeyPress(e.KeyCode);
-
-            if (e.KeyCode == Keys.L)
-                TimeMachineHandler.CreateTimeMachine(Main.PlayerVehicle, WormholeType.BTTF1);
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)

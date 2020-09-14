@@ -48,7 +48,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void StartTimeTravel(int delay = 0)
         {
-            Properties.IsTimeTravelling = true;
+            Properties.TimeTravelPhase = TimeTravelPhase.InTime;
             gameTimer = Game.GameTime + delay;
         }
 
@@ -61,7 +61,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (!Properties.IsTimeTravelling) 
+            if (Properties.TimeTravelPhase != TimeTravelPhase.InTime) 
                 return;
 
             if (!Vehicle.IsVisible)

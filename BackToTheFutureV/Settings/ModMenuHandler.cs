@@ -29,6 +29,7 @@ namespace BackToTheFutureV
         private static UIMenuItem spawnDelorean;
         private static UIMenuItem spawnCustomDelorean;
         private static UIMenuItem spawnPresetDelorean;
+        private static UIMenuItem convertToTimeMachine;
         private static UIMenuItem removeAllDeloreans;
         private static UIMenuItem removeOtherDeloreans;
         private static UIMenuItem removeDelorean;
@@ -64,7 +65,9 @@ namespace BackToTheFutureV
             MainMenu.AddItem(spawnDelorean3 = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_Spawn") + " " + Game.GetLocalizedString("BTTFV_Menu_BTTF3"), Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF3_Description")));
 
             spawnPresetDelorean = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.PresetsMenu, Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset"), Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset_Description"));
-            spawnCustomDelorean = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.SpawnMenu, Game.GetLocalizedString("BTTFV_Menu_Build_Delorean"), Game.GetLocalizedString("BTTFV_Menu_Build_Delorean_Description"));            
+            spawnCustomDelorean = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.SpawnMenu, Game.GetLocalizedString("BTTFV_Menu_Build_Delorean"), Game.GetLocalizedString("BTTFV_Menu_Build_Delorean_Description"));
+
+            MainMenu.AddItem(convertToTimeMachine = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_ConvertToTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_ConvertToTimeMachine_Description")));
 
             rcMenu = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.RCMenu, Game.GetLocalizedString("BTTFV_Menu_RCMenu"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_Description"));
 
@@ -138,6 +141,13 @@ namespace BackToTheFutureV
             }
 
             rcMenu.Enabled = Main.PlayerVehicle == null;
+
+            if (Main.PlayerVehicle != null)
+            {
+                convertToTimeMachine.Enabled = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle) == null;
+            }
+            else
+                convertToTimeMachine.Enabled = false;
         }
 
         private static void TcdBackground_OnListChanged(UIMenuListItem sender, int newIndex)
@@ -260,6 +270,12 @@ namespace BackToTheFutureV
                 Main.MenuPool.CloseAllMenus();
             }
 
+            if (selectedItem == convertToTimeMachine)
+            {
+                TimeMachineHandler.CreateTimeMachine(Main.PlayerVehicle, WormholeType.BTTF1);
+                Main.MenuPool.CloseAllMenus();
+            }
+
             if (selectedItem == removeOtherDeloreans)
             {
                 TimeMachineHandler.RemoveAllTimeMachines(true);
@@ -293,7 +309,7 @@ namespace BackToTheFutureV
             if(key.KeyCode == Keys.F8 && key.Control && !TcdEditer.IsEditing)
             {
                 if(TimeMachineHandler.CurrentTimeMachine != null)
-                    if (TimeMachineHandler.CurrentTimeMachine.Properties.IsTimeTravelling || TimeMachineHandler.CurrentTimeMachine.Properties.IsReentering)
+                    if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                         return;
 
                 MainMenu.Visible = true;

@@ -30,7 +30,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void SetPhotoMode()
         {
-            if (Properties.PhotoWormholeActive && !Players.Wormhole.IsPlaying && Properties.IsPhotoModeOn)
+
+        }
+
+        public override void Process()
+        {
+            if (Properties.PhotoWormholeActive && !Players.Wormhole.IsPlaying)
                 Players.Wormhole.Play(true);
 
             if (!Properties.PhotoWormholeActive && Players.Wormhole.IsPlaying && Properties.IsPhotoModeOn)
@@ -66,11 +71,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Events.SetFreeze?.Invoke(false);
 
             Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.PhotoIceActive;
-        }
-
-        public override void Process()
-        {
-
         }
 
         public override void Stop()

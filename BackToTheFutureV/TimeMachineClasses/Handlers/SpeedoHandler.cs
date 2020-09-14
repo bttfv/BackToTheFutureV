@@ -39,7 +39,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Game.GameTime < nextCheck) return;
 
-            if (!(Properties.IsReentering || Properties.IsTimeTravelling))
+            if (Properties.TimeTravelPhase < TimeTravelPhase.InTime)
             {
                 int mphSpeed = ((int) Vehicle.GetMPHSpeed());
 

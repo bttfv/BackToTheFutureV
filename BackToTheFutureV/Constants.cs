@@ -3,6 +3,14 @@ using GTA.Math;
 
 namespace BackToTheFutureV
 {
+    public enum TimeTravelPhase
+    {
+        Completed = 0,
+        OpeningWormhole = 1,
+        InTime = 2,
+        Reentering = 3        
+    }
+
     public class Constants
     {
         // All these offsets we're extracted from dummies that were made in 3Ds Max

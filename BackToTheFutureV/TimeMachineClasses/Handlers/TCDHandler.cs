@@ -416,7 +416,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void SetTimeCircuitsOn(bool on)
         {
-            if (Properties.IsTimeTravelling | Properties.IsReentering | TcdEditer.IsEditing)
+            if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole | TcdEditer.IsEditing)
                 return;
 
             if (!Properties.AreTimeCircuitsOn && Mods.Hoodbox == ModState.On && !Properties.AreHoodboxCircuitsReady)

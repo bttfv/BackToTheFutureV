@@ -36,6 +36,10 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void PhotoMenu_OnMenuOpen(UIMenu sender)
         {
+            _coils.Enabled = TimeMachine.Mods.IsDMC12;
+            _ice.Enabled = TimeMachine.Mods.IsDMC12;
+            _fluxCapacitor.Enabled = TimeMachine.Mods.IsDMC12;
+
             _wormhole.Checked = TimeMachine.Properties.PhotoWormholeActive;
             _coils.Checked = TimeMachine.Properties.PhotoGlowingCoilsActive;
             _ice.Checked = TimeMachine.Properties.PhotoIceActive;

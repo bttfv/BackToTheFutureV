@@ -126,6 +126,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     Sounds.WormholeInterrupted.Play();
                     Events.OnTimeTravelInterrupted?.Invoke();
+
+                    Properties.TimeTravelPhase = TimeTravelPhase.Completed;
+
                     Stop();
                 }
 
@@ -138,6 +141,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return;
 
                 Main.DisablePlayerSwitching = true;
+
+                if (Properties.TimeTravelPhase != TimeTravelPhase.OpeningWormhole)
+                    Properties.TimeTravelPhase = TimeTravelPhase.OpeningWormhole;
 
                 //Function.Call(Hash.SPECIAL_ABILITY_LOCK, Main.PlayerPed.Model);
                 Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);

@@ -46,6 +46,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachine(DMC12 dmc12, WormholeType wormholeType)
         {
+            if (TimeMachineHandler.GetTimeMachineFromVehicle(dmc12.Vehicle) != null)
+                return;
+
             DMC12 = dmc12;
             Vehicle = DMC12.Vehicle;
 
@@ -58,6 +61,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
+            if (TimeMachineHandler.GetTimeMachineFromVehicle(vehicle) != null)
+                return;
+
             Vehicle = vehicle;
 
             if (vehicle.Model == ModelHandler.DMC12)
@@ -141,11 +147,10 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (Mods.HoverUnderbody == ModState.Off && Mods.IsDMC12)
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
 
-            if (!Properties.IsRemoteControlled)
-                if (Properties.IsTimeTravelling || Properties.IsReentering)
-                    Vehicle.LockStatus = VehicleLockStatus.StickPlayerInside;
-                else
-                    Vehicle.LockStatus = VehicleLockStatus.None;
+            if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+                Vehicle.LockStatus = VehicleLockStatus.StickPlayerInside;
+            else
+                Vehicle.LockStatus = VehicleLockStatus.None;
 
             Vehicle.IsRadioEnabled = false;
 
@@ -267,20 +272,16 @@ namespace BackToTheFutureV.TimeMachineClasses
                     }
                 }
                 else
-                    CreateBlip();
+                {
+                    Vehicle.AddBlip();
+                    Vehicle.AttachedBlip.Sprite = Mods.IsDMC12 ? BlipSprite.Deluxo : BlipSprite.PersonalVehicleCar;
+                }
             }
             else if (Vehicle.AttachedBlips.Count() > 0)
                 Vehicle.AttachedBlip.Delete();
 
             foreach (var entry in registeredHandlers)
                 entry.Value.Process();
-        }
-
-        public void CreateBlip()
-        {
-            Vehicle.AddBlip();
-
-            Vehicle.AttachedBlip.Sprite = BlipSprite.Deluxo;
         }
 
         public void KeyDown(Keys key)

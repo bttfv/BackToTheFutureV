@@ -209,4 +209,6 @@
 	BTTFV_Input_SpawnMenu_Plate_Timeless2 = Timeless (alt)
 	BTTFV_Input_SpawnMenu_Plate_DMCFactory = Factory DMC 
 	BTTFV_Input_SpawnMenu_Plate_DMCFactory2 = Factory DMC (alt)
+	BTTFV_Menu_ConvertToTimeMachine = Transform into time machine
+	BTTFV_Menu_ConvertToTimeMachine_Description = Transform current vehicle in a time machine.
 }

@@ -49,7 +49,7 @@ namespace BackToTheFutureV.InteractionMenu
             {
                 if (TimeMachineHandler.CurrentTimeMachine != null)
                 {
-                    if (TimeMachineHandler.CurrentTimeMachine.Properties.IsTimeTravelling || TimeMachineHandler.CurrentTimeMachine.Properties.IsReentering)
+                    if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                         return;
                 }
 

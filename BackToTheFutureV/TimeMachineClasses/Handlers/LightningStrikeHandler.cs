@@ -72,7 +72,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (!ModSettings.LightningStrikeEvent || World.Weather != Weather.ThunderStorm || Properties.IsTimeTravelling || Properties.IsReentering || Game.GameTime < _nextCheck) return;
+            if (!ModSettings.LightningStrikeEvent || World.Weather != Weather.ThunderStorm || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole || Game.GameTime < _nextCheck)
+                return;
           
             if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying)) 
             {

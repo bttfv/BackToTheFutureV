@@ -229,6 +229,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static TimeMachine GetTimeMachineFromVehicle(Vehicle vehicle)
         {
+            if (vehicle == null)
+                return null;
+
             foreach (var timeMachine in _timeMachines)
             {
                 if (timeMachine.Vehicle == vehicle)

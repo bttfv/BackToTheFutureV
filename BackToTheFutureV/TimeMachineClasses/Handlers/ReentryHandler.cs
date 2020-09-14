@@ -26,8 +26,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void OnReenter()
         {
-            Properties.IsReentering = true;
-            Properties.IsTimeTravelling = false;
+            Properties.TimeTravelPhase = TimeTravelPhase.Reentering;
         }
 
         public override void Process()
@@ -43,8 +42,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (!Properties.IsReentering) return;
-            if (Game.GameTime < _gameTimer) return;
+            if (Properties.TimeTravelPhase != TimeTravelPhase.Reentering) 
+                return;
+
+            if (Game.GameTime < _gameTimer) 
+                return;
 
             // Time will be fixed to your destination time until reentry is completed.
             Utils.SetWorldTime(Properties.DestinationTime);
@@ -114,7 +116,24 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnReenterCompleted()
         {
-            _reentryTimer = 0;
+            Properties.TimeTravelPhase = TimeTravelPhase.Completed;
+
+            if (Mods.HoverUnderbody == ModState.On)
+                Properties.CanConvert = true;
+
+            if (Mods.Hook == HookState.On)
+                Mods.Hook = HookState.Removed;
+
+            if (Mods.Plate == PlateType.Outatime)
+                Mods.Plate = PlateType.Empty;
+
+            Utils.HideVehicle(Vehicle, false);
+
+            Main.HideGui = false;
+
+            Main.DisablePlayerSwitching = false;
+
+            Game.Player.IgnoredByPolice = false;
 
             if (Properties.WasOnTracks)
                 Events.SetRailroadMode?.Invoke(true, true);
@@ -149,24 +168,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             _currentStep = 0;
             _gameTimer = 0;
-            Properties.IsReentering = false;
-
-            if (Mods.HoverUnderbody == ModState.On)
-                Properties.CanConvert = true;
-
-            if (Mods.Hook == HookState.On)
-                Mods.Hook = HookState.Removed;
-
-            if (Mods.Plate == PlateType.Outatime)
-                Mods.Plate = PlateType.Empty;
-
-            Utils.HideVehicle(Vehicle, false);
-
-            Main.HideGui = false;
-
-            Main.DisablePlayerSwitching = false;
-
-            Game.Player.IgnoredByPolice = false;
+            _reentryTimer = 0;
         }
 
         public override void Dispose()
