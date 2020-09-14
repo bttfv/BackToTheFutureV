@@ -112,8 +112,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (!Properties.HasBeenStruckByLightning && Mods.IsDMC12)
                             Properties.IsFueled = false;
 
-                        Events.SetFreeze?.Invoke(!Properties.HasBeenStruckByLightning);
-
                         if (Mods.Hook == HookState.On)
                             Mods.Hook = HookState.Removed;
 

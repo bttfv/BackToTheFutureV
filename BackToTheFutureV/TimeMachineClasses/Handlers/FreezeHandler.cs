@@ -28,6 +28,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public FreezeHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnReenterCompleted += OnReenterCompleted;
+            Events.SetFreeze += SetFreeze;
+        }
+
+        public void SetFreeze(bool state)
+        {
+            if (state)
+                StartFreezeHandling(false);
+            else
+                Stop();
         }
 
         public void OnReenterCompleted()

@@ -157,8 +157,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 VehicleControl.SetBrake(Vehicle, 1f);
             }
 
-            Events.SetFreeze?.Invoke(!Properties.HasBeenStruckByLightning);
-
             //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, Main.PlayerPed.Model);
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
         }
