@@ -48,7 +48,10 @@ namespace BackToTheFutureV.Vehicles
         private bool spawnSuspension;
 
         public DMC12(Vehicle vehicle)
-        {            
+        {
+            if (DMC12Handler.GetDeloreanFromVehicle(vehicle) != null)
+                return;
+
             Vehicle = vehicle;
 
             Mods = new DMC12Mods(Vehicle);
@@ -85,11 +88,11 @@ namespace BackToTheFutureV.Vehicles
             suspensionRightFront.SpawnProp();
             suspensionRightRear.SpawnProp();
 
-            DMC12Handler.AddDelorean(this);
-
             SetStockSuspensions += eSetStockSuspensions;
 
             spawnSuspension = true;
+
+            DMC12Handler.AddDelorean(this);
         }
 
         public void eSetStockSuspensions(bool state)

@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -162,6 +163,12 @@ namespace BackToTheFutureV.Vehicles
             ret.Exhaust = Exhaust;
             ret.Hoodbox = Hoodbox;
             ret.Hook = Hook;
+
+            if (ret.SuspensionsType == SuspensionsType.Stock)
+            {
+                Function.Call((Hash)0x1201E8A3290A3B98, timeMachine.Vehicle, false);
+                Function.Call((Hash)0x28B18377EB6E25F6, timeMachine.Vehicle, false);
+            }
         }
 
         public void Save(string name)
@@ -178,7 +185,7 @@ namespace BackToTheFutureV.Vehicles
 
             Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Create, FileAccess.Write);
 
-            formatter.Serialize(stream, this);
+            formatter.Serialize(stream, this.Clone());
             stream.Close();
         }
 

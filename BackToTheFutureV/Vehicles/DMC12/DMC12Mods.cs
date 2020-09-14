@@ -1,9 +1,11 @@
-﻿using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,9 +40,42 @@ namespace BackToTheFutureV.Vehicles
             }
         }
 
+        public void ForceMods()
+        {
+            WormholeType = WormholeType;
+            SuspensionsType = SuspensionsType;
+            Wheel = Wheel;
+            Exterior = Exterior;
+            Interior = Interior;
+            OffCoils = OffCoils;
+            GlowingEmitter = GlowingEmitter;
+            GlowingReactor = GlowingReactor;
+            DamagedBumper = DamagedBumper;
+            HoverUnderbody = HoverUnderbody;
+            SteeringWheelsButtons = SteeringWheelsButtons;
+            Vents = Vents;
+            Seats = Seats;
+            Reactor = Reactor;
+            Plate = Plate;
+            Exhaust = Exhaust;
+            Hoodbox = HoverUnderbody;
+            Hook = Hook;
+        }
+
         public new WormholeType WormholeType
         {
-            get => base.WormholeType;
+            get 
+            {
+                if (IsDMC12)
+                {
+                    WormholeType wormholeType = (WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index;
+
+                    if (wormholeType != base.WormholeType)
+                        base.WormholeType = wormholeType;
+                }
+                
+                return base.WormholeType;
+            }
             set
             {
                 base.WormholeType = value;
@@ -54,7 +89,7 @@ namespace BackToTheFutureV.Vehicles
         {
             get => base.SuspensionsType;
             set
-            {
+            {               
                 if (value == base.SuspensionsType)
                     return;
 
@@ -62,7 +97,7 @@ namespace BackToTheFutureV.Vehicles
 
                 if (!IsDMC12)
                     return;
-
+              
                 switch (value)
                 {
                     case SuspensionsType.Stock:

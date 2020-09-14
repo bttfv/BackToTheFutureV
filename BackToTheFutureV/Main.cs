@@ -141,18 +141,6 @@ namespace BackToTheFutureV
                 _firstTick = false;
             }
 
-            //foreach (var veh in World.GetAllVehicles())
-            //{
-            //    if (modelList.Contains(veh))
-            //        return;
-
-            //    if (veh.Bones["misc_c"].Index != 0 && veh.Bones["misc_c"].Index != -1 && veh.Bones["misc_f"].Index != 0 && veh.Bones["misc_f"].Index != -1)
-            //    {
-            //        veh.AddBlip();
-            //        modelList.Add(veh);
-            //    }                   
-            //}
-
             if (MenuPool != null && MenuPool.IsAnyMenuOpen())
                 MenuPool.ProcessMenus();
 
@@ -176,11 +164,11 @@ namespace BackToTheFutureV
             MissionHandler.Process();                        
             PlayerSwitch.Process();            
 
-            if (Game.GameTime > _saveDelay)
-            {
-                TimeMachineHandler.SaveAllTimeMachines();
-                _saveDelay = Game.GameTime + 2000;
-            }            
+            //if (Game.GameTime > _saveDelay)
+            //{
+            TimeMachineHandler.SaveAllTimeMachines();
+            //    _saveDelay = Game.GameTime + 2000;
+            //}
         }
     }
 }

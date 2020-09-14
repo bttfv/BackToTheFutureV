@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
 using System;
@@ -19,6 +20,14 @@ namespace BackToTheFutureV.Vehicles
         {
             Vehicle vehicle = World.CreateVehicle(ModelHandler.DMC12, position, heading);
 
+            if (warpInPlayer)
+                Main.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+
+            return new DMC12(vehicle);
+        }
+
+        public static DMC12 CreateDMC12(Vehicle vehicle, bool warpInPlayer = false)
+        {            
             if (warpInPlayer)
                 Main.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
 
@@ -50,6 +59,10 @@ namespace BackToTheFutureV.Vehicles
 
         public static void Process()
         {
+            foreach (var veh in World.GetAllVehicles())
+                if (veh.Model.Hash == ModelHandler.DMC12.Hash && !veh.IsDead && veh.IsAlive && GetDeloreanFromVehicle(veh) == null)
+                    CreateDMC12(veh);
+
             if (_deloreansToRemove.Count > 0)
             {
                 foreach (var delo in _deloreansToRemove)
@@ -71,6 +84,9 @@ namespace BackToTheFutureV.Vehicles
                     RemoveDelorean(delo, true);
                     continue;
                 }
+
+                if (delo.Mods.WormholeType != WormholeType.DMC12 && TimeMachineHandler.GetTimeMachineFromVehicle(delo.Vehicle) == null)
+                    TimeMachineHandler.CreateTimeMachine(delo, delo.Mods.WormholeType);
 
                 delo.Process();
             }                
