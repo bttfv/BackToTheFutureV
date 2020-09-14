@@ -125,7 +125,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.03f, 0, 0.005f));
 
                 Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
-                //Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
+                Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
             }
 
             LastDisplacementClone = Clone;
