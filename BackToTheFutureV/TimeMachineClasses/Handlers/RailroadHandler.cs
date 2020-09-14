@@ -25,7 +25,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public RailroadHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            
+            Events.SetRailroadMode += SetRailroadMode;
+        }
+
+        public void SetRailroadMode(bool state, bool isReentering = false)
+        {
+            if (state)
+                StartDriving(isReentering);
+            else
+                StopTrain();
         }
 
         public void StartDriving(bool isReentering = false)

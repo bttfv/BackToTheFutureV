@@ -20,8 +20,6 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public static TimeMachine RemoteControlling { get; private set; }
 
-        private static RcHandler _cachedRCHandler => RemoteControlling.GetHandler<RcHandler>();
-
         private static BarTimerBar _signalBar = new BarTimerBar(Game.GetLocalizedString("BTTFV_RC_Signal"));
 
         public static void RemoteControl(TimeMachine timeMachine)
@@ -40,9 +38,9 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public static void Process()
         {
-            if (RemoteControlling == null || _cachedRCHandler == null || !RemoteControlling.Properties.IsRemoteControlled) return;
+            if (RemoteControlling == null || !RemoteControlling.Properties.IsRemoteControlled) return;
 
-            float squareDist = RemoteControlling.Vehicle.Position.DistanceToSquared(_cachedRCHandler.OriginalPed.Position);
+            float squareDist = RemoteControlling.Vehicle.Position.DistanceToSquared(RemoteControlling.OriginalPed.Position);
             float percentage = ((MAX_DIST * MAX_DIST - squareDist) / (MAX_DIST * MAX_DIST));
 
             _signalBar.Percentage = percentage;

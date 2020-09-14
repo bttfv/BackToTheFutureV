@@ -19,17 +19,18 @@ namespace BackToTheFutureV.TimeMachineClasses
         public Vehicle Vehicle;
         public DMC12 DMC12 { get; }
 
-        public EventsHandler Events => GetHandler<EventsHandler>();
+        public EventsHandler Events { get; private set; }
         public PropertiesHandler Properties { get; }
         public TimeMachineMods Mods { get; }
-        public SoundsHandler Sounds => GetHandler<SoundsHandler>();
-        public PropsHandler Props => GetHandler<PropsHandler>();
-        public PlayersHandler Players => GetHandler<PlayersHandler>();
-        public ScaleformsHandler Scaleforms => GetHandler<ScaleformsHandler>();
-        public PtfxHandler SFX => GetHandler<PtfxHandler>();
+        public SoundsHandler Sounds { get; private set; }
+        public PropsHandler Props { get; private set; }
+        public PlayersHandler Players { get; private set; }
+        public ScaleformsHandler Scaleforms { get; private set; }
+        public PtfxHandler SFX { get; private set; }
 
         public TimeMachineClone Clone => new TimeMachineClone(this);
         public TimeMachineClone LastDisplacementClone { get; set; }
+        public Ped OriginalPed;
 
         private readonly Dictionary<string, Handler> registeredHandlers = new Dictionary<string, Handler>();
 
@@ -76,12 +77,12 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         private void BuildTimeMachine()
         {
-            registeredHandlers.Add("EventsHandler", new EventsHandler(this));
-            registeredHandlers.Add("SoundsHandler", new SoundsHandler(this));
-            registeredHandlers.Add("PropsHandler", new PropsHandler(this));
-            registeredHandlers.Add("PlayersHandler", new PlayersHandler(this));
-            registeredHandlers.Add("ScaleformsHandler", new ScaleformsHandler(this));
-            registeredHandlers.Add("PtfxHandler", new PtfxHandler(this));
+            registeredHandlers.Add("EventsHandler", Events = new EventsHandler(this));
+            registeredHandlers.Add("SoundsHandler", Sounds = new SoundsHandler(this));
+            registeredHandlers.Add("PropsHandler", Props = new PropsHandler(this));
+            registeredHandlers.Add("PlayersHandler", Players = new PlayersHandler(this));
+            registeredHandlers.Add("ScaleformsHandler", Scaleforms = new ScaleformsHandler(this));
+            registeredHandlers.Add("PtfxHandler", SFX = new PtfxHandler(this));
 
             registeredHandlers.Add("SpeedoHandler", new SpeedoHandler(this));
             registeredHandlers.Add("TimeTravelHandler", new TimeTravelHandler(this));                        

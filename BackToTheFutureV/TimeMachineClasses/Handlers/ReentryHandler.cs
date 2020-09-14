@@ -16,8 +16,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private int _currentStep;
         private int _gameTimer;
 
-        public bool IsReentering { get; private set; }
-
         public ReentryHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             SFX.Flash = new PtfxEntityPlayer("core", "ent_anim_paparazzi_flash", Vehicle, Vector3.Zero, Vector3.Zero, 50f);
@@ -28,7 +26,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void OnReenter()
         {
-            IsReentering = true;
+            Properties.IsReentering = true;
+            Properties.IsTimeTravelling = false;
         }
 
         public override void Process()
@@ -44,7 +43,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (!IsReentering) return;
+            if (!Properties.IsReentering) return;
             if (Game.GameTime < _gameTimer) return;
 
             // Time will be fixed to your destination time until reentry is completed.
@@ -118,7 +117,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _reentryTimer = 0;
 
             if (Properties.WasOnTracks)
-                TimeMachine.GetHandler<RailroadHandler>().StartDriving(true);
+                Events.SetRailroadMode?.Invoke(true, true);
             else
             {
                 Vehicle.Velocity = Properties.LastVelocity;
@@ -139,8 +138,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 VehicleControl.SetBrake(Vehicle, 1f);
             }
 
-            Properties.IsInTime = false;
-
             Events.SetFreeze?.Invoke(!Properties.HasBeenStruckByLightning);
 
             //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, Main.PlayerPed.Model);
@@ -152,7 +149,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             _currentStep = 0;
             _gameTimer = 0;
-            IsReentering = false;
+            Properties.IsReentering = false;
 
             if (Mods.HoverUnderbody == ModState.On)
                 Properties.CanConvert = true;

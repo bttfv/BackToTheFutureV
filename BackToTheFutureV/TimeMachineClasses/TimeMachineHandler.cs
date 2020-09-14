@@ -151,7 +151,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (RCManager.RemoteControlling != null)
             {
-                ped = RCManager.RemoteControlling.GetHandler<RcHandler>().OriginalPed;
+                ped = RCManager.RemoteControlling.OriginalPed;
                 RCManager.StopRemoteControl(true);
             }
 

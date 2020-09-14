@@ -19,7 +19,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
     public class RcHandler : Handler
     {
         public Ped Clone { get; private set; }
-        public Ped OriginalPed;
 
         public RcModes CurrentMode { get; set; }
 
@@ -88,7 +87,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Vehicle.LockStatus = VehicleLockStatus.StickPlayerInside;
 
-            Clone = PlayerSwitch.CreatePedAndSwitch(out OriginalPed, Main.PlayerPed.Position, Main.PlayerPed.Heading, true);
+            Clone = PlayerSwitch.CreatePedAndSwitch(out TimeMachine.OriginalPed, Main.PlayerPed.Position, Main.PlayerPed.Heading, true);
 
             Clone.SetIntoVehicle(Vehicle, VehicleSeat.Driver);
 
@@ -98,16 +97,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Clone.AlwaysKeepTask = true;
             Clone.IsVisible = false;
             
-            _blip = OriginalPed.AddBlip();
+            _blip = TimeMachine.OriginalPed.AddBlip();
             _blip.Sprite = (BlipSprite)480;
             _blip.Color = BlipColor.White;
 
             foreach (var sound in Sounds.RCSounds)
-                sound.SourceEntity = OriginalPed;
+                sound.SourceEntity = TimeMachine.OriginalPed;
 
             Sounds.RCOn.Play();
 
-            OriginalPed.Task.TurnTo(Vehicle);
+            TimeMachine.OriginalPed.Task.TurnTo(Vehicle);
 
             if (CurrentMode == RcModes.FromPlayerCamera)
             {
@@ -123,12 +122,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 Properties.IsRemoteControlled = false;
 
-                if (OriginalPed == null)
+                if (TimeMachine.OriginalPed == null)
                     return;
 
-                OriginalPed.Task.ClearAll();
+                TimeMachine.OriginalPed.Task.ClearAll();
 
-                PlayerSwitch.Switch(OriginalPed, true, instant);
+                PlayerSwitch.Switch(TimeMachine.OriginalPed, true, instant);
 
                 if (!instant)
                     Sounds.RCOff.Play();
@@ -159,10 +158,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Main.IsManualPlayerSwitchInProgress)
                 return;
 
-            if (OriginalPed == null)
+            if (TimeMachine.OriginalPed == null)
                 return;
 
-            if (OriginalPed.HasCollided)
+            if (TimeMachine.OriginalPed.HasCollided)
             {
                 RCManager.StopRemoteControl();
                 return;
@@ -178,15 +177,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             //var isCloneFreezed = Main.PlayerPed.Position.DistanceToSquared(OriginalPed.Position) >= 50*50;
             //Function.Call(Hash.FREEZE_ENTITY_POSITION, OriginalPed, isCloneFreezed);
 
-            var origPos = OriginalPed.Position;
+            var origPos = TimeMachine.OriginalPed.Position;
             var carPos = Vehicle.Position;
             Function.Call(Hash.REQUEST_COLLISION_AT_COORD, origPos.X, origPos.Y, origPos.Z);
             Function.Call(Hash.REQUEST_COLLISION_AT_COORD, carPos.X, carPos.Y, carPos.Z);
 
             Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Main.PlayerPed);
             Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Main.PlayerPed);
-            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, OriginalPed);
-            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, OriginalPed);
+            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, TimeMachine.OriginalPed);
+            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, TimeMachine.OriginalPed);
 
             if (Game.IsControlJustPressed(GTA.Control.VehicleAccelerate))
                 Sounds.RCAcceleration.Play();
@@ -209,7 +208,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     CurrentMode = RcModes.FromPlayerCamera;
 
-                    Function.Call(Hash.SET_FOCUS_ENTITY, OriginalPed);
+                    Function.Call(Hash.SET_FOCUS_ENTITY, TimeMachine.OriginalPed);
 
                     _camera = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
                     _camera.PointAt(Vehicle);
@@ -218,7 +217,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
 
             if (CurrentMode == RcModes.FromPlayerCamera && _camera != null && _camera.Exists())
-                _camera.Position = OriginalPed.Bones[Bone.SkelHead].GetOffsetPosition(new Vector3(0,0.1f,0));
+                _camera.Position = TimeMachine.OriginalPed.Bones[Bone.SkelHead].GetOffsetPosition(new Vector3(0,0.1f,0));
         }
 
         public override void Stop() => StopRC();

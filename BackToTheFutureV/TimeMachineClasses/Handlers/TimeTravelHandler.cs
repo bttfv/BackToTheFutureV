@@ -81,7 +81,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Properties.WasOnTracks = Properties.IsOnTracks;
 
                     if (Properties.IsOnTracks)
-                        TimeMachine.GetHandler<RailroadHandler>().StopTrain();
+                        Events.SetRailroadMode?.Invoke(false);
 
                     // Set previous time
                     Properties.PreviousTime = Utils.GetWorldTime();
@@ -107,7 +107,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Stop();
 
                         if (Properties.WasOnTracks)
-                            TimeMachine.GetHandler<RailroadHandler>().StartDriving(true);
+                            Events.SetRailroadMode?.Invoke(true, true);
 
                         if (!Properties.HasBeenStruckByLightning && Mods.IsDMC12)
                             Properties.IsFueled = false;
@@ -180,8 +180,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Main.DisablePlayerSwitching = true;
 
                     Utils.HideVehicle(Vehicle, true);
-
-                    Properties.IsInTime = true;
 
                     gameTimer = Game.GameTime + 300;
 
@@ -271,7 +269,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void ResetFields()
         {
             _currentStep = 0;
-            Properties.IsTimeTravelling = false;
             gameTimer = 0;
         }
     }

@@ -11,6 +11,14 @@ using System.Threading.Tasks;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
+    public enum TimeTravelPhase { 
+        Sparks,
+        Wormhole,
+        InTime,
+        Reentering,
+        Completed
+    }
+
     [Serializable]
     public class BaseProperties
     {
@@ -20,13 +28,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public DateTime DestinationTime { get; set; } = new DateTime(2015, 10, 25, 14, 00, 00);
         public DateTime PreviousTime { get; set; } = new DateTime(1985, 10, 25, 00, 21, 00);
         public Vector3 LastVelocity { get; set; }
+        public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
         public bool AreTimeCircuitsBroken { get; set; }
         public bool IsFueled { get; set; } = true;
         public bool IsRefueling { get; set; }
         public bool CutsceneMode { get; set; } = true;
         public bool IsFluxDoingBlueAnim { get; set; }
         public bool IsTimeTravelling { get; set; }
-        public bool IsInTime { get; set; }
         public bool IsReentering { get; set; }
         public bool IsFreezed { get; set; }
         public bool IsDefrosting { get; set; }
