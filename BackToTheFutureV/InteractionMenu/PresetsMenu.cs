@@ -43,13 +43,13 @@ namespace BackToTheFutureV.InteractionMenu
                 if (_name == null || _name == "")
                     return;
 
-                TimeMachineMods.RenameSave(MenuItems[CurrentSelection].Text, _name);
+                TimeMachineClone.RenameSave(MenuItems[CurrentSelection].Text, _name);
                 ReloadList();
             }
 
             if (Game.IsControlJustPressed(Control.PhoneRight))
             {
-                TimeMachineMods.DeleteSave(MenuItems[CurrentSelection].Text);
+                TimeMachineClone.DeleteSave(MenuItems[CurrentSelection].Text);
                 ReloadList();
             }
 
@@ -67,7 +67,7 @@ namespace BackToTheFutureV.InteractionMenu
             if (ModSettings.CinematicSpawn)
                 TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF1, selectedItem.Text);
             else
-                BaseMods.Load(selectedItem.Text).ApplyTo(TimeMachineHandler.Spawn(WormholeType.BTTF1));
+                TimeMachineClone.Load(selectedItem.Text).ApplyTo(TimeMachineHandler.Spawn(WormholeType.BTTF1), true);
 
             Main.MenuPool.CloseAllMenus();
         }
@@ -81,7 +81,7 @@ namespace BackToTheFutureV.InteractionMenu
         {
             Clear();
 
-            foreach (string preset in TimeMachineMods.ListPresets())
+            foreach (string preset in TimeMachineClone.ListPresets())
                 AddItem(new UIMenuItem(preset));
 
             RefreshIndex();

@@ -119,28 +119,34 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (wormholeType == WormholeType.DMC12)
                 return Spawn(wormholeType);
 
-            BaseMods baseMods = null;
+            TimeMachineClone timeMachineClone = null;
 
             if (presetName != default)
+                timeMachineClone = TimeMachineClone.Load(presetName);
+
+            TimeMachine timeMachine;
+
+            if (timeMachineClone != null)
             {
-                baseMods = BaseMods.Load(presetName);
-                wormholeType = baseMods.WormholeType;
+                timeMachineClone.Vehicle.Position = Main.PlayerPed.GetOffsetPosition(new Vector3(0, 25, 0));
+                timeMachineClone.Vehicle.Heading = Main.PlayerPed.Heading + 180;
+
+                timeMachine = timeMachineClone.Spawn(true, true);
+            }                
+            else
+            {
+                timeMachine = CreateTimeMachine(Main.PlayerPed.GetOffsetPosition(new Vector3(0, 25, 0)), Main.PlayerPed.Heading + 180, wormholeType);
+
+                Utils.HideVehicle(timeMachine.Vehicle, true);
+
+                timeMachine.Properties.DestinationTime = Main.CurrentTime;
+
+                timeMachine.Properties.AreTimeCircuitsOn = true;
+                timeMachine.Events.SetTimeCircuits?.Invoke(true);
+
+                timeMachine.Events.OnReenter?.Invoke();
             }
-
-            TimeMachine timeMachine = CreateTimeMachine(Main.PlayerPed.GetOffsetPosition(new Vector3(0, 25, 0)), Main.PlayerPed.Heading + 180, wormholeType);
-
-            if (baseMods != null)
-                baseMods.ApplyTo(timeMachine);
-
-            Utils.HideVehicle(timeMachine.Vehicle, true);
-
-            timeMachine.Properties.DestinationTime = Main.CurrentTime;
-
-            timeMachine.Properties.AreTimeCircuitsOn = true;
-            timeMachine.Events.SetTimeCircuits?.Invoke(true);
-
-            timeMachine.Events.OnReenter?.Invoke();
-
+                
             return timeMachine;
         }
 
@@ -162,6 +168,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 spawnPos = ped.Position;
 
             TimeMachine timeMachine = CreateTimeMachine(spawnPos, ped.Heading, wormholeType);
+
             ped.SetIntoVehicle(timeMachine.Vehicle, VehicleSeat.Driver);
 
             timeMachine.Vehicle.PlaceOnGround();

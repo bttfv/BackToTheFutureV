@@ -197,7 +197,7 @@ namespace BackToTheFutureV.InteractionMenu
                 if (_name == null || _name == "")
                     return;
 
-                _tempTimeMachine.Mods.Save(_name);
+                _tempTimeMachine.Clone.Save(_name);
             }
         }
 

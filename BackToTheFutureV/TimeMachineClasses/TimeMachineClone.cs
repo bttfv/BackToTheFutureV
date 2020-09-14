@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BackToTheFutureV.TimeMachineClasses
@@ -76,7 +77,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             Vehicle = new VehicleInfo(timeMachine.Vehicle);
         }
 
-        public TimeMachine Spawn()
+        public TimeMachine Spawn(bool asNew = false, bool reenter = false)
         {
             Model model = new Model(Vehicle.Model);
 
@@ -93,16 +94,111 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             TimeMachine timeMachine = new TimeMachine(veh, Mods.WormholeType);
             
-            ApplyTo(timeMachine);
+            ApplyTo(timeMachine, asNew);
+
+            if (!veh.IsOnAllWheels && veh.HeightAboveGround > 5 && timeMachine.Mods.HoverUnderbody == ModState.On)
+                timeMachine.Events.SetFlyMode?.Invoke(true, true);
+
+            if (reenter)
+            {
+                Utils.HideVehicle(timeMachine.Vehicle, true);
+
+                timeMachine.Properties.DestinationTime = Main.CurrentTime;
+
+                timeMachine.Properties.AreTimeCircuitsOn = true;
+                timeMachine.Events.SetTimeCircuits?.Invoke(true);
+
+                timeMachine.Events.OnReenter?.Invoke();
+            }
 
             return timeMachine;
         }
 
-        public void ApplyTo(TimeMachine timeMachine)
+        public void ApplyTo(TimeMachine timeMachine, bool asNew = false)
         {
-            Vehicle.ApplyTo(timeMachine.Vehicle, false);
+            Vehicle.ApplyTo(timeMachine.Vehicle);
             Mods.ApplyTo(timeMachine);
-            Properties.ApplyTo(timeMachine);
+            
+            if (!asNew)
+                Properties.ApplyTo(timeMachine);
+        }
+
+
+        public void Save(string name)
+        {
+            if (!name.ToLower().EndsWith(".dmc12"))
+                name = name + ".dmc12";
+
+            name = RemoveIllegalFileNameChars(name);
+
+            IFormatter formatter = new BinaryFormatter();
+
+            if (!Directory.Exists(PresetsPath))
+                Directory.CreateDirectory(PresetsPath);
+
+            Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Create, FileAccess.Write);
+
+            formatter.Serialize(stream, this);
+            stream.Close();
+        }
+
+        public static string PresetsPath = "./scripts/BackToTheFutureV/presets";
+
+        public static bool PresetExists(string name)
+        {
+            if (!name.ToLower().EndsWith(".dmc12"))
+                name = name + ".dmc12";
+
+            return File.Exists($"{PresetsPath}/{name}");
+        }
+
+        public static List<string> ListPresets()
+        {
+            if (!Directory.Exists(PresetsPath))
+                Directory.CreateDirectory(PresetsPath);
+
+            return new DirectoryInfo(PresetsPath).GetFiles("*.dmc12").Select(x => x.Name.Replace(".dmc12", "")).ToList();
+        }
+
+        public static void DeleteSave(string name)
+        {
+            if (!name.ToLower().EndsWith(".dmc12"))
+                name = name + ".dmc12";
+
+            File.Delete($"{PresetsPath}/{name}");
+        }
+
+        public static void RenameSave(string name, string newName)
+        {
+            if (!name.ToLower().EndsWith(".dmc12"))
+                name = name + ".dmc12";
+
+            if (!newName.ToLower().EndsWith(".dmc12"))
+                newName = newName + ".dmc12";
+
+            File.Move($"{PresetsPath}/{name}", $"{PresetsPath}/{newName}");
+        }
+
+        private static string RemoveIllegalFileNameChars(string input, string replacement = "")
+        {
+            var regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            var r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
+            return r.Replace(input, replacement);
+        }
+
+        public static TimeMachineClone Load(string name)
+        {
+            if (!name.ToLower().EndsWith(".dmc12"))
+                name = name + ".dmc12";
+
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Open, FileAccess.Read);
+
+            TimeMachineClone baseMods = (TimeMachineClone)formatter.Deserialize(stream);
+
+            stream.Close();
+
+            return baseMods;
         }
     }
 }

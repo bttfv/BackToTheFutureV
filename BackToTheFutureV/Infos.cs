@@ -15,9 +15,9 @@ namespace BackToTheFutureV
     {
         public int Model { get; set; }
         public Vector3 Velocity { get; }
-        public Vector3 Position { get; }
-        public Vector3 Rotation { get; }
-        public float Heading { get; }
+        public Vector3 Position { get; set; }
+        public Vector3 Rotation { get; set; }
+        public float Heading { get; set; }
         public float Speed { get; }
         public float Health { get; }
         public float EngineHealth { get; }
@@ -40,15 +40,11 @@ namespace BackToTheFutureV
             SecondaryColor = veh.Mods.SecondaryColor;
         }
 
-        public void ApplyTo(Vehicle veh, bool posToo = true)
+        public void ApplyTo(Vehicle veh)
         {
-            if (posToo)
-            {
-                veh.Position = Position;
-                veh.Heading = Heading;
-            }
-
+            veh.Position = Position;
             veh.Rotation = Rotation;
+            veh.Heading = Heading;           
             veh.Velocity = Velocity;            
             veh.Speed = Speed;
             veh.HealthFloat = Health;

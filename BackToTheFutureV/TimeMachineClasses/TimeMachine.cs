@@ -329,6 +329,8 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             DisposeAllHandlers();
 
+            Blip?.Delete();
+
             if (Mods.IsDMC12)
                 DMC12.Dispose(deleteVeh);
             else if (deleteVeh)            

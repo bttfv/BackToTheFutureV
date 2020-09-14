@@ -129,7 +129,7 @@ namespace BackToTheFutureV
 
         private static void MainMenu_OnMenuOpen(UIMenu sender)
         {
-            if (TimeMachineMods.ListPresets().Count > 0)
+            if (TimeMachineClone.ListPresets().Count > 0)
             {
                 MainMenu.ReleaseMenuFromItem(spawnPresetDelorean);
                 MainMenu.BindMenuToItem(InteractionMenuManager.PresetsMenu, spawnPresetDelorean);
@@ -231,7 +231,7 @@ namespace BackToTheFutureV
 
         private static void MainMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
         {
-            if (selectedItem == spawnPresetDelorean && TimeMachineMods.ListPresets().Count == 0)
+            if (selectedItem == spawnPresetDelorean && TimeMachineClone.ListPresets().Count == 0)
                 Notification.Show(Game.GetLocalizedString("BTTFV_Menu_Presets_Not_Found"));
 
             if (selectedItem == spawnCustomDelorean || selectedItem == spawnPresetDelorean)
