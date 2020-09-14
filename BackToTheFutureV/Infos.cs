@@ -14,29 +14,15 @@ namespace BackToTheFutureV
     public class VehicleInfo
     {
         public int Model { get; set; }
-
-        public PedInfo Driver { get; }
-
         public Vector3 Velocity { get; }
-
         public Vector3 Position { get; }
-
         public Vector3 Rotation { get; }
-
         public float Heading { get; }
-
-        public float Speed { get; set; }
-
-        public float Health { get; set; }
-
-        public float EngineHealth { get; set; }
-
-        public bool IsStationary { get; }
-
+        public float Speed { get; }
+        public float Health { get; }
+        public float EngineHealth { get; }
         public bool EngineRunning { get; }
-
         public VehicleColor PrimaryColor { get; }
-
         public VehicleColor SecondaryColor { get; }
 
         public VehicleInfo(Vehicle veh)
@@ -52,12 +38,6 @@ namespace BackToTheFutureV
             EngineRunning = veh.IsEngineRunning;
             PrimaryColor = veh.Mods.PrimaryColor;
             SecondaryColor = veh.Mods.SecondaryColor;
-
-            if (veh.Driver != null)
-            {
-                IsStationary = false;
-                Driver = new PedInfo(veh.Driver);
-            }
         }
 
         public void ApplyTo(Vehicle veh, bool posToo = true)
@@ -76,20 +56,6 @@ namespace BackToTheFutureV
             veh.IsEngineRunning = EngineRunning;
             veh.Mods.PrimaryColor = PrimaryColor;
             veh.Mods.SecondaryColor = SecondaryColor;
-        }
-    }
-
-    [Serializable]
-    public class PedInfo
-    {
-        public int Model { get; set; }
-
-        public int PedType { get; set; }
-
-        public PedInfo(Ped ped)
-        {
-            Model = ped.Model;
-            PedType = Function.Call<int>(Hash.GET_PED_TYPE, ped);
         }
     }
 

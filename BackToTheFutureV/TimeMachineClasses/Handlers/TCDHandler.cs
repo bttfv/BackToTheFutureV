@@ -441,13 +441,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Properties.AreTimeCircuitsOn = on;
 
             if (on)
-            {
                 Sounds.InputOn.Play();
-            }
             else
-            {
                 Sounds.InputOff.Play();
-            }
 
             Events.OnTimeCircuitsToggle?.Invoke();
         }

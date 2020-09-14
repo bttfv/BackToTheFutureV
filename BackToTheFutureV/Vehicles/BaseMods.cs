@@ -87,25 +87,25 @@ namespace BackToTheFutureV.Vehicles
     [Serializable]
     public class BaseMods
     {
-        public bool IsDMC12 { get; protected set; }
-        public WormholeType WormholeType { get; set; }
-        public SuspensionsType SuspensionsType { get; set; }
-        public WheelType Wheel { get; set; }
-        public ModState Exterior { get; set; }
-        public ModState Interior { get; set; }
-        public ModState OffCoils { get; set; }
-        public ModState GlowingEmitter { get; set; }
-        public ModState GlowingReactor { get; set; }
-        public ModState DamagedBumper { get; set; }
-        public ModState HoverUnderbody { get; set; }
-        public ModState SteeringWheelsButtons { get; set; }
-        public ModState Vents { get; set; }
-        public ModState Seats { get; set; }
-        public ReactorType Reactor { get; set; }
-        public PlateType Plate { get; set; }
-        public ExhaustType Exhaust { get; set; }
-        public ModState Hoodbox { get; set; }
-        public HookState Hook { get; set; }
+        public bool IsDMC12 { get; protected set; } = false;
+        public WormholeType WormholeType { get; set; } = WormholeType.DMC12;
+        public SuspensionsType SuspensionsType { get; set; } = SuspensionsType.Stock;
+        public WheelType Wheel { get; set; } = WheelType.Stock;
+        public ModState Exterior { get; set; } = ModState.Off;
+        public ModState Interior { get; set; } = ModState.Off;
+        public ModState OffCoils { get; set; } = ModState.Off;
+        public ModState GlowingEmitter { get; set; } = ModState.Off;
+        public ModState GlowingReactor { get; set; } = ModState.Off;
+        public ModState DamagedBumper { get; set; } = ModState.Off;
+        public ModState HoverUnderbody { get; set; } = ModState.Off;
+        public ModState SteeringWheelsButtons { get; set; } = ModState.Off;
+        public ModState Vents { get; set; } = ModState.Off;
+        public ModState Seats { get; set; } = ModState.Off;
+        public ReactorType Reactor { get; set; } = ReactorType.None;
+        public PlateType Plate { get; set; } = PlateType.Empty;
+        public ExhaustType Exhaust { get; set; } = ExhaustType.Stock;
+        public ModState Hoodbox { get; set; } = ModState.Off;
+        public HookState Hook { get; set; } = HookState.Off;
 
         public BaseMods()
         {
@@ -114,15 +114,6 @@ namespace BackToTheFutureV.Vehicles
 
         public BaseMods Clone()
         {
-            //using (var ms = new MemoryStream())
-            //{
-            //    var formatter = new BinaryFormatter();
-            //    formatter.Serialize(ms, this);
-            //    ms.Position = 0;
-
-            //    return (BaseMods)formatter.Deserialize(ms);
-            //}
-
             BaseMods ret = new BaseMods();
 
             ret.IsDMC12 = IsDMC12;
@@ -150,9 +141,45 @@ namespace BackToTheFutureV.Vehicles
 
         public void ApplyTo(TimeMachine timeMachine)
         {
-            PropertyInfo[] properties = this.GetType().GetProperties();
-            foreach (PropertyInfo property in properties)
-                property.SetValue(timeMachine.Mods, property.GetValue(this));
+            TimeMachineMods ret = timeMachine.Mods;
+
+            ret.IsDMC12 = IsDMC12;
+            ret.WormholeType = WormholeType;
+            ret.SuspensionsType = SuspensionsType;
+            ret.Wheel = Wheel;
+            ret.Exterior = Exterior;
+            ret.Interior = Interior;
+            ret.OffCoils = OffCoils;
+            ret.GlowingEmitter = GlowingEmitter;
+            ret.GlowingReactor = GlowingReactor;
+            ret.DamagedBumper = DamagedBumper;
+            ret.HoverUnderbody = HoverUnderbody;
+            ret.SteeringWheelsButtons = SteeringWheelsButtons;
+            ret.Vents = Vents;
+            ret.Seats = Seats;
+            ret.Reactor = Reactor;
+            ret.Plate = Plate;
+            ret.Exhaust = Exhaust;
+            ret.Hoodbox = Hoodbox;
+            ret.Hook = Hook;
+        }
+
+        public void Save(string name)
+        {
+            if (!name.ToLower().EndsWith(".dmc12"))
+                name = name + ".dmc12";
+
+            name = RemoveIllegalFileNameChars(name);
+
+            IFormatter formatter = new BinaryFormatter();
+
+            if (!Directory.Exists(PresetsPath))
+                Directory.CreateDirectory(PresetsPath);
+
+            Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Create, FileAccess.Write);
+
+            formatter.Serialize(stream, this);
+            stream.Close();
         }
 
         public static string PresetsPath = "./scripts/BackToTheFutureV/presets";
@@ -197,24 +224,6 @@ namespace BackToTheFutureV.Vehicles
             var regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
             var r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
             return r.Replace(input, replacement);
-        }
-
-        public void Save(string name)
-        {
-            if (!name.ToLower().EndsWith(".dmc12"))
-                name = name + ".dmc12";
-
-            name = RemoveIllegalFileNameChars(name);
-
-            IFormatter formatter = new BinaryFormatter();
-
-            if (!Directory.Exists(PresetsPath))
-                Directory.CreateDirectory(PresetsPath);
-
-            Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Create, FileAccess.Write);
-
-            formatter.Serialize(stream, this);
-            stream.Close();
         }
 
         public static BaseMods Load(string name)

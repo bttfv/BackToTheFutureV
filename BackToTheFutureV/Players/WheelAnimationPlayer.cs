@@ -388,12 +388,12 @@ namespace BackToTheFutureV.Players
         {
             foreach (var wheelProp in leftWheelProps)
             {
-                wheelProp.Dispose();
+                wheelProp?.Dispose();
             }
 
             foreach (var wheelProp in rightWheelProps)
             {
-                wheelProp.Dispose();
+                wheelProp?.Dispose();
             }
 
             foreach (var glowProp in leftWheelGlowProps)

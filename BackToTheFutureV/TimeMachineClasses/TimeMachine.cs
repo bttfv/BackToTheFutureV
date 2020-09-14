@@ -21,8 +21,8 @@ namespace BackToTheFutureV.TimeMachineClasses
         public DMC12 DMC12 { get; }
 
         public EventsHandler Events { get; private set; }
-        public PropertiesHandler Properties { get; }
-        public TimeMachineMods Mods { get; }
+        public PropertiesHandler Properties { get; private set; }
+        public TimeMachineMods Mods { get; private set; }
         public SoundsHandler Sounds { get; private set; }
         public PropsHandler Props { get; private set; }
         public PlayersHandler Players { get; private set; }
@@ -55,11 +55,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             DMC12 = dmc12;
             Vehicle = DMC12.Vehicle;
 
-            Mods = new TimeMachineMods(this, wormholeType);
-
-            Properties = new PropertiesHandler(this);
-
-            BuildTimeMachine();
+            BuildTimeMachine(wormholeType);
         }
 
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
@@ -76,16 +72,16 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (DMC12 == null)
                     DMC12 = new DMC12(vehicle);
             }
+           
+            BuildTimeMachine(wormholeType);
+        }
 
+        private void BuildTimeMachine(WormholeType wormholeType)
+        {
             Mods = new TimeMachineMods(this, wormholeType);
 
             Properties = new PropertiesHandler(this);
 
-            BuildTimeMachine();
-        }
-
-        private void BuildTimeMachine()
-        {
             registeredHandlers.Add("EventsHandler", Events = new EventsHandler(this));
             registeredHandlers.Add("SoundsHandler", Sounds = new SoundsHandler(this));
             registeredHandlers.Add("PropsHandler", Props = new PropsHandler(this));
@@ -102,6 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             registeredHandlers.Add("ReentryHandler", new ReentryHandler(this));                        
             registeredHandlers.Add("TimeCircuitsErrorHandler", new TimeCircuitsErrorHandler(this));            
             registeredHandlers.Add("SparksHandler", new SparksHandler(this));
+
             registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
             registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));
 
@@ -160,22 +157,22 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             Vehicle.IsRadioEnabled = false;
 
+            if (Mods.Wheel == WheelType.RailroadInvisible)
+            {
+                if (Properties.IsOnTracks)
+                {
+                    if (Utils.IsAllTiresBurst(Vehicle))
+                        Utils.SetTiresBurst(Vehicle, false);
+                }
+                else
+                {
+                    if (!Utils.IsAllTiresBurst(Vehicle))
+                        Utils.SetTiresBurst(Vehicle, true);
+                }
+            }
+
             if (Mods.IsDMC12)
             {
-                if (Mods.Wheel == WheelType.RailroadInvisible)
-                {
-                    if (Properties.IsOnTracks)
-                    {
-                        if (Utils.IsAllTiresBurst(Vehicle))
-                            Utils.SetTiresBurst(Vehicle, false);
-                    }
-                    else
-                    {
-                        if (!Utils.IsAllTiresBurst(Vehicle))
-                            Utils.SetTiresBurst(Vehicle, true);
-                    }
-                }
-
                 VehicleWindowCollection windows = Vehicle.Windows;
                 windows[VehicleWindowIndex.BackLeftWindow].Remove();
                 windows[VehicleWindowIndex.BackRightWindow].Remove();
@@ -288,6 +285,38 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             foreach (var entry in registeredHandlers)
                 entry.Value.Process();
+        }
+
+        public void UpdateBlip()
+        {
+            if (Blip != null && Blip.Exists())
+            {
+                switch (Mods.WormholeType)
+                {
+                    case WormholeType.BTTF1:
+                        Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF1")}";
+                        Blip.Color = BlipColor.NetPlayer22;
+                        break;
+
+                    case WormholeType.BTTF2:
+                        Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF2")}";
+                        Blip.Color = BlipColor.NetPlayer21;
+                        break;
+
+                    case WormholeType.BTTF3:
+                        if (Mods.Wheel == WheelType.RailroadInvisible)
+                        {
+                            Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3RR")}";
+                            Blip.Color = BlipColor.Orange;
+                        }
+                        else
+                        {
+                            Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3")}";
+                            Blip.Color = BlipColor.Red;
+                        }
+                        break;
+                }
+            }
         }
 
         public void KeyDown(Keys key)

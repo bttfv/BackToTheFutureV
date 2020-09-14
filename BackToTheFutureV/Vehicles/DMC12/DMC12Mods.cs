@@ -12,61 +12,30 @@ namespace BackToTheFutureV.Vehicles
     [Serializable]
     public class DMC12Mods : BaseMods
     {
-        public Vehicle Vehicle;
-
+        protected Vehicle Vehicle { get; }
         public DMC12Mods(Vehicle vehicle)
         {
             Vehicle = vehicle;
 
             IsDMC12 = Vehicle.Model == ModelHandler.DMC12;
 
-            FirstSetup();
-        }
-
-        public void FirstSetup()
-        {
             if (IsDMC12)
             {
                 Vehicle.Mods.InstallModKit();
 
+                Vehicle.ToggleExtra(10, true);
+
                 Vehicle.Mods.PrimaryColor = VehicleColor.BrushedAluminium;
                 Vehicle.Mods.TrimColor = VehicleColor.PureWhite;
+
                 Vehicle.DirtLevel = 0;
 
                 Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, 0f);
 
-                WormholeType = WormholeType.DMC12;
-
                 Seats = ModState.On;
+
+                WormholeType = WormholeType.DMC12;
             }
-            else
-            {
-                WormholeType = WormholeType.BTTF1;
-                Seats = ModState.Off;
-
-                Exterior = ModState.Off;
-                Interior = ModState.Off;
-                SteeringWheelsButtons = ModState.Off;
-                Vents = ModState.Off;
-                OffCoils = ModState.Off;
-                DamagedBumper = ModState.Off;
-
-                GlowingEmitter = ModState.Off;
-                GlowingReactor = ModState.Off;
-
-                Exhaust = ExhaustType.Stock;
-                Reactor = ReactorType.None;
-                Plate = PlateType.Empty;
-
-                HoverUnderbody = ModState.Off;
-                Hoodbox = ModState.Off;
-
-                Hook = HookState.Off;
-
-                SuspensionsType = SuspensionsType.Stock;
-
-                Wheel = WheelType.Stock;
-            }           
         }
 
         public new WormholeType WormholeType
@@ -87,6 +56,11 @@ namespace BackToTheFutureV.Vehicles
             set
             {
                 if (value == base.SuspensionsType)
+                    return;
+
+                base.SuspensionsType = value;
+
+                if (!IsDMC12)
                     return;
 
                 switch (value)
@@ -114,11 +88,8 @@ namespace BackToTheFutureV.Vehicles
                         Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
                         Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
                         Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
-
                         break;
-                }
-
-                base.SuspensionsType = value;
+                }                
             }
         }
         
@@ -238,7 +209,7 @@ namespace BackToTheFutureV.Vehicles
                 base.Vents = value;
 
                 if (IsDMC12)
-                Vehicle.Mods[VehicleModType.ColumnShifterLevers].Index = (int)value;
+                    Vehicle.Mods[VehicleModType.ColumnShifterLevers].Index = (int)value;
             }
         }
         

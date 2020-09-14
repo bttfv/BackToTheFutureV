@@ -11,6 +11,7 @@ using KlangRageAudioLibrary;
 using Control = GTA.Control;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using GTA.UI;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -48,6 +49,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void OnHoverUnderbodyToggle()
         {
+            if (Players.HoverModeWheels != null)
+            {
+                Players.HoverModeWheels.OnAnimCompleted -= OnAnimCompleted;
+                Players.HoverModeWheels?.Dispose();
+                Players.HoverModeWheels = null;
+            }
+
             if (Mods.HoverUnderbody == ModState.On && Mods.IsDMC12)
             {
                 Players.HoverModeWheels = new WheelAnimationPlayer(TimeMachine);
@@ -60,13 +68,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.IsFlying)
                 SetFlyMode(false, true);
-
-            if (Players.HoverModeWheels != null)
-            {
-                Players.HoverModeWheels.OnAnimCompleted -= OnAnimCompleted;
-                Players.HoverModeWheels?.Dispose();
-                Players.HoverModeWheels = null;
-            }
 
             foreach (AnimateProp x in Props.HoverModeUnderbodyLights)
                 x?.DeleteProp();
@@ -316,11 +317,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void HandleBoosting()
         {
             // First of all, check if vehicle is in fly mode, if its not just return
-            if (Main.PlayerVehicle != Vehicle) return;
+            if (Main.PlayerVehicle != Vehicle) 
+                return;
 
             // If the Handbrake control is pressed
             // Using this so that controllers are also supported
-            if(Game.IsControlPressed(GTA.Control.VehicleHandbrake) && Vehicle.IsEngineRunning)
+            if(Game.IsControlPressed(Control.VehicleHandbrake) && Vehicle.IsEngineRunning)
             {
                 // Boost!
                 Boost();
@@ -330,7 +332,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             else
             {
                 // Set vent effect invisible
-                Props.HoverModeWheelsGlow?.DeleteProp();
+                Props.HoverModeVentsGlow?.DeleteProp();
 
                 // Reset flag
                 _hasPlayedBoostSound = false;
@@ -436,7 +438,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-
+            Players.HoverModeWheels?.Dispose();
         }
     }
 }

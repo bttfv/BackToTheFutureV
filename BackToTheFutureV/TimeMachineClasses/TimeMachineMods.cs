@@ -15,51 +15,41 @@ namespace BackToTheFutureV.TimeMachineClasses
     [Serializable]
     public class TimeMachineMods : DMC12Mods
     {
-        private TimeMachine TimeMachine;
-
+        protected TimeMachine TimeMachine { get; }
         public TimeMachineMods(TimeMachine timeMachine, WormholeType wormholeType) : base(timeMachine.Vehicle)
         {
             TimeMachine = timeMachine;
 
+            if (IsDMC12)
+                Vehicle.ToggleExtra(10, false);
+
             WormholeType = wormholeType;
 
-            ApplyMods();
-        }
-
-        private void ApplyMods()
-        {
-            Vehicle.Mods.InstallModKit();
-
-            Vehicle.ToggleExtra(10, WormholeType == WormholeType.DMC12);
-
-            if (WormholeType != WormholeType.DMC12)
-            {
-                Exterior = ModState.On;
-                Interior = ModState.On;
-                SteeringWheelsButtons = ModState.On;
-                Vents = ModState.On;
-                OffCoils = ModState.On;
-                Hook = HookState.Off;
-                Hoodbox = ModState.Off;
-                HoverUnderbody = ModState.Off;
-                DamagedBumper = ModState.Off;
-
-                Exhaust = ExhaustType.BTTF;
-                Reactor = ReactorType.MrFusion;
-                Plate = PlateType.BTTF2;
-            }
-
+            Exterior = ModState.On;
+            Interior = ModState.On;
+            SteeringWheelsButtons = ModState.On;
+            Vents = ModState.On;
+            OffCoils = ModState.On;
+            
             switch (WormholeType)
             {
                 case WormholeType.BTTF1:
-                    Plate = PlateType.Outatime;
                     Reactor = ReactorType.Nuclear;
+                    Exhaust = ExhaustType.BTTF;
+                    Plate = PlateType.Outatime;
                     break;
                 case WormholeType.BTTF2:
+                    Reactor = ReactorType.MrFusion;
                     Exhaust = ExhaustType.None;
+                    Plate = PlateType.BTTF2;
+
                     HoverUnderbody = ModState.On;
                     break;
                 case WormholeType.BTTF3:
+                    Reactor = ReactorType.MrFusion;
+                    Exhaust = ExhaustType.BTTF;
+                    Plate = PlateType.BTTF2;
+
                     Hoodbox = ModState.On;
                     Wheel = WheelType.Red;
                     SuspensionsType = SuspensionsType.LiftFront;
@@ -71,7 +61,9 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             get => base.Wheel;
             set
-            {                
+            {
+                base.Wheel = value;
+
                 if (value == WheelType.RailroadInvisible)
                 {
                     TimeMachine.Props?.RRWheels?.ForEach(x => x?.SpawnProp());
@@ -84,9 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                     TimeMachine.Props?.RRWheels?.ForEach(x => x?.DeleteProp());
 
                     Utils.SetTiresBurst(Vehicle, false);
-                }
-
-                base.Wheel = value;
+                }                
             }
         }
 
@@ -131,6 +121,17 @@ namespace BackToTheFutureV.TimeMachineClasses
                 base.Reactor = value;
 
                 TimeMachine.Events?.OnReactorTypeChanged?.Invoke();
+            }
+        }
+
+        public new ModState Hoodbox
+        {
+            get => base.Hoodbox;
+            set
+            {
+                base.Hoodbox = value;
+
+                DamagedBumper = value;
             }
         }
     }

@@ -17,9 +17,8 @@ namespace BackToTheFutureV.TimeMachineClasses
     {
         public static TimeMachine LastTimeMachine { get; private set; }
         public static TimeMachine ClosestTimeMachine { get; private set; }
-        public static TimeMachine FurthestTimeMachine { get; private set; }
         public static TimeMachine CurrentTimeMachine { get; private set; }
-        public static float SquareDistToClosestTimeMachine { get; private set; }
+        public static float SquareDistToClosestTimeMachine { get; private set; } = -1;
 
         private static List<TimeMachine> _timeMachines = new List<TimeMachine>();
         private static List<TimeMachine> _timeMachinesToAdd = new List<TimeMachine>();
@@ -200,7 +199,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 _timeMachinesToAdd.Clear();
             }
 
-            UpdateClosestDeloreans();
+            UpdateClosestTimeMachine();
 
             foreach (var timeMachine in _timeMachines)
             {
@@ -269,72 +268,42 @@ namespace BackToTheFutureV.TimeMachineClasses
             });
         }
 
-        public static void UpdateClosestDeloreans()
+        public static void UpdateClosestTimeMachine()
         {
-            GetClosestDeloreans(Main.PlayerPed,                
-                out float closestTimeMachineDist, out TimeMachine closestTimeMachine, out TimeMachine currentTimeMachine, out TimeMachine furthestTimeMachine);
+            if (Main.PlayerVehicle != null && CurrentTimeMachine != null && CurrentTimeMachine.Vehicle == Main.PlayerVehicle)
+                return;
 
-            if (ClosestTimeMachine != closestTimeMachine)
+            CurrentTimeMachine = null;
+
+            if (_timeMachines.Count == 0 && SquareDistToClosestTimeMachine != -1)
             {
-                if (closestTimeMachine != null)
-                {
-                    closestTimeMachine.Events.OnScaleformPriority?.Invoke();
-                    closestTimeMachine.Properties.IsGivenScaleformPriority = true;
-                }
-
-                if (ClosestTimeMachine != null)
-                    ClosestTimeMachine.Properties.IsGivenScaleformPriority = false;
-
-                ClosestTimeMachine = closestTimeMachine;
+                ClosestTimeMachine = null;
+                SquareDistToClosestTimeMachine = -1;
             }
-
-            if (CurrentTimeMachine != currentTimeMachine)
-            {
-                CurrentTimeMachine = currentTimeMachine;
-                //CurrentTimeMachine?.Events.OnEnteredDelorean?.Invoke();
-            }
-
-            if (FurthestTimeMachine != furthestTimeMachine)
-                FurthestTimeMachine = furthestTimeMachine;
-
-            SquareDistToClosestTimeMachine = closestTimeMachineDist;
-        }
-
-        private static void GetClosestDeloreans(Entity entity, out float closestTimeMachineDist, out TimeMachine closestTimeMachine, out TimeMachine currentTimeMachine, out TimeMachine furthestTimeMachine)
-        {
-            closestTimeMachineDist = -1f;
-            closestTimeMachine = null;
-            currentTimeMachine = null;
-
-            float furthestTimeMachineDist = -1f;
-            furthestTimeMachine = null;
-
+                            
             foreach (var timeMachine in _timeMachines)
-            {
-                if (Main.PlayerVehicle == timeMachine.Vehicle)
+            {                
+                float dist = timeMachine.Vehicle.Position.DistanceToSquared(Main.PlayerPed.Position);
+
+                if (ClosestTimeMachine == timeMachine)
+                    SquareDistToClosestTimeMachine = dist;
+
+                if (ClosestTimeMachine != timeMachine && (SquareDistToClosestTimeMachine == -1 || dist < SquareDistToClosestTimeMachine))
                 {
-                    closestTimeMachine = timeMachine;
-                    currentTimeMachine = timeMachine;
-                    closestTimeMachineDist = 0;
+                    if (ClosestTimeMachine != null)
+                        ClosestTimeMachine.Properties.IsGivenScaleformPriority = false;
 
-                    break;
-                }
+                    ClosestTimeMachine = timeMachine;
 
-                var sqrDist = timeMachine.Vehicle.Position.DistanceToSquared(entity.Position);
+                    ClosestTimeMachine.Properties.IsGivenScaleformPriority = true;
+                    ClosestTimeMachine.Events.OnScaleformPriority?.Invoke();
 
-                if (sqrDist > furthestTimeMachineDist && furthestTimeMachine != timeMachine)
-                {
-                    furthestTimeMachineDist = sqrDist;
-                    furthestTimeMachine = timeMachine;
-                }
-
-                if (closestTimeMachineDist == -1f || sqrDist < closestTimeMachineDist)
-                {
-                    closestTimeMachine = timeMachine;
-                    closestTimeMachineDist = sqrDist;
+                    SquareDistToClosestTimeMachine = dist;               
                 }
             }
 
+            if (ClosestTimeMachine != null && Main.PlayerVehicle == ClosestTimeMachine.Vehicle)
+                CurrentTimeMachine = ClosestTimeMachine;
         }
     }
 }

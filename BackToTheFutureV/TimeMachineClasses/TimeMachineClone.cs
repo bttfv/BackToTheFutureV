@@ -31,6 +31,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         }
 
         private static string _saveFile = "./scripts/BackToTheFutureV/TimeMachines.dmc12";
+        private static IFormatter formatter = new BinaryFormatter();
 
         public static void Delete()
         {
@@ -39,9 +40,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         }
 
         public static void Save(List<TimeMachine> timeMachines)
-        {
-            IFormatter formatter = new BinaryFormatter();
-
+        {            
             Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
 
             formatter.Serialize(stream, new TimeMachineCloneManager(timeMachines));
@@ -53,7 +52,6 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (!File.Exists(_saveFile))
                 return null;
 
-            IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
 
             TimeMachineCloneManager timeMachineCloneManager  = (TimeMachineCloneManager)formatter.Deserialize(stream);

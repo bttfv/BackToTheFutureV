@@ -286,31 +286,8 @@ namespace BackToTheFutureV.Utility
             ModelHandler.RequestModel(vehicleInfo.Model);
 
             Vehicle vehicle = World.CreateVehicle(vehicleInfo.Model, vehicleInfo.Position);
-            vehicle.Rotation = vehicleInfo.Rotation;
-            vehicle.Velocity = vehicleInfo.Velocity;
-            vehicle.Speed = vehicleInfo.Speed;
-            vehicle.Mods.PrimaryColor = vehicleInfo.PrimaryColor;
-            vehicle.Mods.SecondaryColor = vehicleInfo.SecondaryColor;
-            vehicle.IsEngineRunning = vehicleInfo.EngineRunning;
-            vehicle.IsPersistent = false;
-            vehicle.MarkAsNoLongerNeeded(); 
-            vehicle.Model.MarkAsNoLongerNeeded();
 
-            Ped driver = null;
-
-            if (vehicleInfo.Driver != null)
-            {
-                driver = Function.Call<Ped>(Hash.CREATE_PED_INSIDE_VEHICLE, vehicle, vehicleInfo.Driver.PedType,
-                    vehicleInfo.Driver.Model, (int)VehicleSeat.Driver, false, true);
-                driver.MarkAsNoLongerNeeded();
-                driver.Model.MarkAsNoLongerNeeded();
-            }
-
-            if (driver != null)
-            {
-                int drivingStyle = 1 + 2 + 8 + 16 + 32 + 128 + 256;
-                driver.Task.CruiseWithVehicle(vehicle, 20, (DrivingStyle)drivingStyle);
-            }
+            vehicleInfo.ApplyTo(vehicle);
 
             return vehicle;
         }

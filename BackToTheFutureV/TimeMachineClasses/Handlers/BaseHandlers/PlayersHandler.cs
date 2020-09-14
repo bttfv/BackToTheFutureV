@@ -32,6 +32,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Fuel
             Refuel?.Dispose();
+
+            //Wormhole
+            Wormhole?.Dispose();
         }
 
         public override void KeyPress(Keys key)

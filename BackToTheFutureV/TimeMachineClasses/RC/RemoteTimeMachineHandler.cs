@@ -15,6 +15,8 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
     {
         private static List<RemoteTimeMachine> remoteTimeMachines = new List<RemoteTimeMachine>();
 
+        private static IFormatter formatter = new BinaryFormatter();
+
         private const int MAX_REMOTE_DELOREANS = 10;
         public static int TimeMachineCount => remoteTimeMachines.Count;
         public static RemoteTimeMachine GetTimeMachineFromIndex(int index) 
@@ -64,8 +66,6 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public static void Save()
         {
-            IFormatter formatter = new BinaryFormatter();
-
             Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
 
             formatter.Serialize(stream, remoteTimeMachines.Select(x => x.TimeMachineClone).ToList());
@@ -74,18 +74,24 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public static void Load()
         {
-            if (!File.Exists(_saveFile))
-                return;
+            try
+            {
+                if (!File.Exists(_saveFile))
+                    return;
 
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
+                Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
 
-            List<TimeMachineClone> timeMachineClones = (List<TimeMachineClone>)formatter.Deserialize(stream);
+                List<TimeMachineClone> timeMachineClones = (List<TimeMachineClone>)formatter.Deserialize(stream);
 
-            stream.Close();
+                stream.Close();
 
-            foreach (var x in timeMachineClones)
-                remoteTimeMachines.Add(new RemoteTimeMachine(x));            
+                foreach (var x in timeMachineClones)
+                    remoteTimeMachines.Add(new RemoteTimeMachine(x));
+            } catch (Exception e)
+            {
+                if (File.Exists(_saveFile))
+                    File.Delete(_saveFile);
+            }          
         }
     }
 }

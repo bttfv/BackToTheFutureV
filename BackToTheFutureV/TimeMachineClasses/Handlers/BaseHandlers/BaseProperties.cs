@@ -52,21 +52,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         {
             BaseProperties ret = new BaseProperties();
 
-            PropertyInfo[] properties = this.GetType().GetProperties();
+            PropertyInfo[] properties = ret.GetType().GetProperties();
             foreach (PropertyInfo property in properties)
-            {
-                if (property.Name == "TimeMachine" | property.Name == "Vehicle" | property.Name == "Mods" | property.Name == "LowerWormholeType" | property.Name == "IsStockWheel")
-                    continue;
-
                 property.SetValue(ret, property.GetValue(this));
-            }
+
+            ret.IsGivenScaleformPriority = false;
                 
             return ret;
         }
 
         public void ApplyTo(TimeMachine timeMachine)
         {
-            PropertyInfo[] properties = this.GetType().GetProperties();
+            PropertyInfo[] properties = GetType().GetProperties();
             foreach (PropertyInfo property in properties)
                 property.SetValue(timeMachine.Properties, property.GetValue(this));
 

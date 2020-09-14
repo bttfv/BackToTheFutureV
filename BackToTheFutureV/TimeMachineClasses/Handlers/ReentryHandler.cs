@@ -118,6 +118,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
+            //Events.OnScaleformPriority?.Invoke();
+           
             if (Mods.HoverUnderbody == ModState.On)
                 Properties.CanConvert = true;
 
