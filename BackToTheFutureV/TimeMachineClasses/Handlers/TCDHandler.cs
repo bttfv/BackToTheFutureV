@@ -260,9 +260,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if(Properties.AreTimeCircuitsOn)
             {
-                if (ModSettings.PlayFluxCapacitorSound && Mods.IsDMC12)
-                    Sounds.FluxCapacitor.Play();
-
                 destinationSlot.SetDate(Properties.DestinationTime);
                 destinationSlot.SetVisible(false);
                 destinationSlot.SetVisibleAt(true, 500, 600);
@@ -277,9 +274,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
             else
             {
-                if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
-                    Sounds.FluxCapacitor?.Stop();
-
                 destinationSlot.SetVisibleAt(false, 750, 750);
                 previousSlot.SetVisibleAt(false, 750, 750);
                 presentSlot.SetVisibleAt(false, 750, 750);
@@ -338,17 +332,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (ModSettings.PlayFluxCapacitorSound && Mods.IsDMC12)
-            {
-                if (!Vehicle.IsVisible && Sounds.FluxCapacitor.IsAnyInstancePlaying)
-                    Sounds.FluxCapacitor?.Stop();
-
-                if (!Sounds.FluxCapacitor.IsAnyInstancePlaying && Properties.AreTimeCircuitsOn && Vehicle.IsVisible)
-                    Sounds.FluxCapacitor.Play();
-            }
-            else if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
-                Sounds.FluxCapacitor?.Stop();
-
             if (!Properties.IsGivenScaleformPriority || Game.Player.Character.Position.DistanceToSquared(Vehicle.Position) > 8f * 8f)
                 return;
 

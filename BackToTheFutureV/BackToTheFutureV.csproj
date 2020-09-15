@@ -130,7 +130,6 @@
     <Compile Include="TimeMachineClasses\Handlers\ComponentsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\InputHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\LightningStrikeHandler.cs" />
-    <Compile Include="TimeMachineClasses\Handlers\PhotoHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\PlutoniumGaugeHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\RailroadHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\RCHandler.cs" />

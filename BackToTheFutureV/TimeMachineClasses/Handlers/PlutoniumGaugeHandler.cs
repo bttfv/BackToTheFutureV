@@ -101,7 +101,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _gaugeNeedle2.On = false;
                 _gaugeNeedle3.On = false;
                 
-                Props.GaugeGlow.DeleteProp();
+                Props.GaugeGlow?.DeleteProp();
             }
 
             hasPlayed = false;
@@ -130,7 +130,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _gaugeNeedle2.On = true;
                 _gaugeNeedle3.On = true;
 
-                Props.GaugeGlow.SpawnProp();
+                Props.GaugeGlow?.SpawnProp();
 
                 hasPlayed = true;
             }

@@ -55,16 +55,41 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if(!Vehicle.IsVisible)
                 return;
 
-            if(Properties.AreTimeCircuitsOn && Properties.IsGivenScaleformPriority)
+            if (!Properties.AreTimeCircuitsOn)
+                return;
+
+            if (Properties.IsGivenScaleformPriority)
                 Scaleforms.FluxCapacitorRT.Draw();
+
+            if (ModSettings.PlayFluxCapacitorSound)
+            {
+                if (!Vehicle.IsVisible && Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                    Sounds.FluxCapacitor?.Stop();
+
+                if (!Sounds.FluxCapacitor.IsAnyInstancePlaying && Vehicle.IsVisible)
+                    Sounds.FluxCapacitor.Play();
+            }
+            else if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                Sounds.FluxCapacitor?.Stop();
         }
 
         public void Update()
         {
             if (!Properties.AreTimeCircuitsOn)
+            {
                 Scaleforms.FluxCapacitor.CallFunction("STOP_ANIMATION");
+
+                if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                    Sounds.FluxCapacitor.Stop();
+            }                
             else
+            {
+                if (ModSettings.PlayFluxCapacitorSound && !Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                    Sounds.FluxCapacitor.Play();
+
                 Scaleforms.FluxCapacitor.CallFunction("START_ANIMATION");
+            }
+            
 
             Properties.IsFluxDoingBlueAnim = false;
             Properties.PhotoFluxCapacitorActive = false;

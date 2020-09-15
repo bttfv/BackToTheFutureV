@@ -17,7 +17,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 {
     public class TimeMachine
     {
-        public Vehicle Vehicle;
+        public Vehicle Vehicle { get; }
         public DMC12 DMC12 { get; }
 
         public EventsHandler Events { get; private set; }
@@ -31,7 +31,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachineClone Clone => new TimeMachineClone(this);
         public TimeMachineClone LastDisplacementClone { get; set; }
-        public Ped OriginalPed;
+        public Ped OriginalPed { get; set; }
 
         private readonly Dictionary<string, Handler> registeredHandlers = new Dictionary<string, Handler>();
 
@@ -110,7 +110,6 @@ namespace BackToTheFutureV.TimeMachineClasses
                 registeredHandlers.Add("TFCHandler", new TFCHandler(this));                                
                 registeredHandlers.Add("ComponentsHandler", new ComponentsHandler(this));
                 registeredHandlers.Add("EngineHandler", new EngineHandler(this));
-                registeredHandlers.Add("PhotoHandler", new PhotoHandler(this));                
                 registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
                 registeredHandlers.Add("StarterHandler", new StarterHandler(this));
 
@@ -126,6 +125,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             LastDisplacementClone = Clone;
             LastDisplacementClone.Properties.DestinationTime = Main.CurrentTime;
+
+            Events.OnWormholeTypeChanged += UpdateBlip;
 
             TimeMachineHandler.AddTimeMachine(this);
         }
@@ -241,42 +242,18 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                     _firstRedSetup = true;
                 }
+
+                PhotoMode();
             }
 
             if (Main.PlayerVehicle != Vehicle)
             {
-                if (Blip != null && Blip.Exists())
-                {
-                    switch (Mods.WormholeType)
-                    {
-                        case WormholeType.BTTF1:
-                            Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF1")}";
-                            Blip.Color = BlipColor.NetPlayer22;
-                            break;
-
-                        case WormholeType.BTTF2:
-                            Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF2")}";
-                            Blip.Color = BlipColor.NetPlayer21;
-                            break;
-
-                        case WormholeType.BTTF3:
-                            if (Mods.Wheel == WheelType.RailroadInvisible)
-                            {
-                                Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3RR")}";
-                                Blip.Color = BlipColor.Orange;
-                            }
-                            else
-                            {
-                                Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3")}";
-                                Blip.Color = BlipColor.Red;
-                            }
-                            break;
-                    }
-                }
-                else
+                if (Blip == null || !Blip.Exists())
                 {
                     Blip = Vehicle.AddBlip();
                     Blip.Sprite = Mods.IsDMC12 ? BlipSprite.Deluxo : BlipSprite.PersonalVehicleCar;
+
+                    UpdateBlip();
                 }
             }
             else if (Blip != null && Blip.Exists())
@@ -316,6 +293,46 @@ namespace BackToTheFutureV.TimeMachineClasses
                         break;
                 }
             }
+        }
+
+        public void PhotoMode() 
+        {
+            if (Properties.PhotoWormholeActive && !Players.Wormhole.IsPlaying)
+                Players.Wormhole.Play(true);
+
+            if (!Properties.PhotoWormholeActive && Players.Wormhole.IsPlaying && Properties.IsPhotoModeOn)
+                Players.Wormhole.Stop();
+
+            if (Properties.PhotoGlowingCoilsActive && !Props.Coils.IsSpawned)
+            {
+                if (Main.CurrentTime.Hour >= 20 || (Main.CurrentTime.Hour >= 0 && Main.CurrentTime.Hour <= 5))
+                    Props.Coils.Model = ModelHandler.CoilsGlowingNight;
+                else
+                    Props.Coils.Model = ModelHandler.CoilsGlowing;
+
+                Mods.OffCoils = ModState.Off;
+                Props.Coils.SpawnProp(false);
+            }
+
+            if (!Properties.PhotoGlowingCoilsActive && Props.Coils.IsSpawned)
+            {
+                Mods.OffCoils = ModState.On;
+                Props.Coils.DeleteProp();
+            }
+
+            if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingBlueAnim)
+                Events.OnWormholeStarted?.Invoke();
+
+            if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
+                Events.OnTimeTravelInterrupted?.Invoke();
+
+            if (Properties.PhotoIceActive && !Properties.IsFreezed)
+                Events.SetFreeze?.Invoke(true);
+
+            if (!Properties.PhotoIceActive && Properties.IsFreezed && Properties.IsPhotoModeOn)
+                Events.SetFreeze?.Invoke(false);
+
+            Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.PhotoIceActive;
         }
 
         public void KeyDown(Keys key)

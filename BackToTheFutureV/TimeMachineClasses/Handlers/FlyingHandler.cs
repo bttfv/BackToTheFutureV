@@ -408,7 +408,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (_currentLightIndex != i)
                     Props.HoverModeUnderbodyLights[i]?.DeleteProp();
                 else
-                    Props.HoverModeUnderbodyLights[i].SpawnProp();
+                    Props.HoverModeUnderbodyLights[i]?.SpawnProp();
             }
 
             // Update next change time
