@@ -170,8 +170,6 @@ namespace BackToTheFutureV
                 MainMenu.BindMenuToItem(InteractionMenuManager.SpawnMenu, spawnPresetDelorean);
             }
 
-            rcMenu.Enabled = Main.PlayerVehicle == null;
-
             if (Main.PlayerVehicle != null)
             {
                 convertToTimeMachine.Enabled = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle) == null;
