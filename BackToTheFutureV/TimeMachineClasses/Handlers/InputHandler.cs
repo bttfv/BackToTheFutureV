@@ -34,7 +34,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.OnDestinationDateChange?.Invoke();
         }
 
-        public override void KeyPress(Keys key)
+        public override void KeyDown(Keys key)
         {
             if (Main.PlayerVehicle != Vehicle || !Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible) return;
 

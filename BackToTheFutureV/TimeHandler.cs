@@ -6,6 +6,7 @@ using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using GTA;
+using GTA.Native;
 using GTA.UI;
 
 namespace BackToTheFutureV
@@ -15,7 +16,7 @@ namespace BackToTheFutureV
         private static List<Moment> momentsInTime = new List<Moment>();
         private static List<Vehicle> vehiclesEnteredByPlayer = new List<Vehicle>();
 
-        public static void Tick()
+        public static void Process()
         {
             if (Main.PlayerVehicle != null && !Main.PlayerVehicle.IsTimeMachine() && !vehiclesEnteredByPlayer.Contains(Main.PlayerVehicle))
             {
@@ -75,7 +76,8 @@ namespace BackToTheFutureV
         public static void Randomize()
         {
             // Set the weather to a random weather
-            World.Weather = Utils.GetRandomWeather();
+            //World.Weather = Utils.GetRandomWeather();
+            Function.Call(Hash.SET_RANDOM_WEATHER_TYPE);
 
             // Initial puddle level
             float puddleLevel = 0;

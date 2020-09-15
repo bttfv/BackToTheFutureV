@@ -49,7 +49,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             remoteTimeMachines.ForEach(x => x.ExistenceCheck(time));
         }
 
-        public static void Tick()
+        public static void Process()
         {
             remoteTimeMachines.ForEach(x => x.Process());
         }

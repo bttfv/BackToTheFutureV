@@ -114,7 +114,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _gaugeNeedle3.Dispose();
         }
 
-        public override void KeyPress(Keys key)
+        public override void KeyDown(Keys key)
         {
 
         }

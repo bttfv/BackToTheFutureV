@@ -322,7 +322,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Stop();
         }
 
-        public override void KeyPress(Keys key)
+        public override void KeyDown(Keys key)
         {
             if (Main.PlayerVehicle != Vehicle) return;
 

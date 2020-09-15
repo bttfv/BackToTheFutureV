@@ -30,7 +30,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public bool IsPlaying { get; protected set; }
 
-        public abstract void KeyPress(System.Windows.Forms.Keys key);
+        public abstract void KeyDown(System.Windows.Forms.Keys key);
         public abstract void Process();
         public abstract void Stop();
         public abstract void Dispose();

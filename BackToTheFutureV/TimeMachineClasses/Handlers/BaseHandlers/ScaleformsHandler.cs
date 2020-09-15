@@ -59,7 +59,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             FluxCapacitorRT?.Dispose();
         }
 
-        public override void KeyPress(Keys key)
+        public override void KeyDown(Keys key)
         {
             
         }

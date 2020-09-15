@@ -24,7 +24,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void OnWormholeTypeChanged();
     public delegate void OnReactorTypeChanged();
 
-    public delegate void SetRCMode(bool state);
+    public delegate void SetRCMode(bool state, bool instant = false);
     public delegate void SetTimeCircuits(bool state);
     public delegate void SetTimeCircuitsBroken(bool state);
     public delegate void StartTimeCircuitsGlitch();
@@ -76,7 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             
         }
 
-        public override void KeyPress(Keys key)
+        public override void KeyDown(Keys key)
         {
             
         }

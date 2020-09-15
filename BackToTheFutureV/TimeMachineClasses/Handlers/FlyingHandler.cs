@@ -167,7 +167,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.OnHoverTransformation?.Invoke();
         }
 
-        public override void KeyPress(Keys key)
+        public override void KeyDown(Keys key)
         {
             if(key == Keys.G && Main.PlayerVehicle == Vehicle)
                 SetHoverMode(!Properties.IsAltitudeHolding);
@@ -353,7 +353,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void UpDown()
         {
             // What are you doing 
-            //if (!Properties.IsFlying || Main.PlayerVehicle != Vehicle && IsAltitudeHolding) return;
+            if (Main.PlayerVehicle != Vehicle)
+                return;
 
             // Get how much value is moved up/down
             float upNormal = 0;

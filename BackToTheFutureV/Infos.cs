@@ -40,6 +40,27 @@ namespace BackToTheFutureV
             SecondaryColor = veh.Mods.SecondaryColor;
         }
 
+        public Vehicle Spawn()
+        {
+            Vehicle veh = World.CreateVehicle(Model, Position, Heading);
+
+            ApplyTo(veh);
+
+            return veh;
+        }
+
+        public Vehicle Spawn(Vector3 position, float heading)
+        {
+            Vehicle veh = World.CreateVehicle(Model, position, heading);
+
+            ApplyTo(veh);
+
+            veh.Position = position;
+            veh.Heading = heading;
+
+            return veh;
+        }
+
         public void ApplyTo(Vehicle veh)
         {
             veh.Position = Position;

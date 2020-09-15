@@ -228,7 +228,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             return false;
         }
 
-        public override void KeyPress(Keys key) { }
+        public override void KeyDown(Keys key) { }
 
         public override void Stop()
         {

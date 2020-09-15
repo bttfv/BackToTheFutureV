@@ -113,6 +113,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 DefaultSourceEntity = Vehicle
             };
 
+            Events.OnWormholeTypeChanged += OnWormholeTypeChanged;
+
+            OnWormholeTypeChanged();
+
             //Hover Mode
             HoverModeOn = AudioEngine.Create("bttf2/hover/toHover.wav", Presets.Exterior);
             HoverModeOff = AudioEngine.Create("bttf2/hover/toRegular.wav", Presets.Exterior);
@@ -231,10 +235,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             FluxCapacitor.Volume = 0.1f;
             FluxCapacitor.MinimumDistance = 0.5f;
             FluxCapacitor.SourceBone = "flux_capacitor";
-
-            Events.OnWormholeTypeChanged += OnWormholeTypeChanged;
-
-            OnWormholeTypeChanged();
         }
 
         public void OnWormholeTypeChanged()
@@ -311,7 +311,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             Reenter?.Dispose();
         }
 
-        public override void KeyPress(Keys key)
+        public override void KeyDown(Keys key)
         {
             
         }

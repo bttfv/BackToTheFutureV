@@ -31,7 +31,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachineClone Clone => new TimeMachineClone(this);
         public TimeMachineClone LastDisplacementClone { get; set; }
-        public Ped OriginalPed { get; set; }
+        public Ped OriginalPed;
 
         private readonly Dictionary<string, Handler> registeredHandlers = new Dictionary<string, Handler>();
 
@@ -338,7 +338,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         public void KeyDown(Keys key)
         {
             foreach (var entry in registeredHandlers)
-                entry.Value.KeyPress(key);
+                entry.Value.KeyDown(key);
         }
 
         public void Dispose(bool deleteVeh = true)

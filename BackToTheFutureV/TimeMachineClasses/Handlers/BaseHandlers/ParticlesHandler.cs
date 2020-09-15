@@ -67,7 +67,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TimeTravelEffect?.Dispose();
         }
 
-        public override void KeyPress(Keys key)
+        public override void KeyDown(Keys key)
         {
             
         }

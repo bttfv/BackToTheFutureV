@@ -25,43 +25,24 @@ namespace BackToTheFutureV
 {
     public class Main : Script
     {
-        public List<Vehicle> modelList = new List<Vehicle>();
-
         public static MenuPool MenuPool { get; private set; }
-
         public static DateTime CurrentTime
         {
             get => Utils.GetWorldTime();
             set => Utils.SetWorldTime(value);
         }
-
         public static Ped PlayerPed => Game.Player.Character;
-
         public static Vehicle PlayerVehicle => PlayerPed.CurrentVehicle;
-
         public static cRogersSierra RogersSierra => Manager.CurrentRogersSierra;
-
         public static bool IsPlayerSwitchInProgress => Function.Call<bool>(Hash.IS_PLAYER_SWITCH_IN_PROGRESS);
-
         public static bool IsManualPlayerSwitchInProgress => IsPlayerSwitchInProgress && PlayerSwitch.IsSwitching;
+        public static bool DisablePlayerSwitching { get; set; } = false;
+        public static bool HideGui { get; set; } = false;
+        public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
-        public static bool DisablePlayerSwitching = false;
-
-        public static bool HideGui = false;
-
-        public static bool GamePaused = false;
-
-        public static AudioEngine CommonAudioEngine = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
-
-        public static CustomStopwatch CustomStopwatch = new CustomStopwatch();
-
-        private bool _firstTick = true;        
-
-        private readonly UdpClient udp = new UdpClient(1985);
-
-        private IAsyncResult ar_ = null;
-
+        private bool _firstTick = true;                
         private int _saveDelay;
+        private readonly UdpClient udp = new UdpClient(1985);
 
         private void Receive(IAsyncResult ar)
         {
@@ -84,7 +65,7 @@ namespace BackToTheFutureV
 
         private void StartListening()
         {
-            ar_ = udp.BeginReceive(Receive, new object());
+            udp.BeginReceive(Receive, new object());
         }
 
         public Main()
@@ -109,6 +90,8 @@ namespace BackToTheFutureV
             if (RCManager.RemoteControlling != null)
                 RCManager.StopRemoteControl(true);
 
+            TimeMachineHandler.SaveAllTimeMachines();
+
             TimeMachineHandler.Abort();            
             FireTrailsHandler.Stop();
             TrainHandler.Abort();
@@ -119,15 +102,13 @@ namespace BackToTheFutureV
         {
             ModMenuHandler.KeyDown(e);
             TimeMachineHandler.KeyDown(e.KeyCode);
-            RCManager.KeyPress(e.KeyCode);
+            RCManager.KeyDown(e.KeyCode);
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)
         {
             if (Game.IsLoading)
                 return;
-
-            GamePaused = false;
 
             if (_firstTick)
             {                
@@ -153,22 +134,16 @@ namespace BackToTheFutureV
             TrainHandler.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();
-            AnimatePropsHandler.Tick();
+            AnimatePropsHandler.Process();
             RCManager.Process();
-            TimeHandler.Tick();
-            RemoteTimeMachineHandler.Tick();
+            TimeHandler.Process();
+            RemoteTimeMachineHandler.Process();
             FireTrailsHandler.Process();
             InteractionMenuManager.Process();
             ScreenFlash.Process();
-            TcdEditer.Tick();
+            TcdEditer.Process();
             MissionHandler.Process();                        
-            PlayerSwitch.Process();            
-
-            //if (Game.GameTime > _saveDelay)
-            //{
-            TimeMachineHandler.SaveAllTimeMachines();
-            //    _saveDelay = Game.GameTime + 2000;
-            //}
+            PlayerSwitch.Process();
         }
     }
 }

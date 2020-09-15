@@ -50,7 +50,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Properties.AreHoodboxCircuitsReady = true;
         }
 
-        public override void KeyPress(Keys key)
+        public override void KeyDown(Keys key)
         {
 
         }

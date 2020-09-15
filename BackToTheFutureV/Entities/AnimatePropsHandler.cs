@@ -22,7 +22,7 @@ namespace BackToTheFutureV.Entities
                 _animateProps.Remove(prop);
         }
 
-        public static void Tick()
+        public static void Process()
         {
             foreach(var animateProp in _animateProps)
             {

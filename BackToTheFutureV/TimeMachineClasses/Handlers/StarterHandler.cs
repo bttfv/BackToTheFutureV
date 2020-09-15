@@ -175,7 +175,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _lightsBrightness += timedEvent.CurrentFloat;
         }
 
-        public override void KeyPress(Keys key) {}
+        public override void KeyDown(Keys key) {}
 
         public override void Stop()
         {

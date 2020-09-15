@@ -61,7 +61,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rf"));
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rr"));
            
-            Props.WhiteSphere = new AnimateProp(Vehicle, ModelHandler.WhiteSphere, Vector3.Zero, Vector3.Zero)
+            WhiteSphere = new AnimateProp(Vehicle, ModelHandler.WhiteSphere, Vector3.Zero, Vector3.Zero)
             {
                 Duration = 0.25f
             };
@@ -162,7 +162,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TickingDiodesOff?.DeleteProp();
         }
 
-        public override void KeyPress(Keys key)
+        public override void KeyDown(Keys key)
         {
             
         }

@@ -39,12 +39,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.SetRCMode += SetRCMode;
         }
 
-        public void SetRCMode(bool state)
+        public void SetRCMode(bool state, bool instant = false)
         {
             if (state)
                 StartRC();
             else
-                StopRC();
+                StopRC(instant);
         }
 
         private void RcHandbrake_OnControlJustPressed()
@@ -228,6 +228,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Stop(true);
         }
 
-        public override void KeyPress(Keys key) { }
+        public override void KeyDown(Keys key) { }
     }
 }

@@ -94,7 +94,7 @@ namespace BackToTheFutureV.Settings
             InstrumentalMenu.AddControl(Control.PhoneSelect, Game.GetLocalizedString("BTTFV_TCD_Edit_Save"));
         }
 
-        public static void Tick()
+        public static void Process()
         {
             if (!IsEditing) 
                 return;

@@ -58,6 +58,6 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             Main.DisablePlayerSwitching = false;
         }
 
-        public static void KeyPress(Keys key) {}
+        public static void KeyDown(Keys key) {}
     }
 }
