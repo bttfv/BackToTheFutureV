@@ -72,9 +72,6 @@ namespace BackToTheFutureV.InteractionMenu
             {
                 if (RCMenu.Visible)
                     RCMenu.Visible = false;
-
-                if (StatisticsMenu.Visible)
-                    StatisticsMenu.Visible = false;
             }
 
             if (Main.MenuPool.IsAnyMenuOpen())
