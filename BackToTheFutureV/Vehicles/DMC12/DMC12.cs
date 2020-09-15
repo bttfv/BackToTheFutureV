@@ -3,6 +3,7 @@ using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,6 +103,9 @@ namespace BackToTheFutureV.Vehicles
 
         public void Process()
         {
+            if (Main.PlayerVehicle == Vehicle)
+                Function.Call(Hash.DISABLE_CONTROL_ACTION, 31, 337, true);
+
             if (!Vehicle.IsVisible)
             {
                 speedNeedle.DeleteProp();
