@@ -1,15 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.960
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackToTheFutureV", "BackToTheFutureV\BackToTheFutureV.csproj", "{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AECF1C8D-C84E-4605-8922-447592AFF690}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		Performance1.psess = Performance1.psess
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlangRageAudioLibrary", "KlangRageAudioLibrary\KlangRageAudioLibrary.csproj", "{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}"
 EndProject
