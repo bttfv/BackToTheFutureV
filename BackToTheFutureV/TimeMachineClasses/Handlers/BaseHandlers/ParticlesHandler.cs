@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
-    public class PtfxHandler : Handler
+    public class ParticlesHandler : Handler
     {
         //Hover Mode
         public List<PtfxEntityPlayer> HoverModeSmoke = new List<PtfxEntityPlayer>();
@@ -28,11 +28,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         //Reenter
         public PtfxEntityPlayer Flash;
 
-        public PtfxHandler(TimeMachine timeMachine) : base(timeMachine)
+        public ParticlesHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             //Hover Mode
             foreach (var wheelPos in Utils.GetWheelPositions(Vehicle))
                 HoverModeSmoke.Add(new PtfxEntityPlayer("cut_trevor1", "cs_meth_pipe_smoke", Vehicle, wheelPos.Value, new Vector3(-90, 0, 0), 7f));
+
+            LightExplosion = new PtfxEntityPlayer("scr_josh3", "scr_josh3_light_explosion", Vehicle, Vector3.Zero, Vector3.Zero, 4f);
+            TimeTravelEffect = new PtfxEntityPlayer("core", "veh_exhaust_spacecraft", Vehicle, new Vector3(0, 4, 0), Vector3.Zero, 8f, true);
+            Flash = new PtfxEntityPlayer("core", "ent_anim_paparazzi_flash", Vehicle, Vector3.Zero, Vector3.Zero, 50f);
+
+            if (!Mods.IsDMC12)
+                return;
 
             //Ice
             IceVentLeftSmoke = new PtfxEntityPlayer("scr_familyscenem", "scr_meth_pipe_smoke", Vehicle, new Vector3(0.5f, -2f, 0.7f), new Vector3(10f, 0, 180f), 10f, false, false);
@@ -56,7 +63,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public override void Dispose()
         {
-            
+            LightExplosion?.Dispose();
+            TimeTravelEffect?.Dispose();
         }
 
         public override void KeyPress(Keys key)

@@ -136,7 +136,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.AreWheelsInHoverMode && !instant)
             {
                 Sounds.HoverModeOn.Play();
-                SFX.HoverModeSmoke.ForEach(x => x.Play());
+                Particles.HoverModeSmoke.ForEach(x => x.Play());
             }
             else if(!Properties.AreWheelsInHoverMode && !instant)
             {
@@ -225,7 +225,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (Vehicle.HeightAboveGround < 3 && !_landingSmoke)
                 {
-                    SFX.HoverModeSmoke.ForEach(x => x.Play());
+                    Particles.HoverModeSmoke.ForEach(x => x.Play());
                     _landingSmoke = true;
                 }
 

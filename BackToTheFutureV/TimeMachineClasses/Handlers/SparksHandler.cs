@@ -36,15 +36,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void OnWormholeTypeChanged()
         {
-            Sounds.Sparks?.Dispose();
-            Sounds.Reenter?.Dispose();
             Players.Wormhole?.Dispose();
-
-            Sounds.Reenter = Sounds.AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/reentry.wav", Presets.ExteriorLoud);
-
-            Sounds.Sparks = Sounds.AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/sparks.wav", Presets.ExteriorLoudLoop);
-            Sounds.Sparks.FadeOutMultiplier = 2f;
-            Sounds.Sparks.StartFadeIn = false;
 
             switch (Mods.WormholeType)
             {

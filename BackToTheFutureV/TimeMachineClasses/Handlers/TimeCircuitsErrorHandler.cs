@@ -41,14 +41,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
         };
 
-        private AudioPlayer errorSound;
-
         private int nextCheck;
 
         public TimeCircuitsErrorHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            errorSound = Sounds.AudioEngine.Create("bttf2/timeCircuits/glitch.wav", Presets.Interior);
-            errorSound.SourceBone = "bttf_tcd_green";
+
         }
 
         private double GetProbabilityForDamage(int damage)
@@ -80,7 +77,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (randomNum < GetProbabilityForDamage((Vehicle.Health < 100 ? 100 : Vehicle.Health)))
                 {
                     // Set TCD error stuff
-                    errorSound.Play();
+                    Sounds.TCDGlitch?.Play();
 
                     Events.StartTimeCircuitsGlitch?.Invoke();
 
@@ -96,7 +93,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-            errorSound.Dispose();
+            
         }
 
         public override void KeyPress(Keys key)

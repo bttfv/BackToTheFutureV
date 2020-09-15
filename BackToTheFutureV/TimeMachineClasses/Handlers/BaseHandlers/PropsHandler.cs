@@ -12,7 +12,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
     public class PropsHandler : Handler
     {
-        private AnimateProp _BTTFDecals;
+        private AnimateProp BTTFDecals;
 
         //Hover Mode
         public AnimateProp HoverModeWheelsGlow;
@@ -36,7 +36,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public AnimateProp Speedo;
 
         //Compass
-        private readonly AnimateProp _compass;
+        public AnimateProp Compass;
 
         //TFC
         public AnimateProp TFCOn;
@@ -49,6 +49,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         //Wheels
         public List<AnimateProp> RRWheels = new List<AnimateProp>();
 
+        //TCD
+        public AnimateProp TickingDiodes;
+        public AnimateProp TickingDiodesOff;
+
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             //Wheels
@@ -56,17 +60,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_lr"));
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rf"));
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rr"));
-
-            HoverModeWheelsGlow = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.HoverGlowing), Vector3.Zero, Vector3.Zero)
+           
+            Props.WhiteSphere = new AnimateProp(Vehicle, ModelHandler.WhiteSphere, Vector3.Zero, Vector3.Zero)
             {
-                Duration = 1.7f
+                Duration = 0.25f
             };
 
             if (!Mods.IsDMC12)
                 return;
 
-            _BTTFDecals = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFDecals), Vector3.Zero, Vector3.Zero);
-            _BTTFDecals.SpawnProp();
+            BTTFDecals = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFDecals), Vector3.Zero, Vector3.Zero);
+            BTTFDecals.SpawnProp();
 
             //Hover Mode
             for (int i = 1; i < 6; i++)
@@ -80,6 +84,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             }
 
             HoverModeVentsGlow = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.VentGlowing), Vector3.Zero, Vector3.Zero);
+            HoverModeWheelsGlow = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.HoverGlowing), Vector3.Zero, Vector3.Zero)
+            {
+                Duration = 1.7f
+            };
 
             //Fuel
             EmptyGlowing = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.Empty), Vector3.Zero, Vector3.Zero);
@@ -96,18 +104,23 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             Speedo.SpawnProp(false);
 
             //Compass
-            _compass = new AnimateProp(Vehicle, ModelHandler.Compass, "bttf_compass");
+            Compass = new AnimateProp(Vehicle, ModelHandler.Compass, "bttf_compass");
 
             //TFC
             TFCOn = new AnimateProp(Vehicle, ModelHandler.TFCOn, Vector3.Zero, Vector3.Zero);
             TFCOff = new AnimateProp(Vehicle, ModelHandler.TFCOff, Vector3.Zero, Vector3.Zero);
             TFCHandle = new AnimateProp(Vehicle, ModelHandler.TFCHandle, new Vector3(-0.03805999f, -0.0819466f, 0.5508024f), Vector3.Zero);
             TFCHandle.SpawnProp(false);
+
+            //TCD
+            TickingDiodes = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TickingDiodes, Vector3.Zero, Vector3.Zero);
+            TickingDiodesOff = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TickingDiodesOff, Vector3.Zero, Vector3.Zero);
+            TickingDiodesOff.SpawnProp();
         }
 
         public override void Dispose()
         {
-            _BTTFDecals?.Dispose();
+            BTTFDecals?.Dispose();
 
             //Hover Mode
             HoverModeWheelsGlow?.Dispose();
@@ -125,6 +138,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Time travel
             Coils?.Dispose();
+            WhiteSphere?.DeleteProp();
 
             //Plutonium gauge
             GaugeGlow?.Dispose();
@@ -133,7 +147,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             Speedo?.Dispose();
 
             //Compass
-            _compass?.Dispose();
+            Compass?.Dispose();
 
             //TFC
             TFCOn?.Dispose();
@@ -142,6 +156,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Wheels
             RRWheels?.ForEach(x => x?.Dispose());
+
+            //TCD
+            TickingDiodes?.DeleteProp();
+            TickingDiodesOff?.DeleteProp();
         }
 
         public override void KeyPress(Keys key)
@@ -151,13 +169,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public override void Process()
         {
-            if (!Mods.IsDMC12)
-                return;
 
-            _compass?.SpawnProp(Vector3.Zero, new Vector3(0, 0, Vehicle.Heading), false);
-
-            if (_compass.Prop.IsVisible != Vehicle.IsVisible)
-                _compass.Prop.IsVisible = Vehicle.IsVisible;
         }
 
         public override void Stop()

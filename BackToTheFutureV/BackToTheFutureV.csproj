@@ -119,7 +119,7 @@
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\BaseProperties.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\EventsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PlayersHandler.cs" />
-    <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PtfxHandler.cs" />
+    <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ParticlesHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ScaleformsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\EngineHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\FluxCapacitorHandler.cs" />
@@ -127,8 +127,7 @@
     <Compile Include="TimeMachineClasses\Handlers\FreezeHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\FuelHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\Handler.cs" />
-    <Compile Include="TimeMachineClasses\Handlers\HoodboxHandler.cs" />
-    <Compile Include="TimeMachineClasses\Handlers\HookHandler.cs" />
+    <Compile Include="TimeMachineClasses\Handlers\ComponentsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\InputHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\LightningStrikeHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\PhotoHandler.cs" />

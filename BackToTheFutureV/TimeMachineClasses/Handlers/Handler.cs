@@ -19,7 +19,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public PropsHandler Props => TimeMachine.Props;
         public PlayersHandler Players => TimeMachine.Players;
         public ScaleformsHandler Scaleforms => TimeMachine.Scaleforms;
-        public PtfxHandler SFX => TimeMachine.SFX;       
+        public ParticlesHandler Particles => TimeMachine.Particles;       
 
         public DMC12 DMC12 => TimeMachine.DMC12;
 

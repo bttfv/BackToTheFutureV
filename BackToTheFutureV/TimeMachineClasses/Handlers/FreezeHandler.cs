@@ -77,9 +77,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (newIce <= 0.15f)
                 {
-                    SFX.IceSmoke?.StopNaturally();
+                    Particles.IceSmoke?.StopNaturally();
 
-                    foreach (var waterDrop in SFX.IceWaterDrops)
+                    foreach (var waterDrop in Particles.IceWaterDrops)
                         waterDrop?.StopNaturally();
 
                     Sounds.Ice.Stop();
@@ -111,9 +111,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (Mods.Reactor == ReactorType.Nuclear)
                     {
                         // Spawn the ice particles
-                        SFX.IceSmoke?.Play();
+                        Particles.IceSmoke?.Play();
 
-                        foreach (var waterDrop in SFX.IceWaterDrops)
+                        foreach (var waterDrop in Particles.IceWaterDrops)
                         {
                             UpdateDoorIce(waterDrop.BoneName.Contains("left")
                                 ? VehicleDoorIndex.FrontLeftDoor
@@ -145,8 +145,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (Mods.Reactor == ReactorType.Nuclear)
                         for (; _smokeIndex < 7;)
                         {
-                            SFX.IceVentLeftSmoke.Play();
-                            SFX.IceVentRightSmoke.Play();
+                            Particles.IceVentLeftSmoke.Play();
+                            Particles.IceVentRightSmoke.Play();
 
                             _gameTimer = Game.GameTime + 500;
 
@@ -190,10 +190,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Sounds.Ice.Stop();
             Sounds.IceVents.Stop();
 
-            foreach (var waterDrop in SFX.IceWaterDrops)
+            foreach (var waterDrop in Particles.IceWaterDrops)
                 waterDrop.StopNaturally();
 
-            SFX.IceSmoke?.StopNaturally();
+            Particles.IceSmoke?.StopNaturally();
         }
 
         public override void Dispose()

@@ -27,7 +27,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         public PropsHandler Props { get; private set; }
         public PlayersHandler Players { get; private set; }
         public ScaleformsHandler Scaleforms { get; private set; }
-        public PtfxHandler SFX { get; private set; }
+        public ParticlesHandler Particles { get; private set; }
 
         public TimeMachineClone Clone => new TimeMachineClone(this);
         public TimeMachineClone LastDisplacementClone { get; set; }
@@ -87,7 +87,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             registeredHandlers.Add("PropsHandler", Props = new PropsHandler(this));
             registeredHandlers.Add("PlayersHandler", Players = new PlayersHandler(this));
             registeredHandlers.Add("ScaleformsHandler", Scaleforms = new ScaleformsHandler(this));
-            registeredHandlers.Add("PtfxHandler", SFX = new PtfxHandler(this));
+            registeredHandlers.Add("ParticlesHandler", Particles = new ParticlesHandler(this));
 
             registeredHandlers.Add("SpeedoHandler", new SpeedoHandler(this));
             registeredHandlers.Add("TimeTravelHandler", new TimeTravelHandler(this));                        
@@ -107,9 +107,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 registeredHandlers.Add("FluxCapacitorHandler", new FluxCapacitorHandler(this));
                 registeredHandlers.Add("FreezeHandler", new FreezeHandler(this));
                 registeredHandlers.Add("PlutoniumGaugeHandler", new PlutoniumGaugeHandler(this));
-                registeredHandlers.Add("TFCHandler", new TFCHandler(this));                
-                registeredHandlers.Add("HookHandler", new HookHandler(this));
-                registeredHandlers.Add("HoodboxHandler", new HoodboxHandler(this));
+                registeredHandlers.Add("TFCHandler", new TFCHandler(this));                                
+                registeredHandlers.Add("ComponentsHandler", new ComponentsHandler(this));
                 registeredHandlers.Add("EngineHandler", new EngineHandler(this));
                 registeredHandlers.Add("PhotoHandler", new PhotoHandler(this));                
                 registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));

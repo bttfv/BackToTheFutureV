@@ -167,11 +167,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private TCDSlot previousSlot;
 
         private bool currentState;
-        private AnimateProp tickingDiodes;
-        private AnimateProp tickingDiodesOff;
 
-        private AudioPlayer fluxCapacitor;
-        private AudioPlayer beep;
+
         private int nextTick;
 
         private DateTime lastTime;
@@ -189,20 +186,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             previousSlot = new TCDSlot("yellow", Scaleforms.GUI, timeMachine);
             previousSlot.SetVisible(false);
-
-            beep = Sounds.AudioEngine.Create("general/timeCircuits/beep.wav", Presets.Interior);
-            fluxCapacitor = Sounds.AudioEngine.Create("general/fluxCapacitor.wav", Presets.InteriorLoop);
-
-            fluxCapacitor.Volume = 0.1f;
-
-            fluxCapacitor.MinimumDistance = 0.5f;
-            beep.MinimumDistance = 0.3f;
-            fluxCapacitor.SourceBone = "flux_capacitor";
-            beep.SourceBone = "bttf_tcd_green";
-
-            tickingDiodes = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TickingDiodes, Vector3.Zero, Vector3.Zero);
-            tickingDiodesOff = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TickingDiodesOff, Vector3.Zero, Vector3.Zero);
-            tickingDiodesOff.SpawnProp();
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
             Events.OnDestinationDateChange += OnDestinationDateChange;
@@ -277,8 +260,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if(Properties.AreTimeCircuitsOn)
             {
-                if (ModSettings.PlayFluxCapacitorSound)
-                    fluxCapacitor.Play();
+                if (ModSettings.PlayFluxCapacitorSound && Mods.IsDMC12)
+                    Sounds.FluxCapacitor.Play();
 
                 destinationSlot.SetDate(Properties.DestinationTime);
                 destinationSlot.SetVisible(false);
@@ -294,18 +277,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
             else
             {
-                if (fluxCapacitor.IsAnyInstancePlaying)
-                    fluxCapacitor?.Stop();
+                if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                    Sounds.FluxCapacitor?.Stop();
 
                 destinationSlot.SetVisibleAt(false, 750, 750);
                 previousSlot.SetVisibleAt(false, 750, 750);
                 presentSlot.SetVisibleAt(false, 750, 750);
 
                 currentState = false;
-                beep?.Stop();
+                Sounds.TCDBeep?.Stop();
                 Scaleforms.GUI.CallFunction("SET_DIODE_STATE", false);
-                tickingDiodes?.DeleteProp();
-                tickingDiodesOff?.SpawnProp();
+                Props.TickingDiodes?.DeleteProp();
+                Props.TickingDiodesOff?.SpawnProp();
             }
         }
 
@@ -355,16 +338,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (ModSettings.PlayFluxCapacitorSound)
+            if (ModSettings.PlayFluxCapacitorSound && Mods.IsDMC12)
             {
-                if (!Vehicle.IsVisible && fluxCapacitor.IsAnyInstancePlaying)
-                    fluxCapacitor?.Stop();
+                if (!Vehicle.IsVisible && Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                    Sounds.FluxCapacitor?.Stop();
 
-                if (!fluxCapacitor.IsAnyInstancePlaying && Properties.AreTimeCircuitsOn && Vehicle.IsVisible)
-                    fluxCapacitor.Play();
+                if (!Sounds.FluxCapacitor.IsAnyInstancePlaying && Properties.AreTimeCircuitsOn && Vehicle.IsVisible)
+                    Sounds.FluxCapacitor.Play();
             }
-            else if (fluxCapacitor.IsAnyInstancePlaying)
-                fluxCapacitor?.Stop();
+            else if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                Sounds.FluxCapacitor?.Stop();
 
             if (!Properties.IsGivenScaleformPriority || Game.Player.Character.Position.DistanceToSquared(Vehicle.Position) > 8f * 8f)
                 return;
@@ -465,14 +448,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (Vehicle != null && Vehicle.IsVisible)
                 {
-                    tickingDiodes?.SetState(currentState);
-                    tickingDiodesOff?.SetState(!currentState);
+                    Props.TickingDiodes?.SetState(currentState);
+                    Props.TickingDiodesOff?.SetState(!currentState);
                 }
 
                 Scaleforms.GUI.CallFunction("SET_DIODE_STATE", currentState);
 
-                if(ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !beep.IsAnyInstancePlaying)
-                    beep.Play(true);
+                if(ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
+                    Sounds.TCDBeep?.Play(true);
 
                 nextTick = Game.GameTime + 500;
                 currentState = !currentState;
@@ -488,54 +471,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (glitchEvents.AllExecuted())
                     doGlitch = false;
             }
-
-            //if (doGlitch && Game.GameTime > nextGlitch)
-            //{
-            //    if (glitchCount <= 5)
-            //    {
-            //        if (destinationDisplay.CurrentTime == null)
-            //        {
-            //            destinationDisplay.CurrentTime = errorDate;
-
-            //            if (Vehicle != null && Vehicle.IsVisible)
-            //                destinationDisplay.CreateProps();
-
-            //            GUI.SetVisible("red", true);
-
-            //            nextGlitch = Game.GameTime + 600;
-            //        }
-            //        else
-            //        {
-            //            destinationDisplay.CurrentTime = null;
-
-            //            if(Vehicle != null && Vehicle.IsVisible)
-            //                destinationDisplay.DeleteAllProps();
-
-            //            GUI.SetVisible("red", false);
-
-            //            nextGlitch = Game.GameTime + 230;
-            //        }
-
-            //        glitchCount++;
-            //    }
-            //    else
-            //    {
-            //        glitchCount = 0;
-            //        doGlitch = false;
-            //        TimeCircuits.GetHandler<InputHandler>().InputDate(oldDate);
-            //    }
-            //}
         }
 
         public override void Stop()
         {
-            fluxCapacitor?.Stop();
-            fluxCapacitor?.Dispose();
             destinationSlot.Dispose();
             previousSlot.Dispose();
             presentSlot.Dispose();
-            tickingDiodes?.DeleteProp();
-            tickingDiodesOff?.DeleteProp();
         }
     }
 }

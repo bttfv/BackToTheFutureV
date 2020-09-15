@@ -23,27 +23,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         
         public TimeTravelHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            SFX.LightExplosion = new PtfxEntityPlayer("scr_josh3", "scr_josh3_light_explosion", Vehicle, Vector3.Zero, Vector3.Zero, 4f);
-            SFX.TimeTravelEffect = new PtfxEntityPlayer("core", "veh_exhaust_spacecraft", Vehicle, new Vector3(0, 4, 0), Vector3.Zero, 8f, true);
-
-            Props.WhiteSphere = new AnimateProp(Vehicle, ModelHandler.WhiteSphere, Vector3.Zero, Vector3.Zero)
-            {
-                Duration = 0.25f
-            };
-
-            LoadRes();
-
             Events.StartTimeTravel += StartTimeTravel;
             Events.SetCutsceneMode += SetCutsceneMode;
-        }
-
-        public void LoadRes()
-        {
-            Sounds.TimeTravelCutscene?.Dispose();
-            Sounds.TimeTravelInstant?.Dispose();
-
-            Sounds.TimeTravelCutscene = Sounds.AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/cutscene.wav", Presets.ExteriorLoud);
-            Sounds.TimeTravelInstant = Sounds.AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/instant.wav", Presets.ExteriorLoud);
         }
 
         public void StartTimeTravel(int delay = 0)
@@ -112,12 +93,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (!Properties.HasBeenStruckByLightning && Mods.IsDMC12)
                             Properties.IsFueled = false;
 
-                        if (Mods.Hook == HookState.On)
-                            Mods.Hook = HookState.Removed;
-
-                        if (Mods.Plate == PlateType.Outatime)
-                            Mods.Plate = PlateType.Empty;
-
                         // Invoke delegate
                         Events.OnTimeTravelCompleted?.Invoke();
                         Events.OnReenterCompleted?.Invoke();
@@ -134,10 +109,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Sounds.TimeTravelCutscene.Play();
 
                     // Play the effects
-                    SFX.TimeTravelEffect.Play();
+                    Particles.TimeTravelEffect.Play();
 
                     // Play the light explosion
-                    SFX.LightExplosion.Play();
+                    Particles.LightExplosion.Play();
 
                     trails = FireTrailsHandler.SpawnForDelorean(
                         TimeMachine,
@@ -185,7 +160,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 1:
-                    SFX.TimeTravelEffect.Stop();
+                    Particles.TimeTravelEffect.Stop();
 
                     if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Main.PlayerPed)
                     {
@@ -249,16 +224,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-            Sounds.TimeTravelCutscene?.Dispose();
-            Sounds.TimeTravelInstant?.Dispose();
-            Props.WhiteSphere?.DeleteProp();
-            SFX.LightExplosion?.Dispose();
-            SFX.TimeTravelEffect?.Dispose();
+          
         }
 
         public override void KeyPress(Keys key)
         {
-            if (Main.PlayerVehicle != Vehicle) return;
+            if (Main.PlayerVehicle != Vehicle)
+                return;
 
             if (key == Keys.Multiply)
                 SetCutsceneMode(!Properties.CutsceneMode);

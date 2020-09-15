@@ -9,14 +9,18 @@ using BackToTheFutureV.Vehicles;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class HoodboxHandler : Handler
+    public class ComponentsHandler : Handler
     {
+        //Hook
+        private Vector3 hookPosition = new Vector3(0.75f, 0f, 0f);
+
+        //Hoodbox
         private bool _state = false;
         private bool _applyAlpha = false;
         private float _alphaLevel = 0;
         private bool _isNight;
 
-        public HoodboxHandler(TimeMachine timeMachine) : base(timeMachine)
+        public ComponentsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnReenterCompleted += OnReenterCompleted;
         }
@@ -29,7 +33,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void OnReenterCompleted()
         {
-            if (!Mods.IsDMC12 || Mods.Hoodbox == ModState.Off)
+            if (Mods.Plate == PlateType.Outatime)
+                Mods.Plate = PlateType.Empty;
+
+            if (Mods.Hook == HookState.On)
+                Mods.Hook = HookState.Removed;
+
+            if (Mods.Hoodbox == ModState.Off)
                 return;
 
             _alphaLevel = 52f;
@@ -60,8 +70,41 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Props.HoodboxLights = new AnimateProp(Vehicle, ModelHandler.HoodboxLights, "bonnet");
         }
 
+        private void HookProcess()
+        {
+            if (Main.PlayerPed.IsInVehicle())
+                return;
+
+            if (Mods.Hook != HookState.OnDoor)
+                return;
+
+            Vector3 worldPos = Vehicle.GetOffsetPosition(hookPosition);
+
+            float dist = Main.PlayerPed.Position.DistanceToSquared(worldPos);
+
+            if (dist <= 2f * 2f)
+            {
+                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Apply_Hook"));
+
+                if (Game.IsControlJustPressed(GTA.Control.Context))
+                    Mods.Hook = HookState.On;
+            }
+        }
+
+        private void CompassProcess()
+        {
+            Props.Compass?.SpawnProp(Vector3.Zero, new Vector3(0, 0, Vehicle.Heading), false);
+
+            if (Props.Compass.Prop.IsVisible != Vehicle.IsVisible)
+                Props.Compass.Prop.IsVisible = Vehicle.IsVisible;
+        }
+
         public override void Process()
-        {                                    
+        {
+            HookProcess();
+
+            CompassProcess();
+
             if (_state)
             {
                 if (Mods.Hoodbox == ModState.Off)
@@ -101,7 +144,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (Mods.Hoodbox == ModState.Off | Main.PlayerPed.IsInVehicle()) return;
+            if (Mods.Hoodbox == ModState.Off | Main.PlayerPed.IsInVehicle()) 
+                return;
 
             var worldPos = Vehicle.Bones["bonnet"].Position;
 

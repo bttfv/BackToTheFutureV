@@ -100,6 +100,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public AudioPlayer InputOn;
         public AudioPlayer InputOff;
 
+        //TCD
+        public AudioPlayer FluxCapacitor;
+        public AudioPlayer TCDBeep;
+        public AudioPlayer TCDGlitch;
+
         public SoundsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             AudioEngine = new AudioEngine
@@ -113,24 +118,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             HoverModeOff = AudioEngine.Create("bttf2/hover/toRegular.wav", Presets.Exterior);
             HoverModeUp = AudioEngine.Create("bttf2/hover/hoverUp.wav", Presets.Exterior);
             HoverModeBoost = AudioEngine.Create("bttf2/hover/boost.wav", Presets.Exterior);
-
-            //Ice
-            Ice = AudioEngine.Create("general/cold.wav", Presets.ExteriorLoop);
-            Ice.FadeOutMultiplier = 0.15f;
-            IceVents = AudioEngine.Create("general/vents.wav", Presets.Exterior);
-
-            //Fuel
-            FuelEmpty = AudioEngine.Create("bttf1/timeCircuits/plutoniumEmpty.wav", Presets.Interior);
-            FuelEmpty.SourceBone = "bttf_tcd_green";
-            Refuel = AudioEngine.Create("bttf1/refuel.wav", Presets.Exterior);
-            Refuel.SourceBone = "bttf_reactorcap";
-
-            //Ligtning strike
-            LightningStrike = AudioEngine.Create("bttf2/timeTravel/lightingStrike.wav", Presets.Exterior);
-
-            //Plutonium gauge
-            PlutoniumGauge = AudioEngine.Create("bttf1/timeCircuits/plutoniumGauges.wav", Presets.Interior);
-            PlutoniumGauge.SourceBone = "bttf_tcd_green";
 
             //RC
             RCOn = AudioEngine.Create("general/rc/on.wav", Presets.Exterior);
@@ -150,34 +137,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 sound.MinimumDistance = 1f;
             }
 
-            //Car sounds
-            _doorOpenSound = AudioEngine.Create("general/doorOpen.wav", Presets.Exterior);
-            _doorCloseSound = AudioEngine.Create("general/doorClose.wav", Presets.Exterior);
-            _doorOpenColdSound = AudioEngine.Create("general/doorOpenCold.wav", Presets.Exterior);
-            _doorCloseColdsound = AudioEngine.Create("general/doorCloseCold.wav", Presets.Exterior);
-            _engineOffsound = AudioEngine.Create("general/engine/engineStop.wav", Presets.Exterior);
-            _engineOnSound = AudioEngine.Create("general/engine/engineStart.wav", Presets.Exterior);
-
-            _engineOffsound.SourceBone = "engine";
-            _engineOnSound.SourceBone = "engine";
-
-            _doorSounds = new List<AudioPlayer>
-            {
-                _doorOpenSound, _doorCloseSound, _doorOpenColdSound, _doorCloseColdsound
-            };
-
             //Speedo
             Speedo = AudioEngine.Create("general/speedoTick.wav", Presets.Interior);
             Speedo.Volume = 1f;
             Speedo.MinimumDistance = 0.3f;
             Speedo.SourceBone = "bttf_speedo";
-
-            //Engine restarter
-            EngineRestarter = AudioEngine.Create("bttf1/engine/restart.wav", Presets.ExteriorLoudLoop);
-            EngineRestarter.SourceBone = "engine";
-            EngineRestarter.FadeOutMultiplier = 6f;
-            EngineRestarter.FadeInMultiplier = 4f;
-            EngineRestarter.MinimumDistance = 6f;
 
             //Sparks
             SparksEmpty = AudioEngine.Create("general/timeTravel/sparksNoFuel.wav", Presets.ExteriorLoud);
@@ -208,6 +172,86 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             InputOn.SourceBone = "bttf_tcd_green";
             InputOff.SourceBone = "bttf_tcd_green";
+
+            //TCD
+            TCDBeep = AudioEngine.Create("general/timeCircuits/beep.wav", Presets.Interior);
+            TCDBeep.MinimumDistance = 0.3f;
+            TCDBeep.SourceBone = "bttf_tcd_green";
+
+            //TCD Glitch
+            TCDGlitch = AudioEngine.Create("bttf2/timeCircuits/glitch.wav", Presets.Interior);
+            TCDGlitch.SourceBone = "bttf_tcd_green";
+
+            if (!Mods.IsDMC12)
+                return;
+
+            //Ice
+            Ice = AudioEngine.Create("general/cold.wav", Presets.ExteriorLoop);
+            Ice.FadeOutMultiplier = 0.15f;
+            IceVents = AudioEngine.Create("general/vents.wav", Presets.Exterior);
+
+            //Fuel
+            FuelEmpty = AudioEngine.Create("bttf1/timeCircuits/plutoniumEmpty.wav", Presets.Interior);
+            FuelEmpty.SourceBone = "bttf_tcd_green";
+            Refuel = AudioEngine.Create("bttf1/refuel.wav", Presets.Exterior);
+            Refuel.SourceBone = "bttf_reactorcap";
+
+            //Ligtning strike
+            LightningStrike = AudioEngine.Create("bttf2/timeTravel/lightingStrike.wav", Presets.Exterior);
+
+            //Plutonium gauge
+            PlutoniumGauge = AudioEngine.Create("bttf1/timeCircuits/plutoniumGauges.wav", Presets.Interior);
+            PlutoniumGauge.SourceBone = "bttf_tcd_green";
+
+            //Car sounds
+            _doorOpenSound = AudioEngine.Create("general/doorOpen.wav", Presets.Exterior);
+            _doorCloseSound = AudioEngine.Create("general/doorClose.wav", Presets.Exterior);
+            _doorOpenColdSound = AudioEngine.Create("general/doorOpenCold.wav", Presets.Exterior);
+            _doorCloseColdsound = AudioEngine.Create("general/doorCloseCold.wav", Presets.Exterior);
+            _engineOffsound = AudioEngine.Create("general/engine/engineStop.wav", Presets.Exterior);
+            _engineOnSound = AudioEngine.Create("general/engine/engineStart.wav", Presets.Exterior);
+
+            _engineOffsound.SourceBone = "engine";
+            _engineOnSound.SourceBone = "engine";
+
+            _doorSounds = new List<AudioPlayer>
+            {
+                _doorOpenSound, _doorCloseSound, _doorOpenColdSound, _doorCloseColdsound
+            };
+
+            //Engine restarter
+            EngineRestarter = AudioEngine.Create("bttf1/engine/restart.wav", Presets.ExteriorLoudLoop);
+            EngineRestarter.SourceBone = "engine";
+            EngineRestarter.FadeOutMultiplier = 6f;
+            EngineRestarter.FadeInMultiplier = 4f;
+            EngineRestarter.MinimumDistance = 6f;
+
+            //Flux capacitor            
+            FluxCapacitor = AudioEngine.Create("general/fluxCapacitor.wav", Presets.InteriorLoop);
+            FluxCapacitor.Volume = 0.1f;
+            FluxCapacitor.MinimumDistance = 0.5f;
+            FluxCapacitor.SourceBone = "flux_capacitor";
+
+            Events.OnWormholeTypeChanged += OnWormholeTypeChanged;
+
+            OnWormholeTypeChanged();
+        }
+
+        public void OnWormholeTypeChanged()
+        {
+            TimeTravelCutscene?.Dispose();
+            TimeTravelCutscene = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/cutscene.wav", Presets.ExteriorLoud);
+
+            TimeTravelInstant?.Dispose();
+            TimeTravelInstant = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/instant.wav", Presets.ExteriorLoud);
+
+            Reenter?.Dispose();
+            Reenter = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/reentry.wav", Presets.ExteriorLoud);
+
+            Sparks?.Dispose();
+            Sparks = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/sparks.wav", Presets.ExteriorLoudLoop);
+            Sparks.FadeOutMultiplier = 2f;
+            Sparks.StartFadeIn = false;
         }
 
         public override void Dispose()
@@ -255,6 +299,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             Keypad?.Values.ToList().ForEach(x => x?.Dispose());
             InputOn?.Dispose();
             InputOff?.Dispose();
+
+            //TCD
+            TCDBeep?.Dispose();
+            FluxCapacitor?.Dispose();
+            TCDGlitch?.Dispose();
+
+            //Time travel
+            TimeTravelCutscene?.Dispose();
+            TimeTravelInstant?.Dispose();
+            Reenter?.Dispose();
         }
 
         public override void KeyPress(Keys key)

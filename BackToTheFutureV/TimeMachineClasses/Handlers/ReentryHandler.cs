@@ -17,9 +17,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private int _gameTimer;
 
         public ReentryHandler(TimeMachine timeMachine) : base(timeMachine)
-        {
-            SFX.Flash = new PtfxEntityPlayer("core", "ent_anim_paparazzi_flash", Vehicle, Vector3.Zero, Vector3.Zero, 50f);
-
+        {           
             Events.OnReenter += OnReenter;
             Events.OnReenterCompleted += OnReenterCompleted;
         }
@@ -56,7 +54,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 case 0:
                     Sounds.Reenter.Play();
 
-                    SFX.Flash.Play();
+                    Particles.Flash.Play();
 
                     Function.Call(Hash.ADD_SHOCKING_EVENT_AT_POSITION, 88, Vehicle.Position.X, Vehicle.Position.Y, Vehicle.Position.Z, 1f);
 
@@ -79,7 +77,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 case 1:
 
-                    SFX.Flash.Play();
+                    Particles.Flash.Play();
 
                     timeToAdd = 500;
 
@@ -100,7 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 case 2:
 
-                    SFX.Flash.Play();
+                    Particles.Flash.Play();
 
                     _currentStep++;
                     break;
@@ -118,16 +116,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
-            //Events.OnScaleformPriority?.Invoke();
-           
             if (Mods.HoverUnderbody == ModState.On)
                 Properties.CanConvert = true;
-
-            if (Mods.Hook == HookState.On)
-                Mods.Hook = HookState.Removed;
-
-            if (Mods.Plate == PlateType.Outatime)
-                Mods.Plate = PlateType.Empty;
 
             Utils.HideVehicle(Vehicle, false);
 
@@ -173,7 +163,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-            Sounds.Reenter?.Dispose();
+
         }
 
         public override void KeyPress(Keys key)
