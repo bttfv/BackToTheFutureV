@@ -140,6 +140,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.HasBeenStruckByLightning && Mods.IsDMC12)
                 Properties.IsFueled = false;
 
+            Properties.HasBeenStruckByLightning = false;
+
             if (!Properties.IsOnTracks && Vehicle.Driver == null)
             {
                 Vehicle.SteeringAngle = Utils.Random.NextDouble() >= 0.5f ? 35 : -35;

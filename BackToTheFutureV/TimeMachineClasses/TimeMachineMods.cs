@@ -132,6 +132,15 @@ namespace BackToTheFutureV.TimeMachineClasses
                 base.Hoodbox = value;
 
                 DamagedBumper = value;
+
+                if (value == ModState.On)
+                {
+                    if (TimeMachine.Properties == null || !TimeMachine.Properties.AreTimeCircuitsBroken)
+                        return;
+
+                    TimeMachine.Events?.SetTimeCircuitsBroken?.Invoke(false);
+                    WormholeType = WormholeType.BTTF3;
+                }                    
             }
         }
     }

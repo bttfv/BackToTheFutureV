@@ -186,6 +186,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TCDGlitch = AudioEngine.Create("bttf2/timeCircuits/glitch.wav", Presets.Interior);
             TCDGlitch.SourceBone = "bttf_tcd_green";
 
+            //Ligtning strike
+            LightningStrike = AudioEngine.Create("bttf2/timeTravel/lightingStrike.wav", Presets.Exterior);
+
             if (!Mods.IsDMC12)
                 return;
 
@@ -199,10 +202,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             FuelEmpty.SourceBone = "bttf_tcd_green";
             Refuel = AudioEngine.Create("bttf1/refuel.wav", Presets.Exterior);
             Refuel.SourceBone = "bttf_reactorcap";
-
-            //Ligtning strike
-            LightningStrike = AudioEngine.Create("bttf2/timeTravel/lightingStrike.wav", Presets.Exterior);
-
+           
             //Plutonium gauge
             PlutoniumGauge = AudioEngine.Create("bttf1/timeCircuits/plutoniumGauges.wav", Presets.Interior);
             PlutoniumGauge.SourceBone = "bttf_tcd_green";

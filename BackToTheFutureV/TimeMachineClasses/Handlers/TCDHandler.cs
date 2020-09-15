@@ -332,6 +332,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
+            if (Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Main.PlayerPed.IsInVehicle())
+            {
+                var dist = Main.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position);
+
+                if (!(dist <= 2f * 2f))
+                    return;
+
+                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Repair_TimeCircuits"));
+
+                if (Game.IsControlJustPressed(GTA.Control.Context))
+                    Mods.Hoodbox = ModState.On;
+            }
+
             if (!Properties.IsGivenScaleformPriority || Game.Player.Character.Position.DistanceToSquared(Vehicle.Position) > 8f * 8f)
                 return;
 
@@ -393,7 +406,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (!Properties.AreTimeCircuitsOn && Properties.AreFlyingCircuitsBroken)
+            if (!Properties.AreTimeCircuitsOn && Properties.AreTimeCircuitsBroken)
             {
                 if (!TcdEditer.IsEditing)
                     Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Chip_Damaged"));
@@ -418,11 +431,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Properties.AreTimeCircuitsBroken = state;
 
+            if (!state)
+                return;
+            
             Properties.AreTimeCircuitsOn = false;
             Events.OnTimeCircuitsToggle?.Invoke();
-
-            if (state == false && Mods.Hoodbox == ModState.On)
-                Mods.WormholeType = WormholeType.BTTF3;
         }
 
         private void TickDiodes()

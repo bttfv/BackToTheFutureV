@@ -38,7 +38,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool IsHoverBoosting { get; set; }
         public bool AreHoodboxCircuitsReady { get; set; }
         public bool IsPhotoModeOn { get; set; }
-        public bool StruckByLightning { get; set; }
         public bool IsOnTracks { get; set; }
         public bool WasOnTracks { get; set; }
         public bool IsAttachedToRogersSierra { get; set; }

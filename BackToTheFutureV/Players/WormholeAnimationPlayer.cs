@@ -85,7 +85,7 @@ namespace BackToTheFutureV.Players
             if (Mods.IsDMC12)
                 _wormholeRT = new RenderTarget(_wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, "bttf_wormhole");
             else
-                _wormholeRT = new RenderTarget(_wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 2, 0.2f));
+                _wormholeRT = new RenderTarget(_wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 1, 0.4f));
 
             _wormholeScaleform = new ScaleformGui(wormholeScaleformName);
             _wormholeRT.OnRenderTargetDraw += OnRenderTargetDraw;
@@ -306,7 +306,7 @@ namespace BackToTheFutureV.Players
             if (Mods.IsDMC12 && TimeMachine.Mods.WormholeType == WormholeType.BTTF3)
                 HandleCoilFlicker();
 
-            if (_wheelPtfxes != null)
+            if (_wheelPtfxes != null && !Properties.IsFlying)
             {
                 foreach (var wheelPTFX in _wheelPtfxes)
                 {

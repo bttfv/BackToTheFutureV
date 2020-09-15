@@ -28,19 +28,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (Properties.AreTimeCircuitsBroken && !Main.PlayerPed.IsInVehicle())
-            {
-                var dist = Main.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position);
-
-                if (!(dist <= 2f * 2f))
-                    return;
-
-                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Repair_TimeCircuits"));
-
-                if (Game.IsControlJustPressed(GTA.Control.Context))
-                    Mods.Hoodbox = ModState.On;
-            }
-
             if (_hasBeenStruckByLightning && _flashes <= 3)
             {
                 if(Game.GameTime > _nextFlash)
@@ -86,7 +73,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void Strike()
         {
-            Properties.StruckByLightning = true;
+            Properties.HasBeenStruckByLightning = true;
 
             if (Properties.AreTimeCircuitsOn)
             {
@@ -110,13 +97,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
             else
                 Function.Call(Hash.FORCE_LIGHTNING_FLASH);
-
-            if (!Properties.IsFlying && !Properties.AreTimeCircuitsOn)
-                Events.SetTimeCircuitsBroken?.Invoke(true);
-
+           
             if (Properties.IsFlying)
+            {
                 Properties.AreFlyingCircuitsBroken = true;
 
+                if (Properties.AreTimeCircuitsOn && (!Mods.IsDMC12 || Mods.Hoodbox == ModState.Off))
+                    Events.SetTimeCircuitsBroken?.Invoke(true);
+            }
+                
             Vehicle.EngineHealth -= 700;
 
             _hasBeenStruckByLightning = true;

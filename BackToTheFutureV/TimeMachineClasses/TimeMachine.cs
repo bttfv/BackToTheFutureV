@@ -101,16 +101,15 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
             registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));
+            registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
 
             if (Mods.IsDMC12)
             {                
                 registeredHandlers.Add("FluxCapacitorHandler", new FluxCapacitorHandler(this));
-                registeredHandlers.Add("FreezeHandler", new FreezeHandler(this));
-                registeredHandlers.Add("PlutoniumGaugeHandler", new PlutoniumGaugeHandler(this));
+                registeredHandlers.Add("FreezeHandler", new FreezeHandler(this));                
                 registeredHandlers.Add("TFCHandler", new TFCHandler(this));                                
                 registeredHandlers.Add("ComponentsHandler", new ComponentsHandler(this));
-                registeredHandlers.Add("EngineHandler", new EngineHandler(this));
-                registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
+                registeredHandlers.Add("EngineHandler", new EngineHandler(this));                
                 registeredHandlers.Add("StarterHandler", new StarterHandler(this));
 
                 VehicleBone.TryGetForVehicle(Vehicle, "suspension_lf", out boneLf);
