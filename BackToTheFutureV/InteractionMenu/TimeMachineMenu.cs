@@ -63,24 +63,10 @@ namespace BackToTheFutureV.InteractionMenu
                 TimeMachineHandler.CurrentTimeMachine.Events.SetCutsceneMode?.Invoke(Checked);
             else if (checkboxItem == RemoteControl)
                 RCManager.StopRemoteControl();
-
-            if (TimeMachineHandler.CurrentTimeMachine.Mods.WormholeType != WormholeType.BTTF2)
-                return;
-
-            if (checkboxItem == FlyMode)
+            else if (checkboxItem == FlyMode)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
             else if(checkboxItem == AltitudeHold)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetAltitudeHold?.Invoke(Checked);
-        }
-
-        public void Open()
-        {
-            Visible = true;
-        }
-
-        public void Close()
-        {
-            Visible = false;
         }
 
         public void Process()
@@ -105,15 +91,8 @@ namespace BackToTheFutureV.InteractionMenu
                 AltitudeHold.Enabled = false;
             }
 
-            //if (TimeMachineHandler.CurrentTimeMachine.GetHandler<TCDHandler>().IsDoingTimedVisible)
-            //{
-            //    TimeCircuitsOn.Enabled = false;
-            //}
-            //else
-            //{
             TimeCircuitsOn.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
             TimeCircuitsOn.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsOn;
-            //}
 
             CutsceneMode.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
             CutsceneMode.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.CutsceneMode;

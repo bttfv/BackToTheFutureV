@@ -21,6 +21,7 @@ namespace BackToTheFutureV
         private static UIMenu tcdMenu;
         private static UIMenu eventsMenu;
         private static UIMenu soundsMenu;
+        private static UIMenuItem statisticsMenu;
 
         private static UIMenuItem rcMenu;
         private static UIMenuItem spawnDelorean1;
@@ -70,6 +71,8 @@ namespace BackToTheFutureV
             MainMenu.AddItem(convertToTimeMachine = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_ConvertToTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_ConvertToTimeMachine_Description")));
 
             rcMenu = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.RCMenu, Game.GetLocalizedString("BTTFV_Menu_RCMenu"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_Description"));
+
+            statisticsMenu = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.StatisticsMenu, Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Description"));
 
             MainMenu.AddItem(removeDelorean = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine_Description")));
             MainMenu.AddItem(removeOtherDeloreans = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines_Description")));
@@ -129,6 +132,33 @@ namespace BackToTheFutureV
 
         private static void MainMenu_OnMenuOpen(UIMenu sender)
         {
+            if (TimeMachineHandler.TimeMachineCount > 0 )
+            {
+                MainMenu.ReleaseMenuFromItem(statisticsMenu);
+                MainMenu.BindMenuToItem(InteractionMenuManager.StatisticsMenu, statisticsMenu);
+
+                statisticsMenu.Enabled = true;
+            } else
+            {
+                MainMenu.ReleaseMenuFromItem(statisticsMenu);
+
+                statisticsMenu.Enabled = false;
+            }
+
+            if (RemoteTimeMachineHandler.TimeMachineCount > 0)
+            {
+                MainMenu.ReleaseMenuFromItem(rcMenu);
+                MainMenu.BindMenuToItem(InteractionMenuManager.RCMenu, rcMenu);
+
+                statisticsMenu.Enabled = true;
+            }
+            else
+            {
+                MainMenu.ReleaseMenuFromItem(rcMenu);
+
+                rcMenu.Enabled = false;
+            }
+
             if (TimeMachineClone.ListPresets().Count > 0)
             {
                 MainMenu.ReleaseMenuFromItem(spawnPresetDelorean);
