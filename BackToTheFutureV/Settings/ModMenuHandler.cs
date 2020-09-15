@@ -132,7 +132,7 @@ namespace BackToTheFutureV
 
         private static void MainMenu_OnMenuOpen(UIMenu sender)
         {
-            if (TimeMachineHandler.TimeMachineCount > 0 )
+            if (RemoteTimeMachineHandler.TimeMachineCount > 0 )
             {
                 MainMenu.ReleaseMenuFromItem(statisticsMenu);
                 MainMenu.BindMenuToItem(InteractionMenuManager.StatisticsMenu, statisticsMenu);
@@ -145,12 +145,12 @@ namespace BackToTheFutureV
                 statisticsMenu.Enabled = false;
             }
 
-            if (RemoteTimeMachineHandler.TimeMachineCount > 0)
+            if (TimeMachineHandler.TimeMachineCount > 0)
             {
                 MainMenu.ReleaseMenuFromItem(rcMenu);
                 MainMenu.BindMenuToItem(InteractionMenuManager.RCMenu, rcMenu);
 
-                statisticsMenu.Enabled = true;
+                rcMenu.Enabled = true;
             }
             else
             {
@@ -267,7 +267,7 @@ namespace BackToTheFutureV
 
             if (selectedItem == spawnDelorean)
             {
-                DMC12Handler.CreateDMC12(Main.PlayerPed.Position, Main.PlayerPed.Heading);
+                Main.PlayerPed.Task.WarpIntoVehicle(DMC12Handler.CreateDMC12(Main.PlayerPed.Position, Main.PlayerPed.Heading).Vehicle, VehicleSeat.Driver);
                 Main.MenuPool.CloseAllMenus();
             }
 
@@ -276,7 +276,7 @@ namespace BackToTheFutureV
                 if (ModSettings.CinematicSpawn)
                     TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF1);
                 else
-                    TimeMachineHandler.Spawn(WormholeType.BTTF1);
+                    TimeMachineHandler.Spawn(WormholeType.BTTF1, true);
                 Main.MenuPool.CloseAllMenus();
             }
 
@@ -285,7 +285,7 @@ namespace BackToTheFutureV
                 if (ModSettings.CinematicSpawn)
                     TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF2);
                 else
-                    TimeMachineHandler.Spawn(WormholeType.BTTF2);
+                    TimeMachineHandler.Spawn(WormholeType.BTTF2, true);
                 Main.MenuPool.CloseAllMenus();
             }
 
@@ -294,7 +294,7 @@ namespace BackToTheFutureV
                 if (ModSettings.CinematicSpawn)
                     TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF3);
                 else
-                    TimeMachineHandler.Spawn(WormholeType.BTTF3);
+                    TimeMachineHandler.Spawn(WormholeType.BTTF3, true);
                 Main.MenuPool.CloseAllMenus();
             }
 

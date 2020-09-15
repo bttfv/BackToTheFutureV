@@ -117,9 +117,6 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 leftSuspesionOffset = Vehicle.Bones["suspension_lf"].GetRelativeOffsetPosition(new Vector3(0.025f, 0, 0.005f));
                 rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.03f, 0, 0.005f));
-
-                Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
-                Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
             }
 
             LastDisplacementClone = Clone;
@@ -296,42 +293,48 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void PhotoMode() 
         {
-            if (Properties.PhotoWormholeActive && !Players.Wormhole.IsPlaying)
-                Players.Wormhole.Play(true);
-
-            if (!Properties.PhotoWormholeActive && Players.Wormhole.IsPlaying && Properties.IsPhotoModeOn)
-                Players.Wormhole.Stop();
-
-            if (Properties.PhotoGlowingCoilsActive && !Props.Coils.IsSpawned)
+            try
             {
-                if (Main.CurrentTime.Hour >= 20 || (Main.CurrentTime.Hour >= 0 && Main.CurrentTime.Hour <= 5))
-                    Props.Coils.Model = ModelHandler.CoilsGlowingNight;
-                else
-                    Props.Coils.Model = ModelHandler.CoilsGlowing;
+                if (Properties.PhotoWormholeActive && !Players.Wormhole.IsPlaying)
+                    Players.Wormhole.Play(true);
 
-                Mods.OffCoils = ModState.Off;
-                Props.Coils.SpawnProp(false);
-            }
+                if (!Properties.PhotoWormholeActive && Players.Wormhole.IsPlaying && Properties.IsPhotoModeOn)
+                    Players.Wormhole.Stop();
 
-            if (!Properties.PhotoGlowingCoilsActive && Props.Coils.IsSpawned)
+                if (Properties.PhotoGlowingCoilsActive && !Props.Coils.IsSpawned)
+                {
+                    if (Main.CurrentTime.Hour >= 20 || (Main.CurrentTime.Hour >= 0 && Main.CurrentTime.Hour <= 5))
+                        Props.Coils.Model = ModelHandler.CoilsGlowingNight;
+                    else
+                        Props.Coils.Model = ModelHandler.CoilsGlowing;
+
+                    Mods.OffCoils = ModState.Off;
+                    Props.Coils.SpawnProp(false);
+                }
+
+                if (!Properties.PhotoGlowingCoilsActive && Props.Coils.IsSpawned)
+                {
+                    Mods.OffCoils = ModState.On;
+                    Props.Coils.DeleteProp();
+                }
+
+                if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingBlueAnim)
+                    Events.OnWormholeStarted?.Invoke();
+
+                if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
+                    Events.OnTimeTravelInterrupted?.Invoke();
+
+                if (Properties.PhotoIceActive && !Properties.IsFreezed)
+                    Events.SetFreeze?.Invoke(true);
+
+                if (!Properties.PhotoIceActive && Properties.IsFreezed && Properties.IsPhotoModeOn)
+                    Events.SetFreeze?.Invoke(false);
+
+                Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.PhotoIceActive;
+            } catch
             {
-                Mods.OffCoils = ModState.On;
-                Props.Coils.DeleteProp();
+
             }
-
-            if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingBlueAnim)
-                Events.OnWormholeStarted?.Invoke();
-
-            if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
-                Events.OnTimeTravelInterrupted?.Invoke();
-
-            if (Properties.PhotoIceActive && !Properties.IsFreezed)
-                Events.SetFreeze?.Invoke(true);
-
-            if (!Properties.PhotoIceActive && Properties.IsFreezed && Properties.IsPhotoModeOn)
-                Events.SetFreeze?.Invoke(false);
-
-            Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.PhotoIceActive;
         }
 
         public void KeyDown(Keys key)
@@ -353,5 +356,8 @@ namespace BackToTheFutureV.TimeMachineClasses
             
             Disposed = true;
         }
+
+        public static implicit operator Vehicle(TimeMachine timeMachine) => timeMachine.Vehicle;
+        public static implicit operator Entity(TimeMachine timeMachine) => timeMachine.Vehicle;
     }
 }

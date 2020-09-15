@@ -67,7 +67,7 @@ namespace BackToTheFutureV.InteractionMenu
             if (ModSettings.CinematicSpawn)
                 TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF1, selectedItem.Text);
             else
-                TimeMachineClone.Load(selectedItem.Text).ApplyTo(TimeMachineHandler.Spawn(WormholeType.BTTF1), true);
+                TimeMachineHandler.Spawn(WormholeType.BTTF1, true, selectedItem.Text);
 
             Main.MenuPool.CloseAllMenus();
         }

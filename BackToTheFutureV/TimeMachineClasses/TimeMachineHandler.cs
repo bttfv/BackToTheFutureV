@@ -116,8 +116,13 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static TimeMachine SpawnWithReentry(WormholeType wormholeType = WormholeType.BTTF1, string presetName = default)
         {
-            if (wormholeType == WormholeType.DMC12)
-                return Spawn(wormholeType);
+            Ped ped = Main.PlayerPed;
+
+            if (RCManager.RemoteControlling != null)
+            {
+                ped = RCManager.RemoteControlling.OriginalPed;
+                RCManager.StopRemoteControl(true);
+            }
 
             TimeMachineClone timeMachineClone = null;
 
@@ -128,8 +133,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (timeMachineClone != null)
             {
-                timeMachineClone.Vehicle.Position = Main.PlayerPed.GetOffsetPosition(new Vector3(0, 25, 0));
-                timeMachineClone.Vehicle.Heading = Main.PlayerPed.Heading + 180;
+                timeMachineClone.Vehicle.Position = ped.GetOffsetPosition(new Vector3(0, 25, 0));
+                timeMachineClone.Vehicle.Heading = ped.Heading + 180;
 
                 timeMachine = timeMachineClone.Spawn(true, true);
             }                
@@ -150,7 +155,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             return timeMachine;
         }
 
-        public static TimeMachine Spawn(WormholeType wormholeType)
+        public static TimeMachine Spawn(WormholeType wormholeType, bool warpInPlayer = false, string presetName = default)
         {
             Ped ped = Main.PlayerPed;
 
@@ -167,14 +172,33 @@ namespace BackToTheFutureV.TimeMachineClasses
             else
                 spawnPos = ped.Position;
 
-            TimeMachine timeMachine = CreateTimeMachine(spawnPos, ped.Heading, wormholeType);
+            TimeMachineClone timeMachineClone = null;
 
-            ped.SetIntoVehicle(timeMachine.Vehicle, VehicleSeat.Driver);
+            if (presetName != default)
+                timeMachineClone = TimeMachineClone.Load(presetName);
 
-            timeMachine.Vehicle.PlaceOnGround();
+            TimeMachine timeMachine;
 
-            timeMachine.Vehicle.SetMPHSpeed(1);
+            if (timeMachineClone != null)
+            {
+                timeMachineClone.Vehicle.Position = spawnPos;
+                timeMachineClone.Vehicle.Heading = ped.Heading;
 
+                timeMachine = timeMachineClone.Spawn(true, false);
+            }
+            else
+            {
+                timeMachine = CreateTimeMachine(spawnPos, ped.Heading, wormholeType);
+            }
+
+            if (warpInPlayer)
+            {
+                if (RCManager.RemoteControlling != null)
+                    RCManager.StopRemoteControl(true);
+
+                Main.PlayerPed.Task.WarpIntoVehicle(timeMachine, VehicleSeat.Driver);
+            }
+                
             return timeMachine;
         }
 

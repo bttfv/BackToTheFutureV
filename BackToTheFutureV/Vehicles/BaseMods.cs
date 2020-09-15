@@ -163,12 +163,6 @@ namespace BackToTheFutureV.Vehicles
             ret.Exhaust = Exhaust;
             ret.Hoodbox = Hoodbox;
             ret.Hook = Hook;
-
-            if (ret.SuspensionsType == SuspensionsType.Stock)
-            {
-                Function.Call((Hash)0x1201E8A3290A3B98, timeMachine.Vehicle, false);
-                Function.Call((Hash)0x28B18377EB6E25F6, timeMachine.Vehicle, false);
-            }
         }
     }
 }
