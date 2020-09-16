@@ -344,7 +344,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // Play revving sound
             if (IsRevving)
             {
-                if (!_engineRevvingSound.IsAnyInstancePlaying || _engineRevvingSound.PlayPosition > 1000 && !_isRevPlayed)
+                if (!_engineRevvingSound.IsAnyInstancePlaying || _engineRevvingSound.Last?.PlayPosition > 1000 && !_isRevPlayed)
                 {
                     _engineRevvingSound.Play();
                     _isRevPlayed = true;
@@ -359,7 +359,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (IsBreaking && Speed > 30 && !Utils.IsAnyTireBurst(Vehicle) && !Game.IsControlPressed(Control.VehicleAccelerate) &&
                 !Vehicle.IsInWater)
             {
-                if (!_engineDecellSound.IsAnyInstancePlaying || _engineDecellSound.PlayPosition > 1000)
+                if (!_engineDecellSound.IsAnyInstancePlaying || _engineDecellSound.Last?.PlayPosition > 1000)
                 {
                     _engineDecellSound.Play();
                 }
@@ -394,7 +394,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (_engineAccell2Sound.IsAnyInstancePlaying)
                 {
-                    if (_engineAccell2Sound.PlayPosition >= 7000)
+                    if (_engineAccell2Sound.Last?.PlayPosition >= 7000)
                         _engineAccell2Sound.Play();
                 }
                 else
@@ -410,7 +410,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // Play deceleration sound
             if (Game.IsControlPressed(Control.VehicleBrake) && Speed > 15 && Utils.EntitySpeedVector(Vehicle).Y > 0)
             {
-                if (!_engineDecellSound.IsAnyInstancePlaying || _engineDecellSound.PlayPosition > 1000)
+                if (!_engineDecellSound.IsAnyInstancePlaying || _engineDecellSound.Last?.PlayPosition > 1000)
                 {
                     _engineDecellSound.Play();
                 }
@@ -439,9 +439,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (_currentAccel != _engineAccell1Sound)
                 {
-                    if (_accellSounds.Any(x => x.IsAnyInstancePlaying && x.PlayPosition >= 7000))
+                    if (_accellSounds.Any(x => x.IsAnyInstancePlaying))
                     {
-                        _currentAccel.Play();
+                        if (_currentAccel.Last?.PlayPosition >= 7000)
+                            _currentAccel.Play();
                     }
                     else if (!_accellSounds.Any(x => x.IsAnyInstancePlaying))
                     {
@@ -465,8 +466,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Speed <= 3.5f && !_possibleFastAccel)
                 return;
 
-            if (_accellSounds.Any(x => x.IsAnyInstancePlaying && x.PlayPosition < 1000))
-                return;
+            if (_accellSounds.Any(x => x.IsAnyInstancePlaying))
+            {
+                if (_accellSounds.Any(x => x.Last?.PlayPosition < 1000))
+                    return;
+            }
 
             _currentAccel.Play();
         }

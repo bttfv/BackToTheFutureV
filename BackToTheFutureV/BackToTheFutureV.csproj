@@ -60,6 +60,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="irrKlang.NET4, Version=1.0.6617.18847, Culture=neutral, PublicKeyToken=a854741bd80517c7, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\KlangRageAudioLibrary\irrKlang\irrKlang.NET4.dll</HintPath>
+    </Reference>
     <Reference Include="NativeUI, Version=1.9.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\NativeUI.1.9.0\lib\net452\NativeUI.dll</HintPath>
     </Reference>
