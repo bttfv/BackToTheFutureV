@@ -130,12 +130,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.WasOnTracks)
                 Events.SetRailroadMode?.Invoke(true, true);
             else
-            {
                 Vehicle.Velocity = Properties.LastVelocity;
-
-                if (Vehicle.GetMPHSpeed() == 0)
-                    Vehicle.SetMPHSpeed(88);
-            }
 
             if (!Properties.HasBeenStruckByLightning && Mods.IsDMC12)
                 Properties.IsFueled = false;

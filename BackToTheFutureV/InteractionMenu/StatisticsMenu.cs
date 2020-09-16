@@ -137,7 +137,11 @@ namespace BackToTheFutureV.InteractionMenu
         private void StatisticsMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
         {
             if (selectedItem == ForceReenter && !Spawned.Checked)
-                Spawned.Checked = _currentTimeMachine.ForceReenter();
+            {
+                _currentTimeMachine.Spawn(ReenterType.Forced);
+
+                Spawned.Checked = _currentTimeMachine.Spawned;
+            }                
         }
 
         public void Process()

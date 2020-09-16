@@ -11,6 +11,13 @@ namespace BackToTheFutureV
         Reentering = 3        
     }
 
+    public enum ReenterType
+    {
+        Normal,
+        Spawn,
+        Forced
+    }
+
     public class Constants
     {
         // All these offsets we're extracted from dummies that were made in 3Ds Max

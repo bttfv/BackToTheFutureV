@@ -54,40 +54,33 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
             if (Utils.GetWorldTime() > TimeMachineClone.Properties.DestinationTime && Utils.GetWorldTime() < (TimeMachineClone.Properties.DestinationTime + new TimeSpan(0, 0, 10)))
             {
-                Reenter();
+                Spawn(ReenterType.Normal);
 
                 _hasPlayedWarningSound = false;
                 _timer = Game.GameTime + 3000;
             }
         }
 
-        public bool ForceReenter()
-        {
-            if (Spawned)
-                return false;
-
-            TimeMachineClone.Properties.DestinationTime = Main.CurrentTime;
-
-            return true;
-        }
-
-        public void Reenter()
-        {
-            Spawn();
-
-            Utils.HideVehicle(TimeMachine.Vehicle, true);
-            
-            TimeMachine.Events.OnReenter?.Invoke();
-        }
-
-        private void Spawn()
+        public void Spawn(ReenterType reenterType)
         {
             if (Blip != null && Blip.Exists())
                 Blip.Delete();
 
-            TimeMachine = TimeMachineClone.Spawn();
+            switch (reenterType)
+            {
+                case ReenterType.Normal:
+                    TimeMachine = TimeMachineClone.Spawn(false, true);
+                    TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    break;
+                case ReenterType.Spawn:
+                    TimeMachine = TimeMachineClone.Spawn();
+                    TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    break;
+                case ReenterType.Forced:
+                    TimeMachineClone.Properties.DestinationTime = Main.CurrentTime;
+                    break;
+            }
 
-            TimeMachine.LastDisplacementClone = TimeMachineClone;
         }
 
         public void ExistenceCheck(DateTime time)
@@ -95,7 +88,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             if (TimeMachineClone.Properties.DestinationTime < time)
             {
                 if (TimeMachine == null || !TimeMachine.Vehicle.Exists())
-                    Spawn();
+                    Spawn(ReenterType.Spawn);
             }
         }
 
