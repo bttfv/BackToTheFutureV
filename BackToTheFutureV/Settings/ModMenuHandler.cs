@@ -103,6 +103,8 @@ namespace BackToTheFutureV
             soundsMenu.AddItem(playSpeedoBeep = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep"), ModSettings.PlaySpeedoBeep, Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep_Description")));
             soundsMenu.AddItem(playEngineSounds = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_EngineSounds"), ModSettings.PlayEngineSounds, Game.GetLocalizedString("BTTFV_Menu_EngineSounds_Description")));
 
+            playEngineSounds.Enabled = false;
+
             soundsMenu.OnCheckboxChange += SettingsMenu_OnCheckboxChange;
 
             eventsMenu = Main.MenuPool.AddSubMenu(settingsMenu, Game.GetLocalizedString("BTTFV_Menu_EventsMenu"), Game.GetLocalizedString("BTTFV_Menu_EventsMenu_Description"));
