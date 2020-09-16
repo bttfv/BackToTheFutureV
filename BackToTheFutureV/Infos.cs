@@ -53,19 +53,20 @@ namespace BackToTheFutureV
         {
             Vehicle veh = World.CreateVehicle(Model, position, heading);
 
-            ApplyTo(veh);
-
-            veh.Position = position;
-            veh.Heading = heading;
+            ApplyTo(veh, true); ;
 
             return veh;
         }
 
-        public void ApplyTo(Vehicle veh)
+        public void ApplyTo(Vehicle veh, bool noPos = false)
         {
-            veh.Position = Position;
-            veh.Rotation = Rotation;
-            veh.Heading = Heading;           
+            if (!noPos)
+            {
+                veh.Position = Position;
+                veh.Rotation = Rotation;
+                veh.Heading = Heading;
+            }
+            
             veh.Velocity = Velocity;            
             veh.Speed = Speed;
             veh.HealthFloat = Health;

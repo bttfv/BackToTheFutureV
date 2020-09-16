@@ -55,6 +55,8 @@ namespace BackToTheFutureV.Vehicles
 
             Vehicle = vehicle;
 
+            Vehicle.IsPersistent = true;
+
             Mods = new DMC12Mods(Vehicle);
 
             DMC12Handler.AddDelorean(this);

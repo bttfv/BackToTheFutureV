@@ -19,9 +19,24 @@ namespace BackToTheFutureV
         public static void Process()
         {
             if (Main.PlayerVehicle != null && !Main.PlayerVehicle.IsTimeMachine() && !vehiclesEnteredByPlayer.Contains(Main.PlayerVehicle))
-            {
                 vehiclesEnteredByPlayer.Add(Main.PlayerVehicle);
+
+            float vehDensity = 1;
+
+            int year = Main.CurrentTime.Year;
+
+            if (year > 1900 && year < 1950)
+            {
+                year -= 1900;
+
+                vehDensity = year / 50;
             }
+            else if (year <= 1900)
+                vehDensity = 0;
+
+            Function.Call(Hash.SET_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME, vehDensity);
+            Function.Call(Hash.SET_PARKED_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME, vehDensity);
+            Function.Call(Hash.SET_RANDOM_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME, vehDensity);
         }
 
         public static void SetupJump(TimeMachine timeMachine, DateTime time)
@@ -56,7 +71,7 @@ namespace BackToTheFutureV
                 momentsInTime.Add(moment);
                 momentsInTime.Add(newMoment);
             }
-
+          
             TimeMachineHandler.ExistenceCheck(time);
 
             RemoteTimeMachineHandler.ExistenceCheck(time);

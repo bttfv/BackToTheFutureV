@@ -93,7 +93,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
 
             TimeMachine timeMachine = new TimeMachine(veh, Mods.WormholeType);
-            
+               
             ApplyTo(timeMachine, asNew);
 
             if (!veh.IsOnAllWheels && veh.HeightAboveGround > 5 && timeMachine.Mods.HoverUnderbody == ModState.On)

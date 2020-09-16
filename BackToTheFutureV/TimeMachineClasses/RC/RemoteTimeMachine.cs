@@ -34,6 +34,9 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public void Process()
         {
+            if (!Spawned && TimeMachine != null)
+                TimeMachine = null;
+
             if (Game.GameTime < _timer) 
                 return;
 
@@ -89,15 +92,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public void ExistenceCheck(DateTime time)
         {
-            if (TimeMachineClone.Properties.DestinationTime > time)
-            {
-                if (TimeMachine != null && TimeMachine.Vehicle.Exists() && Main.PlayerVehicle != TimeMachine.Vehicle)
-                {
-                    TimeMachineHandler.RemoveTimeMachine(TimeMachine);
-                    TimeMachine = null;
-                }
-            }
-            else if (TimeMachineClone.Properties.DestinationTime < time)
+            if (TimeMachineClone.Properties.DestinationTime < time)
             {
                 if (TimeMachine == null || !TimeMachine.Vehicle.Exists())
                     Spawn();

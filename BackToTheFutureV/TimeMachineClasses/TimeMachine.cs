@@ -78,6 +78,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         private void BuildTimeMachine(WormholeType wormholeType)
         {
+            Vehicle.IsPersistent = true;
+
             Mods = new TimeMachineMods(this, wormholeType);
 
             Properties = new PropertiesHandler(this);
@@ -143,6 +145,13 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void Process()
         {
+            if (Vehicle == null || !Vehicle.Exists() || Vehicle.IsDead || !Vehicle.IsAlive)
+            {
+                TimeMachineHandler.RemoveTimeMachine(this);
+
+                return;
+            }
+
             if (Mods.HoverUnderbody == ModState.Off && Mods.IsDMC12)
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
 
@@ -351,9 +360,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Mods.IsDMC12)
                 DMC12.Dispose(deleteVeh);
-            else if (deleteVeh)            
+            else if (deleteVeh)
                 Vehicle.Delete();
-            
+
             Disposed = true;
         }
 

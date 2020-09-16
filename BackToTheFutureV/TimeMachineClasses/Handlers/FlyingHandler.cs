@@ -152,7 +152,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Function.Call(Hash._FORCE_VEHICLE_ENGINE_AUDIO, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
 
             if (!Properties.IsLanding && !Properties.IsFlying)
-                Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 25f);
+                Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 38f);
 
             if (!Properties.IsFlying && Properties.IsAltitudeHolding)
                 Properties.IsAltitudeHolding = false;
