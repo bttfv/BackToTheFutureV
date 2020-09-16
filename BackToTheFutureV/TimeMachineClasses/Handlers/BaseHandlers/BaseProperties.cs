@@ -28,6 +28,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool IsFluxDoingBlueAnim { get; set; }
         public bool IsFreezed { get; set; }
         public bool IsDefrosting { get; set; }
+        public float IceValue { get; set; }
         public bool IsRemoteControlled { get; set; }
         public bool IsFlying { get; set; }
         public bool AreWheelsInHoverMode { get; set; }
@@ -68,6 +69,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             if (IsFlying)
                 timeMachine.Events.SetFlyMode?.Invoke(true, true);
+
+            if (IsFreezed)
+                timeMachine.Events.SetFreeze?.Invoke(true, true);
         }
     }
 }

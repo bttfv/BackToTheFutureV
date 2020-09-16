@@ -21,7 +21,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private float _smokeIndex;
 
-        private float _iceMaxVal;
         private float _iceDisappearVal;
         private float _timeToDisappear = 360f; // 6 minutes
 
@@ -31,10 +30,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.SetFreeze += SetFreeze;
         }
 
-        public void SetFreeze(bool state)
+        public void SetFreeze(bool state, bool resume = false)
         {
             if (state)
-                StartFreezeHandling(false);
+                StartFreezeHandling(false, resume);
             else
                 Stop();
         }
@@ -44,16 +43,20 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             StartFreezeHandling();
         }
 
-        public void StartFreezeHandling(bool fuelNotify = true)
+        public void StartFreezeHandling(bool fuelNotify = true, bool resume = false)
         {
             Stop();
 
-            // Set maximum ice level depending on delorean type
-            _iceMaxVal = Mods.Reactor == ReactorType.Nuclear ? 0.4f : 0.15f;
-
-            Function.Call<float>(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, _iceMaxVal);
+            if (!resume)
+            {
+                // Set maximum ice level depending on delorean type
+                Properties.IceValue = Mods.Reactor == ReactorType.Nuclear ? 0.4f : 0.15f;                
+            }
+                       
+            Function.Call<float>(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, Properties.IceValue);
 
             Properties.IsFreezed = true;
+
             _iceDisappearVal = 0;
             _doingFreezingSequence = true;
             _fuelNotif = fuelNotify;
@@ -73,7 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if(iceScale > 0f)
             {
-                float newIce = Utils.Lerp(_iceMaxVal, 0f, _iceDisappearVal / _timeToDisappear);
+                float newIce = Utils.Lerp(Properties.IceValue, 0f, _iceDisappearVal / _timeToDisappear);
 
                 if (newIce <= 0.15f)
                 {
@@ -106,7 +109,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 case 0:
                     // Set the ice
-                    Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, _iceMaxVal);
+                    Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, Properties.IceValue);
 
                     if (Mods.Reactor == ReactorType.Nuclear)
                     {

@@ -31,7 +31,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void SetCutsceneMode(bool state);    
     public delegate void SetFlyMode(bool state, bool instant = false);
     public delegate void SetAltitudeHold(bool state);
-    public delegate void SetFreeze(bool state);
+    public delegate void SetFreeze(bool state, bool resume = false);
     public delegate void StartTimeTravel(int delay = 0);
     public delegate void StartFuelBlink();
     public delegate void SetRailroadMode(bool state, bool isReentering = false);
