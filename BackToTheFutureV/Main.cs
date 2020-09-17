@@ -33,7 +33,8 @@ namespace BackToTheFutureV
         }
         public static Ped PlayerPed => Game.Player.Character;
         public static Vehicle PlayerVehicle => PlayerPed.CurrentVehicle;
-        public static cRogersSierra RogersSierra => Manager.CurrentRogersSierra;
+        public static cRogersSierra CurrentRogersSierra => Manager.CurrentRogersSierra;
+        public static List<cRogersSierra> RogersSierra => Manager.RogersSierra;
         public static bool IsPlayerSwitchInProgress => Function.Call<bool>(Hash.IS_PLAYER_SWITCH_IN_PROGRESS);
         public static bool IsManualPlayerSwitchInProgress => IsPlayerSwitchInProgress && PlayerSwitch.IsSwitching;
         public static bool DisablePlayerSwitching { get; set; } = false;
@@ -109,6 +110,9 @@ namespace BackToTheFutureV
             ModMenuHandler.KeyDown(e);
             TimeMachineHandler.KeyDown(e.KeyCode);
             RCManager.KeyDown(e.KeyCode);
+
+            if (e.KeyCode == Keys.L)
+                TimeMachineHandler.CurrentTimeMachine?.Events.StartTimeTravel?.Invoke();
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)

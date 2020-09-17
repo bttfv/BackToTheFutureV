@@ -21,6 +21,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public DateTime PreviousTime { get; set; } = new DateTime(1985, 10, 25, 00, 21, 00);
         public Vector3 LastVelocity { get; set; }
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
+        public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;
         public bool AreTimeCircuitsBroken { get; set; }
         public bool IsFueled { get; set; } = true;
         public bool IsRefueling { get; set; }
@@ -57,6 +58,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 property.SetValue(ret, property.GetValue(this));
 
             ret.IsGivenScaleformPriority = false;
+
+            ret.IsOnTracks = false;
+
+            ret.IsAttachedToRogersSierra = false;
                 
             return ret;
         }

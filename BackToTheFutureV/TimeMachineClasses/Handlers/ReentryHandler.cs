@@ -127,9 +127,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Game.Player.IgnoredByPolice = false;
 
-            if (Properties.WasOnTracks)
-                Events.SetRailroadMode?.Invoke(true, true);
-            else
+            if (!Properties.WasOnTracks)
             {
                 Vehicle.Velocity = Properties.LastVelocity;
 

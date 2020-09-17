@@ -147,7 +147,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             if (Vehicle == null || !Vehicle.Exists() || Vehicle.IsDead || !Vehicle.IsAlive)
             {
-                TimeMachineHandler.RemoveTimeMachine(this);
+                TimeMachineHandler.RemoveTimeMachine(this, false);
 
                 return;
             }

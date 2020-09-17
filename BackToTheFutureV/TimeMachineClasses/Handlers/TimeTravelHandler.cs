@@ -57,12 +57,23 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             switch(_currentStep)
             {
                 case 0:
+
+                    if (Properties.IsRemoteControlled)
+                        Properties.TimeTravelType = TimeTravelType.RC;
+                    else
+                    {
+                        if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Main.PlayerPed)
+                            Properties.TimeTravelType = TimeTravelType.RC;
+                        else
+                        {
+                            if (!Properties.CutsceneMode || Utils.IsPlayerUseFirstPerson())
+                                Properties.TimeTravelType = TimeTravelType.Instant;
+                            else
+                                Properties.TimeTravelType = TimeTravelType.Cutscene;
+                        }
+                    }
+
                     Properties.LastVelocity = Vehicle.Velocity;
-
-                    Properties.WasOnTracks = Properties.IsOnTracks;
-
-                    if (Properties.IsOnTracks)
-                        Events.SetRailroadMode?.Invoke(false);
 
                     // Set previous time
                     Properties.PreviousTime = Utils.GetWorldTime();
@@ -70,7 +81,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     // Invoke delegate
                     Events.OnTimeTravelStarted?.Invoke();
                     
-                    if (!Properties.IsRemoteControlled && Vehicle.GetPedOnSeat(VehicleSeat.Driver) == Main.PlayerPed && (!Properties.CutsceneMode || Utils.IsPlayerUseFirstPerson()))
+                    if (Properties.TimeTravelType == TimeTravelType.Instant)
                     {
                         // Create a copy of the current status of the Delorean
                         TimeMachine.LastDisplacementClone = TimeMachine.Clone;
@@ -85,24 +96,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         // Have to call SetupJump manually here.
                         TimeHandler.TimeTravelTo(TimeMachine, Properties.DestinationTime);
 
-                        Stop();
-
-                        if (Properties.WasOnTracks)
-                            Events.SetRailroadMode?.Invoke(true, true);
-
-                        if (!Properties.HasBeenStruckByLightning && Mods.IsDMC12)
-                            Properties.IsFueled = false;
-
                         // Invoke delegate
                         Events.OnTimeTravelCompleted?.Invoke();
                         Events.OnReenterCompleted?.Invoke();
 
-                        // Stop handling
-                        Stop();
-
                         //Add LastDisplacementCopy to remote Deloreans list
                         RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
 
+                        ResetFields();
                         return;
                     }
 
@@ -122,7 +123,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Mods.WormholeType == WormholeType.BTTF1, Mods.Wheel == WheelType.RailroadInvisible ? 75 : 50);
 
                     // If the Vehicle is remote controlled or the player is not the one in the driver seat
-                    if (Properties.IsRemoteControlled || Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Main.PlayerPed)
+                    if (Properties.TimeTravelType == TimeTravelType.RC)
                     {                        
                         Vehicle.SetMPHSpeed(0);
 
@@ -211,15 +212,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Stop()
         {
-            ResetFields();
 
-            Utils.HideVehicle(Vehicle, false);
-
-            Main.HideGui = false;
-
-            Main.DisablePlayerSwitching = false;
-
-            Game.Player.IgnoredByPolice = false;
         }
 
         public override void Dispose()

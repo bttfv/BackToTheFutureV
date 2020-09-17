@@ -74,7 +74,7 @@ namespace BackToTheFutureV.Story
         //    }
         //}
 
-        private RogersSierra.cRogersSierra tRogersSierra => Main.RogersSierra;
+        private RogersSierra.cRogersSierra tRogersSierra => Main.CurrentRogersSierra;
 
         public override void Process()
         {
@@ -146,12 +146,12 @@ namespace BackToTheFutureV.Story
                 return;
             }
 
-            Main.RogersSierra.AudioEngine.BaseSoundFolder = "BackToTheFutureV\\Sounds";
+            tRogersSierra.AudioEngine.BaseSoundFolder = "BackToTheFutureV\\Sounds";
 
-            _funnelExpl = Main.RogersSierra.AudioEngine.Create($"story/trainMission/funnelExplosion.wav", Presets.ExteriorLoud);
+            _funnelExpl = tRogersSierra.AudioEngine.Create($"story/trainMission/funnelExplosion.wav", Presets.ExteriorLoud);
             _funnelExpl.SourceBone = "funnel_dummy";
             
-            _missionMusic = Main.RogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
+            _missionMusic = tRogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
 
             CurrentTime = TimeSpan.Zero;
 

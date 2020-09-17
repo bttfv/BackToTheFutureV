@@ -233,15 +233,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             UpdateClosestTimeMachine();
 
             foreach (var timeMachine in _timeMachines)
-            {
-                if (timeMachine.Disposed || !timeMachine.Vehicle.Exists())
-                {
-                    RemoveTimeMachine(timeMachine);
-                    continue;
-                }
-
                 timeMachine.Process();
-            }                
         }
 
         public static void Abort()

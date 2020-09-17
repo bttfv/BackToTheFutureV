@@ -105,6 +105,13 @@ namespace BackToTheFutureV.Vehicles
 
         public void Process()
         {
+            if (Vehicle == null || !Vehicle.Exists() || Vehicle.IsDead || !Vehicle.IsAlive)
+            {
+                DMC12Handler.RemoveDelorean(this, false);
+
+                return;
+            }
+
             if (Main.PlayerVehicle == Vehicle)
                 Function.Call(Hash.DISABLE_CONTROL_ACTION, 31, 337, true);
 

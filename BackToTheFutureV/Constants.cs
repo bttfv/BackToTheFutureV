@@ -18,6 +18,13 @@ namespace BackToTheFutureV
         Forced
     }
 
+    public enum TimeTravelType
+    {
+        Cutscene,
+        Instant,
+        RC
+    }
+
     public class Constants
     {
         // All these offsets we're extracted from dummies that were made in 3Ds Max

@@ -11,11 +11,13 @@ using RogersSierra;
 
 namespace BackToTheFutureV.Utility
 {
+    public delegate void OnVehicleDestroyed();
     public delegate void OnVehicleAttached();
     public delegate void OnTrainDeleted();
 
     public class CustomTrain
     {
+        public event OnVehicleDestroyed OnVehicleDestroyed;
         public event OnVehicleAttached OnVehicleAttached;
         public event OnTrainDeleted OnTrainDeleted;
 
@@ -73,6 +75,11 @@ namespace BackToTheFutureV.Utility
             CruiseSpeed = 0;
             Speed = 0;
             CarriageCount = carriageCount;
+
+            Train.IsPersistent = true;
+
+            for (int i = 0; i <= CarriageCount; i++)
+                Carriage(i).IsPersistent = true;
 
             ToDestroy = false;
         }
@@ -248,8 +255,12 @@ namespace BackToTheFutureV.Utility
             {
                 DestroyCounter -= Game.LastFrameTime;
 
-                if (TargetVehicle != null && !TargetExploded && TargetVehicle.HasBeenDamagedBy(Train))
+                if (TargetVehicle != null && !TargetExploded && TargetVehicle.IsTouching(Train))
                 {
+                    PrepareTargetVehicle(false);
+
+                    OnVehicleDestroyed?.Invoke();
+
                     TargetVehicle.Explode();
                     TargetExploded = true;
                 }
@@ -267,8 +278,8 @@ namespace BackToTheFutureV.Utility
 
             if (AttachedToTarget)
             {
-                //if (Main.RogersSierra != null && !IsRogersSierra && CheckForRogersSierra() && Utils.EntitySpeedVector(Main.RogersSierra.Locomotive).Y >= 0)
-                //    SwitchToRogersSierra();
+                //if (!IsRogersSierra && Main.RogersSierra.Count > 0)
+                //    SwitchToRogersSierra(CheckForRogersSierra());
 
                 AttachTargetVehicle();
             }
@@ -293,9 +304,15 @@ namespace BackToTheFutureV.Utility
             return TargetVehicle.Position.DistanceTo((CarriageIndexForAttach == 0 ? Train : Carriage(CarriageIndexForAttach)).GetOffsetPosition(AttachOffset)) <= 2.0f;
         }
 
-        public bool CheckForRogersSierra()
-        {
-            return World.GetClosestVehicle(Main.RogersSierra.Locomotive.GetOffsetPosition(_deloreanOffset.GetSingleOffset(Coordinate.Z, _deloreanWheeliePosZ).GetSingleOffset(Coordinate.Y, -0.1f)), 0.1f) == TargetVehicle;
+        public cRogersSierra CheckForRogersSierra()
+        {            
+            foreach (var train in Main.RogersSierra)
+            {
+                if (Utils.EntitySpeedVector(train.Locomotive).Y >= 0 && World.GetClosestVehicle(train.Locomotive.GetOffsetPosition(_deloreanOffset.GetSingleOffset(Coordinate.Z, _deloreanWheeliePosZ).GetSingleOffset(Coordinate.Y, -0.1f)), 0.1f) == TargetVehicle)
+                    return train;
+            }
+
+            return null;
         }
 
         public void SetToAttach(Vehicle targetVehicle, Vector3 attachOffset, int carriageIndexForAttach, int carriageIndexForRotation)
@@ -368,8 +385,11 @@ namespace BackToTheFutureV.Utility
             ToDestroy = false;
         }
 
-        public void SwitchToRogersSierra()
+        public void SwitchToRogersSierra(cRogersSierra rogersSierra)
         {
+            if (rogersSierra == null)
+                return;
+
             Function.Call(Hash.DETACH_ENTITY, TargetVehicle, false, false);
 
             int handle = Train.Handle;
@@ -380,7 +400,7 @@ namespace BackToTheFutureV.Utility
 
             IsRogersSierra = true;
 
-            RogersSierra = Main.RogersSierra;
+            RogersSierra = rogersSierra;
 
             Train = RogersSierra.ColDeLorean;
 
