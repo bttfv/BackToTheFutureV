@@ -49,9 +49,6 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachine(DMC12 dmc12, WormholeType wormholeType)
         {
-            if (TimeMachineHandler.GetTimeMachineFromVehicle(dmc12.Vehicle) != null)
-                return;
-
             DMC12 = dmc12;
             Vehicle = DMC12.Vehicle;
 
@@ -60,9 +57,6 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
-            if (TimeMachineHandler.GetTimeMachineFromVehicle(vehicle) != null)
-                return;
-
             Vehicle = vehicle;
 
             if (vehicle.Model == ModelHandler.DMC12)

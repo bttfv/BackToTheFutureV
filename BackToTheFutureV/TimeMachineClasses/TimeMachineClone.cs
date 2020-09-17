@@ -77,28 +77,20 @@ namespace BackToTheFutureV.TimeMachineClasses
             Vehicle = new VehicleInfo(timeMachine.Vehicle);
         }
 
-        public TimeMachine Spawn(bool asNew = false, bool reenter = false)
+        public TimeMachine Spawn(bool asNew = false, bool reenter = false, bool rc = false)
         {
-            Model model = new Model(Vehicle.Model);
+            Vehicle veh = null;
 
-            if (model == null)
-                return null;
-
-            Vehicle veh = World.GetClosestVehicle(Vehicle.Position, 1.0f, model);
+            if (!rc && !asNew)
+                veh = World.GetClosestVehicle(Vehicle.Position, 1.0f, Vehicle.Model);
 
             if (veh == null)
             {
-                ModelHandler.RequestModel(model);
-                veh = World.CreateVehicle(model, Vehicle.Position, Vehicle.Heading);
+                ModelHandler.RequestModel(Vehicle.Model);
+                veh = World.CreateVehicle(Vehicle.Model, Vehicle.Position, Vehicle.Heading);
             }
-            
-            TimeMachine timeMachine = new TimeMachine(veh, Mods.WormholeType);
-
-            if (timeMachine.Vehicle == null)
-                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(veh);
-
-            if (timeMachine == null)
-                return null;
+        
+            TimeMachine timeMachine = TimeMachineHandler.CreateTimeMachine(veh, Mods.WormholeType);
                
             ApplyTo(timeMachine, asNew);
 

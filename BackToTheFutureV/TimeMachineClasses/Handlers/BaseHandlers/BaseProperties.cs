@@ -62,6 +62,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             ret.IsOnTracks = false;
 
             ret.IsAttachedToRogersSierra = false;
+
+            ret.TimeTravelPhase = TimeTravelPhase.Completed;
+
+            ret.IsLanding = false;
+
+            ret.IsHoverBoosting = false;
+
+            ret.IsAltitudeHolding = false;
+
+            ret.IsRemoteControlled = false;
                 
             return ret;
         }

@@ -52,6 +52,17 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static TimeMachine CreateTimeMachine(DMC12 dmc12, WormholeType wormholeType)
         {
+            if (dmc12 == null)
+                return null;
+
+            if (dmc12.Vehicle == null)
+                return null;
+
+            TimeMachine timeMachine = GetTimeMachineFromVehicle(dmc12.Vehicle);
+
+            if (timeMachine != null)
+                return timeMachine;
+
             return new TimeMachine(dmc12, wormholeType);
         }
 
@@ -62,6 +73,11 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (vehicle.Model.IsTrain)
                 return null;
+
+            TimeMachine timeMachine = GetTimeMachineFromVehicle(vehicle);
+
+            if (timeMachine != null)
+                return timeMachine;
 
             return new TimeMachine(vehicle, wormholeType);
         }

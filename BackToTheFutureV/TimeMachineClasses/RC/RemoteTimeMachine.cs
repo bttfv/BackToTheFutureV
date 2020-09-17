@@ -69,16 +69,12 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             switch (reenterType)
             {
                 case ReenterType.Normal:
-                    TimeMachine = TimeMachineClone.Spawn(false, true);
-
-                    if (TimeMachine != null)
-                        TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    TimeMachine = TimeMachineClone.Spawn(false, true, true);
+                    TimeMachine.LastDisplacementClone = TimeMachineClone;
                     break;
                 case ReenterType.Spawn:
-                    TimeMachine = TimeMachineClone.Spawn();
-
-                    if (TimeMachine != null)
-                        TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    TimeMachine = TimeMachineClone.Spawn(false, false, true);
+                    TimeMachine.LastDisplacementClone = TimeMachineClone;
                     break;
                 case ReenterType.Forced:
                     TimeMachineClone.Properties.DestinationTime = Main.CurrentTime;
