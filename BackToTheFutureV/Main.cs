@@ -70,6 +70,12 @@ namespace BackToTheFutureV
 
         public Main()
         {
+            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            DateTime buildDate = new DateTime(2000, 1, 1)
+                    .AddDays(version.Build).AddSeconds(version.Revision * 2);
+
+            System.IO.File.AppendAllText($"./ScriptHookVDotNet.log", $"BackToTheFutureV - {version} ({buildDate})" + Environment.NewLine);
+
             MenuPool = new MenuPool();
 
             ModSettings.LoadSettings();            
@@ -111,7 +117,7 @@ namespace BackToTheFutureV
                 return;
 
             if (_firstTick)
-            {                
+            {
                 ModelHandler.RequestModels();
 
                 TimeMachineHandler.LoadAllTimeMachines();
