@@ -359,7 +359,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             Blip?.Delete();
 
             if (Mods.IsDMC12)
-                DMC12.Dispose(deleteVeh);
+                DMC12Handler.RemoveInstantlyDelorean(DMC12, deleteVeh);
             else if (deleteVeh)
                 Vehicle.Delete();
 

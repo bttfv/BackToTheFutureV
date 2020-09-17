@@ -91,8 +91,14 @@ namespace BackToTheFutureV.TimeMachineClasses
                 ModelHandler.RequestModel(model);
                 veh = World.CreateVehicle(model, Vehicle.Position, Vehicle.Heading);
             }
-
+            
             TimeMachine timeMachine = new TimeMachine(veh, Mods.WormholeType);
+
+            if (timeMachine.Vehicle == null)
+                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(veh);
+
+            if (timeMachine == null)
+                return null;
                
             ApplyTo(timeMachine, asNew);
 
@@ -116,7 +122,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void ApplyTo(TimeMachine timeMachine, bool asNew = false)
         {
-            timeMachine.Vehicle.Mods.InstallModKit();
+            if (!Mods.IsDMC12)
+                timeMachine.Vehicle.Mods.InstallModKit();
 
             Vehicle.ApplyTo(timeMachine.Vehicle);
             Mods.ApplyTo(timeMachine);
@@ -124,7 +131,6 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (!asNew)
                 Properties.ApplyTo(timeMachine);
         }
-
 
         public void Save(string name)
         {
