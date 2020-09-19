@@ -18,6 +18,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private bool _isReentryOn = false;
 
+        private int _attachDelay;
+
         public RailroadHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
@@ -161,14 +163,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     Stop();
 
-                    if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 20)
+                    if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 35)
                         Vehicle.Explode();
+
+                    _attachDelay = Game.GameTime + 3000;
                 }
                 
                 return;
             }
 
-            if (Mods.Wheel == WheelType.RailroadInvisible && (customTrain == null || !customTrain.Exists))
+            if (_attachDelay < Game.GameTime && Mods.Wheel == WheelType.RailroadInvisible && (customTrain == null || !customTrain.Exists))
             {
                 var wheelPos = new List<Vector3>
                     {

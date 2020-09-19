@@ -78,7 +78,7 @@
 	BTTFV_Menu_TimeMachineMenu_AltitudeControl_Description = Se abilitato mantiene automaticamente l'altitudine impostata.
 	BTTFV_Menu_TimeMachineMenu_RemoteControl = Controllo Remoto
 	BTTFV_Menu_TimeMachineMenu_RemoteControl_Description = Ti permette di disabilitare il controllo remoto.
-	BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter = Emittitore di wormhole luminescente
+	BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter = Emettitore di wormhole luminescente
 	BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter_Description = Se abilitato accende l'emittore di wormhole.
 	BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor = Reattore nucleare luminescente
  	BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor_Description = Se abilitato accende il reattore nucleare.
