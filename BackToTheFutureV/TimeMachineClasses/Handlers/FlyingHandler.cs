@@ -49,6 +49,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void OnHoverUnderbodyToggle()
         {
+            if (Mods.HoverUnderbody == ModState.Off && Properties.IsFlying && Mods.IsDMC12)
+                SetFlyMode(false, true);
+
             if (Players.HoverModeWheels != null)
             {
                 Players.HoverModeWheels.OnAnimCompleted -= OnAnimCompleted;

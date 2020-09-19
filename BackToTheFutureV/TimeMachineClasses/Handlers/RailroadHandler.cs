@@ -20,6 +20,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private int _attachDelay;
 
+        private float _speed;
+
         public RailroadHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
@@ -64,6 +66,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void Start()
         {
+            _speed = Vehicle.Speed;
+
             customTrain = TrainHandler.CreateInvisibleTrain(Vehicle, _direction);
 
             if (!(customTrain.Train.Heading >= Vehicle.Heading - 45 && customTrain.Train.Heading <= Vehicle.Heading + 45))
@@ -107,6 +111,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (_isReentryOn)
                 customTrain.SpeedMPH = 88;
+            else
+                customTrain.Speed = _speed;
         }
 
         public override void Dispose()

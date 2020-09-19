@@ -90,6 +90,12 @@ namespace BackToTheFutureV.InteractionMenu
 
                 if (PhotoMenu.Visible)
                     PhotoMenu.Process();
+
+                if (SpawnMenu.Visible)
+                    SpawnMenu.Process();
+
+                if (SpawnMenuContext.Visible)
+                    SpawnMenuContext.Process();
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.TimeMachineClasses.Handlers;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using GTA;
@@ -62,21 +63,60 @@ namespace BackToTheFutureV.TimeMachineClasses
             get => base.Wheel;
             set
             {
+                if (IsDMC12)
+                {
+                    if (TimeMachine.Properties != null && TimeMachine.Properties.IsFlying)
+                        return;
+                }
+
                 base.Wheel = value;
 
                 if (value == WheelType.RailroadInvisible)
                 {
                     TimeMachine.Props?.RRWheels?.ForEach(x => x?.SpawnProp());
 
+                    if (!IsDMC12)
+                        return;
+
                     if (HoverUnderbody == ModState.On)
                         HoverUnderbody = ModState.Off;
+
+                    if (SuspensionsType != SuspensionsType.Stock)
+                        SuspensionsType = SuspensionsType.Stock;
+
+                    if (WormholeType == WormholeType.BTTF3)
+                        TimeMachine.Events?.OnWormholeTypeChanged?.Invoke();
                 }
                 else
                 {
                     TimeMachine.Props?.RRWheels?.ForEach(x => x?.DeleteProp());
 
                     Utils.SetTiresBurst(Vehicle, false);
-                }                
+                }
+            }
+        }
+
+        public new SuspensionsType SuspensionsType
+        {
+            get => base.SuspensionsType;
+            set
+            {
+                if (IsDMC12)
+                {
+                    if (TimeMachine.Properties != null && TimeMachine.Properties.IsFlying)
+                        return;
+                }
+
+                base.SuspensionsType = value;
+
+                if (IsDMC12 && value != SuspensionsType.Stock)
+                {
+                    if (HoverUnderbody == ModState.On)
+                        HoverUnderbody = ModState.Off;
+
+                    if (Wheel == WheelType.RailroadInvisible)
+                        Wheel = WheelType.Stock;
+                }
             }
         }
 
@@ -85,20 +125,49 @@ namespace BackToTheFutureV.TimeMachineClasses
             get => base.HoverUnderbody;
             set 
             {
+                if (IsDMC12)
+                {
+                    if (TimeMachine.Properties != null && TimeMachine.Properties.IsFlying)
+                        return;
+                }
+
                 base.HoverUnderbody = value;
 
-                TimeMachine.Events?.OnHoverUnderbodyToggle?.Invoke();
-
                 if (IsDMC12)
-                {                   
+                {
                     if (value == ModState.On)
                     {
-                        SuspensionsType = SuspensionsType.Stock;
-                        Exhaust = ExhaustType.None;                        
+                        if (Wheel == WheelType.RailroadInvisible)
+                            Wheel = WheelType.Stock;
+
+                        if (SuspensionsType != SuspensionsType.Stock)
+                            SuspensionsType = SuspensionsType.Stock;
+
+                        Exhaust = ExhaustType.None;
                     }
 
                     TimeMachine.DMC12.SetStockSuspensions?.Invoke(value == ModState.Off);
-                }                    
+
+                    TimeMachine.Events?.OnHoverUnderbodyToggle?.Invoke();
+                }                                  
+            }
+        }
+
+        public new ExhaustType Exhaust
+        {
+            get => base.Exhaust;
+            set
+            {
+                if (IsDMC12)
+                {
+                    if (TimeMachine.Properties != null && TimeMachine.Properties.IsFlying)
+                        return;
+                }
+
+                base.Exhaust = value;
+
+                if (IsDMC12 && value != ExhaustType.None && HoverUnderbody == ModState.On)
+                    HoverUnderbody = ModState.Off;
             }
         }
 

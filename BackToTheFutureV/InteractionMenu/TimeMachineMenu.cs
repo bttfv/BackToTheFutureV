@@ -40,7 +40,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void TimeMachineMenu_OnMenuOpen(UIMenu sender)
         {
-            SpawnMenu.Enabled = !Main.DisablePlayerSwitching;
+            
         }
 
         private void TimeMachineMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)

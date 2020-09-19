@@ -37,7 +37,6 @@ namespace BackToTheFutureV.InteractionMenu
 
         private bool _save = false;
         private TimeMachine _tempTimeMachine;
-        private int _wheelIndex;
 
         public SpawnMenu() : base(Game.GetLocalizedString("BTTFV_Input_SpawnMenu"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Description"))
         {
@@ -95,8 +94,6 @@ namespace BackToTheFutureV.InteractionMenu
                 _tempTimeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
                 _save = true;
 
-                _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
-
                 _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 //_wheelsType.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 //_canFly.Enabled = _tempTimeMachine.Mods.IsDMC12;
@@ -112,8 +109,35 @@ namespace BackToTheFutureV.InteractionMenu
             LoadVehicleType();
         }
 
+        public void Process()
+        {
+            LoadVehicleType();
+        }
+
         private void LoadVehicleType()
         {
+            if (!_tempTimeMachine.Mods.IsDMC12)
+            {
+                _canFly.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
+
+                switch (_tempTimeMachine.Mods.Wheel)
+                {
+                    case WheelType.Stock:
+                    case WheelType.StockInvisible:
+                        _wheelsType.Index = 0;
+                        break;
+                    case WheelType.Red:
+                    case WheelType.RedInvisible:
+                        _wheelsType.Index = 1;
+                        break;
+                    case WheelType.RailroadInvisible:
+                        _wheelsType.Index = 2;
+                        break;
+                }
+
+                return;
+            }
+
             _baseType.Index = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
             _powerSource.Index = (int)_tempTimeMachine.Mods.Reactor;
             _canFly.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
@@ -126,9 +150,11 @@ namespace BackToTheFutureV.InteractionMenu
             switch (_tempTimeMachine.Mods.Wheel)
             {
                 case WheelType.Stock:
+                case WheelType.StockInvisible:
                     _wheelsType.Index = 0;
                     break;
                 case WheelType.Red:
+                case WheelType.RedInvisible:
                     _wheelsType.Index = 1;
                     break;
                 case WheelType.RailroadInvisible:
@@ -136,7 +162,10 @@ namespace BackToTheFutureV.InteractionMenu
                     break;
             }
 
-            _wheelIndex = _wheelsType.Index;
+            _canFly.Enabled = !_tempTimeMachine.Properties.IsFlying;
+            _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
+            _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying;
+            _suspensions.Enabled = !_tempTimeMachine.Properties.IsFlying;
         }
 
         private void SpawnMenu_OnMenuClose(UIMenu sender)
@@ -150,9 +179,6 @@ namespace BackToTheFutureV.InteractionMenu
             if (checkboxItem == _canFly)
             {
                 _tempTimeMachine.Mods.HoverUnderbody = ConvertFromBool(Checked);
-
-                _exhaust.Index = 2;
-                _suspensions.Index = 0;
             }
             else if (checkboxItem == _hoodBox)
             {               
@@ -203,12 +229,6 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void SpawnMenu_OnListChange(UIMenu sender, UIMenuListItem listItem, int newIndex)
         {
-            if (listItem.Enabled == false)
-            {
-                listItem.Index = _wheelIndex;
-                return;
-            }
-
             if (listItem == _baseType)
             {
                 _tempTimeMachine.Mods.WormholeType = (WormholeType)(newIndex + 1);
@@ -219,34 +239,18 @@ namespace BackToTheFutureV.InteractionMenu
             }
             else if (listItem == _wheelsType)
             {
-                if (listItem.Enabled == false || _tempTimeMachine.Properties.IsFlying || (_tempTimeMachine.Players.HoverModeWheels != null && _tempTimeMachine.Players.HoverModeWheels.IsPlaying))
-                {
-                    listItem.Index = _wheelIndex;
-                    return;
-                }
-
                 switch (newIndex)
                 {
                     case 0:
                         _tempTimeMachine.Mods.Wheel = WheelType.Stock;
-                        _canFly.Enabled = true;
                         break;
                     case 1:
                         _tempTimeMachine.Mods.Wheel = WheelType.Red;
-                        _canFly.Enabled = true;
                         break;
                     case 2:
-                    {
                         _tempTimeMachine.Mods.Wheel = WheelType.RailroadInvisible;
-                        _tempTimeMachine.Mods.HoverUnderbody = ModState.Off;
-
-                        _canFly.Checked = false;
-                        _canFly.Enabled = false;
                         break;
-                    }
                 }
-
-                _wheelIndex = newIndex;
             }
             else if (listItem == _plate)
             {
@@ -255,14 +259,10 @@ namespace BackToTheFutureV.InteractionMenu
             else if (listItem == _exhaust)
             {
                 _tempTimeMachine.Mods.Exhaust = (ExhaustType)(newIndex - 1);
-                _canFly.Checked = false;
             }
             else if (listItem == _suspensions)
             {                
                 _tempTimeMachine.Mods.SuspensionsType = (SuspensionsType)newIndex;
-
-                if (_tempTimeMachine.Mods.SuspensionsType != SuspensionsType.Stock)
-                    _canFly.Checked = false;
             }
         }
     }
