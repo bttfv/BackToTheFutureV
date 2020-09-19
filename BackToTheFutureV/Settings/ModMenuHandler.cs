@@ -9,6 +9,7 @@ using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using GTA;
+using GTA.Native;
 using GTA.UI;
 using NativeUI;
 
@@ -51,6 +52,7 @@ namespace BackToTheFutureV
         private static UIMenuCheckboxItem TurbulenceEvent;
         private static UIMenuCheckboxItem LandingSystem;
         private static UIMenuCheckboxItem PersistenceSystem;
+        private static UIMenuCheckboxItem RandomTrains;
 
         // TCD stuff
         private static UIMenuItem changeTCD;
@@ -91,6 +93,7 @@ namespace BackToTheFutureV
             settingsMenu.AddItem(forceFlyMode = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode"), ModSettings.ForceFlyMode, Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode_Description")));
             settingsMenu.AddItem(LandingSystem = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_LandingSystem"), ModSettings.LandingSystem, Game.GetLocalizedString("BTTFV_Menu_LandingSystem_Description")));
             settingsMenu.AddItem(PersistenceSystem = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem"), ModSettings.PersistenceSystem, Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem_Description")));
+            settingsMenu.AddItem(RandomTrains = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RandomTrains"), ModSettings.RandomTrains, Game.GetLocalizedString("BTTFV_Menu_RandomTrains_Description")));
             settingsMenu.AddItem(GlowingWormholeEmitter = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter"), ModSettings.GlowingWormholeEmitter, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter_Description")));
             settingsMenu.AddItem(GlowingPlutoniumReactor = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor"), ModSettings.GlowingPlutoniumReactor, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor_Description")));
 
@@ -250,6 +253,12 @@ namespace BackToTheFutureV
                 }
 
                 ModSettings.PersistenceSystem = Checked;
+            }
+            else if (checkboxItem == RandomTrains)
+            {
+                Function.Call(Hash.SET_RANDOM_TRAINS, ModSettings.RandomTrains);
+
+                ModSettings.RandomTrains = Checked;
             }
 
             ModSettings.SaveSettings();

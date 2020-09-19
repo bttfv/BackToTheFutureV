@@ -337,13 +337,6 @@ namespace BackToTheFutureV.Utility
 
         public void AttachTargetVehicle()
         {
-            if (IsReadyToAttach)
-            {
-                _distance = 0;
-                OnVehicleAttached?.Invoke();
-                IsReadyToAttach = false;
-            }
-
             if (!IsRogersSierra)
             {
                 TargetVehicle.AttachToPhysically(AttachVehicle, AttachOffset, Vector3.Zero);
@@ -353,7 +346,16 @@ namespace BackToTheFutureV.Utility
             {
                 TargetVehicle.AttachToPhysically(AttachVehicle, _deloreanOffset.GetSingleOffset(Coordinate.Z, _deloreanWheeliePosZ), Vector3.Zero);
                 TargetVehicle.Rotation = RotationVehicle.Rotation.GetSingleOffset(Coordinate.X, _deloreanWheelieRotX);
-            }            
+            }
+
+            if (IsReadyToAttach)
+            {
+                PrepareTargetVehicle(false);
+
+                _distance = 0;
+                OnVehicleAttached?.Invoke();
+                IsReadyToAttach = false;
+            }
         }
 
         public void DetachTargetVehicle()

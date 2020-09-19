@@ -18,9 +18,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private bool _isReentryOn = false;
 
-        private float _speedDifference;
-        private int _checkTime;
-
         public RailroadHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
@@ -132,55 +129,42 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.IsOnTracks)
             {
-                Properties.IsAttachedToRogersSierra = customTrain.IsRogersSierra;
+                //Properties.IsAttachedToRogersSierra = customTrain.IsRogersSierra;
 
-                if (Properties.IsAttachedToRogersSierra)
-                {
-                    if (Main.PlayerVehicle == Vehicle && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
-                        customTrain.SwitchToRegular();
+                //if (Properties.IsAttachedToRogersSierra)
+                //{
+                //    if (Main.PlayerVehicle == Vehicle && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+                //        customTrain.SwitchToRegular();
 
-                    if (customTrain.RogersSierra.Locomotive.Speed > 0 && Utils.EntitySpeedVector(customTrain.RogersSierra.Locomotive).Y < 0)
-                        customTrain.SwitchToRegular();
+                //    if (customTrain.RogersSierra.Locomotive.Speed > 0 && Utils.EntitySpeedVector(customTrain.RogersSierra.Locomotive).Y < 0)
+                //        customTrain.SwitchToRegular();
 
-                    return;
-                } else
+                //    return;
+                //} else
                     customTrain.IsAccelerationOn = Main.PlayerVehicle == Vehicle && Vehicle.IsVisible && Vehicle.IsEngineRunning;
 
                 if (Main.PlayerVehicle == Vehicle)
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
 
-                //if (Game.GameTime > _checkTime)
-                //{
-                //    _checkTime = Game.GameTime + 1000;
-
-                //    _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.SierraModel, ModelHandler.SierraTenderModel, ModelHandler.SierraDebugModel);
-
-                //    if (_train != null)
-                //        _speedDifference = Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed());
-                //    else
-                //        _train = null;
-
-                //}
-
-                //if (Vehicle.IsTouching(_train))
-                //{
-                //    Stop();
-
-                //    if (_speedDifference > 20)
-                //        Vehicle.Explode();
-
-                //    return;
-                //}
-
                 if (_isReentryOn && customTrain.AttachedToTarget && customTrain.SpeedMPH == 0)
                 {
-                    if (Utils.Random.NextDouble() <= 1.25f)
+                    if (Utils.Random.NextDouble() <= 0.25f)
                         TrainHandler.CreateFreightTrain(Vehicle, !_direction).SetToDestroy(Vehicle, 35);
 
                     _isReentryOn = false;
                     return;
                 }
 
+                Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.TankerCarModel);
+
+                if (_train != null && Vehicle.IsTouching(_train))
+                {
+                    Stop();
+
+                    if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 20)
+                        Vehicle.Explode();
+                }
+                
                 return;
             }
 

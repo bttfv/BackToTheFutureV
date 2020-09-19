@@ -36,6 +36,7 @@ namespace BackToTheFutureV
         public static bool TurbulenceEvent { get; set; }
         public static bool LandingSystem { get; set; }
         public static bool PersistenceSystem { get; set; }
+        public static bool RandomTrains { get; set; }
 
         public static void LoadSettings()
         {
@@ -70,6 +71,8 @@ namespace BackToTheFutureV
 
             PersistenceSystem = settings.GetValue("general", "PersistenceSystem", true);
 
+            RandomTrains = settings.GetValue("general", "RandomTrains", true);
+
             GlowingWormholeEmitter = settings.GetValue("time_circuits", "GlowingWormholeEmitter", true);
             GlowingPlutoniumReactor = settings.GetValue("time_circuits", "GlowingPlutoniumReactor", true);
 
@@ -91,6 +94,7 @@ namespace BackToTheFutureV
             settings.SetValue("tcd", "background", TCDBackground.ToString());
 
             settings.SetValue("general", "PersistenceSystem", PersistenceSystem);
+            settings.SetValue("general", "RandomTrains", RandomTrains);
 
             settings.SetValue("time_circuits", "PlayFluxCapacitorSound", PlayFluxCapacitorSound);
 

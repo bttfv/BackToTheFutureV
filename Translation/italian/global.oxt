@@ -59,7 +59,7 @@
 	BTTFV_Menu_RCMenu = Controllo remoto
 	BTTFV_Menu_RCMenu_Description = Controllo remoto della macchina del tempo.
 	BTTFV_Menu_RCMenu_Deloreans = DeLorean
-	BTTFV_Menu_RCMenu_Deloreans_Description = Conferma per controllare l'autio.
+	BTTFV_Menu_RCMenu_Deloreans_Description = Conferma per controllare l'auto.
 	BTTFV_Menu_RCMenu_FuelChamberFilled = Reattore nucleare carico
 	BTTFV_Menu_RCMenu_FuelChamberFilled_Description = Specifica se il reattore nucleare è carico.
 	BTTFV_Menu_RCMenu_TimeCircuitsOn = Tempo circuiti accesi
@@ -213,4 +213,6 @@
 	BTTFV_Input_SpawnMenu_Plate_DMCFactory2 = Originale DMC (alt)
 	BTTFV_Menu_PersistenceSystem = Sistema salvtaggio
 	BTTFV_Menu_PersistenceSystem_Description = Sistema che salva e ricrea le attuali (e remote) macchine del tempo.
+	BTTFV_Menu_RandomTrains = Treni casuali
+	BTTFV_Menu_RandomTrains_Description = Se i treni causali vengono creati.
 }

@@ -76,7 +76,7 @@ namespace BackToTheFutureV
 
             RemoteTimeMachineHandler.ExistenceCheck(time);
 
-            RogersSierra.Manager.RogersSierra?.ForEach(x => x?.Delete());
+            //RogersSierra.Manager.RogersSierra?.ForEach(x => x?.Delete());
         }
 
         public static void TimeTravelTo(TimeMachine timeMachine, DateTime time)

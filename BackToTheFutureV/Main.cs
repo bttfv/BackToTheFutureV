@@ -128,7 +128,9 @@ namespace BackToTheFutureV
                     TimeMachineHandler.LoadAllTimeMachines();
                     RemoteTimeMachineHandler.Load();
                 }
-                
+
+                Function.Call(Hash.SET_RANDOM_TRAINS, ModSettings.RandomTrains);
+
                 StartListening();
 
                 _firstTick = false;
