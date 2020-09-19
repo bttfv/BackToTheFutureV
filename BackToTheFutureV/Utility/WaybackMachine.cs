@@ -99,7 +99,6 @@ namespace BackToTheFutureV.Utility
         public CurrentStatus CurrentStatus { get; private set; } = CurrentStatus.Recording;        
         private Ped Driver { get; set; }
         private WaybackInfo NextWaybackInfo { get; set; }
-        private TaskSequence TaskSequence = new TaskSequence();
 
         public void Process()
         {
@@ -168,17 +167,9 @@ namespace BackToTheFutureV.Utility
             if (NextWaybackInfo.Speed > 0)
             {
                 if (Driver == null || !Driver.Exists())
-                {
-                    Driver = NextWaybackInfo.PedInfo.Spawn(Vehicle, VehicleSeat.Driver);
-                    Driver.Task.PerformSequence(TaskSequence);
-                }
-
-                if (TaskSequence.IsClosed)
-                    TaskSequence = new TaskSequence();
-
-                TaskSequence.AddTask.DriveTo(Vehicle, NextWaybackInfo.Position, 100, NextWaybackInfo.Speed, DrivingStyle.Rushed);
-
-                //Function.Call(Hash.TASK_VEHICLE_GOTO_NAVMESH, Driver, Vehicle, NextWaybackInfo.Position.X, NextWaybackInfo.Position.Y, NextWaybackInfo.Position.Z, NextWaybackInfo.Speed, 156, 5.0f);
+					Driver = NextWaybackInfo.PedInfo.Spawn(Vehicle, VehicleSeat.Driver);
+				
+                Function.Call(Hash.TASK_VEHICLE_GOTO_NAVMESH, Driver, Vehicle, NextWaybackInfo.Position.X, NextWaybackInfo.Position.Y, NextWaybackInfo.Position.Z, NextWaybackInfo.Speed, 156, 5.0f);
 
                 CurrentStatus = CurrentStatus.Running;
 
