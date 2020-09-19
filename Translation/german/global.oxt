@@ -211,4 +211,6 @@
 	BTTFV_Input_SpawnMenu_Plate_DMCFactory2 = Factory DMC (alt)
 	BTTFV_Menu_ConvertToTimeMachine = Transform into time machine
 	BTTFV_Menu_ConvertToTimeMachine_Description = Transform current vehicle in a time machine.
+	BTTFV_Menu_PersistenceSystem = Persistence system
+	BTTFV_Menu_PersistenceSystem_Description = System that saves/restores current (and remote) time machines.
 }

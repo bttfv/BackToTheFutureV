@@ -59,8 +59,6 @@ namespace BackToTheFutureV.Vehicles
 
             Mods = new DMC12Mods(Vehicle);
 
-            DMC12Handler.AddDelorean(this);
-
             rpmNeedle = new AnimateProp(Vehicle, "dmc12_rpm_needle", "rpm_needle");
             speedNeedle = new AnimateProp(Vehicle, "dmc12_speed_needle", "speed_needle");
             fuelNeedle = new AnimateProp(Vehicle, "dmc12_fuel_needle", "fuel_needle");

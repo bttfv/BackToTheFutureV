@@ -210,5 +210,7 @@
 	BTTFV_Input_SpawnMenu_Plate_Timeless = Timeless
 	BTTFV_Input_SpawnMenu_Plate_Timeless2 = Timeless (alt)
 	BTTFV_Input_SpawnMenu_Plate_DMCFactory = Originale DMC
-	BTTFV_Input_SpawnMenu_Plate_DMCFactory2 = Originale DMC (alt)	
+	BTTFV_Input_SpawnMenu_Plate_DMCFactory2 = Originale DMC (alt)
+	BTTFV_Menu_PersistenceSystem = Sistema salvtaggio
+	BTTFV_Menu_PersistenceSystem_Description = Sistema che salva e ricrea le attuali (e remote) macchine del tempo.
 }

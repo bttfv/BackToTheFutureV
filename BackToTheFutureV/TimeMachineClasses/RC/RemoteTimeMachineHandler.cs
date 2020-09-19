@@ -41,7 +41,9 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             //deloreanCopy.SetupTimeTravel(true);
 
             remoteTimeMachines.Add(new RemoteTimeMachine(timeMachineClone));
-            Save();
+
+            if (ModSettings.PersistenceSystem)
+                Save();
         }
 
         public static void ExistenceCheck(DateTime time)

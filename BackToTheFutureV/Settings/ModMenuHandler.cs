@@ -50,6 +50,7 @@ namespace BackToTheFutureV
         private static UIMenuCheckboxItem EngineStallEvent;        
         private static UIMenuCheckboxItem TurbulenceEvent;
         private static UIMenuCheckboxItem LandingSystem;
+        private static UIMenuCheckboxItem PersistenceSystem;
 
         // TCD stuff
         private static UIMenuItem changeTCD;
@@ -89,6 +90,7 @@ namespace BackToTheFutureV
             settingsMenu.AddItem(useInputToggle = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_InputToggle"), ModSettings.UseInputToggle, Game.GetLocalizedString("BTTFV_Menu_InputToggle_Description")));
             settingsMenu.AddItem(forceFlyMode = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode"), ModSettings.ForceFlyMode, Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode_Description")));
             settingsMenu.AddItem(LandingSystem = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_LandingSystem"), ModSettings.LandingSystem, Game.GetLocalizedString("BTTFV_Menu_LandingSystem_Description")));
+            settingsMenu.AddItem(PersistenceSystem = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem"), ModSettings.PersistenceSystem, Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem_Description")));
             settingsMenu.AddItem(GlowingWormholeEmitter = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter"), ModSettings.GlowingWormholeEmitter, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter_Description")));
             settingsMenu.AddItem(GlowingPlutoniumReactor = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor"), ModSettings.GlowingPlutoniumReactor, Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor_Description")));
 
@@ -238,6 +240,16 @@ namespace BackToTheFutureV
             else if (checkboxItem == LandingSystem)
             {
                 ModSettings.LandingSystem = Checked;
+            }
+            else if (checkboxItem == PersistenceSystem)
+            {
+                if (Checked)
+                {
+                    RemoteTimeMachineHandler.DeleteAll();
+                    TimeMachineCloneManager.Delete();
+                }
+
+                ModSettings.PersistenceSystem = Checked;
             }
 
             ModSettings.SaveSettings();

@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
+﻿using BackToTheFutureV.Players;
+using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Native;
@@ -36,7 +37,8 @@ namespace BackToTheFutureV.Vehicles
 
                 Seats = ModState.On;
 
-                WormholeType = WormholeType.DMC12;
+                if (!(WormholeType > WormholeType.DMC12))
+                    WormholeType = WormholeType.DMC12;
 
                 SuspensionsType = SuspensionsType.Stock;
             }

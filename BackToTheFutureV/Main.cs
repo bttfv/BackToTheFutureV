@@ -42,7 +42,6 @@ namespace BackToTheFutureV
         public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
         private bool _firstTick = true;                
-        private int _saveDelay;
         private readonly UdpClient udp = new UdpClient(1985);
 
         private void Receive(IAsyncResult ar)
@@ -97,12 +96,12 @@ namespace BackToTheFutureV
             if (RCManager.RemoteControlling != null)
                 RCManager.StopRemoteControl(true);
 
-            TimeMachineHandler.SaveAllTimeMachines();
+            if (ModSettings.PersistenceSystem)
+                TimeMachineHandler.SaveAllTimeMachines();
 
             TimeMachineHandler.Abort();            
             FireTrailsHandler.Stop();
-            TrainHandler.Abort();
-            ModSettings.SaveSettings();            
+            TrainHandler.Abort();           
         }
 
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
@@ -124,9 +123,12 @@ namespace BackToTheFutureV
             {
                 ModelHandler.RequestModels();
 
-                TimeMachineHandler.LoadAllTimeMachines();
-                RemoteTimeMachineHandler.Load();
-
+                if (ModSettings.PersistenceSystem)
+                {
+                    TimeMachineHandler.LoadAllTimeMachines();
+                    RemoteTimeMachineHandler.Load();
+                }
+                
                 StartListening();
 
                 _firstTick = false;

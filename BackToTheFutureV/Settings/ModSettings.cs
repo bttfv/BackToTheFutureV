@@ -35,6 +35,7 @@ namespace BackToTheFutureV
         public static bool EngineStallEvent { get; set; }
         public static bool TurbulenceEvent { get; set; }
         public static bool LandingSystem { get; set; }
+        public static bool PersistenceSystem { get; set; }
 
         public static void LoadSettings()
         {
@@ -67,6 +68,8 @@ namespace BackToTheFutureV
 
             LandingSystem = settings.GetValue("fly_mode", "LandingSystem", true);
 
+            PersistenceSystem = settings.GetValue("general", "PersistenceSystem", true);
+
             GlowingWormholeEmitter = settings.GetValue("time_circuits", "GlowingWormholeEmitter", true);
             GlowingPlutoniumReactor = settings.GetValue("time_circuits", "GlowingPlutoniumReactor", true);
 
@@ -86,6 +89,8 @@ namespace BackToTheFutureV
             settings.SetValue("tcd", "position_y", TCDPosition.Y.ToString("G", info));
             settings.SetValue("tcd", "scale", TCDScale.ToString("G", info));
             settings.SetValue("tcd", "background", TCDBackground.ToString());
+
+            settings.SetValue("general", "PersistenceSystem", PersistenceSystem);
 
             settings.SetValue("time_circuits", "PlayFluxCapacitorSound", PlayFluxCapacitorSound);
 
