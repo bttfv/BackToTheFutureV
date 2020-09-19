@@ -911,7 +911,7 @@ namespace BackToTheFutureV.Utility
             //                          **                  **
             //                                 **    ** 
 
-            const float r = 0.15f;
+            const float r = 0.25f;
             for (float i = 0; i <= 360; i += 45)
             {
                 var angleRad = i * (float) Math.PI / 180;

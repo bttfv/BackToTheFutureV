@@ -57,6 +57,11 @@ namespace BackToTheFutureV.Utility
             highbeamsOn = _highbeamsOn;
         }
 
+        public static bool CanHoverTransform(this Vehicle vehicle)
+        {
+            return (vehicle.Bones["misc_c"].Index != 0 && vehicle.Bones["misc_c"].Index != -1 && vehicle.Bones["misc_f"].Index != 0 && vehicle.Bones["misc_f"].Index != -1);
+        }
+
         public static void SetLightsBrightness(this Vehicle vehicle, float brightness)
         {
             Function.Call(Hash.SET_VEHICLE_LIGHT_MULTIPLIER, vehicle, brightness);

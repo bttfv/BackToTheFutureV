@@ -25,6 +25,8 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         {
             TimeMachineClone = timeMachineClone;
 
+            TimeMachineClone.Properties.TimeTravelType = TimeTravelType.RC;
+
             _timer = Game.GameTime + 3000;
 
             _warningSound = Main.CommonAudioEngine.Create("general/rc/warning.wav", Presets.Exterior);            
