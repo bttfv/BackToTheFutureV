@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Xml.Serialization;
 using BackToTheFutureV.Utility;
 using GTA;
@@ -74,6 +75,56 @@ namespace BackToTheFutureV
             veh.IsEngineRunning = EngineRunning;
             veh.Mods.PrimaryColor = PrimaryColor;
             veh.Mods.SecondaryColor = SecondaryColor;
+        }
+    }
+
+    public class PedInfo
+    {
+        public PedInfo(Ped ped)
+        {
+            Model = ped.Model;
+            Type = Function.Call<int>(Hash.GET_PED_TYPE, ped);
+
+            Position = ped.Position;
+            Rotation = ped.Rotation;
+            Heading = ped.Heading;
+
+            SitInCar = ped.IsSittingInVehicle();
+
+            if (SitInCar)
+                VehicleSeat = ped.SeatIndex;
+        }
+
+        public int Model { get; set; }
+        public int Type { get; set; }
+        public Vector3 Position { get; set; }
+        public Vector3 Rotation { get; set; }
+        public float Heading { get; set; }
+        public bool SitInCar { get; set; }
+        public VehicleSeat VehicleSeat { get; set; }
+
+        public Ped Spawn()
+        {
+            Ped ped = Function.Call<Ped>(Hash.CREATE_PED, Type, Model, Position.X, Position.Y, Position.Z, Heading, false, false);
+
+            ped.Rotation = Rotation;
+
+            return ped;
+        }
+
+        public Ped Spawn(Vector3 position, float heading)
+        {
+            return Function.Call<Ped>(Hash.CREATE_PED, Type, Model, position.X, position.Y, position.Z, heading, false, false);
+        }
+
+        public Ped Spawn(Vehicle vehicle)
+        {
+            return Function.Call<Ped>(Hash.CREATE_PED_INSIDE_VEHICLE, vehicle, Type, Model, SitInCar ? VehicleSeat : VehicleSeat.Driver, false, false);
+        }
+
+        public Ped Spawn(Vehicle vehicle, VehicleSeat vehicleSeat)
+        {
+            return Function.Call<Ped>(Hash.CREATE_PED_INSIDE_VEHICLE, vehicle, Type, Model, vehicleSeat, false, false);
         }
     }
 
