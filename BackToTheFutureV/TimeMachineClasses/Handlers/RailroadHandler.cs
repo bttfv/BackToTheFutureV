@@ -68,13 +68,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             _speed = Vehicle.Speed;
 
-            customTrain = TrainHandler.CreateInvisibleTrain(Vehicle, _direction);
+            customTrain = CustomTrainHandler.CreateInvisibleTrain(Vehicle, _direction);
 
             if (!(customTrain.Train.Heading >= Vehicle.Heading - 45 && customTrain.Train.Heading <= Vehicle.Heading + 45))
             {
                 _direction = !_direction;
                 customTrain.DeleteTrain();
-                customTrain = TrainHandler.CreateInvisibleTrain(Vehicle, _direction);
+                customTrain = CustomTrainHandler.CreateInvisibleTrain(Vehicle, _direction);
             }
 
             customTrain.IsAccelerationOn = true;
@@ -157,7 +157,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (_isReentryOn && customTrain.AttachedToTarget && customTrain.SpeedMPH == 0)
                 {
                     if (Utils.Random.NextDouble() <= 0.25f)
-                        TrainHandler.CreateFreightTrain(Vehicle, !_direction).SetToDestroy(Vehicle, 35);
+                        CustomTrainHandler.CreateFreightTrain(Vehicle, !_direction).SetToDestroy(Vehicle, 35);
 
                     _isReentryOn = false;
                     return;

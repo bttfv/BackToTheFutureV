@@ -101,7 +101,7 @@ namespace BackToTheFutureV
 
             TimeMachineHandler.Abort();            
             FireTrailsHandler.Stop();
-            TrainHandler.Abort();           
+            CustomTrainHandler.Abort();           
         }
 
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
@@ -145,7 +145,7 @@ namespace BackToTheFutureV
             if (DisablePlayerSwitching)
                 Function.Call(Hash.DISABLE_CONTROL_ACTION, 2, 19, true);
 
-            TrainHandler.Process();
+            CustomTrainHandler.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();
             AnimatePropsHandler.Process();

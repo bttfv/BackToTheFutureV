@@ -29,12 +29,12 @@ namespace BackToTheFutureV
         private static UIMenuItem spawnDelorean2;
         private static UIMenuItem spawnDelorean3;
         private static UIMenuItem spawnDelorean;
-        private static UIMenuItem spawnCustomDelorean;
-        private static UIMenuItem spawnPresetDelorean;
+        private static UIMenuItem spawnCustomTimeMachine;
+        private static UIMenuItem spawnPresetTimeMachine;
         private static UIMenuItem convertToTimeMachine;
-        private static UIMenuItem removeAllDeloreans;
-        private static UIMenuItem removeOtherDeloreans;
-        private static UIMenuItem removeDelorean;
+        private static UIMenuItem removeAllTimeMachines;
+        private static UIMenuItem removeOtherTimeMachines;
+        private static UIMenuItem removeTimeMachine;
 
         // Settings
         private static UIMenuCheckboxItem cinematicSpawn;
@@ -68,8 +68,8 @@ namespace BackToTheFutureV
             MainMenu.AddItem(spawnDelorean2 = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_Spawn") + " " + Game.GetLocalizedString("BTTFV_Menu_BTTF2"), Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF2_Description")));
             MainMenu.AddItem(spawnDelorean3 = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_Spawn") + " " + Game.GetLocalizedString("BTTFV_Menu_BTTF3"), Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF3_Description")));
 
-            spawnPresetDelorean = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.PresetsMenu, Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset"), Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset_Description"));
-            spawnCustomDelorean = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.SpawnMenu, Game.GetLocalizedString("BTTFV_Menu_Build_Delorean"), Game.GetLocalizedString("BTTFV_Menu_Build_Delorean_Description"));
+            spawnPresetTimeMachine = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.PresetsMenu, Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset"), Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset_Description"));
+            spawnCustomTimeMachine = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.SpawnMenu, Game.GetLocalizedString("BTTFV_Menu_Build_Delorean"), Game.GetLocalizedString("BTTFV_Menu_Build_Delorean_Description"));
 
             MainMenu.AddItem(convertToTimeMachine = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_ConvertToTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_ConvertToTimeMachine_Description")));
 
@@ -77,9 +77,9 @@ namespace BackToTheFutureV
 
             statisticsMenu = Utils.AttachSubmenu(MainMenu, InteractionMenuManager.StatisticsMenu, Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Description"));
 
-            MainMenu.AddItem(removeDelorean = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine_Description")));
-            MainMenu.AddItem(removeOtherDeloreans = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines_Description")));
-            MainMenu.AddItem(removeAllDeloreans = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines_Description")));
+            MainMenu.AddItem(removeTimeMachine = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine_Description")));
+            MainMenu.AddItem(removeOtherTimeMachines = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines_Description")));
+            MainMenu.AddItem(removeAllTimeMachines = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines_Description")));
 
             MainMenu.OnMenuOpen += MainMenu_OnMenuOpen;
             MainMenu.OnItemSelect += MainMenu_OnItemSelect;
@@ -166,13 +166,13 @@ namespace BackToTheFutureV
 
             if (TimeMachineClone.ListPresets().Count > 0)
             {
-                MainMenu.ReleaseMenuFromItem(spawnPresetDelorean);
-                MainMenu.BindMenuToItem(InteractionMenuManager.PresetsMenu, spawnPresetDelorean);
+                MainMenu.ReleaseMenuFromItem(spawnPresetTimeMachine);
+                MainMenu.BindMenuToItem(InteractionMenuManager.PresetsMenu, spawnPresetTimeMachine);
             }
             else
             {
-                MainMenu.ReleaseMenuFromItem(spawnPresetDelorean);
-                MainMenu.BindMenuToItem(InteractionMenuManager.SpawnMenu, spawnPresetDelorean);
+                MainMenu.ReleaseMenuFromItem(spawnPresetTimeMachine);
+                MainMenu.BindMenuToItem(InteractionMenuManager.SpawnMenu, spawnPresetTimeMachine);
             }
 
             if (Main.PlayerVehicle != null)
@@ -280,10 +280,10 @@ namespace BackToTheFutureV
 
         private static void MainMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
         {
-            if (selectedItem == spawnPresetDelorean && TimeMachineClone.ListPresets().Count == 0)
+            if (selectedItem == spawnPresetTimeMachine && TimeMachineClone.ListPresets().Count == 0)
                 Notification.Show(Game.GetLocalizedString("BTTFV_Menu_Presets_Not_Found"));
 
-            if (selectedItem == spawnCustomDelorean || selectedItem == spawnPresetDelorean)
+            if (selectedItem == spawnCustomTimeMachine || selectedItem == spawnPresetTimeMachine)
                 return;
 
             if (selectedItem == spawnDelorean)
@@ -325,31 +325,31 @@ namespace BackToTheFutureV
                 Main.MenuPool.CloseAllMenus();
             }
 
-            if (selectedItem == removeOtherDeloreans)
+            if (selectedItem == removeOtherTimeMachines)
             {
                 TimeMachineHandler.RemoveAllTimeMachines(true);
                 RemoteTimeMachineHandler.DeleteAll();
                 Notification.Show(Game.GetLocalizedString("BTTFV_RemovedOtherTimeMachines"));
             }
 
-            if (selectedItem == removeAllDeloreans)
+            if (selectedItem == removeAllTimeMachines)
             {
                 TimeMachineHandler.RemoveAllTimeMachines();
                 RemoteTimeMachineHandler.DeleteAll();
                 Notification.Show(Game.GetLocalizedString("BTTFV_RemovedAllTimeMachines"));
             }
 
-            if(selectedItem == removeDelorean)
+            if(selectedItem == removeTimeMachine)
             {
-                var delorean = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
+                var timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
 
-                if(delorean == null)
+                if(timeMachine == null)
                 {
                     Notification.Show(Game.GetLocalizedString("BTTFV_NotSeatedInTimeMachine"));
                     return;
                 }
 
-                TimeMachineHandler.RemoveTimeMachine(delorean);
+                TimeMachineHandler.RemoveTimeMachine(timeMachine);
             }
         }
 

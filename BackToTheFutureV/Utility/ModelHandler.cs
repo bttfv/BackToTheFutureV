@@ -89,6 +89,8 @@ namespace BackToTheFutureV.Utility
         public static Model SierraTenderModel = new Model("sierratender");
         public static Model SierraDebugModel = new Model("sierra_debug");
 
+        public static Model DeluxoModel = new Model("DELUXO");
+
         private static string[] tcdTypes = new string[3]
         {
             "red",

@@ -83,7 +83,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     
                     if (Properties.TimeTravelType == TimeTravelType.Instant)
                     {
-                        // Create a copy of the current status of the Delorean
+                        // Create a copy of the current status of the time machine
                         TimeMachine.LastDisplacementClone = TimeMachine.Clone;
 
                         Sounds.TimeTravelInstant.Play();
@@ -100,7 +100,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Events.OnTimeTravelCompleted?.Invoke();
                         Events.OnReenterCompleted?.Invoke();
 
-                        //Add LastDisplacementCopy to remote Deloreans list
+                        //Add LastDisplacementCopy to remote time machines list
                         RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
 
                         ResetFields();
@@ -115,7 +115,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     // Play the light explosion
                     Particles.LightExplosion.Play();
 
-                    trails = FireTrailsHandler.SpawnForDelorean(
+                    trails = FireTrailsHandler.SpawnForTimeMachine(
                         TimeMachine,
                         Properties.HasBeenStruckByLightning,
                         (Properties.HasBeenStruckByLightning || (Mods.HoverUnderbody == ModState.On && Properties.IsFlying)) ? 1f : 45,
@@ -141,7 +141,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         return;
                     }
 
-                    // Create a copy of the current status of the Delorean
+                    // Create a copy of the current status of the time machine
                     TimeMachine.LastDisplacementClone = TimeMachine.Clone;
 
                     if (Mods.HoverUnderbody == ModState.On)
@@ -200,7 +200,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 5:
-                    //Add LastDisplacementCopy to remote Deloreans list
+                    //Add LastDisplacementCopy to remote time machines list
                     RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
 
                     Events.OnReenter?.Invoke();

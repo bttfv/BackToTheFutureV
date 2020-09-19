@@ -17,7 +17,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         private static IFormatter formatter = new BinaryFormatter();
 
-        private const int MAX_REMOTE_DELOREANS = 10;
+        private const int MAX_REMOTE_TIMEMACHINES = 10;
         public static int TimeMachineCount => remoteTimeMachines.Count;
         public static RemoteTimeMachine GetTimeMachineFromIndex(int index) 
         { 
@@ -32,7 +32,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         
         public static void AddRemote(TimeMachineClone timeMachineClone)
         {
-            if (remoteTimeMachines.Count > MAX_REMOTE_DELOREANS)
+            if (remoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
             {
                 remoteTimeMachines[0].Dispose();
                 remoteTimeMachines.RemoveAt(0);

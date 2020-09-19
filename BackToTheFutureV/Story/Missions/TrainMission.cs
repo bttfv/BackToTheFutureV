@@ -316,7 +316,7 @@ namespace BackToTheFutureV.Story
 
         private void SetupRearWheelsPTFXs(string particleAssetName, string particleName, Vector3 wheelOffset, Vector3 wheelRot, float size = 3f, bool doLoopHandling = false)
         {
-            var ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedDeLorean, "wheel_lr", wheelOffset, wheelRot, size, true, doLoopHandling);
+            var ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedVehicle, "wheel_lr", wheelOffset, wheelRot, size, true, doLoopHandling);
 
             ptfx.Play();
 
@@ -328,7 +328,7 @@ namespace BackToTheFutureV.Story
 
             _wheelPtfxes.Add(ptfx);
 
-            ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedDeLorean, "wheel_rr", wheelOffset, wheelRot, size, true, doLoopHandling);
+            ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedVehicle, "wheel_rr", wheelOffset, wheelRot, size, true, doLoopHandling);
 
             ptfx.Play();
 
@@ -343,7 +343,7 @@ namespace BackToTheFutureV.Story
 
         private void SetupFrontWheelsPTFXs(string particleAssetName, string particleName, Vector3 wheelOffset, Vector3 wheelRot, float size = 3f, bool doLoopHandling = false)
         {
-            var ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedDeLorean, "wheel_lf", wheelOffset, wheelRot, size, true, doLoopHandling);
+            var ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedVehicle, "wheel_lf", wheelOffset, wheelRot, size, true, doLoopHandling);
 
             ptfx.Play();
 
@@ -355,7 +355,7 @@ namespace BackToTheFutureV.Story
 
             _wheelPtfxes.Add(ptfx);
 
-            ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedDeLorean, "wheel_rf", wheelOffset, wheelRot, size, true, doLoopHandling);
+            ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedVehicle, "wheel_rf", wheelOffset, wheelRot, size, true, doLoopHandling);
 
             ptfx.Play();
 

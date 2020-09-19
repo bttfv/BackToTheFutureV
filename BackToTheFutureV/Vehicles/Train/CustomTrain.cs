@@ -29,11 +29,11 @@ namespace BackToTheFutureV.Utility
         private float _deloreanWheelieRotX;
         private float _deloreanWheeliePosZ = -0.35f;
 
-        public bool DoWheelie;
-        public bool WheelieUp;
+        public bool DoWheelie { get; set; }
+        public bool WheelieUp { get; set; }
 
         public Vehicle Train;
-        public bool Direction;
+        public bool Direction { get; set; }
         public Vector3 Position { get { return Train.Position; } set { Function.Call(Hash.SET_MISSION_TRAIN_COORDS, Train, value.X, value.Y, value.Z); } }
         public int CarriageCount { get; }
 
@@ -408,7 +408,7 @@ namespace BackToTheFutureV.Utility
 
             RogersSierra.VisibleLocomotive.ToggleExtra(1, true);
 
-            RogersSierra.AttachedDeLorean = TargetVehicle;
+            RogersSierra.AttachedVehicle = TargetVehicle;
 
             IsAccelerationOn = false;
         }
@@ -419,7 +419,7 @@ namespace BackToTheFutureV.Utility
 
             IsRogersSierra = false;
 
-            RogersSierra.AttachedDeLorean = null;
+            RogersSierra.AttachedVehicle = null;
 
             RogersSierra = null;
 

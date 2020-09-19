@@ -29,7 +29,7 @@ namespace BackToTheFutureV
     {
         // All these offsets we're extracted from dummies that were made in 3Ds Max
 
-        // Fire trail in shape of "99" used when delorean gets strike by lighting
+        // Fire trail in shape of "99" used when a time machine gets strike by lighting
         public static readonly Vector3[] FireTrails99Offsets = new Vector3[39]
         {
             new Vector3(-0.755061f, 1.651605f, -0.02032154f),

@@ -16,7 +16,7 @@ namespace BackToTheFutureV.InteractionMenu
 {
     public class StatisticsMenu : UIMenu
     {
-        public UIMenuDynamicListItem Deloreans { get; }
+        public UIMenuDynamicListItem TimeMachines { get; }
 
         public UIMenuListItem TypeDescription { get; }
         public UIMenuItem DestinationTimeDescription { get; }
@@ -29,7 +29,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         public StatisticsMenu() : base(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Description"))
         {
-            AddItem(Deloreans = new UIMenuDynamicListItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans_Description"), "0", ChangeCallback));
+            AddItem(TimeMachines = new UIMenuDynamicListItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans_Description"), "0", ChangeCallback));
             AddItem(TypeDescription = new UIMenuListItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type"), _listTypes, 0, Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type_Description")));
             AddItem(DestinationTimeDescription = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime_Description")));
             AddItem(LastTimeDescription = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime_Description")));
@@ -149,9 +149,9 @@ namespace BackToTheFutureV.InteractionMenu
             if (_selectedIndex != 0 && _selectedIndex > RemoteTimeMachineHandler.TimeMachineCount - 1)
                 _selectedIndex = RemoteTimeMachineHandler.TimeMachineCount - 1;
 
-            Deloreans.Enabled = RemoteTimeMachineHandler.TimeMachineCount != 0;
-            ForceReenter.Enabled = Deloreans.Enabled;
-            ShowBlip.Enabled = Deloreans.Enabled;
+            TimeMachines.Enabled = RemoteTimeMachineHandler.TimeMachineCount != 0;
+            ForceReenter.Enabled = TimeMachines.Enabled;
+            ShowBlip.Enabled = TimeMachines.Enabled;
 
             if (_currentTimeMachine != null)
             {

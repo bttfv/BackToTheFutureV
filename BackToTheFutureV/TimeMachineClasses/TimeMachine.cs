@@ -120,6 +120,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             Events.OnWormholeTypeChanged += UpdateBlip;
 
+            if (Vehicle.Model == ModelHandler.DeluxoModel)
+                Mods.HoverUnderbody = ModState.On;
+
             TimeMachineHandler.AddTimeMachine(this);
         }
 

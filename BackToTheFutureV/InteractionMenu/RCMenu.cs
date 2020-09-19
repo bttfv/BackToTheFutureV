@@ -15,7 +15,7 @@ namespace BackToTheFutureV.InteractionMenu
 {
     public class RCMenu : UIMenu
     {       
-        public UIMenuDynamicListItem Deloreans { get; }
+        public UIMenuDynamicListItem TimeMachines { get; }
 
         public UIMenuCheckboxItem FuelChamberDescription { get; }
         public UIMenuCheckboxItem TimeCircuitsOnDescription { get; }
@@ -23,7 +23,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         public RCMenu() : base(Game.GetLocalizedString("BTTFV_Menu_RCMenu"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_Description"))
         {
-            AddItem(Deloreans = new UIMenuDynamicListItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_Deloreans"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_Deloreans_Description"), "0", ChangeCallback));
+            AddItem(TimeMachines = new UIMenuDynamicListItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_Deloreans"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_Deloreans_Description"), "0", ChangeCallback));
             AddItem(FuelChamberDescription = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_FuelChamberFilled"), true, Game.GetLocalizedString("BTTFV_Menu_RCMenu_FuelChamberFilled_Description")));
             AddItem(TimeCircuitsOnDescription = new UIMenuCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_TimeCircuitsOn"), true, Game.GetLocalizedString("BTTFV_Menu_RCMenu_TimeCircuitsOn_Description")));
             AddItem(DestinationTimeDescription = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime_Description")));
@@ -91,7 +91,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void RCMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
         {
-            if(selectedItem == Deloreans)
+            if(selectedItem == TimeMachines)
             {
                 if (TrySelectCar(_selectedIndex, false))
                 {
@@ -166,11 +166,11 @@ namespace BackToTheFutureV.InteractionMenu
 
             if (TimeMachineHandler.TimeMachineCount == 0)
             {
-                Deloreans.Enabled = false;
+                TimeMachines.Enabled = false;
             }
             else
             {
-                Deloreans.Enabled = true;
+                TimeMachines.Enabled = true;
 
                 TrySelectCar(_selectedIndex);
 

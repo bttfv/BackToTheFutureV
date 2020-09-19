@@ -95,7 +95,7 @@ namespace BackToTheFutureV.InteractionMenu
                 _save = true;
 
                 _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
-                _canFly.Enabled = _tempTimeMachine.Vehicle.CanHoverTransform();
+                _canFly.Enabled = _tempTimeMachine.Vehicle.CanHoverTransform() && _tempTimeMachine.Vehicle.Model != ModelHandler.DeluxoModel;
                 _hoodBox.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _hook.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _plate.Enabled = _tempTimeMachine.Mods.IsDMC12;
