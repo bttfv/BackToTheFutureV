@@ -246,6 +246,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 }
 
                 PhotoMode();
+
+                Mods.SyncMods();
             }
 
             if (Main.PlayerVehicle != Vehicle)

@@ -38,8 +38,6 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
                 remoteTimeMachines.RemoveAt(0);
             }
 
-            //deloreanCopy.SetupTimeTravel(true);
-
             remoteTimeMachines.Add(new RemoteTimeMachine(timeMachineClone));
 
             if (ModSettings.PersistenceSystem)

@@ -22,13 +22,13 @@ namespace BackToTheFutureV.InteractionMenu
 
         public static TimeMachineMenu TimeMachineMenu { get; private set; }
 
-        public static SpawnMenu SpawnMenu { get; private set; }
+        public static CustomMenu SpawnMenu { get; private set; }
 
-        public static SpawnMenu SpawnMenuContext { get; private set; }
+        public static CustomMenu SpawnMenuContext { get; private set; }
 
         public static PresetsMenu PresetsMenu { get; private set; }
 
-        public static TrainMissionMenu TrainMissionMenu { get; private set; }
+        //public static TrainMissionMenu TrainMissionMenu { get; private set; }
         
         public static void Init()
         {
@@ -36,11 +36,11 @@ namespace BackToTheFutureV.InteractionMenu
             Main.MenuPool.Add(PhotoMenu = new PhotoMenu());
             Main.MenuPool.Add(StatisticsMenu = new StatisticsMenu());
             Main.MenuPool.Add(RCMenu = new RCMenu());
-            Main.MenuPool.Add(SpawnMenu = new SpawnMenu());
-            Main.MenuPool.Add(SpawnMenuContext = new SpawnMenu());
+            Main.MenuPool.Add(SpawnMenu = new CustomMenu());
+            Main.MenuPool.Add(SpawnMenuContext = new CustomMenu());
             Main.MenuPool.Add(PresetsMenu = new PresetsMenu());
             Main.MenuPool.Add(TimeMachineMenu = new TimeMachineMenu());
-            Main.MenuPool.Add(TrainMissionMenu = new TrainMissionMenu());
+            //Main.MenuPool.Add(TrainMissionMenu = new TrainMissionMenu());
         }
 
         public static void Process()

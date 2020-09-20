@@ -72,6 +72,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             ret.IsAltitudeHolding = false;
 
             ret.IsRemoteControlled = false;
+
+            ret.AreHoodboxCircuitsReady = false;
                 
             return ret;
         }

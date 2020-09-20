@@ -27,6 +27,8 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
             TimeMachineClone.Properties.TimeTravelType = TimeTravelType.RC;
 
+            TimeMachineClone.Properties.TimeTravelPhase = TimeTravelPhase.Completed;
+
             _timer = Game.GameTime + 3000;
 
             _warningSound = Main.CommonAudioEngine.Create("general/rc/warning.wav", Presets.Exterior);            
@@ -77,12 +79,12 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
                 case ReenterType.Spawn:
                     TimeMachine = TimeMachineClone.Spawn(false, false, true);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    TimeMachine.Events.OnVehicleSpawned?.Invoke();
                     break;
                 case ReenterType.Forced:
                     TimeMachineClone.Properties.DestinationTime = Main.CurrentTime;
                     break;
             }
-
         }
 
         public void ExistenceCheck(DateTime time)

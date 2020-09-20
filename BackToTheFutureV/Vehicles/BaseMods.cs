@@ -74,6 +74,7 @@ namespace BackToTheFutureV.Vehicles
 
     public enum SuspensionsType
     {
+        Unknown = -1,
         Stock = 0,
         LiftFrontLowerRear = 1,
         LiftFront = 2,

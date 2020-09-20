@@ -116,9 +116,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
-            if (Mods.HoverUnderbody == ModState.On)
-                Properties.CanConvert = true;
-
             Utils.HideVehicle(Vehicle, false);
 
             Main.HideGui = false;

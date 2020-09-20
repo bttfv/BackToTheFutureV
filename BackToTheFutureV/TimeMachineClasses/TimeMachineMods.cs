@@ -22,8 +22,17 @@ namespace BackToTheFutureV.TimeMachineClasses
             TimeMachine = timeMachine;
 
             if (IsDMC12)
+            {
                 Vehicle.ToggleExtra(10, false);
 
+                if ((ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index != ReactorType.None)
+                {
+                    SyncMods();
+
+                    return;
+                }
+            }
+                           
             WormholeType = wormholeType;
 
             Exterior = ModState.On;
@@ -31,7 +40,8 @@ namespace BackToTheFutureV.TimeMachineClasses
             SteeringWheelsButtons = ModState.On;
             Vents = ModState.On;
             OffCoils = ModState.On;
-            
+            Hook = HookState.Off;
+
             switch (WormholeType)
             {
                 case WormholeType.BTTF1:
@@ -53,9 +63,114 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                     Hoodbox = ModState.On;
                     Wheel = WheelType.Red;
-                    SuspensionsType = SuspensionsType.LiftFront;
+                    SuspensionsType = SuspensionsType.LiftFrontLowerRear;
                     break;
             }
+        }
+
+        public void SyncMods()
+        {
+            SuspensionsType suspensionsType = (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index;
+
+            WormholeType wormholeType = (WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index;
+
+            if (wormholeType != WormholeType)
+                WormholeType = wormholeType;
+
+            WheelType wheelType = (WheelType)Vehicle.Mods[VehicleModType.FrontWheel].Index;
+
+            if (wheelType != Wheel)
+                Wheel = wheelType;
+
+            ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
+
+            if (reactorType != Reactor)
+                Reactor = reactorType;
+
+            PlateType plateType = (PlateType)Vehicle.Mods[VehicleModType.Ornaments].Index;
+
+            if (plateType != Plate)
+                Plate = plateType;
+
+            ExhaustType exhaustType = (ExhaustType)Vehicle.Mods[VehicleModType.Windows].Index;
+
+            if (exhaustType != Exhaust)
+                Exhaust = exhaustType;
+
+            ModState modState = (ModState)Vehicle.Mods[VehicleModType.Spoilers].Index;
+
+            if (modState != Exterior)
+                Exterior = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.SideSkirt].Index;
+
+            if (modState != Interior)
+                Interior = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.FrontBumper].Index;
+
+            if (modState != OffCoils)
+                OffCoils = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.Frame].Index;
+
+            if (modState != GlowingEmitter)
+                GlowingEmitter = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.Fender].Index;
+
+            if (modState != GlowingReactor)
+                GlowingReactor = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.Aerials].Index;
+
+            if (modState != DamagedBumper)
+                DamagedBumper = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.DialDesign].Index;
+
+            if (modState != HoverUnderbody)
+                HoverUnderbody = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.SteeringWheels].Index;
+
+            if (modState != SteeringWheelsButtons)
+                SteeringWheelsButtons = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.ColumnShifterLevers].Index;
+
+            if (modState != Vents)
+                Vents = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.VanityPlates].Index;
+
+            if (modState != Seats)
+                Seats = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.Livery].Index;
+
+            if (modState != Hoodbox)
+                Hoodbox = modState;
+
+            HookState hookState = HookState.Unknown;
+
+            if (Vehicle.Mods[VehicleModType.Roof].Index == 1 && Vehicle.Mods[VehicleModType.ArchCover].Index == -1 && Vehicle.Mods[VehicleModType.Grille].Index == -1)
+                hookState = HookState.Off;
+
+            if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == 0 && Vehicle.Mods[VehicleModType.Grille].Index == 0)
+                hookState = HookState.OnDoor;
+
+            if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == 1 && Vehicle.Mods[VehicleModType.Grille].Index == 1)
+                hookState = HookState.On;
+
+            if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == -1 && Vehicle.Mods[VehicleModType.Grille].Index == 0)
+                hookState = HookState.Removed;
+
+            if (hookState != Hook)
+                Hook = hookState;
+
+            if (suspensionsType != SuspensionsType)
+                SuspensionsType = suspensionsType;
         }
 
         public new WheelType Wheel

@@ -40,7 +40,8 @@ namespace BackToTheFutureV.Vehicles
                 if (!(WormholeType > WormholeType.DMC12))
                     WormholeType = WormholeType.DMC12;
 
-                SuspensionsType = SuspensionsType.Stock;
+                if ((SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index == SuspensionsType.Unknown)
+                    SuspensionsType = SuspensionsType.Stock;
             }
         }
 
@@ -93,11 +94,16 @@ namespace BackToTheFutureV.Vehicles
         {
             get => base.SuspensionsType;
             set
-            {               
+            {
+                if (value == SuspensionsType.Unknown)
+                    value = SuspensionsType.Stock;
+
                 base.SuspensionsType = value;
 
                 if (!IsDMC12)
                     return;
+                else
+                    Vehicle.Mods[VehicleModType.Hydraulics].Index = (int)value;
 
                 switch (value)
                 {
@@ -107,16 +113,14 @@ namespace BackToTheFutureV.Vehicles
                         Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
                         Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
 
-                        //Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
-                        //Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
+                        Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
+                        Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
 
                         Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 0f);
                         break;
-                    default:
-                        HoverUnderbody = ModState.Off;
-
-                        //Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, true);
-                        //Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, true);
+                    default:                        
+                        Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, true);
+                        Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, true);
 
                         Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 20f);
 

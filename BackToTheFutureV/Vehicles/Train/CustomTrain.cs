@@ -7,7 +7,7 @@ using GTA.Math;
 using GTA.Native;
 using System;
 using System.Collections.Generic;
-using RogersSierra;
+//using RogersSierra;
 
 namespace BackToTheFutureV.Utility
 {
@@ -22,7 +22,7 @@ namespace BackToTheFutureV.Utility
         public event OnTrainDeleted OnTrainDeleted;
 
         public bool IsRogersSierra { get; private set; }
-        public cRogersSierra RogersSierra;
+        //public cRogersSierra RogersSierra { get; private set; }
 
         private Vector3 _deloreanOffset = new Vector3(0, 7.5f, -1.0f);
 
@@ -304,16 +304,16 @@ namespace BackToTheFutureV.Utility
             return TargetVehicle.Position.DistanceTo((CarriageIndexForAttach == 0 ? Train : Carriage(CarriageIndexForAttach)).GetOffsetPosition(AttachOffset)) <= 2.0f;
         }
 
-        public cRogersSierra CheckForRogersSierra()
-        {            
-            foreach (var train in Main.RogersSierra)
-            {
-                if (Utils.EntitySpeedVector(train.Locomotive).Y >= 0 && World.GetClosestVehicle(train.Locomotive.GetOffsetPosition(_deloreanOffset.GetSingleOffset(Coordinate.Z, _deloreanWheeliePosZ).GetSingleOffset(Coordinate.Y, -0.1f)), 0.1f) == TargetVehicle)
-                    return train;
-            }
+        //public cRogersSierra CheckForRogersSierra()
+        //{            
+        //    foreach (var train in Main.RogersSierra)
+        //    {
+        //        if (Utils.EntitySpeedVector(train.Locomotive).Y >= 0 && World.GetClosestVehicle(train.Locomotive.GetOffsetPosition(_deloreanOffset.GetSingleOffset(Coordinate.Z, _deloreanWheeliePosZ).GetSingleOffset(Coordinate.Y, -0.1f)), 0.1f) == TargetVehicle)
+        //            return train;
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         public void SetToAttach(Vehicle targetVehicle, Vector3 attachOffset, int carriageIndexForAttach, int carriageIndexForRotation)
         {
@@ -387,56 +387,56 @@ namespace BackToTheFutureV.Utility
             ToDestroy = false;
         }
 
-        public void SwitchToRogersSierra(cRogersSierra rogersSierra)
-        {
-            if (rogersSierra == null)
-                return;
+        //public void SwitchToRogersSierra(cRogersSierra rogersSierra)
+        //{
+        //    if (rogersSierra == null)
+        //        return;
 
-            Function.Call(Hash.DETACH_ENTITY, TargetVehicle, false, false);
+        //    Function.Call(Hash.DETACH_ENTITY, TargetVehicle, false, false);
 
-            int handle = Train.Handle;
-            unsafe
-            {
-                Function.Call(Hash.DELETE_MISSION_TRAIN, &handle);
-            }
+        //    int handle = Train.Handle;
+        //    unsafe
+        //    {
+        //        Function.Call(Hash.DELETE_MISSION_TRAIN, &handle);
+        //    }
 
-            IsRogersSierra = true;
+        //    IsRogersSierra = true;
 
-            RogersSierra = rogersSierra;
+        //    RogersSierra = rogersSierra;
 
-            Train = RogersSierra.ColDeLorean;
+        //    Train = RogersSierra.ColDeLorean;
 
-            RogersSierra.VisibleLocomotive.ToggleExtra(1, true);
+        //    RogersSierra.VisibleLocomotive.ToggleExtra(1, true);
 
-            RogersSierra.AttachedVehicle = TargetVehicle;
+        //    RogersSierra.AttachedVehicle = TargetVehicle;
 
-            IsAccelerationOn = false;
-        }
+        //    IsAccelerationOn = false;
+        //}
 
-        public void SwitchToRegular()
-        {
-            DetachTargetVehicle();
+        //public void SwitchToRegular()
+        //{
+        //    DetachTargetVehicle();
 
-            IsRogersSierra = false;
+        //    IsRogersSierra = false;
 
-            RogersSierra.AttachedVehicle = null;
+        //    RogersSierra.AttachedVehicle = null;
 
-            RogersSierra = null;
+        //    RogersSierra = null;
 
-            PrepareTargetVehicle(true);
+        //    PrepareTargetVehicle(true);
 
-            Vector3 position = TargetVehicle.GetOffsetPosition(new Vector3(0, -10, 0));            
+        //    Vector3 position = TargetVehicle.GetOffsetPosition(new Vector3(0, -10, 0));            
 
-            Train = Function.Call<Vehicle>(Hash.CREATE_MISSION_TRAIN, _variation, position.X, position.Y, position.Z, Direction);
+        //    Train = Function.Call<Vehicle>(Hash.CREATE_MISSION_TRAIN, _variation, position.X, position.Y, position.Z, Direction);
 
-            SetCollision(false);
+        //    SetCollision(false);
 
-            SetVisible(false);
+        //    SetVisible(false);
 
-            //CruiseSpeedMPH = 1;
+        //    //CruiseSpeedMPH = 1;
 
-            SetPosition(TargetVehicle.Position);            
-        }
+        //    SetPosition(TargetVehicle.Position);            
+        //}
 
         public void StartWheelie(bool goUp)
         {

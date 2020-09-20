@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BackToTheFutureV.InteractionMenu
 {
-    public class SpawnMenu : UIMenu
+    public class CustomMenu : UIMenu
     {
         public bool ForceNew = false;
 
@@ -38,7 +38,7 @@ namespace BackToTheFutureV.InteractionMenu
         private bool _save = false;
         private TimeMachine _tempTimeMachine;
 
-        public SpawnMenu() : base(Game.GetLocalizedString("BTTFV_Input_SpawnMenu"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Description"))
+        public CustomMenu() : base(Game.GetLocalizedString("BTTFV_Input_SpawnMenu"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Description"))
         {
             AddItem(_baseType = new UIMenuListItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wormhole"), _listTypes, 0, Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wormhole_Description")));
             

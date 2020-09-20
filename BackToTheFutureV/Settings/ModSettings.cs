@@ -69,7 +69,7 @@ namespace BackToTheFutureV
 
             LandingSystem = settings.GetValue("fly_mode", "LandingSystem", true);
 
-            PersistenceSystem = settings.GetValue("general", "PersistenceSystem", true);
+            PersistenceSystem = settings.GetValue("general", "PersistenceSystem", false);
 
             RandomTrains = settings.GetValue("general", "RandomTrains", true);
 

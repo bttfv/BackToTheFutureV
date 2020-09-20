@@ -23,6 +23,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public ComponentsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnReenterCompleted += OnReenterCompleted;
+            Events.OnVehicleSpawned += OnReenterCompleted;
         }
 
         public void StartWarmup()
@@ -33,13 +34,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void OnReenterCompleted()
         {
+            if (Mods.HoverUnderbody == ModState.On)
+                Properties.CanConvert = true;
+
             if (Mods.Plate == PlateType.Outatime)
                 Mods.Plate = PlateType.Empty;
 
             if (Mods.Hook == HookState.On)
                 Mods.Hook = HookState.Removed;
 
-            if (Mods.Hoodbox == ModState.Off)
+            if (Mods.Hoodbox == ModState.Off || Properties.AreHoodboxCircuitsReady)
                 return;
 
             _alphaLevel = 52f;

@@ -87,7 +87,7 @@
     <Compile Include="InteractionMenu\PhotoMenu.cs" />
     <Compile Include="InteractionMenu\PresetsMenu.cs" />
     <Compile Include="InteractionMenu\StatisticsMenu.cs" />
-    <Compile Include="InteractionMenu\SpawnMenu.cs" />
+    <Compile Include="InteractionMenu\CustomMenu.cs" />
     <Compile Include="Entities\AnimateProp.cs" />
     <Compile Include="Entities\AnimatePropsHandler.cs" />
     <Compile Include="GUI\RenderTarget.cs" />
@@ -97,7 +97,6 @@
     <Compile Include="InteractionMenu\InteractionMenuManager.cs" />
     <Compile Include="InteractionMenu\RCMenu.cs" />
     <Compile Include="InteractionMenu\TimeMachineMenu.cs" />
-    <Compile Include="InteractionMenu\TrainMissionMenu.cs" />
     <Compile Include="Memory\CEntityCustomization.cs" />
     <Compile Include="Memory\CEntitySkeleton.cs" />
     <Compile Include="Memory\crSkeletonData.cs" />
@@ -155,7 +154,6 @@
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\SoundsHandler.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineMods.cs" />
     <Compile Include="Utility\CustomStopwatch.cs" />
-    <Compile Include="Story\Missions\TrainMission.cs" />
     <Compile Include="Utility\PlayerSwitch.cs" />
     <Compile Include="Utility\TimedEvent.cs" />
     <Compile Include="Utility\TimedEventManager.cs" />
@@ -200,10 +198,6 @@
     <ProjectReference Include="..\KlangRageAudioLibrary\KlangRageAudioLibrary.csproj">
       <Project>{e52db215-0aa9-453a-b5f3-91f3ff35c1d9}</Project>
       <Name>KlangRageAudioLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RogerSierra\RogersSierra.vbproj">
-      <Project>{ef32b843-71f4-4af6-93e3-bec5f727c9a3}</Project>
-      <Name>RogersSierra</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

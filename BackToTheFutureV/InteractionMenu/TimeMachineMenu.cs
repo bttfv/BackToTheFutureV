@@ -40,7 +40,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void TimeMachineMenu_OnMenuOpen(UIMenu sender)
         {
-            
+            SpawnMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
         }
 
         private void TimeMachineMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)

@@ -23,6 +23,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void OnHoverUnderbodyToggle();
     public delegate void OnWormholeTypeChanged();
     public delegate void OnReactorTypeChanged();
+    public delegate void OnVehicleSpawned();
 
     public delegate void SetRCMode(bool state, bool instant = false);
     public delegate void SetTimeCircuits(bool state);
@@ -52,6 +53,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public OnHoverUnderbodyToggle OnHoverUnderbodyToggle;
         public OnWormholeTypeChanged OnWormholeTypeChanged;
         public OnReactorTypeChanged OnReactorTypeChanged;
+        public OnVehicleSpawned OnVehicleSpawned;
 
         public SetRCMode SetRCMode;
         public SetTimeCircuits SetTimeCircuits;

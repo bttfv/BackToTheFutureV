@@ -13,7 +13,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using KlangRageAudioLibrary;
-using RogersSierra;
+//using RogersSierra;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
@@ -33,15 +33,16 @@ namespace BackToTheFutureV
         }
         public static Ped PlayerPed => Game.Player.Character;
         public static Vehicle PlayerVehicle => PlayerPed.CurrentVehicle;
-        public static cRogersSierra CurrentRogersSierra => Manager.CurrentRogersSierra;
-        public static List<cRogersSierra> RogersSierra => Manager.RogersSierra;
+        //public static cRogersSierra CurrentRogersSierra => Manager.CurrentRogersSierra;
+        //public static List<cRogersSierra> RogersSierra => Manager.RogersSierra;
         public static bool IsPlayerSwitchInProgress => Function.Call<bool>(Hash.IS_PLAYER_SWITCH_IN_PROGRESS);
         public static bool IsManualPlayerSwitchInProgress => IsPlayerSwitchInProgress && PlayerSwitch.IsSwitching;
         public static bool DisablePlayerSwitching { get; set; } = false;
         public static bool HideGui { get; set; } = false;
         public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
-        private bool _firstTick = true;                
+        private bool _firstTick = true;
+        private int _saveDelay;
         private readonly UdpClient udp = new UdpClient(1985);
 
         private void Receive(IAsyncResult ar)
@@ -158,6 +159,13 @@ namespace BackToTheFutureV
             TcdEditer.Process();
             MissionHandler.Process();                        
             PlayerSwitch.Process();
+
+            if (ModSettings.PersistenceSystem && _saveDelay < Game.GameTime)
+            {
+                TimeMachineHandler.SaveAllTimeMachines();
+
+                _saveDelay = Game.GameTime + 2000;
+            }                
         }
     }
 }
