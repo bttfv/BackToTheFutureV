@@ -8,6 +8,7 @@ namespace BackToTheFutureV.Utility
     public static class CustomTrainHandler
     {
         private static List<CustomTrain> trainHandlers = new List<CustomTrain>();
+        private static List<CustomTrain> trainHandlersToRemove = new List<CustomTrain>();
 
         public static CustomTrain CreateFreightTrain(Vehicle vehicle, bool direction)
         {
@@ -32,9 +33,21 @@ namespace BackToTheFutureV.Utility
 
         public static void Process()
         {
-            trainHandlers.ForEach(x => {
-                if (x.Process())
-                    trainHandlers.Remove(x);
+            if (trainHandlersToRemove.Count > 0)
+            {
+                trainHandlersToRemove.ForEach(x => trainHandlers.Remove(x));
+                trainHandlersToRemove.Clear();
+            }
+
+            trainHandlers.ForEach(x => 
+            {
+                if (!x.Exists || !x.Train.Exists())
+                {
+                    trainHandlersToRemove.Add(x);
+                    return;
+                }
+                    
+                x.Process();
             });
         }
 

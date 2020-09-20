@@ -151,6 +151,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Properties.IsFlying = Properties.AreWheelsInHoverMode;
 
+            _landingSmoke = false;
+
             if (Mods.IsDMC12)
                 Function.Call(Hash._FORCE_VEHICLE_ENGINE_AUDIO, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
 

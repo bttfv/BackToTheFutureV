@@ -70,7 +70,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             customTrain = CustomTrainHandler.CreateInvisibleTrain(Vehicle, _direction);
 
-            if (!(customTrain.Train.Heading >= Vehicle.Heading - 45 && customTrain.Train.Heading <= Vehicle.Heading + 45))
+            if (!(customTrain.Train.Heading >= Vehicle.Heading - 25 && customTrain.Train.Heading <= Vehicle.Heading + 25))
             {
                 _direction = !_direction;
                 customTrain.DeleteTrain();
@@ -169,8 +169,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     Stop();
 
-                    if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 35)
-                        Vehicle.Explode();
+                    if (_train.Velocity.Y == Vehicle.Velocity.Y)
+                    {
+                        if (Math.Abs(_train.GetMPHSpeed() + Vehicle.GetMPHSpeed()) > 35)
+                            Vehicle.Explode();
+                    } else
+                        if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 35)
+                            Vehicle.Explode();
 
                     _attachDelay = Game.GameTime + 3000;
                 }

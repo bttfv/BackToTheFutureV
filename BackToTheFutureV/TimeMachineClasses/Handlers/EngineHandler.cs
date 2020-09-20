@@ -313,9 +313,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public override void Stop()
         {
             _engineSounds.ForEach(x => x.Stop());
+            _accellSounds.ForEach(x => x.Stop());
         }
 
-        public override void Dispose() => Stop();
+        public override void Dispose()
+        {
+            _engineSounds.ForEach(x => x.Dispose());
+            _accellSounds.ForEach(x => x.Dispose());
+        }
 
         #endregion
 

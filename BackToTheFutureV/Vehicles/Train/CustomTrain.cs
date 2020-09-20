@@ -193,11 +193,8 @@ namespace BackToTheFutureV.Utility
 
         }
 
-        public bool Process()
+        public void Process()
         {
-            if (!Train.Exists())
-                return true;
-
             if (!IsRogersSierra)
             {
                 if (IsAccelerationOn)
@@ -266,10 +263,7 @@ namespace BackToTheFutureV.Utility
                 }
 
                 if (DestroyCounter <= 0)
-                {
                     DeleteTrain();
-                    return true;
-                }
             }
 
             if (IsReadyToAttach)
@@ -283,8 +277,6 @@ namespace BackToTheFutureV.Utility
 
                 AttachTargetVehicle();
             }
-
-            return false;
         }
 
         public bool CheckForNearbyTargetVehicle()
