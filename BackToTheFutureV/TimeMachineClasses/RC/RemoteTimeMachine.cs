@@ -56,7 +56,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
                 ModelHandler.DMC12.Request();
             }
 
-            if (Utils.GetWorldTime() > TimeMachineClone.Properties.DestinationTime && Utils.GetWorldTime() < (TimeMachineClone.Properties.DestinationTime + new TimeSpan(0, 0, 10)))
+            if (!Spawned && Utils.GetWorldTime() > TimeMachineClone.Properties.DestinationTime && Utils.GetWorldTime() < (TimeMachineClone.Properties.DestinationTime + new TimeSpan(0, 0, 10)))
             {
                 Spawn(ReenterType.Normal);
 

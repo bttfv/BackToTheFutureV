@@ -24,6 +24,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Events.OnReenterCompleted += OnReenterCompleted;
             Events.OnVehicleSpawned += OnReenterCompleted;
+            Events.OnHoodboxReady += Instant;
         }
 
         public void StartWarmup()
@@ -46,9 +47,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Mods.Hoodbox == ModState.Off || Properties.AreHoodboxCircuitsReady)
                 return;
 
+            Instant();
+        }
+
+        private void Instant()
+        {
             _alphaLevel = 52f;
             _state = true;
-            LoadHoodboxLights(true);            
+            LoadHoodboxLights(true);
             Props.HoodboxLights.SpawnProp();
             Props.HoodboxLights.Prop.Opacity = (int)_alphaLevel;
             Properties.AreHoodboxCircuitsReady = true;

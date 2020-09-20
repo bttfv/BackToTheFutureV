@@ -149,6 +149,9 @@ namespace BackToTheFutureV.TimeMachineClasses
                 return;
             }
 
+            if (Mods.IsDMC12)
+                Function.Call(Hash._SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER, Vehicle, Properties.TorqueMultiplier);
+
             if (Mods.HoverUnderbody == ModState.Off && Mods.IsDMC12)
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
 
@@ -175,6 +178,13 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Mods.IsDMC12)
             {
+                //In certain situations car can't be entered after hover transformation, here is forced enter task.
+                if (Main.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(Main.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
+                {
+                    if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, Main.PlayerPed) != Vehicle)
+                        Main.PlayerPed.Task.EnterVehicle(Vehicle);
+                }
+
                 VehicleWindowCollection windows = Vehicle.Windows;
                 windows[VehicleWindowIndex.BackLeftWindow].Remove();
                 windows[VehicleWindowIndex.BackRightWindow].Remove();
@@ -185,6 +195,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 if (Mods.Hoodbox == ModState.On)
                     Vehicle.Doors[VehicleDoorIndex.Hood].CanBeBroken = false;
+
+                if (Mods.SuspensionsType != SuspensionsType.Stock && Properties.TorqueMultiplier != 2.4f)
+                    Properties.TorqueMultiplier = 2.4f;
 
                 switch (Mods.SuspensionsType)
                 {

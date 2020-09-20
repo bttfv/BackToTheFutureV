@@ -224,13 +224,20 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 base.SuspensionsType = value;
 
-                if (IsDMC12 && value != SuspensionsType.Stock)
+                if (!IsDMC12)
+                    return;
+
+                if (value != SuspensionsType.Stock)
                 {
                     if (HoverUnderbody == ModState.On)
                         HoverUnderbody = ModState.Off;
 
                     if (Wheel == WheelType.RailroadInvisible)
                         Wheel = WheelType.Stock;
+                } else
+                {
+                    if (TimeMachine.Properties != null)
+                        TimeMachine.Properties.TorqueMultiplier = 1;
                 }
             }
         }

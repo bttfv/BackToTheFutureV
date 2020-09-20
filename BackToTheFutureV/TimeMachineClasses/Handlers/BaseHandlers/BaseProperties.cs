@@ -48,6 +48,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool PhotoGlowingCoilsActive { get; set; }
         public bool PhotoIceActive { get; set; }
         public bool PhotoFluxCapacitorActive { get; set; }
+        public float TorqueMultiplier { get; set; } = 1;
 
         public BaseProperties Clone()
         {
@@ -72,8 +73,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             ret.IsAltitudeHolding = false;
 
             ret.IsRemoteControlled = false;
-
-            ret.AreHoodboxCircuitsReady = false;
                 
             return ret;
         }
@@ -89,6 +88,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             if (IsFreezed)
                 timeMachine.Events.SetFreeze?.Invoke(true, true);
+
+            if (AreHoodboxCircuitsReady)
+                timeMachine.Events.OnHoodboxReady?.Invoke();
         }
     }
 }

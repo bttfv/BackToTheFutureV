@@ -153,6 +153,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 timeMachineClone.Vehicle.Heading = ped.Heading + 180;
 
                 timeMachine = timeMachineClone.Spawn(true, true);
+
+                timeMachine.Properties.TorqueMultiplier = 1;
             }                
             else
             {
@@ -201,6 +203,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 timeMachineClone.Vehicle.Heading = ped.Heading;
 
                 timeMachine = timeMachineClone.Spawn(true, false);
+
+                timeMachine.Properties.TorqueMultiplier = 1;
             }
             else
             {

@@ -79,6 +79,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachine Spawn(bool asNew = false, bool reenter = false, bool rc = false)
         {
+            bool _isNew = false;
+
             Vehicle veh = null;
 
             if (!rc && !asNew)
@@ -88,11 +90,15 @@ namespace BackToTheFutureV.TimeMachineClasses
             {
                 ModelHandler.RequestModel(Vehicle.Model);
                 veh = World.CreateVehicle(Vehicle.Model, Vehicle.Position, Vehicle.Heading);
+                _isNew = true;
             }
         
             TimeMachine timeMachine = TimeMachineHandler.CreateTimeMachine(veh, Mods.WormholeType);
                
             ApplyTo(timeMachine, asNew);
+
+            if (_isNew)
+                timeMachine.Properties.TorqueMultiplier = 1;
 
             if (!veh.IsOnAllWheels && veh.HeightAboveGround > 5 && timeMachine.Mods.HoverUnderbody == ModState.On)
                 timeMachine.Events.SetFlyMode?.Invoke(true, true);

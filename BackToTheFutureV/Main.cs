@@ -110,9 +110,6 @@ namespace BackToTheFutureV
             ModMenuHandler.KeyDown(e);
             TimeMachineHandler.KeyDown(e.KeyCode);
             RCManager.KeyDown(e.KeyCode);
-
-            if (e.KeyCode == Keys.L)
-                TimeMachineHandler.CurrentTimeMachine?.Events.StartTimeTravel?.Invoke();
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)

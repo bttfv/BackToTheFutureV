@@ -16,7 +16,7 @@ using GTA.UI;
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class FlyingHandler : Handler
-    {        
+    {
         private bool _hasPlayedBoostSound;
 
         private readonly NativeInput _flyModeInput;
@@ -156,8 +156,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Mods.IsDMC12)
                 Function.Call(Hash._FORCE_VEHICLE_ENGINE_AUDIO, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
 
-            if (!Properties.IsLanding && !Properties.IsFlying)
-                Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 30f);
+            if (!Properties.IsLanding && !Properties.IsFlying && Mods.IsDMC12)
+                Properties.TorqueMultiplier = 1.4f;
 
             if (!Properties.IsFlying && Properties.IsAltitudeHolding)
                 Properties.IsAltitudeHolding = false;
@@ -181,7 +181,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         }
 
         public override void Process()
-        {            
+        {
             if (Mods.HoverUnderbody == ModState.Off)
                 return;
 
@@ -200,11 +200,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _flyModeInput.Process();
 
             if (Main.PlayerVehicle == Vehicle)
+            {
                 Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player.Handle, false);
+            }                
             else
-                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player.Handle, true);
+            {
+                if (VehicleControl.GetDeluxoTransformation(Vehicle) > 0 && !Properties.IsLanding)
+                    Properties.IsLanding = true;
 
-            if (Vehicle == null || !Vehicle.IsVisible) return;
+                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player.Handle, true);
+            }
+                
+            if (Vehicle == null || !Vehicle.IsVisible)
+                return;
 
             // Process underbody lights
             UnderbodyLights();
@@ -224,7 +232,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 // Apply force
                 Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
 
-                if (Vehicle.HeightAboveGround < 3 && !_landingSmoke)
+                if (Vehicle.HeightAboveGround < 2 && !_landingSmoke)
                 {
                     Particles.HoverModeSmoke.ForEach(x => x.Play());
                     _landingSmoke = true;
@@ -237,8 +245,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
 
             if (!Properties.IsFlying)
-                return;            
-
+                return;
+                
             if (ModSettings.TurbulenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard))
             {
                 if (Game.GameTime > _nextForce)
@@ -304,7 +312,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
 
             // Force fly mode
-            if (ModSettings.ForceFlyMode)
+            if (ModSettings.ForceFlyMode && Main.PlayerVehicle == Vehicle)
                 VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
 
             // Force brake lights on if flying

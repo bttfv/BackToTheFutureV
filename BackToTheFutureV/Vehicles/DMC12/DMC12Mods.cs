@@ -115,14 +115,10 @@ namespace BackToTheFutureV.Vehicles
 
                         Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
                         Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
-
-                        Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 0f);
                         break;
-                    default:                        
+                    default:
                         Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, true);
                         Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, true);
-
-                        Function.Call(Hash.MODIFY_VEHICLE_TOP_SPEED, Vehicle, 20f);
 
                         Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
                         Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
