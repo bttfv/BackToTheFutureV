@@ -76,6 +76,9 @@ namespace BackToTheFutureV.InteractionMenu
 
             if (Main.MenuPool.IsAnyMenuOpen())
             {
+                if (ModMenuHandler.MainMenu.Visible)
+                    ModMenuHandler.Process();
+
                 if (RCMenu.Visible)
                     RCMenu.Process();
 

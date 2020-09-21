@@ -12,6 +12,7 @@ namespace BackToTheFutureV.InteractionMenu
     {
         public UIMenuItem BackToMainMenu { get; }
         public UIMenuItem SpawnMenu { get; }
+        public UIMenuItem PhotoMenu { get; }
 
         public UIMenuCheckboxItem TimeCircuitsOn { get; }
         public UIMenuCheckboxItem CutsceneMode { get; }
@@ -29,7 +30,7 @@ namespace BackToTheFutureV.InteractionMenu
 
             SpawnMenu = Utils.AttachSubmenu(this, InteractionMenuManager.SpawnMenuContext, Game.GetLocalizedString("BTTFV_Input_SpawnMenu"), "");
 
-            Utils.AttachSubmenu(this, InteractionMenuManager.PhotoMenu, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Description"));
+            PhotoMenu = Utils.AttachSubmenu(this, InteractionMenuManager.PhotoMenu, Game.GetLocalizedString("BTTFV_Menu_PhotoMenu"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Description"));
 
             AddItem(BackToMainMenu = new UIMenuItem(Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu"), Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu_Description")));
 
@@ -41,6 +42,7 @@ namespace BackToTheFutureV.InteractionMenu
         private void TimeMachineMenu_OnMenuOpen(UIMenu sender)
         {
             SpawnMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+            PhotoMenu.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12;
         }
 
         private void TimeMachineMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)

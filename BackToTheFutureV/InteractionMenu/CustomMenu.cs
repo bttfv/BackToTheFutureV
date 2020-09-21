@@ -71,7 +71,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private void SpawnMenu_OnMenuOpen(UIMenu sender)
         {
-            if (ForceNew || (Main.PlayerVehicle == null || !TimeMachineHandler.IsVehicleATimeMachine(Main.PlayerVehicle)))
+            if (ForceNew || (Main.PlayerVehicle == null || !Main.PlayerVehicle.IsTimeMachine()))
             {
                 if (ForceNew)
                     ForceNew = false;
@@ -89,7 +89,7 @@ namespace BackToTheFutureV.InteractionMenu
 
                 _tempTimeMachine.Vehicle.SetMPHSpeed(1);
             }                
-            else if (TimeMachineHandler.IsVehicleATimeMachine(Main.PlayerVehicle))
+            else if (Main.PlayerVehicle.IsTimeMachine())
             {
                 _tempTimeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
                 _save = true;

@@ -156,7 +156,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Mods.IsDMC12)
                 Function.Call(Hash._FORCE_VEHICLE_ENGINE_AUDIO, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
 
-            if (!Properties.IsLanding && !Properties.IsFlying && Mods.IsDMC12)
+            if (!Properties.IsLanding && !Properties.IsFlying)
                 Properties.TorqueMultiplier = 1.4f;
 
             if (!Properties.IsFlying && Properties.IsAltitudeHolding)

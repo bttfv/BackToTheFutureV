@@ -130,34 +130,32 @@ namespace BackToTheFutureV
             tcdMenu.OnItemSelect += TcdMenu_OnItemSelect;
         }
 
-        private static void SettingsMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
+        public static void Process()
         {
-
-        }
-
-        private static void MainMenu_OnMenuOpen(UIMenu sender)
-        {
-            if (RemoteTimeMachineHandler.TimeMachineCount > 0 )
+            if (RemoteTimeMachineHandler.TimeMachineCount > 0 && !statisticsMenu.Enabled)
             {
                 MainMenu.ReleaseMenuFromItem(statisticsMenu);
                 MainMenu.BindMenuToItem(InteractionMenuManager.StatisticsMenu, statisticsMenu);
 
                 statisticsMenu.Enabled = true;
-            } else
+            }
+            
+            if (RemoteTimeMachineHandler.TimeMachineCount == 0 && statisticsMenu.Enabled)
             {
                 MainMenu.ReleaseMenuFromItem(statisticsMenu);
 
                 statisticsMenu.Enabled = false;
             }
 
-            if (TimeMachineHandler.TimeMachineCount > 0)
+            if (TimeMachineHandler.TimeMachineCount > 0 && !rcMenu.Enabled)
             {
                 MainMenu.ReleaseMenuFromItem(rcMenu);
                 MainMenu.BindMenuToItem(InteractionMenuManager.RCMenu, rcMenu);
 
                 rcMenu.Enabled = true;
             }
-            else
+            
+            if (TimeMachineHandler.TimeMachineCount == 0 && rcMenu.Enabled)
             {
                 MainMenu.ReleaseMenuFromItem(rcMenu);
 
@@ -177,10 +175,23 @@ namespace BackToTheFutureV
 
             if (Main.PlayerVehicle != null)
             {
-                convertToTimeMachine.Enabled = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle) == null;
-            }
+                convertToTimeMachine.Enabled = !Main.PlayerVehicle.IsTimeMachine();
+                rcMenu.Enabled = false;
+            }                
             else
+            {
                 convertToTimeMachine.Enabled = false;
+            }                
+        }
+
+        private static void SettingsMenu_OnItemSelect(UIMenu sender, UIMenuItem selectedItem, int index)
+        {
+
+        }
+
+        private static void MainMenu_OnMenuOpen(UIMenu sender)
+        {
+
         }
 
         private static void TcdBackground_OnListChanged(UIMenuListItem sender, int newIndex)

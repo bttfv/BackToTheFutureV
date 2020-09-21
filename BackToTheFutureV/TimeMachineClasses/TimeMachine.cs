@@ -149,8 +149,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 return;
             }
 
-            if (Mods.IsDMC12)
-                Function.Call(Hash._SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER, Vehicle, Properties.TorqueMultiplier);
+            Function.Call(Hash._SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER, Vehicle, Properties.TorqueMultiplier);
 
             if (Mods.HoverUnderbody == ModState.Off && Mods.IsDMC12)
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f);

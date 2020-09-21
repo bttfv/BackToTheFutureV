@@ -120,7 +120,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (Main.PlayerVehicle == null || !TimeMachineHandler.IsVehicleATimeMachine(Main.PlayerVehicle) || (Main.PlayerVehicle == Vehicle && !Properties.AreTimeCircuitsOn))
+            if (Main.PlayerVehicle == null || !Main.PlayerVehicle.IsTimeMachine() || (Main.PlayerVehicle == Vehicle && !Properties.AreTimeCircuitsOn))
             {
                 if (EnterInputBuffer)
                     EnterInputBuffer = false;
