@@ -16,7 +16,7 @@ namespace BackToTheFutureV.InteractionMenu
     {
         public static PhotoMenu PhotoMenu { get; private set; }
 
-        public static StatisticsMenu StatisticsMenu { get; private set; }
+        public static OutatimeMenu StatisticsMenu { get; private set; }
 
         public static RCMenu RCMenu { get; private set; }
 
@@ -34,7 +34,7 @@ namespace BackToTheFutureV.InteractionMenu
         {
             // Build the initial menu           
             Main.MenuPool.Add(PhotoMenu = new PhotoMenu());
-            Main.MenuPool.Add(StatisticsMenu = new StatisticsMenu());
+            Main.MenuPool.Add(StatisticsMenu = new OutatimeMenu());
             Main.MenuPool.Add(RCMenu = new RCMenu());
             Main.MenuPool.Add(SpawnMenu = new CustomMenu());
             Main.MenuPool.Add(SpawnMenuContext = new CustomMenu());

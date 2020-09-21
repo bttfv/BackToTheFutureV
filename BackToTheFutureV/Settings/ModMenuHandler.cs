@@ -176,7 +176,9 @@ namespace BackToTheFutureV
             if (Main.PlayerVehicle != null)
             {
                 convertToTimeMachine.Enabled = !Main.PlayerVehicle.IsTimeMachine();
-                rcMenu.Enabled = false;
+
+                if (rcMenu.Enabled)
+                    rcMenu.Enabled = false;
             }                
             else
             {

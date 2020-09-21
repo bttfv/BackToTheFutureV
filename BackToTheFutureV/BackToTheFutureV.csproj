@@ -86,7 +86,7 @@
     <Compile Include="GUI\InstrumentalMenu.cs" />
     <Compile Include="InteractionMenu\PhotoMenu.cs" />
     <Compile Include="InteractionMenu\PresetsMenu.cs" />
-    <Compile Include="InteractionMenu\StatisticsMenu.cs" />
+    <Compile Include="InteractionMenu\OutatimeMenu.cs" />
     <Compile Include="InteractionMenu\CustomMenu.cs" />
     <Compile Include="Entities\AnimateProp.cs" />
     <Compile Include="Entities\AnimatePropsHandler.cs" />

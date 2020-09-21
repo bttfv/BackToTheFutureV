@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.InteractionMenu
 {
-    public class StatisticsMenu : UIMenu
+    public class OutatimeMenu : UIMenu
     {
         public UIMenuDynamicListItem TimeMachines { get; }
 
@@ -27,7 +27,7 @@ namespace BackToTheFutureV.InteractionMenu
 
         private readonly List<object> _listTypes = new List<object> { "BTTF1", "BTTF2", "BTTF3" };
 
-        public StatisticsMenu() : base(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu"), Game.GetLocalizedString("BTTFV_Menu_Description"))
+        public OutatimeMenu() : base(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu"), Game.GetLocalizedString("BTTFV_Menu_Description"))
         {
             AddItem(TimeMachines = new UIMenuDynamicListItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans_Description"), "0", ChangeCallback));
             AddItem(TypeDescription = new UIMenuListItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type"), _listTypes, 0, Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type_Description")));
