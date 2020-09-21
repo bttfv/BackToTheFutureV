@@ -1,4 +1,5 @@
-﻿using GTA.Math;
+﻿using BackToTheFutureV.Utility;
+using GTA.Math;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,8 +18,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool IsGivenScaleformPriority { get; set; }
         public bool AreWheelsStock { get; set; }
         public bool AreTimeCircuitsOn { get; set; }
-        public DateTime DestinationTime { get; set; } = new DateTime(2015, 10, 25, 14, 00, 00);
-        public DateTime PreviousTime { get; set; } = new DateTime(1985, 10, 25, 00, 21, 00);
+        public DateTime DestinationTime { get; set; } = BTTFImportantDates.GetRandom();
+        public DateTime PreviousTime { get; set; } = new DateTime(1985, 10, 26, 1, 20, 00);
         public Vector3 LastVelocity { get; set; }
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
         public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;

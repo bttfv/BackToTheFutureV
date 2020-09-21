@@ -42,12 +42,22 @@ namespace BackToTheFutureV.Utility
         Z
     }
 
+    public class BTTFImportantDates
+    {
+        public readonly static List<DateTime> Dates = new List<DateTime>() { new DateTime(1985, 10, 26, 1, 21, 0), new DateTime(1885, 1, 1, 0, 0, 0), new DateTime(1955, 11, 5, 6, 15, 0), new DateTime(1985, 10, 26, 1, 24, 0), new DateTime(1985, 10, 26, 1, 24, 0), new DateTime(2015, 10, 21, 16, 29, 0), new DateTime(1955, 11, 12, 13, 40, 0), new DateTime(1985, 10, 26, 21, 0, 0), new DateTime(1955, 11, 12, 6, 0, 0), new DateTime(1885, 9, 2, 8, 0, 0), new DateTime(1985, 10, 27, 11, 0, 0) };
+
+        public static DateTime GetRandom()
+        {
+            return Dates[Utils.Random.Next(0, Dates.Count - 1)];
+        }
+    }
+
     public class Utils
     {
         static readonly float radToDeg = (float)(180.0 / Math.PI);
         static readonly float degToRad = (float)(Math.PI / 180.0);
 
-        public static Random Random = new Random();
+        public static Random Random = new Random(DateTime.Now.Millisecond);
 
         public static readonly string[] WheelNames = new string[4]
         {

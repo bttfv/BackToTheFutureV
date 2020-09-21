@@ -174,6 +174,14 @@ namespace BackToTheFutureV.TimeMachineClasses
             File.Delete($"{PresetsPath}/{name}");
         }
 
+        public static void DeleteAll()
+        {
+            if (!Directory.Exists(PresetsPath))
+                return;
+
+            new DirectoryInfo(PresetsPath).GetFiles("*.dmc12").ToList().ForEach(x => x.Delete());
+        }
+
         public static void RenameSave(string name, string newName)
         {
             if (!name.ToLower().EndsWith(".dmc12"))
