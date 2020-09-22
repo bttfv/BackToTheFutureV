@@ -179,8 +179,7 @@
 	BTTFV_Menu_TimeMachineMenu_AltitudeControl = Controllo altitudine
 	BTTFV_Menu_TimeMachineMenu_AltitudeControl_Description = Se abilitato mantiene automaticamente l'altitudine impostata.
 	BTTFV_Menu_TimeMachineMenu_CutsceneMode = Modalità estesa
-	BTTFV_Menu_TimeMachineMenu_CutsceneMode_Description = Ti permette di scegliere se utilizzare la modalità estesa o istantanea per il viaggio nel tempo.
-	BTTFV_Menu_TimeMachineMenu_Description = SELEZIONA UNA VOCE DEL MENU
+	BTTFV_Menu_TimeMachineMenu_CutsceneMode_Description = Ti permette di scegliere se utilizzare la modalità estesa o istantanea per il viaggio nel tempo.	
 	BTTFV_Menu_TimeMachineMenu_EngineStallEvent = Problemi accensione motore
 	BTTFV_Menu_TimeMachineMenu_EngineStallEvent_Description = Se abilitato il motore potrebbe avere problemi di accensione dopo un salto nel tempo con il reattore nucleare.
 	BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor = Reattore nucleare luminescente

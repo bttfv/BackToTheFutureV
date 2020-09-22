@@ -48,9 +48,9 @@ namespace BackToTheFutureV
 
             settings = ScriptSettings.Load(path);
 
-            bool firstSetup = settings.GetValue("General", "FirstSetup", true);
+            string version = settings.GetValue<string>("General", "Version", default);
 
-            if (firstSetup)
+            if (version == default || version != Main.Version.ToString())
             {
                 RemoteTimeMachineHandler.DeleteAll();
                 TimeMachineCloneManager.Delete();
@@ -60,7 +60,7 @@ namespace BackToTheFutureV
 
                 settings = ScriptSettings.Load(path);
 
-                settings.SetValue("General", "FirstSetup", false);
+                settings.SetValue("General", "Version", Main.Version);
 
                 SaveSettings();
 

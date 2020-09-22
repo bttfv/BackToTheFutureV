@@ -39,6 +39,7 @@ namespace BackToTheFutureV
         public static bool IsManualPlayerSwitchInProgress => IsPlayerSwitchInProgress && PlayerSwitch.IsSwitching;
         public static bool DisablePlayerSwitching { get; set; } = false;
         public static bool HideGui { get; set; } = false;
+        public static Version Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
         public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
         private bool _firstTick = true;
@@ -71,11 +72,9 @@ namespace BackToTheFutureV
 
         public Main()
         {
-            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            DateTime buildDate = new DateTime(2000, 1, 1)
-                    .AddDays(version.Build).AddSeconds(version.Revision * 2);
+            DateTime buildDate = new DateTime(2000, 1, 1).AddDays(Version.Build).AddSeconds(Version.Revision * 2);
 
-            System.IO.File.AppendAllText($"./ScriptHookVDotNet.log", $"BackToTheFutureV - {version} ({buildDate})" + Environment.NewLine);
+            System.IO.File.AppendAllText($"./ScriptHookVDotNet.log", $"BackToTheFutureV - {Version} ({buildDate})" + Environment.NewLine);
 
             MenuPool = new MenuPool();
 
