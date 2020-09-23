@@ -69,13 +69,13 @@ namespace BackToTheFutureV.Menu
         {
             if (sender == TimeCircuitsOn && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetTimeCircuits?.Invoke(Checked);
-            else if (sender == CutsceneMode)
+            else if (sender == CutsceneMode && Checked != TimeMachineHandler.CurrentTimeMachine.Properties.CutsceneMode)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetCutsceneMode?.Invoke(Checked);
             else if (sender == RemoteControl && !Checked && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
                 RCManager.StopRemoteControl();
-            else if (sender == FlyMode)
+            else if (sender == FlyMode && Checked != TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
-            else if (sender == AltitudeHold)
+            else if (sender == AltitudeHold && Checked != TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetAltitudeHold?.Invoke(Checked);
         }
 
