@@ -38,7 +38,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Mods.HoverUnderbody == ModState.On)
                 Properties.CanConvert = true;
 
-            if (Mods.Plate == PlateType.Outatime)
+            if (Mods.Plate == PlateType.Outatime && Mods.Reactor == ReactorType.Nuclear && Mods.WormholeType == WormholeType.BTTF1)
                 Mods.Plate = PlateType.Empty;
 
             if (Mods.Hook == HookState.On)
