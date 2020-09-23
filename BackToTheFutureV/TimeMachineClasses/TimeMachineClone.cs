@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+﻿using BackToTheFutureV.Memory;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using GTA;
@@ -96,11 +97,11 @@ namespace BackToTheFutureV.TimeMachineClasses
             TimeMachine timeMachine = TimeMachineHandler.CreateTimeMachine(veh, Mods.WormholeType);
                
             ApplyTo(timeMachine, asNew);
-
+           
             if (_isNew)
                 timeMachine.Properties.TorqueMultiplier = 1;
 
-            if (!veh.IsOnAllWheels && veh.HeightAboveGround > 5 && timeMachine.Mods.HoverUnderbody == ModState.On)
+            if (!veh.IsOnAllWheels && veh.HeightAboveGround > 5 && timeMachine.Mods.HoverUnderbody == ModState.On && !timeMachine.Properties.IsFlying)
                 timeMachine.Events.SetFlyMode?.Invoke(true, true);
 
             if (reenter)

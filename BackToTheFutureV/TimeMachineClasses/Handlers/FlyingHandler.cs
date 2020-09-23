@@ -110,7 +110,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         }
 
         public void SetFlyMode(bool open, bool instant = false)
-        {
+        {            
             if (open && Properties.AreFlyingCircuitsBroken)
             {
                 if (VehicleControl.GetDeluxoTransformation(Vehicle) > 0)
@@ -205,9 +205,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }                
             else
             {
-                if (VehicleControl.GetDeluxoTransformation(Vehicle) > 0 && !Properties.IsLanding)
-                    Properties.IsLanding = true;
-
                 Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player.Handle, true);
             }
                 

@@ -81,7 +81,7 @@ namespace BackToTheFutureV.Menu
 
             outatimeMenu.Enabled = RemoteTimeMachineHandler.TimeMachineCount > 0;
 
-            rcMenu.Enabled = TimeMachineHandler.TimeMachineCount > 0;
+            rcMenu.Enabled = Main.PlayerVehicle == null && TimeMachineHandler.TimeMachineCount > 0;
 
             Recalculate();
         }

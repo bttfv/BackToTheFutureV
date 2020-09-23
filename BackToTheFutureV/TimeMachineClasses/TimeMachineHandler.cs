@@ -169,7 +169,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 timeMachine.Events.OnReenter?.Invoke();
             }
-                
+
             return timeMachine;
         }
 
