@@ -98,7 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnFlyModeControlJustPressed()
         {
-            if(Mods.HoverUnderbody == ModState.On && Properties.CanConvert && !Properties.AreFlyingCircuitsBroken && !Game.IsControlPressed(GTA.Control.CharacterWheel) && !Main.MenuPool.IsAnyMenuOpen() && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+            if(Mods.HoverUnderbody == ModState.On && Properties.CanConvert && !Properties.AreFlyingCircuitsBroken && !Game.IsControlPressed(GTA.Control.CharacterWheel) && !Main.ObjectPool.AreAnyVisible && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
             {
                 if (Properties.AreFlyingCircuitsBroken)
                     return;

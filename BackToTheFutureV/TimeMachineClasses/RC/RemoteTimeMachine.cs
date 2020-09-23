@@ -100,5 +100,10 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         {
             _warningSound?.Dispose();         
         }
+
+        public override string ToString()
+        {
+            return RemoteTimeMachineHandler.RemoteTimeMachines.IndexOf(this).ToString();
+        }
     }
 }

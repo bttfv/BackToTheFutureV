@@ -377,6 +377,11 @@ namespace BackToTheFutureV.TimeMachineClasses
             Disposed = true;
         }
 
+        public override string ToString()
+        {
+            return TimeMachineHandler.TimeMachines.ToList().IndexOf(this).ToString();
+        }
+
         public static implicit operator Vehicle(TimeMachine timeMachine) => timeMachine.Vehicle;
         public static implicit operator Entity(TimeMachine timeMachine) => timeMachine.Vehicle;
     }

@@ -4,7 +4,6 @@ using System.Linq;
 using GTA;
 using GTA.Native;
 using GTA.UI;
-using NativeUI;
 
 namespace BackToTheFutureV.Utility
 {

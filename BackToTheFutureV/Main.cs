@@ -4,10 +4,9 @@ using GTA;
 using GTA.Native;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Story;
-using NativeUI;
+using LemonUI;
 using Screen = GTA.UI.Screen;
 using BackToTheFutureV.Entities;
-using BackToTheFutureV.InteractionMenu;
 using BackToTheFutureV.Settings;
 using System.Net.Sockets;
 using System.Net;
@@ -20,12 +19,13 @@ using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Players;
 using System.Collections.Generic;
 using BackToTheFutureV.TimeMachineClasses.Handlers;
+using BackToTheFutureV.Menu;
 
 namespace BackToTheFutureV
 {
     public class Main : Script
     {
-        public static MenuPool MenuPool { get; private set; }
+        public static ObjectPool ObjectPool { get; private set; }
         public static DateTime CurrentTime
         {
             get => Utils.GetWorldTime();
@@ -76,11 +76,9 @@ namespace BackToTheFutureV
 
             System.IO.File.AppendAllText($"./ScriptHookVDotNet.log", $"BackToTheFutureV - {Version} ({buildDate})" + Environment.NewLine);
 
-            MenuPool = new MenuPool();
+            ObjectPool = new ObjectPool();
 
-            ModSettings.LoadSettings();            
-            InteractionMenuManager.Init();
-            ModMenuHandler.Initialize();
+            ModSettings.LoadSettings();
             
             Tick += Main_Tick;
             KeyDown += Main_KeyDown;
@@ -106,9 +104,9 @@ namespace BackToTheFutureV
 
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
         {
-            ModMenuHandler.KeyDown(e);
             TimeMachineHandler.KeyDown(e.KeyCode);
             RCManager.KeyDown(e.KeyCode);
+            MenuHandler.KeyDown(e);
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)
@@ -133,8 +131,7 @@ namespace BackToTheFutureV
                 _firstTick = false;
             }
 
-            if (MenuPool != null && MenuPool.IsAnyMenuOpen())
-                MenuPool.ProcessMenus();
+            ObjectPool.Process();
 
             if (HideGui)
                 Function.Call(Hash.HIDE_HUD_AND_RADAR_THIS_FRAME);
@@ -150,11 +147,11 @@ namespace BackToTheFutureV
             TimeHandler.Process();
             RemoteTimeMachineHandler.Process();
             FireTrailsHandler.Process();
-            InteractionMenuManager.Process();
             ScreenFlash.Process();
             TcdEditer.Process();
             MissionHandler.Process();                        
             PlayerSwitch.Process();
+            MenuHandler.Process();
 
             if (ModSettings.PersistenceSystem && _saveDelay < Game.GameTime)
             {

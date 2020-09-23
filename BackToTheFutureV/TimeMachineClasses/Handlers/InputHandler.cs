@@ -50,7 +50,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Utils.DisplayHelpText($"{inputMode} {(InputMode ? on : off)}");
             }
 
-            if((InputMode && ModSettings.UseInputToggle) || !ModSettings.UseInputToggle && !Main.MenuPool.IsAnyMenuOpen())
+            if((InputMode && ModSettings.UseInputToggle) || !ModSettings.UseInputToggle && !Main.ObjectPool.AreAnyVisible)
             {
                 string keyCode = key.ToString();
 

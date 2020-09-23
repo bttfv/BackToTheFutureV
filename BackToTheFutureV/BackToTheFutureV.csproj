@@ -64,8 +64,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\KlangRageAudioLibrary\irrKlang\irrKlang.NET4.dll</HintPath>
     </Reference>
-    <Reference Include="NativeUI, Version=1.9.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\NativeUI.1.9.0\lib\net452\NativeUI.dll</HintPath>
+    <Reference Include="LemonUI.SHVDN3, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\LemonUI.SHVDN3.1.0.0\lib\net48\LemonUI.SHVDN3.dll</HintPath>
     </Reference>
     <Reference Include="ScriptHookVDotNet3, Version=3.0.4.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\ScriptHookVDotNet3.3.0.4\lib\net48\ScriptHookVDotNet3.dll</HintPath>
@@ -84,19 +84,13 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="GUI\InstrumentalMenu.cs" />
-    <Compile Include="InteractionMenu\PhotoMenu.cs" />
-    <Compile Include="InteractionMenu\PresetsMenu.cs" />
-    <Compile Include="InteractionMenu\OutatimeMenu.cs" />
-    <Compile Include="InteractionMenu\CustomMenu.cs" />
+    <Compile Include="Menu\CustomNativeMenu.cs" />
     <Compile Include="Entities\AnimateProp.cs" />
     <Compile Include="Entities\AnimatePropsHandler.cs" />
     <Compile Include="GUI\RenderTarget.cs" />
     <Compile Include="GUI\ScaleformGui.cs" />
     <Compile Include="GUI\TCDRowScaleform.cs" />
     <Compile Include="GUI\TimeCircuitsScaleform.cs" />
-    <Compile Include="InteractionMenu\InteractionMenuManager.cs" />
-    <Compile Include="InteractionMenu\RCMenu.cs" />
-    <Compile Include="InteractionMenu\TimeMachineMenu.cs" />
     <Compile Include="Memory\CEntityCustomization.cs" />
     <Compile Include="Memory\CEntitySkeleton.cs" />
     <Compile Include="Memory\crSkeletonData.cs" />
@@ -112,12 +106,23 @@
     <Compile Include="Memory\phArchetypeDamp.cs" />
     <Compile Include="Memory\phBound.cs" />
     <Compile Include="Memory\phBoundComposite.cs" />
+    <Compile Include="Menu\CustomMenu.cs" />
+    <Compile Include="Menu\OutatimeMenu.cs" />
+    <Compile Include="Menu\PresetsMenu.cs" />
+    <Compile Include="Menu\TCDMenu.cs" />
+    <Compile Include="Menu\MainMenu.cs" />
+    <Compile Include="Menu\MenuHandler.cs" />
+    <Compile Include="Menu\PhotoMenu.cs" />
+    <Compile Include="Menu\EventsSettingsMenu.cs" />
+    <Compile Include="Menu\RCMenu.cs" />
+    <Compile Include="Menu\SoundsSettingsMenu.cs" />
+    <Compile Include="Menu\SettingsMenu.cs" />
+    <Compile Include="Menu\TimeMachineMenu.cs" />
     <Compile Include="Players\FireTrail.cs" />
     <Compile Include="Players\FireTrailsHandler.cs" />
     <Compile Include="Players\SparkPlayer.cs" />
     <Compile Include="Story\Missions\FirstExperiment.cs" />
     <Compile Include="Story\Mission.cs" />
-    <Compile Include="Settings\ModMenuHandler.cs" />
     <Compile Include="Story\MissionHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\BaseProperties.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\EventsHandler.cs" />

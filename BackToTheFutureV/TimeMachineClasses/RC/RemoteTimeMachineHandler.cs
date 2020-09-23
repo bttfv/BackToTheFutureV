@@ -13,17 +13,17 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 {
     public class RemoteTimeMachineHandler
     {
-        private static List<RemoteTimeMachine> remoteTimeMachines = new List<RemoteTimeMachine>();
+        public static List<RemoteTimeMachine> RemoteTimeMachines = new List<RemoteTimeMachine>();
 
         private static IFormatter formatter = new BinaryFormatter();
 
         private const int MAX_REMOTE_TIMEMACHINES = 10;
-        public static int TimeMachineCount => remoteTimeMachines.Count;
+        public static int TimeMachineCount => RemoteTimeMachines.Count;
         public static RemoteTimeMachine GetTimeMachineFromIndex(int index) 
         { 
             try
             {
-                return remoteTimeMachines[index];
+                return RemoteTimeMachines[index];
             } catch
             {
                 return null;
@@ -32,13 +32,13 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         
         public static void AddRemote(TimeMachineClone timeMachineClone)
         {
-            if (remoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
+            if (RemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
             {
-                remoteTimeMachines[0].Dispose();
-                remoteTimeMachines.RemoveAt(0);
+                RemoteTimeMachines[0].Dispose();
+                RemoteTimeMachines.RemoveAt(0);
             }
 
-            remoteTimeMachines.Add(new RemoteTimeMachine(timeMachineClone));
+            RemoteTimeMachines.Add(new RemoteTimeMachine(timeMachineClone));
 
             if (ModSettings.PersistenceSystem)
                 Save();
@@ -46,17 +46,17 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public static void ExistenceCheck(DateTime time)
         {
-            remoteTimeMachines.ForEach(x => x.ExistenceCheck(time));
+            RemoteTimeMachines.ForEach(x => x.ExistenceCheck(time));
         }
 
         public static void Process()
         {
-            remoteTimeMachines.ForEach(x => x.Process());
+            RemoteTimeMachines.ForEach(x => x.Process());
         }
 
         public static void DeleteAll()
         {
-            remoteTimeMachines.Clear();
+            RemoteTimeMachines.Clear();
 
             if (File.Exists(_saveFile))
                 File.Delete(_saveFile);
@@ -68,7 +68,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         {
             Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
 
-            formatter.Serialize(stream, remoteTimeMachines.Select(x => x.TimeMachineClone).ToList());
+            formatter.Serialize(stream, RemoteTimeMachines.Select(x => x.TimeMachineClone).ToList());
             stream.Close();
         }
 
@@ -86,7 +86,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
                 stream.Close();
 
                 foreach (var x in timeMachineClones)
-                    remoteTimeMachines.Add(new RemoteTimeMachine(x));
+                    RemoteTimeMachines.Add(new RemoteTimeMachine(x));
             } catch (Exception e)
             {
                 if (File.Exists(_saveFile))

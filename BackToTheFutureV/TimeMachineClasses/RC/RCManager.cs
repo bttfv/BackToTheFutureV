@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using GTA;
 using GTA.UI;
 using System.Drawing;
-using NativeUI;
+using LemonUI;
 using System.Windows.Forms;
 using Screen = GTA.UI.Screen;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.Handlers;
+using LemonUI.TimerBars;
 
 namespace BackToTheFutureV.TimeMachineClasses.RC
 {
@@ -20,7 +21,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public static TimeMachine RemoteControlling { get; private set; }
 
-        private static BarTimerBar _signalBar = new BarTimerBar(Game.GetLocalizedString("BTTFV_RC_Signal"));
+        private static TimerBarProgress _signalBar = new TimerBarProgress(Game.GetLocalizedString("BTTFV_RC_Signal"));
 
         public static void RemoteControl(TimeMachine timeMachine)
         {
@@ -34,6 +35,8 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             RemoteControlling = timeMachine;
 
             Main.DisablePlayerSwitching = true;
+
+            _signalBar.Recalculate(new PointF(0, 0));
         }
 
         public static void Process()
@@ -41,10 +44,10 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             if (RemoteControlling == null || !RemoteControlling.Properties.IsRemoteControlled) return;
 
             float squareDist = RemoteControlling.Vehicle.Position.DistanceToSquared(RemoteControlling.OriginalPed.Position);
-            float percentage = ((MAX_DIST * MAX_DIST - squareDist) / (MAX_DIST * MAX_DIST));
+            float percentage = ((MAX_DIST * MAX_DIST - squareDist) / (MAX_DIST * MAX_DIST))*100;
 
-            _signalBar.Percentage = percentage;
-            _signalBar.Draw(1);
+            _signalBar.Progress = percentage;            
+            _signalBar.Draw();
 
             if (squareDist > MAX_DIST * MAX_DIST)
                 StopRemoteControl();
@@ -52,7 +55,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public static void StopRemoteControl(bool instant = false)
         {            
-            RemoteControlling.Events.SetRCMode?.Invoke(false);
+            RemoteControlling.Events.SetRCMode?.Invoke(false, instant);
             RemoteControlling = null;
 
             Main.DisablePlayerSwitching = false;

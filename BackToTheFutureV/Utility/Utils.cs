@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 //using IrrKlang;
 using BackToTheFutureV.Memory;
 using GTA.UI;
-using NativeUI;
+//using NativeUI;
 using System.Drawing;
 using BackToTheFutureV.Vehicles;
 
@@ -158,14 +158,14 @@ namespace BackToTheFutureV.Utility
             VehicleHash.Surfer,
         };
 
-        public static UIMenuItem AttachSubmenu(UIMenu menu, UIMenu menuToBind, string buttonName, string buttonDescription)
-        {
-            UIMenuItem item = new UIMenuItem(buttonName, buttonDescription);
-            menu.AddItem(item);
-            menu.BindMenuToItem(menuToBind, item);
+        //public static UIMenuItem AttachSubmenu(UIMenu menu, UIMenu menuToBind, string buttonName, string buttonDescription)
+        //{
+        //    UIMenuItem item = new UIMenuItem(buttonName, buttonDescription);
+        //    menu.AddItem(item);
+        //    menu.BindMenuToItem(menuToBind, item);
 
-            return item;
-        }
+        //    return item;
+        //}
 
         public static void LiftUpWheel(Vehicle vehicle, WheelId id, float height)
         {

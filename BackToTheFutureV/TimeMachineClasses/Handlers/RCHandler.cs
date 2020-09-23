@@ -131,6 +131,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (!instant)
                     Sounds.RCOff.Play();
+                else
+                    Clone?.Delete();
 
                 if (Sounds.RCSomeSerious.IsAnyInstancePlaying)
                     Sounds.RCSomeSerious?.Stop();
