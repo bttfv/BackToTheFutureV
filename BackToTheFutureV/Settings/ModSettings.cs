@@ -11,6 +11,11 @@ using System.Globalization;
 using BackToTheFutureV.GUI;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.TimeMachineClasses;
+using System.Net;
+using BackToTheFutureV.Utility;
+using System.Runtime.InteropServices.WindowsRuntime;
+using GTA.NaturalMotion;
+using System.Web;
 
 namespace BackToTheFutureV
 {
@@ -18,12 +23,12 @@ namespace BackToTheFutureV
 
     public class ModSettings
     {
-        public static PointF TCDPosition { get; set; } = new PointF(0.88f, 0.75f);
-        public static float TCDScale { get; set; } = 0.3f;
-        public static TCDBackground TCDBackground { get; set; } = TCDBackground.Metal;
-
+        private static Version LastCompatibleVersion = new Version(2, 0, 0, 0);
         public static OnGUIChange OnGUIChange { get; set; }
 
+        public static PointF TCDPosition { get; set; } = new PointF(0.88f, 0.75f);
+        public static float TCDScale { get; set; } = 0.3f;
+        public static TCDBackground TCDBackground { get; set; } = TCDBackground.Metal;        
         public static bool PlayFluxCapacitorSound { get; set; } = true;
         public static bool PlayDiodeBeep { get; set; } = true;
         public static bool PlaySpeedoBeep { get; set; } = true;
@@ -41,6 +46,7 @@ namespace BackToTheFutureV
         public static bool RandomTrains { get; set; } = true;
 
         private static ScriptSettings settings;
+        private static CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
 
         public static void LoadSettings()
         {
@@ -48,9 +54,11 @@ namespace BackToTheFutureV
 
             settings = ScriptSettings.Load(path);
 
-            string version = settings.GetValue<string>("General", "Version", default);
+            string savedStringVersion = settings.GetValue<string>("General", "Version", default);
 
-            if (version == default || version != Main.Version.ToString())
+            Version savedVersion = savedStringVersion == default ? null : new Version(savedStringVersion);
+
+            if (savedStringVersion == default || savedVersion < LastCompatibleVersion)
             {
                 RemoteTimeMachineHandler.DeleteAll();
                 TimeMachineCloneManager.Delete();
@@ -65,10 +73,10 @@ namespace BackToTheFutureV
                 SaveSettings();
 
                 return;
-            }
-
-            CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
-
+            } 
+            else if (savedVersion != Main.Version)
+                settings.SetValue("General", "Version", Main.Version);
+                       
             TCDScale = float.Parse(settings.GetValue("TimeCircuits", "Scale", TCDScale.ToString("G", info)), info);
             TCDPosition = new PointF(float.Parse(settings.GetValue("TimeCircuits", "PositionX", TCDPosition.X.ToString("G", info)), info), float.Parse(settings.GetValue("TimeCircuits", "PositionY", TCDPosition.Y.ToString("G", info)), info));
             TCDBackground = (TCDBackground)Enum.Parse(typeof(TCDBackground), settings.GetValue("TimeCircuits", "Background", "Metal"));
@@ -99,8 +107,6 @@ namespace BackToTheFutureV
 
         public static void SaveSettings()
         {
-            CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
-
             settings.SetValue("TimeCircuits", "Scale", TCDScale.ToString("G", info));
             settings.SetValue("TimeCircuits", "PositionX", TCDPosition.X.ToString("G", info));
             settings.SetValue("TimeCircuits", "PositionY", TCDPosition.Y.ToString("G", info));            
