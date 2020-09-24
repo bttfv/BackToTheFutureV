@@ -110,7 +110,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         }
 
         public void SetFlyMode(bool open, bool instant = false)
-        {            
+        {
             if (open && Properties.AreFlyingCircuitsBroken)
             {
                 if (VehicleControl.GetDeluxoTransformation(Vehicle) > 0)
@@ -118,6 +118,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 return;
             }
+
+            if (Properties.IsOnTracks && !Mods.IsDMC12)
+                Events.SetStopTracks?.Invoke(3000);
 
             Properties.AreWheelsInHoverMode = open;
 

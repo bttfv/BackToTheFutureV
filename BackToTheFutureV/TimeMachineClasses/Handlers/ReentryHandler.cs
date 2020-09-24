@@ -137,7 +137,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Properties.HasBeenStruckByLightning = false;
 
-            if (!Properties.IsOnTracks && Vehicle.Driver == null)
+            if (!Properties.IsOnTracks && !Properties.IsFlying && Vehicle.Driver == null)
             {
                 Vehicle.SteeringAngle = Utils.Random.NextDouble() >= 0.5f ? 35 : -35;
                 Vehicle.IsHandbrakeForcedOn = true;

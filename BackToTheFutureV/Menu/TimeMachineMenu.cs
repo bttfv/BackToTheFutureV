@@ -63,6 +63,7 @@ namespace BackToTheFutureV.Menu
 
             FlyMode.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == Vehicles.ModState.On;
             AltitudeHold.Enabled = FlyMode.Enabled;
+            RemoteControl.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
         }
 
         private void TimeMachineMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)

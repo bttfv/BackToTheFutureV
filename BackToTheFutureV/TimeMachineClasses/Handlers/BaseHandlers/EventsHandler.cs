@@ -36,6 +36,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void SetFreeze(bool state, bool resume = false);
     public delegate void StartTimeTravel(int delay = 0);
     public delegate void StartFuelBlink();
+    public delegate void SetStopTracks(int delay = 0);
 
     public class EventsHandler : Handler
     {
@@ -67,6 +68,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public SetFreeze SetFreeze;
         public StartTimeTravel StartTimeTravel;
         public StartFuelBlink StartFuelBlink;
+        public SetStopTracks SetStopTracks;
 
         public EventsHandler(TimeMachine timeMachine) : base(timeMachine)
         {

@@ -25,6 +25,7 @@ namespace BackToTheFutureV
         public bool EngineRunning { get; }
         public VehicleColor PrimaryColor { get; }
         public VehicleColor SecondaryColor { get; }
+        public int Livery { get; }
 
         public VehicleInfo(Vehicle veh)
         {
@@ -39,6 +40,7 @@ namespace BackToTheFutureV
             EngineRunning = veh.IsEngineRunning;
             PrimaryColor = veh.Mods.PrimaryColor;
             SecondaryColor = veh.Mods.SecondaryColor;
+            Livery = veh.Mods.Livery;
         }
 
         public Vehicle Spawn()
@@ -75,6 +77,7 @@ namespace BackToTheFutureV
             veh.IsEngineRunning = EngineRunning;
             veh.Mods.PrimaryColor = PrimaryColor;
             veh.Mods.SecondaryColor = SecondaryColor;
+            veh.Mods.Livery = Livery;
         }
     }
 

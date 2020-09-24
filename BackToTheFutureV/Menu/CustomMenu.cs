@@ -278,6 +278,12 @@ namespace BackToTheFutureV.Menu
 
         public override void Tick()
         {
+            if (Main.PlayerVehicle != _tempTimeMachine)
+            {
+                Close();
+                return;
+            }
+
             LoadVehicleType();
         }
     }

@@ -26,6 +26,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
             Events.OnReenterCompleted += OnReenterCompleted;
+            Events.SetStopTracks += Stop;
         }
 
         public void OnTimeTravelStarted()
@@ -183,7 +184,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (_attachDelay < Game.GameTime && Mods.Wheel == WheelType.RailroadInvisible && (customTrain == null || !customTrain.Exists))
+            if (_attachDelay < Game.GameTime && Mods.Wheel == WheelType.RailroadInvisible && !Properties.IsFlying && (customTrain == null || !customTrain.Exists))
             {
                 var wheelPos = new List<Vector3>
                     {
@@ -200,8 +201,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Stop()
         {
+            Stop(0);
+        }
+
+        public void Stop(int delay = 0)
+        {
             _isReentryOn = false;
             Properties.IsOnTracks = false;
+
+            if (delay > 0)
+                _attachDelay = Game.GameTime + delay;
 
             if (customTrain != null)
             {
