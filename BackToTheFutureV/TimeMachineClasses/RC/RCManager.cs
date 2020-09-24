@@ -21,7 +21,17 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public static TimeMachine RemoteControlling { get; private set; }
 
-        private static TimerBarProgress _signalBar = new TimerBarProgress(Game.GetLocalizedString("BTTFV_RC_Signal"));
+        private static TimerBarCollection TimerBarCollection;
+
+        private static TimerBarProgress SignalBar;
+
+        static RCManager()
+        {
+            TimerBarCollection = new TimerBarCollection(SignalBar = new TimerBarProgress(Game.GetLocalizedString("BTTFV_RC_Signal")));
+            TimerBarCollection.Visible = false;
+
+            Main.ObjectPool.Add(TimerBarCollection);
+        }
 
         public static void RemoteControl(TimeMachine timeMachine)
         {
@@ -36,7 +46,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
             Main.DisablePlayerSwitching = true;
 
-            _signalBar.Recalculate(new PointF(0, 0));
+            TimerBarCollection.Visible = true;
         }
 
         public static void Process()
@@ -46,9 +56,8 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             float squareDist = RemoteControlling.Vehicle.Position.DistanceToSquared(RemoteControlling.OriginalPed.Position);
             float percentage = ((MAX_DIST * MAX_DIST - squareDist) / (MAX_DIST * MAX_DIST))*100;
 
-            _signalBar.Progress = percentage;            
-            _signalBar.Draw();
-
+            SignalBar.Progress = percentage;            
+            
             if (squareDist > MAX_DIST * MAX_DIST)
                 StopRemoteControl();
         }
@@ -59,6 +68,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             RemoteControlling = null;
 
             Main.DisablePlayerSwitching = false;
+            TimerBarCollection.Visible = false;
         }
 
         public static void KeyDown(Keys key) {}
