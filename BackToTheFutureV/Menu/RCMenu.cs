@@ -98,6 +98,7 @@ namespace BackToTheFutureV.Menu
             {
                 StopPreviewing();
 
+                GTA.UI.Notification.Show(Game.GetLocalizedString("BTTFV_OutOfRange"));
                 return false;
             }
         }
@@ -126,7 +127,8 @@ namespace BackToTheFutureV.Menu
 
         public override void Tick()
         {
-            
+            if (Main.PlayerVehicle != null)
+                Close();
         }
     }
 }

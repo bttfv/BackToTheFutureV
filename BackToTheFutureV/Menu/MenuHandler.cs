@@ -43,35 +43,7 @@ namespace BackToTheFutureV.Menu
                     MainMenu.Visible = true;
             }
 
-            if (MainMenu.Visible)
-                MainMenu.Tick();
-
-            if (TimeMachineMenu.Visible)
-                TimeMachineMenu.Tick();
-
-            if (SettingsMenu.Visible)
-                SettingsMenu.Tick();
-
-            if (PhotoMenu.Visible)
-                PhotoMenu.Tick();
-
-            if (SoundsSettingsMenu.Visible)
-                SoundsSettingsMenu.Tick();
-
-            if (EventsSettingsMenu.Visible)
-                EventsSettingsMenu.Tick();
-
-            if (CustomMenu.Visible)
-                CustomMenu.Tick();
-
-            if (CustomMenuForced.Visible)
-                CustomMenuForced.Tick();
-
-            if (PresetsMenu.Visible)
-                PresetsMenu.Tick();
-
-            if (OutatimeMenu.Visible)
-                OutatimeMenu.Tick();
+            CustomNativeMenu.ProcessAll();
         }
 
         public static void KeyDown(KeyEventArgs e)
@@ -81,6 +53,8 @@ namespace BackToTheFutureV.Menu
                 if (TimeMachineHandler.CurrentTimeMachine != null)
                     if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                         return;
+
+                Main.ObjectPool.HideAll();
 
                 MainMenu.Visible = true;
             }

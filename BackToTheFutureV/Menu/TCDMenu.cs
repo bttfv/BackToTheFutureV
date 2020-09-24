@@ -18,7 +18,7 @@ namespace BackToTheFutureV.Menu
         private NativeItem changeTCD;
         private NativeItem resetToDefaultTCD;
 
-        public TCDMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_TCDEditMode"))
+        public TCDMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_TCDMenu"))
         {
             Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
 

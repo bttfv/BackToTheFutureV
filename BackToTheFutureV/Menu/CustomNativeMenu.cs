@@ -13,7 +13,7 @@ namespace BackToTheFutureV.Menu
     public delegate void OnItemActivated(NativeItem sender, EventArgs e);
     public delegate void OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked);
     public delegate void OnItemValueChanged(NativeSliderItem sender, EventArgs e);
-
+    
     public abstract class CustomNativeMenu : NativeMenu
     {
         public event OnItemActivated OnItemActivated;
@@ -21,20 +21,35 @@ namespace BackToTheFutureV.Menu
         public event OnItemCheckboxChanged OnItemCheckboxChanged;
         public event OnItemValueChanged OnItemValueChanged;
 
+        public static List<CustomNativeMenu> CustomNativeMenus = new List<CustomNativeMenu>();
+
         public CustomNativeMenu(string title) : base(title)
         {
+            CustomNativeMenus.Add(this);
         }
 
         public CustomNativeMenu(string title, string subtitle) : base(title, subtitle)
         {
+            CustomNativeMenus.Add(this);
         }
 
         public CustomNativeMenu(string title, string subtitle, string description) : base(title, subtitle, description)
         {
+            CustomNativeMenus.Add(this);
         }
 
         public CustomNativeMenu(string title, string subtitle, string description, I2Dimensional banner) : base(title, subtitle, description, banner)
-        {            
+        {
+            CustomNativeMenus.Add(this);
+        }
+
+        public static void ProcessAll()
+        {
+            CustomNativeMenus.ForEach(x =>
+            {
+                if (x.Visible)
+                    x.Tick();
+            });
         }
 
         public new void Add(NativeItem nativeItem)

@@ -199,14 +199,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             _flyModeInput.Process();
 
-            if (Main.PlayerVehicle == Vehicle)
-            {
-                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player.Handle, false);
-            }                
-            else
-            {
-                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player.Handle, true);
-            }
+            Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player.Handle, Main.PlayerVehicle != Vehicle);
                 
             if (Vehicle == null || !Vehicle.IsVisible)
                 return;

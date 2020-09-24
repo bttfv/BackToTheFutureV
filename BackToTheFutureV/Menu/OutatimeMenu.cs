@@ -36,7 +36,6 @@ namespace BackToTheFutureV.Menu
             OnItemActivated += OutatimeMenu_OnItemActivated;
 
             Add(TimeMachines = new NativeListItem<RemoteTimeMachine>(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans_Description")));
-            TimeMachines.ItemChanged += TimeMachines_ItemChanged;
             Add(TypeDescription = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type_Description")));
             Add(DestinationTimeDescription = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime_Description")));
             Add(LastTimeDescription = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime_Description")));
@@ -50,11 +49,6 @@ namespace BackToTheFutureV.Menu
             Spawned.Enabled = false;
 
             Main.ObjectPool.Add(this);
-        }
-
-        private void TimeMachines_ItemChanged(object sender, ItemChangedEventArgs<RemoteTimeMachine> e)
-        {
-            UpdateInfos();
         }
 
         private void UpdateInfos()
@@ -72,14 +66,8 @@ namespace BackToTheFutureV.Menu
 
         private void OutatimeMenu_OnItemActivated(NativeItem sender, EventArgs e)
         {
-            if (sender == ForceReenter && !Spawned.Checked)
-            {
-                CurrentRemoteTimeMachine.Spawn(ReenterType.Forced);
-
-                Spawned.Checked = CurrentRemoteTimeMachine.Spawned;
-
-                Recalculate();
-            }
+            if (sender == ForceReenter && !CurrentRemoteTimeMachine.Spawned)
+                CurrentRemoteTimeMachine.Spawn(ReenterType.Forced);        
         }
 
         private void OutatimeMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -120,20 +108,18 @@ namespace BackToTheFutureV.Menu
                     }
                 }
                 else
-                    CurrentRemoteTimeMachine.Blip.Delete();
+                    CurrentRemoteTimeMachine.Blip?.Delete();
             }
         }
 
         private void OutatimeMenu_Shown(object sender, EventArgs e)
         {
             TimeMachines.Items = RemoteTimeMachineHandler.RemoteTimeMachines;
-
-            UpdateInfos();
         }
 
         public override void Tick()
         {
-            
+            UpdateInfos();
         }
     }
 }

@@ -154,7 +154,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (Mods.HoverUnderbody == ModState.Off && Mods.IsDMC12)
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
 
-            if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+            if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole | Properties.IsRemoteControlled)
                 Vehicle.LockStatus = VehicleLockStatus.StickPlayerInside;
             else
                 Vehicle.LockStatus = VehicleLockStatus.None;

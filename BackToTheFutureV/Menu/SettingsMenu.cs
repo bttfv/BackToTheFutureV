@@ -39,8 +39,8 @@ namespace BackToTheFutureV.Menu
             Add(LandingSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_LandingSystem"), Game.GetLocalizedString("BTTFV_Menu_LandingSystem_Description"), ModSettings.LandingSystem));
             Add(PersistenceSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem"), Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem_Description"), ModSettings.PersistenceSystem));
             Add(RandomTrains = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RandomTrains"), Game.GetLocalizedString("BTTFV_Menu_RandomTrains_Description"), ModSettings.RandomTrains));
-            Add(GlowingWormholeEmitter = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn"), Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn_Description"), ModSettings.GlowingWormholeEmitter));
-            Add(GlowingPlutoniumReactor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn"), Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn_Description"), ModSettings.GlowingPlutoniumReactor));
+            Add(GlowingWormholeEmitter = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter_Description"), ModSettings.GlowingWormholeEmitter));
+            Add(GlowingPlutoniumReactor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor_Description"), ModSettings.GlowingPlutoniumReactor));
 
             SoundsMenu = AddSubMenu(MenuHandler.SoundsSettingsMenu);
             SoundsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_SoundsMenu");
@@ -51,8 +51,8 @@ namespace BackToTheFutureV.Menu
             EventsMenu.Description = Game.GetLocalizedString("BTTFV_Menu_EventsMenu_Description");
 
             TCDMenu = AddSubMenu(MenuHandler.TCDMenu);
-            TCDMenu.Title = Game.GetLocalizedString("BTTFV_Menu_TCDEditMode");
-            TCDMenu.Description = Game.GetLocalizedString("BTTFV_Menu_TCDEditMode_Description");
+            TCDMenu.Title = Game.GetLocalizedString("BTTFV_Menu_TCDMenu");
+            TCDMenu.Description = Game.GetLocalizedString("BTTFV_Menu_TCDMenu_Description");
 
             Main.ObjectPool.Add(this);
         }

@@ -70,7 +70,5 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             Main.DisablePlayerSwitching = false;
             TimerBarCollection.Visible = false;
         }
-
-        public static void KeyDown(Keys key) {}
     }
 }

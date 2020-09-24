@@ -196,6 +196,12 @@ namespace BackToTheFutureV.Menu
 
         private void SettingsMenu_Shown(object sender, EventArgs e)
         {
+            if (MenuHandler.MainMenu.Visible)
+                MenuHandler.MainMenu.Close();
+
+            if (MenuHandler.TimeMachineMenu.Visible)
+                MenuHandler.TimeMachineMenu.Close();
+
             if (ForceNew || (Main.PlayerVehicle == null || !Main.PlayerVehicle.IsTimeMachine()))
             {
                 if (ForceNew)

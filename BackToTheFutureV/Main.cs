@@ -105,7 +105,6 @@ namespace BackToTheFutureV
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
         {
             TimeMachineHandler.KeyDown(e.KeyCode);
-            RCManager.KeyDown(e.KeyCode);
             MenuHandler.KeyDown(e);
         }
 

@@ -63,7 +63,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                     Hoodbox = ModState.On;
                     Wheel = WheelType.Red;
-                    SuspensionsType = SuspensionsType.LiftFrontLowerRear;
+                    SuspensionsType = SuspensionsType.LiftFront;
                     break;
             }
         }
