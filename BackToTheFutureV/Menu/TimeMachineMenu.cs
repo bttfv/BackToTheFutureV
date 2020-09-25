@@ -52,23 +52,25 @@ namespace BackToTheFutureV.Menu
         }
 
         private void TimeMachineMenu_Shown(object sender, EventArgs e)
-        {
+        {            
             if (TimeMachineHandler.CurrentTimeMachine == null)
             {
                 Close();
                 return;
             }
-                
-            PhotoMenu.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12;
 
             FlyMode.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == Vehicles.ModState.On;
             AltitudeHold.Enabled = FlyMode.Enabled;
+
             RemoteControl.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+
+            TimeCircuitsOn.Enabled = !RemoteControl.Enabled;
+            CutsceneMode.Enabled = !RemoteControl.Enabled;
         }
 
         private void TimeMachineMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
-            if (sender == TimeCircuitsOn && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
+            if (sender == TimeCircuitsOn && Checked != TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsOn)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetTimeCircuits?.Invoke(Checked);
             else if (sender == CutsceneMode && Checked != TimeMachineHandler.CurrentTimeMachine.Properties.CutsceneMode)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetCutsceneMode?.Invoke(Checked);
@@ -85,7 +87,6 @@ namespace BackToTheFutureV.Menu
             if (TimeMachineHandler.CurrentTimeMachine == null)
             {
                 Close();
-
                 return;
             }
 

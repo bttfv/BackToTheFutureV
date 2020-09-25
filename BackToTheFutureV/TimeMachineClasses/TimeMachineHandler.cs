@@ -134,7 +134,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             Ped ped = Main.PlayerPed;
 
-            if (RCManager.RemoteControlling != null)
+            if (RCManager.IsRemoteOn)
             {
                 ped = RCManager.RemoteControlling.OriginalPed;
                 RCManager.StopRemoteControl(true);
@@ -177,7 +177,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             Ped ped = Main.PlayerPed;
 
-            if (RCManager.RemoteControlling != null)
+            if (RCManager.IsRemoteOn)
             {
                 ped = RCManager.RemoteControlling.OriginalPed;
                 RCManager.StopRemoteControl(true);
@@ -213,7 +213,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (warpInPlayer)
             {
-                if (RCManager.RemoteControlling != null)
+                if (RCManager.IsRemoteOn)
                     RCManager.StopRemoteControl(true);
 
                 Main.PlayerPed.Task.WarpIntoVehicle(timeMachine, VehicleSeat.Driver);
@@ -345,7 +345,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 }
             }
 
-            if (RCManager.RemoteControlling != null)
+            if (RCManager.IsRemoteOn)
             {
                 CurrentTimeMachine = RCManager.RemoteControlling;
 

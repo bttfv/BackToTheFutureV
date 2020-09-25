@@ -20,9 +20,9 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         public static readonly float MAX_DIST = 650f;
 
         public static TimeMachine RemoteControlling { get; private set; }
+        public static bool IsRemoteOn => RemoteControlling != null;
 
         private static TimerBarCollection TimerBarCollection;
-
         private static TimerBarProgress SignalBar;
 
         static RCManager()
@@ -38,28 +38,34 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             if (timeMachine == null)
                 return;
 
-            if (RemoteControlling != null)
-                RemoteControlling.Events.SetRCMode?.Invoke(false);
+            if (IsRemoteOn)
+                RemoteControlling.Events.SetRCMode?.Invoke(false, true);
 
             timeMachine.Events.SetRCMode?.Invoke(true);
             RemoteControlling = timeMachine;
 
             Main.DisablePlayerSwitching = true;
-
-            TimerBarCollection.Visible = true;
         }
 
         public static void Process()
         {
-            if (RemoteControlling == null || !RemoteControlling.Properties.IsRemoteControlled) return;
+            if (!IsRemoteOn)
+                return;
 
             float squareDist = RemoteControlling.Vehicle.Position.DistanceToSquared(RemoteControlling.OriginalPed.Position);
-            float percentage = ((MAX_DIST * MAX_DIST - squareDist) / (MAX_DIST * MAX_DIST))*100;
 
-            SignalBar.Progress = percentage;            
-            
             if (squareDist > MAX_DIST * MAX_DIST)
+            {
                 StopRemoteControl();
+                return;
+            }
+
+            float percentage = ((MAX_DIST * MAX_DIST - squareDist) / (MAX_DIST * MAX_DIST)) * 100;
+
+            if (!TimerBarCollection.Visible)
+                TimerBarCollection.Visible = true;
+
+            SignalBar.Progress = percentage;
         }
 
         public static void StopRemoteControl(bool instant = false)

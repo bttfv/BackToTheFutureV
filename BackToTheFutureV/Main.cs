@@ -91,7 +91,7 @@ namespace BackToTheFutureV
 
             Screen.FadeIn(1000);
 
-            if (RCManager.RemoteControlling != null)
+            if (RCManager.IsRemoteOn)
                 RCManager.StopRemoteControl(true);
 
             if (ModSettings.PersistenceSystem)

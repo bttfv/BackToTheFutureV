@@ -29,13 +29,21 @@ namespace BackToTheFutureV.Menu
 
         public static void Process()
         {
-            if (Game.IsControlPressed(Control.CharacterWheel) && Game.IsControlPressed(Control.VehicleHandbrake) && !Main.ObjectPool.AreAnyVisible && !TcdEditer.IsEditing)
+            if (Game.IsControlPressed(Control.CharacterWheel) && Game.IsControlPressed(Control.VehicleHandbrake) && !TcdEditer.IsEditing)
             {
                 if (TimeMachineHandler.CurrentTimeMachine != null)
                 {
                     if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                         return;
                 }
+
+                if (RCManager.IsRemoteOn)
+                {
+                    TimeMachineMenu.Visible = true;
+                    return;
+                }
+                else if (Main.ObjectPool.AreAnyVisible)
+                    return;
 
                 if (TimeMachineHandler.CurrentTimeMachine != null)
                     TimeMachineMenu.Visible = true;
