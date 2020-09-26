@@ -314,8 +314,22 @@ namespace BackToTheFutureV.TimeMachineClasses
         public static void UpdateClosestTimeMachine()
         {
             if (Main.PlayerVehicle != null && CurrentTimeMachine != null && CurrentTimeMachine.Vehicle == Main.PlayerVehicle)
-                return;
+            {
+                if (ClosestTimeMachine != CurrentTimeMachine)
+                {
+                    ClosestTimeMachine = CurrentTimeMachine;
+                    SquareDistToClosestTimeMachine = 0;
+                }
 
+                if (!CurrentTimeMachine.Properties.IsGivenScaleformPriority)
+                {
+                    CurrentTimeMachine.Properties.IsGivenScaleformPriority = true;
+                    CurrentTimeMachine.Events.OnScaleformPriority?.Invoke();
+                }
+
+                return;
+            }
+                
             CurrentTimeMachine = null;
 
             if (TimeMachines.Count == 0 && SquareDistToClosestTimeMachine != -1)

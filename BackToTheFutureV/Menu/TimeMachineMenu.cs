@@ -70,15 +70,15 @@ namespace BackToTheFutureV.Menu
 
         private void TimeMachineMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
-            if (sender == TimeCircuitsOn && Checked != TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsOn)
+            if (sender == TimeCircuitsOn)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetTimeCircuits?.Invoke(Checked);
-            else if (sender == CutsceneMode && Checked != TimeMachineHandler.CurrentTimeMachine.Properties.CutsceneMode)
+            else if (sender == CutsceneMode)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetCutsceneMode?.Invoke(Checked);
             else if (sender == RemoteControl && !Checked && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
                 RCManager.StopRemoteControl();
-            else if (sender == FlyMode && Checked != TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying)
+            else if (sender == FlyMode)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
-            else if (sender == AltitudeHold && Checked != TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding)
+            else if (sender == AltitudeHold)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetAltitudeHold?.Invoke(Checked);
         }
 

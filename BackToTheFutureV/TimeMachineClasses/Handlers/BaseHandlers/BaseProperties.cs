@@ -47,7 +47,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool HasBeenStruckByLightning { get; set; }
         public bool PhotoWormholeActive { get; set; }
         public bool PhotoGlowingCoilsActive { get; set; }
-        public bool PhotoIceActive { get; set; }
         public bool PhotoFluxCapacitorActive { get; set; }
         public float TorqueMultiplier { get; set; } = 1;
 

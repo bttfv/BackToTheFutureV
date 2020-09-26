@@ -16,7 +16,7 @@ namespace BackToTheFutureV.Menu
         private NativeCheckboxItem Wormhole;
         private NativeCheckboxItem Coils;
         private NativeCheckboxItem Ice;
-        private NativeCheckboxItem FluxCapacitor;
+        //private NativeCheckboxItem FluxCapacitor;
         private NativeCheckboxItem HideHUD;
 
         private TimeMachine TimeMachine => TimeMachineHandler.CurrentTimeMachine;
@@ -31,7 +31,7 @@ namespace BackToTheFutureV.Menu
             Add(Wormhole = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole_Description")));
             Add(Coils = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils_Description")));
             Add(Ice = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice_Description")));
-            Add(FluxCapacitor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor_Description")));
+            //Add(FluxCapacitor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor_Description")));
             Add(HideHUD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_HideHUD"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_HideHUD_Description")));
 
             Main.ObjectPool.Add(this);
@@ -41,7 +41,7 @@ namespace BackToTheFutureV.Menu
         {
             Coils.Enabled = TimeMachine.Mods.IsDMC12;
             Ice.Enabled = TimeMachine.Mods.IsDMC12;
-            FluxCapacitor.Enabled = TimeMachine.Mods.IsDMC12;
+            //FluxCapacitor.Enabled = TimeMachine.Mods.IsDMC12;
         }
 
         private void PhotoMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -53,10 +53,10 @@ namespace BackToTheFutureV.Menu
                 TimeMachine.Properties.PhotoGlowingCoilsActive = Checked;
 
             if (sender == Ice)
-                TimeMachine.Properties.PhotoIceActive = Checked;
+                TimeMachine.Events.SetFreeze(!TimeMachine.Properties.IsFreezed);
 
-            if (sender == FluxCapacitor)
-                TimeMachine.Properties.PhotoFluxCapacitorActive = Checked;
+            //if (sender == FluxCapacitor)
+            //    TimeMachine.Properties.PhotoFluxCapacitorActive = Checked;
 
             if (sender == HideHUD)
                 Main.HideGui = Checked;
@@ -73,8 +73,8 @@ namespace BackToTheFutureV.Menu
 
             Wormhole.Checked = TimeMachine.Properties.PhotoWormholeActive;
             Coils.Checked = TimeMachine.Properties.PhotoGlowingCoilsActive;
-            Ice.Checked = TimeMachine.Properties.PhotoIceActive;
-            FluxCapacitor.Checked = TimeMachine.Properties.PhotoFluxCapacitorActive;
+            Ice.Checked = TimeMachine.Properties.IsFreezed;
+            //FluxCapacitor.Checked = TimeMachine.Properties.PhotoFluxCapacitorActive;
             HideHUD.Checked = Main.HideGui;
 
             Recalculate();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GTA;
 using LemonUI;
 using LemonUI.Elements;
 using LemonUI.Menus;
@@ -101,6 +102,9 @@ namespace BackToTheFutureV.Menu
 
         private void NativeCheckboxItem_CheckboxChanged(object sender, EventArgs e)
         {
+            if (!Game.IsControlJustPressed(Control.PhoneSelect))
+                return;
+
             OnItemCheckboxChanged?.Invoke((NativeCheckboxItem)sender, e, ((NativeCheckboxItem)sender).Checked);
         }
 

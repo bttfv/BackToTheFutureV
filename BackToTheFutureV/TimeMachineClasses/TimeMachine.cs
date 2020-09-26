@@ -344,13 +344,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
                     Events.OnTimeTravelInterrupted?.Invoke();
 
-                if (Properties.PhotoIceActive && !Properties.IsFreezed)
-                    Events.SetFreeze?.Invoke(true);
-
-                if (!Properties.PhotoIceActive && Properties.IsFreezed && Properties.IsPhotoModeOn)
-                    Events.SetFreeze?.Invoke(false);
-
-                Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.PhotoIceActive;
+                Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive; //| Properties.PhotoIceActive;
             } catch
             {
 
