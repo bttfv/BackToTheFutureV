@@ -214,4 +214,34 @@
 	BTTFV_TCD_Edit_ScaleDown = Diminuisci
 	BTTFV_TCD_Edit_ScaleUp = Ingrandisci
 	BTTFV_TimeTravelModeChange = Modalità viaggio nel tempo impostata in
+	<!-- TRANSLATE FROM HERE -->
+	BTTFV_Menu_ControlsMenu = Gestione controlli
+	BTTFV_Menu_ControlsMenu_Description = Apre il menu per la modifica dei pulsanti.
+	BTTFV_Menu_ControlsMenu_Button = Pulsante selezionato:
+	BTTFV_Menu_ControlsMenu_UseControlForMainMenu = CTRL richiesto
+	BTTFV_Menu_ControlsMenu_UseControlForMainMenu_Description = E' obbligatorio tenere premuto CTRL insieme al tasto per aprire il menu principale.
+	BTTFV_Menu_ControlsMenu_MainMenu = Menu principale
+	BTTFV_Menu_ControlsMenu_MainMenu_Description = Tasto per aprire il menu principale.
+	BTTFV_Menu_ControlsMenu_CombinationsForInteractionMenu = Combinazione richiesta
+	BTTFV_Menu_ControlsMenu_CombinationsForInteractionMenu_Description = Necessario premre i due tasti contemporaneamente.
+	BTTFV_Menu_ControlsMenu_InteractionMenu1 = Menu interazione (1)
+	BTTFV_Menu_ControlsMenu_InteractionMenu1_Description = Primo pulsante per aprire il menu d'interazione (o unico se la combinazione è disattivata).
+	BTTFV_Menu_ControlsMenu_InteractionMenu2 = Menu interazione (2)
+	BTTFV_Menu_ControlsMenu_InteractionMenu2_Description = Secondo pulsante per aprire il menu d'interazione (se combinazione è attivata).
+	BTTFV_Menu_ControlsMenu_LongPressForHover = Pressione prolungata
+	BTTFV_Menu_ControlsMenu_LongPressForHover_Description = Richiede la pressione prolungata del pulsante per l'aerotrasformazione.
+	BTTFV_Menu_ControlsMenu_Hover = Aerotrasformazione
+	BTTFV_Menu_ControlsMenu_Hover_Description = Pulsante per l'aerotrasformazione (RICHIESTO RIAVVIO DELLO SCRIPT).
+	BTTFV_Menu_ControlsMenu_HoverBoost = Boost in volo
+	BTTFV_Menu_ControlsMenu_HoverBoost_Description = Pulsante per il boost mentre in volo.
+	BTTFV_Menu_ControlsMenu_HoverVTOL = VTOL
+	BTTFV_Menu_ControlsMenu_HoverVTOL_Description = Pulsante per il VTOL mentre in volo.
+	BTTFV_Menu_ControlsMenu_HoverAltitudeHold = Mantenimento altitudine
+	BTTFV_Menu_ControlsMenu_HoverAltitudeHold_Description = Tasto per il mantenimento dell'altitudine.
+	BTTFV_Menu_ControlsMenu_TCToggle = Tempo circuiti
+	BTTFV_Menu_ControlsMenu_TCToggle_Description = Tasto per accendere/spegnere i tempo circuiti.
+	BTTFV_Menu_ControlsMenu_CutsceneToggle = Modalità estesa/istantanea
+	BTTFV_Menu_ControlsMenu_CutsceneToggle_Description = Tasto per la modalità estesa/istantanea.
+	BTTFV_Menu_ControlsMenu_InputToggle = Inserimento
+	BTTFV_Menu_ControlsMenu_InputToggle_Description = Tasto per attivare la modalità d'inserimento.
 }
