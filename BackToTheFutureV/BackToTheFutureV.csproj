@@ -80,6 +80,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Memory\phBound.cs" />
     <Compile Include="Memory\phBoundComposite.cs" />
     <Compile Include="Menu\CustomMenu.cs" />
+    <Compile Include="Menu\ControlsMenu.cs" />
     <Compile Include="Menu\OutatimeMenu.cs" />
     <Compile Include="Menu\PresetsMenu.cs" />
     <Compile Include="Menu\TCDMenu.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Players\FireTrail.cs" />
     <Compile Include="Players\FireTrailsHandler.cs" />
     <Compile Include="Players\SparkPlayer.cs" />
+    <Compile Include="Settings\ModControls.cs" />
     <Compile Include="Story\Missions\FirstExperiment.cs" />
     <Compile Include="Story\Mission.cs" />
     <Compile Include="Story\MissionHandler.cs" />
@@ -158,6 +161,7 @@
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PropsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\SoundsHandler.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineMods.cs" />
+    <Compile Include="Utility\CustomControl.cs" />
     <Compile Include="Utility\CustomStopwatch.cs" />
     <Compile Include="Utility\PlayerSwitch.cs" />
     <Compile Include="Utility\TimedEvent.cs" />

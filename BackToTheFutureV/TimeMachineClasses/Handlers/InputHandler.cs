@@ -38,7 +38,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (Main.PlayerVehicle != Vehicle || !Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible) return;
 
-            if(key == Keys.Divide && ModSettings.UseInputToggle)
+            if(key == ModControls.InputToggle && ModSettings.UseInputToggle)
             {
                 InputMode = !InputMode;
                 _nextReset = 0;

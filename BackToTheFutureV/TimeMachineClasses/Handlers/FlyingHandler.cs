@@ -12,6 +12,7 @@ using Control = GTA.Control;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using GTA.UI;
+using BackToTheFutureV.Settings;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -34,13 +35,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private Vector3 _forceToBeApplied = Vector3.Zero;
 
+        private bool _hoverGlowUp;
+
         public FlyingHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             if (Mods.HoverUnderbody == ModState.On)
                 OnHoverUnderbodyToggle();
 
-            _flyModeInput = new NativeInput((GTA.Control)357);
-            _flyModeInput.OnControlLongPressed += OnFlyModeControlJustPressed;
+            _flyModeInput = new NativeInput(ModControls.Hover);
+            _flyModeInput.OnControlLongPressed += OnFlyModeControlJustLongPressed;
+            _flyModeInput.OnControlPressed += OnFlyModeControlJustPressed;
 
             Events.SetFlyMode += SetFlyMode;
             Events.SetAltitudeHold += SetHoverMode;
@@ -96,16 +100,36 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _startHoverGlowLater = false;
         }
 
+        private void OnFlyModeControlJustLongPressed()
+        {
+            if (ModControls.LongPressForHover)
+            {
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && !Properties.AreFlyingCircuitsBroken && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+                {
+                    if (Properties.AreFlyingCircuitsBroken)
+                        return;
+
+                    SetFlyMode(!Properties.AreWheelsInHoverMode);
+
+                    _nextModeChangeAllowed = Game.GameTime + 1500;
+                }
+            }
+                
+        }
+
         private void OnFlyModeControlJustPressed()
         {
-            if(Mods.HoverUnderbody == ModState.On && Properties.CanConvert && !Properties.AreFlyingCircuitsBroken && !Game.IsControlPressed(GTA.Control.CharacterWheel) && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+            if (!ModControls.LongPressForHover)
             {
-                if (Properties.AreFlyingCircuitsBroken)
-                    return;
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && !Properties.AreFlyingCircuitsBroken && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+                {
+                    if (Properties.AreFlyingCircuitsBroken)
+                        return;
 
-                SetFlyMode(!Properties.AreWheelsInHoverMode);
+                    SetFlyMode(!Properties.AreWheelsInHoverMode);
 
-                _nextModeChangeAllowed = Game.GameTime + 1500;
+                    _nextModeChangeAllowed = Game.GameTime + 1500;
+                }
             }
         }
 
@@ -173,7 +197,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if(key == Keys.G && Main.PlayerVehicle == Vehicle)
+            if(key == ModControls.HoverAltitudeHold && Main.PlayerVehicle == Vehicle)
                 SetHoverMode(!Properties.IsAltitudeHolding);
         }
 
@@ -324,7 +348,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             // If the Handbrake control is pressed
             // Using this so that controllers are also supported
-            if(Game.IsControlPressed(Control.VehicleHandbrake) && Vehicle.IsEngineRunning)
+            if(Game.IsControlPressed(ModControls.HoverBoost) && Vehicle.IsEngineRunning)
             {
                 // Boost!
                 Boost();
@@ -361,20 +385,29 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // Get how much value is moved up/down
             float upNormal = 0;
 
-            if (Game.IsControlPressed(GTA.Control.VehicleAim) && Game.IsControlPressed(GTA.Control.VehicleFlyThrottleUp))
+            if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleUp))
             {
-                Game.DisableControlThisFrame(GTA.Control.VehicleSelectNextWeapon);
-                Game.DisableControlThisFrame(GTA.Control.VehicleFlyThrottleUp);
+                Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
+                Game.DisableControlThisFrame(Control.VehicleFlyThrottleUp);
 
+                if (!Properties.IsLanding && Mods.IsDMC12 && !_hoverGlowUp)
+                {
+                    SpawnHoverGlow();
+                    _hoverGlowUp = true;
+                }
+                    
                 upNormal = 1;
             }
-            else if (Game.IsControlPressed(GTA.Control.VehicleAim) && Game.IsControlPressed(GTA.Control.VehicleFlyThrottleDown))
+            else if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
             {
-                Game.DisableControlThisFrame(GTA.Control.VehicleSelectNextWeapon);
-                Game.DisableControlThisFrame(GTA.Control.VehicleFlyThrottleDown);
+                Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
+                Game.DisableControlThisFrame(Control.VehicleFlyThrottleDown);
 
                 upNormal = -1;
             }
+
+            if (upNormal == 0 && _hoverGlowUp)
+                _hoverGlowUp = false;
 
             // Apply force
             GoUpDown(upNormal);
@@ -391,7 +424,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 _forceToBeApplied.Y = -Vehicle.Velocity.Y;
                 _forceToBeApplied.X = -Vehicle.Velocity.X;
-            }                
+            }
         }
 
         private void UnderbodyLights()

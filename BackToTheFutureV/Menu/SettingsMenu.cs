@@ -24,6 +24,7 @@ namespace BackToTheFutureV.Menu
 
         private NativeSubmenuItem SoundsMenu;
         private NativeSubmenuItem EventsMenu;
+        private NativeSubmenuItem ControlsMenu;
         private NativeSubmenuItem TCDMenu;
 
         public SettingsMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_Settings"))
@@ -49,6 +50,10 @@ namespace BackToTheFutureV.Menu
             EventsMenu = AddSubMenu(MenuHandler.EventsSettingsMenu);
             EventsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_EventsMenu");
             EventsMenu.Description = Game.GetLocalizedString("BTTFV_Menu_EventsMenu_Description");
+
+            ControlsMenu = AddSubMenu(MenuHandler.ControlsMenu);
+            ControlsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_ControlsMenu");
+            ControlsMenu.Description = Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Description");
 
             TCDMenu = AddSubMenu(MenuHandler.TCDMenu);
             TCDMenu.Title = Game.GetLocalizedString("BTTFV_Menu_TCDMenu");

@@ -14,6 +14,7 @@ namespace BackToTheFutureV.Menu
 {
     public class MenuHandler
     {
+        public static ControlsMenu ControlsMenu { get; } = new ControlsMenu();
         public static SoundsSettingsMenu SoundsSettingsMenu { get; } = new SoundsSettingsMenu();
         public static EventsSettingsMenu EventsSettingsMenu { get; } = new EventsSettingsMenu();
         public static TCDMenu TCDMenu { get; } = new TCDMenu();
@@ -29,26 +30,29 @@ namespace BackToTheFutureV.Menu
 
         public static void Process()
         {
-            if (Game.IsControlPressed(Control.CharacterWheel) && Game.IsControlPressed(Control.VehicleHandbrake) && !TcdEditer.IsEditing)
+            if (!TcdEditer.IsEditing)
             {
-                if (TimeMachineHandler.CurrentTimeMachine != null)
+                if ((ModControls.CombinationsForInteractionMenu && Game.IsEnabledControlPressed(ModControls.InteractionMenu1) && Game.IsControlPressed(ModControls.InteractionMenu2)) || (!ModControls.CombinationsForInteractionMenu && Game.IsControlPressed(ModControls.InteractionMenu1)))
                 {
-                    if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+                    if (TimeMachineHandler.CurrentTimeMachine != null)
+                    {
+                        if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+                            return;
+                    }
+
+                    if (RCManager.IsRemoteOn)
+                    {
+                        TimeMachineMenu.Visible = true;
                         return;
-                }
+                    }
+                    else if (Main.ObjectPool.AreAnyVisible)
+                        return;
 
-                if (RCManager.IsRemoteOn)
-                {
-                    TimeMachineMenu.Visible = true;
-                    return;
+                    if (TimeMachineHandler.CurrentTimeMachine != null)
+                        TimeMachineMenu.Visible = true;
+                    else
+                        MainMenu.Visible = true;
                 }
-                else if (Main.ObjectPool.AreAnyVisible)
-                    return;
-
-                if (TimeMachineHandler.CurrentTimeMachine != null)
-                    TimeMachineMenu.Visible = true;
-                else
-                    MainMenu.Visible = true;
             }
 
             CustomNativeMenu.ProcessAll();
@@ -56,7 +60,10 @@ namespace BackToTheFutureV.Menu
 
         public static void KeyDown(KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F8 && e.Control && !TcdEditer.IsEditing)
+            if (TcdEditer.IsEditing)
+                return;
+
+            if ((ModControls.UseControlForMainMenu && e.Control && e.KeyCode == ModControls.MainMenu) || (!ModControls.UseControlForMainMenu && !e.Control && e.KeyCode == ModControls.MainMenu))
             {
                 if (TimeMachineHandler.CurrentTimeMachine != null)
                     if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)

@@ -12,6 +12,7 @@ using GTA.Native;
 using KlangRageAudioLibrary;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.RC;
+using BackToTheFutureV.Settings;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -225,7 +226,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Main.PlayerVehicle != Vehicle)
                 return;
 
-            if (key == Keys.Multiply)
+            if (key == ModControls.CutsceneToggle)
                 SetCutsceneMode(!Properties.CutsceneMode);
         }
 

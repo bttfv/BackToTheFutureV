@@ -326,7 +326,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (Main.PlayerVehicle != Vehicle) return;
 
-            if (key == Keys.Add && !Properties.IsRemoteControlled)
+            if (key == ModControls.TCToggle && !Properties.IsRemoteControlled)
                 SetTimeCircuitsOn(!Properties.AreTimeCircuitsOn);
         }
 

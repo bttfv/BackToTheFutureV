@@ -16,6 +16,7 @@ using BackToTheFutureV.Utility;
 using System.Runtime.InteropServices.WindowsRuntime;
 using GTA.NaturalMotion;
 using System.Web;
+using BackToTheFutureV.Settings;
 
 namespace BackToTheFutureV
 {
@@ -71,6 +72,8 @@ namespace BackToTheFutureV
                 settings.SetValue("General", "Version", Main.Version);
 
                 SaveSettings();
+
+                ModControls.LoadControls(settings);
 
                 return;
             } 
@@ -132,6 +135,8 @@ namespace BackToTheFutureV
             settings.SetValue("Events", "Turbulence", TurbulenceEvent);
 
             settings.Save();
+
+            ModControls.SaveControls(settings);
         }
     }
 }
