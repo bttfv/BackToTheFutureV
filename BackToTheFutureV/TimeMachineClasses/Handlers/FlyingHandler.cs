@@ -161,7 +161,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsLanding)
                 Function.Call((Hash)0x438b3d7ca026fe91, Vehicle, Properties.AreWheelsInHoverMode ? 1f : 0f);
             else
-                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Input_VTOL_Tip"));
+                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Input_VTOL_Tip").Replace("~INPUT_VEH_AIM~", (new CustomControl(ModControls.HoverVTOL)).Button));
 
             if (Properties.AreWheelsInHoverMode && !instant)
             {
