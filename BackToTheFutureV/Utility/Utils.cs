@@ -79,25 +79,25 @@ namespace BackToTheFutureV.Utility
             Weather.ThunderStorm
         };
 
-        private static readonly Dictionary<string, Vector3> wheelNames = new Dictionary<string, Vector3>()
-        {
-            {
-                "wheel_lf",
-                new Vector3(-0.7996449f, 1.271523f, 0.124941f)
-            },
-            {
-                "wheel_lr",
-                new Vector3(-0.805218f, -1.201979f, 0.1590068f)
-            },
-            {
-                "wheel_rr",
-                new Vector3(0.7984101f, -1.201924f, 0.1596001f)
-            },
-            {
-                "wheel_rf",
-                new Vector3(0.8009894f, 1.275887f, 0.1288272f)
-            }
-        };
+        //private static readonly Dictionary<string, Vector3> wheelNames = new Dictionary<string, Vector3>()
+        //{
+        //    {
+        //        "wheel_lf",
+        //        new Vector3(-0.7996449f, 1.271523f, 0.124941f)
+        //    },
+        //    {
+        //        "wheel_lr",
+        //        new Vector3(-0.805218f, -1.201979f, 0.1590068f)
+        //    },
+        //    {
+        //        "wheel_rr",
+        //        new Vector3(0.7984101f, -1.201924f, 0.1596001f)
+        //    },
+        //    {
+        //        "wheel_rf",
+        //        new Vector3(0.8009894f, 1.275887f, 0.1288272f)
+        //    }
+        //};
 
         private static readonly VehicleHash[] cityVehicles =
         {
@@ -421,8 +421,34 @@ namespace BackToTheFutureV.Utility
         }
 
         public static Dictionary<string, Vector3> GetWheelPositions(Vehicle vehicle)
-        {
-            return wheelNames;
+        {            
+            Dictionary<string, Vector3> ret = new Dictionary<string, Vector3>();
+
+            if (vehicle.Bones["wheel_lf"].Index > 0)
+                ret.Add("wheel_lf", vehicle.Bones["wheel_lf"].RelativePosition.GetSingleOffset(Coordinate.Z, -0.05f));
+
+            if (vehicle.Bones["wheel_rf"].Index > 0)
+                ret.Add("wheel_rf", vehicle.Bones["wheel_rf"].RelativePosition.GetSingleOffset(Coordinate.Z, -0.05f));
+
+            if (vehicle.Bones["wheel_lr"].Index > 0)
+                ret.Add("wheel_lr", vehicle.Bones["wheel_lr"].RelativePosition.GetSingleOffset(Coordinate.Z, -0.05f));
+
+            if (vehicle.Bones["wheel_rr"].Index > 0)
+                ret.Add("wheel_rr", vehicle.Bones["wheel_rr"].RelativePosition.GetSingleOffset(Coordinate.Z, -0.05f));
+
+            if (vehicle.Bones["wheel_lm1"].Index > 0)
+                ret.Add("wheel_lm1", vehicle.Bones["wheel_lm1"].RelativePosition.GetSingleOffset(Coordinate.Z, -0.05f));
+
+            if (vehicle.Bones["wheel_rm1"].Index > 0)
+                ret.Add("wheel_rm1", vehicle.Bones["wheel_rm1"].RelativePosition.GetSingleOffset(Coordinate.Z, -0.05f));
+
+            if (vehicle.Bones["wheel_lm2"].Index > 0)
+                ret.Add("wheel_lm2", vehicle.Bones["wheel_lm1"].RelativePosition.GetSingleOffset(Coordinate.Z, -0.05f));
+
+            if (vehicle.Bones["wheel_rm2"].Index > 0)
+                ret.Add("wheel_rm2", vehicle.Bones["wheel_rm2"].RelativePosition.GetSingleOffset(Coordinate.Z, -0.05f));
+
+            return ret;
         }
 
         public static float Clamp(float value, float min, float max)
@@ -785,11 +811,6 @@ namespace BackToTheFutureV.Utility
         {
             return (int)((float)firstFloat + ((float)secondFloat - (float)firstFloat) * by);
         }
-
-        //public static Vector3D Vector3ToVector3D(Vector3 vector)
-        //{
-        //    return new Vector3D(vector.X, vector.Z, vector.Y);
-        //}
 
         public static bool IsAnyOfFrontDoorsOpen(Vehicle vehicle)
         {

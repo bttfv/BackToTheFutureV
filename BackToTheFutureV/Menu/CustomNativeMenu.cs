@@ -97,7 +97,7 @@ namespace BackToTheFutureV.Menu
 
         private void NativeSliderItem_ValueChanged(object sender, EventArgs e)
         {
-            OnItemValueChanged?.Invoke((NativeSliderItem)((NativeMenu)sender).SelectedItem, e);
+            OnItemValueChanged?.Invoke((NativeSliderItem)sender, e);
         }
 
         private void NativeCheckboxItem_CheckboxChanged(object sender, EventArgs e)

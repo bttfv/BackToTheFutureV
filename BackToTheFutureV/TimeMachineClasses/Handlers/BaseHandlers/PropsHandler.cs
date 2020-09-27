@@ -60,7 +60,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_lr"));
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rf"));
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rr"));
-           
+
+            if (Vehicle.Bones["wheel_lm1"].Index > 0)
+                RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_lm1"));
+
+            if (Vehicle.Bones["wheel_rm1"].Index > 0)
+                RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rm1"));
+
+            if (Vehicle.Bones["wheel_lm2"].Index > 0)
+                RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_lm2"));
+
+            if (Vehicle.Bones["wheel_rm2"].Index > 0)
+                RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rm2"));
+
             WhiteSphere = new AnimateProp(Vehicle, ModelHandler.WhiteSphere, Vector3.Zero, Vector3.Zero)
             {
                 Duration = 0.25f

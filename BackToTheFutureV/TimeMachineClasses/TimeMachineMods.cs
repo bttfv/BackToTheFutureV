@@ -192,7 +192,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                     if (!IsDMC12)
                         return;
-
+                   
                     if (HoverUnderbody == ModState.On)
                         HoverUnderbody = ModState.Off;
 

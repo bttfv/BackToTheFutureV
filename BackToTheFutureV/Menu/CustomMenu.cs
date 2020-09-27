@@ -103,7 +103,7 @@ namespace BackToTheFutureV.Menu
                     case 1:
                         _tempTimeMachine.Mods.Wheel = WheelType.Red;
                         break;
-                    case 2:
+                    case 2:                        
                         _tempTimeMachine.Mods.Wheel = WheelType.RailroadInvisible;
                         break;
                 }
