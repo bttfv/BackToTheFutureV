@@ -262,7 +262,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 Mods.SyncMods();
             }
 
-            if (Main.PlayerVehicle != Vehicle)
+            if (Main.PlayerVehicle != Vehicle && Vehicle.IsVisible)
             {
                 if (Blip == null || !Blip.Exists())
                 {

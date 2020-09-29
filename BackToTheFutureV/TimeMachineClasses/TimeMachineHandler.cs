@@ -232,7 +232,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (_timeMachinesToRemoveWaitSounds.Count > 0)
             {
                 foreach (var timeMachine in _timeMachinesToRemoveWaitSounds)
-                    if (!timeMachine.Key.Sounds.AudioEngine.IsAnyInstancePlaying)
+                    if (!timeMachine.Key.Sounds.TimeTravelCutscene.IsAnyInstancePlaying)
                         RemoveTimeMachine(timeMachine.Key, timeMachine.Value);
             }
 

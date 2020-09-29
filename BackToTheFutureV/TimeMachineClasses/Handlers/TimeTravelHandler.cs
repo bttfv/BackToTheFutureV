@@ -28,17 +28,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.SetCutsceneMode += SetCutsceneMode;
         }
 
-        public void StartTimeTravel(int delay = 0)
-        {
-            Properties.TimeTravelPhase = TimeTravelPhase.InTime;
-            gameTimer = Game.GameTime + delay;
-        }
-
         public void SetCutsceneMode(bool cutsceneOn)
         {
             Properties.CutsceneMode = cutsceneOn;
 
             Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_TimeTravelModeChange") + " " + (Properties.CutsceneMode ? Game.GetLocalizedString("BTTFV_Cutscene") : Game.GetLocalizedString("BTTFV_Instant")));
+        }
+
+        public void StartTimeTravel(int delay = 0)
+        {
+            Properties.TimeTravelPhase = TimeTravelPhase.InTime;
+            gameTimer = Game.GameTime + delay;
+            _currentStep = 0;
         }
 
         public override void Process()
@@ -104,7 +105,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         //Add LastDisplacementCopy to remote time machines list
                         RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
 
-                        ResetFields();
                         return;
                     }
 
@@ -129,7 +129,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Vehicle.SetMPHSpeed(0);
 
                         // Stop remote controlling
-                        Events.SetRCMode?.Invoke(false);
+                        if (Properties.IsRemoteControlled)
+                            RCManager.StopRemoteControl();
 
                         // Add to time travelled list
                         RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone);
@@ -164,9 +165,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 case 1:
                     Particles.TimeTravelEffect.Stop();
 
-                    if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Main.PlayerPed)
+                    if (Properties.TimeTravelType == TimeTravelType.RC)
                     {
                         TimeMachineHandler.RemoveTimeMachine(TimeMachine, true, true);
+
+                        Properties.TimeTravelPhase = TimeTravelPhase.Completed;
+
                         return;
                     }
 
@@ -205,8 +209,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
 
                     Events.OnReenter?.Invoke();
-
-                    ResetFields();
                     break;
             }
         }
@@ -228,12 +230,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (key == ModControls.CutsceneToggle)
                 SetCutsceneMode(!Properties.CutsceneMode);
-        }
-
-        public void ResetFields()
-        {
-            _currentStep = 0;
-            gameTimer = 0;
         }
     }
 }

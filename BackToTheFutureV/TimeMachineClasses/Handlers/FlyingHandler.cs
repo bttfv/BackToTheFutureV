@@ -315,15 +315,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // Reset force to be applied
             _forceToBeApplied = Vector3.Zero;
 
-            // Process boost
-            HandleBoosting();
+            if (Vehicle.IsEngineRunning)
+            {
+                // Process boost
+                HandleBoosting();
 
-            // Process up/down movement
-            UpDown();
+                // Process up/down movement
+                UpDown();
 
-            // Altitude holder
-            if (Properties.IsAltitudeHolding)
-                HandleAltitudeHolding();
+                // Altitude holder
+                if (Properties.IsAltitudeHolding)
+                    HandleAltitudeHolding();
+            }            
 
             // Apply force
             Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
