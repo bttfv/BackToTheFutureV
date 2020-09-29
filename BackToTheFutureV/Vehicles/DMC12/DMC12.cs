@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.Entities;
+using BackToTheFutureV.Memory;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using GTA;
@@ -112,6 +113,9 @@ namespace BackToTheFutureV.Vehicles
 
             if (Main.PlayerVehicle == Vehicle)
                 Function.Call(Hash.DISABLE_CONTROL_ACTION, 31, 337, true);
+
+            if (!Vehicle.IsTimeMachine())
+                VehicleControl.SetDeluxoTransformation(Vehicle, 0);
 
             if (!Vehicle.IsVisible)
             {

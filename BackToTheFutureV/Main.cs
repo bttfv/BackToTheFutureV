@@ -97,9 +97,10 @@ namespace BackToTheFutureV
             if (ModSettings.PersistenceSystem)
                 TimeMachineHandler.SaveAllTimeMachines();
 
-            TimeMachineHandler.Abort();            
+            TimeMachineHandler.Abort();
             FireTrailsHandler.Stop();
-            CustomTrainHandler.Abort();           
+            CustomTrainHandler.Abort();
+            DMC12Handler.Abort();
         }
 
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)

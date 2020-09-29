@@ -155,7 +155,10 @@ namespace BackToTheFutureV
 
             RainPuddleEditor.Level = moment.PuddleLevel;
 
-            Game.Player.WantedLevel = moment.WantedLevel;
+            //Game.Player.WantedLevel = moment.WantedLevel;
+
+            Function.Call(Hash.SET_PLAYER_WANTED_LEVEL, Game.Player, moment.WantedLevel, false);
+            Function.Call(Hash.SET_PLAYER_WANTED_LEVEL_NOW, Game.Player, false);
         }
 
         public static Moment GetStoredMoment(DateTime currentTime, int maxHoursRange)

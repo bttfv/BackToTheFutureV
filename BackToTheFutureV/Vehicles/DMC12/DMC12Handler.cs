@@ -16,6 +16,14 @@ namespace BackToTheFutureV.Vehicles
         private static List<DMC12> _deloreansToAdd = new List<DMC12>();
         private static Dictionary<DMC12, bool> _deloreansToRemove = new Dictionary<DMC12, bool>();
 
+        public static void Abort()
+        {
+            _deloreans.ForEach(x =>
+            {
+                x.Dispose(false);
+            });
+        }
+
         public static DMC12 CreateDMC12(Vector3 position, float heading = 0, bool warpInPlayer = false)
         {
             Vehicle vehicle = World.CreateVehicle(ModelHandler.DMC12, position, heading);
