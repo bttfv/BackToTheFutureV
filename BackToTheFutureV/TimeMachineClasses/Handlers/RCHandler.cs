@@ -222,12 +222,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _camera.Position = TimeMachine.OriginalPed.Bones[Bone.SkelHead].GetOffsetPosition(new Vector3(0,0.1f,0));
         }
 
-        public override void Stop() => StopRC();
-        public void Stop(bool instant = false) => StopRC(instant);
+        public override void Stop()
+        {
+            if (Properties.IsRemoteControlled)
+                RCManager.StopRemoteControl();
+        }
 
         public override void Dispose()
         {
-            Stop(true);
+            if (Properties.IsRemoteControlled)
+                RCManager.StopRemoteControl(true);
         }
 
         public override void KeyDown(Keys key) { }
