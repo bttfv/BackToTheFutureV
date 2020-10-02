@@ -126,6 +126,7 @@ namespace BackToTheFutureV.Menu
         {
             if (!_tempTimeMachine.Mods.IsDMC12)
             {
+                _baseType.SelectedIndex = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
                 _canFly.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
 
                 switch (_tempTimeMachine.Mods.Wheel)
