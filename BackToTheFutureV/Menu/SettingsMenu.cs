@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BackToTheFutureV.GUI;
 using GTA;
+using GTA.Native;
 using LemonUI.Elements;
 using LemonUI.Menus;
 
@@ -85,7 +86,14 @@ namespace BackToTheFutureV.Menu
                 ModSettings.PersistenceSystem = Checked;
 
             if (sender == RandomTrains)
+            {
                 ModSettings.RandomTrains = Checked;
+
+                Function.Call(Hash.SET_RANDOM_TRAINS, ModSettings.RandomTrains);
+
+                if (!ModSettings.RandomTrains)
+                    Function.Call(Hash.DELETE_ALL_TRAINS);
+            }                
 
             if (sender == GlowingWormholeEmitter)
                 ModSettings.GlowingWormholeEmitter = Checked;

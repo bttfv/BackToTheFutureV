@@ -126,6 +126,9 @@ namespace BackToTheFutureV
 
                 Function.Call(Hash.SET_RANDOM_TRAINS, ModSettings.RandomTrains);
 
+                if (!ModSettings.RandomTrains)
+                    Function.Call(Hash.DELETE_ALL_TRAINS);
+
                 StartListening();
 
                 _firstTick = false;

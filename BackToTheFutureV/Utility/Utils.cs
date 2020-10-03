@@ -841,8 +841,7 @@ namespace BackToTheFutureV.Utility
             allPeds.Where(x => x != Main.PlayerPed && !Main.PlayerVehicle.Passengers.Contains(x)).ToList()
                 .ForEach(x => x.Delete());
 
-            Function.Call(Hash.SET_RANDOM_TRAINS, false);
-            Function.Call(Hash.SET_RANDOM_TRAINS, true);
+            Function.Call(Hash.DELETE_ALL_TRAINS);
         }
 
         public static bool IsAllTiresBurst(Vehicle vehicle)
