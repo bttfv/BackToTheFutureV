@@ -326,7 +326,13 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 if (value == ModState.On)
                 {
-                    if (TimeMachine.Properties == null || !TimeMachine.Properties.AreTimeCircuitsBroken)
+                    if (TimeMachine.Properties == null)
+                        return;
+
+                    if (TimeMachine.Properties.AreTimeCircuitsOn)
+                        TimeMachine.Events?.SetTimeCircuits?.Invoke(false);
+
+                    if (!TimeMachine.Properties.AreTimeCircuitsBroken)
                         return;
 
                     TimeMachine.Events?.SetTimeCircuitsBroken?.Invoke(false);

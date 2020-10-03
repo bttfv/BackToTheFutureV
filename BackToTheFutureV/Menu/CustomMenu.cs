@@ -124,38 +124,24 @@ namespace BackToTheFutureV.Menu
 
         private void LoadVehicleType()
         {
-            if (!_tempTimeMachine.Mods.IsDMC12)
-            {
-                _baseType.SelectedIndex = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
-                _canFly.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
-
-                switch (_tempTimeMachine.Mods.Wheel)
-                {
-                    case WheelType.Stock:
-                    case WheelType.StockInvisible:
-                        _wheelsType.SelectedIndex = 0;
-                        break;
-                    case WheelType.Red:
-                    case WheelType.RedInvisible:
-                        _wheelsType.SelectedIndex = 1;
-                        break;
-                    case WheelType.RailroadInvisible:
-                        _wheelsType.SelectedIndex = 2;
-                        break;
-                }
-
-                return;
-            }
-
             _baseType.SelectedIndex = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
-            _powerSource.SelectedIndex = (int)_tempTimeMachine.Mods.Reactor;
             _canFly.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
-            _hoodBox.Checked = ConvertFromModState(_tempTimeMachine.Mods.Hoodbox);
-            _hook.Checked = _tempTimeMachine.Mods.Hook != HookState.Off;
-            _plate.SelectedIndex = (int)(_tempTimeMachine.Mods.Plate) + 1;
-            _exhaust.SelectedIndex = (int)(_tempTimeMachine.Mods.Exhaust) + 1;
-            _suspensions.SelectedIndex = (int)_tempTimeMachine.Mods.SuspensionsType;
 
+            if (_tempTimeMachine.Mods.IsDMC12)
+            {
+                _powerSource.SelectedIndex = (int)_tempTimeMachine.Mods.Reactor;
+                _hoodBox.Checked = ConvertFromModState(_tempTimeMachine.Mods.Hoodbox);
+                _hook.Checked = _tempTimeMachine.Mods.Hook != HookState.Off;
+                _plate.SelectedIndex = (int)(_tempTimeMachine.Mods.Plate) + 1;
+                _exhaust.SelectedIndex = (int)(_tempTimeMachine.Mods.Exhaust) + 1;
+                _suspensions.SelectedIndex = (int)_tempTimeMachine.Mods.SuspensionsType;
+
+                _canFly.Enabled = !_tempTimeMachine.Properties.IsFlying;
+                _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
+                _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying;
+                _suspensions.Enabled = !_tempTimeMachine.Properties.IsFlying;
+            }
+            
             switch (_tempTimeMachine.Mods.Wheel)
             {
                 case WheelType.Stock:
@@ -170,11 +156,6 @@ namespace BackToTheFutureV.Menu
                     _wheelsType.SelectedIndex = 2;
                     break;
             }
-
-            _canFly.Enabled = !_tempTimeMachine.Properties.IsFlying;
-            _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
-            _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying;
-            _suspensions.Enabled = !_tempTimeMachine.Properties.IsFlying;
 
             Recalculate();
         }
