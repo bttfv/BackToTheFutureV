@@ -18,9 +18,9 @@ namespace BackToTheFutureV.TimeMachineClasses
         public static TimeMachine LastTimeMachine { get; private set; }
         public static TimeMachine ClosestTimeMachine { get; private set; }
         public static TimeMachine CurrentTimeMachine { get; private set; }
-        public static float SquareDistToClosestTimeMachine { get; private set; } = -1;
-        
-        public static List<TimeMachine> TimeMachines = new List<TimeMachine>();
+        public static float SquareDistToClosestTimeMachine { get; private set; } = -1;        
+        public static List<TimeMachine> TimeMachines { get; private set; } = new List<TimeMachine>();
+
         private static List<TimeMachine> _timeMachinesToAdd = new List<TimeMachine>();
         private static Dictionary<TimeMachine, bool> _timeMachinesToRemove = new Dictionary<TimeMachine, bool>();
         private static Dictionary<TimeMachine, bool> _timeMachinesToRemoveWaitSounds = new Dictionary<TimeMachine, bool>();
@@ -287,6 +287,11 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
 
             return null;
+        }
+
+        public static bool Exists(TimeMachine timeMachine)
+        {
+            return TimeMachines.Contains(timeMachine) | _timeMachinesToAdd.Contains(timeMachine);
         }
 
         public static bool IsVehicleATimeMachine(Vehicle vehicle)

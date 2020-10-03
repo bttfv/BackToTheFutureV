@@ -14,7 +14,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public Blip Blip;
 
-        public bool Spawned => TimeMachine != null && TimeMachine.Vehicle != null && TimeMachine.Vehicle.Exists();
+        public bool Spawned => TimeMachineHandler.Exists(TimeMachine);
 
         private int _timer;
         private bool _hasPlayedWarningSound;
@@ -37,7 +37,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         }
 
         public void Process()
-        {
+        {            
             if (!Spawned && TimeMachine != null)
                 TimeMachine = null;
 
@@ -89,15 +89,15 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public void ExistenceCheck(DateTime time)
         {
-            if (TimeMachineClone.Properties.DestinationTime < time)
-            {
-                if (TimeMachine == null || !TimeMachine.Vehicle.Exists())
-                    Spawn(ReenterType.Spawn);
-            }
+            if (TimeMachineClone.Properties.DestinationTime < time && !Spawned)
+                Spawn(ReenterType.Spawn);
         }
 
         public void Dispose()
         {
+            if (Blip != null && Blip.Exists())
+                Blip.Delete();
+
             _warningSound?.Dispose();         
         }
 

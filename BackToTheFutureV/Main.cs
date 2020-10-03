@@ -97,6 +97,7 @@ namespace BackToTheFutureV
             if (ModSettings.PersistenceSystem)
                 TimeMachineHandler.SaveAllTimeMachines();
 
+            RemoteTimeMachineHandler.Dispose();
             TimeMachineHandler.Abort();
             FireTrailsHandler.Stop();
             CustomTrainHandler.Abort();

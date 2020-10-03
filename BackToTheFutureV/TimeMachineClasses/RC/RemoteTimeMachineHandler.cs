@@ -13,12 +13,12 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 {
     public class RemoteTimeMachineHandler
     {
-        public static List<RemoteTimeMachine> RemoteTimeMachines = new List<RemoteTimeMachine>();
+        public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
+        public static int TimeMachineCount => RemoteTimeMachines.Count;
 
         private static IFormatter formatter = new BinaryFormatter();
-
         private const int MAX_REMOTE_TIMEMACHINES = 10;
-        public static int TimeMachineCount => RemoteTimeMachines.Count;
+
         public static RemoteTimeMachine GetTimeMachineFromIndex(int index) 
         { 
             try
@@ -92,6 +92,12 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
                 if (File.Exists(_saveFile))
                     File.Delete(_saveFile);
             }          
+        }
+
+        public static void Dispose()
+        {
+            foreach (var x in RemoteTimeMachines)
+                x.Dispose();
         }
     }
 }
