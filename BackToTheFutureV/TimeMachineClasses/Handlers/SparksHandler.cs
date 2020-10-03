@@ -80,7 +80,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (!Properties.AreTimeCircuitsOn) return;
+            if (!Properties.AreTimeCircuitsOn && !Properties.IsPhotoModeOn)
+                return;
+
             if (!Vehicle.IsVisible)
             {
                 if (Players.Wormhole.IsPlaying)

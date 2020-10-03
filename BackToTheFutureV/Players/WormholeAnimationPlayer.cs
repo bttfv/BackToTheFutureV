@@ -137,19 +137,20 @@ namespace BackToTheFutureV.Players
 
         private void UpdateCoilModel()
         {
-            if (!Mods.IsDMC12)
-                return;
-
             if (Main.CurrentTime.Hour >= 20 || (Main.CurrentTime.Hour >= 0 && Main.CurrentTime.Hour <= 5))
             {
-                _coilsProp.Model = ModelHandler.CoilsGlowingNight;
+                if (Mods.IsDMC12)
+                    _coilsProp.Model = ModelHandler.CoilsGlowingNight;
+
                 _wormholeRT.Prop.Model = _wormholeNightModel;
 
                 _sparks.ForEach(x => x.UpdateSparkModel(_sparkNightModel));
             }
             else
             {
-                _coilsProp.Model = ModelHandler.CoilsGlowing;
+                if (Mods.IsDMC12)
+                    _coilsProp.Model = ModelHandler.CoilsGlowing;
+
                 _wormholeRT.Prop.Model = _wormholeModel;
 
                 _sparks.ForEach(x => x.UpdateSparkModel(_sparkModel));
@@ -201,7 +202,7 @@ namespace BackToTheFutureV.Players
             //// Choose how many coil props can spawn at one time
             float by = (Vehicle.GetMPHSpeed() - 65f) / (88f - 65f);
 
-            if (TimeMachine.Properties.IsPhotoModeOn)
+            if (TimeMachine.Properties.PhotoWormholeActive)
                 by = (70 - 65f) / (88f - 65f);
 
             numOfProps = Utils.Lerp(1, 11, by);
@@ -300,7 +301,8 @@ namespace BackToTheFutureV.Players
 
         public override void Process()
         {
-            if (!IsPlaying) return;
+            if (!IsPlaying)
+                return;
 
             // Handle coil flickering for BTTF3
             if (Mods.IsDMC12 && TimeMachine.Mods.WormholeType == WormholeType.BTTF3)
@@ -317,7 +319,7 @@ namespace BackToTheFutureV.Players
                 }
             }
 
-            if (TimeMachine.Properties.IsFueled || TimeMachine.Properties.IsPhotoModeOn)
+            if (TimeMachine.Properties.IsFueled || TimeMachine.Properties.PhotoWormholeActive)
                 HandleSparks();
 
             if (_sparkPTFX != null && !_sparkPTFX.IsPlaying)
@@ -331,14 +333,14 @@ namespace BackToTheFutureV.Players
                 // Draw the wormhole RenderTarget, so that the animation appears on the prop
                 _wormholeRT.Draw();
 
-                if(!_wormholeRT.Prop.IsSpawned && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.IsPhotoModeOn))
+                if(!_wormholeRT.Prop.IsSpawned && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.PhotoWormholeActive))
                 {
                     _wormholeRT.CreateProp();
                     _wormholeScaleform.CallFunction("START_ANIMATION");
                     _hasStartedWormhole = true;
                 }
 
-                if (TimeMachine.Mods.WormholeType != WormholeType.BTTF3 && Game.GameTime >= _endAt && _playWormhole && !TimeMachine.Properties.IsPhotoModeOn)
+                if (TimeMachine.Mods.WormholeType != WormholeType.BTTF3 && Game.GameTime >= _endAt && _playWormhole && !TimeMachine.Properties.PhotoWormholeActive)
                 {
                     OnCompleted?.Invoke();
                     Stop();
@@ -347,7 +349,7 @@ namespace BackToTheFutureV.Players
                 }
             }
 
-            if (!_hasStartedWormhole && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.IsPhotoModeOn))
+            if (!_hasStartedWormhole && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.PhotoWormholeActive))
             {
                 _startWormholeAt = Game.GameTime + 1000;
                 _endAt = _startWormholeAt + MaxTime;

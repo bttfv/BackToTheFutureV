@@ -257,8 +257,6 @@ namespace BackToTheFutureV.TimeMachineClasses
                     _firstRedSetup = true;
                 }
 
-                PhotoMode();
-
                 Mods.SyncMods();
             }
 
@@ -274,9 +272,11 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
             else if (Blip != null && Blip.Exists())
                 Blip.Delete();
-
+            
             foreach (var entry in registeredHandlers)
                 entry.Value.Process();
+
+            PhotoMode();
         }
 
         public void UpdateBlip()
@@ -313,42 +313,36 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void PhotoMode() 
         {
-            try
+            if (Properties.PhotoWormholeActive && Players.Wormhole != null && !Players.Wormhole.IsPlaying)
+                Players.Wormhole.Play(true);
+
+            if (!Properties.PhotoWormholeActive && Players.Wormhole != null && Players.Wormhole.IsPlaying && Properties.IsPhotoModeOn)
+                Players.Wormhole.Stop();
+
+            if (Properties.PhotoGlowingCoilsActive && Props.Coils != null && !Props.Coils.IsSpawned)
             {
-                if (Properties.PhotoWormholeActive && !Players.Wormhole.IsPlaying)
-                    Players.Wormhole.Play(true);
+                if (Main.CurrentTime.Hour >= 20 || (Main.CurrentTime.Hour >= 0 && Main.CurrentTime.Hour <= 5))
+                    Props.Coils.Model = ModelHandler.CoilsGlowingNight;
+                else
+                    Props.Coils.Model = ModelHandler.CoilsGlowing;
 
-                if (!Properties.PhotoWormholeActive && Players.Wormhole.IsPlaying && Properties.IsPhotoModeOn)
-                    Players.Wormhole.Stop();
-
-                if (Properties.PhotoGlowingCoilsActive && !Props.Coils.IsSpawned)
-                {
-                    if (Main.CurrentTime.Hour >= 20 || (Main.CurrentTime.Hour >= 0 && Main.CurrentTime.Hour <= 5))
-                        Props.Coils.Model = ModelHandler.CoilsGlowingNight;
-                    else
-                        Props.Coils.Model = ModelHandler.CoilsGlowing;
-
-                    Mods.OffCoils = ModState.Off;
-                    Props.Coils.SpawnProp(false);
-                }
-
-                if (!Properties.PhotoGlowingCoilsActive && Props.Coils.IsSpawned)
-                {
-                    Mods.OffCoils = ModState.On;
-                    Props.Coils.DeleteProp();
-                }
-
-                if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingBlueAnim)
-                    Events.OnWormholeStarted?.Invoke();
-
-                if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
-                    Events.OnTimeTravelInterrupted?.Invoke();
-
-                Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive; //| Properties.PhotoIceActive;
-            } catch
-            {
-
+                Mods.OffCoils = ModState.Off;
+                Props.Coils.SpawnProp(false);
             }
+
+            if (!Properties.PhotoGlowingCoilsActive && Props.Coils != null && Props.Coils.IsSpawned)
+            {
+                Mods.OffCoils = ModState.On;
+                Props.Coils.DeleteProp();
+            }
+
+            if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingBlueAnim)
+                Events.OnWormholeStarted?.Invoke();
+
+            if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
+                Events.OnTimeTravelInterrupted?.Invoke();
+
+            Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive;
         }
 
         public void KeyDown(Keys key)
