@@ -104,27 +104,34 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (ModControls.LongPressForHover)
             {
-                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && !Properties.AreFlyingCircuitsBroken && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
                 {
                     if (Properties.AreFlyingCircuitsBroken)
-                        return;
+                    {
+                        Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hover_Damaged"));
 
+                        return;
+                    }
+                        
                     SetFlyMode(!Properties.AreWheelsInHoverMode);
 
                     _nextModeChangeAllowed = Game.GameTime + 1500;
                 }
-            }
-                
+            }                
         }
 
         private void OnFlyModeControlJustPressed()
         {
             if (!ModControls.LongPressForHover)
             {
-                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && !Properties.AreFlyingCircuitsBroken && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
                 {
                     if (Properties.AreFlyingCircuitsBroken)
+                    {
+                        Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hover_Damaged"));
+
                         return;
+                    }
 
                     SetFlyMode(!Properties.AreWheelsInHoverMode);
 
@@ -139,6 +146,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (VehicleControl.GetDeluxoTransformation(Vehicle) > 0)
                     VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
+
+                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hover_Damaged"));
 
                 return;
             }

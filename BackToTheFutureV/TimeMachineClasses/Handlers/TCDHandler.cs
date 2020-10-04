@@ -300,7 +300,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnTimeTravel()
         {
-            previousSlot.SetDate(Properties.PreviousTime);
+            if (!Properties.AreTimeCircuitsBroken)
+                previousSlot.SetDate(Properties.PreviousTime);
         }
 
         public void UpdateScaleformDates()

@@ -244,4 +244,5 @@
 	BTTFV_Menu_ControlsMenu_CutsceneToggle_Description = Key for toggle cutscene/instant mode (keyboard).
 	BTTFV_Menu_ControlsMenu_InputToggle = Input toggle
 	BTTFV_Menu_ControlsMenu_InputToggle_Description = Key for time circuits input toggle (keyboard).
+	BTTFV_Hover_Damaged = Flying circuits are permanently damaged.
 }

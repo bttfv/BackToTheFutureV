@@ -215,6 +215,7 @@
 	BTTFV_TCD_Edit_ScaleUp = Agrandir
 	BTTFV_TimeTravelModeChange = Mode Voyage Temporel réglé sur
 	<!-- TRANSLATE FROM HERE -->
+	BTTFV_Hover_Damaged = Flying circuits are permanently damaged.
 	BTTFV_Menu_ControlsMenu = Controls Menu
 	BTTFV_Menu_ControlsMenu_Description = Opens menu for editing hotkeys and controls of the mod.
 	BTTFV_Menu_ControlsMenu_Button = Selected button:
