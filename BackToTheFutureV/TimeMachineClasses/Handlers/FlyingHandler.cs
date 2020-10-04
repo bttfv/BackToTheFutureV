@@ -315,7 +315,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // Reset force to be applied
             _forceToBeApplied = Vector3.Zero;
 
-            if (Vehicle.IsEngineRunning)
+            if (Vehicle.IsEngineRunning && !Players.HoverModeWheels.IsPlaying)
             {
                 // Process boost
                 HandleBoosting();
