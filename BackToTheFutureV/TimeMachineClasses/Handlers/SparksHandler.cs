@@ -136,7 +136,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 Main.DisablePlayerSwitching = true;
 
-                if (Properties.TimeTravelPhase != TimeTravelPhase.OpeningWormhole)
+                if (Properties.TimeTravelPhase != TimeTravelPhase.OpeningWormhole && !Properties.HasBeenStruckByLightning)
                     Properties.TimeTravelPhase = TimeTravelPhase.OpeningWormhole;
 
                 //Function.Call(Hash.SPECIAL_ABILITY_LOCK, Main.PlayerPed.Model);

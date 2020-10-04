@@ -7,6 +7,9 @@ using BackToTheFutureV.Entities;
 using GTA.Native;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.RC;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO.Packaging;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -21,9 +24,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private bool _hasBeenStruckByLightning;
 
+        private List<AnimateProp> _lightnings = new List<AnimateProp>();
+
         public LightningStrikeHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-         
+            foreach (var x in ModelHandler.Lightnings)
+            {
+                _lightnings.Add(new AnimateProp(Vehicle, x, Vector3.Zero, Vector3.Zero));
+                _lightnings.Last().Duration = 1;
+            }                
         }
 
         public override void Process()
@@ -33,7 +42,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if(Game.GameTime > _nextFlash)
                 {
                     // Flash the screen
-                    ScreenFlash.FlashScreen(0.25f);
+                    //ScreenFlash.FlashScreen(0.25f);
 
                     // Update _flashes count
                     _flashes++;
@@ -64,7 +73,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
           
             if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying)) 
             {
-                if (Utils.Random.NextDouble() < 0.2)
+                if (Utils.Random.NextDouble() < 1.2)
                     Strike();
                 else
                     _nextCheck = Game.GameTime + 10000;
@@ -75,14 +84,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Properties.HasBeenStruckByLightning = true;
 
+            _lightnings[Utils.Random.Next(0, 4)].SpawnProp();
+
             if (Properties.AreTimeCircuitsOn)
             {
                 // Time travel by lightning strike
                 Sounds.LightningStrike.Play();
 
                 if (Mods.Hook == HookState.On && !Properties.IsFlying)
-                {                    
-                    Events.StartTimeTravel?.Invoke(700);
+                {
+                    Events.StartTimeTravel?.Invoke(500);
                     _flashes = 2;
                 }
                 else
@@ -95,8 +106,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
                 RemoteTimeMachineHandler.AddRemote(timeMachineClone);
             }
-            else
-                Function.Call(Hash.FORCE_LIGHTNING_FLASH);
            
             if (Properties.IsFlying)
             {
@@ -126,7 +135,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-
+            _lightnings.ForEach(x => x?.Dispose());
         }
     }
 }

@@ -116,11 +116,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     // Play the light explosion
                     Particles.LightExplosion.Play();
 
+                    bool is99 = Properties.HasBeenStruckByLightning && !Properties.IsFlying;
+
                     trails = FireTrailsHandler.SpawnForTimeMachine(
                         TimeMachine,
-                        Properties.HasBeenStruckByLightning,
-                        (Properties.HasBeenStruckByLightning || (Mods.HoverUnderbody == ModState.On && Properties.IsFlying)) ? 1f : 45,
-                        Properties.HasBeenStruckByLightning ? -1 : 15,
+                        is99,
+                        (is99 || Properties.IsFlying) ? 1f : 45,
+                        is99 ? -1 : 15,
                         Mods.WormholeType == WormholeType.BTTF1, Mods.Wheel == WheelType.RailroadInvisible ? 75 : 50);
 
                     // If the Vehicle is remote controlled or the player is not the one in the driver seat

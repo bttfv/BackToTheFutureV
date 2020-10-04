@@ -47,6 +47,7 @@ namespace BackToTheFutureV.Utility
         public static Model CoilsIndicatorLeft = new Model("indicator_left");
         public static Model CoilsIndicatorRight = new Model("indicator_right");
         public static Model InvisibleProp = new Model("prop_dummy");
+        public static List<Model> Lightnings = new List<Model>() { new Model("ls_1"), new Model("ls_2"), new Model("ls_3"), new Model("ls_4") };
 
         // BTTF1 Models
         public static Model BTTFReactorCap = new Model("bttf_reactorcap");
@@ -181,6 +182,9 @@ namespace BackToTheFutureV.Utility
             PreloadModel(WormholeBlueNight);
             PreloadModel(WormholeRed);
             PreloadModel(WormholeRedNight);
+
+            foreach (var x in Lightnings)
+                PreloadModel(x);
 
             for (int i = 1; i < 6; i++)
             {
