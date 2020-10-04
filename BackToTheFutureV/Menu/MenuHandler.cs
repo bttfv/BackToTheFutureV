@@ -2,6 +2,7 @@
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using GTA;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,9 @@ namespace BackToTheFutureV.Menu
                         if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                             return;
                     }
+
+                    if (Main.PlayerPed.IsGoingIntoCover)
+                        Main.PlayerPed.Task.StandStill(1);
 
                     if (RCManager.IsRemoteOn)
                     {

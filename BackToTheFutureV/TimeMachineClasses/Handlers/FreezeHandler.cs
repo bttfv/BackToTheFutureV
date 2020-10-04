@@ -24,6 +24,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private float _iceDisappearVal;
         private float _timeToDisappear = 360f; // 6 minutes
 
+        private bool _resuming;
+
         public FreezeHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnReenterCompleted += OnReenterCompleted;
@@ -57,6 +59,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Properties.IsFreezed = true;
 
+            _resuming = resume;
             _iceDisappearVal = 0;
             _doingFreezingSequence = true;
             _fuelNotif = fuelNotify;
@@ -68,6 +71,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsFreezed)
             {
                 Function.Call<float>(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, 0f);
+                return;
+            }
+
+            if (!Vehicle.IsVisible)
+            {
+                Stop();
                 return;
             }
 
@@ -137,7 +146,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 2:
-                    if (Mods.Reactor == ReactorType.Nuclear)
+                    if (Mods.Reactor == ReactorType.Nuclear && !_resuming)
                         Sounds.IceVents.Play();
 
                     _currentStep++;
@@ -184,14 +193,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Stop()
         {
+            _resuming = false;
             _currentStep = 0;
             _gameTimer = 0;
             _smokeIndex = 0;
             _doingFreezingSequence = false;
             Properties.IsFreezed = false;
 
-            Sounds.Ice.Stop();
-            Sounds.IceVents.Stop();
+            Sounds.Ice?.Stop(!Vehicle.IsVisible);
+            Sounds.IceVents?.Stop(!Vehicle.IsVisible);
 
             foreach (var waterDrop in Particles.IceWaterDrops)
                 waterDrop.StopNaturally();
