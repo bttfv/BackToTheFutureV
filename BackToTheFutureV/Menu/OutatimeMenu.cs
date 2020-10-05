@@ -60,8 +60,6 @@ namespace BackToTheFutureV.Menu
             Spawned.Checked = CurrentRemoteTimeMachine.Spawned;
 
             ShowBlip.Checked = CurrentRemoteTimeMachine.Blip != null && CurrentRemoteTimeMachine.Blip.Exists();
-
-            Recalculate();
         }
 
         private void OutatimeMenu_OnItemActivated(NativeItem sender, EventArgs e)

@@ -5,7 +5,7 @@
 	0xD6D415CE = DMC-12
 	BTTFV_AltitudeHoldingModeChange = Hover mode is now
 	BTTFV_Apply_Hook = Press ~INPUT_CONTEXT~ to apply hook.
-	BTTFV_Chip_Damaged = Time circuits control micro chip is damaged.
+	BTTFV_Chip_Damaged = Time circuits control microchip is damaged.
 	BTTFV_Cutscene = Cutscene
 	BTTFV_Hoodbox_Warmup_Error = Time circuits control tubes are warmed up.
 	BTTFV_Hoodbox_Warmup_Start = Press ~INPUT_CONTEXT~ to start time circuits control tubes warmup.

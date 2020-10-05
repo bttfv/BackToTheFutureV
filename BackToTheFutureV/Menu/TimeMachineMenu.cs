@@ -95,8 +95,6 @@ namespace BackToTheFutureV.Menu
             FlyMode.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
             AltitudeHold.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
-
-            Recalculate();
         }
     }
 }

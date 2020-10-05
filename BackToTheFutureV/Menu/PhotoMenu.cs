@@ -76,8 +76,6 @@ namespace BackToTheFutureV.Menu
             Ice.Checked = TimeMachine.Properties.IsFreezed;
             //FluxCapacitor.Checked = TimeMachine.Properties.PhotoFluxCapacitorActive;
             HideHUD.Checked = Main.HideGui;
-
-            Recalculate();
         }
     }
 }

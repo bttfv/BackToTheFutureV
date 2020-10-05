@@ -60,7 +60,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if(Properties.IsFlying && Game.GameTime > _nextForce)
                 {
-                    Vehicle.ApplyForce(Vector3.RandomXYZ() * 3f, Vector3.RandomXYZ());
+                    //Vehicle.ApplyForce(Vector3.RandomXYZ() * 3f, Vector3.RandomXYZ());
+                    Vehicle.ApplyForce(Vector3.Zero, Vector3.RandomXYZ());
 
                     _nextForce = Game.GameTime + 100;
                 }

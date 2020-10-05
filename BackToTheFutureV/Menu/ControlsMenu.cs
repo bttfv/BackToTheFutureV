@@ -208,8 +208,6 @@ namespace BackToTheFutureV.Menu
             CutsceneToggle.SelectedIndex = CutsceneToggle.Items.IndexOf(ModControls.CutsceneToggle);
             InputToggle.SelectedIndex = InputToggle.Items.IndexOf(ModControls.InputToggle);
 
-            Recalculate();
-
             _doNotUpdate = false;
         }
 

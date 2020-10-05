@@ -58,8 +58,6 @@ namespace BackToTheFutureV.Menu
 
             foreach (string preset in TimeMachineClone.ListPresets())
                 Add(new NativeItem(preset));
-
-            Recalculate();
         }
 
         public override void Tick()
@@ -88,7 +86,7 @@ namespace BackToTheFutureV.Menu
             {
                 Close();
 
-                MenuHandler.CustomMenuForced.Visible = true;
+                MenuHandler.CustomMenuForced.Open();
             }
         }
     }

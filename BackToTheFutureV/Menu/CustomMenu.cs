@@ -156,8 +156,6 @@ namespace BackToTheFutureV.Menu
                     _wheelsType.SelectedIndex = 2;
                     break;
             }
-
-            Recalculate();
         }
 
         private ModState ConvertFromBool(bool value)

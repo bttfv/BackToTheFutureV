@@ -84,8 +84,6 @@ namespace BackToTheFutureV.Menu
             TimeCircuitsOnDescription.Checked = CurrentTimeMachine.Properties.AreTimeCircuitsOn;
             DestinationTimeDescription.Title = $"{Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime")} {CurrentTimeMachine.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm")}";
 
-            Recalculate();
-
             float dist = CurrentTimeMachine.Vehicle.Position.DistanceToSquared(Main.PlayerPed.Position);
 
             if (dist <= RCManager.MAX_DIST * RCManager.MAX_DIST)
