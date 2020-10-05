@@ -51,11 +51,15 @@ namespace BackToTheFutureV.Menu
             presetsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset");
             presetsMenu.Description = Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset_Description");
 
+            //AddSeparator();
+
             Add(convertIntoTimeMachine = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_ConvertToTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_ConvertToTimeMachine_Description")));
 
             customMenu = AddSubMenu(MenuHandler.CustomMenu);
             customMenu.Title = Game.GetLocalizedString("BTTFV_Menu_Build_Delorean");
             customMenu.Description = Game.GetLocalizedString("BTTFV_Menu_Build_Delorean_Description");
+
+            //AddSeparator();
 
             rcMenu = AddSubMenu(MenuHandler.RCMenu);
             rcMenu.Title = Game.GetLocalizedString("BTTFV_Menu_RCMenu");
@@ -65,9 +69,13 @@ namespace BackToTheFutureV.Menu
             outatimeMenu.Title = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu");
             outatimeMenu.Description = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Description");
 
+            //AddSeparator();
+
             Add(deleteCurrent = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine_Description")));
             Add(deleteOthers = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines_Description")));
             Add(deleteAll = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines_Description")));
+
+            //AddSeparator();
 
             settingsMenu = AddSubMenu(MenuHandler.SettingsMenu);
             settingsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_Settings");            

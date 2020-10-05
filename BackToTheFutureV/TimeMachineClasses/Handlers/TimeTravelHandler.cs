@@ -116,7 +116,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     // Play the light explosion
                     Particles.LightExplosion.Play();
 
-                    bool is99 = Properties.HasBeenStruckByLightning && !Properties.IsFlying;
+                    bool is99 = Properties.HasBeenStruckByLightning && Properties.IsFlying;
 
                     trails = FireTrailsHandler.SpawnForTimeMachine(
                         TimeMachine,

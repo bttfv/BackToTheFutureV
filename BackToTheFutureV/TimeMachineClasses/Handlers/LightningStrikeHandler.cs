@@ -61,7 +61,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if(Properties.IsFlying && Game.GameTime > _nextForce)
                 {
                     //Vehicle.ApplyForce(Vector3.RandomXYZ() * 3f, Vector3.RandomXYZ());
-                    Vehicle.ApplyForce(Vector3.Zero, Vector3.RandomXYZ());
+                    Vehicle.ApplyForce(Vector3.Zero, Vector3.RandomXYZ()*3);
 
                     _nextForce = Game.GameTime + 100;
                 }
@@ -74,7 +74,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
           
             if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying)) 
             {
-                if (Utils.Random.NextDouble() < 1.2)
+                if (Utils.Random.NextDouble() < 0.2)
                     Strike();
                 else
                     _nextCheck = Game.GameTime + 10000;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using GTA;
@@ -116,6 +117,15 @@ namespace BackToTheFutureV.Menu
         private void NativeItem_Activated(object sender, EventArgs e)
         {
             OnItemActivated?.Invoke(((NativeMenu)sender).SelectedItem, e);
+        }
+
+        public NativeSeparatorItem AddSeparator()
+        {
+            NativeSeparatorItem nativeSeparatorItem;
+
+            Add(nativeSeparatorItem = new NativeSeparatorItem());
+
+            return nativeSeparatorItem;
         }
 
         public abstract void Tick();
