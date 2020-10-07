@@ -80,7 +80,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Properties.TimeTravelDestPos != Vector3.Zero) 
             {
-                Vehicle.Position = Properties.TimeTravelDestPos;
+                Vehicle.Position = Vehicle.Position.TransferHeight(Properties.TimeTravelDestPos);
                 Properties.TimeTravelDestPos = Vector3.Zero;
             }
         }

@@ -98,7 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                             ScreenFlash.FlashScreen(0.25f);                        
 
                         if (Properties.TimeTravelDestPos != Vector3.Zero)
-                            Vehicle.TeleportTo(Properties.TimeTravelDestPos, !Properties.IsFlying);
+                            Vehicle.TeleportTo(Properties.TimeTravelDestPos);
 
                         Properties.TimeTravelDestPos = Vector3.Zero;
 
@@ -200,7 +200,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     FireTrailsHandler.RemoveTrail(trails);
 
                     if (Properties.TimeTravelDestPos != Vector3.Zero)
-                        Vehicle.TeleportTo(Properties.TimeTravelDestPos, !Properties.IsFlying);
+                        Vehicle.TeleportTo(Properties.TimeTravelDestPos);
 
                     Properties.TimeTravelDestPos = Vector3.Zero;
 

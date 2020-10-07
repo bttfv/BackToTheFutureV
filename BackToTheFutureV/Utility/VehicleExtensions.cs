@@ -25,16 +25,12 @@ namespace BackToTheFutureV.Utility
             vehicle?.Delete();
         }
 
-        public static void TeleportTo(this Vehicle vehicle, Vector3 position, bool placeOnGround = true)
+        public static void TeleportTo(this Vehicle vehicle, Vector3 position)
         {
-            if (!placeOnGround)
-                position.Z = vehicle.Position.Z;
-            
+            position = vehicle.Position.TransferHeight(position);
+
             position.RequestCollision();
             vehicle.Position = position;
-
-            if (placeOnGround)
-                vehicle.PlaceOnGround();
         }
 
         public static bool IsTimeMachine(this Vehicle vehicle)
