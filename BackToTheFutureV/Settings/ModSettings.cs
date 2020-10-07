@@ -103,6 +103,8 @@ namespace BackToTheFutureV
             EngineStallEvent = settings.GetValue("Events", "EngineStall", EngineStallEvent);
             TurbulenceEvent = settings.GetValue("Events", "Turbulence", TurbulenceEvent);
 
+            ModControls.LoadControls(settings);
+
             SaveSettings();
 
             OnGUIChange?.Invoke();

@@ -1,8 +1,11 @@
 ﻿using GTA;
 using GTA.Math;
 using GTA.Native;
+using GTA.NaturalMotion;
+using GTA.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace BackToTheFutureV.Utility
 {
@@ -64,6 +67,53 @@ namespace BackToTheFutureV.Utility
             dst.Z += src.Z - World.GetGroundHeight(src);
 
             return dst;
+        }
+
+        public static float GetMostFreeDirection(this Vector3 position, Entity ignoreEntity)
+        {
+            float ret = 0;
+            float maxDist = -1;
+            Vector3 lastPos = Vector3.Zero;
+
+            const float r = 1000f;
+
+            position = position.GetSingleOffset(Coordinate.Z, 1);
+
+            for (float i = 0; i <= 360; i += 15)
+            {
+                float angleRad = i * (float)Math.PI / 180;
+
+                float x = r * (float)Math.Cos(angleRad);
+                float y = r * (float)Math.Sin(angleRad);
+
+                Vector3 circlePos = position;
+                circlePos.X += y;
+                circlePos.Y += x;
+               
+                // Then we check for every pos if it hits tracks material
+                RaycastResult raycast = World.Raycast(position, circlePos, IntersectFlags.Everything, ignoreEntity);
+
+                if (!raycast.DidHit)
+                {
+                    ret = i;
+                    lastPos = circlePos;
+                    break;
+                }
+
+                float curDist = raycast.HitPosition.DistanceTo2D(position);
+
+                if (curDist > maxDist)
+                {
+                    maxDist = curDist;
+                    ret = i;
+                    lastPos = circlePos;
+                }
+            }
+
+            if (lastPos != Vector3.Zero)
+                Utils.DrawLine(position, lastPos, Color.Aqua);
+
+            return ret;
         }
 
         public static void AttachToPhysically(this Entity entity1, Entity toEntity, Vector3 offset, Vector3 rotation)
