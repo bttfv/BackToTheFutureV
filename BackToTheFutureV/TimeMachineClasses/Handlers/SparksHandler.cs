@@ -167,9 +167,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         _timeTravelAtTime = Game.GameTime + _wormholeLengthTime + 1000;
 
                         if (Mods.WormholeType == WormholeType.BTTF3)
-                        {
                             _startStabilizedSoundAt = Game.GameTime + 1000;
-                        }
+                        
+                        Secondary.LoadWaypointPosition(true);
                     }
 
                     if (Mods.WormholeType == WormholeType.BTTF3 && Game.GameTime > _startStabilizedSoundAt && _hasHit88)

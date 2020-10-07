@@ -12,6 +12,8 @@ using GTA.UI;
 //using NativeUI;
 using System.Drawing;
 using BackToTheFutureV.Vehicles;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Messaging;
 
 namespace BackToTheFutureV.Utility
 {
@@ -418,6 +420,50 @@ namespace BackToTheFutureV.Utility
             Function.Call((Hash)0xE952D6431689AD9A, toCloneFrom.Handle, newPed.Handle);
 
             return newPed;
+        }
+
+        public static Vector3 GetWaypointPosition()
+        {
+            if (!Game.IsWaypointActive)
+                return Vector3.Zero;
+
+            bool blipFound = false;
+            Vector3 position = Vector3.Zero;
+
+            int it = Function.Call<int>(Hash._GET_BLIP_INFO_ID_ITERATOR);
+            for (int i = Function.Call<int>(Hash.GET_FIRST_BLIP_INFO_ID, it); Function.Call<bool>(Hash.DOES_BLIP_EXIST, i); i = Function.Call<int>(Hash.GET_NEXT_BLIP_INFO_ID, it))
+            {
+                if (Function.Call<int>(Hash.GET_BLIP_INFO_ID_TYPE, i) == 4)
+                {
+                    position = Function.Call<Vector3>(Hash.GET_BLIP_INFO_ID_COORD, i);
+                    blipFound = true;
+                    break;
+                }
+            }
+
+            if (blipFound)
+            {
+                do
+                {                    
+                    position.RequestCollision();
+                    Script.Yield();
+                    position.Z = World.GetGroundHeight(new Vector2(position.X, position.Y));
+                } while (position.Z == 0);                
+            }
+
+            return position;
+        }
+        
+        public static Vector3 GetClosestVehicleNode(Vector3 position)
+        {
+            Vector3 ret = Vector3.Zero;
+
+            unsafe
+            {
+                Function.Call(Hash.GET_CLOSEST_VEHICLE_NODE, position.X, position.Y, position.Z, &ret, 1, 0f, 0f);
+            }
+
+            return ret;
         }
 
         public static Dictionary<string, Vector3> GetWheelPositions(Vehicle vehicle)

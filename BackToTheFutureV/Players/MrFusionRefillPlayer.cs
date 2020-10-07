@@ -121,7 +121,7 @@ namespace BackToTheFutureV.Players
             currentStep = 0;
 
             if (!open)
-                Main.PlayerPed.Task.ClearAllImmediately();
+                Main.PlayerPed.Task.ClearAnimation("anim@narcotics@trash", "drop_front");
         }
 
         public override void Dispose()

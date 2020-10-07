@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Forms;
 using BackToTheFutureV.TimeMachineClasses;
 using GTA;
+using GTA.Math;
 using GTA.Native;
+using GTA.UI;
 
 namespace BackToTheFutureV.Utility
 {
@@ -20,6 +23,18 @@ namespace BackToTheFutureV.Utility
             }
 
             vehicle?.Delete();
+        }
+
+        public static void TeleportTo(this Vehicle vehicle, Vector3 position, bool placeOnGround = true)
+        {
+            if (!placeOnGround)
+                position.Z = vehicle.Position.Z;
+            
+            position.RequestCollision();
+            vehicle.Position = position;
+
+            if (placeOnGround)
+                vehicle.PlaceOnGround();
         }
 
         public static bool IsTimeMachine(this Vehicle vehicle)

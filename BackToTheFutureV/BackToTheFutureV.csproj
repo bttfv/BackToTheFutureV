@@ -164,6 +164,7 @@
     <Compile Include="Utility\CustomControl.cs" />
     <Compile Include="Utility\CustomStopwatch.cs" />
     <Compile Include="Utility\PlayerSwitch.cs" />
+    <Compile Include="Secondary.cs" />
     <Compile Include="Utility\TimedEvent.cs" />
     <Compile Include="Utility\TimedEventManager.cs" />
     <Compile Include="Story\PhoneHandler.cs" />

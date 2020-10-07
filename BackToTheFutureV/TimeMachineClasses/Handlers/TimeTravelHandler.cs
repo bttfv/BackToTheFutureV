@@ -19,7 +19,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
     public class TimeTravelHandler : Handler
     {        
         private int _currentStep;
-        private float gameTimer;
+        private float gameTimer;        
         private FireTrail trails;
         
         public TimeTravelHandler(TimeMachine timeMachine) : base(timeMachine)
@@ -82,7 +82,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     // Invoke delegate
                     Events.OnTimeTravelStarted?.Invoke();
-                    
+
+                    Properties.TimeTravelDestPos = Secondary.WaypointPosition;
+
                     if (Properties.TimeTravelType == TimeTravelType.Instant)
                     {
                         // Create a copy of the current status of the time machine
@@ -94,6 +96,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                             Props.WhiteSphere.SpawnProp();
                         else
                             ScreenFlash.FlashScreen(0.25f);                        
+
+                        if (Properties.TimeTravelDestPos != Vector3.Zero)
+                            Vehicle.TeleportTo(Properties.TimeTravelDestPos, !Properties.IsFlying);
 
                         // Have to call SetupJump manually here.
                         TimeHandler.TimeTravelTo(TimeMachine, Properties.DestinationTime);
@@ -190,7 +195,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 case 3:
                     TimeHandler.TimeTravelTo(TimeMachine, Properties.DestinationTime);
-                    FireTrailsHandler.RemoveTrail(trails);                    
+                    FireTrailsHandler.RemoveTrail(trails);
+
+                    if (Properties.TimeTravelDestPos != Vector3.Zero)
+                        Vehicle.TeleportTo(Properties.TimeTravelDestPos, !Properties.IsFlying);
 
                     gameTimer = Game.GameTime + 1000;
 

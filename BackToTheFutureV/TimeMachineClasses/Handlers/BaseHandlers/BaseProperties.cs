@@ -49,7 +49,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool PhotoGlowingCoilsActive { get; set; }
         public bool PhotoFluxCapacitorActive { get; set; }
         public float TorqueMultiplier { get; set; } = 1;
-
+        public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
+      
         public BaseProperties Clone()
         {
             BaseProperties ret = new BaseProperties();
@@ -73,6 +74,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             ret.IsAltitudeHolding = false;
 
             ret.IsRemoteControlled = false;
+
+            ret.TimeTravelDestPos = Vector3.Zero;
                 
             return ret;
         }
