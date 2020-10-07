@@ -15,22 +15,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private Vector3 hookPosition = new Vector3(0.75f, 0f, 0f);
 
         //Hoodbox
-        private bool _state = false;
-        private bool _applyAlpha = false;
-        private float _alphaLevel = 0;
-        private bool _isNight;
-
+        private int _warmUp = 0;
+        
         public ComponentsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnReenterCompleted += OnReenterCompleted;
             Events.OnVehicleSpawned += OnReenterCompleted;
             Events.OnHoodboxReady += Instant;
-        }
+            TimeHandler.OnDayNightChange += OnDayNightChange;
 
-        public void StartWarmup()
-        {            
-            _state = true;
-            _applyAlpha = true;
+            OnDayNightChange();
         }
 
         public void OnReenterCompleted()
@@ -52,11 +46,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void Instant()
         {
-            _alphaLevel = 52f;
-            _state = true;
-            LoadHoodboxLights(true);
             Props.HoodboxLights.SpawnProp();
-            Props.HoodboxLights.Prop.Opacity = (int)_alphaLevel;
             Properties.AreHoodboxCircuitsReady = true;
         }
 
@@ -65,19 +55,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         }
 
-        private void LoadHoodboxLights(bool force = false)
+        private void OnDayNightChange()
         {
-            if (!force && _isNight == Utils.IsNight())
-                return;
+            Props.HoodboxLights?.DeleteProp();
 
-            _isNight = Utils.IsNight();
-
-            Props.HoodboxLights?.Dispose();
-
-            if (_isNight)
-                Props.HoodboxLights = new AnimateProp(Vehicle, ModelHandler.HoodboxLightsNight, "bonnet");
+            if (TimeHandler.IsNight)
+                Props.HoodboxLights.Model = ModelHandler.HoodboxLightsNight;
             else
-                Props.HoodboxLights = new AnimateProp(Vehicle, ModelHandler.HoodboxLights, "bonnet");
+                Props.HoodboxLights.Model = ModelHandler.HoodboxLights;
         }
 
         private void HookProcess()
@@ -111,7 +96,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void HoodboxProcess()
         {
-            if (_state)
+            if (Properties.AreHoodboxCircuitsReady)
             {
                 if (Mods.Hoodbox == ModState.Off)
                 {
@@ -119,52 +104,36 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return;
                 }
 
-                LoadHoodboxLights(Props.HoodboxLights == null);
+                if (!Props.HoodboxLights.IsSpawned)
+                    Props.HoodboxLights.SpawnProp();
 
-                if (Props.HoodboxLights != null)
-                {
-                    if (!Props.HoodboxLights.IsSpawned)
-                        Props.HoodboxLights.SpawnProp();
-
-                    if (Vehicle.IsVisible != Props.HoodboxLights?.Prop.IsVisible)
-                        Props.HoodboxLights.Prop.IsVisible = Vehicle.IsVisible;
-
-                    if (_applyAlpha)
-                    {
-                        _alphaLevel += Game.LastFrameTime * 6f;
-
-                        if (_alphaLevel > 52)
-                        {
-                            _applyAlpha = false;
-
-                            if (!TcdEditer.IsEditing)
-                                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hoodbox_Warmup_Error"));
-
-                            Properties.AreHoodboxCircuitsReady = true;
-                        }
-                        else
-                            Props.HoodboxLights.Prop.Opacity = (int)_alphaLevel;
-                    }
-                }
+                if (Vehicle.IsVisible != Props.HoodboxLights?.Prop.IsVisible)
+                    Props.HoodboxLights.Prop.IsVisible = Vehicle.IsVisible;
 
                 return;
             }
 
-            if (Mods.Hoodbox == ModState.Off | Main.PlayerPed.IsInVehicle())
+            if (_warmUp > 0 && _warmUp < Game.GameTime)
+            {
+                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hoodbox_Warmup_Error"));
+                Props.HoodboxLights.SpawnProp();
+
+                _warmUp = 0;
+                Properties.AreHoodboxCircuitsReady = true;
+
+                return;
+            }
+
+            if (Mods.Hoodbox == ModState.Off | Main.PlayerPed.IsInVehicle() | TcdEditer.IsEditing | _warmUp > 0)
                 return;
 
-            var worldPos = Vehicle.Bones["bonnet"].Position;
-
-            var dist = Main.PlayerPed.Position.DistanceToSquared(worldPos);
-
-            if (!(dist <= 2f * 2f))
+            if (!(Main.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position) <= 2f * 2f))
                 return;
 
-            if (!TcdEditer.IsEditing)
-                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hoodbox_Warmup_Start"));
+            Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hoodbox_Warmup_Start"));
 
             if (Game.IsControlJustPressed(GTA.Control.Context))
-                StartWarmup();
+                _warmUp = Game.GameTime + 8000;
         }
 
         public override void Process()
@@ -179,10 +148,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public override void Stop()
         {
             Props.HoodboxLights?.DeleteProp();
-            Props.HoodboxLights = null;
-            _state = false;
-            _applyAlpha = false;
-            _alphaLevel = 0;
+            _warmUp = 0;
         }
 
         public override void Dispose()

@@ -23,6 +23,8 @@ namespace BackToTheFutureV.Players
 
         public WormholeAnimationPlayer(TimeMachine timeMachine, int maxTime = 4350) : base(timeMachine)
         {
+            TimeHandler.OnDayNightChange += OnDayNightChange;
+
             _wheelPtfxes = new List<PtfxEntityPlayer>();
 
             MaxTime = maxTime;
@@ -99,6 +101,8 @@ namespace BackToTheFutureV.Players
             {
                 _sparks.Add(new SparkPlayer(TimeMachine, sparks, _sparkModel));
             }
+
+            OnDayNightChange();
         }
 
         private RenderTarget _wormholeRT;
@@ -135,9 +139,9 @@ namespace BackToTheFutureV.Players
             _wormholeScaleform.Render2D(new PointF(0.5f, 0.5f), 0.9f);
         }
 
-        private void UpdateCoilModel()
+        private void OnDayNightChange()
         {
-            if (Main.CurrentTime.Hour >= 20 || (Main.CurrentTime.Hour >= 0 && Main.CurrentTime.Hour <= 5))
+            if (TimeHandler.IsNight)
             {
                 if (Mods.IsDMC12)
                     _coilsProp.Model = ModelHandler.CoilsGlowingNight;
@@ -261,9 +265,6 @@ namespace BackToTheFutureV.Players
             IsPlaying = true;
             _hasStartedWormhole = false;            
             _startSparksAt = Game.GameTime + 1000;
-
-            // Update coil model, based on the time of day
-            UpdateCoilModel();
 
             // Spawn the coil model
             if (TimeMachine.Mods.WormholeType != WormholeType.BTTF3)

@@ -98,8 +98,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                             ScreenFlash.FlashScreen(0.25f);                        
 
                         if (Properties.TimeTravelDestPos != Vector3.Zero)
-                            Vehicle.TeleportTo(Properties.TimeTravelDestPos);
+                        {
+                            if (Properties.IsOnTracks)
+                            {
+                                Events.SetStopTracks?.Invoke(3000);
+                                Properties.WasOnTracks = false;
 
+                                TimeMachine.LastDisplacementClone.Properties.WasOnTracks = false;
+                            }
+                                
+                            Vehicle.TeleportTo(Properties.TimeTravelDestPos);
+                        }
+                            
                         Properties.TimeTravelDestPos = Vector3.Zero;
 
                         // Have to call SetupJump manually here.
@@ -200,8 +210,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     FireTrailsHandler.RemoveTrail(trails);
 
                     if (Properties.TimeTravelDestPos != Vector3.Zero)
-                        Vehicle.TeleportTo(Properties.TimeTravelDestPos);
+                    {
+                        if (Properties.IsOnTracks)
+                        {
+                            Events.SetStopTracks?.Invoke(3000);
+                            Properties.WasOnTracks = false;
 
+                            TimeMachine.LastDisplacementClone.Properties.WasOnTracks = false;
+                        }
+
+                        Vehicle.TeleportTo(Properties.TimeTravelDestPos);
+                    }
+                        
                     Properties.TimeTravelDestPos = Vector3.Zero;
 
                     gameTimer = Game.GameTime + 1000;

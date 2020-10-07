@@ -49,6 +49,23 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.SetFlyMode += SetFlyMode;
             Events.SetAltitudeHold += SetHoverMode;
             Events.OnHoverUnderbodyToggle += OnHoverUnderbodyToggle;
+
+            if (!Mods.IsDMC12)
+                return;
+
+            TimeHandler.OnDayNightChange += OnDayNightChange;
+
+            OnDayNightChange();
+        }
+        
+        private void OnDayNightChange()
+        {            
+            Props.HoverModeVentsGlow?.DeleteProp();
+
+            if (TimeHandler.IsNight)
+                Props.HoverModeVentsGlow.Model = ModelHandler.VentGlowingNight;
+            else
+                Props.HoverModeVentsGlow.Model = ModelHandler.VentGlowing;
         }
 
         public void OnHoverUnderbodyToggle()

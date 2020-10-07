@@ -125,9 +125,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TFCHandle.SpawnProp(false);
 
             //TCD
-            TickingDiodes = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TickingDiodes, Vector3.Zero, Vector3.Zero);
-            TickingDiodesOff = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TickingDiodesOff, Vector3.Zero, Vector3.Zero);
+            TickingDiodes = new AnimateProp(Vehicle, ModelHandler.TickingDiodes, Vector3.Zero, Vector3.Zero);
+            TickingDiodesOff = new AnimateProp(Vehicle, ModelHandler.TickingDiodesOff, Vector3.Zero, Vector3.Zero);
             TickingDiodesOff.SpawnProp();
+
+            //Hoodbox lights
+            HoodboxLights = new AnimateProp(Vehicle, ModelHandler.HoodboxLights, "bonnet");
         }
 
         public override void Dispose()

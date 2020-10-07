@@ -11,13 +11,26 @@ using GTA.UI;
 
 namespace BackToTheFutureV
 {
+    public delegate void OnDayNightChange();
+
     public class TimeHandler
     {
+        public static OnDayNightChange OnDayNightChange;
+
         private static List<Moment> momentsInTime = new List<Moment>();
         private static List<Vehicle> vehiclesEnteredByPlayer = new List<Vehicle>();
 
+        public static bool IsNight;
+
         public static void Process()
         {
+            if (Utils.IsNight() != IsNight)
+            {
+                IsNight = Utils.IsNight();
+
+                OnDayNightChange?.Invoke();
+            }
+
             if (Main.PlayerVehicle != null && !Main.PlayerVehicle.IsTimeMachine() && !vehiclesEnteredByPlayer.Contains(Main.PlayerVehicle))
                 vehiclesEnteredByPlayer.Add(Main.PlayerVehicle);
 
