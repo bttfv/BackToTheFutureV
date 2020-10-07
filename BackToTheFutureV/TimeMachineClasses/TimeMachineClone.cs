@@ -3,6 +3,7 @@ using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using GTA;
+using GTA.Math;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -76,6 +77,12 @@ namespace BackToTheFutureV.TimeMachineClasses
             Mods = timeMachine.Mods.Clone();
             Properties = timeMachine.Properties.Clone();
             Vehicle = new VehicleInfo(timeMachine.Vehicle);
+
+            if (Properties.TimeTravelDestPos != Vector3.Zero) 
+            {
+                Vehicle.Position = Properties.TimeTravelDestPos;
+                Properties.TimeTravelDestPos = Vector3.Zero;
+            }
         }
 
         public TimeMachine Spawn(bool asNew = false, bool reenter = false, bool rc = false)

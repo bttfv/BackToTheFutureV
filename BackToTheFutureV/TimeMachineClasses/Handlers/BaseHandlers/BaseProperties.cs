@@ -73,9 +73,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             ret.IsAltitudeHolding = false;
 
-            ret.IsRemoteControlled = false;
-
-            ret.TimeTravelDestPos = Vector3.Zero;
+            ret.IsRemoteControlled = false;           
                 
             return ret;
         }

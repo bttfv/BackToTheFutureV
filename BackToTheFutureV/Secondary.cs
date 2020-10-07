@@ -12,13 +12,13 @@ namespace BackToTheFutureV
 {
     public class Secondary : Script
     {
-
         private static bool _loadScene;
         private static Vector3 _position;        
 
         private static bool _loadWaypoint;
         private static bool _loadSceneAfter;
         private static Vector3 _waypointPos = Vector3.Zero;
+
         public static Vector3 WaypointPosition
         {
             get
@@ -36,7 +36,7 @@ namespace BackToTheFutureV
 
         public Secondary()
         {
-            Tick += SceneLoader_Tick;
+            Tick += Secondary_Tick;
         }
 
         public static void LoadScene(Vector3 position)
@@ -47,12 +47,12 @@ namespace BackToTheFutureV
 
         public static void LoadWaypointPosition(bool loadSceneAfter = false)
         {
-            WaypointPosition = Vector3.Zero;
+            _waypointPos = Vector3.Zero;
             _loadWaypoint = true;
             _loadSceneAfter = loadSceneAfter;
         }
 
-        private void SceneLoader_Tick(object sender, EventArgs e)
+        private void Secondary_Tick(object sender, EventArgs e)
         {
             if (_loadScene)
             {
@@ -63,7 +63,7 @@ namespace BackToTheFutureV
 
             if (_loadWaypoint)
             {
-                WaypointPosition = Utils.GetWaypointPosition();
+                _waypointPos = Utils.GetWaypointPosition();
 
                 _loadWaypoint = false;
 

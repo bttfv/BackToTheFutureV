@@ -100,6 +100,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (Properties.TimeTravelDestPos != Vector3.Zero)
                             Vehicle.TeleportTo(Properties.TimeTravelDestPos, !Properties.IsFlying);
 
+                        Properties.TimeTravelDestPos = Vector3.Zero;
+
                         // Have to call SetupJump manually here.
                         TimeHandler.TimeTravelTo(TimeMachine, Properties.DestinationTime);
 
@@ -199,6 +201,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     if (Properties.TimeTravelDestPos != Vector3.Zero)
                         Vehicle.TeleportTo(Properties.TimeTravelDestPos, !Properties.IsFlying);
+
+                    Properties.TimeTravelDestPos = Vector3.Zero;
 
                     gameTimer = Game.GameTime + 1000;
 
