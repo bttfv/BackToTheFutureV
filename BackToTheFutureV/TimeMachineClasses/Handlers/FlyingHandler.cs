@@ -37,6 +37,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private bool _hoverGlowUp;
 
+        private bool _reload;
+
         public FlyingHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             if (Mods.HoverUnderbody == ModState.On)
@@ -68,8 +70,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Props.HoverModeVentsGlow.Model = ModelHandler.VentGlowing;
         }
 
-        public void OnHoverUnderbodyToggle()
+        public void OnHoverUnderbodyToggle(bool reload = false)
         {
+            _reload = reload;
+
             if (Mods.HoverUnderbody == ModState.Off && Properties.IsFlying && Mods.IsDMC12)
                 SetFlyMode(false, true);
 
@@ -159,6 +163,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void SetFlyMode(bool open, bool instant = false)
         {
+            if (_reload)
+                OnHoverUnderbodyToggle();
+
             if (open && Properties.AreFlyingCircuitsBroken)
             {
                 if (VehicleControl.GetDeluxoTransformation(Vehicle) > 0)

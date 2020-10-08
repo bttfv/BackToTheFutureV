@@ -257,10 +257,14 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 if (IsDMC12)
                 {
+                    bool reload = false;
+
                     if (value == ModState.On)
                     {
                         if (Wheel == WheelType.RailroadInvisible)
                             Wheel = WheelType.Stock;
+
+                        reload = SuspensionsType != SuspensionsType.Stock;
 
                         if (SuspensionsType != SuspensionsType.Stock)
                             SuspensionsType = SuspensionsType.Stock;
@@ -270,7 +274,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                     TimeMachine.DMC12.SetStockSuspensions?.Invoke(value == ModState.Off);
 
-                    TimeMachine.Events?.OnHoverUnderbodyToggle?.Invoke();
+                    TimeMachine.Events?.OnHoverUnderbodyToggle?.Invoke(reload);
                 }                                  
             }
         }

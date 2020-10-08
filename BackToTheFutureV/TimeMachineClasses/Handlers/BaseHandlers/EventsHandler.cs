@@ -20,7 +20,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void OnLightningStrike();   
     public delegate void OnHoverTransformation();
     public delegate void OnRCToggle();
-    public delegate void OnHoverUnderbodyToggle();
+    public delegate void OnHoverUnderbodyToggle(bool reload = false);
     public delegate void OnWormholeTypeChanged();
     public delegate void OnReactorTypeChanged();
     public delegate void OnVehicleSpawned();

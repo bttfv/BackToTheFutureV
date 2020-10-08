@@ -126,7 +126,7 @@ namespace BackToTheFutureV.Menu
         {
             _baseType.SelectedIndex = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
             _canFly.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
-
+            
             if (_tempTimeMachine.Mods.IsDMC12)
             {
                 _powerSource.SelectedIndex = (int)_tempTimeMachine.Mods.Reactor;
@@ -136,7 +136,7 @@ namespace BackToTheFutureV.Menu
                 _exhaust.SelectedIndex = (int)(_tempTimeMachine.Mods.Exhaust) + 1;
                 _suspensions.SelectedIndex = (int)_tempTimeMachine.Mods.SuspensionsType;
 
-                _canFly.Enabled = !_tempTimeMachine.Properties.IsFlying;
+                _canFly.Enabled = !_tempTimeMachine.Properties.IsFlying;// && _tempTimeMachine.Mods.SuspensionsType == SuspensionsType.Stock;
                 _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
                 _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying;
                 _suspensions.Enabled = !_tempTimeMachine.Properties.IsFlying;

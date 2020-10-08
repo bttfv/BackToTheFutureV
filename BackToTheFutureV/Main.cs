@@ -98,6 +98,7 @@ namespace BackToTheFutureV
                 TimeMachineHandler.SaveAllTimeMachines();
 
             MissionHandler.Abort();
+            StoryTimeMachine.Abort();
             RemoteTimeMachineHandler.Dispose();
             TimeMachineHandler.Abort();
             FireTrailsHandler.Stop();

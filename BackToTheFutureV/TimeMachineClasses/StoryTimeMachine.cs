@@ -100,5 +100,14 @@ namespace BackToTheFutureV.TimeMachineClasses
             foreach(var x in StoryTimeMachines)
                 x.Process();
         }
+
+        public static void Abort()
+        {
+            foreach(var x in StoryTimeMachines)
+            {
+                if (x.Spawned && !x.IsUsed)
+                    x.TimeMachine.Dispose();
+            }
+        }
     }
 }
