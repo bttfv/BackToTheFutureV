@@ -327,7 +327,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static bool Exists(TimeMachine timeMachine)
         {
-            return TimeMachines.Contains(timeMachine) | _timeMachinesToAdd.Contains(timeMachine) | StoryTimeMachines.Contains(timeMachine);
+            return TimeMachines.Contains(timeMachine) | _timeMachinesToAdd.Contains(timeMachine);
         }
 
         public static bool IsVehicleATimeMachine(Vehicle vehicle)

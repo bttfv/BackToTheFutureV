@@ -137,9 +137,6 @@ namespace BackToTheFutureV
                 _firstTick = false;
             }
 
-            if (PlayerVehicle != null)
-                Screen.ShowSubtitle($"{PlayerVehicle.Position} {PlayerVehicle.Heading}");
-
             ObjectPool.Process();
 
             if (HideGui)
