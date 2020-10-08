@@ -246,14 +246,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             TimeMachine timeMachine = CreateTimeMachine(position, heading, WormholeType.BTTF2);
 
-            timeMachine.Mods.HoverUnderbody = ModState.Off;
-
-            timeMachine.Properties.AreTimeCircuitsBroken = true;
-            timeMachine.Properties.AreFlyingCircuitsBroken = true;
-            Utils.SetTiresBurst(timeMachine, true);
-
-            timeMachine.Vehicle.FuelLevel = 0;
-            timeMachine.Vehicle.DirtLevel = 15.0f;
+            timeMachine.Break();
 
             return timeMachine;
         }

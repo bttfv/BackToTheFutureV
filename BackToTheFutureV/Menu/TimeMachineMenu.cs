@@ -60,7 +60,7 @@ namespace BackToTheFutureV.Menu
         {
             if (sender == RepairAll)
             {
-                TimeMachineHandler.CurrentTimeMachine.RepairAll();
+                TimeMachineHandler.CurrentTimeMachine.Repair();
                 Close();
             }                
         }

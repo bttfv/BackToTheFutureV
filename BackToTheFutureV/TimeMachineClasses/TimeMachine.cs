@@ -134,7 +134,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             return default;
         }
 
-        public void DisposeAllHandlers()
+        private void DisposeAllHandlers()
         {
             foreach (var handler in registeredHandlers.Values)
                 handler.Dispose();
@@ -279,7 +279,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             PhotoMode();
         }
 
-        public void UpdateBlip()
+        private void UpdateBlip()
         {
             if (Blip != null && Blip.Exists())
             {
@@ -311,7 +311,19 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
         }
 
-        public void RepairAll()
+        public void Break()
+        {
+            Mods.HoverUnderbody = ModState.Off;
+
+            Properties.AreTimeCircuitsBroken = true;
+            Properties.AreFlyingCircuitsBroken = true;
+            Utils.SetTiresBurst(Vehicle, true);
+
+            Vehicle.FuelLevel = 0;
+            Vehicle.DirtLevel = 15.0f;
+        }
+
+        public void Repair()
         {
             Mods.Wheel = WheelType.Red;
             Utils.SetTiresBurst(Vehicle, false);
@@ -322,7 +334,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             Vehicle.Wash();
         }
 
-        public void PhotoMode() 
+        private void PhotoMode() 
         {
             if (Properties.PhotoWormholeActive && Players.Wormhole != null && !Players.Wormhole.IsPlaying)
                 Players.Wormhole.Play(true);
