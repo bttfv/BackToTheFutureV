@@ -14,18 +14,20 @@ using System.Windows.Forms;
 namespace BackToTheFutureV.TimeMachineClasses
 {
     public class TimeMachineHandler
-    {
-        public static TimeMachine LastTimeMachine { get; private set; }
+    {        
         public static TimeMachine ClosestTimeMachine { get; private set; }
         public static TimeMachine CurrentTimeMachine { get; private set; }
-        public static float SquareDistToClosestTimeMachine { get; private set; } = -1;        
+        public static float SquareDistToClosestTimeMachine { get; private set; } = -1;
+        public static List<TimeMachine> StoryTimeMachines { get; private set; } = new List<TimeMachine>();
         public static List<TimeMachine> TimeMachines { get; private set; } = new List<TimeMachine>();
+        public static List<TimeMachine> TimeMachinesNoStory => TimeMachines.Except(StoryTimeMachines).ToList();
 
         private static List<TimeMachine> _timeMachinesToAdd = new List<TimeMachine>();
         private static Dictionary<TimeMachine, bool> _timeMachinesToRemove = new Dictionary<TimeMachine, bool>();
         private static Dictionary<TimeMachine, bool> _timeMachinesToRemoveWaitSounds = new Dictionary<TimeMachine, bool>();
 
-        public static int TimeMachineCount => TimeMachines.Count;
+        public static int TimeMachineCount => TimeMachinesNoStory.Count();
+        public static int StoryTimeMachineCount => StoryTimeMachines.Count;
         private static bool _savedEmpty;
 
         public static void SaveAllTimeMachines()
@@ -33,7 +35,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (TimeMachineCount == 0 && _savedEmpty)
                 return;
 
-            TimeMachineCloneManager.Save(TimeMachines);
+            TimeMachineCloneManager.Save(TimeMachinesNoStory);
 
             _savedEmpty = TimeMachineCount == 0;
         }
@@ -48,6 +50,24 @@ namespace BackToTheFutureV.TimeMachineClasses
             {
                 TimeMachineCloneManager.Delete();
             }
+        }
+
+        public static void AddStory(TimeMachine timeMachine)
+        {
+            if (!StoryTimeMachines.Contains(timeMachine))
+            {
+                timeMachine.Properties.Story = true;
+                StoryTimeMachines.Add(timeMachine);
+            }                
+        }
+
+        public static void RemoveStory(TimeMachine timeMachine)
+        {
+            if (StoryTimeMachines.Contains(timeMachine))
+            {
+                timeMachine.Properties.Story = false;
+                StoryTimeMachines.Remove(timeMachine);
+            }                
         }
 
         public static TimeMachine CreateTimeMachine(DMC12 dmc12, WormholeType wormholeType)
@@ -222,6 +242,22 @@ namespace BackToTheFutureV.TimeMachineClasses
             return timeMachine;
         }
 
+        public static TimeMachine SpawnBroken(Vector3 position, float heading)
+        {
+            TimeMachine timeMachine = CreateTimeMachine(position, heading, WormholeType.BTTF2);
+
+            timeMachine.Mods.HoverUnderbody = ModState.Off;
+
+            timeMachine.Properties.AreTimeCircuitsBroken = true;
+            timeMachine.Properties.AreFlyingCircuitsBroken = true;
+            Utils.SetTiresBurst(timeMachine, true);
+
+            timeMachine.Vehicle.FuelLevel = 0;
+            timeMachine.Vehicle.DirtLevel = 15.0f;
+
+            return timeMachine;
+        }
+
         public static void KeyDown(Keys e)
         {
             TimeMachines.ForEach(x => x.KeyDown(e));
@@ -291,7 +327,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static bool Exists(TimeMachine timeMachine)
         {
-            return TimeMachines.Contains(timeMachine) | _timeMachinesToAdd.Contains(timeMachine);
+            return TimeMachines.Contains(timeMachine) | _timeMachinesToAdd.Contains(timeMachine) | StoryTimeMachines.Contains(timeMachine);
         }
 
         public static bool IsVehicleATimeMachine(Vehicle vehicle)
@@ -309,7 +345,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void ExistenceCheck(DateTime time)
         {
-            TimeMachines.ForEach(x =>
+            TimeMachinesNoStory.ForEach(x =>
             {
                 if (x.LastDisplacementClone.Properties.DestinationTime > time && Main.PlayerVehicle != x.Vehicle)
                     RemoveTimeMachine(x);

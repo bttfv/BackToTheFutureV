@@ -154,7 +154,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
     public class TCDHandler : Handler
     {
         //private DateTime oldDate;
-        private DateTime errorDate = new DateTime(1885, 1, 1, 12, 0, 0);
+        private DateTime errorDate = new DateTime(1885, 1, 1, 0, 0, 0);
 
         private TimedEventManager glitchEvents = new TimedEventManager();
 
@@ -333,7 +333,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Main.PlayerPed.IsInVehicle())
+            if (Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Main.PlayerPed.IsInVehicle() && !Properties.FullDamaged)
             {
                 var dist = Main.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position);
 

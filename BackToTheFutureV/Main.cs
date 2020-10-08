@@ -137,6 +137,9 @@ namespace BackToTheFutureV
                 _firstTick = false;
             }
 
+            if (PlayerVehicle != null)
+                Screen.ShowSubtitle($"{PlayerVehicle.Position} {PlayerVehicle.Heading}");
+
             ObjectPool.Process();
 
             if (HideGui)
@@ -157,6 +160,7 @@ namespace BackToTheFutureV
             TcdEditer.Process();
             MissionHandler.Process();                        
             PlayerSwitch.Process();
+            StoryTimeMachine.ProcessAll();
             MenuHandler.Process();
 
             if (ModSettings.PersistenceSystem && _saveDelay < Game.GameTime)

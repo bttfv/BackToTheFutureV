@@ -15,6 +15,7 @@ namespace BackToTheFutureV.Menu
 {
     public class TimeMachineMenu : CustomNativeMenu
     {
+        public NativeItem RepairAll { get; private set; }
         public NativeCheckboxItem TimeCircuitsOn { get; }
         public NativeCheckboxItem CutsceneMode { get; }
         public NativeCheckboxItem FlyMode { get; }
@@ -32,6 +33,7 @@ namespace BackToTheFutureV.Menu
 
             Shown += TimeMachineMenu_Shown;
             OnItemCheckboxChanged += TimeMachineMenu_OnItemCheckboxChanged;
+            OnItemActivated += TimeMachineMenu_OnItemActivated;
 
             Add(TimeCircuitsOn = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn_Description")));
             Add(CutsceneMode = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_CutsceneMode"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_CutsceneMode")));
@@ -54,6 +56,15 @@ namespace BackToTheFutureV.Menu
             Main.ObjectPool.Add(this);
         }
 
+        private void TimeMachineMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        {
+            if (sender == RepairAll)
+            {
+                TimeMachineHandler.CurrentTimeMachine.RepairAll();
+                Close();
+            }                
+        }
+
         private void TimeMachineMenu_Shown(object sender, EventArgs e)
         {            
             if (TimeMachineHandler.CurrentTimeMachine == null)
@@ -69,6 +80,16 @@ namespace BackToTheFutureV.Menu
 
             TimeCircuitsOn.Enabled = !RemoteControl.Enabled;
             CutsceneMode.Enabled = !RemoteControl.Enabled;
+
+            bool fullDamaged = TimeMachineHandler.CurrentTimeMachine.Properties.FullDamaged;
+
+            if (RepairAll != null && !fullDamaged)
+            {
+                Remove(RepairAll);
+                RepairAll = null;
+            }                
+            else if (RepairAll == null && fullDamaged)
+                Add(0, RepairAll = new NativeItem("Repair"));
         }
 
         private void TimeMachineMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)

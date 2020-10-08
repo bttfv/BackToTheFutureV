@@ -62,6 +62,14 @@ namespace BackToTheFutureV.Menu
             base.Add(nativeItem);
         }
 
+        public new void Add(int position, NativeItem nativeItem)
+        {
+            nativeItem.Activated += NativeItem_Activated;
+            nativeItem.Selected += NativeItem_Selected;
+
+            base.Add(position, nativeItem);
+        }
+
         public void Add(NativeCheckboxItem nativeCheckboxItem)
         {
             nativeCheckboxItem.Activated += NativeItem_Activated;

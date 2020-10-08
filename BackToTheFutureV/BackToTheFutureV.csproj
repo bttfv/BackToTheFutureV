@@ -154,6 +154,7 @@
     <Compile Include="TimeMachineClasses\RC\RCManager.cs" />
     <Compile Include="TimeMachineClasses\RC\RemoteTimeMachine.cs" />
     <Compile Include="TimeMachineClasses\RC\RemoteTimeMachineHandler.cs" />
+    <Compile Include="TimeMachineClasses\StoryTimeMachine.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineClone.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineHandler.cs" />
     <Compile Include="TimeMachineClasses\TimeMachine.cs" />

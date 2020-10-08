@@ -51,6 +51,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public float TorqueMultiplier { get; set; } = 1;
         public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
         public MissionType MissionType { get; set; } = MissionType.None;
+        public bool Story { get; set; }
       
         public BaseProperties Clone()
         {
@@ -77,6 +78,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             ret.IsRemoteControlled = false;
 
             ret.MissionType = MissionType.None;
+
+            ret.Story = false;
 
             return ret;
         }

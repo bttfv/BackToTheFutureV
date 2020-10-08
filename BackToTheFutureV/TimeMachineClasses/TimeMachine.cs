@@ -260,7 +260,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 Mods.SyncMods();
             }
 
-            if (Main.PlayerVehicle != Vehicle && Vehicle.IsVisible)
+            if (Main.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)
             {
                 if (Blip == null || !Blip.Exists())
                 {
@@ -309,6 +309,17 @@ namespace BackToTheFutureV.TimeMachineClasses
                         break;
                 }
             }
+        }
+
+        public void RepairAll()
+        {
+            Mods.Wheel = WheelType.Red;
+            Utils.SetTiresBurst(Vehicle, false);
+            Mods.SuspensionsType = SuspensionsType.LiftFront;
+            Mods.Hoodbox = ModState.On;
+
+            Vehicle.FuelLevel = 60.0f;
+            Vehicle.Wash();
         }
 
         public void PhotoMode() 
