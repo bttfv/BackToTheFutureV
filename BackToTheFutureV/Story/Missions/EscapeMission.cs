@@ -20,6 +20,7 @@ namespace BackToTheFutureV.Story.Missions
         public Vehicle Vehicle { get; private set; }
         public Ped Driver { get; private set; }
         public Ped Shooter { get; private set; }
+        public Ped TargetPed => TimeMachine.Vehicle.GetPedOnSeat(VehicleSeat.Driver);
 
         private PedGroup Peds { get; set; }
         private TimeMachine TimeMachine;
@@ -51,30 +52,37 @@ namespace BackToTheFutureV.Story.Missions
             step = -1;
         }
 
+        public void StartOn(TimeMachine timeMachine)
+        {
+            TimeMachine = timeMachine;
+            Start();
+        }
+
         protected override void OnStart()
         {
-            Vehicle = World.CreateVehicle("sabregt", Main.PlayerPed.GetOffsetPosition(new Vector3(0, -10, 0)));
-            Vehicle.Heading = Main.PlayerPed.Heading;
+            if (TimeMachine == null)
+                TimeMachine = TimeMachineHandler.CurrentTimeMachine;
+
+            Vehicle = World.CreateVehicle("sabregt", TargetPed.GetOffsetPosition(new Vector3(0, -10, 0)));
+            Vehicle.Heading = TargetPed.Heading;
             Vehicle.AddBlip();
 
             Vehicle.MaxSpeed = Utils.MphToMs(70);
 
             Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
 
-            Function.Call(Hash.TASK_VEHICLE_CHASE, Driver, Main.PlayerPed);
+            Function.Call(Hash.TASK_VEHICLE_CHASE, Driver, TargetPed);
             Function.Call(Hash.SET_TASK_VEHICLE_CHASE_IDEAL_PURSUIT_DISTANCE, Driver, 0f);
             Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, Driver, 1.0f);
 
             Shooter = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Passenger);
             Shooter.Weapons.Give(WeaponHash.Pistol, 999, true, true);
-            Shooter.Task.VehicleShootAtPed(Main.PlayerPed);
+            Shooter.Task.VehicleShootAtPed(TargetPed);
 
             Peds = new PedGroup();
 
             Peds.Add(Driver, true);
             Peds.Add(Shooter, false);
-
-            TimeMachine = TimeMachineHandler.CurrentTimeMachine;
 
             TimeMachine.Events.OnTimeTravelStarted += OnTimeTravelStarted;
             TimeMachine.Properties.MissionType = MissionType.Escape;
@@ -124,7 +132,7 @@ namespace BackToTheFutureV.Story.Missions
             switch (step)
             {
                 case 1:
-                    if (Vehicle.Position.DistanceToSquared2D(Main.PlayerPed.Position) <= 1 || gameTimer < Game.GameTime)
+                    if (Vehicle.Position.DistanceToSquared2D(TargetPed.Position) <= 1 || gameTimer < Game.GameTime)
                         StopVehicle();
 
                     break;

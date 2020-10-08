@@ -169,7 +169,6 @@
     <Compile Include="Secondary.cs" />
     <Compile Include="Utility\TimedEvent.cs" />
     <Compile Include="Utility\TimedEventManager.cs" />
-    <Compile Include="Story\PhoneHandler.cs" />
     <Compile Include="Utility\NativeInput.cs" />
     <Compile Include="Utility\ModelHandler.cs" />
     <Compile Include="Players\MrFusionRefillPlayer.cs" />
