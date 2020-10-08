@@ -43,16 +43,6 @@ namespace BackToTheFutureV.Players
             open = !open;
             IsPlaying = true;
             currentStep = 0;
-
-            if (!open)
-                return;
-
-            TaskSequence taskSequence = new TaskSequence();
-
-            taskSequence.AddTask.TurnTo(Vehicle.Bones["mr_fusion_handle"].Position, 1000);
-            taskSequence.AddTask.PlayAnimation("anim@narcotics@trash", "drop_front");
-
-            Main.PlayerPed.Task.PerformSequence(taskSequence);
         }
 
         public override void Process()
@@ -119,9 +109,6 @@ namespace BackToTheFutureV.Players
         {
             IsPlaying = false;
             currentStep = 0;
-
-            if (!open)
-                Main.PlayerPed.Task.ClearAnimation("anim@narcotics@trash", "drop_front");
         }
 
         public override void Dispose()

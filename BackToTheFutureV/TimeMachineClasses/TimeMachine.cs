@@ -107,6 +107,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 registeredHandlers.Add("ComponentsHandler", new ComponentsHandler(this));
                 registeredHandlers.Add("EngineHandler", new EngineHandler(this));
                 registeredHandlers.Add("StarterHandler", new StarterHandler(this));
+                registeredHandlers.Add("DriverAIHandler", new DriverAIHandler(this));
 
                 VehicleBone.TryGetForVehicle(Vehicle, "suspension_lf", out boneLf);
                 VehicleBone.TryGetForVehicle(Vehicle, "suspension_rf", out boneRf);

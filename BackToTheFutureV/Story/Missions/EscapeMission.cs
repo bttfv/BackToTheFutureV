@@ -84,8 +84,14 @@ namespace BackToTheFutureV.Story.Missions
 
         public void OnTimeTravelStarted()
         {
+            if (!IsPlaying)
+                return;
+
             gameTimer = Game.GameTime + 5000;
             step = 1;
+
+            if (TimeMachine.Properties.TimeTravelType == TimeTravelType.Instant)
+                End();
         }
 
         private void StopVehicle()

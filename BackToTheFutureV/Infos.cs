@@ -27,6 +27,9 @@ namespace BackToTheFutureV
         public VehicleColor SecondaryColor { get; }
         public int Livery { get; }
 
+        //public PedInfo DriverPed { get; }
+        //public PedInfo PassengerPed { get; }
+
         public VehicleInfo(Vehicle veh)
         {
             Model = veh.Model;
@@ -41,6 +44,12 @@ namespace BackToTheFutureV
             PrimaryColor = veh.Mods.PrimaryColor;
             SecondaryColor = veh.Mods.SecondaryColor;
             Livery = veh.Mods.Livery;
+
+            //if (!veh.IsSeatFree(VehicleSeat.Driver))
+            //    DriverPed = new PedInfo(veh.GetPedOnSeat(VehicleSeat.Driver));
+
+            //if (!veh.IsSeatFree(VehicleSeat.Passenger))
+            //    PassengerPed = new PedInfo(veh.GetPedOnSeat(VehicleSeat.Passenger));
         }
 
         public Vehicle Spawn()
@@ -78,9 +87,16 @@ namespace BackToTheFutureV
             veh.Mods.PrimaryColor = PrimaryColor;
             veh.Mods.SecondaryColor = SecondaryColor;
             veh.Mods.Livery = Livery;
+
+            //if (DriverPed != null)
+            //    DriverPed.Spawn(veh);
+
+            //if (PassengerPed != null)
+            //    PassengerPed.Spawn(veh);
         }
     }
 
+    [Serializable]
     public class PedInfo
     {
         public PedInfo(Ped ped)
@@ -122,7 +138,7 @@ namespace BackToTheFutureV
 
         public Ped Spawn(Vehicle vehicle)
         {
-            return Function.Call<Ped>(Hash.CREATE_PED_INSIDE_VEHICLE, vehicle, Type, Model, SitInCar ? VehicleSeat : VehicleSeat.Driver, false, false);
+            return Function.Call<Ped>(Hash.CREATE_PED_INSIDE_VEHICLE, vehicle, Type, Model, SitInCar ? VehicleSeat : VehicleSeat.Driver, false, false);            
         }
 
         public Ped Spawn(Vehicle vehicle, VehicleSeat vehicleSeat)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GTA;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Permissions;
@@ -38,6 +39,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void StartTimeTravel(int delay = 0);
     public delegate void StartFuelBlink();
     public delegate void SetStopTracks(int delay = 0);
+    public delegate void SetRefuel(Ped ped);
+    public delegate void SetPedAI(bool state);
 
     public class EventsHandler : Handler
     {
@@ -71,6 +74,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public StartTimeTravel StartTimeTravel;
         public StartFuelBlink StartFuelBlink;
         public SetStopTracks SetStopTracks;
+        public SetRefuel SetRefuel;
+        public SetPedAI SetPedAI;
 
         public EventsHandler(TimeMachine timeMachine) : base(timeMachine)
         {

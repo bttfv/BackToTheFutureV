@@ -30,6 +30,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             SetEmpty(false);
 
             Events.StartFuelBlink += StartFuelBlink;
+            Events.SetRefuel += Refuel;
 
             if (Mods.IsDMC12)
             {
@@ -48,7 +49,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Players.Refuel = new MrFusionRefillPlayer(TimeMachine);
         }
 
-
         public void StartFuelBlink()
         {
             if (Properties.IsFueled) 
@@ -59,6 +59,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void Refuel(Ped refuelPed)
         {
+            RefillAnimation(Vehicle, refuelPed);
             Properties.IsRefueling = true;
             _refuelTimer = 0;
             _refuelingPed = refuelPed;
@@ -188,7 +189,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (!CanRefuel(Main.PlayerPed) || Properties.IsRefueling || Properties.IsFueled)
+            if (!CanRefuel(Vehicle, Main.PlayerPed) || Properties.IsRefueling || Properties.IsFueled)
                 return;
 
             if (!TcdEditer.IsEditing)
@@ -198,11 +199,22 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Refuel(Main.PlayerPed);
         }
 
-        public bool CanRefuel(Ped ped)
+        public static void RefillAnimation(Vehicle Vehicle, Ped Ped)
+        {
+            TaskSequence taskSequence = new TaskSequence();
+
+            taskSequence.AddTask.TurnTo(Vehicle.Bones["mr_fusion_handle"].Position, 1000);
+            taskSequence.AddTask.PlayAnimation("anim@narcotics@trash", "drop_front");
+            taskSequence.AddTask.ClearAnimation("anim@narcotics@trash", "drop_front");
+
+            Ped.Task.PerformSequence(taskSequence);
+        }
+
+        public static bool CanRefuel(Vehicle vehicle,  Ped ped)
         {
             if(ped.CurrentVehicle == null)
             {
-                var bootPos = Vehicle.Bones["mr_fusion"].Position;
+                var bootPos = vehicle.Bones["mr_fusion"].Position;
 
                 Vector3 dir;
                 float angle, dist;
@@ -215,9 +227,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
                 else
                 {
-                    dir = bootPos - ped.Position;
-                    angle = Vector3.Angle(dir, ped.ForwardVector);
-                    dist = Vector3.Distance(bootPos, ped.Position);
+                    //dir = bootPos - ped.Position;
+                    //angle = Vector3.Angle(dir, ped.ForwardVector);
+                    angle = 0;
+                    dist = Vector3.Distance(bootPos, ped.Position) - 0.1f;
                 }
 
                 if (angle < 45 && dist < 1.5f)
@@ -225,6 +238,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return true;
                 }
             }
+
             return false;
         }
 
