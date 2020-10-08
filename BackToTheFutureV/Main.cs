@@ -97,6 +97,7 @@ namespace BackToTheFutureV
             if (ModSettings.PersistenceSystem)
                 TimeMachineHandler.SaveAllTimeMachines();
 
+            MissionHandler.Abort();
             RemoteTimeMachineHandler.Dispose();
             TimeMachineHandler.Abort();
             FireTrailsHandler.Stop();
@@ -107,6 +108,7 @@ namespace BackToTheFutureV
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
         {
             TimeMachineHandler.KeyDown(e.KeyCode);
+            MissionHandler.KeyDown(e);
             MenuHandler.KeyDown(e);
         }
 

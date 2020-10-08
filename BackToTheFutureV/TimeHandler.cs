@@ -36,16 +36,19 @@ namespace BackToTheFutureV
 
             float vehDensity = 1;
 
-            int year = Main.CurrentTime.Year;
+            float year = Main.CurrentTime.Year;
 
             if (year > 1900 && year < 1950)
             {
                 year -= 1900;
 
-                vehDensity = year / 50;
+                vehDensity = year / 50f;
             }
             else if (year <= 1900)
                 vehDensity = 0;
+
+            if (vehDensity == 1)
+                return;
 
             Function.Call(Hash.SET_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME, vehDensity);
             Function.Call(Hash.SET_PARKED_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME, vehDensity);

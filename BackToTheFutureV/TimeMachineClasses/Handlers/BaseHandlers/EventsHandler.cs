@@ -25,6 +25,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void OnReactorTypeChanged();
     public delegate void OnVehicleSpawned();
     public delegate void OnHoodboxReady();
+    public delegate void OnMissionChange();
 
     public delegate void SetRCMode(bool state, bool instant = false);
     public delegate void SetTimeCircuits(bool state);
@@ -57,6 +58,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public OnReactorTypeChanged OnReactorTypeChanged;
         public OnVehicleSpawned OnVehicleSpawned;
         public OnHoodboxReady OnHoodboxReady;
+        public OnMissionChange OnMissionChange;
 
         public SetRCMode SetRCMode;
         public SetTimeCircuits SetTimeCircuits;

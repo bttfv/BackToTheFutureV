@@ -59,7 +59,7 @@ namespace BackToTheFutureV.Utility
         public static Model HoverGlowing = new Model("bttf_hover_glowing");
         public static Model WheelGlowing = new Model("bttf_wheel_glowing");
         public static Model VentGlowing = new Model("bttf_vents_glowing");
-        public static Model VentGlowingNight = new Model("bttf_vents_glowing");
+        public static Model VentGlowingNight = new Model("bttf_vents_glowing_night");
         public static Model RearWheelGlowing = new Model("bttf_rearwheel_glowing");
         public static Model WheelProp = new Model("bttf_wheelprop");
         public static Model RearWheelProp = new Model("bttf_rearwheelprop");

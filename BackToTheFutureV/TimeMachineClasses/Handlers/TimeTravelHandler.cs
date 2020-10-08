@@ -194,11 +194,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     }
 
                     gameTimer = Game.GameTime + 3700;
+
                     _currentStep++;
 
                     break;
 
                 case 2:
+                    if (Properties.MissionType == MissionType.Escape)
+                        return;
+
                     Screen.FadeOut(1000);
                     gameTimer = Game.GameTime + 1500;
 

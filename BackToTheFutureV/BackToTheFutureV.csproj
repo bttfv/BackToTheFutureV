@@ -124,7 +124,7 @@
     <Compile Include="Players\FireTrailsHandler.cs" />
     <Compile Include="Players\SparkPlayer.cs" />
     <Compile Include="Settings\ModControls.cs" />
-    <Compile Include="Story\Missions\FirstExperiment.cs" />
+    <Compile Include="Story\Missions\EscapeMission.cs" />
     <Compile Include="Story\Mission.cs" />
     <Compile Include="Story\MissionHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\BaseProperties.cs" />

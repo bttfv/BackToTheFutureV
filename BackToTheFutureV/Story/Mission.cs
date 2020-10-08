@@ -1,8 +1,10 @@
-﻿using System;
+﻿using GTA;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BackToTheFutureV.Story
 {
@@ -10,20 +12,23 @@ namespace BackToTheFutureV.Story
     {
         public bool IsPlaying { get; protected set; }
 
-        public abstract void OnStart();
-        public abstract void OnEnd();
+        protected abstract void OnStart();
+        protected abstract void OnEnd();
+        public abstract void KeyDown(KeyEventArgs key);
         public abstract void Process();
 
         public TimedEventManager TimedEventManager = new TimedEventManager();
-        public TimeSpan CurrentTime = new TimeSpan();
 
+        public Mission()
+        {
+            MissionHandler.Add(this);
+        }
+        
         public void Start()
         {
             if (!IsPlaying)
             {
-                OnStart();
-
-                MissionHandler.Add(this);
+                OnStart();                
                 IsPlaying = true;
             }         
         }
@@ -33,9 +38,7 @@ namespace BackToTheFutureV.Story
             if (IsPlaying)
             {
                 OnEnd();
-
-                IsPlaying = false;
-                MissionHandler.Delete(this);
+                IsPlaying = false;                
             }            
         }
     }

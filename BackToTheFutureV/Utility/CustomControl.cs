@@ -45,12 +45,18 @@ namespace BackToTheFutureV.Utility
         {
             get
             {
+                if ((int)Control >= ControlsNames.Count)
+                    return "";
+
                 return $"~{ControlsNames[(int)Control]}~";
             }
         }
 
         public override string ToString()
         {
+            if ((int)Control >= ControlsNames.Count)
+                return "";
+
             return Game.GetLocalizedString($"{ControlsNames[(int)Control]}");
         }
     }

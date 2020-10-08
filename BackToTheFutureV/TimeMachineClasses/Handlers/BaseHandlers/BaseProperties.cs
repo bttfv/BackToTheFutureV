@@ -50,6 +50,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool PhotoFluxCapacitorActive { get; set; }
         public float TorqueMultiplier { get; set; } = 1;
         public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
+        public MissionType MissionType { get; set; } = MissionType.None;
       
         public BaseProperties Clone()
         {
@@ -73,8 +74,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             ret.IsAltitudeHolding = false;
 
-            ret.IsRemoteControlled = false;           
-                
+            ret.IsRemoteControlled = false;
+
+            ret.MissionType = MissionType.None;
+
             return ret;
         }
 

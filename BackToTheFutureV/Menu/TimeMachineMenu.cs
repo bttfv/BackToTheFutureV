@@ -9,6 +9,7 @@ using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using System.Drawing;
 using LemonUI.Elements;
+using BackToTheFutureV.Story;
 
 namespace BackToTheFutureV.Menu
 {
@@ -19,6 +20,7 @@ namespace BackToTheFutureV.Menu
         public NativeCheckboxItem FlyMode { get; }
         public NativeCheckboxItem AltitudeHold { get; }
         public NativeCheckboxItem RemoteControl { get; }
+        public NativeCheckboxItem EscapeMission { get; }
 
         public NativeSubmenuItem CustomMenu { get; }
         public NativeSubmenuItem PhotoMenu { get; }
@@ -36,6 +38,7 @@ namespace BackToTheFutureV.Menu
             Add(FlyMode = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_HoverMode"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_HoverMode_Description")));
             Add(AltitudeHold = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_AltitudeControl"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_AltitudeControl_Description")));
             Add(RemoteControl = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_RemoteControl"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_RemoteControl_Description")));
+            Add(EscapeMission = new NativeCheckboxItem("Escape Mission"));
 
             CustomMenu = AddSubMenu(MenuHandler.CustomMenu);
             CustomMenu.Title = Game.GetLocalizedString("BTTFV_Input_SpawnMenu");
@@ -80,6 +83,15 @@ namespace BackToTheFutureV.Menu
                 TimeMachineHandler.CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
             else if (sender == AltitudeHold)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetAltitudeHold?.Invoke(Checked);
+            else if (sender == EscapeMission)
+            {
+                if (Checked)
+                    MissionHandler.Escape.Start();
+                else
+                    MissionHandler.Escape.End();
+
+                Close();
+            }
         }
 
         public override void Tick()
@@ -95,6 +107,7 @@ namespace BackToTheFutureV.Menu
             FlyMode.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
             AltitudeHold.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+            EscapeMission.Checked = MissionHandler.Escape.IsPlaying;
         }
     }
 }

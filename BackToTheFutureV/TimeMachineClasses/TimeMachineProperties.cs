@@ -25,5 +25,18 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             TimeMachine = timeMachine;            
         }
+
+        public new MissionType MissionType 
+        { 
+            get
+            {
+                return base.MissionType;
+            }
+            set
+            {
+                base.MissionType = value;
+                TimeMachine?.Events?.OnMissionChange?.Invoke();
+            }
+        }
     }
 }
