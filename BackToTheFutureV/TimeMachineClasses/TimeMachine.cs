@@ -385,7 +385,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (Mods.IsDMC12)
                 DMC12Handler.RemoveInstantlyDelorean(DMC12, deleteVeh);
             else if (deleteVeh)
-                Vehicle.Delete();
+                Vehicle.DeleteCompletely();
 
             Disposed = true;
         }

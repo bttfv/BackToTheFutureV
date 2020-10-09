@@ -224,7 +224,7 @@ namespace BackToTheFutureV.Vehicles
             suspensionRightRear?.Dispose();
 
             if (deleteVeh)
-                Vehicle?.Delete();
+                Vehicle?.DeleteCompletely();
 
             Disposed = true;
         }

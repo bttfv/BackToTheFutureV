@@ -13,14 +13,10 @@ namespace BackToTheFutureV.Utility
     {
         public static void DeleteCompletely(this Vehicle vehicle)
         {
-            try
-            {
-                vehicle?.Driver?.Delete();
-                vehicle?.Occupants?.ToList().ForEach(x => x?.Delete());
-            }
-            catch(Exception)
-            {
-            }
+            if (vehicle != null && vehicle.Exists())
+                foreach (var x in vehicle.Occupants)
+                    if (x != Main.PlayerPed)
+                        x?.Delete();
 
             vehicle?.Delete();
         }
@@ -33,7 +29,10 @@ namespace BackToTheFutureV.Utility
             vehicle.IsEngineRunning = isVisible;
 
             foreach (var ped in vehicle.Occupants)
+            {
                 ped.IsVisible = isVisible;
+                ped.CanBeDraggedOutOfVehicle = isVisible;
+            }                
         }
 
         public static void TeleportTo(this Vehicle vehicle, Vector3 position)

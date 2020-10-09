@@ -60,9 +60,7 @@ namespace BackToTheFutureV
         public static void DeleteDMC12s()
         {
             foreach (var veh in dmc12s)
-            {
                 veh?.DeleteCompletely();
-            }
         }
 
         private static void ReplaceVehicles()
