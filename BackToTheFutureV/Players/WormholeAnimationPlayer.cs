@@ -23,8 +23,6 @@ namespace BackToTheFutureV.Players
 
         public WormholeAnimationPlayer(TimeMachine timeMachine, int maxTime = 4350) : base(timeMachine)
         {
-            TimeHandler.OnDayNightChange += OnDayNightChange;
-
             _wheelPtfxes = new List<PtfxEntityPlayer>();
 
             MaxTime = maxTime;
@@ -66,15 +64,6 @@ namespace BackToTheFutureV.Players
                     
                     _sparkPTFX = new PtfxEntityPlayer("scr_paletoscore", "scr_paleto_box_sparks", _sparkProp.Prop, Vector3.Zero, Vector3.Zero, 1.5f, true, true, 300);
 
-                    //_sparkPTFX = new PtfxEntityPlayer("scr_paletoscore", "scr_paleto_box_sparks", TimeCircuits.Vehicle, new Vector3(0, 3.4f, -0.6f), new Vector3(0, 0, 180), 1.5f, true, true, 300);
-                    //_sparkPTFX = new PtfxEntityBonePlayer("scr_reconstructionaccident", "scr_sparking_generator", TimeCircuits.Vehicle, "bonnet", new Vector3(0,-0.2f,0.2f), Vector3.Zero, 4f, true);
-
-                    //_sparkPTFX = new List<PtfxEntityBonePlayer>();
-
-                    //_sparkPTFX.Add(new PtfxEntityBonePlayer("core", "ent_amb_sparking_wires", TimeCircuits.Vehicle, "bonnet", new Vector3(-0.2f, -0.2f, 0.2f), new Vector3(0, -90, 0), 2f, true));
-                    //_sparkPTFX.Add(new PtfxEntityBonePlayer("core", "ent_amb_sparking_wires", TimeCircuits.Vehicle, "bonnet", new Vector3(0, -0.2f, 0.2f), new Vector3(0, 0, 0), 2f, true));
-                    //_sparkPTFX.Add(new PtfxEntityBonePlayer("core", "ent_amb_sparking_wires", TimeCircuits.Vehicle, "bonnet", new Vector3(0.2f, -0.2f, 0.2f), new Vector3(0, 90, 0), 2f, true));
-
                     _wormholeModel = ModelHandler.WormholeRed;
                     _wormholeNightModel = ModelHandler.WormholeRedNight;
                     _sparkModel = ModelHandler.SparkRedModel;
@@ -85,24 +74,22 @@ namespace BackToTheFutureV.Players
             }
 
             if (Mods.IsDMC12)
-                _wormholeRT = new RenderTarget(_wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, "bttf_wormhole");
+                _wormholeRT = new RenderTarget(TimeHandler.IsNight ? _wormholeNightModel : _wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, "bttf_wormhole");
             else
-                _wormholeRT = new RenderTarget(_wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 1, 0.4f));
+                _wormholeRT = new RenderTarget(TimeHandler.IsNight ? _wormholeNightModel : _wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 1, 0.4f));
 
-            _wormholeScaleform = new ScaleformGui(wormholeScaleformName);
             _wormholeRT.OnRenderTargetDraw += OnRenderTargetDraw;
+
+            _wormholeScaleform = new ScaleformGui(wormholeScaleformName);            
             _wormholeScaleform.DrawInPauseMenu = true;
+                       
+            _sparks = new List<SparkPlayer>();
+
+            foreach(List<Vector3> sparks in Constants.SparkOffsets)
+                _sparks.Add(new SparkPlayer(TimeMachine, sparks, TimeHandler.IsNight ? _sparkNightModel : _sparkModel));
 
             if (Mods.IsDMC12)
-                _coilsProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
-           
-            _sparks = new List<SparkPlayer>();
-            foreach(List<Vector3> sparks in Constants.SparkOffsets)
-            {
-                _sparks.Add(new SparkPlayer(TimeMachine, sparks, _sparkModel));
-            }
-
-            OnDayNightChange();
+                _coilsProp = new AnimateProp(TimeMachine.Vehicle, TimeHandler.IsNight ? ModelHandler.CoilsGlowingNight : ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
         }
 
         private RenderTarget _wormholeRT;
@@ -139,28 +126,6 @@ namespace BackToTheFutureV.Players
             _wormholeScaleform.Render2D(new PointF(0.5f, 0.5f), 0.9f);
         }
 
-        private void OnDayNightChange()
-        {
-            if (TimeHandler.IsNight)
-            {
-                if (Mods.IsDMC12)
-                    _coilsProp.Model = ModelHandler.CoilsGlowingNight;
-
-                _wormholeRT.Prop.Model = _wormholeNightModel;
-
-                _sparks.ForEach(x => x.UpdateSparkModel(_sparkNightModel));
-            }
-            else
-            {
-                if (Mods.IsDMC12)
-                    _coilsProp.Model = ModelHandler.CoilsGlowing;
-
-                _wormholeRT.Prop.Model = _wormholeModel;
-
-                _sparks.ForEach(x => x.UpdateSparkModel(_sparkModel));
-            }
-        }
-
         private void SetupSeparatedCoils()
         {
             _separatedCoils = new List<AnimateProp>();
@@ -177,9 +142,7 @@ namespace BackToTheFutureV.Players
         private void HandleSparks()
         {
             foreach(var spark in _sparks)
-            {
                 spark.Process();
-            }
 
             if (Game.GameTime < _nextSpark || Game.GameTime < _startSparksAt) return;
 

@@ -30,6 +30,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
             Events.OnWormholeTypeChanged += OnWormholeTypeChanged;
             Events.OnReenterCompleted += StartTimeTravelCooldown;
+            TimeHandler.OnDayNightChange += OnWormholeTypeChanged;
 
             OnWormholeTypeChanged();
         }

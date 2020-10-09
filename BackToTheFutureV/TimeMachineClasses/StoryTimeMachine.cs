@@ -1,6 +1,8 @@
 ﻿using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
+using GTA;
 using GTA.Math;
+using GTA.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +72,39 @@ namespace BackToTheFutureV.TimeMachineClasses
             {
                 TimeMachine.Vehicle.IsInvincible = false;
                 TimeMachineHandler.RemoveStory(TimeMachine);
+
+                if (TimeMachine.Properties.FullDamaged)
+                {                  
+                    DateTime diff = new DateTime((Main.CurrentTime - SpawnDate).Ticks);
+
+                    int years = diff.Year - 1;
+                    int months = diff.Month - 1;
+                    int days = diff.Day - 1;
+
+                    string ret = Game.GetLocalizedString("BTTFV_Buried_Delorean");
+
+                    if (years != 0 && months != 0 && days != 0)
+                        ret = string.Format(ret, $"{years} {Game.GetLocalizedString("BTTFV_Years")}, {months} {Game.GetLocalizedString("BTTFV_Months")} {Game.GetLocalizedString("BTTFV_And_Conjunction")} {days} {Game.GetLocalizedString("BTTFV_Days")}");
+                    else
+                    {
+                        if (years != 0 && months != 0)
+                            ret = string.Format(ret, $"{years} {Game.GetLocalizedString("BTTFV_Years")} {Game.GetLocalizedString("BTTFV_And_Conjunction")} {months} {Game.GetLocalizedString("BTTFV_Months")}");
+                        else
+                        {
+                            if (years != 0 && days != 0)
+                                ret = string.Format(ret, $"{years} {Game.GetLocalizedString("BTTFV_Years")} {Game.GetLocalizedString("BTTFV_And_Conjunction")} {days} {Game.GetLocalizedString("BTTFV_Days")}");
+                            else
+                            {
+                                if (months != 0 && days != 0)
+                                    ret = string.Format(ret, $"{months} {Game.GetLocalizedString("BTTFV_Months")} {Game.GetLocalizedString("BTTFV_And_Conjunction")} {days} {Game.GetLocalizedString("BTTFV_Days")}");
+                            }
+                        }
+                    }
+
+                    Screen.ShowSubtitle(ret);
+                    Screen.ShowHelpTextThisFrame(string.Format(Game.GetLocalizedString("BTTFV_Restore_Damanged_Delorean"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_Restore"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu")));
+                }
+                    
                 IsUsed = true;
                 return;
             }

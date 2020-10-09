@@ -5,6 +5,11 @@
 	0xD6D415CE = DMC-12
 	BTTFV_AltitudeHoldingModeChange = Hover mode is now
 	BTTFV_Apply_Hook = Press ~INPUT_CONTEXT~ to apply hook.
+	BTTFV_Years = years
+	BTTFV_Months = months
+	BTTFV_Days = days
+	BTTFV_And_Conjunction = and
+	BTTFV_Buried_Delorean = It's been buried here for {0}. Astounding.
 	BTTFV_Chip_Damaged = Time circuits control microchip is damaged.
 	BTTFV_Cutscene = Cutscene
 	BTTFV_Hoodbox_Warmup_Error = Time circuits control tubes are warmed up.
@@ -222,6 +227,8 @@
 	BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent_Description = If enabled there is a change of being hit by a lightning during a thunderstorm.
 	BTTFV_Menu_TimeMachineMenu_RemoteControl = Remote Control
 	BTTFV_Menu_TimeMachineMenu_RemoteControl_Description = Allows you to turn off Remote Control. In order to Remote Control this Time Machine, step out of the car and open the Interaction menu there.
+	BTTFV_Menu_TimeMachineMenu_Restore = Restore
+	BTTFV_Menu_TimeMachineMenu_Restore_Description = Restore the time machine to perfect working order.
 	BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn = Time Circuits
 	BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn_Description = Allows you to switch on/off the Time Circuits.
 	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent = Turbulences
@@ -234,7 +241,8 @@
 	BTTFV_Refuel_Hotkey = Press ~INPUT_CONTEXT~ to refuel Fusion / Plutonium Reactor.
 	BTTFV_RemovedAllTimeMachines = Removed all Time Machines!
 	BTTFV_RemovedOtherTimeMachines = Removed all others Time Machines!
-	BTTFV_Repair_TimeCircuits = Press ~INPUT_CONTEXT~ to repair time circuits.
+	BTTFV_Repair_TimeCircuits = Press ~INPUT_CONTEXT~ to repair time circuits.	
+	BTTFV_Restore_Damanged_Delorean = Select "{0}" in "{1}" menu to restore the time machine to perfect working order.
 	BTTFV_TCD_Edit_Cancel = Cancel
 	BTTFV_TCD_Edit_MoveDown = Move Down
 	BTTFV_TCD_Edit_MoveLeft = Move Left
@@ -243,5 +251,5 @@
 	BTTFV_TCD_Edit_Save = Save
 	BTTFV_TCD_Edit_ScaleDown = Scale Down
 	BTTFV_TCD_Edit_ScaleUp = Scale Up
-	BTTFV_TimeTravelModeChange = Time Travel Mode now set to
+	BTTFV_TimeTravelModeChange = Time Travel Mode now set to	
 }

@@ -20,7 +20,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public DriverAIHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnTimeTravelCompleted += OnTimeTravelCompleted;
-            Events.SetPedAI += SetPedAI;
+            Events.StartDriverAI += StartAI;
         }
 
         public override void Dispose()
@@ -33,7 +33,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             
         }
 
-        private void SetPedAI(bool state)
+        private void StartAI(bool state)
         {
             if (state)
                 IsPlaying = true;
@@ -61,7 +61,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
                 case 1:
                     if (!Properties.IsFueled)
-                        Driver.Task.GoTo(Vehicle.GetOffsetPosition(new Vector3(0, -2.5f, 0f)));
+                        Driver.Task.GoStraightTo(Vehicle.GetOffsetPosition(new Vector3(0, -2.5f, 0f)), -1, Vehicle.Heading);
                     else
                         Step = 3;
 
@@ -87,6 +87,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (!Driver.IsInVehicle(Vehicle))
                         break;
 
+                    if (Properties.AreTimeCircuitsBroken && Mods.Hoodbox == Vehicles.ModState.Off)
+                        Mods.Hoodbox = Vehicles.ModState.On;
+
+                    if (Mods.Hoodbox == Vehicles.ModState.On && !Properties.AreHoodboxCircuitsReady)
+                        Events.OnHoodboxReady?.Invoke();
+
                     if (!Properties.AreTimeCircuitsOn)
                         Events.SetTimeCircuits?.Invoke(true);
 
@@ -99,7 +105,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Step++;
                     break;
                 case 6:
-                    Driver.Task.CruiseWithVehicle(Vehicle, Utils.MphToMs(200), DrivingStyle.Rushed);
+                    Driver.Task.CruiseWithVehicle(Vehicle, Utils.MphToMs(200), DrivingStyle.AvoidTrafficExtremely);
                     Function.Call(Hash.SET_DRIVER_ABILITY, Driver, 1.0f);
                     Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, Driver, 1.0f);
 

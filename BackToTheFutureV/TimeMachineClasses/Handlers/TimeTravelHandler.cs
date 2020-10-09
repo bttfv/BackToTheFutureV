@@ -156,6 +156,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                         Utils.HideVehicle(Vehicle, true);
 
+                        // Invoke delegate
+                        Events.OnTimeTravelCompleted?.Invoke();
+
                         gameTimer = Game.GameTime + 300;
 
                         _currentStep++;

@@ -5,6 +5,11 @@
 	0xD6D415CE = DMC-12
 	BTTFV_AltitudeHoldingModeChange = Controllo automatico altitudine è
 	BTTFV_Apply_Hook = Premi ~INPUT_CONTEXT~ per mettere in posizione il gancio di connessione.
+	BTTFV_Years = anni
+	BTTFV_Months = mesi
+	BTTFV_Days = giorni
+	BTTFV_And_Conjunction = e
+	BTTFV_Buried_Delorean = E' stata sepolta qui per {0}. Stupefacente.
 	BTTFV_Chip_Damaged = Il microchip di controllo dei circuiti temporali è danneggiato.
 	BTTFV_Cutscene = Estesa
 	BTTFV_Hoodbox_Warmup_Error = I tempo circuiti di controllo sono pronti.
@@ -222,6 +227,8 @@
 	BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent_Description = Se abilitato c'è la possibilità di essere colpiti da un fulmine durante una tempesta.
 	BTTFV_Menu_TimeMachineMenu_RemoteControl = Controllo Remoto
 	BTTFV_Menu_TimeMachineMenu_RemoteControl_Description = Ti permette di disabilitare il controllo remoto.
+	BTTFV_Menu_TimeMachineMenu_Restore = Ripristina
+	BTTFV_Menu_TimeMachineMenu_Restore_Description = Ripristina la macchina del tempo a un perfetto funzionamento.
 	BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn = Tempo Circuiti
 	BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn_Description = Ti permette di accendere/spegnere i tempo circuiti.
 	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent = Turbolenze in volo
@@ -235,6 +242,7 @@
 	BTTFV_RemovedAllTimeMachines = Eliminate tutte le macchine del tempo!
 	BTTFV_RemovedOtherTimeMachines = Eliminate tutte le altre macchine del tempo!
 	BTTFV_Repair_TimeCircuits = Premi ~INPUT_CONTEXT~ per riparare i tempo circuiti.
+	BTTFV_Restore_Damanged_Delorean = Seleziona "~BTTFV_Menu_TimeMachineMenu_Restore~" dal menu "~BTTFV_Menu_TimeMachineMenu~" per ripristinare la macchina ad un perfetto funzionamento.
 	BTTFV_TCD_Edit_Cancel = Annulla
 	BTTFV_TCD_Edit_MoveDown = Sposta giù
 	BTTFV_TCD_Edit_MoveLeft = Sposta a sinistra

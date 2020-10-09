@@ -15,13 +15,13 @@ namespace BackToTheFutureV.Menu
 {
     public class TimeMachineMenu : CustomNativeMenu
     {
-        public NativeItem RepairAll { get; private set; }
+        public NativeItem Repair { get; private set; }
         public NativeCheckboxItem TimeCircuitsOn { get; }
         public NativeCheckboxItem CutsceneMode { get; }
         public NativeCheckboxItem FlyMode { get; }
         public NativeCheckboxItem AltitudeHold { get; }
         public NativeCheckboxItem RemoteControl { get; }
-        public NativeCheckboxItem EscapeMission { get; }
+        //public NativeCheckboxItem EscapeMission { get; }
 
         public NativeSubmenuItem CustomMenu { get; }
         public NativeSubmenuItem PhotoMenu { get; }
@@ -40,7 +40,7 @@ namespace BackToTheFutureV.Menu
             Add(FlyMode = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_HoverMode"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_HoverMode_Description")));
             Add(AltitudeHold = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_AltitudeControl"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_AltitudeControl_Description")));
             Add(RemoteControl = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_RemoteControl"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_RemoteControl_Description")));
-            Add(EscapeMission = new NativeCheckboxItem("Escape Mission"));
+            //Add(EscapeMission = new NativeCheckboxItem("Escape Mission"));
 
             CustomMenu = AddSubMenu(MenuHandler.CustomMenu);
             CustomMenu.Title = Game.GetLocalizedString("BTTFV_Input_SpawnMenu");
@@ -58,7 +58,7 @@ namespace BackToTheFutureV.Menu
 
         private void TimeMachineMenu_OnItemActivated(NativeItem sender, EventArgs e)
         {
-            if (sender == RepairAll)
+            if (sender == Repair)
             {
                 TimeMachineHandler.CurrentTimeMachine.Repair();
                 Close();
@@ -83,13 +83,13 @@ namespace BackToTheFutureV.Menu
 
             bool fullDamaged = TimeMachineHandler.CurrentTimeMachine.Properties.FullDamaged;
 
-            if (RepairAll != null && !fullDamaged)
+            if (Repair != null && !fullDamaged)
             {
-                Remove(RepairAll);
-                RepairAll = null;
-            }                
-            else if (RepairAll == null && fullDamaged)
-                Add(0, RepairAll = new NativeItem("Repair"));
+                Remove(Repair);
+                Repair = null;
+            }
+            else if (Repair == null && fullDamaged)
+                Add(0, Repair = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_Restore"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_Restore_Description")));
         }
 
         private void TimeMachineMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -104,15 +104,15 @@ namespace BackToTheFutureV.Menu
                 TimeMachineHandler.CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
             else if (sender == AltitudeHold)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetAltitudeHold?.Invoke(Checked);
-            else if (sender == EscapeMission)
-            {
-                if (Checked)
-                    MissionHandler.Escape.Start();
-                else
-                    MissionHandler.Escape.End();
+            //else if (sender == EscapeMission)
+            //{
+            //    if (Checked)
+            //        MissionHandler.Escape.Start();
+            //    else
+            //        MissionHandler.Escape.End();
 
-                Close();
-            }
+            //    Close();
+            //}
         }
 
         public override void Tick()
@@ -129,8 +129,8 @@ namespace BackToTheFutureV.Menu
             AltitudeHold.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
 
-            EscapeMission.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
-            EscapeMission.Checked = MissionHandler.Escape.IsPlaying;
+            //EscapeMission.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
+            //EscapeMission.Checked = MissionHandler.Escape.IsPlaying;
         }
     }
 }

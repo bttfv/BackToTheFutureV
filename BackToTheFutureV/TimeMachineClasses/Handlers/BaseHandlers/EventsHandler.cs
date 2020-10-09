@@ -75,7 +75,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public StartFuelBlink StartFuelBlink;
         public SetStopTracks SetStopTracks;
         public SetRefuel SetRefuel;
-        public SetPedAI SetPedAI;
+        public SetPedAI StartDriverAI;
 
         public EventsHandler(TimeMachine timeMachine) : base(timeMachine)
         {

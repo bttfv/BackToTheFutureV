@@ -244,5 +244,13 @@
 	BTTFV_Menu_ControlsMenu_CutsceneToggle = Cutscene/instant mode
 	BTTFV_Menu_ControlsMenu_CutsceneToggle_Description = Key for toggle cutscene/instant mode (keyboard).
 	BTTFV_Menu_ControlsMenu_InputToggle = Input toggle
-	BTTFV_Menu_ControlsMenu_InputToggle_Description = Key for time circuits input toggle (keyboard).
+	BTTFV_Menu_ControlsMenu_InputToggle_Description = Key for time circuits input toggle (keyboard).	
+	BTTFV_Years = years
+	BTTFV_Months = months
+	BTTFV_Days = days
+	BTTFV_And_Conjunction = and
+	BTTFV_Buried_Delorean = It's been buried here for {0}. Astounding.
+	BTTFV_Restore_Damanged_Delorean = Select "{0}" in "{1}" menu to restore the time machine to perfect working order.
+	BTTFV_Menu_TimeMachineMenu_Restore = Restore
+	BTTFV_Menu_TimeMachineMenu_Restore_Description = Restore the time machine to perfect working order.
 }

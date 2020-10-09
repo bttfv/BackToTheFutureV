@@ -227,9 +227,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
                 else
                 {
-                    //dir = bootPos - ped.Position;
-                    //angle = Vector3.Angle(dir, ped.ForwardVector);
-                    angle = 0;
+                    dir = bootPos - ped.Position;
+                    angle = Vector3.Angle(dir, ped.ForwardVector);                    
                     dist = Vector3.Distance(bootPos, ped.Position) - 0.1f;
                 }
 
