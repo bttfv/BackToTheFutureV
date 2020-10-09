@@ -101,8 +101,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                         }
                     }
 
-                    Screen.ShowSubtitle(ret);
-                    Screen.ShowHelpTextThisFrame(string.Format(Game.GetLocalizedString("BTTFV_Restore_Damanged_Delorean"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_Restore"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu")));
+                    Screen.ShowSubtitle(ret);                    
                 }
                     
                 IsUsed = true;

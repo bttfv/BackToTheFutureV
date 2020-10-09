@@ -129,6 +129,9 @@ namespace BackToTheFutureV.Menu
             AltitudeHold.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
 
+            CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.FullDamaged;
+            PhotoMenu.Enabled = CustomMenu.Enabled;
+
             //EscapeMission.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
             //EscapeMission.Checked = MissionHandler.Escape.IsPlaying;
         }

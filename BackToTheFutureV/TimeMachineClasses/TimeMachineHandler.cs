@@ -401,7 +401,12 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
                 
             if (ClosestTimeMachine != null && Main.PlayerVehicle == ClosestTimeMachine.Vehicle)
+            {
                 CurrentTimeMachine = ClosestTimeMachine;
+
+                if (CurrentTimeMachine.Properties.FullDamaged)
+                    GTA.UI.Screen.ShowHelpTextThisFrame(string.Format(Game.GetLocalizedString("BTTFV_Restore_Damanged_Delorean"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_Restore"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu")));
+            }                
         }
     }
 }

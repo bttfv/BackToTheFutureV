@@ -205,6 +205,12 @@ namespace BackToTheFutureV.Menu
                 _tempTimeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
                 _save = true;
 
+                if (_tempTimeMachine.Properties.FullDamaged)
+                {
+                    Close();
+                    return;
+                }
+
                 _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _canFly.Enabled = _tempTimeMachine.Vehicle.CanHoverTransform() && _tempTimeMachine.Vehicle.Model != ModelHandler.DeluxoModel;
                 _hoodBox.Enabled = _tempTimeMachine.Mods.IsDMC12;
