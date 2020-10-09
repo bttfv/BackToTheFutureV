@@ -242,13 +242,9 @@
 	BTTFV_TCD_Edit_Save = Speichern
 	BTTFV_TCD_Edit_ScaleDown = Verkleinern
 	BTTFV_TCD_Edit_ScaleUp = Vergrößern
-	BTTFV_TimeTravelModeChange = Zeitreise Modus
-	BTTFV_Hover_Damaged = Flying circuits are permanently damaged.
+	BTTFV_TimeTravelModeChange = Zeitreise Modus	
 	<!-- TRANSLATE FROM HERE -->
-	BTTFV_Menu_TimeMachineMenu_Restore = Restore
-	BTTFV_Menu_TimeMachineMenu_Restore_Description = Restore the time machine to perfect working order.
-	BTTFV_Buried_Delorean = It's been buried here for 70 years, 2 months, and 13 days. Astounding.
-	BTTFV_Restore_Damanged_Delorean = Select "~BTTFV_Menu_TimeMachineMenu_Restore~" in "~BTTFV_Menu_TimeMachineMenu~" menu to restore the time machine to perfect working order.
+	BTTFV_Hover_Damaged = Flying circuits are permanently damaged.
 	BTTFV_Years = years
 	BTTFV_Months = months
 	BTTFV_Days = days
