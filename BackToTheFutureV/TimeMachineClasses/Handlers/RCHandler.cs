@@ -85,8 +85,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Properties.IsRemoteControlled = true;
 
-            Vehicle.LockStatus = VehicleLockStatus.StickPlayerInside;
-
             Clone = PlayerSwitch.CreatePedAndSwitch(out TimeMachine.OriginalPed, Main.PlayerPed.Position, Main.PlayerPed.Heading, true);
 
             Clone.SetIntoVehicle(Vehicle, VehicleSeat.Driver);
@@ -139,8 +137,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (_forcedHandbrake)
                     SetForcedHandbrake();
-
-                Vehicle.LockStatus = VehicleLockStatus.None;
 
                 Function.Call(Hash.CLEAR_FOCUS);
 

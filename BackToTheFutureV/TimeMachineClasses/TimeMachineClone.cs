@@ -113,7 +113,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (reenter)
             {
-                Utils.HideVehicle(timeMachine.Vehicle, true);
+                timeMachine.Vehicle.SetVisible(false);
 
                 timeMachine.Properties.DestinationTime = Main.CurrentTime;
 

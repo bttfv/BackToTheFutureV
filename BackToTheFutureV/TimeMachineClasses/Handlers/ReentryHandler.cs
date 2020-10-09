@@ -116,7 +116,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
-            Utils.HideVehicle(Vehicle, false);
+            Vehicle.SetVisible(true);
 
             Main.HideGui = false;
 
@@ -145,7 +145,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 VehicleControl.SetBrake(Vehicle, 1f);
             }
-
+                    
             //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, Main.PlayerPed.Model);
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
         }

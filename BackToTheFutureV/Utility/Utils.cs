@@ -408,17 +408,6 @@ namespace BackToTheFutureV.Utility
             return rotval;
         }
 
-        public static void HideVehicle(Vehicle vehicle, bool hide)
-        {
-            vehicle.IsVisible = !hide;
-            vehicle.IsCollisionEnabled = !hide;
-            vehicle.IsPositionFrozen = hide;
-            vehicle.IsEngineRunning = !hide;
-
-            if (vehicle.Driver != null)
-                vehicle.Driver.IsVisible = !hide;
-        }
-
         public static Ped ClonePed(Ped toCloneFrom)
         {
             var newPed = World.CreatePed(toCloneFrom.Model, toCloneFrom.Position, toCloneFrom.Heading);

@@ -25,6 +25,17 @@ namespace BackToTheFutureV.Utility
             vehicle?.Delete();
         }
 
+        public static void SetVisible(this Vehicle vehicle, bool isVisible)
+        {
+            vehicle.IsVisible = isVisible;
+            vehicle.IsCollisionEnabled = isVisible;
+            vehicle.IsPositionFrozen = !isVisible;
+            vehicle.IsEngineRunning = isVisible;
+
+            foreach (var ped in vehicle.Occupants)
+                ped.IsVisible = isVisible;
+        }
+
         public static void TeleportTo(this Vehicle vehicle, Vector3 position)
         {
             position = vehicle.Position.TransferHeight(position);

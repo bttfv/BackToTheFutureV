@@ -180,7 +180,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             {
                 timeMachine = CreateTimeMachine(Main.PlayerPed.GetOffsetPosition(new Vector3(0, 25, 0)), Main.PlayerPed.Heading + 180, wormholeType);
 
-                Utils.HideVehicle(timeMachine.Vehicle, true);
+                timeMachine.Vehicle.SetVisible(false);
 
                 timeMachine.Properties.DestinationTime = Main.CurrentTime;
 

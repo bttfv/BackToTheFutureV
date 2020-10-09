@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 using BackToTheFutureV.Utility;
 using GTA;
@@ -26,9 +27,7 @@ namespace BackToTheFutureV
         public VehicleColor PrimaryColor { get; }
         public VehicleColor SecondaryColor { get; }
         public int Livery { get; }
-
-        //public PedInfo DriverPed { get; }
-        //public PedInfo PassengerPed { get; }
+        public List<PedInfo> Occupants { get; }
 
         public VehicleInfo(Vehicle veh)
         {
@@ -45,11 +44,10 @@ namespace BackToTheFutureV
             SecondaryColor = veh.Mods.SecondaryColor;
             Livery = veh.Mods.Livery;
 
-            //if (!veh.IsSeatFree(VehicleSeat.Driver))
-            //    DriverPed = new PedInfo(veh.GetPedOnSeat(VehicleSeat.Driver));
+            //Occupants = new List<PedInfo>();
 
-            //if (!veh.IsSeatFree(VehicleSeat.Passenger))
-            //    PassengerPed = new PedInfo(veh.GetPedOnSeat(VehicleSeat.Passenger));
+            //foreach (Ped x in veh.Occupants)
+            //    Occupants.Add(new PedInfo(x));
         }
 
         public Vehicle Spawn()
@@ -88,11 +86,8 @@ namespace BackToTheFutureV
             veh.Mods.SecondaryColor = SecondaryColor;
             veh.Mods.Livery = Livery;
 
-            //if (DriverPed != null)
-            //    DriverPed.Spawn(veh);
-
-            //if (PassengerPed != null)
-            //    PassengerPed.Spawn(veh);
+            //foreach (PedInfo pedInfo in Occupants)
+            //    pedInfo.Spawn(veh);
         }
     }
 
@@ -108,19 +103,22 @@ namespace BackToTheFutureV
             Rotation = ped.Rotation;
             Heading = ped.Heading;
 
-            SitInCar = ped.IsSittingInVehicle();
+            Seat = ped.SeatIndex;
 
-            if (SitInCar)
-                VehicleSeat = ped.SeatIndex;
+            Weapons = new List<WeaponInfo>();
+
+            foreach (WeaponHash x in Enum.GetValues(typeof(WeaponHash)))
+                if (ped.Weapons.HasWeapon(x))
+                    Weapons.Add(new WeaponInfo(ped, ped.Weapons[x]));
         }
 
-        public int Model { get; set; }
-        public int Type { get; set; }
-        public Vector3 Position { get; set; }
-        public Vector3 Rotation { get; set; }
-        public float Heading { get; set; }
-        public bool SitInCar { get; set; }
-        public VehicleSeat VehicleSeat { get; set; }
+        public int Model { get; }
+        public int Type { get; }
+        public Vector3 Position { get; }
+        public Vector3 Rotation { get; }
+        public float Heading { get; }
+        public VehicleSeat Seat { get; }
+        public List<WeaponInfo> Weapons { get; }
 
         public Ped Spawn()
         {
@@ -128,22 +126,62 @@ namespace BackToTheFutureV
 
             ped.Rotation = Rotation;
 
+            foreach (var x in Weapons)
+                x.Give(ped);
+
             return ped;
         }
 
         public Ped Spawn(Vector3 position, float heading)
         {
-            return Function.Call<Ped>(Hash.CREATE_PED, Type, Model, position.X, position.Y, position.Z, heading, false, false);
+            Ped ped = Function.Call<Ped>(Hash.CREATE_PED, Type, Model, position.X, position.Y, position.Z, heading, false, false);
+
+            foreach (var x in Weapons)
+                x.Give(ped);
+
+            return ped;
         }
 
         public Ped Spawn(Vehicle vehicle)
         {
-            return Function.Call<Ped>(Hash.CREATE_PED_INSIDE_VEHICLE, vehicle, Type, Model, SitInCar ? VehicleSeat : VehicleSeat.Driver, false, false);            
+            Ped ped = Function.Call<Ped>(Hash.CREATE_PED_INSIDE_VEHICLE, vehicle, Type, Model, Seat != VehicleSeat.None ? Seat : VehicleSeat.Any, false, false);
+
+            foreach (var x in Weapons)
+                x.Give(ped);
+
+            return ped;
         }
 
         public Ped Spawn(Vehicle vehicle, VehicleSeat vehicleSeat)
         {
-            return Function.Call<Ped>(Hash.CREATE_PED_INSIDE_VEHICLE, vehicle, Type, Model, vehicleSeat, false, false);
+            Ped ped = Function.Call<Ped>(Hash.CREATE_PED_INSIDE_VEHICLE, vehicle, Type, Model, vehicleSeat, false, false);
+
+            foreach (var x in Weapons)
+                x.Give(ped);
+
+            return ped;
+        }
+    }
+
+    [Serializable]
+    public class WeaponInfo
+    {
+        public WeaponInfo(Ped ped, Weapon weapon)
+        {
+            WeaponHash = weapon.Hash;
+            Ammo = weapon.Ammo;
+            IsEquiped = ped.Weapons.Current == weapon;
+            IsAmmoLoaded = weapon.AmmoInClip > 0;
+        }
+
+        public WeaponHash WeaponHash { get; }
+        public int Ammo { get; }
+        public bool IsEquiped { get; }
+        public bool IsAmmoLoaded { get; }
+
+        public void Give(Ped ped)
+        {
+            ped.Weapons.Give(WeaponHash, Ammo, IsEquiped, IsAmmoLoaded);
         }
     }
 

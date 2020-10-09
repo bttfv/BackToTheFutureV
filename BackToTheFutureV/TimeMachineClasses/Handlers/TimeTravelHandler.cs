@@ -154,7 +154,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         // Add to time travelled list
                         RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone);
 
-                        Utils.HideVehicle(Vehicle, true);
+                        Vehicle.SetVisible(false);
 
                         // Invoke delegate
                         Events.OnTimeTravelCompleted?.Invoke();
@@ -177,7 +177,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Main.DisablePlayerSwitching = true;
 
-                    Utils.HideVehicle(Vehicle, true);
+                    Vehicle.SetVisible(false);
 
                     gameTimer = Game.GameTime + 300;
 
