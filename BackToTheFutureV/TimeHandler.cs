@@ -31,7 +31,7 @@ namespace BackToTheFutureV
                 OnDayNightChange?.Invoke();
             }
 
-            if (Main.PlayerVehicle != null && !Main.PlayerVehicle.IsTimeMachine() && !vehiclesEnteredByPlayer.Contains(Main.PlayerVehicle))
+            if (Main.PlayerVehicle.NotNullAndExists() && !Main.PlayerVehicle.IsTimeMachine() && !vehiclesEnteredByPlayer.Contains(Main.PlayerVehicle))
                 vehiclesEnteredByPlayer.Add(Main.PlayerVehicle);
 
             float vehDensity = 1;

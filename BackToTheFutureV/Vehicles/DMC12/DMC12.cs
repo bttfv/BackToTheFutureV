@@ -104,7 +104,7 @@ namespace BackToTheFutureV.Vehicles
 
         public void Process()
         {
-            if (Vehicle == null || !Vehicle.Exists() || Vehicle.IsDead || !Vehicle.IsAlive)
+            if (!Vehicle.IsFunctioning())
             {
                 DMC12Handler.RemoveDelorean(this, false);
 

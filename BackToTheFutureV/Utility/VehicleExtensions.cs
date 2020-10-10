@@ -13,12 +13,17 @@ namespace BackToTheFutureV.Utility
     {
         public static void DeleteCompletely(this Vehicle vehicle)
         {
-            if (vehicle != null && vehicle.Exists())
+            if (vehicle.NotNullAndExists())
                 foreach (var x in vehicle.Occupants)
                     if (x != Main.PlayerPed)
                         x?.Delete();
 
             vehicle?.Delete();
+        }
+
+        public static bool IsFunctioning(this Vehicle vehicle)
+        {
+            return vehicle.NotNullAndExists() && vehicle.IsAlive && !vehicle.IsDead;
         }
 
         public static void SetVisible(this Vehicle vehicle, bool isVisible)

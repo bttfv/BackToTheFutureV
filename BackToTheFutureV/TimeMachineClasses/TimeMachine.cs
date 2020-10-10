@@ -143,7 +143,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void Process()
         {
-            if (Vehicle == null || !Vehicle.Exists() || Vehicle.IsDead || !Vehicle.IsAlive)
+            if (!Vehicle.IsFunctioning())
             {
                 TimeMachineHandler.RemoveTimeMachine(this, false);
 

@@ -6,6 +6,7 @@ using GTA.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 
 namespace BackToTheFutureV.Utility
 {
@@ -33,6 +34,11 @@ namespace BackToTheFutureV.Utility
         public static float Remap(this float value, float from1, float to1, float from2, float to2)
         {
             return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+        }
+
+        public static bool NotNullAndExists(this Entity entity)
+        {
+            return entity != null && entity.Exists();
         }
         
         public static Vector3 GetSingleOffset(this Vector3 vector3, Coordinate coordinate, float value)

@@ -38,7 +38,7 @@ namespace BackToTheFutureV.Story.Missions
 
             TimeMachine = null;
 
-            if (Vehicle != null && Vehicle.Exists() && Vehicle.IsAlive)
+            if (Vehicle.IsFunctioning())
             {
                 Vehicle?.AttachedBlip?.Delete();
                 Driver?.Delete();

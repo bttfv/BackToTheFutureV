@@ -116,7 +116,7 @@ namespace BackToTheFutureV
         private static bool IsVehicleValid(Vehicle vehicle)
         {
             // Maybe add more checks here
-            return vehicle != null && vehicle.Exists() && vehicle.Driver != Main.PlayerPed && vehicle.Model.IsCar && !vehicle.IsPersistent && !currentEra.SpawnableVehicles.Select(x => new Model(x.Model)).Contains(vehicle.Model);
+            return vehicle.NotNullAndExists() && vehicle.Driver != Main.PlayerPed && vehicle.Model.IsCar && !vehicle.IsPersistent && !currentEra.SpawnableVehicles.Select(x => new Model(x.Model)).Contains(vehicle.Model);
         }
     }
 }
