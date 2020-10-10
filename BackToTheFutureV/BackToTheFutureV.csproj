@@ -210,6 +210,10 @@
       <Project>{e52db215-0aa9-453a-b5f3-91f3ff35c1d9}</Project>
       <Name>KlangRageAudioLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RogerSierra\RogersSierraRailway.vbproj">
+      <Project>{ef32b843-71f4-4af6-93e3-bec5f727c9a3}</Project>
+      <Name>RogersSierraRailway</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
