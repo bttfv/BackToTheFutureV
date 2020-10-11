@@ -112,7 +112,7 @@ namespace BackToTheFutureV
         {
             TimeMachineHandler.KeyDown(e.KeyCode);
             MissionHandler.KeyDown(e);
-            MenuHandler.KeyDown(e);
+            MenuHandler.KeyDown(e);                   
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)

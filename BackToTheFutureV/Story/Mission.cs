@@ -28,17 +28,17 @@ namespace BackToTheFutureV.Story
         {
             if (!IsPlaying)
             {
-                OnStart();                
                 IsPlaying = true;
+                OnStart();                                
             }         
         }
 
         public void End()
         {
             if (IsPlaying)
-            {
+            {                
                 OnEnd();
-                IsPlaying = false;                
+                IsPlaying = false;
             }            
         }
     }

@@ -24,9 +24,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public RailroadHandler(TimeMachine timeMachine) : base(timeMachine)
         {
+            Events.SetWheelie += SetWheelie;
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
             Events.OnReenterCompleted += OnReenterCompleted;
             Events.SetStopTracks += Stop;
+        }
+
+        public void SetWheelie(bool goUp)
+        {
+            customTrain?.SetWheelie?.Invoke(goUp);
         }
 
         public void OnTimeTravelStarted()
@@ -36,6 +42,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsOnTracks)
                 return;
 
+            if (customTrain.IsRogersSierra)
+            {
+                if (Properties.TimeTravelType == TimeTravelType.Instant && customTrain.RogersSierra.isOnTrainMission)
+                    MissionHandler.TrainMission.End();
+
+                Stop();                
+                return;
+            }
+                
             switch (Properties.TimeTravelType)
             {
                 case TimeTravelType.Cutscene:
@@ -54,8 +69,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             _isReentryOn = true;
 
+            if (customTrain == null || !customTrain.Exists)
+                Start();
+
             switch (Properties.TimeTravelType)
             {
+                case TimeTravelType.Instant:
+                    if (customTrain.SpeedMPH == 0)
+                        customTrain.SpeedMPH = 88;
+                    break;
                 case TimeTravelType.Cutscene:
                     customTrain.SpeedMPH = 88;
                     break;                
@@ -83,24 +105,27 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             customTrain.SetCollision(false);
 
-            customTrain.SetToAttach(Vehicle, new Vector3(0, 4.28f, Vehicle.HeightAboveGround - customTrain.Carriage(1).HeightAboveGround - 0.05f), 1, 0); //new Vector3(0, 4.48f, 0)
+            customTrain.SetToAttach(Vehicle, new Vector3(0, 4.5f, Vehicle.HeightAboveGround - customTrain.Carriage(1).HeightAboveGround - 0.05f), 1, 0); //new Vector3(0, 4.48f, 0)
 
             customTrain.SetPosition(Vehicle.Position);
             
             customTrain.OnVehicleAttached += customTrain_OnVehicleAttached;
-            customTrain.OnTrainDeleted += customTrain_OnTrainDeleted;
+            customTrain.OnTrainDeleted += customTrain_OnTrainDeleted;            
         }
 
         private void customTrain_OnTrainDeleted()
-        {
+        {            
             customTrain.OnTrainDeleted -= customTrain_OnTrainDeleted;
-            customTrain.OnVehicleAttached -= customTrain_OnVehicleAttached;
+            customTrain.OnVehicleAttached -= customTrain_OnVehicleAttached;            
             customTrain = null;
 
-            Stop();
+            if (Properties.IsAttachedToRogersSierra)
+                Start();
+            else
+                Stop();
         }
 
-        private void customTrain_OnVehicleAttached()
+        private void customTrain_OnVehicleAttached(bool toRogersSierra = false)
         {
             customTrain.DisableToDestroy();
 
@@ -110,10 +135,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Properties.IsOnTracks = true;
 
-            if (_isReentryOn)
+            if (_isReentryOn && Properties.TimeTravelType == TimeTravelType.RC)
                 customTrain.SpeedMPH = 88;
             else
-                customTrain.Speed = _speed;
+                customTrain.Speed = Vehicle.IsGoingForward() ? _speed : -_speed;
         }
 
         public override void Dispose()
@@ -123,7 +148,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            
+            if (key == Keys.N)
+            {
+                if (MissionHandler.TrainMission.IsPlaying)
+                    MissionHandler.TrainMission.End();
+                else if (Main.PlayerVehicle == Vehicle)
+                    MissionHandler.TrainMission.Start();
+            }
         }
 
         public override void Process()
@@ -146,8 +177,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     {
                         customTrain.SwitchToRegular();
                         return;
-                    }
-                        
+                    }                     
 
                     if (customTrain.RogersSierra.Locomotive.Speed > 0 && Utils.EntitySpeedVector(customTrain.RogersSierra.Locomotive).Y < 0)
                         customTrain.SwitchToRegular();
@@ -189,18 +219,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (_attachDelay < Game.GameTime && Mods.Wheel == WheelType.RailroadInvisible && !Properties.IsFlying && (customTrain == null || !customTrain.Exists))
-            {
-                var wheelPos = new List<Vector3>
-                    {
-                        Vehicle.Bones["wheel_lf"].Position,
-                        Vehicle.Bones["wheel_rf"].Position,
-                        Vehicle.Bones["wheel_rr"].Position,
-                        Vehicle.Bones["wheel_lr"].Position
-                    };
-
-                if (wheelPos.TrueForAll(x => Utils.IsWheelOnTracks(x, Vehicle)))
+            if (_attachDelay < Game.GameTime && Mods.Wheel == WheelType.RailroadInvisible && !Properties.IsFlying)
+            {                
+                if (Utils.GetWheelsPositions(Vehicle).TrueForAll(x => Utils.IsWheelOnTracks(x, Vehicle)))
+                {
+                    customTrain?.DeleteTrain();
                     Start();
+                }                    
             }
         }
 
@@ -223,7 +248,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     customTrain.DetachTargetVehicle();
 
                 customTrain.OnVehicleAttached -= customTrain_OnVehicleAttached;
-                customTrain.OnTrainDeleted -= customTrain_OnTrainDeleted;
+                customTrain.OnTrainDeleted -= customTrain_OnTrainDeleted;                
 
                 if (customTrain.Exists && !customTrain.IsRogersSierra)
                     customTrain.DeleteTrain();

@@ -11,11 +11,23 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using RogersSierraRailway;
+using static RogersSierraRailway.Commons;
+using BackToTheFutureV.TimeMachineClasses;
 
 namespace BackToTheFutureV.Story
 {
+    public delegate void OnVehicleAttachedToRogersSierra(TimeMachine timeMachine);
+    public delegate void OnVehicleDetachedFromRogersSierra(TimeMachine timeMachine);
+
     public class TrainMission : Mission
     {
+        public OnVehicleAttachedToRogersSierra OnVehicleAttachedToRogersSierra;
+        public OnVehicleDetachedFromRogersSierra OnVehicleDetachedFromRogersSierra;
+
+        private TimeMachine TimeMachine;
+        private RogersSierra RogersSierra;
+
         public float TimeMultiplier = 0.1f;
         public bool PlayMusic = true;
 
@@ -26,148 +38,158 @@ namespace BackToTheFutureV.Story
         private PtfxEntityBonePlayer _funnelExplPtfx;
         private List<PtfxEntityBonePlayer> _wheelPtfxes = null;
 
-        public TimedEventManager DeloreanTimedEventManager = new TimedEventManager();
-
-        private bool _justAttached = false;
+        public TimedEventManager VehicleTimedEventManager = new TimedEventManager();
 
         public TrainMission()
         {
-            //RogersSierraManager.OnAttachedDelorean += RogersSierraManager_OnAttachedDelorean;
-            //RogersSierraManager.OnDetachedDelorean += RogersSierraManager_OnDetachedDelorean;
+            OnVehicleAttachedToRogersSierra += OnVehicleAttached;
+            OnVehicleDetachedFromRogersSierra += OnVehicleDetached;
         }
 
-        //private void RogersSierraManager_OnDetachedDelorean(DeloreanTimeMachine deloreanTimeMachine)
-        //{
-        //    if (IsPlaying && _justAttached)
-        //    {
-        //        if (DeloreanTimedEventManager.ManageCamera)
-        //            DeloreanTimedEventManager.ResetCamera();
+        private void OnVehicleDetached(TimeMachine timeMachine)
+        {
+            if (timeMachine != TimeMachine || !IsPlaying)
+                return;
 
-        //        DeloreanTimedEventManager.ClearEvents();
+            if (VehicleTimedEventManager.ManageCamera)
+                VehicleTimedEventManager.ResetCamera();
 
-        //        _justAttached = false;
-        //    }
-        //}
+            VehicleTimedEventManager.ClearEvents();
+        }
 
-        //private void RogersSierraManager_OnAttachedDelorean(DeloreanTimeMachine deloreanTimeMachine)
-        //{
-        //    if (IsPlaying && !_justAttached)
-        //    {
-        //        DeloreanTimedEventManager.ManageCamera = false;
+        private void OnVehicleAttached(TimeMachine timeMachine)
+        {
+            if (timeMachine != TimeMachine || !IsPlaying)
+                return;
 
-        //        DeloreanTimedEventManager.Add(1, 31, 386, 1, 40, 137, TimeMultiplier);
-        //        DeloreanTimedEventManager.Last.SetCamera(deloreanTimeMachine.Vehicle, new Vector3(1f, 3f, 0), deloreanTimeMachine.Vehicle, Vector3.Zero);
+            VehicleTimedEventManager.ManageCamera = false;
 
-        //        DeloreanTimedEventManager.Add(5, 19, 0, 5, 21, 0, TimeMultiplier); //wheelie up
-        //        DeloreanTimedEventManager.Last.OnExecute += WheelieUp_OnExecute;
+            VehicleTimedEventManager.Add(1, 31, 386, 1, 40, 137, TimeMultiplier);
+            VehicleTimedEventManager.Last.SetCamera(TimeMachine.Vehicle, new Vector3(1f, 3f, 0), TimeMachine.Vehicle, Vector3.Zero);
 
-        //        DeloreanTimedEventManager.Add(5, 26, 0, 5, 27, 0, TimeMultiplier); //wheelie down
-        //        DeloreanTimedEventManager.Last.OnExecute += WheelieDown_OnExecute;
+            VehicleTimedEventManager.Add(5, 19, 0, 5, 21, 0, TimeMultiplier); //wheelie up
+            VehicleTimedEventManager.Last.OnExecute += WheelieUp_OnExecute;
 
-        //        DeloreanTimedEventManager.Add(5, 27, 500, 5, 28, 500, TimeMultiplier); //add ptfx wheels on front
-        //        DeloreanTimedEventManager.Last.OnExecute += GlowingWheelsFront_OnExecute;
+            VehicleTimedEventManager.Add(5, 26, 0, 5, 27, 0, TimeMultiplier); //wheelie down
+            VehicleTimedEventManager.Last.OnExecute += WheelieDown_OnExecute;
 
-        //        DeloreanTimedEventManager.Add(5, 29, 500, 5, 30, 500, TimeMultiplier); //delete wheelie effects
-        //        DeloreanTimedEventManager.Last.OnExecute += DeleteEffects_OnExecute;
+            VehicleTimedEventManager.Add(5, 27, 500, 5, 28, 500, TimeMultiplier); //add ptfx wheels on front
+            VehicleTimedEventManager.Last.OnExecute += GlowingWheelsFront_OnExecute;
 
-        //        _justAttached = true;
-        //    }
-        //}
-
-        private RogersSierra.cRogersSierra tRogersSierra => Main.CurrentRogersSierra;
+            VehicleTimedEventManager.Add(5, 29, 500, 5, 30, 500, TimeMultiplier); //delete wheelie effects
+            VehicleTimedEventManager.Last.OnExecute += DeleteEffects_OnExecute;
+        }
 
         public override void Process()
         {
-            if (IsPlaying)
+            if (!IsPlaying)
+                return;
+
+            TimedEventManager.RunEvents();
+
+            if (TimedEventManager.AllExecuted())
+                StartExplodingScene();
+
+            if (TimeMachine.Properties.IsAttachedToRogersSierra)
             {
-                CurrentTime = CurrentTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime));
+                VehicleTimedEventManager.RunEvents(TimedEventManager.CurrentTime);
 
-                TimedEventManager.RunEvents(CurrentTime);
-
-                if (TimedEventManager.AllExecuted(CurrentTime))
-                    StartExplodingScene();
-
-                if (_justAttached)
-                {
-                    DeloreanTimedEventManager.RunEvents(CurrentTime);
-
-                    if (_wheelPtfxes != null)
-                        foreach (var wheelPTFX in _wheelPtfxes)
-                            wheelPTFX.Process();
-                }                                   
+                if (_wheelPtfxes != null)
+                    foreach (var wheelPTFX in _wheelPtfxes)
+                        wheelPTFX.Process();
             }
         }
 
-        public override void OnEnd()
+        protected override void OnEnd()
         {
-            if (IsPlaying)
-            {
-                if (TimedEventManager.IsCustomCameraActive)
-                    TimedEventManager.ResetCamera();
+            if (!IsPlaying)
+                return;
 
-                if (_missionMusic.IsAnyInstancePlaying)
-                    _missionMusic.Stop();
+            if (TimedEventManager.IsCustomCameraActive)
+                TimedEventManager.ResetCamera();
 
-                _wheelPtfxes?.ForEach(x => x?.Stop());
-                _wheelPtfxes.Clear();
+            if (_missionMusic.IsAnyInstancePlaying)
+                _missionMusic.Stop();
 
-                tRogersSierra.isOnTrainMission = false;
+            _wheelPtfxes?.ForEach(x => x?.Stop());
+            _wheelPtfxes.Clear();
 
-                if (tRogersSierra.isExploded == false)
-                    tRogersSierra.FunnelSmoke = RogersSierra.Commons.SmokeColor.Default;
-            }
+            RogersSierra.isOnTrainMission = false;
+
+            if (RogersSierra.isExploded == false)
+                RogersSierra.FunnelSmoke = SmokeColor.Default;
+
+            RogersSierra = null;
+            TimeMachine = null;
         }
 
         public void StartExplodingScene()
         {
-            //if (tRogersSierra.isDeLoreanAttached)
-            //    RogersSierraManager.DetachDeLorean();
-
             TimedEventManager.ClearEvents();
 
-            TimedEventManager.Add(CurrentTime.Add(TimeSpan.FromSeconds(2)), CurrentTime.Add(TimeSpan.FromSeconds(3)));
+            TimedEventManager.Add(TimedEventManager.CurrentTime.Add(TimeSpan.FromSeconds(2)), TimedEventManager.CurrentTime.Add(TimeSpan.FromSeconds(3)));
             TimedEventManager.Last.OnExecute += TrainExplosion_OnExecute;
         }
 
         private void TrainExplosion_OnExecute(TimedEvent timedEvent)
         {
-            if (timedEvent.FirstExecution)
-            {
-                tRogersSierra.Explode();
-                End();
-            }                
+            if (!timedEvent.FirstExecution)
+                return;
+
+            RogersSierra.Explode();
+            End();
         }
 
-        public override void OnStart()
+        protected override void OnStart()
         {
-            if ((tRogersSierra?.isExploded).HasValue ? tRogersSierra.isExploded : true)
+            if (TrainManager.RogersSierraList.Count == 0)
             {
                 IsPlaying = false;
                 return;
             }
+            else
+                RogersSierra = TrainManager.RogersSierraList[0];
 
-            tRogersSierra.AudioEngine.BaseSoundFolder = "BackToTheFutureV\\Sounds";
+            if (RogersSierra.isExploded)
+            {
+                RogersSierra = null;
+                IsPlaying = false;
+                return;
+            }
 
-            _funnelExpl = tRogersSierra.AudioEngine.Create($"story/trainMission/funnelExplosion.wav", Presets.ExteriorLoud);
+            TimeMachine = TimeMachineHandler.CurrentTimeMachine;
+
+            if (TimeMachine == null)
+            {
+                RogersSierra = null;
+                TimeMachine = null;
+                IsPlaying = false;
+                return;
+            }
+
+            TimeMachine.Events.OnTimeTravelStarted += StartExplodingScene;
+
+            RogersSierra.AudioEngine.BaseSoundFolder = "BackToTheFutureV\\Sounds";
+
+            _funnelExpl = RogersSierra.AudioEngine.Create($"story/trainMission/funnelExplosion.wav", Presets.ExteriorLoud);
             _funnelExpl.SourceBone = "funnel_dummy";
             
-            _missionMusic = tRogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
+            _missionMusic = RogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
 
-            CurrentTime = TimeSpan.Zero;
-
+            TimedEventManager.ResetExecution();
             TimedEventManager.ClearEvents();
 
             TimedEventManager.ManageCamera = false;
 
             TimedEventManager.Add(0, 0, 0, 0, 10, 0, TimeMultiplier);
-            TimedEventManager.Last.SetCamera(tRogersSierra.Locomotive, new Vector3(2.5f, 13f, -1f), tRogersSierra.Locomotive, Vector3.Zero);
+            TimedEventManager.Last.SetCamera(RogersSierra.Locomotive, new Vector3(2.5f, 13f, -1f), RogersSierra.Locomotive, Vector3.Zero);
 
             TimedEventManager.Add(0, 0, 0, 0, 25, 0, TimeMultiplier); //reach 25mph
             TimedEventManager.Last.SetSpeed(0, 25);            
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
             TimedEventManager.Add(1, 29, 386, 1, 31, 386, TimeMultiplier);
-            TimedEventManager.Last.SetCamera(tRogersSierra.Locomotive, new Vector3(0, 15f, 2f), tRogersSierra.Locomotive, Vector3.Zero);
+            TimedEventManager.Last.SetCamera(RogersSierra.Locomotive, new Vector3(0, 15f, 2f), RogersSierra.Locomotive, Vector3.Zero);
 
             TimedEventManager.Add(1, 29, 386, 1, 40, 137, TimeMultiplier); //green log explosion and reach 35mph
             TimedEventManager.Last.SetSpeed(25, 35);
@@ -234,10 +256,13 @@ namespace BackToTheFutureV.Story
 
             TimedEventManager.Add(5, 56, 450, 9, 12, 627, TimeMultiplier); //reach 88mph
 
-            tRogersSierra.isOnTrainMission = true;
+            RogersSierra.isOnTrainMission = true;
+
+            if (TimeMachine.Properties.IsAttachedToRogersSierra)
+                OnVehicleAttachedToRogersSierra(TimeMachine);
 
             _wheelPtfxes = new List<PtfxEntityBonePlayer>();
-            _funnelExplPtfx = new PtfxEntityBonePlayer("scr_josh3", "scr_josh3_explosion", tRogersSierra.Locomotive, "funnel_dummy", Vector3.Zero, Vector3.Zero);
+            _funnelExplPtfx = new PtfxEntityBonePlayer("scr_josh3", "scr_josh3_explosion", RogersSierra.Locomotive, "funnel_dummy", Vector3.Zero, Vector3.Zero);
 
             _missionMusic.Play();
 
@@ -262,15 +287,15 @@ namespace BackToTheFutureV.Story
 
         private void WheelieDown_OnExecute(TimedEvent timedEvent)
         {
-            //if (timedEvent.FirstExecution)           
-            //    tRogersSierra.DeLoreanWheelie = RogersSierra.Commons.AnimationStep.Second;                            
+            if (timedEvent.FirstExecution)
+                TimeMachine.Events.SetWheelie?.Invoke(false);
         }
 
         private void WheelieUp_OnExecute(TimedEvent timedEvent)
         {
             if (timedEvent.FirstExecution)
-            {
-                //tRogersSierra.DeLoreanWheelie = RogersSierra.Commons.AnimationStep.First;
+            {                
+                TimeMachine.Events.SetWheelie?.Invoke(true);
                 SetupRearWheelsPTFXs("des_bigjobdrill", "ent_ray_big_drill_start_sparks", new Vector3(0, -0.3f, 0), new Vector3(0, 90f, 0), 1f, true);
                 SetupRearWheelsPTFXs("veh_impexp_rocket", "veh_rocket_boost", new Vector3(0.2f, 0, 0), new Vector3(0, 0, 90f), 2.5f);
             }                
@@ -279,13 +304,13 @@ namespace BackToTheFutureV.Story
         private void Whistle_OnExecute(TimedEvent timedEvent)
         {
             if (timedEvent.FirstExecution)
-                tRogersSierra.Whistle = !tRogersSierra.Whistle;
+                RogersSierra.Whistle = !RogersSierra.Whistle;
         }
 
         private void SetSpeed_OnExecute(TimedEvent timedEvent)
         {
-            if (tRogersSierra.Locomotive.GetMPHSpeed() <= timedEvent.EndSpeed)
-                tRogersSierra.LocomotiveSpeed += Convert.ToSingle(timedEvent.CurrentSpeed);
+            if (RogersSierra.Locomotive.GetMPHSpeed() <= timedEvent.EndSpeed)
+                RogersSierra.LocomotiveSpeed += Convert.ToSingle(timedEvent.CurrentSpeed);
         }
 
         private void Explosion_OnExecute(TimedEvent timedEvent)
@@ -295,28 +320,28 @@ namespace BackToTheFutureV.Story
                 _funnelExplPtfx.Play();
                 _funnelExpl.Play();
 
-                switch (tRogersSierra.FunnelSmoke)
+                switch (RogersSierra.FunnelSmoke)
                 {
-                    case RogersSierra.Commons.SmokeColor.Default:
-                        tRogersSierra.FunnelSmoke = RogersSierra.Commons.SmokeColor.Green;
+                    case SmokeColor.Default:
+                        RogersSierra.FunnelSmoke = SmokeColor.Green;
                         break;
-                    case RogersSierra.Commons.SmokeColor.Green:
-                        tRogersSierra.FunnelSmoke = RogersSierra.Commons.SmokeColor.Yellow;
+                    case SmokeColor.Green:
+                        RogersSierra.FunnelSmoke = SmokeColor.Yellow;
                         break;
-                    case RogersSierra.Commons.SmokeColor.Yellow:
-                        tRogersSierra.FunnelSmoke = RogersSierra.Commons.SmokeColor.Red;
-                        tRogersSierra.FunnelFire = true;
+                    case SmokeColor.Yellow:
+                        RogersSierra.FunnelSmoke = SmokeColor.Red;
+                        RogersSierra.FunnelFire = true;
                         break;
                 }
             }
 
-            if (tRogersSierra.Locomotive.GetMPHSpeed() <= timedEvent.EndSpeed)
-                tRogersSierra.LocomotiveSpeed += Convert.ToSingle(timedEvent.CurrentSpeed);
+            if (RogersSierra.Locomotive.GetMPHSpeed() <= timedEvent.EndSpeed)
+                RogersSierra.LocomotiveSpeed += Convert.ToSingle(timedEvent.CurrentSpeed);
         }
 
         private void SetupRearWheelsPTFXs(string particleAssetName, string particleName, Vector3 wheelOffset, Vector3 wheelRot, float size = 3f, bool doLoopHandling = false)
         {
-            var ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedVehicle, "wheel_lr", wheelOffset, wheelRot, size, true, doLoopHandling);
+            var ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, TimeMachine, "wheel_lr", wheelOffset, wheelRot, size, true, doLoopHandling);
 
             ptfx.Play();
 
@@ -328,7 +353,7 @@ namespace BackToTheFutureV.Story
 
             _wheelPtfxes.Add(ptfx);
 
-            ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedVehicle, "wheel_rr", wheelOffset, wheelRot, size, true, doLoopHandling);
+            ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, TimeMachine, "wheel_rr", wheelOffset, wheelRot, size, true, doLoopHandling);
 
             ptfx.Play();
 
@@ -343,7 +368,7 @@ namespace BackToTheFutureV.Story
 
         private void SetupFrontWheelsPTFXs(string particleAssetName, string particleName, Vector3 wheelOffset, Vector3 wheelRot, float size = 3f, bool doLoopHandling = false)
         {
-            var ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedVehicle, "wheel_lf", wheelOffset, wheelRot, size, true, doLoopHandling);
+            var ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, TimeMachine, "wheel_lf", wheelOffset, wheelRot, size, true, doLoopHandling);
 
             ptfx.Play();
 
@@ -355,7 +380,7 @@ namespace BackToTheFutureV.Story
 
             _wheelPtfxes.Add(ptfx);
 
-            ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, tRogersSierra.AttachedVehicle, "wheel_rf", wheelOffset, wheelRot, size, true, doLoopHandling);
+            ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, TimeMachine, "wheel_rf", wheelOffset, wheelRot, size, true, doLoopHandling);
 
             ptfx.Play();
 
@@ -366,6 +391,11 @@ namespace BackToTheFutureV.Story
             }
 
             _wheelPtfxes.Add(ptfx);
+        }
+
+        public override void KeyDown(KeyEventArgs key)
+        {
+            
         }
     }
 }

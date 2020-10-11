@@ -127,6 +127,7 @@
     <Compile Include="Story\Missions\EscapeMission.cs" />
     <Compile Include="Story\Mission.cs" />
     <Compile Include="Story\MissionHandler.cs" />
+    <Compile Include="Story\Missions\TrainMission.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\BaseProperties.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\EventsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PlayersHandler.cs" />

@@ -19,7 +19,7 @@ namespace BackToTheFutureV.Story
 
         public int IndexOf(TimedEvent timedEvent) => _timedEvents.IndexOf(timedEvent);
 
-        private TimeSpan _currentTime = TimeSpan.Zero;
+        public TimeSpan CurrentTime { get; set; } = TimeSpan.Zero;
 
         public TimedEvent Add(int startMinute, int startSecond, int startMillisecond, int endMinute, int endSecond, int endMillisecond, float tTimeMultiplier = 1.0f)
         {
@@ -41,7 +41,7 @@ namespace BackToTheFutureV.Story
 
         public bool AllExecuted()
         {
-            return AllExecuted(_currentTime);
+            return AllExecuted(CurrentTime);
         }
 
         public bool AllExecuted(TimeSpan tCurrentTime)
@@ -53,8 +53,8 @@ namespace BackToTheFutureV.Story
 
         public void RunEvents()
         {
-            _currentTime = _currentTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime));
-            RunEvents(_currentTime);
+            CurrentTime = CurrentTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime));
+            RunEvents(CurrentTime);
         }
        
         public void RunEvents(TimeSpan tCurrentTime)
@@ -80,7 +80,7 @@ namespace BackToTheFutureV.Story
         public void ResetExecution()
         {
             _timedEvents.ForEach(x => x.ResetExecution());
-            _currentTime = TimeSpan.Zero;
+            CurrentTime = TimeSpan.Zero;
         }
 
         public void ResetCamera()

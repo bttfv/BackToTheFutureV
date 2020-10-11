@@ -1,6 +1,8 @@
 ﻿using BackToTheFutureV.Entities;
 using BackToTheFutureV.GUI;
 using BackToTheFutureV.Players;
+using BackToTheFutureV.Story;
+using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
@@ -13,19 +15,24 @@ using System.Collections.Generic;
 namespace BackToTheFutureV.Utility
 {
     public delegate void OnVehicleDestroyed();
-    public delegate void OnVehicleAttached();
+    public delegate void OnVehicleAttached(bool toRogersSierra = false);
+    public delegate void OnVehicleDetached(bool fromRogersSierra = false);
     public delegate void OnTrainDeleted();
+    public delegate void SetWheelie(bool goUp);
 
     public class CustomTrain
     {
         public event OnVehicleDestroyed OnVehicleDestroyed;
         public event OnVehicleAttached OnVehicleAttached;
+        public event OnVehicleDetached OnVehicleDetached;
         public event OnTrainDeleted OnTrainDeleted;
+
+        public SetWheelie SetWheelie;
 
         public bool IsRogersSierra { get; private set; }
         public RogersSierra RogersSierra { get; private set; }
 
-        private Vector3 _deloreanOffset = new Vector3(0, 7.85f, 0.465f);
+        private Vector3 _deloreanOffset = new Vector3(0, 7.46f, 0.465f);
 
         private float _deloreanWheelieRotX;
         private float _deloreanWheeliePosZ = -0.35f;
@@ -83,6 +90,8 @@ namespace BackToTheFutureV.Utility
                 Carriage(i).IsPersistent = true;
 
             ToDestroy = false;
+
+            SetWheelie += StartWheelie;
         }
 
         public void SetPosition(Vector3 position)
@@ -345,7 +354,6 @@ namespace BackToTheFutureV.Utility
             {
                 PrepareTargetVehicle(false);
 
-                _distance = 0;
                 OnVehicleAttached?.Invoke();
                 IsReadyToAttach = false;
             }
@@ -358,6 +366,8 @@ namespace BackToTheFutureV.Utility
             PrepareTargetVehicle(false);
 
             IsReadyToAttach = true;
+
+            OnVehicleDetached?.Invoke();
         }
 
         public void SetToDestroy(Vehicle targetVehicle, float destroyCounter)
@@ -399,53 +409,43 @@ namespace BackToTheFutureV.Utility
 
             Train = RogersSierra.ColDeLorean;
 
-            RogersSierra.VisibleLocomotive.ToggleExtra(1, true);
+            RogersSierra.UnlockSpeed = true;
 
-            RogersSierra.AttachedVehicle = TargetVehicle;
+            RogersSierra.WheelsOnPilot = true;
 
             IsAccelerationOn = false;
+
+            if (TargetVehicle.IsTimeMachine())
+                MissionHandler.TrainMission.OnVehicleAttachedToRogersSierra?.Invoke(TimeMachineHandler.GetTimeMachineFromVehicle(TargetVehicle));
         }
 
         public void SwitchToRegular()
         {
-            DetachTargetVehicle();
-
-            IsRogersSierra = false;
-
-            RogersSierra.AttachedVehicle = null;
-
+            RogersSierra.UnlockSpeed = false;
+            RogersSierra.WheelsOnPilot = false;
             RogersSierra = null;
 
-            PrepareTargetVehicle(true);
-
-            Vector3 position = TargetVehicle.GetOffsetPosition(new Vector3(0, -10, 0));
-
-            Train = Function.Call<Vehicle>(Hash.CREATE_MISSION_TRAIN, _variation, position.X, position.Y, position.Z, Direction);
-
-            SetCollision(false);
-
-            SetVisible(false);
-
-            //CruiseSpeedMPH = 1;
-
-            SetPosition(TargetVehicle.Position);
+            DeleteTrain();
         }
 
         public void StartWheelie(bool goUp)
-        {
+        {           
             if (IsRogersSierra)
             {
                 DoWheelie = true;
-                WheelieUp = goUp;
-            }            
+                WheelieUp = goUp;                
+            }
         }
 
         public void DeleteTrain()
         {
-            int handle = Train.Handle;
-            unsafe
+            if (!IsRogersSierra)
             {
-                Function.Call(Hash.DELETE_MISSION_TRAIN, &handle);
+                int handle = Train.Handle;
+                unsafe
+                {
+                    Function.Call(Hash.DELETE_MISSION_TRAIN, &handle);
+                }
             }
 
             Exists = false;

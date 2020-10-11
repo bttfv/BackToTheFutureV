@@ -81,7 +81,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (wheelType != Wheel)
                 Wheel = wheelType;
-
+                    
             ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
 
             if (reactorType != Reactor)

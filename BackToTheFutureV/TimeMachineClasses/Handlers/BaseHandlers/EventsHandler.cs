@@ -1,4 +1,5 @@
-﻿using GTA;
+﻿using BackToTheFutureV.Utility;
+using GTA;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +77,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public SetStopTracks SetStopTracks;
         public SetRefuel SetRefuel;
         public SetPedAI StartDriverAI;
+        public SetWheelie SetWheelie;
 
         public EventsHandler(TimeMachine timeMachine) : base(timeMachine)
         {

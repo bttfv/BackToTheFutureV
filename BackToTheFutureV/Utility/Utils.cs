@@ -16,7 +16,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
 
 namespace BackToTheFutureV.Utility
-{
+{   
     public enum LightsMode
     {
         Default,

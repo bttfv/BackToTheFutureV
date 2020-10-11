@@ -53,6 +53,11 @@ namespace BackToTheFutureV.Utility
             return TimeMachineHandler.IsVehicleATimeMachine(vehicle);
         }
 
+        public static bool IsGoingForward(this Vehicle vehicle)
+        {
+            return vehicle.Velocity.Y >= 0;
+        }
+
         public static float GetMPHSpeed(this Vehicle vehicle)
         {
             return vehicle.Speed / 0.27777f / 1.60934f;
