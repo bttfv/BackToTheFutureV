@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.Menu;
 using RogersSierraRailway;
+using GTA.Math;
 
 namespace BackToTheFutureV
 {
@@ -112,13 +113,6 @@ namespace BackToTheFutureV
             TimeMachineHandler.KeyDown(e.KeyCode);
             MissionHandler.KeyDown(e);
             MenuHandler.KeyDown(e);
-
-            if (e.KeyCode == Keys.L)
-            {
-                RogersSierra rogersSierra = null;
-
-                Screen.ShowSubtitle($"{rogersSierra != null}");
-            }
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)

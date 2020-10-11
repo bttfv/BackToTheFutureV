@@ -138,18 +138,23 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.IsOnTracks)
             {
-                //Properties.IsAttachedToRogersSierra = customTrain.IsRogersSierra;
+                Properties.IsAttachedToRogersSierra = customTrain.IsRogersSierra;
 
-                //if (Properties.IsAttachedToRogersSierra)
-                //{
-                //    if (Main.PlayerVehicle == Vehicle && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
-                //        customTrain.SwitchToRegular();
+                if (Properties.IsAttachedToRogersSierra)
+                {
+                    if (Main.PlayerVehicle == Vehicle && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+                    {
+                        customTrain.SwitchToRegular();
+                        return;
+                    }
+                        
 
-                //    if (customTrain.RogersSierra.Locomotive.Speed > 0 && Utils.EntitySpeedVector(customTrain.RogersSierra.Locomotive).Y < 0)
-                //        customTrain.SwitchToRegular();
+                    if (customTrain.RogersSierra.Locomotive.Speed > 0 && Utils.EntitySpeedVector(customTrain.RogersSierra.Locomotive).Y < 0)
+                        customTrain.SwitchToRegular();
 
-                //    return;
-                //} else
+                    return;
+                }
+                else
                     customTrain.IsAccelerationOn = Main.PlayerVehicle == Vehicle && Vehicle.IsVisible && Vehicle.IsEngineRunning;
 
                 if (Main.PlayerVehicle == Vehicle)
