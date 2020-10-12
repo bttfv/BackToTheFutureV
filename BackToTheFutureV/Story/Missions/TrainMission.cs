@@ -55,12 +55,20 @@ namespace BackToTheFutureV.Story
                 VehicleTimedEventManager.ResetCamera();
 
             VehicleTimedEventManager.ClearEvents();
+
+            TimeMachine.Events.OnTimeTravelStarted -= StartExplodingScene;
+
+            TimeMachine = null;
         }
 
         private void OnVehicleAttached(TimeMachine timeMachine)
         {
-            if (timeMachine != TimeMachine || !IsPlaying)
+            if (timeMachine == null || TimeMachine != null || !IsPlaying)
                 return;
+
+            TimeMachine = timeMachine;
+
+            TimeMachine.Events.OnTimeTravelStarted += StartExplodingScene;
 
             VehicleTimedEventManager.ManageCamera = false;
 
@@ -90,7 +98,7 @@ namespace BackToTheFutureV.Story
             if (TimedEventManager.AllExecuted())
                 StartExplodingScene();
 
-            if (TimeMachine.Properties.IsAttachedToRogersSierra)
+            if (TimeMachine != null && TimeMachine.Properties.IsAttachedToRogersSierra)
             {
                 VehicleTimedEventManager.RunEvents(TimedEventManager.CurrentTime);
 
@@ -119,8 +127,10 @@ namespace BackToTheFutureV.Story
             if (RogersSierra.isExploded == false)
                 RogersSierra.FunnelSmoke = SmokeColor.Default;
 
-            RogersSierra = null;
-            TimeMachine = null;
+            if (TimeMachine != null)
+                OnVehicleDetached(TimeMachine);
+
+            RogersSierra = null;            
         }
 
         public void StartExplodingScene()
@@ -156,18 +166,6 @@ namespace BackToTheFutureV.Story
                 IsPlaying = false;
                 return;
             }
-
-            TimeMachine = TimeMachineHandler.CurrentTimeMachine;
-
-            if (TimeMachine == null)
-            {
-                RogersSierra = null;
-                TimeMachine = null;
-                IsPlaying = false;
-                return;
-            }
-
-            TimeMachine.Events.OnTimeTravelStarted += StartExplodingScene;
 
             RogersSierra.AudioEngine.BaseSoundFolder = "BackToTheFutureV\\Sounds";
 
@@ -258,12 +256,12 @@ namespace BackToTheFutureV.Story
 
             RogersSierra.isOnTrainMission = true;
 
-            if (TimeMachine.Properties.IsAttachedToRogersSierra)
-                OnVehicleAttachedToRogersSierra(TimeMachine);
-
             _wheelPtfxes = new List<PtfxEntityBonePlayer>();
             _funnelExplPtfx = new PtfxEntityBonePlayer("scr_josh3", "scr_josh3_explosion", RogersSierra.Locomotive, "funnel_dummy", Vector3.Zero, Vector3.Zero);
 
+            if (RogersSierra.AttachedVehicle != null)
+                OnVehicleAttached(TimeMachineHandler.GetTimeMachineFromVehicle(RogersSierra.AttachedVehicle));
+            
             _missionMusic.Play();
 
             if (!PlayMusic)

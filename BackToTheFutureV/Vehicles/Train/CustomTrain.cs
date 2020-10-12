@@ -409,6 +409,8 @@ namespace BackToTheFutureV.Utility
 
             Train = RogersSierra.ColDeLorean;
 
+            RogersSierra.AttachedVehicle = TargetVehicle;
+
             RogersSierra.UnlockSpeed = true;
 
             RogersSierra.WheelsOnPilot = true;
@@ -421,6 +423,7 @@ namespace BackToTheFutureV.Utility
 
         public void SwitchToRegular()
         {
+            RogersSierra.AttachedVehicle = null;
             RogersSierra.UnlockSpeed = false;
             RogersSierra.WheelsOnPilot = false;
             RogersSierra = null;
