@@ -47,7 +47,8 @@ namespace BackToTheFutureV.Utility
     public enum MissionType
     {
         None,
-        Escape
+        Escape,
+        Train
     }
 
     public class BTTFImportantDates

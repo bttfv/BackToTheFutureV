@@ -25,6 +25,7 @@ namespace BackToTheFutureV.Menu
 
         public NativeSubmenuItem CustomMenu { get; }
         public NativeSubmenuItem PhotoMenu { get; }
+        public NativeSubmenuItem TrainMissionMenu { get; }
         public NativeSubmenuItem BackToMain { get; }
 
         public TimeMachineMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu"))
@@ -49,6 +50,9 @@ namespace BackToTheFutureV.Menu
             PhotoMenu.Title = Game.GetLocalizedString("BTTFV_Menu_PhotoMenu");
             PhotoMenu.Description = Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Description");
 
+            TrainMissionMenu = AddSubMenu(MenuHandler.TrainMissionMenu);
+            TrainMissionMenu.Title = "Train Mission";
+            
             BackToMain = AddSubMenu(MenuHandler.MainMenu);
             BackToMain.Title = Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu");
             BackToMain.Description = Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu_Description");
@@ -131,6 +135,8 @@ namespace BackToTheFutureV.Menu
 
             CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.FullDamaged;
             PhotoMenu.Enabled = CustomMenu.Enabled;
+
+            TrainMissionMenu.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsOnTracks;
 
             //EscapeMission.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
             //EscapeMission.Checked = MissionHandler.Escape.IsPlaying;

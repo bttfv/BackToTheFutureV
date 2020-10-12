@@ -47,6 +47,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Properties.TimeTravelType == TimeTravelType.Instant && customTrain.RogersSierra.isOnTrainMission)
                     MissionHandler.TrainMission.End();
 
+                customTrain.RogersSierra.RejectAttach = true;
+
                 Stop();                
                 return;
             }
@@ -148,13 +150,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if (key == Keys.N)
-            {
-                if (MissionHandler.TrainMission.IsPlaying)
-                    MissionHandler.TrainMission.End();
-                else if (Main.PlayerVehicle == Vehicle)
-                    MissionHandler.TrainMission.Start();
-            }
+
         }
 
         public override void Process()

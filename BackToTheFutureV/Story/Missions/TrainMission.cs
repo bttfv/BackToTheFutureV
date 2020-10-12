@@ -28,7 +28,7 @@ namespace BackToTheFutureV.Story
         private TimeMachine TimeMachine;
         private RogersSierra RogersSierra;
 
-        public float TimeMultiplier = 0.1f;
+        public float TimeMultiplier = 1f;
         public bool PlayMusic = true;
 
         private AudioPlayer _funnelExpl;
@@ -152,15 +152,12 @@ namespace BackToTheFutureV.Story
 
         protected override void OnStart()
         {
-            if (TrainManager.RogersSierraList.Count == 0)
-            {
-                IsPlaying = false;
+            if (!(RogersSierra is null))
                 return;
-            }
-            else
-                RogersSierra = TrainManager.RogersSierraList[0];
 
-            if (RogersSierra.isExploded)
+            RogersSierra = TrainManager.ClosestRogersSierra;
+
+            if (RogersSierra is null || RogersSierra.isExploded)
             {
                 RogersSierra = null;
                 IsPlaying = false;
