@@ -239,12 +239,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _attachDelay = Game.GameTime + delay;
 
             if (customTrain != null)
-            {
+            {                
                 if (customTrain.Exists && customTrain.AttachedToTarget)
                     customTrain.DetachTargetVehicle();
 
                 customTrain.OnVehicleAttached -= customTrain_OnVehicleAttached;
-                customTrain.OnTrainDeleted -= customTrain_OnTrainDeleted;                
+                customTrain.OnTrainDeleted -= customTrain_OnTrainDeleted;
+
+                if (customTrain.IsRogersSierra)
+                    customTrain.SwitchToRegular();
 
                 if (customTrain.Exists && !customTrain.IsRogersSierra)
                     customTrain.DeleteTrain();
