@@ -30,12 +30,11 @@ namespace BackToTheFutureV.Story
 
         public float TimeMultiplier = 1f;
         public bool PlayMusic = true;
+        public float MusicVolume = 1f;
 
-        private AudioPlayer _funnelExpl;
         private AudioPlayer _missionMusic;
         //private AudioPlayer _missionMusic = new AudioPlayer($"TrainMissionWithVoices.wav", false, 0.8f);
 
-        private PtfxEntityBonePlayer _funnelExplPtfx;
         private List<PtfxEntityBonePlayer> _wheelPtfxes = null;
 
         public TimedEventManager VehicleTimedEventManager = new TimedEventManager();
@@ -164,11 +163,6 @@ namespace BackToTheFutureV.Story
                 return;
             }
 
-            RogersSierra.AudioEngine.BaseSoundFolder = "BackToTheFutureV\\Sounds";
-
-            _funnelExpl = RogersSierra.AudioEngine.Create($"story/trainMission/funnelExplosion.wav", Presets.ExteriorLoud);
-            _funnelExpl.SourceBone = "funnel_dummy";
-            
             _missionMusic = RogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
 
             TimedEventManager.ResetExecution();
@@ -254,15 +248,14 @@ namespace BackToTheFutureV.Story
             RogersSierra.isOnTrainMission = true;
 
             _wheelPtfxes = new List<PtfxEntityBonePlayer>();
-            _funnelExplPtfx = new PtfxEntityBonePlayer("scr_josh3", "scr_josh3_explosion", RogersSierra.Locomotive, "funnel_dummy", Vector3.Zero, Vector3.Zero);
-
+            
             if (RogersSierra.AttachedVehicle != null)
                 OnVehicleAttached(TimeMachineHandler.GetTimeMachineFromVehicle(RogersSierra.AttachedVehicle));
-            
-            _missionMusic.Play();
+                        
+            _missionMusic.Volume = MusicVolume;
 
-            if (!PlayMusic)
-                _missionMusic.Volume = 0f;
+            if (PlayMusic)
+                _missionMusic.Play();
         }
 
         private void DeleteEffects_OnExecute(TimedEvent timedEvent)
@@ -311,21 +304,17 @@ namespace BackToTheFutureV.Story
         private void Explosion_OnExecute(TimedEvent timedEvent)
         {
             if (timedEvent.FirstExecution)
-            {               
-                _funnelExplPtfx.Play();
-                _funnelExpl.Play();
-
+            {                               
                 switch (RogersSierra.FunnelSmoke)
                 {
                     case SmokeColor.Default:
-                        RogersSierra.FunnelSmoke = SmokeColor.Green;
+                        RogersSierra.PrestoLogExplosion(SmokeColor.Green);
                         break;
                     case SmokeColor.Green:
-                        RogersSierra.FunnelSmoke = SmokeColor.Yellow;
+                        RogersSierra.PrestoLogExplosion(SmokeColor.Yellow);
                         break;
                     case SmokeColor.Yellow:
-                        RogersSierra.FunnelSmoke = SmokeColor.Red;
-                        RogersSierra.FunnelFire = true;
+                        RogersSierra.PrestoLogExplosion(SmokeColor.Red);
                         break;
                 }
             }

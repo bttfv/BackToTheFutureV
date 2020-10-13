@@ -17,6 +17,7 @@ namespace BackToTheFutureV.Menu
         private NativeCheckboxItem MissionToggle;
         private NativeSliderItem Speed;
         private NativeCheckboxItem PlayMusic;
+        private NativeSliderItem MusicVolume;
 
         public TrainMissionMenu() : base("", "Train Mission")
         {
@@ -29,8 +30,16 @@ namespace BackToTheFutureV.Menu
             Add(Speed = new NativeSliderItem("Speed"));
             Speed.ValueChanged += Speed_ValueChanged;
             Add(PlayMusic = new NativeCheckboxItem("Play music"));
+            Add(MusicVolume = new NativeSliderItem("Music volume"));
+            MusicVolume.ValueChanged += MusicVolume_ValueChanged;
 
             Main.ObjectPool.Add(this);
+        }
+
+        private void MusicVolume_ValueChanged(object sender, EventArgs e)
+        {
+            MissionHandler.TrainMission.MusicVolume = MusicVolume.Value / 100.0f;
+            MusicVolume.Title = "Music volume: " + MusicVolume.Value.ToString();
         }
 
         private void TrainMissionMenu_Shown(object sender, EventArgs e)
