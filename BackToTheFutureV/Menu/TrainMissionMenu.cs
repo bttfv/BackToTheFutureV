@@ -47,6 +47,7 @@ namespace BackToTheFutureV.Menu
             MissionToggle.Checked = MissionHandler.TrainMission.IsPlaying;
             PlayMusic.Checked = MissionHandler.TrainMission.PlayMusic;
             Speed.Value = (int)(MissionHandler.TrainMission.TimeMultiplier * 100);
+            MusicVolume.Value = (int)(MissionHandler.TrainMission.MusicVolume * 100);
         }
 
         public override void Tick()

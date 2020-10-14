@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using RogersSierraRailway;
 using static RogersSierraRailway.Commons;
 using BackToTheFutureV.TimeMachineClasses;
+using GTA.UI;
 
 namespace BackToTheFutureV.Story
 {
@@ -43,6 +44,8 @@ namespace BackToTheFutureV.Story
         {
             OnVehicleAttachedToRogersSierra += OnVehicleAttached;
             OnVehicleDetachedFromRogersSierra += OnVehicleDetached;
+
+            _missionMusic = Main.CommonAudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
         }
 
         private void OnVehicleDetached(TimeMachine timeMachine)
@@ -163,8 +166,6 @@ namespace BackToTheFutureV.Story
                 return;
             }
 
-            _missionMusic = RogersSierra.AudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
-
             TimedEventManager.ResetExecution();
             TimedEventManager.ClearEvents();
 
@@ -251,11 +252,13 @@ namespace BackToTheFutureV.Story
             
             if (RogersSierra.AttachedVehicle != null)
                 OnVehicleAttached(TimeMachineHandler.GetTimeMachineFromVehicle(RogersSierra.AttachedVehicle));
-                        
-            _missionMusic.Volume = MusicVolume;
 
             if (PlayMusic)
+            {
+                _missionMusic.SourceEntity = Main.PlayerPed;
+                _missionMusic.Volume = MusicVolume;
                 _missionMusic.Play();
+            }                
         }
 
         private void DeleteEffects_OnExecute(TimedEvent timedEvent)
