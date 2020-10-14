@@ -121,9 +121,9 @@ namespace BackToTheFutureV.Story
             _wheelPtfxes?.ForEach(x => x?.Stop());
             _wheelPtfxes.Clear();
 
-            RogersSierra.isOnTrainMission = false;
+            RogersSierra.IsOnTrainMission = false;
 
-            if (RogersSierra.isExploded == false)
+            if (RogersSierra.IsExploded == false)
                 RogersSierra.FunnelSmoke = SmokeColor.Default;
 
             if (TimeMachine != null)
@@ -156,7 +156,7 @@ namespace BackToTheFutureV.Story
 
             RogersSierra = TrainManager.ClosestRogersSierra;
 
-            if (RogersSierra is null || RogersSierra.isExploded)
+            if (RogersSierra is null || RogersSierra.IsExploded)
             {
                 RogersSierra = null;
                 IsPlaying = false;
@@ -245,7 +245,7 @@ namespace BackToTheFutureV.Story
 
             TimedEventManager.Add(5, 56, 450, 9, 12, 627, TimeMultiplier); //reach 88mph
 
-            RogersSierra.isOnTrainMission = true;
+            RogersSierra.IsOnTrainMission = true;
 
             _wheelPtfxes = new List<PtfxEntityBonePlayer>();
             

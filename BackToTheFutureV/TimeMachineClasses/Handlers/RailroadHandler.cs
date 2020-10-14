@@ -44,7 +44,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (customTrain.IsRogersSierra)
             {
-                if (Properties.TimeTravelType == TimeTravelType.Instant && customTrain.RogersSierra.isOnTrainMission)
+                if (Properties.TimeTravelType == TimeTravelType.Instant && customTrain.RogersSierra.IsOnTrainMission)
                     MissionHandler.TrainMission.End();
 
                 customTrain.RogersSierra.RejectAttach = true;
@@ -107,7 +107,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             customTrain.SetCollision(false);
 
-            customTrain.SetToAttach(Vehicle, new Vector3(0, 4.5f, Vehicle.HeightAboveGround - customTrain.Carriage(1).HeightAboveGround - 0.05f), 1, 0); //new Vector3(0, 4.48f, 0)
+            customTrain.SetToAttach(Vehicle, new Vector3(0, 4.5f, Vehicle.HeightAboveGround - customTrain.Carriage(1).HeightAboveGround), 1, 0); //new Vector3(0, 4.48f, 0)
 
             customTrain.SetPosition(Vehicle.Position);
             
@@ -150,7 +150,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-
+            if (!Properties.IsOnTracks || !customTrain.IsRogersSierra)
+                return;
+            
+            customTrain.RogersSierra.KeyDown(key);
         }
 
         public override void Process()
