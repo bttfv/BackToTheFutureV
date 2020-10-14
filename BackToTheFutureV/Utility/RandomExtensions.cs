@@ -75,6 +75,11 @@ namespace BackToTheFutureV.Utility
             return dst;
         }
 
+        public static bool MostlyNear(this float src, float to)
+        {
+            return (to - 5) <= src && src <= (to + 5);
+        }
+
         public static float GetMostFreeDirection(this Vector3 position, Entity ignoreEntity)
         {
             float ret = 0;

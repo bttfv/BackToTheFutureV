@@ -385,7 +385,7 @@ namespace BackToTheFutureV.Utility
             _checkOffset.Z = TrainManager.ClosestRogersSierra.Locomotive.GetPositionOffset(TargetVehicle.Position).Z;
             _checkOffset.Y = 5.13f - TargetVehicle.Model.Dimensions.rearBottomLeft.Y;
 
-            return Utils.EntitySpeedVector(TrainManager.ClosestRogersSierra.Locomotive).Y >= 0 && World.GetClosestVehicle(TrainManager.ClosestRogersSierra.Locomotive.GetOffsetPosition(_checkOffset), 0.1f) == TargetVehicle;
+            return Utils.EntitySpeedVector(TrainManager.ClosestRogersSierra).Y >= 0 && TargetVehicle.SameDirection(TrainManager.ClosestRogersSierra) && World.GetClosestVehicle(TrainManager.ClosestRogersSierra.Locomotive.GetOffsetPosition(_checkOffset), 0.1f) == TargetVehicle;
         }
 
         public void TrySwitchToRogersSierra()
@@ -419,10 +419,7 @@ namespace BackToTheFutureV.Utility
             Train = RogersSierra.ColDeLorean;
 
             RogersSierra.AttachedVehicle = TargetVehicle;
-
             RogersSierra.UnlockSpeed = true;
-
-            RogersSierra.WheelsOnPilot = true;
 
             IsAccelerationOn = false;
 
@@ -434,7 +431,6 @@ namespace BackToTheFutureV.Utility
         {
             RogersSierra.AttachedVehicle = null;
             RogersSierra.UnlockSpeed = false;
-            RogersSierra.WheelsOnPilot = false;
             RogersSierra = null;
 
             DeleteTrain();

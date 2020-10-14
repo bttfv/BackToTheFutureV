@@ -53,6 +53,11 @@ namespace BackToTheFutureV.Utility
             return TimeMachineHandler.IsVehicleATimeMachine(vehicle);
         }
 
+        public static bool SameDirection(this Vehicle vehicle, Vehicle vehicle1)
+        {
+            return vehicle.Rotation.Z.MostlyNear(vehicle1.Rotation.Z);
+        }
+
         public static bool IsGoingForward(this Vehicle vehicle)
         {
             return vehicle.Velocity.Y >= 0;

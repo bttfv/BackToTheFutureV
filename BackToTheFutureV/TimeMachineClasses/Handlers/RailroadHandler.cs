@@ -95,11 +95,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             customTrain = CustomTrainHandler.CreateInvisibleTrain(Vehicle, _direction);
 
-            if (!(customTrain.Train.Heading >= Vehicle.Heading - 25 && customTrain.Train.Heading <= Vehicle.Heading + 25))
+            if (!customTrain.Train.Heading.MostlyNear(Vehicle.Heading))
             {
                 _direction = !_direction;
                 customTrain.DeleteTrain();
                 customTrain = CustomTrainHandler.CreateInvisibleTrain(Vehicle, _direction);
+
+                if (!customTrain.Train.SameDirection(Vehicle))
+                {
+                    customTrain?.DeleteTrain();
+                    customTrain = null;
+                    return;
+                }
             }
 
             customTrain.IsAccelerationOn = true;
@@ -172,11 +179,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (Properties.IsAttachedToRogersSierra)
                 {
-                    if (Main.PlayerVehicle == Vehicle && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+                    if (Main.PlayerVehicle == Vehicle && Game.IsControlPressed(GTA.Control.VehicleAccelerate) && !customTrain.RogersSierra.IsOnTrainMission)
                     {
                         customTrain.SwitchToRegular();
                         return;
-                    }                     
+                    }
 
                     if (customTrain.RogersSierra.Locomotive.Speed > 0 && Utils.EntitySpeedVector(customTrain.RogersSierra.Locomotive).Y < 0)
                         customTrain.SwitchToRegular();
@@ -198,13 +205,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return;
                 }
 
-                Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.TankerCarModel);
+                Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.TankerCarModel, ModelHandler.SierraDebugModel, ModelHandler.SierraModel, ModelHandler.SierraTenderModel);
 
                 if (_train != null && Vehicle.IsTouching(_train))
                 {
                     Stop();
 
-                    if (_train.Velocity.Y == Vehicle.Velocity.Y)
+                    if (Vehicle.SameDirection(_train))
                     {
                         if (Math.Abs(_train.GetMPHSpeed() + Vehicle.GetMPHSpeed()) > 35)
                             Vehicle.Explode();
