@@ -31,9 +31,8 @@ namespace BackToTheFutureV.Story
 
         public float TimeMultiplier = 1f;
         public bool PlayMusic = true;
-        public float MusicVolume = 1f;
-
-        private AudioPlayer _missionMusic;
+        
+        public AudioPlayer MissionMusic { get; private set; }
         //private AudioPlayer _missionMusic = new AudioPlayer($"TrainMissionWithVoices.wav", false, 0.8f);
 
         private List<PtfxEntityBonePlayer> _wheelPtfxes = null;
@@ -45,7 +44,7 @@ namespace BackToTheFutureV.Story
             OnVehicleAttachedToRogersSierra += OnVehicleAttached;
             OnVehicleDetachedFromRogersSierra += OnVehicleDetached;
 
-            _missionMusic = Main.CommonAudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
+            MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
         }
 
         private void OnVehicleDetached(TimeMachine timeMachine)
@@ -118,8 +117,8 @@ namespace BackToTheFutureV.Story
             if (TimedEventManager.IsCustomCameraActive)
                 TimedEventManager.ResetCamera();
 
-            if (_missionMusic.IsAnyInstancePlaying)
-                _missionMusic.Stop();
+            if (MissionMusic.IsAnyInstancePlaying)
+                MissionMusic.Stop();
 
             _wheelPtfxes?.ForEach(x => x?.Stop());
             _wheelPtfxes.Clear();
@@ -247,6 +246,7 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Add(5, 56, 450, 9, 12, 627, TimeMultiplier); //reach 88mph
 
             RogersSierra.IsOnTrainMission = true;
+            RogersSierra.RandomTrain = false;
 
             _wheelPtfxes = new List<PtfxEntityBonePlayer>();
             
@@ -255,9 +255,8 @@ namespace BackToTheFutureV.Story
 
             if (PlayMusic)
             {
-                _missionMusic.SourceEntity = Main.PlayerPed;
-                _missionMusic.Volume = MusicVolume;
-                _missionMusic.Play();
+                MissionMusic.SourceEntity = Main.PlayerPed;                
+                MissionMusic.Play();
             }                
         }
 

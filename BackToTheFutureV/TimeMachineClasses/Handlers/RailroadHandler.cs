@@ -22,6 +22,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private float _speed;
 
+        private bool _forceFreightTrain;
+
         public RailroadHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.SetWheelie += SetWheelie;
@@ -44,6 +46,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (customTrain.IsRogersSierra)
             {
+                _forceFreightTrain = customTrain.RogersSierra.IsOnTrainMission;
+
                 if (Properties.TimeTravelType == TimeTravelType.Instant && customTrain.RogersSierra.IsOnTrainMission)
                     MissionHandler.TrainMission.End();
 
@@ -144,8 +148,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Properties.IsOnTracks = true;
 
-            if (_isReentryOn && Properties.TimeTravelType == TimeTravelType.RC)
-                customTrain.SpeedMPH = 88;
+            if (_isReentryOn)
+            {
+                if (customTrain.SpeedMPH == 0)
+                    customTrain.SpeedMPH = 88;
+            }                
             else
                 customTrain.Speed = Vehicle.IsGoingForward() ? _speed : -_speed;
         }
@@ -198,16 +205,20 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (_isReentryOn && customTrain.AttachedToTarget && customTrain.SpeedMPH == 0)
                 {
-                    if (Utils.Random.NextDouble() <= 0.25f)
+                    if (_forceFreightTrain || Utils.Random.NextDouble() <= 0.25f)
                         CustomTrainHandler.CreateFreightTrain(Vehicle, !_direction).SetToDestroy(Vehicle, 35);
 
                     _isReentryOn = false;
+                    _forceFreightTrain = false;
                     return;
                 }
 
+                if (Properties.MissionType == MissionType.Train)
+                    return;
+
                 Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.TankerCarModel, ModelHandler.SierraDebugModel, ModelHandler.SierraModel, ModelHandler.SierraTenderModel);
 
-                if (_train != null && Vehicle.IsTouching(_train))
+                if (Vehicle.IsVisible && _train != null && Vehicle.IsTouching(_train))
                 {
                     Stop();
 

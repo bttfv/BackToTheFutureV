@@ -38,8 +38,8 @@ namespace BackToTheFutureV.Menu
 
         private void MusicVolume_ValueChanged(object sender, EventArgs e)
         {
-            MissionHandler.TrainMission.MusicVolume = MusicVolume.Value / 100.0f;
-            MusicVolume.Title = "Music volume: " + MusicVolume.Value.ToString();
+            MissionHandler.TrainMission.MissionMusic.Volume = MusicVolume.Value / 100.0f;
+            MusicVolume.Title = "Music volume: " + MusicVolume.Value.ToString();            
         }
 
         private void TrainMissionMenu_Shown(object sender, EventArgs e)
@@ -47,12 +47,13 @@ namespace BackToTheFutureV.Menu
             MissionToggle.Checked = MissionHandler.TrainMission.IsPlaying;
             PlayMusic.Checked = MissionHandler.TrainMission.PlayMusic;
             Speed.Value = (int)(MissionHandler.TrainMission.TimeMultiplier * 100);
-            MusicVolume.Value = (int)(MissionHandler.TrainMission.MusicVolume * 100);
+            MusicVolume.Value = (int)(MissionHandler.TrainMission.MissionMusic.Volume * 100);            
         }
 
         public override void Tick()
-        {
-            
+        {            
+            Speed.Enabled = !MissionToggle.Checked;
+            PlayMusic.Enabled = !MissionHandler.TrainMission.IsPlaying || MissionHandler.TrainMission.MissionMusic.IsAnyInstancePlaying;
         }
 
         private void Speed_ValueChanged(object sender, EventArgs e)
@@ -75,7 +76,12 @@ namespace BackToTheFutureV.Menu
             }
 
             if (sender == PlayMusic)
+            {
                 MissionHandler.TrainMission.PlayMusic = Checked;
+
+                if (MissionHandler.TrainMission.IsPlaying && !Checked)
+                    MissionHandler.TrainMission.MissionMusic.Stop();
+            }                
         }
     }
 }

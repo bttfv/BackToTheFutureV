@@ -17,10 +17,7 @@ namespace BackToTheFutureV.Menu
 {
     public class MainMenu : CustomNativeMenu
     {
-        private NativeItem spawnDMC12;
-        private NativeItem spawnBTTF1;
-        private NativeItem spawnBTTF2;
-        private NativeItem spawnBTTF3;
+        private NativeListItem<string> spawnBTTF;
 
         private NativeSubmenuItem presetsMenu;
 
@@ -34,18 +31,18 @@ namespace BackToTheFutureV.Menu
         private NativeItem deleteOthers;
         private NativeItem deleteAll;
 
-        private NativeSubmenuItem settingsMenu;        
+        private NativeSubmenuItem settingsMenu;
 
+        private readonly List<string> _bttfTypes = new List<string> { Game.GetLocalizedString("BTTFV_Menu_DMC12"), Game.GetLocalizedString("BTTFV_Menu_BTTF1"), Game.GetLocalizedString("BTTFV_Menu_BTTF1H"), Game.GetLocalizedString("BTTFV_Menu_BTTF2"), Game.GetLocalizedString("BTTFV_Menu_BTTF3"), Game.GetLocalizedString("BTTFV_Menu_BTTF3RR") };
+       
         public MainMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_Description"))
         {
             Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
 
             OnItemActivated += MainMenu_OnItemActivated;
 
-            Add(spawnDMC12 = new NativeItem($"{Game.GetLocalizedString("BTTFV_Menu_Spawn")} {Game.GetLocalizedString("BTTFV_Menu_DMC12")}", Game.GetLocalizedString("BTTFV_Menu_SpawnDMC12_Description")));
-            Add(spawnBTTF1 = new NativeItem($"{Game.GetLocalizedString("BTTFV_Menu_Spawn")} {Game.GetLocalizedString("BTTFV_Menu_BTTF1")}", Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF1_Description")));
-            Add(spawnBTTF2 = new NativeItem($"{Game.GetLocalizedString("BTTFV_Menu_Spawn")} {Game.GetLocalizedString("BTTFV_Menu_BTTF2")}", Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF2_Description")));
-            Add(spawnBTTF3 = new NativeItem($"{Game.GetLocalizedString("BTTFV_Menu_Spawn")} {Game.GetLocalizedString("BTTFV_Menu_BTTF3")}", Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF3_Description")));
+            Add(spawnBTTF = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Menu_Spawn"), Game.GetLocalizedString("BTTFV_Menu_SpawnDMC12_Description"), _bttfTypes.ToArray()));
+            spawnBTTF.ItemChanged += SpawnBTTF_ItemChanged;
 
             presetsMenu = AddSubMenu(MenuHandler.PresetsMenu);
             presetsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset");
@@ -83,6 +80,31 @@ namespace BackToTheFutureV.Menu
             Main.ObjectPool.Add(this);
         }
 
+        private void SpawnBTTF_ItemChanged(object sender, ItemChangedEventArgs<string> e)
+        {
+            switch (e.Index)
+            {
+                case 0:
+                    spawnBTTF.Description = Game.GetLocalizedString("BTTFV_Menu_SpawnDMC12_Description");
+                    break;
+                case 1:
+                case 2:
+                    spawnBTTF.Description = Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF1_Description");
+                    break;
+                case 3:
+                    spawnBTTF.Description = Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF2_Description");
+                    break;
+                case 4:
+                    spawnBTTF.Description = Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF3_Description");
+                    break;
+                case 5:
+                    spawnBTTF.Description = Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF3RR_Description");
+                    break;
+            }
+
+            Recalculate();
+        }
+
         public override void Tick()
         {
             convertIntoTimeMachine.Enabled = Main.PlayerVehicle.NotNullAndExists() && !Main.PlayerVehicle.IsTimeMachine();
@@ -94,31 +116,40 @@ namespace BackToTheFutureV.Menu
 
         private void MainMenu_OnItemActivated(NativeItem sender, EventArgs e)
         {
-            if (sender == spawnDMC12)
-                Main.PlayerPed.Task.WarpIntoVehicle(DMC12Handler.CreateDMC12(Main.PlayerPed.Position, Main.PlayerPed.Heading), VehicleSeat.Driver);
-
-            if (sender == spawnBTTF1)
+            TimeMachine timeMachine;
+            
+            if (sender == spawnBTTF)
             {
-                if (ModSettings.CinematicSpawn)
-                    TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF1);
-                else
-                    TimeMachineHandler.Spawn(WormholeType.BTTF1, true);
-            }
+                if (spawnBTTF.SelectedIndex == 0)
+                {
+                    Main.PlayerPed.Task.WarpIntoVehicle(DMC12Handler.CreateDMC12(Main.PlayerPed.Position, Main.PlayerPed.Heading), VehicleSeat.Driver);
+                    Close();
+                    return;
+                }
 
-            if (sender == spawnBTTF2)
-            {
-                if (ModSettings.CinematicSpawn)
-                    TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF2);
-                else
-                    TimeMachineHandler.Spawn(WormholeType.BTTF2, true);
-            }
+                WormholeType wormholeType = WormholeType.BTTF1;
 
-            if (sender == spawnBTTF3)
-            {
+                switch (spawnBTTF.SelectedIndex)
+                {
+                    case 3:
+                        wormholeType = WormholeType.BTTF2;
+                        break;
+                    case 4:
+                    case 5:
+                        wormholeType = WormholeType.BTTF3;
+                        break;
+                }
+
                 if (ModSettings.CinematicSpawn)
-                    TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF3);
+                    timeMachine = TimeMachineHandler.SpawnWithReentry(wormholeType);
                 else
-                    TimeMachineHandler.Spawn(WormholeType.BTTF3, true);
+                    timeMachine = TimeMachineHandler.Spawn(wormholeType, true);
+
+                if (spawnBTTF.SelectedIndex == 2)
+                    timeMachine.Mods.Hook = HookState.OnDoor;
+
+                if (spawnBTTF.SelectedIndex == 5)
+                    timeMachine.Mods.Wheel = WheelType.RailroadInvisible;
             }
 
             if (sender == convertIntoTimeMachine)
@@ -126,7 +157,7 @@ namespace BackToTheFutureV.Menu
 
             if (sender == deleteCurrent)
             {
-                var timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
+                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
 
                 if (timeMachine == null)
                 {
