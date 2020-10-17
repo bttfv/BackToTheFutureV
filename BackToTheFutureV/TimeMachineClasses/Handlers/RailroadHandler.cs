@@ -95,6 +95,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void Start()
         {
+            if (!Vehicle.IsOnAllWheels)
+                return;
+
             _speed = Vehicle.Speed;
 
             customTrain = CustomTrainHandler.CreateInvisibleTrain(Vehicle, _direction);
@@ -118,9 +121,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             customTrain.SetCollision(false);
 
-            customTrain.SetToAttach(Vehicle, new Vector3(0, 4.5f, Vehicle.HeightAboveGround - customTrain.Carriage(1).HeightAboveGround), 1, 0); //new Vector3(0, 4.48f, 0)
+            customTrain.SetToAttach(Vehicle, new Vector3(0, 4.5f, Mods.IsDMC12 ? 0 : Vehicle.HeightAboveGround - customTrain.Carriage(1).HeightAboveGround), 1, 0);
 
-            customTrain.SetPosition(Vehicle.Position);
+            customTrain.SetPosition(Vehicle.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Y, -1)));
             
             customTrain.OnVehicleAttached += customTrain_OnVehicleAttached;
             customTrain.OnTrainDeleted += customTrain_OnTrainDeleted;            
@@ -186,7 +189,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (Properties.IsAttachedToRogersSierra)
                 {
-                    if (Main.PlayerVehicle == Vehicle && Game.IsControlPressed(GTA.Control.VehicleAccelerate) && !customTrain.RogersSierra.IsOnTrainMission)
+                    if (Game.IsControlPressed(GTA.Control.VehicleAccelerate) && Main.PlayerVehicle == Vehicle && Vehicle.IsEngineRunning && !customTrain.RogersSierra.IsOnTrainMission)
                     {
                         customTrain.SwitchToRegular();
                         return;

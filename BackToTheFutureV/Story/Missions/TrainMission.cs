@@ -70,6 +70,7 @@ namespace BackToTheFutureV.Story
             TimeMachine = timeMachine;
 
             TimeMachine.Events.OnTimeTravelStarted += StartExplodingScene;
+            TimeMachine.Vehicle.FuelLevel = 0;
 
             VehicleTimedEventManager.ManageCamera = false;
 

@@ -50,8 +50,8 @@ namespace BackToTheFutureV.Utility
         private float _speed;
         
         public bool Exists { get; private set; } = true;
-        public bool IsAutomaticBrakeOn = true;
-        public bool IsAccelerationOn = false;
+        public bool IsAutomaticBrakeOn { get; set; } = true;
+        public bool IsAccelerationOn { get; set; } = false;
 
         public float CruiseSpeed { get { return _cruiseSpeed; } set { _cruiseSpeed = value; _setSpeed = false; IsAutomaticBrakeOn = false; Function.Call(Hash.SET_TRAIN_CRUISE_SPEED, Train, value); } }
         public float CruiseSpeedMPH { get { return Utils.MsToMph(CruiseSpeed); } set { CruiseSpeed = Utils.MphToMs(value); } }
@@ -281,9 +281,6 @@ namespace BackToTheFutureV.Utility
 
             if (AttachedToTarget)
                 AttachTargetVehicle();
-
-            //if (!(TrainManager.ClosestRogersSierra is null))
-            //    Screen.ShowSubtitle($"{TrainManager.ClosestRogersSierra.Locomotive.HeightAboveGround} {TargetVehicle.HeightAboveGround} {TrainManager.ClosestRogersSierra.Locomotive.GetPositionOffset(TargetVehicle.Position)}");
         }
 
         public bool CheckForNearbyTargetVehicle()
@@ -429,6 +426,7 @@ namespace BackToTheFutureV.Utility
 
         public void SwitchToRegular()
         {
+            RogersSierra.SetRejectDelay(500);
             RogersSierra.AttachedVehicle = null;
             RogersSierra.UnlockSpeed = false;
             RogersSierra = null;

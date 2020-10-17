@@ -81,7 +81,10 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (wheelType != Wheel)
                 Wheel = wheelType;
-                    
+
+            if (Wheel == WheelType.RailroadInvisible && TimeMachine.Props != null && !TimeMachine.Props.RRWheels[0].IsSpawned)
+                TimeMachine.Props?.RRWheels?.ForEach(x => x?.SpawnProp());
+
             ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
 
             if (reactorType != Reactor)
