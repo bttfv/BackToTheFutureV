@@ -263,15 +263,15 @@ namespace BackToTheFutureV.TimeMachineClasses
                     _firstRedSetup = true;
                 }
 
-                Mods.SyncMods();
+                Mods.SyncMods();                
 
                 if (_escapeTimer > Game.GameTime)
-                    return;
+                {
+                    if (!MissionHandler.Escape.IsPlaying && Mods.WormholeType == WormholeType.BTTF1 && Mods.Reactor == ReactorType.Nuclear && Main.PlayerPed.IsInVehicle(Vehicle) && Utils.Random.NextDouble() <= 0.25f)
+                        MissionHandler.Escape.StartOn(this);
 
-                if (!MissionHandler.Escape.IsPlaying && Mods.WormholeType == WormholeType.BTTF1 && Mods.Reactor == ReactorType.Nuclear && Main.PlayerPed.IsInVehicle(Vehicle) && Utils.Random.NextDouble() <= 0.25f)
-                    MissionHandler.Escape.StartOn(this);
-
-                _escapeTimer = Game.GameTime + 36000;
+                    _escapeTimer = Game.GameTime + 36000;
+                }                                    
             }
 
             if (Main.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)
