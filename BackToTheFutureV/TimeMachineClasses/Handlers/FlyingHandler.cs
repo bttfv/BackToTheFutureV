@@ -423,23 +423,29 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleUp))
             {
-                Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
-                Game.DisableControlThisFrame(Control.VehicleFlyThrottleUp);
-
-                if (!Properties.IsLanding && Mods.IsDMC12 && !_hoverGlowUp)
+                if (Vehicle.DecreaseSpeedAndWait())
                 {
-                    SpawnHoverGlow();
-                    _hoverGlowUp = true;
+                    Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
+                    Game.DisableControlThisFrame(Control.VehicleFlyThrottleUp);
+
+                    if (!Properties.IsLanding && Mods.IsDMC12 && !_hoverGlowUp)
+                    {
+                        SpawnHoverGlow();
+                        _hoverGlowUp = true;
+                    }
+
+                    upNormal = 1;
                 }
-                    
-                upNormal = 1;
             }
             else if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
             {
-                Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
-                Game.DisableControlThisFrame(Control.VehicleFlyThrottleDown);
+                if (Vehicle.DecreaseSpeedAndWait(-0.01f))
+                {
+                    Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
+                    Game.DisableControlThisFrame(Control.VehicleFlyThrottleDown);
 
-                upNormal = -1;
+                    upNormal = -1;
+                }
             }
 
             if (upNormal == 0 && _hoverGlowUp)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using BackToTheFutureV.TimeMachineClasses;
 using GTA;
@@ -60,7 +61,7 @@ namespace BackToTheFutureV.Utility
 
         public static bool IsGoingForward(this Vehicle vehicle)
         {
-            return vehicle.Velocity.Y >= 0;
+            return vehicle.RelativeVelocity().Y >= 0;
         }
 
         public static float GetMPHSpeed(this Vehicle vehicle)
@@ -91,6 +92,26 @@ namespace BackToTheFutureV.Utility
 
             lightsOn = _lightsOn;
             highbeamsOn = _highbeamsOn;
+        }
+
+        public static Vector3 RelativeVelocity(this Entity entity)
+        {
+            return Function.Call<Vector3>(Hash.GET_ENTITY_SPEED_VECTOR, entity, true);
+        }
+
+        public static bool DecreaseSpeedAndWait(this Vehicle vehicle, float by = 20)
+        {
+            Vector3 vel = vehicle.RelativeVelocity();
+
+            if (vel.Y >= -3 && vel.Y <= 3)
+                return true;
+
+            if (vel.Y >= 0)
+                vehicle.Speed -= by * Game.LastFrameTime;
+            else
+                vehicle.Speed += by * Game.LastFrameTime;
+
+            return false;
         }
 
         public static bool CanHoverTransform(this Vehicle vehicle)
