@@ -110,6 +110,8 @@
 	BTTFV_Menu_ControlsMenu_LongPressForHover_Description = Long press is required for hover transformation.
 	BTTFV_Menu_ControlsMenu_MainMenu = Main Menu
 	BTTFV_Menu_ControlsMenu_MainMenu_Description = Key for opening Main Menu (keyboard).
+	BTTFV_Menu_ControlsMenu_Reset = Reset
+	BTTFV_Menu_ControlsMenu_Reset_Description = Reset controls settings to default configuration.
 	BTTFV_Menu_ControlsMenu_TCToggle = Time circuits
 	BTTFV_Menu_ControlsMenu_TCToggle_Description = Key for turning on/off time circuits (keyboard).
 	BTTFV_Menu_ControlsMenu_UseControlForMainMenu = CTRL required

@@ -239,6 +239,8 @@
 	BTTFV_Menu_ControlsMenu_HoverVTOL_Description = Button for VTOL while in hover mode.
 	BTTFV_Menu_ControlsMenu_HoverAltitudeHold = Altitude holding
 	BTTFV_Menu_ControlsMenu_HoverAltitudeHold_Description = Key for altitude hold while in hover mode (keyboard).
+	BTTFV_Menu_ControlsMenu_Reset = Reset
+	BTTFV_Menu_ControlsMenu_Reset_Description = Reset controls settings to default configuration.
 	BTTFV_Menu_ControlsMenu_TCToggle = Time circuits
 	BTTFV_Menu_ControlsMenu_TCToggle_Description = Key for turning on/off time circuits (keyboard).
 	BTTFV_Menu_ControlsMenu_CutsceneToggle = Cutscene/instant mode

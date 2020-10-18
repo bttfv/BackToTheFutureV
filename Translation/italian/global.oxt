@@ -110,6 +110,8 @@
 	BTTFV_Menu_ControlsMenu_LongPressForHover_Description = Richiede la pressione prolungata del pulsante per l'aerotrasformazione.
 	BTTFV_Menu_ControlsMenu_MainMenu = Menu principale
 	BTTFV_Menu_ControlsMenu_MainMenu_Description = Tasto per aprire il menu principale.
+	BTTFV_Menu_ControlsMenu_Reset = Reset
+	BTTFV_Menu_ControlsMenu_Reset_Description = Ripristina la configurazione di default dei controlli.
 	BTTFV_Menu_ControlsMenu_TCToggle = Tempo circuiti
 	BTTFV_Menu_ControlsMenu_TCToggle_Description = Tasto per accendere/spegnere i tempo circuiti.
 	BTTFV_Menu_ControlsMenu_UseControlForMainMenu = CTRL richiesto

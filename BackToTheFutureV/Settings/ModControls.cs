@@ -29,6 +29,25 @@ namespace BackToTheFutureV.Settings
         public static Keys CutsceneToggle { get; set; } = Keys.Multiply;
         public static Keys InputToggle { get; set; } = Keys.Divide;
 
+        public static void Reset()
+        {
+            UseControlForMainMenu = true;
+            MainMenu = Keys.F8;
+            CombinationsForInteractionMenu = true;
+            InteractionMenu1 = Control.VehicleHandbrake;
+            InteractionMenu2 = Control.CharacterWheel;
+            LongPressForHover = true;
+            Hover = Control.VehicleFlyTransform;
+            HoverBoost = Control.VehicleHandbrake;
+            HoverVTOL = Control.VehicleAim;
+            HoverAltitudeHold = Keys.G;
+            TCToggle = Keys.Add;
+            CutsceneToggle = Keys.Multiply;
+            InputToggle = Keys.Divide;
+
+            ModSettings.SaveSettings();
+        }
+
         public static void LoadControls(ScriptSettings settings)
         {
             UseControlForMainMenu = settings.GetValue("Controls", "UseControlForMainMenu", UseControlForMainMenu);

@@ -36,6 +36,8 @@ namespace BackToTheFutureV.Menu
         private NativeListItem<Keys> CutsceneToggle;
         private NativeListItem<Keys> InputToggle;
 
+        private NativeItem Reset;
+
         private bool _doNotUpdate;
 
         public ControlsMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_ControlsMenu"))
@@ -49,6 +51,7 @@ namespace BackToTheFutureV.Menu
             Shown += ControlsMenu_Shown;
             Closing += ControlsMenu_Closing;
             OnItemCheckboxChanged += ControlsMenu_OnItemCheckboxChanged;
+            OnItemActivated += ControlsMenu_OnItemActivated;
 
             Add(MainMenu = new NativeListItem<Keys>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_MainMenu"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_MainMenu_Description")));
             MainMenu.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
@@ -99,7 +102,18 @@ namespace BackToTheFutureV.Menu
             InputToggle.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
             InputToggle.ItemChanged += InputToggle_ItemChanged;
 
+            Add(Reset = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Reset"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Reset_Description")));
+
             Main.ObjectPool.Add(this);
+        }
+
+        private void ControlsMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        {
+            if (sender == Reset)
+            {
+                ModControls.Reset();
+                ControlsMenu_Shown(this, new EventArgs());
+            }                
         }
 
         private void InputToggle_ItemChanged(object sender, ItemChangedEventArgs<Keys> e)
