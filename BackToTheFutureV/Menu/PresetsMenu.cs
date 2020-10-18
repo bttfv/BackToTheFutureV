@@ -33,8 +33,6 @@ namespace BackToTheFutureV.Menu
             _instrumentalMenu.AddControl(Control.PhoneRight, Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Delete"));
             _instrumentalMenu.AddControl(Control.PhoneLeft, Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Rename"));
             _instrumentalMenu.AddControl(Control.PhoneExtraOption, Game.GetLocalizedString("BTTFV_Input_PresetsMenu_New"));
-
-            Main.ObjectPool.Add(this);
         }
 
         private void PresetsMenu_OnItemActivated(NativeItem sender, EventArgs e)

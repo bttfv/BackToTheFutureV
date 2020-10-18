@@ -33,8 +33,6 @@ namespace BackToTheFutureV.Menu
             Add(Ice = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice_Description")));
             //Add(FluxCapacitor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor_Description")));
             Add(HideHUD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_HideHUD"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_HideHUD_Description")));
-
-            Main.ObjectPool.Add(this);
         }
 
         private void PhotoMenu_Shown(object sender, EventArgs e)

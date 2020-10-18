@@ -27,8 +27,6 @@ namespace BackToTheFutureV.Menu
             Add(LightningStrikeEvent = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_LightningStrikeEvent_Description"), ModSettings.LightningStrikeEvent));
             Add(EngineStallEvent = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_EngineStallEvent"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_EngineStallEvent_Description"), ModSettings.EngineStallEvent));
             Add(TurbulenceEvent = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TurbolenceEvent"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TurbolenceEvent_Description"), ModSettings.TurbulenceEvent));
-
-            Main.ObjectPool.Add(this);
         }
 
         private void SettingsMenu_Shown(object sender, EventArgs e)

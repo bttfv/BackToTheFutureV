@@ -59,8 +59,6 @@ namespace BackToTheFutureV.Menu
             TCDMenu = AddSubMenu(MenuHandler.TCDMenu);
             TCDMenu.Title = Game.GetLocalizedString("BTTFV_Menu_TCDMenu");
             TCDMenu.Description = Game.GetLocalizedString("BTTFV_Menu_TCDMenu_Description");
-
-            Main.ObjectPool.Add(this);
         }
 
         private void SettingsMenu_Shown(object sender, EventArgs e)

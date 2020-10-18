@@ -235,6 +235,7 @@
 	BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn_Description = Ti permette di accendere/spegnere i tempo circuiti.
 	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent = Turbolenze in volo
 	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent_Description = Se abilitato l'auto mentre vola in una tempesta incappa in turbolenze.
+	BTTFV_Mission_Escape_FoundMe = Oh mio Dio... mi hanno trovato non so come ma mi hanno trovato.
 	BTTFV_NotSeatedInTimeMachine = Non sei dentro una macchina del tempo!
 	BTTFV_Off = Off
 	BTTFV_On = On

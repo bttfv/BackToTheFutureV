@@ -255,4 +255,5 @@
 	BTTFV_Menu_TimeMachineMenu_Restore_Description = Restore the time machine to perfect working order.
 	BTTFV_Menu_ControlsMenu_Reset = Reset
 	BTTFV_Menu_ControlsMenu_Reset_Description = Reset controls settings to default configuration.
+	BTTFV_Mission_Escape_FoundMe = Oh my God, they found me, I don't know how but they found me.
 }

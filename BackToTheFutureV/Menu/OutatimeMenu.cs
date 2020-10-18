@@ -47,8 +47,6 @@ namespace BackToTheFutureV.Menu
             DestinationTimeDescription.Enabled = false;
             LastTimeDescription.Enabled = false;
             Spawned.Enabled = false;
-
-            Main.ObjectPool.Add(this);
         }
 
         private void UpdateInfos()

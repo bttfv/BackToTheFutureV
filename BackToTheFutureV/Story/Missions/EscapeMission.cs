@@ -4,6 +4,7 @@ using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
 using GTA.Native;
+using GTA.UI;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -54,6 +55,7 @@ namespace BackToTheFutureV.Story.Missions
 
         public void StartOn(TimeMachine timeMachine)
         {
+            GTA.UI.Screen.ShowSubtitle(Game.GetLocalizedString("BTTFV_Mission_Escape_FoundMe"));
             TimeMachine = timeMachine;
             Start();
         }

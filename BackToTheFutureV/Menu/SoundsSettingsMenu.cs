@@ -29,8 +29,6 @@ namespace BackToTheFutureV.Menu
             Add(playDiodeSound = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep"), Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep_Description"), ModSettings.PlayDiodeBeep));
             Add(playSpeedoBeep = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep"), Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep_Description"), ModSettings.PlaySpeedoBeep));
             Add(playEngineSounds = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_EngineSounds"), Game.GetLocalizedString("BTTFV_Menu_EngineSounds_Description"), ModSettings.PlayEngineSounds));
-
-            Main.ObjectPool.Add(this);
         }
 
         private void SettingsMenu_Shown(object sender, EventArgs e)

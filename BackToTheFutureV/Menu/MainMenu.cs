@@ -76,8 +76,6 @@ namespace BackToTheFutureV.Menu
 
             settingsMenu = AddSubMenu(MenuHandler.SettingsMenu);
             settingsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_Settings");            
-            
-            Main.ObjectPool.Add(this);
         }
 
         private void SpawnBTTF_ItemChanged(object sender, ItemChangedEventArgs<string> e)

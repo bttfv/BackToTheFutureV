@@ -44,8 +44,6 @@ namespace BackToTheFutureV.Menu
             FuelChamberDescription.Enabled = false;
             TimeCircuitsOnDescription.Enabled = false;
             DestinationTimeDescription.Enabled = false;
-
-            Main.ObjectPool.Add(this);
         }
 
         private void RCMenu_Shown(object sender, EventArgs e)

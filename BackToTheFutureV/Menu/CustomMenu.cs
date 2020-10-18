@@ -71,8 +71,6 @@ namespace BackToTheFutureV.Menu
             Add(_saveConf = new NativeItem(Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Save"), Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Save_Description")));
 
             Add(_confirm = new NativeItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Confirm")));
-
-            Main.ObjectPool.Add(this);
         }
 
         private void CustomMenu_Closing(object sender, System.ComponentModel.CancelEventArgs e)

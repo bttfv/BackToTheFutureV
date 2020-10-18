@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.Memory;
+using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
@@ -44,6 +45,8 @@ namespace BackToTheFutureV.TimeMachineClasses
         private bool _firstRedSetup = true;
 
         private Blip Blip;
+
+        private int _escapeTimer;
 
         public bool Disposed { get; private set; }
 
@@ -123,6 +126,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Vehicle.Model == ModelHandler.DeluxoModel)
                 Mods.HoverUnderbody = ModState.On;
+
+            _escapeTimer = Game.GameTime + 36000;
 
             TimeMachineHandler.AddTimeMachine(this);
         }
@@ -259,6 +264,14 @@ namespace BackToTheFutureV.TimeMachineClasses
                 }
 
                 Mods.SyncMods();
+
+                if (Mods.WormholeType != WormholeType.BTTF1 || Mods.Reactor != ReactorType.Nuclear || !Main.PlayerPed.IsInVehicle(Vehicle) || _escapeTimer > Game.GameTime)
+                    return;
+
+                if (!MissionHandler.Escape.IsPlaying && Utils.Random.NextDouble() <= 0.25f)
+                    MissionHandler.Escape.StartOn(this);
+
+                _escapeTimer = Game.GameTime + 36000;
             }
 
             if (Main.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)

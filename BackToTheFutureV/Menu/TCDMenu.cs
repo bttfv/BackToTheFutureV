@@ -30,8 +30,6 @@ namespace BackToTheFutureV.Menu
 
             Add(changeTCD = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TCDEditMode"), Game.GetLocalizedString("BTTFV_Menu_TCDEditMode_Description")));
             Add(resetToDefaultTCD = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TCDReset"), Game.GetLocalizedString("BTTFV_Menu_TCDReset_Description")));
-
-            Main.ObjectPool.Add(this);
         }
 
         private void TCDMenu_OnItemActivated(NativeItem sender, EventArgs e)

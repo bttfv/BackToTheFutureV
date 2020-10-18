@@ -103,8 +103,6 @@ namespace BackToTheFutureV.Menu
             InputToggle.ItemChanged += InputToggle_ItemChanged;
 
             Add(Reset = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Reset"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Reset_Description")));
-
-            Main.ObjectPool.Add(this);
         }
 
         private void ControlsMenu_OnItemActivated(NativeItem sender, EventArgs e)

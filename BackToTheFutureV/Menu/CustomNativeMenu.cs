@@ -28,21 +28,25 @@ namespace BackToTheFutureV.Menu
         public CustomNativeMenu(string title) : base(title)
         {
             CustomNativeMenus.Add(this);
+            Main.ObjectPool.Add(this);
         }
 
         public CustomNativeMenu(string title, string subtitle) : base(title, subtitle)
         {
             CustomNativeMenus.Add(this);
+            Main.ObjectPool.Add(this);
         }
 
         public CustomNativeMenu(string title, string subtitle, string description) : base(title, subtitle, description)
         {
             CustomNativeMenus.Add(this);
+            Main.ObjectPool.Add(this);
         }
 
         public CustomNativeMenu(string title, string subtitle, string description, I2Dimensional banner) : base(title, subtitle, description, banner)
         {
             CustomNativeMenus.Add(this);
+            Main.ObjectPool.Add(this);
         }
 
         public static void ProcessAll()

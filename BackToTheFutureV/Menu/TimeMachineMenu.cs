@@ -56,8 +56,6 @@ namespace BackToTheFutureV.Menu
             BackToMain = AddSubMenu(MenuHandler.MainMenu);
             BackToMain.Title = Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu");
             BackToMain.Description = Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu_Description");
-
-            Main.ObjectPool.Add(this);
         }
 
         private void TimeMachineMenu_OnItemActivated(NativeItem sender, EventArgs e)
