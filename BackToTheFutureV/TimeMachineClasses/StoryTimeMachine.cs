@@ -68,13 +68,10 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (!Spawned && IsUsed)
                 IsUsed = false;
 
-            if (Spawned && !IsUsed && Main.PlayerPed.IsInVehicle(TimeMachine))
+            if (Spawned && !IsUsed) 
             {
-                TimeMachine.Vehicle.IsInvincible = false;
-                TimeMachineHandler.RemoveStory(TimeMachine);
-
-                if (TimeMachine.Properties.FullDamaged)
-                {                  
+                if (TimeMachine.Properties.FullDamaged && TimeMachine.Vehicle.Position.DistanceToSquared(Main.PlayerPed.Position) < 18)
+                {
                     DateTime diff = new DateTime((Main.CurrentTime - SpawnDate).Ticks);
 
                     int years = diff.Year - 1;
@@ -101,8 +98,16 @@ namespace BackToTheFutureV.TimeMachineClasses
                         }
                     }
 
-                    Screen.ShowSubtitle(ret);                    
+                    Screen.ShowSubtitle(ret);
                 }
+            }
+
+            if (Spawned && !IsUsed && Main.PlayerPed.IsInVehicle(TimeMachine))
+            {
+                TimeMachine.Vehicle.IsInvincible = false;
+                TimeMachineHandler.RemoveStory(TimeMachine);
+
+
                     
                 IsUsed = true;
                 return;
