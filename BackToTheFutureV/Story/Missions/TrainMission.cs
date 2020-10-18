@@ -248,6 +248,7 @@ namespace BackToTheFutureV.Story
 
             RogersSierra.IsOnTrainMission = true;
             RogersSierra.RandomTrain = false;
+            RogersSierra.UnlockSpeed = true;
 
             _wheelPtfxes = new List<PtfxEntityBonePlayer>();
             

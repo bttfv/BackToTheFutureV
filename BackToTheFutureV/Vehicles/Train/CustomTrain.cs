@@ -416,7 +416,6 @@ namespace BackToTheFutureV.Utility
             Train = RogersSierra.ColDeLorean;
 
             RogersSierra.AttachedVehicle = TargetVehicle;
-            RogersSierra.UnlockSpeed = true;
 
             IsAccelerationOn = false;
 
@@ -428,7 +427,6 @@ namespace BackToTheFutureV.Utility
         {
             RogersSierra.SetRejectDelay(500);
             RogersSierra.AttachedVehicle = null;
-            RogersSierra.UnlockSpeed = false;
             RogersSierra = null;
 
             DeleteTrain();
