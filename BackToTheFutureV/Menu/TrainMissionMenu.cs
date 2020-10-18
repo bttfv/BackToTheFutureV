@@ -32,8 +32,6 @@ namespace BackToTheFutureV.Menu
             Add(PlayMusic = new NativeCheckboxItem("Play music"));
             Add(MusicVolume = new NativeSliderItem("Music volume"));
             MusicVolume.ValueChanged += MusicVolume_ValueChanged;
-
-            Main.ObjectPool.Add(this);
         }
 
         private void MusicVolume_ValueChanged(object sender, EventArgs e)
