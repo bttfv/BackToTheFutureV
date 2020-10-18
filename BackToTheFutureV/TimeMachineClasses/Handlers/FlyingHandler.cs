@@ -423,7 +423,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleUp))
             {
-                if (Vehicle.DecreaseSpeedAndWait())
+                if (Vehicle.DecreaseSpeedAndWait(Vehicle.IsGoingForward() ? 20 : 10))
                 {
                     Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
                     Game.DisableControlThisFrame(Control.VehicleFlyThrottleUp);
@@ -439,7 +439,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
             else if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
             {
-                if (Vehicle.DecreaseSpeedAndWait(-0.01f))
+                if (Vehicle.DecreaseSpeedAndWait(Vehicle.IsGoingForward() ? 10 : 20))
                 {
                     Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
                     Game.DisableControlThisFrame(Control.VehicleFlyThrottleDown);

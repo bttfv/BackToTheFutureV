@@ -103,13 +103,10 @@ namespace BackToTheFutureV.Utility
         {
             Vector3 vel = vehicle.RelativeVelocity();
 
-            if (vel.Y >= -3 && vel.Y <= 3)
+            if (vel.Y >= -2 && vel.Y <= 2)
                 return true;
 
-            if (vel.Y >= 0)
-                vehicle.Speed -= by * Game.LastFrameTime;
-            else
-                vehicle.Speed += by * Game.LastFrameTime;
+            vehicle.Speed -= by * Game.LastFrameTime;
 
             return false;
         }
