@@ -26,8 +26,8 @@ namespace BackToTheFutureV.Story
         public OnVehicleAttachedToRogersSierra OnVehicleAttachedToRogersSierra;
         public OnVehicleDetachedFromRogersSierra OnVehicleDetachedFromRogersSierra;
 
-        private TimeMachine TimeMachine;
-        private RogersSierra RogersSierra;
+        public TimeMachine TimeMachine { get; private set; }
+        public RogersSierra RogersSierra { get; private set; }
 
         public float TimeMultiplier = 1f;
         public bool PlayMusic = true;

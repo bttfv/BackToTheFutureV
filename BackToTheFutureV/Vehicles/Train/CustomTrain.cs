@@ -33,7 +33,7 @@ namespace BackToTheFutureV.Utility
         public RogersSierra RogersSierra { get; private set; }
 
         private float _wheelieRotX;
-        private float _wheeliePosZ = -0.35f;
+        private float _wheeliePosZ = -0.275f;
 
         public bool DoWheelie { get; set; }
         public bool WheelieUp { get; set; }
