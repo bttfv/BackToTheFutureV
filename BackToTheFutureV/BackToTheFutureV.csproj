@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <Import Project="..\ProjectReference.txt" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -220,7 +219,12 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(GTAPath)\scripts\$(TargetFileName)"
-copy "$(TargetDir)$(TargetName).pdb" "$(GTAPath)\scripts\$(TargetName).pdb"</PostBuildEvent>
+    <PostBuildEvent>IF NOT "%25GTAPath%25" == "" (
+    IF NOT EXIST "%25GTAPath%25" (
+        MKDIR "%25GTAPath%25"
+    ) 
+copy "$(TargetPath)" "%25GTAPath%25\scripts\$(TargetFileName)"
+copy "$(TargetDir)\$(TargetName).pdb" "%25GTAPath%25\scripts\$(TargetName).pdb"
+)</PostBuildEvent>
   </PropertyGroup>
 </Project>

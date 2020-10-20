@@ -1,0 +1,17 @@
+version: 2.0.{build}
+branches:
+  only:
+  - release-2.0
+configuration: Release
+install:
+- cmd: >-
+    git submodule update --init --recursive
+
+    nuget restore BackToTheFutureV.sln
+build:
+  verbosity: minimal
+after_build:
+- cmd: >-
+    7z a BackToTheFutureV.zip %APPVEYOR_BUILD_FOLDER%\BackToTheFutureV\bin\Release\*
+
+    appveyor PushArtifact BackToTheFutureV.zip
