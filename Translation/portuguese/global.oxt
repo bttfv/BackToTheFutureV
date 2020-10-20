@@ -256,4 +256,6 @@
 	BTTFV_Menu_TimeMachineMenu_Restore = Restore
 	BTTFV_Menu_TimeMachineMenu_Restore_Description = Restore the time machine to perfect working order.
 	BTTFV_Mission_Escape_FoundMe = Oh my God, they found me, I don't know how but they found me.
+	BTTFV_Menu_TimeMachineMenu_TerroristsEvent = Random terrorists spawn
+	BTTFV_Menu_TimeMachineMenu_TerroristsEvent_Description = Enables a chance of spawning random terrorists that start chasing player.
 }

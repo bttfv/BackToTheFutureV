@@ -265,9 +265,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 Mods.SyncMods();                
 
-                if (_escapeTimer > Game.GameTime)
+                if (_escapeTimer < Game.GameTime)
                 {
-                    if (!MissionHandler.Escape.IsPlaying && Mods.WormholeType == WormholeType.BTTF1 && Mods.Reactor == ReactorType.Nuclear && Main.PlayerPed.IsInVehicle(Vehicle) && Utils.Random.NextDouble() <= 0.25f)
+                    if (ModSettings.TerroristsEvent && !MissionHandler.Escape.IsPlaying && Mods.WormholeType == WormholeType.BTTF1 && Mods.Reactor == ReactorType.Nuclear && Main.PlayerPed.IsInVehicle(Vehicle) && Utils.Random.NextDouble() <= 0.25f)
                         MissionHandler.Escape.StartOn(this);
 
                     _escapeTimer = Game.GameTime + 36000;

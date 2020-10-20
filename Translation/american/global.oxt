@@ -233,6 +233,8 @@
 	BTTFV_Menu_TimeMachineMenu_Restore_Description = Restore the time machine to perfect working order.
 	BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn = Time Circuits
 	BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn_Description = Allows you to switch on/off the Time Circuits.
+	BTTFV_Menu_TimeMachineMenu_TerroristsEvent = Random terrorists spawn
+	BTTFV_Menu_TimeMachineMenu_TerroristsEvent_Description = Enables a chance of spawning random terrorists that start chasing player.
 	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent = Turbulences
 	BTTFV_Menu_TimeMachineMenu_TurbolenceEvent_Description = If enabled, car while hovering in bad weather will get into turbulences.
 	BTTFV_Mission_Escape_FoundMe = Oh my God, they found me, I don't know how but they found me.
