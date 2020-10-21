@@ -71,7 +71,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Spawned && !IsUsed) 
             {
-                if (!WarningMessageShowed && TimeMachine.Properties.FullDamaged && TimeMachine.Vehicle.Position.DistanceToSquared(Main.PlayerPed.Position) < 18)
+                if (!WarningMessageShowed && TimeMachine.Properties.FullDamaged && TimeMachine.Vehicle.Position.DistanceToSquared(Main.PlayerPed.Position) < 20)
                 {
                     DateTime diff = new DateTime((Main.CurrentTime - SpawnDate).Ticks);
 
