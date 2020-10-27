@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Story.Missions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +10,14 @@ namespace BackToTheFutureV.Story
     public static class MissionHandler
     {
         private static List<Mission> _missions = new List<Mission>();
+<<<<<<< HEAD
 
         public static TrainMission TrainMission = new TrainMission();
         public static EscapeMission Escape = new EscapeMission();
 
+=======
+        
+>>>>>>> b2e39dd... Removed test escape mission
         public static void Add(Mission mission)
         {
             _missions.Add(mission);

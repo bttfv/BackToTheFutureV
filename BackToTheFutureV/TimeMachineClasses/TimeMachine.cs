@@ -46,8 +46,6 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         private Blip Blip;
 
-        private int _escapeTimer;
-
         public bool Disposed { get; private set; }
 
         public TimeMachine(DMC12 dmc12, WormholeType wormholeType)
@@ -126,8 +124,6 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Vehicle.Model == ModelHandler.DeluxoModel)
                 Mods.HoverUnderbody = ModState.On;
-
-            _escapeTimer = Game.GameTime + 36000;
 
             TimeMachineHandler.AddTimeMachine(this);
         }
@@ -263,15 +259,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                     _firstRedSetup = true;
                 }
 
-                Mods.SyncMods();                
-
-                if (_escapeTimer < Game.GameTime)
-                {
-                    if (ModSettings.TerroristsEvent && !MissionHandler.Escape.IsPlaying && Mods.WormholeType == WormholeType.BTTF1 && Mods.Reactor == ReactorType.Nuclear && Main.PlayerPed.IsInVehicle(Vehicle) && Utils.Random.NextDouble() <= 0.25f)
-                        MissionHandler.Escape.StartOn(this);
-
-                    _escapeTimer = Game.GameTime + 36000;
-                }                                    
+                Mods.SyncMods();
             }
 
             if (Main.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)

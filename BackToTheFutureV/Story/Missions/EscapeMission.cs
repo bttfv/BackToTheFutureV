@@ -4,14 +4,6 @@ using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
 using GTA.Native;
-using GTA.UI;
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BackToTheFutureV.Story.Missions

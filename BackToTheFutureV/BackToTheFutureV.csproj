@@ -124,7 +124,6 @@
     <Compile Include="Players\FireTrailsHandler.cs" />
     <Compile Include="Players\SparkPlayer.cs" />
     <Compile Include="Settings\ModControls.cs" />
-    <Compile Include="Story\Missions\EscapeMission.cs" />
     <Compile Include="Story\Mission.cs" />
     <Compile Include="Story\MissionHandler.cs" />
     <Compile Include="Story\Missions\TrainMission.cs" />
@@ -216,7 +215,9 @@
       <Name>RogersSierraRailway</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Story\Missions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT "%25GTAPath%25" == "" (
