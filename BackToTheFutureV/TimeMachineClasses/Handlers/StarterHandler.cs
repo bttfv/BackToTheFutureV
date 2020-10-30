@@ -30,6 +30,39 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             timedEventManager = new TimedEventManager();
 
+            int _timeStart = 0;
+            int _timeEnd = _timeStart + 99;
+
+            for (int i = 0; i < 3; i++)
+            {
+                timedEventManager.Add(0, 0, _timeStart, 0, 0, _timeEnd);
+                timedEventManager.Last.SetFloat(1, 0.1f);
+                timedEventManager.Last.OnExecute += Last_OnExecute;
+
+                _timeStart = _timeEnd + 1;
+                _timeEnd = _timeStart + 99;
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                timedEventManager.Add(0, 0, _timeStart, 0, 0, _timeEnd);
+                timedEventManager.Last.SetFloat(1, 0.1f);
+                timedEventManager.Last.OnExecute += Last_OnExecute;
+
+                _timeStart = _timeEnd + 1;
+                _timeEnd = _timeStart + 199;
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                timedEventManager.Add(0, 0, _timeStart, 0, 0, _timeEnd);
+                timedEventManager.Last.SetFloat(1, 0.1f);
+                timedEventManager.Last.OnExecute += Last_OnExecute;
+
+                _timeStart = _timeEnd + 1;
+                _timeEnd = _timeStart + 99;
+            }
+
             Events.OnReenterCompleted += OnReenterCompleted;
         }
 
@@ -63,10 +96,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Game.GameTime < _nextCheck || !_firstTimeTravel || !Vehicle.IsVisible) return;
 
             if (Vehicle.Speed == 0 && !_isDead && !Properties.IsFueled)
-            {
-                var random = Utils.Random.NextDouble();
-
-                if(random > 0.75)
+            {                
+                if(Utils.Random.NextDouble() < 0.25)
                 {
                     Vehicle.GetLightsState(out _lightsOn, out _highbeamsOn);
 
@@ -75,46 +106,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     _lightsBrightness = 1;
 
-                    timedEventManager.ClearEvents();
-
-                    int _timeStart = 0;
-                    int _timeEnd = _timeStart + 99;
-                    
-                    for (int i = 0; i<3; i++)
-                    {
-                        timedEventManager.Add(0, 0, _timeStart, 0, 0, _timeEnd);
-                        timedEventManager.Last.SetFloat(1, 0.1f);
-                        timedEventManager.Last.OnExecute += Last_OnExecute;
-
-                        _timeStart = _timeEnd + 1;
-                        _timeEnd = _timeStart + 99;
-                    }
-
-                    for (int i = 0; i < 3; i++)
-                    {
-                        timedEventManager.Add(0, 0, _timeStart, 0, 0, _timeEnd);
-                        timedEventManager.Last.SetFloat(1, 0.1f);
-                        timedEventManager.Last.OnExecute += Last_OnExecute;
-
-                        _timeStart = _timeEnd + 1;
-                        _timeEnd = _timeStart + 199;
-                    }
-
-                    for (int i = 0; i < 3; i++)
-                    {
-                        timedEventManager.Add(0, 0, _timeStart, 0, 0, _timeEnd);
-                        timedEventManager.Last.SetFloat(1, 0.1f);
-                        timedEventManager.Last.OnExecute += Last_OnExecute;
-
-                        _timeStart = _timeEnd + 1;
-                        _timeEnd = _timeStart + 99;
-                    }
+                    timedEventManager.ResetExecution();
 
                     _isDead = true;
                 }
                 else
                 {
-                    _nextCheck = Game.GameTime + 1000;
+                    _nextCheck = Game.GameTime + 15000;
                     return;
                 }
             }
