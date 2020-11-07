@@ -85,6 +85,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Properties.TimeTravelDestPos = Secondary.WaypointPosition;
 
+                    Properties.TimeTravelsCount++;
+
                     if (Properties.TimeTravelType == TimeTravelType.Instant)
                     {
                         // Create a copy of the current status of the time machine
