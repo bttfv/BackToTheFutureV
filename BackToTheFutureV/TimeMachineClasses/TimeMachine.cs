@@ -314,6 +314,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void Break()
         {
+            if (!Mods.IsDMC12)
+                return;
+
             Mods.HoverUnderbody = ModState.Off;
 
             Properties.IsFueled = false;
@@ -321,19 +324,20 @@ namespace BackToTheFutureV.TimeMachineClasses
             Properties.AreFlyingCircuitsBroken = true;
             Utils.SetTiresBurst(Vehicle, true);
 
-            Vehicle.FuelLevel = 0;
-            Vehicle.DirtLevel = 15.0f;
+            Vehicle.FuelLevel = 0;            
         }
 
         public void Repair()
         {
+            if (!Mods.IsDMC12)
+                return;
+
             Mods.Wheel = WheelType.Red;
             Utils.SetTiresBurst(Vehicle, false);
             Mods.SuspensionsType = SuspensionsType.LiftFront;
             Mods.Hoodbox = ModState.On;
 
             Vehicle.FuelLevel = 60.0f;
-            Vehicle.Wash();
         }
 
         private void PhotoMode() 
@@ -392,7 +396,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public override string ToString()
         {
-            return TimeMachineHandler.TimeMachines.ToList().IndexOf(this).ToString();
+            return TimeMachineHandler.TimeMachinesNoStory.IndexOf(this).ToString();
         }
 
         public static implicit operator Vehicle(TimeMachine timeMachine) => timeMachine.Vehicle;

@@ -171,8 +171,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (timeMachineClone == default && !spawnFlags.HasFlag(SpawnFlags.ForcePosition))
             {
-                if (Main.PlayerVehicle != null)
-                    spawnPos = Main.PlayerVehicle.Position.Around(5f);
+                if (Main.PlayerVehicle != null && !RCManager.IsRemoteOn)
+                    spawnPos = ped.Position.Around(5f);
                 else
                     spawnPos = ped.Position;
             }
@@ -210,7 +210,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (RCManager.IsRemoteOn)
                     RCManager.StopRemoteControl(true);
 
-                Main.PlayerPed.Task.WarpIntoVehicle(timeMachine, VehicleSeat.Driver);
+                Main.PlayerPed.SetIntoVehicle(timeMachine, VehicleSeat.Driver);
             }
                 
             if (spawnFlags.HasFlag(SpawnFlags.Broken))

@@ -28,10 +28,8 @@ namespace BackToTheFutureV.Vehicles
 
                 Vehicle.ToggleExtra(10, true);
 
-                //Vehicle.Mods.PrimaryColor = VehicleColor.BrushedAluminium;
-                //Vehicle.Mods.TrimColor = VehicleColor.PureWhite;
-
-                Vehicle.DirtLevel = 0;
+                Vehicle.Mods.PrimaryColor = VehicleColor.BrushedAluminium;
+                Vehicle.Mods.TrimColor = VehicleColor.PureWhite;
 
                 Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, 0f);
 

@@ -230,7 +230,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if(key == ModControls.HoverAltitudeHold && Main.PlayerVehicle == Vehicle)
+            if(key == ModControls.HoverAltitudeHold && Main.PlayerVehicle == Vehicle && Properties.IsFlying)
                 SetHoverMode(!Properties.IsAltitudeHolding);
         }
 

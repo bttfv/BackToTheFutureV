@@ -185,18 +185,7 @@ namespace BackToTheFutureV.Menu
                 if (ForceNew)
                     ForceNew = false;
 
-                Vector3 spawnPos = Main.PlayerPed.Position;
-
-                if (Main.PlayerVehicle != null)
-                    spawnPos = Main.PlayerVehicle.Position.Around(5f);
-
-                _tempTimeMachine = TimeMachineHandler.CreateTimeMachine(spawnPos, Main.PlayerPed.Heading, WormholeType.BTTF1);
-
-                Main.PlayerPed.SetIntoVehicle(_tempTimeMachine.Vehicle, VehicleSeat.Driver);
-
-                _tempTimeMachine.Vehicle.PlaceOnGround();
-
-                _tempTimeMachine.Vehicle.SetMPHSpeed(1);
+                _tempTimeMachine = TimeMachineHandler.Spawn(SpawnFlags.WarpPlayer);
             }
             else if (Main.PlayerVehicle.IsTimeMachine())
             {
@@ -219,7 +208,7 @@ namespace BackToTheFutureV.Menu
                 _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
             }
-
+            
             LoadVehicleType();
         }
 
