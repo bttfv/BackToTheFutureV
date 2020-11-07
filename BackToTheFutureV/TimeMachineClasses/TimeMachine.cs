@@ -92,8 +92,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             registeredHandlers.Add("InputHandler", new InputHandler(this));
             registeredHandlers.Add("RcHandler", new RcHandler(this));
             registeredHandlers.Add("FuelHandler", new FuelHandler(this));
-            registeredHandlers.Add("ReentryHandler", new ReentryHandler(this));                        
-            registeredHandlers.Add("TimeCircuitsErrorHandler", new TimeCircuitsErrorHandler(this));            
+            registeredHandlers.Add("ReentryHandler", new ReentryHandler(this));                                    
             registeredHandlers.Add("SparksHandler", new SparksHandler(this));
 
             registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));

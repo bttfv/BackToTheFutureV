@@ -150,7 +150,6 @@
     <Compile Include="TimeMachineClasses\Handlers\StarterHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TCDHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TFCHandler.cs" />
-    <Compile Include="TimeMachineClasses\Handlers\TimeCircuitsErrorHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TimeTravelHandler.cs" />
     <Compile Include="TimeMachineClasses\RC\RCManager.cs" />
     <Compile Include="TimeMachineClasses\RC\RemoteTimeMachine.cs" />

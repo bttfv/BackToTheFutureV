@@ -156,6 +156,36 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
     {
         private DateTime errorDate = new DateTime(1885, 1, 1, 0, 0, 0);
 
+        private readonly Dictionary<int, double> _probabilities = new Dictionary<int, double>()
+        {
+            {
+                300, 0.1
+            },
+            {
+                270, 0.2
+            },
+            {
+                240, 0.3
+            },
+            {
+                210, 0.4
+            },
+            {
+                180, 0.5
+            },
+            {
+                150, 0.6
+            },
+            {
+                120, 0.7
+            },
+            {
+                100, 0.8
+            }
+        };
+
+        private int nextCheckGlitch;
+
         private TimedEventManager glitchEvents = new TimedEventManager();
         private bool softGlitch;
 
@@ -215,7 +245,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 glitchEvents.Last.OnExecute += ErrorDate_OnExecute;
 
                 _time += 500;
-            }            
+            }
+
+            nextCheckGlitch = Game.GameTime + 120000;
         }
 
         private void Blank_OnExecute(TimedEvent timedEvent)
@@ -276,6 +308,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 presentSlot.SetDate(Utils.GetWorldTime());
                 presentSlot.SetVisible(false);
                 presentSlot.SetVisibleAt(true, 500, 600);
+
+                nextCheckGlitch = Game.GameTime + 30000;
             }
             else
             {
@@ -318,10 +352,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void StartTimeCircuitsGlitch(bool softGlitch)
         {
+            // Set TCD error stuff
+            Sounds.TCDGlitch?.Play();
+
             glitchEvents.ResetExecution();
 
             this.softGlitch = softGlitch;
             doGlitch = true;
+
+            nextCheckGlitch = Game.GameTime + 120000;
         }
 
         public override void Dispose()
@@ -335,6 +374,24 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (key == ModControls.TCToggle && !Properties.IsRemoteControlled)
                 SetTimeCircuitsOn(!Properties.AreTimeCircuitsOn);
+        }
+
+        private double GetProbabilityForDamage(int damage)
+        {
+            KeyValuePair<int, double> selectedProb = new KeyValuePair<int, double>(0, 0);
+            int lastDiff = 1000;
+
+            foreach (var prob in _probabilities)
+            {
+                var diff = Math.Abs(prob.Key - damage);
+                if (diff < lastDiff)
+                {
+                    selectedProb = prob;
+                    lastDiff = diff;
+                }
+            }
+
+            return selectedProb.Value;
         }
 
         public override void Process()
@@ -370,7 +427,26 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Vehicle.IsVisible)
                 return;
 
-            HandleGlitching();
+            HandleGlitching();                       
+
+            if (Game.GameTime > nextCheckGlitch)
+            {
+                nextCheckGlitch = Game.GameTime + 60000;
+
+                if (doGlitch || Properties.DestinationTime == errorDate || (Vehicle.Health > 300 && Properties.TimeTravelsCount < 5))
+                    return;
+
+                if (Vehicle.Health < 300)
+                {                    
+                    if (Utils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 100 ? 100 : Vehicle.Health)))
+                        StartTimeCircuitsGlitch(true);
+                }
+                else if (Properties.TimeTravelsCount > 4)
+                {
+                    if (Utils.Random.NextDouble() < 0.25f)
+                        StartTimeCircuitsGlitch(true);
+                }
+            }
         }
 
         private void DrawGUI()
