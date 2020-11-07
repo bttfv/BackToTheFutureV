@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BackToTheFutureV.GUI;
 using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using GTA;
 using LemonUI.Elements;
@@ -38,9 +39,9 @@ namespace BackToTheFutureV.Menu
         private void PresetsMenu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (ModSettings.CinematicSpawn)
-                TimeMachineHandler.SpawnWithReentry(WormholeType.BTTF1, sender.Title);
+                TimeMachineHandler.Spawn(SpawnFlags.ForcePosition | SpawnFlags.NoOccupants | SpawnFlags.ResetValues | SpawnFlags.ForceReentry, default, default, default, default, sender.Title);
             else
-                TimeMachineHandler.Spawn(WormholeType.BTTF1, true, sender.Title);
+                TimeMachineHandler.Spawn(SpawnFlags.ForcePosition | SpawnFlags.NoOccupants | SpawnFlags.ResetValues | SpawnFlags.NoVelocity | SpawnFlags.WarpPlayer, default, default, default, default, sender.Title);
 
             Close();
         }

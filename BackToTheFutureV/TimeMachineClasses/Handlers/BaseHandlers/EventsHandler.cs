@@ -32,7 +32,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void SetRCMode(bool state, bool instant = false);
     public delegate void SetTimeCircuits(bool state);
     public delegate void SetTimeCircuitsBroken(bool state);
-    public delegate void StartTimeCircuitsGlitch();
+    public delegate void StartTimeCircuitsGlitch(bool softGlitch);
     public delegate void SetCutsceneMode(bool state);    
     public delegate void SetFlyMode(bool state, bool instant = false);
     public delegate void SetAltitudeHold(bool state);

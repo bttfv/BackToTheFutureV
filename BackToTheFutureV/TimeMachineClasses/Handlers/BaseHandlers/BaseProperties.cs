@@ -52,7 +52,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
         public MissionType MissionType { get; set; } = MissionType.None;
         public bool Story { get; set; }
-      
+        public int TimeTravelsCount { get; set; } = 6;
+
         public BaseProperties Clone()
         {
             BaseProperties ret = new BaseProperties();

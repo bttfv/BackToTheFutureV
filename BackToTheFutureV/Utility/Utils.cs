@@ -51,6 +51,20 @@ namespace BackToTheFutureV.Utility
         Train
     }
 
+    [Flags]
+    public enum SpawnFlags 
+    {
+        Default = 0,
+        WarpPlayer = 1,
+        ForcePosition = 2,
+        ResetValues = 4,
+        Broken = 8,
+        ForceReentry = 16,
+        CheckExists = 32,
+        NoOccupants = 64,
+        NoVelocity = 128,        
+    }
+
     public class BTTFImportantDates
     {
         public readonly static List<DateTime> Dates = new List<DateTime>() { new DateTime(1985, 10, 26, 1, 21, 0), new DateTime(1885, 1, 1, 0, 0, 0), new DateTime(1955, 11, 5, 6, 15, 0), new DateTime(1985, 10, 26, 1, 24, 0), new DateTime(1985, 10, 26, 1, 24, 0), new DateTime(2015, 10, 21, 16, 29, 0), new DateTime(1955, 11, 12, 13, 40, 0), new DateTime(1985, 10, 26, 21, 0, 0), new DateTime(1955, 11, 12, 6, 0, 0), new DateTime(1885, 9, 2, 8, 0, 0), new DateTime(1985, 10, 27, 11, 0, 0) };

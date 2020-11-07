@@ -139,9 +139,9 @@ namespace BackToTheFutureV.Menu
                 }
 
                 if (ModSettings.CinematicSpawn)
-                    timeMachine = TimeMachineHandler.SpawnWithReentry(wormholeType);
+                    timeMachine = TimeMachineHandler.Spawn(SpawnFlags.ForceReentry, wormholeType);
                 else
-                    timeMachine = TimeMachineHandler.Spawn(wormholeType, true);
+                    timeMachine = TimeMachineHandler.Spawn(SpawnFlags.WarpPlayer, wormholeType);
 
                 if (spawnBTTF.SelectedIndex == 2)
                     timeMachine.Mods.Hook = HookState.OnDoor;

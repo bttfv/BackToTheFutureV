@@ -50,35 +50,35 @@ namespace BackToTheFutureV
             //    Occupants.Add(new PedInfo(x));
         }
 
-        public Vehicle Spawn()
+        public Vehicle Spawn(SpawnFlags spawnFlags, Vector3 position = default, float heading = default)
         {
-            Vehicle veh = World.CreateVehicle(Model, Position, Heading);
+            Vehicle veh;
 
-            ApplyTo(veh);
+            if (spawnFlags.HasFlag(SpawnFlags.ForcePosition))
+                veh = World.CreateVehicle(Model, position, heading);
+            else
+                veh = World.CreateVehicle(Model, Position, Heading);
+
+            ApplyTo(veh, spawnFlags);
 
             return veh;
         }
 
-        public Vehicle Spawn(Vector3 position, float heading)
+        public void ApplyTo(Vehicle veh, SpawnFlags spawnFlags = SpawnFlags.Default)
         {
-            Vehicle veh = World.CreateVehicle(Model, position, heading);
-
-            ApplyTo(veh, true); ;
-
-            return veh;
-        }
-
-        public void ApplyTo(Vehicle veh, bool noPos = false)
-        {
-            if (!noPos)
+            if (!spawnFlags.HasFlag(SpawnFlags.ForcePosition))
             {
                 veh.Position = Position;
                 veh.Rotation = Rotation;
                 veh.Heading = Heading;
             }
             
-            veh.Velocity = Velocity;            
-            veh.Speed = Speed;
+            if (!spawnFlags.HasFlag(SpawnFlags.NoVelocity))
+            {
+                veh.Velocity = Velocity;
+                veh.Speed = Speed;
+            }
+            
             veh.HealthFloat = Health;
             veh.EngineHealth = EngineHealth;
             veh.IsEngineRunning = EngineRunning;
@@ -86,8 +86,9 @@ namespace BackToTheFutureV
             veh.Mods.SecondaryColor = SecondaryColor;
             veh.Mods.Livery = Livery;
 
-            //foreach (PedInfo pedInfo in Occupants)
-            //    pedInfo.Spawn(veh);
+            //if (!spawnFlags.HasFlag(SpawnFlags.NoOccupants))
+            //    foreach (PedInfo pedInfo in Occupants)
+            //        pedInfo.Spawn(veh);
         }
     }
 

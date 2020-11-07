@@ -13,6 +13,7 @@ using KlangRageAudioLibrary;
 using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Vehicles;
+using GTA.NaturalMotion;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -153,21 +154,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
     public class TCDHandler : Handler
     {
-        //private DateTime oldDate;
         private DateTime errorDate = new DateTime(1885, 1, 1, 0, 0, 0);
 
         private TimedEventManager glitchEvents = new TimedEventManager();
+        private bool softGlitch;
 
         private bool doGlitch;
-        //private int nextGlitch;
-        //private int glitchCount;
 
         private TCDSlot destinationSlot;
         private TCDSlot presentSlot;
         private TCDSlot previousSlot;
 
         private bool currentState;
-
 
         private int nextTick;
 
@@ -230,10 +228,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (timedEvent.FirstExecution)
             {
-                if (timedEvent.Step == glitchEvents.EventsCount - 1)
-                    Properties.DestinationTime = errorDate;
 
-                destinationSlot.SetDate(errorDate);
+                if (timedEvent.Step == glitchEvents.EventsCount - 1)
+                {
+                    if (!softGlitch)
+                        Properties.DestinationTime = errorDate;
+
+                    destinationSlot.SetDate(Properties.DestinationTime);
+                }
+                else
+                    destinationSlot.SetDate(errorDate);
+
                 destinationSlot.Update();
             }                
         }
@@ -311,10 +316,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             presentSlot.SetDate(Utils.GetWorldTime());
         }
 
-        public void StartTimeCircuitsGlitch()
+        public void StartTimeCircuitsGlitch(bool softGlitch)
         {
             glitchEvents.ResetExecution();
 
+            this.softGlitch = softGlitch;
             doGlitch = true;
         }
 

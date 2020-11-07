@@ -30,7 +30,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         public void SpawnAll()
         {
             foreach (var x in timeMachineClones)
-                x.Spawn();
+                x.Spawn(SpawnFlags.CheckExists);
         }
 
         private static string _saveFile = "./scripts/BackToTheFutureV/TimeMachines.dmc12";
@@ -85,56 +85,20 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
         }
 
-        public TimeMachine Spawn(bool asNew = false, bool reenter = false, bool rc = false)
+        public TimeMachine Spawn(SpawnFlags spawnFlags = SpawnFlags.Default)
         {
-            bool _isNew = false;
-
-            Vehicle veh = null;
-
-            if (!rc && !asNew)
-                veh = World.GetClosestVehicle(Vehicle.Position, 1.0f, Vehicle.Model);
-
-            if (veh == null)
-            {
-                ModelHandler.RequestModel(Vehicle.Model);
-                veh = World.CreateVehicle(Vehicle.Model, Vehicle.Position, Vehicle.Heading);
-                _isNew = true;
-            }
-        
-            TimeMachine timeMachine = TimeMachineHandler.CreateTimeMachine(veh, Mods.WormholeType);
-               
-            ApplyTo(timeMachine, asNew);
-           
-            if (_isNew)
-                timeMachine.Properties.TorqueMultiplier = 1;
-
-            if (!veh.IsOnAllWheels && veh.HeightAboveGround > 5 && timeMachine.Mods.HoverUnderbody == ModState.On && !timeMachine.Properties.IsFlying)
-                timeMachine.Events.SetFlyMode?.Invoke(true, true);
-
-            if (reenter)
-            {
-                timeMachine.Vehicle.SetVisible(false);
-
-                timeMachine.Properties.DestinationTime = Main.CurrentTime;
-
-                timeMachine.Properties.AreTimeCircuitsOn = true;
-                timeMachine.Events.SetTimeCircuits?.Invoke(true);
-
-                timeMachine.Events.OnReenter?.Invoke();
-            }
-
-            return timeMachine;
+            return TimeMachineHandler.Spawn(spawnFlags, default, default, default, this);
         }
 
-        public void ApplyTo(TimeMachine timeMachine, bool asNew = false)
+        public void ApplyTo(TimeMachine timeMachine, SpawnFlags spawnFlags)
         {
             if (!Mods.IsDMC12)
                 timeMachine.Vehicle.Mods.InstallModKit();
 
-            Vehicle.ApplyTo(timeMachine.Vehicle);
+            Vehicle.ApplyTo(timeMachine.Vehicle, spawnFlags);
             Mods.ApplyTo(timeMachine);
             
-            if (!asNew)
+            if (!spawnFlags.HasFlag(SpawnFlags.ResetValues))
                 Properties.ApplyTo(timeMachine);
         }
 

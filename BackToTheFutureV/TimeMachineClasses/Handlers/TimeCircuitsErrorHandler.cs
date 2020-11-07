@@ -68,25 +68,46 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (Vehicle == null || !Vehicle.Exists() || !Properties.AreTimeCircuitsOn || Vehicle.Health > 300 || Properties.DestinationTime == _errorDate) return;
+            if (Vehicle == null || !Vehicle.Exists() || !Properties.AreTimeCircuitsOn || Properties.DestinationTime == _errorDate || (Vehicle.Health > 300 && Properties.TimeTravelsCount < 5))
+                return;
 
             if(Game.GameTime > nextCheck)
-            {
-                var randomNum = Utils.Random.NextDouble();
-
-                if (randomNum < GetProbabilityForDamage((Vehicle.Health < 100 ? 100 : Vehicle.Health)))
+            {             
+                if (Vehicle.Health < 300)
                 {
-                    // Set TCD error stuff
-                    Sounds.TCDGlitch?.Play();
+                    var randomNum = Utils.Random.NextDouble();
 
-                    Events.StartTimeCircuitsGlitch?.Invoke();
+                    if (randomNum < GetProbabilityForDamage((Vehicle.Health < 100 ? 100 : Vehicle.Health)))
+                    {
+                        // Set TCD error stuff
+                        Sounds.TCDGlitch?.Play();
 
-                    nextCheck = Game.GameTime + 60000;
-                }
-                else
+                        Events.StartTimeCircuitsGlitch?.Invoke(false);
+
+                        nextCheck = Game.GameTime + 60000;
+                    }
+                    else
+                    {
+                        // Update check
+                        nextCheck = Game.GameTime + 3000;
+                    }
+                } 
+                else if (Properties.TimeTravelsCount > 4)
                 {
-                    // Update check
-                    nextCheck = Game.GameTime + 3000;
+                    if (Utils.Random.NextDouble() < 0.25f)
+                    {
+                        // Set TCD error stuff
+                        Sounds.TCDGlitch?.Play();
+
+                        Events.StartTimeCircuitsGlitch?.Invoke(true);
+
+                        nextCheck = Game.GameTime + 120000;
+                    }
+                    else
+                    {
+                        // Update check
+                        nextCheck = Game.GameTime + 60000;
+                    }
                 }
             }
         }
