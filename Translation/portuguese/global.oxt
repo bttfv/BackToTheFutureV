@@ -258,4 +258,10 @@
 	BTTFV_Mission_Escape_FoundMe = Oh my God, they found me, I don't know how but they found me.
 	BTTFV_Menu_TimeMachineMenu_TerroristsEvent = Random terrorists spawn
 	BTTFV_Menu_TimeMachineMenu_TerroristsEvent_Description = Enables a chance of spawning random terrorists that start chasing player.
+	BTTFV_Menu_PhotoMenu_EngineStall = Engine stall
+	BTTFV_Menu_PhotoMenu_EngineStall_Description = Makes the engine stall.
+	BTTFV_Menu_PhotoMenu_LightningStrike = Lightning strike
+	BTTFV_Menu_PhotoMenu_LightningStrike_Description = Forces a lightning strike upon car.
+	BTTFV_Menu_PhotoMenu_StrikeDelay = Strike delay
+	BTTFV_Menu_PhotoMenu_StrikeDelay_Description = Sets the delay for the lightning strike in seconds (max 60).
 }

@@ -257,4 +257,10 @@
 	BTTFV_TCD_Edit_ScaleDown = Diminuisci
 	BTTFV_TCD_Edit_ScaleUp = Ingrandisci
 	BTTFV_TimeTravelModeChange = Modalità viaggio nel tempo impostata in
+	BTTFV_Menu_PhotoMenu_EngineStall = Stallo del motore
+	BTTFV_Menu_PhotoMenu_EngineStall_Description = Forza il motore in stallo.
+	BTTFV_Menu_PhotoMenu_LightningStrike = Fulmine
+	BTTFV_Menu_PhotoMenu_LightningStrike_Description = L'auto viene colpita da un fulmine.
+	BTTFV_Menu_PhotoMenu_StrikeDelay = Ritardo del fulmine
+	BTTFV_Menu_PhotoMenu_StrikeDelay_Description = Imposta il ritardo del fulmine in secondi (max 60).
 }

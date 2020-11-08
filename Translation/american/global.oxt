@@ -146,7 +146,7 @@
 	BTTFV_Menu_PhotoMenu_Coils_Description = Enables glowing coils on Time Machine.
 	BTTFV_Menu_PhotoMenu_Description = Opens the photo menu.
 	BTTFV_Menu_PhotoMenu_EngineStall = Engine stall
-	BTTFV_Menu_PhotoMenu_EngineStall_Description = Makes then engine stall.
+	BTTFV_Menu_PhotoMenu_EngineStall_Description = Makes the engine stall.
 	BTTFV_Menu_PhotoMenu_FluxCapacitor = Flux Capacitor
 	BTTFV_Menu_PhotoMenu_FluxCapacitor_Description = Enables flux capacitor on Time Machine.
 	BTTFV_Menu_PhotoMenu_HideHUD = Hide HUD
