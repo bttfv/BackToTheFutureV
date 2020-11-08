@@ -10,8 +10,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class StarterHandler : Handler
     {
-        private bool _isRestarting;
-        private bool _isDead;
+        private bool _isRestarting;        
         private bool _firstTimeTravel;
         
         private int _restartAt;
@@ -64,6 +63,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
 
             Events.OnReenterCompleted += OnReenterCompleted;
+            Events.SetEngineStall += SetEngineStall;
         }
 
         private void OnReenterCompleted()
@@ -72,9 +72,35 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _firstTimeTravel = true;
         }
 
+        private void SetEngineStall(bool state)
+        {
+            if (!state)
+            {
+                if (Properties.IsEngineStalling)
+                    Stop();
+
+                return;
+            }
+
+            Vehicle.GetLightsState(out _lightsOn, out _highbeamsOn);
+
+            if (_highbeamsOn)
+                Vehicle.AreHighBeamsOn = false;
+
+            _lightsBrightness = 1;
+
+            timedEventManager.ResetExecution();
+
+            Properties.IsEngineStalling = true;
+
+            _firstTimeTravel = true;
+            _isRestarting = false;
+            _nextCheck = Game.GameTime + 100;
+        }
+
         public override void Process()
         {
-            if (_isDead)
+            if (Properties.IsEngineStalling)
             {
                 Vehicle.FuelLevel = 0;
 
@@ -87,28 +113,20 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 
             if (Mods.Reactor != ReactorType.Nuclear && _firstTimeTravel)
             {
-                if (_isDead)
+                if (Properties.IsEngineStalling)
                     Stop();
 
                 _firstTimeTravel = false;
             }               
 
-            if (Game.GameTime < _nextCheck || !_firstTimeTravel || !Vehicle.IsVisible) return;
+            if (Game.GameTime < _nextCheck || !_firstTimeTravel || !Vehicle.IsVisible)
+                return;
 
-            if (Vehicle.Speed == 0 && !_isDead && !Properties.IsFueled)
+            if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled)
             {                
                 if(Utils.Random.NextDouble() < 0.25)
                 {
-                    Vehicle.GetLightsState(out _lightsOn, out _highbeamsOn);
-
-                    if (_highbeamsOn)
-                        Vehicle.AreHighBeamsOn = false;
-
-                    _lightsBrightness = 1;
-
-                    timedEventManager.ResetExecution();
-
-                    _isDead = true;
+                    SetEngineStall(true);
                 }
                 else
                 {
@@ -117,9 +135,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (_isDead)
+            if (Properties.IsEngineStalling)
             {
-                if (!ModSettings.EngineStallEvent)
+                if (!ModSettings.EngineStallEvent && !Properties.PhotoEngineStallActive)
                 {
                     Stop();
                     Vehicle.FuelLevel = _deloreanMaxFuelLevel;
@@ -181,7 +199,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Main.PlayerPed.Task.ClearAnimation("veh@low@front_ds@base", "start_engine");
 
-            _isDead = false;
+            Properties.IsEngineStalling = false;
+            Properties.PhotoEngineStallActive = false;
             _isRestarting = false;
             Vehicle.FuelLevel = _deloreanMaxFuelLevel;
             Sounds.EngineRestarter.Stop();

@@ -371,7 +371,13 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
                 Events.OnTimeTravelInterrupted?.Invoke();
 
-            Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive;
+            if (Properties.PhotoEngineStallActive && !Properties.IsEngineStalling)
+                Events.SetEngineStall?.Invoke(true);
+
+            if (!Properties.PhotoEngineStallActive && Properties.IsEngineStalling && Properties.IsPhotoModeOn)
+                Events.SetEngineStall?.Invoke(false);
+
+            Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.IsEngineStalling;
         }
 
         public void KeyDown(Keys key)

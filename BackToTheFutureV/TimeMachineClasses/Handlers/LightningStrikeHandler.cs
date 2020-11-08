@@ -16,6 +16,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
     public class LightningStrikeHandler : Handler
     {
         private int _nextCheck;
+        private int _delay = -1;
                 
         private int _flashes;
         private int _nextFlash;
@@ -32,11 +33,21 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 _lightnings.Add(new AnimateProp(Vehicle, x, Vector3.Zero, Vector3.Zero));
                 _lightnings.Last().Duration = 1;
-            }                
+            }
+
+            Events.StartLightningStrike += PrepareStrike;
+        }
+
+        private void PrepareStrike(int delay)
+        {
+            _delay = Game.GameTime + delay * 1000;
         }
 
         public override void Process()
         {
+            if (_delay > -1 && Game.GameTime > _delay)
+                Strike();
+
             if (_hasBeenStruckByLightning && _flashes <= 3)
             {
                 if(Game.GameTime > _nextFlash)
@@ -102,11 +113,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Events.StartTimeTravel?.Invoke(2000);
                     _flashes = 0;
                 }
-                
+
                 TimeMachineClone timeMachineClone = TimeMachine.Clone;
                 timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
                 RemoteTimeMachineHandler.AddRemote(timeMachineClone);
             }
+            else
+                Function.Call(Hash.FORCE_LIGHTNING_FLASH);
            
             if (Properties.IsFlying)
             {
@@ -120,6 +133,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             _hasBeenStruckByLightning = true;
             _nextCheck = Game.GameTime + 60000;
+            _delay = -1;
 
             Events.OnLightningStrike?.Invoke();
         }

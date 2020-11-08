@@ -87,7 +87,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
                 foreach (var x in timeMachineClones)
                     RemoteTimeMachines.Add(new RemoteTimeMachine(x));
-            } catch (Exception e)
+            } catch
             {
                 if (File.Exists(_saveFile))
                     File.Delete(_saveFile);

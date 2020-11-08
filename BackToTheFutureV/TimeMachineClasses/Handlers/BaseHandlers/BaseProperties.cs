@@ -28,6 +28,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool IsRefueling { get; set; }
         public bool CutsceneMode { get; set; } = true;
         public bool IsFluxDoingBlueAnim { get; set; }
+        public bool IsEngineStalling { get; set; }
         public bool IsFreezed { get; set; }
         public bool IsDefrosting { get; set; }
         public float IceValue { get; set; }
@@ -48,6 +49,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool PhotoWormholeActive { get; set; }
         public bool PhotoGlowingCoilsActive { get; set; }
         public bool PhotoFluxCapacitorActive { get; set; }
+        public bool PhotoEngineStallActive { get; set; }
         public float TorqueMultiplier { get; set; } = 1;
         public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
         public MissionType MissionType { get; set; } = MissionType.None;
@@ -63,6 +65,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 property.SetValue(ret, property.GetValue(this));
 
             ret.IsGivenScaleformPriority = false;
+
+            ret.IsEngineStalling = false;
 
             ret.IsOnTracks = false;
 
@@ -81,6 +85,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             ret.MissionType = MissionType.None;
 
             ret.Story = false;
+
+            ret.PhotoEngineStallActive = false;
+
+            ret.PhotoFluxCapacitorActive = false;
+
+            ret.PhotoGlowingCoilsActive = false;
+
+            ret.PhotoWormholeActive = false;
 
             return ret;
         }
