@@ -158,30 +158,27 @@ namespace BackToTheFutureV.TimeMachineClasses
                 ped = RCManager.RemoteControlling.OriginalPed;
 
             Vehicle veh = null;
-            Vector3 spawnPos = Vector3.Zero;
+            Vector3 spawnPos;
             TimeMachine timeMachine = null;
 
-            if (spawnFlags.HasFlag(SpawnFlags.ForcePosition))
+            if (Main.PlayerVehicle != null && !RCManager.IsRemoteOn)
+                spawnPos = ped.Position.Around(5f);
+            else
+                spawnPos = ped.Position;
+
+            if (spawnFlags.HasFlag(SpawnFlags.ForcePosition) && presetName == default)
                 spawnPos = position;
             else
                 heading = ped.Heading;
-
-            if (presetName != default)
-                timeMachineClone = TimeMachineClone.Load(presetName);
-
-            if (timeMachineClone == default && !spawnFlags.HasFlag(SpawnFlags.ForcePosition))
-            {
-                if (Main.PlayerVehicle != null && !RCManager.IsRemoteOn)
-                    spawnPos = ped.Position.Around(5f);
-                else
-                    spawnPos = ped.Position;
-            }
-
+           
             if (spawnFlags.HasFlag(SpawnFlags.ForceReentry))
             {
                 spawnPos = ped.GetOffsetPosition(new Vector3(0, 25, 0));
                 heading = ped.Heading + 180;
             }
+
+            if (presetName != default)
+                timeMachineClone = TimeMachineClone.Load(presetName);
 
             if (spawnFlags.HasFlag(SpawnFlags.CheckExists) && timeMachineClone != default)
                 veh = World.GetClosestVehicle(timeMachineClone.Vehicle.Position, 1.0f, timeMachineClone.Vehicle.Model);
