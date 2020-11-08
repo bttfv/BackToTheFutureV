@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.Vehicles;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -52,6 +53,11 @@ namespace BackToTheFutureV.Utility
         public static bool IsTimeMachine(this Vehicle vehicle)
         {
             return TimeMachineHandler.IsVehicleATimeMachine(vehicle);
+        }
+
+        public static TimeMachine TransformIntoTimeMachine(this Vehicle vehicle, WormholeType wormholeType = WormholeType.BTTF1)
+        {
+            return TimeMachineHandler.Create(vehicle, SpawnFlags.Default, wormholeType);
         }
 
         public static bool SameDirection(this Vehicle vehicle, Vehicle vehicle1)

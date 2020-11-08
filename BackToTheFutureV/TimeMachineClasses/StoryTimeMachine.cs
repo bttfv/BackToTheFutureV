@@ -45,7 +45,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachine Spawn()
         {
-            TimeMachine = TimeMachineHandler.Spawn(SpawnFlags, WormholeType, Position, Heading);
+            TimeMachine = TimeMachineHandler.Create(SpawnFlags, WormholeType, Position, Heading);
 
             if (DestinationTime != default)
                 TimeMachine.Properties.DestinationTime = DestinationTime;

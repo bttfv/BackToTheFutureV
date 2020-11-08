@@ -39,9 +39,9 @@ namespace BackToTheFutureV.Menu
         private void PresetsMenu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (ModSettings.CinematicSpawn)
-                TimeMachineHandler.Spawn(SpawnFlags.ForcePosition | SpawnFlags.NoOccupants | SpawnFlags.ResetValues | SpawnFlags.ForceReentry, default, default, default, default, sender.Title);
+                TimeMachineHandler.Create(sender.Title, SpawnFlags.ForcePosition | SpawnFlags.NoOccupants | SpawnFlags.ResetValues | SpawnFlags.ForceReentry);
             else
-                TimeMachineHandler.Spawn(SpawnFlags.ForcePosition | SpawnFlags.NoOccupants | SpawnFlags.ResetValues | SpawnFlags.NoVelocity | SpawnFlags.WarpPlayer, default, default, default, default, sender.Title);
+                TimeMachineHandler.Create(sender.Title, SpawnFlags.ForcePosition | SpawnFlags.NoOccupants | SpawnFlags.ResetValues | SpawnFlags.NoVelocity | SpawnFlags.WarpPlayer);
 
             Close();
         }

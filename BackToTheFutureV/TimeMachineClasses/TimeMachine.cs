@@ -48,14 +48,6 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public bool Disposed { get; private set; }
 
-        public TimeMachine(DMC12 dmc12, WormholeType wormholeType)
-        {
-            DMC12 = dmc12;
-            Vehicle = DMC12.Vehicle;
-
-            BuildTimeMachine(wormholeType);
-        }
-
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
             Vehicle = vehicle;

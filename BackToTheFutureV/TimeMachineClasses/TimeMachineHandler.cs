@@ -70,23 +70,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             }                
         }
 
-        public static TimeMachine CreateTimeMachine(DMC12 dmc12, WormholeType wormholeType)
-        {
-            if (dmc12 == null)
-                return null;
-
-            if (dmc12.Vehicle == null)
-                return null;
-
-            TimeMachine timeMachine = GetTimeMachineFromVehicle(dmc12.Vehicle);
-
-            if (timeMachine != null)
-                return timeMachine;
-
-            return new TimeMachine(dmc12, wormholeType);
-        }
-
-        public static TimeMachine CreateTimeMachine(Vehicle vehicle, WormholeType wormholeType)
+        private static TimeMachine TransformIntoTimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
             if (vehicle == null)
                 return null;
@@ -100,11 +84,6 @@ namespace BackToTheFutureV.TimeMachineClasses
                 return timeMachine;
 
             return new TimeMachine(vehicle, wormholeType);
-        }
-
-        public static TimeMachine CreateTimeMachine(Vector3 position, float heading = 0, WormholeType wormholeType = WormholeType.BTTF1)
-        {
-            return new TimeMachine(DMC12Handler.CreateDMC12(position, heading), wormholeType);
         }
 
         public static void AddTimeMachine(TimeMachine vehicle)
@@ -150,8 +129,29 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
         }
 
-        public static TimeMachine Spawn(SpawnFlags spawnFlags = SpawnFlags.Default, WormholeType wormholeType = WormholeType.BTTF1, Vector3 position = default, float heading = default, TimeMachineClone timeMachineClone = default, string presetName = default)
+        public static TimeMachine Create(Vehicle vehicle, SpawnFlags spawnFlags = SpawnFlags.Default, WormholeType wormholeType = WormholeType.BTTF1)
         {
+            return Create(spawnFlags, wormholeType, default, default, default, default, vehicle);
+        }
+
+        public static TimeMachine Create(TimeMachineClone timeMachineClone, SpawnFlags spawnFlags = SpawnFlags.Default)
+        {
+            return Create(spawnFlags, WormholeType.BTTF1, default, default, timeMachineClone);
+        }
+
+        public static TimeMachine Create(string presetName, SpawnFlags spawnFlags = SpawnFlags.Default)
+        {
+            return Create(spawnFlags, WormholeType.BTTF1, default, default, default, presetName);
+        }
+
+        public static TimeMachine Create(SpawnFlags spawnFlags = SpawnFlags.Default, WormholeType wormholeType = WormholeType.BTTF1, Vector3 position = default, float heading = default, TimeMachineClone timeMachineClone = default, string presetName = default, Vehicle vehicle = default)
+        {
+            if (vehicle != default)
+            {
+                if (vehicle.IsTimeMachine())
+                    return GetTimeMachineFromVehicle(vehicle);
+            }
+
             Ped ped = Main.PlayerPed;
 
             if (RCManager.IsRemoteOn)
@@ -180,26 +180,30 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (presetName != default)
                 timeMachineClone = TimeMachineClone.Load(presetName);
 
-            if (spawnFlags.HasFlag(SpawnFlags.CheckExists) && timeMachineClone != default)
+            if (spawnFlags.HasFlag(SpawnFlags.CheckExists) && timeMachineClone != default && vehicle != default)
                 veh = World.GetClosestVehicle(timeMachineClone.Vehicle.Position, 1.0f, timeMachineClone.Vehicle.Model);
 
+            if (vehicle != default)
+                veh = vehicle;
+            
             if (veh == null)            
             {
                 if (timeMachineClone != default)
                     veh = timeMachineClone.Vehicle.Spawn(spawnFlags, spawnPos, heading);
                 else
-                    timeMachine = CreateTimeMachine(spawnPos, heading, wormholeType);
-            }
+                    timeMachine = new TimeMachine(DMC12Handler.CreateDMC12(spawnPos, heading), wormholeType);
+            } else if (veh.IsTimeMachine())
+                timeMachine = GetTimeMachineFromVehicle(veh);
 
             if (timeMachine == null)
             {                
                 if (timeMachineClone != default)
                 {
-                    timeMachine = CreateTimeMachine(veh, timeMachineClone.Mods.WormholeType);
+                    timeMachine = TransformIntoTimeMachine(veh, timeMachineClone.Mods.WormholeType);
                     timeMachineClone.ApplyTo(timeMachine, spawnFlags);
                 }                    
                 else
-                    timeMachine = CreateTimeMachine(veh, wormholeType);
+                    timeMachine = TransformIntoTimeMachine(veh, wormholeType);
             }
 
             if (spawnFlags.HasFlag(SpawnFlags.WarpPlayer) && !spawnFlags.HasFlag(SpawnFlags.ForceReentry))

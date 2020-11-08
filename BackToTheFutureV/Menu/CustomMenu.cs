@@ -185,7 +185,7 @@ namespace BackToTheFutureV.Menu
                 if (ForceNew)
                     ForceNew = false;
 
-                _tempTimeMachine = TimeMachineHandler.Spawn(SpawnFlags.WarpPlayer);
+                _tempTimeMachine = TimeMachineHandler.Create(SpawnFlags.WarpPlayer);
             }
             else if (Main.PlayerVehicle.IsTimeMachine())
             {

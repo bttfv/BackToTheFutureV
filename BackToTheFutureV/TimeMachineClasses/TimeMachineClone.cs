@@ -87,7 +87,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachine Spawn(SpawnFlags spawnFlags = SpawnFlags.Default)
         {
-            return TimeMachineHandler.Spawn(spawnFlags, default, default, default, this);
+            return TimeMachineHandler.Create(this, spawnFlags);
         }
 
         public void ApplyTo(TimeMachine timeMachine, SpawnFlags spawnFlags)
