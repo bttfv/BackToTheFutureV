@@ -60,8 +60,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     {
                         Players.Wormhole = new WormholeAnimationPlayer(TimeMachine, 4200);
                         _wormholeLengthTime = 4200;
-                        _startEffectsAt = 86;
-                        _playDiodeSoundAt = 82;
+                        _startEffectsAt = 82;
+                        _playDiodeSoundAt = 80;
                     } else
                     {
                         Players.Wormhole = new WormholeAnimationPlayer(TimeMachine, 4200);
@@ -130,7 +130,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (Vehicle.GetMPHSpeed() >= _startEffectsAt)
+            if (Vehicle.GetMPHSpeed() >= _startEffectsAt && !Properties.BlockSparks)
             {
                 if (Players.Wormhole == null)
                     return;
@@ -187,11 +187,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 else if(!Properties.IsFueled)
                 {
                     if (!Players.Wormhole.IsPlaying)
-                    {
                         Players.Wormhole.Play(false);
-                    }
 
-                    if(!Sounds.SparksEmpty.IsAnyInstancePlaying)
+                    if (!Sounds.SparksEmpty.IsAnyInstancePlaying)
                         Sounds.SparksEmpty.Play();
                 }
             }

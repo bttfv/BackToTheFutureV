@@ -55,6 +55,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public MissionType MissionType { get; set; } = MissionType.None;
         public bool Story { get; set; }
         public int TimeTravelsCount { get; set; } = 0;
+        public bool BlockSparks { get; set; } = false;
 
         public BaseProperties Clone()
         {
@@ -93,6 +94,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             ret.PhotoGlowingCoilsActive = false;
 
             ret.PhotoWormholeActive = false;
+
+            ret.BlockSparks = false;
 
             return ret;
         }
