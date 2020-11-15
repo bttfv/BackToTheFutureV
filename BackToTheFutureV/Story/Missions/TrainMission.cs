@@ -58,6 +58,7 @@ namespace BackToTheFutureV.Story
             VehicleTimedEventManager.ClearEvents();
 
             TimeMachine.Events.OnTimeTravelStarted -= StartExplodingScene;
+            TimeMachine.Properties.BlockSparks = false;
 
             TimeMachine = null;
         }
@@ -71,13 +72,14 @@ namespace BackToTheFutureV.Story
 
             TimeMachine.Events.OnTimeTravelStarted += StartExplodingScene;
             TimeMachine.Vehicle.FuelLevel = 0;
+            TimeMachine.Properties.BlockSparks = true;
 
             VehicleTimedEventManager.ManageCamera = false;
 
             VehicleTimedEventManager.Add(1, 31, 386, 1, 40, 137, TimeMultiplier);
             VehicleTimedEventManager.Last.SetCamera(TimeMachine.Vehicle, new Vector3(1f, 3f, 0), TimeMachine.Vehicle, Vector3.Zero);
 
-            VehicleTimedEventManager.Add(5, 19, 0, 5, 21, 0, TimeMultiplier); //wheelie up
+            VehicleTimedEventManager.Add(5, 18, 0, 5, 19, 0, TimeMultiplier); //wheelie up
             VehicleTimedEventManager.Last.OnExecute += WheelieUp_OnExecute;
 
             VehicleTimedEventManager.Add(5, 26, 0, 5, 27, 0, TimeMultiplier); //wheelie down
@@ -86,8 +88,19 @@ namespace BackToTheFutureV.Story
             VehicleTimedEventManager.Add(5, 27, 500, 5, 28, 500, TimeMultiplier); //add ptfx wheels on front
             VehicleTimedEventManager.Last.OnExecute += GlowingWheelsFront_OnExecute;
 
-            VehicleTimedEventManager.Add(5, 29, 500, 5, 30, 500, TimeMultiplier); //delete wheelie effects
+            VehicleTimedEventManager.Add(5, 29, 0, 5, 30, 0, TimeMultiplier); //delete wheelie effects
             VehicleTimedEventManager.Last.OnExecute += DeleteEffects_OnExecute;
+
+            VehicleTimedEventManager.Add(6, 55, 0, 6, 56, 0, TimeMultiplier); //start sparks
+            VehicleTimedEventManager.Last.OnExecute += StartSparks_OnExecute;
+        }
+
+        private void StartSparks_OnExecute(TimedEvent timedEvent)
+        {
+            if (!timedEvent.FirstExecution)
+                return;
+
+            TimeMachine.Properties.BlockSparks = false;
         }
 
         public override void Process()
@@ -223,28 +236,58 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Last.SetSpeed(55, 60);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(4, 26, 239, 4, 46, 395, TimeMultiplier); //reach 70mph
-            TimedEventManager.Last.SetSpeed(60, 70);
+            TimedEventManager.Add(3, 47, 111, 4, 26, 239, TimeMultiplier); //reach 68mph
+            TimedEventManager.Last.SetSpeed(60, 68);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(5, 10, 603, 5, 13, 603, TimeMultiplier); //red log explosion and reach 72mph
+            TimedEventManager.Add(4, 44, 0, 4, 46, 0, TimeMultiplier); //reach 70mph
+            TimedEventManager.Last.SetSpeed(68, 70);
+            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
+
+            TimedEventManager.Add(5, 3, 239, 5, 4, 395, TimeMultiplier); //reach 72mph
             TimedEventManager.Last.SetSpeed(70, 72);
+            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
+
+            TimedEventManager.Add(5, 10, 603, 5, 13, 603, TimeMultiplier); //red log explosion            
             TimedEventManager.Last.OnExecute += Explosion_OnExecute;
 
             TimedEventManager.Add(5, 19, 0, 5, 21, 0, TimeMultiplier); //reach 75mph
             TimedEventManager.Last.SetSpeed(72, 75);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(5, 25, 0, 5, 40, 137, TimeMultiplier); //reach 80mph
-            TimedEventManager.Last.SetSpeed(75, 80);
+            TimedEventManager.Add(5, 21, 100, 5, 54, 500, TimeMultiplier); //reach 79mph
+            TimedEventManager.Last.SetSpeed(75, 79);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            //TimedEventManager.Add(5, 56, 450, 7, 12, 627, TimeMultiplier); //reach 88mph
-            TimedEventManager.Add(5, 56, 450, 7, 4, 627, TimeMultiplier); //reach 88mph
-            TimedEventManager.Last.SetSpeed(80, 88);
+            TimedEventManager.Add(5, 54, 100, 5, 55, 100, TimeMultiplier); //reach 80mph
+            TimedEventManager.Last.SetSpeed(79, 80);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(5, 56, 450, 9, 12, 627, TimeMultiplier); //reach 88mph
+            TimedEventManager.Add(5, 56, 100, 5, 57, 100, TimeMultiplier); //reach 81mph
+            TimedEventManager.Last.SetSpeed(80, 81);
+            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
+
+            TimedEventManager.Add(6, 8, 0, 6, 9, 0, TimeMultiplier); //reach 82mph
+            TimedEventManager.Last.SetSpeed(81, 82);
+            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
+
+            TimedEventManager.Add(6, 10, 0, 6, 57, 0, TimeMultiplier); //reach 84mph
+            TimedEventManager.Last.SetSpeed(82, 84);
+            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
+
+            TimedEventManager.Add(6, 58, 0, 7, 0, 0, TimeMultiplier); //reach 86mph
+            TimedEventManager.Last.SetSpeed(84, 86);
+            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
+
+            TimedEventManager.Add(7, 1, 0, 7, 3, 0, TimeMultiplier); //reach 87mph
+            TimedEventManager.Last.SetSpeed(86, 87);
+            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
+
+            TimedEventManager.Add(7, 3, 500, 7, 4, 500, TimeMultiplier); //reach 88mph
+            TimedEventManager.Last.SetSpeed(87, 88);
+            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
+
+            TimedEventManager.Add(7, 6, 0, 9, 12, 627, TimeMultiplier);
 
             RogersSierra.IsOnTrainMission = true;
             RogersSierra.RandomTrain = false;
