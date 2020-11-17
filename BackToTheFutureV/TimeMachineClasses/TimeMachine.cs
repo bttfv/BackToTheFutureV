@@ -30,6 +30,8 @@ namespace BackToTheFutureV.TimeMachineClasses
         public ScaleformsHandler Scaleforms { get; private set; }
         public ParticlesHandler Particles { get; private set; }
 
+        public CustomCameraManager CustomCameraManager { get; private set; }
+
         public TimeMachineClone Clone => new TimeMachineClone(this);
         public TimeMachineClone LastDisplacementClone { get; set; }
         public Ped OriginalPed;
@@ -116,7 +118,32 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (Vehicle.Model == ModelHandler.DeluxoModel)
                 Mods.HoverUnderbody = ModState.On;
 
+            BuildCustomCameras();
+
             TimeMachineHandler.AddTimeMachine(this);
+        }
+
+        private void BuildCustomCameras()
+        {
+            CustomCameraManager = new CustomCameraManager();
+
+            //DestinationDate
+            CustomCameraManager.Add(Vehicle, new Vector3(-0.1f, 0.16f, 0.7f), new Vector3(0.12f, 1.1f, 0.45f), 28);
+
+            //DriverSeat
+            CustomCameraManager.Add(Vehicle, new Vector3(0.53f, 0.11f, 0.727f), new Vector3(-0.445f, -0.08f, 0.65f), 46);
+
+            //DigitalSpeedo
+            CustomCameraManager.Add(Vehicle, new Vector3(-0.26f, 0.18f, 0.75f), new Vector3(-0.23f, 1.17f, 0.6f), 26);
+
+            //AnalogSpeedo
+            CustomCameraManager.Add(Vehicle, new Vector3(-0.44f, 0.186f, 0.64f), new Vector3(-0.4f, 1.17f, 0.47f), 46);
+
+            //FrontPassengerWheel
+            CustomCameraManager.Add(Vehicle, new Vector3(1.64f, 2.34f, 0.27f), new Vector3(1.25f, 1.42f, 0.28f), 38);
+
+            //TrainApproaching
+            CustomCameraManager.Add(Vehicle, new Vector3(2.43f, -2.43f, 0.33f), new Vector3(1.44f, -2.465f, 0.466f), 50);
         }
 
         public T GetHandler<T>()
@@ -270,6 +297,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 entry.Value.Process();
 
             PhotoMode();
+
+            CustomCameraManager.Process();
         }
 
         private void UpdateBlip()
@@ -381,6 +410,8 @@ namespace BackToTheFutureV.TimeMachineClasses
         public void Dispose(bool deleteVeh = true)
         {
             DisposeAllHandlers();
+
+            CustomCameraManager.Abort();
 
             Blip?.Delete();
 

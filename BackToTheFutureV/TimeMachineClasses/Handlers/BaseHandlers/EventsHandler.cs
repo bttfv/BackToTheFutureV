@@ -44,6 +44,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void SetPedAI(bool state);
     public delegate void SetEngineStall(bool state);
     public delegate void StartLightningStrike(int delay);
+    public delegate void SimulateInputDate(DateTime dateTime);
 
     public class EventsHandler : Handler
     {
@@ -82,6 +83,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public SetWheelie SetWheelie;
         public SetEngineStall SetEngineStall;
         public StartLightningStrike StartLightningStrike;
+        public SimulateInputDate SimulateInputDate;
 
         public EventsHandler(TimeMachine timeMachine) : base(timeMachine)
         {

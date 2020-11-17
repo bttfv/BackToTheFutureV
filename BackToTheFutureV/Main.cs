@@ -112,7 +112,12 @@ namespace BackToTheFutureV
         {
             TimeMachineHandler.KeyDown(e.KeyCode);
             MissionHandler.KeyDown(e);
-            MenuHandler.KeyDown(e);                   
+            MenuHandler.KeyDown(e);
+
+            if (e.KeyCode == Keys.L)
+            {
+                TimeMachineHandler.ClosestTimeMachine.CustomCameraManager.ShowNext();
+            }
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)

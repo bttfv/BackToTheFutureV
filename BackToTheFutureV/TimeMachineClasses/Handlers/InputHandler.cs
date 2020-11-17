@@ -19,9 +19,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private string _destinationTimeRaw;
         private int _nextReset;
 
+        private DateTime _simulateDate;
+        private int _simulateDatePos = -1;
+        private int _simulateDateCheck;
+
         public InputHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            
+            Events.SimulateInputDate += SimulateDateInput;
         }
 
         public void InputDate(DateTime date)
@@ -31,7 +35,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             InputMode = false;
             _destinationTimeRaw = string.Empty;
 
-            Events.OnDestinationDateChange?.Invoke();
+            Events.OnDestinationDateChange?.Invoke();            
         }
 
         public override void KeyDown(Keys key)
@@ -60,6 +64,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (key == Keys.Enter)
                     ProcessInputEnter();
             }
+        }
+
+        private void SimulateDateInput(DateTime dateTime)
+        {
+            _simulateDate = dateTime;
+            _simulateDatePos = 0;
+            _simulateDateCheck = 0;
         }
 
         public void ProcessInputNumber(string number)
@@ -106,10 +117,34 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
         }
 
+        private string DateToInput(DateTime dateTime, int pos)
+        {
+            return dateTime.ToString("MMddyyyyHHmm")[pos].ToString();
+        }
+
         public override void Process()
         {
             if (Properties.AreTimeCircuitsOn && Main.PlayerVehicle != null && Main.PlayerVehicle == Vehicle)
             {
+                if (_simulateDatePos > -1)
+                {
+                    if (_simulateDateCheck < Game.GameTime)
+                    {
+                        if (_simulateDatePos > 11)
+                        {
+                            _simulateDatePos = -1;
+                            ProcessInputEnter();
+                        } else
+                        {
+                            ProcessInputNumber(DateToInput(_simulateDate, _simulateDatePos));
+
+                            _simulateDatePos++;
+
+                            _simulateDateCheck = Game.GameTime + 200;
+                        }
+                    }
+                }
+
                 if (EnterInputBuffer)
                 {
                     EnterInputBuffer = false;

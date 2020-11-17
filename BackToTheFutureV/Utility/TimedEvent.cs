@@ -9,8 +9,7 @@ namespace BackToTheFutureV.Story
 
     public enum CameraType
     {
-        Position,
-        Offset,
+        Position,        
         Entity
     }
 
@@ -85,15 +84,29 @@ namespace BackToTheFutureV.Story
             _setFloat = true;
         }
 
-        public void SetCamera(Entity tOnEntity, Vector3 tCameraOffset, Entity tLookAtEntity, Vector3 tLookAtOffset, bool tUpdateCamera = true)
+        public void SetCamera(Entity tOnEntity, Vector3 tCameraOffset, CameraType cameraType, Entity tLookAtEntity, Vector3 tLookAtOffset, CameraType lookAtType, bool tUpdateCamera = true)
         {
-            _lookAtType = CameraType.Entity;
+            _lookAtType = lookAtType;
             LookAtEntity = tLookAtEntity;
             LookAtPosition = tLookAtOffset;
 
-            _cameraType = CameraType.Entity;
+            _cameraType = cameraType;
             CameraOnEntity = tOnEntity;
             CameraPosition = tCameraOffset;
+
+            _updateCamera = tUpdateCamera;
+            IsSettingCamera = true;
+        }
+
+        public void SetCamera(Vector3 tCameraPosition, Vector3 tLookAtPosition, bool tUpdateCamera = true)
+        {
+            _lookAtType = CameraType.Position;
+            LookAtEntity = null;
+            LookAtPosition = tLookAtPosition;
+
+            _cameraType = CameraType.Position;
+            CameraOnEntity = null;
+            CameraPosition = tCameraPosition;
 
             _updateCamera = tUpdateCamera;
             IsSettingCamera = true;
@@ -119,12 +132,21 @@ namespace BackToTheFutureV.Story
                     else
                         CustomCamera.Position = CameraOnEntity.GetOffsetPosition(CameraPosition);                    
                     break;
+                case CameraType.Position:
+                    if (CustomCamera == null)
+                        CustomCamera = World.CreateCamera(CameraPosition, Vector3.Zero, GameplayCamera.FieldOfView);
+                    else
+                        CustomCamera.Position = CameraPosition;
+                    break;
             }
 
             switch (_lookAtType)
             {
                 case CameraType.Entity:
                     CustomCamera.PointAt(LookAtEntity, LookAtPosition);
+                    break;
+                case CameraType.Position:
+                    CustomCamera.PointAt(LookAtPosition);
                     break;
             }
 

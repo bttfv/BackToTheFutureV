@@ -162,6 +162,8 @@
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PropsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\SoundsHandler.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineMods.cs" />
+    <Compile Include="Utility\CustomCamera.cs" />
+    <Compile Include="Utility\CustomCameraManager.cs" />
     <Compile Include="Utility\CustomControl.cs" />
     <Compile Include="Utility\CustomStopwatch.cs" />
     <Compile Include="Utility\PlayerSwitch.cs" />
