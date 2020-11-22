@@ -26,14 +26,17 @@ namespace BackToTheFutureV.Story
         public OnVehicleAttachedToRogersSierra OnVehicleAttachedToRogersSierra;
         public OnVehicleDetachedFromRogersSierra OnVehicleDetachedFromRogersSierra;
 
+        public bool OnlyMusic { get; set; } = true;
+
         public TimeMachine TimeMachine { get; private set; }
         public RogersSierra RogersSierra { get; private set; }
 
         public float TimeMultiplier = 1f;
         public bool PlayMusic = true;
         
-        public AudioPlayer MissionMusic { get; private set; }
-        //private AudioPlayer _missionMusic = new AudioPlayer($"TrainMissionWithVoices.wav", false, 0.8f);
+        public AudioPlayer MissionMusic { get; set; }
+
+        private AudioPlayer TrainApproachingSound { get; set; }
 
         private List<PtfxEntityBonePlayer> _wheelPtfxes = null;
 
@@ -43,8 +46,42 @@ namespace BackToTheFutureV.Story
         {
             OnVehicleAttachedToRogersSierra += OnVehicleAttached;
             OnVehicleDetachedFromRogersSierra += OnVehicleDetached;
+            
+            TrainApproachingSound = Main.CommonAudioEngine.Create($"story/trainMission/trainApproaching.wav", Presets.No3DLoop);
 
-            MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
+            VehicleTimedEventManager.ManageCamera = true;
+        }
+
+        private void Camera_OnExecute(TimedEvent timedEvent)
+        {
+            if (!timedEvent.FirstExecution)
+                return;
+
+            if (TimeMachine == null && TimeMachineHandler.ClosestTimeMachine == null)
+                return;
+
+            TimeMachine timeMachine = TimeMachine;
+
+            if (timeMachine == null)
+                timeMachine = TimeMachineHandler.ClosestTimeMachine;
+
+            switch (timedEvent.Step)
+            {
+                case 0:
+                    timeMachine.CustomCamera = TimeMachineCamera.FrontPassengerWheelLookAtRear;
+                    break;
+                case 1:
+                    timeMachine.CustomCamera = TimeMachineCamera.TrainApproaching;
+                    break;
+                case 3:
+                case 5:
+                    timeMachine.CustomCamera = TimeMachineCamera.DigitalSpeedo;
+                    break;
+                default:
+                    if (timeMachine.CustomCamera != TimeMachineCamera.Default)
+                        timeMachine.CustomCamera = TimeMachineCamera.Default;
+                    break;
+            }
         }
 
         private void OnVehicleDetached(TimeMachine timeMachine)
@@ -70,29 +107,83 @@ namespace BackToTheFutureV.Story
 
             TimeMachine = timeMachine;
 
-            TimeMachine.Events.OnTimeTravelStarted += StartExplodingScene;
-            TimeMachine.Vehicle.FuelLevel = 0;
+            TimeMachine.Properties.DestinationTime = new DateTime(1885, 9, 2, 08, 0, 0);
+            TimeMachine.Properties.PreviousTime = new DateTime(1955, 11, 15, 09, 14, 0);
+
+            TimeMachine.Events.OnTimeTravelStarted += StartExplodingScene;            
             TimeMachine.Properties.BlockSparks = true;
 
-            VehicleTimedEventManager.ManageCamera = false;
+            VehicleTimedEventManager.Add(0, 31, 371, 0, 40, 0, TimeMultiplier); //turn on tc
+            VehicleTimedEventManager.Last.OnExecute += TurnOnTC_OnExecute;
 
-            VehicleTimedEventManager.Add(1, 31, 386, 1, 40, 137, TimeMultiplier);
-            VehicleTimedEventManager.Last.SetCamera(TimeMachine.Vehicle, new Vector3(1f, 3f, 0), TimeMachine.Vehicle, Vector3.Zero);
+            VehicleTimedEventManager.Add(0, 38, 700, 0, 42, 0, TimeMultiplier); //insert date
+            VehicleTimedEventManager.Last.OnExecute += InsertDate_OnExecute;
 
-            VehicleTimedEventManager.Add(5, 18, 0, 5, 19, 0, TimeMultiplier); //wheelie up
+            VehicleTimedEventManager.Add(1, 38, 937, 1, 40, 137, TimeMultiplier); //reach 35mph
+            VehicleTimedEventManager.Last.SetCamera(TimeMachine, new Vector3(-0.12f, 0.06f, 0.8f), CameraType.Entity, TimeMachine, new Vector3(-0.48f, 0.98f, 0.656f), CameraType.Entity, 50);
+
+            VehicleTimedEventManager.Add(2, 24, 264, 2, 25, 464, TimeMultiplier); //reach 40mph
+            VehicleTimedEventManager.Last.SetCamera(TimeMachine, new Vector3(-0.12f, 0.06f, 0.8f), CameraType.Entity, TimeMachine, new Vector3(-0.48f, 0.98f, 0.656f), CameraType.Entity, 50);
+
+            VehicleTimedEventManager.Add(3, 15, 300, 3, 17, 500, TimeMultiplier); //reach 50mph
+            VehicleTimedEventManager.Last.SetCamera(TimeMachine, new Vector3(-0.12f, 0.06f, 0.8f), CameraType.Entity, TimeMachine, new Vector3(-0.48f, 0.98f, 0.656f), CameraType.Entity, 50);
+
+            VehicleTimedEventManager.Add(4, 25, 800, 4, 27, 0, TimeMultiplier); //reach 60mph
+            VehicleTimedEventManager.Last.SetCamera(TimeMachine, new Vector3(-0.12f, 0.06f, 0.8f), CameraType.Entity, TimeMachine, new Vector3(-0.48f, 0.98f, 0.656f), CameraType.Entity, 50);
+
+            VehicleTimedEventManager.Add(4, 44, 800, 4, 46, 0, TimeMultiplier); //reach 70mph
+            VehicleTimedEventManager.Last.SetCamera(TimeMachine, new Vector3(-0.12f, 0.06f, 0.8f), CameraType.Entity, TimeMachine, new Vector3(-0.48f, 0.98f, 0.656f), CameraType.Entity, 50);
+
+            VehicleTimedEventManager.Add(5, 4, 300, 5, 5, 500, TimeMultiplier); //reach 72mph
+            VehicleTimedEventManager.Last.SetCamera(TimeMachine, new Vector3(-0.12f, 0.06f, 0.8f), CameraType.Entity, TimeMachine, new Vector3(-0.48f, 0.98f, 0.656f), CameraType.Entity, 50);
+
+            VehicleTimedEventManager.Add(5, 54, 100, 5, 55, 100, TimeMultiplier); //reach 80mph
+            VehicleTimedEventManager.Last.SetCamera(TimeMachine, new Vector3(-0.12f, 0.06f, 0.8f), CameraType.Entity, TimeMachine, new Vector3(-0.48f, 0.98f, 0.656f), CameraType.Entity, 50);
+
+            VehicleTimedEventManager.Add(6, 8, 0, 6, 9, 0, TimeMultiplier); //reach 82mph
+            VehicleTimedEventManager.Last.SetCamera(TimeMachine, new Vector3(-0.12f, 0.06f, 0.8f), CameraType.Entity, TimeMachine, new Vector3(-0.48f, 0.98f, 0.656f), CameraType.Entity, 50);
+
+            VehicleTimedEventManager.Add(7, 3, 0, 7, 3, 500, TimeMultiplier); //reach 88mph
+            VehicleTimedEventManager.Last.SetCamera(TimeMachine, new Vector3(-0.1f, 0.16f, 0.7f), CameraType.Entity, TimeMachine, new Vector3(0.12f, 1.1f, 0.45f), CameraType.Entity, 28);
+
+            VehicleTimedEventManager.Add(5, 18, 250, 5, 19, 0, TimeMultiplier); //wheelie up
             VehicleTimedEventManager.Last.OnExecute += WheelieUp_OnExecute;
 
             VehicleTimedEventManager.Add(5, 26, 0, 5, 27, 0, TimeMultiplier); //wheelie down
             VehicleTimedEventManager.Last.OnExecute += WheelieDown_OnExecute;
 
-            VehicleTimedEventManager.Add(5, 27, 500, 5, 28, 500, TimeMultiplier); //add ptfx wheels on front
+            VehicleTimedEventManager.Add(5, 27, 0, 5, 28, 0, TimeMultiplier); //add ptfx wheels on front
             VehicleTimedEventManager.Last.OnExecute += GlowingWheelsFront_OnExecute;
 
-            VehicleTimedEventManager.Add(5, 29, 0, 5, 30, 0, TimeMultiplier); //delete wheelie effects
+            VehicleTimedEventManager.Add(5, 28, 500, 5, 30, 0, TimeMultiplier); //delete wheelie effects
             VehicleTimedEventManager.Last.OnExecute += DeleteEffects_OnExecute;
 
             VehicleTimedEventManager.Add(6, 55, 0, 6, 56, 0, TimeMultiplier); //start sparks
             VehicleTimedEventManager.Last.OnExecute += StartSparks_OnExecute;
+
+            TrainApproachingSound.Stop();
+
+            if (PlayMusic)
+            {
+                MissionMusic.SourceEntity = Main.PlayerPed;
+                MissionMusic.Play();
+            }
+        }
+
+        private void InsertDate_OnExecute(TimedEvent timedEvent)
+        {
+            if (!timedEvent.FirstExecution)
+                return;
+
+            TimeMachine.Events.SimulateInputDate.Invoke(new DateTime(1985,10,27,11,0,0));
+        }
+
+        private void TurnOnTC_OnExecute(TimedEvent timedEvent)
+        {
+            if (!timedEvent.FirstExecution)
+                return;
+
+            TimeMachine.Events.SetTimeCircuits.Invoke(true);
         }
 
         private void StartSparks_OnExecute(TimedEvent timedEvent)
@@ -108,19 +199,22 @@ namespace BackToTheFutureV.Story
             if (!IsPlaying)
                 return;
 
-            TimedEventManager.RunEvents();
+            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Main.PlayerPed);
+            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Main.PlayerPed);           
 
-            if (TimedEventManager.AllExecuted())
-                StartExplodingScene();
-
-            if (TimeMachine != null && TimeMachine.Properties.IsAttachedToRogersSierra)
+            if (TimeMachine != null && (TimeMachine.Properties.IsAttachedToRogersSierra || TimeMachine.Properties.TimeTravelPhase == TimeTravelPhase.InTime))
             {
+                TimedEventManager.RunEvents();
+                
                 VehicleTimedEventManager.RunEvents(TimedEventManager.CurrentTime);
 
                 if (_wheelPtfxes != null)
                     foreach (var wheelPTFX in _wheelPtfxes)
                         wheelPTFX.Process();
             }
+
+            if (TimedEventManager.AllExecuted())
+                StartExplodingScene();
         }
 
         protected override void OnEnd()
@@ -131,7 +225,7 @@ namespace BackToTheFutureV.Story
             if (TimedEventManager.IsCustomCameraActive)
                 TimedEventManager.ResetCamera();
 
-            if (MissionMusic.IsAnyInstancePlaying)
+            if (PlayMusic && MissionMusic.IsAnyInstancePlaying)
                 MissionMusic.Stop();
 
             _wheelPtfxes?.ForEach(x => x?.Stop());
@@ -182,42 +276,36 @@ namespace BackToTheFutureV.Story
             TimedEventManager.ResetExecution();
             TimedEventManager.ClearEvents();
 
-            TimedEventManager.ManageCamera = false;
-
-            TimedEventManager.Add(0, 0, 0, 0, 10, 0, TimeMultiplier);
-            TimedEventManager.Last.SetCamera(RogersSierra.Locomotive, new Vector3(2.5f, 13f, -1f), RogersSierra.Locomotive, Vector3.Zero);
+            TimedEventManager.ManageCamera = true;
 
             TimedEventManager.Add(0, 0, 0, 0, 25, 0, TimeMultiplier); //reach 25mph
-            TimedEventManager.Last.SetSpeed(0, 25);            
+            TimedEventManager.Last.SetSpeed(2, 25);            
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(1, 29, 386, 1, 31, 386, TimeMultiplier);
-            TimedEventManager.Last.SetCamera(RogersSierra.Locomotive, new Vector3(0, 15f, 2f), RogersSierra.Locomotive, Vector3.Zero);
-
-            TimedEventManager.Add(1, 29, 386, 1, 40, 137, TimeMultiplier); //green log explosion and reach 35mph
+            TimedEventManager.Add(1, 29, 86, 1, 40, 137, TimeMultiplier); //green log explosion and reach 35mph
             TimedEventManager.Last.SetSpeed(25, 35);
             TimedEventManager.Last.OnExecute += Explosion_OnExecute;
 
-            TimedEventManager.Add(2, 16, 266, 2, 25, 364, TimeMultiplier); //yellow log explosion and reach 40mph
-            TimedEventManager.Last.SetSpeed(35, 40);
+            TimedEventManager.Add(2, 16, 66, 2, 25, 364, TimeMultiplier); //yellow log explosion and reach 40mph
+            TimedEventManager.Last.SetSpeed(35, 41);
             TimedEventManager.Last.OnExecute += Explosion_OnExecute;
 
             TimedEventManager.Add(2, 25, 364, 3, 3, 406, TimeMultiplier); //reach 45mph
-            TimedEventManager.Last.SetSpeed(40, 45);
+            TimedEventManager.Last.SetSpeed(41, 45);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(3, 3, 406, 3, 16, 710, TimeMultiplier); //reach 50mph
+            TimedEventManager.Add(3, 3, 406, 3, 17, 300, TimeMultiplier); //reach 50mph
             TimedEventManager.Last.SetSpeed(45, 50);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(3, 20, 321, 3, 21, 587, TimeMultiplier); //first whistle
+            TimedEventManager.Add(3, 20, 180, 3, 21, 240, TimeMultiplier); //first whistle
             TimedEventManager.Last.OnExecute += Whistle_OnExecute;
-            TimedEventManager.Add(3, 21, 87, 3, 21, 587, TimeMultiplier); //stop whistle
+            TimedEventManager.Add(3, 21, 240, 3, 21, 740, TimeMultiplier); //stop whistle
             TimedEventManager.Last.OnExecute += Whistle_OnExecute;
 
-            TimedEventManager.Add(3, 21, 587, 3, 23, 315, TimeMultiplier); //second whistle
+            TimedEventManager.Add(3, 21, 490, 3, 22, 900, TimeMultiplier); //second whistle
             TimedEventManager.Last.OnExecute += Whistle_OnExecute;
-            TimedEventManager.Add(3, 22, 815, 3, 23, 315, TimeMultiplier); //stop whistle
+            TimedEventManager.Add(3, 22, 900, 3, 23, 400, TimeMultiplier); //stop whistle
             TimedEventManager.Last.OnExecute += Whistle_OnExecute;
 
             TimedEventManager.Add(3, 23, 315, 3, 24, 511, TimeMultiplier); //third whistle
@@ -228,15 +316,11 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Add(3, 24, 511, 3, 25, 529, TimeMultiplier); //fourth whistle
             TimedEventManager.Last.OnExecute += Whistle_OnExecute;
 
-            TimedEventManager.Add(3, 25, 529, 3, 47, 111, TimeMultiplier); //reach 55mph
-            TimedEventManager.Last.SetSpeed(50, 55);
+            TimedEventManager.Add(3, 25, 529, 4, 26, 800, TimeMultiplier); //reach 60mph
+            TimedEventManager.Last.SetSpeed(50, 60);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(3, 47, 111, 4, 26, 239, TimeMultiplier); //reach 60mph
-            TimedEventManager.Last.SetSpeed(55, 60);
-            TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
-
-            TimedEventManager.Add(3, 47, 111, 4, 26, 239, TimeMultiplier); //reach 68mph
+            TimedEventManager.Add(4, 26, 800, 4, 44, 0, TimeMultiplier); //reach 68mph
             TimedEventManager.Last.SetSpeed(60, 68);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
@@ -244,11 +328,11 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Last.SetSpeed(68, 70);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(5, 3, 239, 5, 4, 395, TimeMultiplier); //reach 72mph
+            TimedEventManager.Add(4, 46, 0, 5, 5, 500, TimeMultiplier); //reach 72mph
             TimedEventManager.Last.SetSpeed(70, 72);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(5, 10, 603, 5, 13, 603, TimeMultiplier); //red log explosion            
+            TimedEventManager.Add(5, 10, 200, 5, 13, 603, TimeMultiplier); //red log explosion            
             TimedEventManager.Last.OnExecute += Explosion_OnExecute;
 
             TimedEventManager.Add(5, 19, 0, 5, 21, 0, TimeMultiplier); //reach 75mph
@@ -258,6 +342,9 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Add(5, 21, 100, 5, 54, 500, TimeMultiplier); //reach 79mph
             TimedEventManager.Last.SetSpeed(75, 79);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
+
+            TimedEventManager.Add(5, 39, 0, 5, 40, 0, TimeMultiplier); //firebox door opens            
+            TimedEventManager.Last.OnExecute += Firebox_OnExecute;
 
             TimedEventManager.Add(5, 54, 100, 5, 55, 100, TimeMultiplier); //reach 80mph
             TimedEventManager.Last.SetSpeed(79, 80);
@@ -283,7 +370,7 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Last.SetSpeed(86, 87);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
-            TimedEventManager.Add(7, 3, 500, 7, 4, 500, TimeMultiplier); //reach 88mph
+            TimedEventManager.Add(7, 3, 0, 7, 3, 500, TimeMultiplier); //reach 88mph
             TimedEventManager.Last.SetSpeed(87, 88);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
@@ -294,15 +381,24 @@ namespace BackToTheFutureV.Story
             RogersSierra.UnlockSpeed = true;
 
             _wheelPtfxes = new List<PtfxEntityBonePlayer>();
-            
+
+            RogersSierra.LocomotiveSpeed = Utils.MphToMs(2);
+
             if (RogersSierra.AttachedVehicle != null)
                 OnVehicleAttached(TimeMachineHandler.GetTimeMachineFromVehicle(RogersSierra.AttachedVehicle));
-
-            if (PlayMusic)
+            else
             {
-                MissionMusic.SourceEntity = Main.PlayerPed;                
-                MissionMusic.Play();
-            }                
+                TrainApproachingSound.SourceEntity = Main.PlayerPed;
+                TrainApproachingSound.Play();
+            }
+        }
+
+        private void Firebox_OnExecute(TimedEvent timedEvent)
+        {
+            if (!timedEvent.FirstExecution)
+                return;
+
+            RogersSierra.ExplodeFirebox();
         }
 
         private void DeleteEffects_OnExecute(TimedEvent timedEvent)
@@ -344,7 +440,7 @@ namespace BackToTheFutureV.Story
 
         private void SetSpeed_OnExecute(TimedEvent timedEvent)
         {
-            if (RogersSierra.Locomotive.GetMPHSpeed() <= timedEvent.EndSpeed)
+            if (RogersSierra.Locomotive.GetMPHSpeed() < timedEvent.EndSpeed)
                 RogersSierra.LocomotiveSpeed += Convert.ToSingle(timedEvent.CurrentSpeed);
         }
 
@@ -366,7 +462,7 @@ namespace BackToTheFutureV.Story
                 }
             }
 
-            if (RogersSierra.Locomotive.GetMPHSpeed() <= timedEvent.EndSpeed)
+            if (RogersSierra.Locomotive.GetMPHSpeed() < timedEvent.EndSpeed)
                 RogersSierra.LocomotiveSpeed += Convert.ToSingle(timedEvent.CurrentSpeed);
         }
 

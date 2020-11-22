@@ -195,7 +195,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         return;
                     }
 
-                    if (customTrain.RogersSierra.Locomotive.Speed > 0 && Utils.EntitySpeedVector(customTrain.RogersSierra.Locomotive).Y < 0)
+                    if (customTrain.RogersSierra.Locomotive.Speed > 0 && !customTrain.RogersSierra.Locomotive.IsGoingForward())
                         customTrain.SwitchToRegular();
 
                     return;

@@ -9,6 +9,7 @@ using BackToTheFutureV.TimeMachineClasses;
 using LemonUI.Elements;
 using System.Drawing;
 using BackToTheFutureV.Story;
+using KlangRageAudioLibrary;
 
 namespace BackToTheFutureV.Menu
 {
@@ -18,6 +19,7 @@ namespace BackToTheFutureV.Menu
         private NativeSliderItem Speed;
         private NativeCheckboxItem PlayMusic;
         private NativeSliderItem MusicVolume;
+        private NativeCheckboxItem OnlyMusic;
 
         public TrainMissionMenu() : base("", "Train Mission")
         {
@@ -29,8 +31,9 @@ namespace BackToTheFutureV.Menu
             Add(MissionToggle = new NativeCheckboxItem("Mission toggle"));
             Add(Speed = new NativeSliderItem("Speed"));
             Speed.ValueChanged += Speed_ValueChanged;
-            Add(PlayMusic = new NativeCheckboxItem("Play music"));
-            Add(MusicVolume = new NativeSliderItem("Music volume"));
+            Add(PlayMusic = new NativeCheckboxItem("Play soundtrack"));
+            Add(MusicVolume = new NativeSliderItem("Volume"));
+            Add(OnlyMusic = new NativeCheckboxItem("Only music", true));
             MusicVolume.ValueChanged += MusicVolume_ValueChanged;
         }
 
@@ -42,6 +45,14 @@ namespace BackToTheFutureV.Menu
 
         private void TrainMissionMenu_Shown(object sender, EventArgs e)
         {
+            if (MissionHandler.TrainMission.MissionMusic == null)
+            {
+                if (OnlyMusic.Checked)
+                    MissionHandler.TrainMission.MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
+                else
+                    MissionHandler.TrainMission.MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/musicWithVoices.wav", Presets.No3D);
+            }
+
             MissionToggle.Checked = MissionHandler.TrainMission.IsPlaying;
             PlayMusic.Checked = MissionHandler.TrainMission.PlayMusic;
             Speed.Value = (int)(MissionHandler.TrainMission.TimeMultiplier * 100);
@@ -52,6 +63,7 @@ namespace BackToTheFutureV.Menu
         {            
             Speed.Enabled = !MissionToggle.Checked;
             PlayMusic.Enabled = !MissionHandler.TrainMission.IsPlaying || MissionHandler.TrainMission.MissionMusic.IsAnyInstancePlaying;
+            OnlyMusic.Enabled = !MissionHandler.TrainMission.IsPlaying;
         }
 
         private void Speed_ValueChanged(object sender, EventArgs e)
@@ -79,6 +91,16 @@ namespace BackToTheFutureV.Menu
 
                 if (MissionHandler.TrainMission.IsPlaying && !Checked)
                     MissionHandler.TrainMission.MissionMusic.Stop();
+            }
+
+            if (sender == OnlyMusic)
+            {
+                MissionHandler.TrainMission.MissionMusic.Dispose();
+
+                if (Checked)
+                    MissionHandler.TrainMission.MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
+                else
+                    MissionHandler.TrainMission.MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/musicWithVoices.wav", Presets.No3D);
             }                
         }
     }
