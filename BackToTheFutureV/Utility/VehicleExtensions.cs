@@ -72,12 +72,12 @@ namespace BackToTheFutureV.Utility
 
         public static float GetMPHSpeed(this Vehicle vehicle)
         {
-            return vehicle.Speed / 0.27777f / 1.60934f;
+            return Utils.MsToMph(vehicle.Speed);
         }
 
         public static void SetMPHSpeed(this Vehicle vehicle, float value)
         {
-            vehicle.ForwardSpeed = (value * 0.27777f * 1.60934f);
+            vehicle.ForwardSpeed = Utils.MphToMs(value);
         }
 
         public static void SetLightsMode(this Vehicle vehicle, LightsMode lightsMode)

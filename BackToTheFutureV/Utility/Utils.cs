@@ -65,8 +65,9 @@ namespace BackToTheFutureV.Utility
         NoVelocity = 128,        
     }
 
-    public enum CameraType
+    public enum TimeMachineCamera
     {
+        Default = -1,
         DestinationDate,
         DriverSeat,
         DigitalSpeedo,

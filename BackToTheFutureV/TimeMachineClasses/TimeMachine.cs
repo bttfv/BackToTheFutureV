@@ -32,6 +32,18 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public CustomCameraManager CustomCameraManager { get; private set; }
 
+        public TimeMachineCamera CustomCamera 
+        { 
+            get
+            {
+                return (TimeMachineCamera)CustomCameraManager.CurrentCameraIndex;
+            } 
+            set
+            {
+                CustomCameraManager.Show((int)value);
+            }
+        }
+
         public TimeMachineClone Clone => new TimeMachineClone(this);
         public TimeMachineClone LastDisplacementClone { get; set; }
         public Ped OriginalPed;

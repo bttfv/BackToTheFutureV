@@ -39,6 +39,7 @@ namespace BackToTheFutureV.Story
         public CameraType _cameraType = CameraType.Position;
         public Vector3 LookAtPosition { get; private set; }
         public Entity LookAtEntity { get; private set; }
+        public float FieldOfView { get; private set; }
 
         public Camera CustomCamera;
         private CameraType _lookAtType = CameraType.Position;
@@ -84,7 +85,7 @@ namespace BackToTheFutureV.Story
             _setFloat = true;
         }
 
-        public void SetCamera(Entity tOnEntity, Vector3 tCameraOffset, CameraType cameraType, Entity tLookAtEntity, Vector3 tLookAtOffset, CameraType lookAtType, bool tUpdateCamera = true)
+        public void SetCamera(Entity tOnEntity, Vector3 tCameraOffset, CameraType cameraType, Entity tLookAtEntity, Vector3 tLookAtOffset, CameraType lookAtType, float fieldOfView = -1, bool tUpdateCamera = true)
         {
             _lookAtType = lookAtType;
             LookAtEntity = tLookAtEntity;
@@ -95,10 +96,11 @@ namespace BackToTheFutureV.Story
             CameraPosition = tCameraOffset;
 
             _updateCamera = tUpdateCamera;
+            FieldOfView = fieldOfView;
             IsSettingCamera = true;
         }
 
-        public void SetCamera(Vector3 tCameraPosition, Vector3 tLookAtPosition, bool tUpdateCamera = true)
+        public void SetCamera(Vector3 tCameraPosition, Vector3 tLookAtPosition, float fieldOfView = -1, bool tUpdateCamera = true)
         {
             _lookAtType = CameraType.Position;
             LookAtEntity = null;
@@ -109,12 +111,13 @@ namespace BackToTheFutureV.Story
             CameraPosition = tCameraPosition;
 
             _updateCamera = tUpdateCamera;
+            FieldOfView = fieldOfView;
             IsSettingCamera = true;
         }
 
         private void CalculateCurrentSpeed()
         {
-            CurrentSpeed = (Utils.MphToMs(EndSpeed - StartSpeed + 2) / Duration.TotalSeconds) * Game.LastFrameTime;
+            CurrentSpeed = (Utils.MphToMs(EndSpeed - StartSpeed + 1) / Duration.TotalSeconds) * Game.LastFrameTime;
         }
 
         private void CalculateCurrentFloat()
@@ -128,13 +131,13 @@ namespace BackToTheFutureV.Story
             {
                 case CameraType.Entity:
                     if (CustomCamera == null)
-                        CustomCamera = World.CreateCamera(CameraOnEntity.GetOffsetPosition(CameraPosition), Vector3.Zero, GameplayCamera.FieldOfView);
+                        CustomCamera = World.CreateCamera(CameraOnEntity.GetOffsetPosition(CameraPosition), Vector3.Zero, FieldOfView == -1 ? GameplayCamera.FieldOfView : FieldOfView);
                     else
                         CustomCamera.Position = CameraOnEntity.GetOffsetPosition(CameraPosition);                    
                     break;
                 case CameraType.Position:
                     if (CustomCamera == null)
-                        CustomCamera = World.CreateCamera(CameraPosition, Vector3.Zero, GameplayCamera.FieldOfView);
+                        CustomCamera = World.CreateCamera(CameraPosition, Vector3.Zero, FieldOfView == -1 ? GameplayCamera.FieldOfView : FieldOfView);
                     else
                         CustomCamera.Position = CameraPosition;
                     break;

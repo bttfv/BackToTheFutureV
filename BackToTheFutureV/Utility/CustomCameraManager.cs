@@ -68,12 +68,18 @@ namespace BackToTheFutureV.Utility
             if (Cameras.Count == 0)
                 return;
 
+            if (index == -1 && CurrentCameraIndex > -1)
+            {
+                Stop();
+                return;
+            }
+
             if (index > Cameras.Count - 1 || index < 0)
                 return;
 
             CustomCamera customCamera = CurrentCamera;
 
-            Cameras[index].Show(ref customCamera);
+            Cameras[index].Show(ref customCamera, cameraSwitchType);
             CurrentCameraIndex = index;
         }
 
@@ -141,7 +147,7 @@ namespace BackToTheFutureV.Utility
                 }
             }
 
-            if (CurrentCameraIndex > -1 && !CurrentCamera.Camera.IsActive)
+            if (CurrentCameraIndex > -1 && !CurrentCamera.Camera.IsRendering())
                 Stop();
         }
     }

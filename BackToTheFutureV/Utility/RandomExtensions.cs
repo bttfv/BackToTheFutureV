@@ -80,6 +80,11 @@ namespace BackToTheFutureV.Utility
             return (to - 5) <= src && src <= (to + 5);
         }
 
+        public static bool IsRendering(this Camera camera)
+        {
+            return Function.Call<bool>(Hash.IS_CAM_RENDERING, camera);
+        }
+
         public static float GetMostFreeDirection(this Vector3 position, Entity ignoreEntity)
         {
             float ret = 0;
