@@ -233,10 +233,10 @@ namespace BackToTheFutureV.Utility
                             _wheelieRotX += 15 * Game.LastFrameTime;
                             _wheeliePosZ += 0.35f * Game.LastFrameTime;
 
-                            if (_wheelieRotX >= 15 && _wheeliePosZ >= 0)
+                            if (_wheelieRotX >= 10 && _wheeliePosZ >= 0)
                             {
-                                _wheelieRotX = 15;
-                                _wheeliePosZ = 0;
+                                //_wheelieRotX = 10;
+                                //_wheeliePosZ = 0;
                                 DoWheelie = false;
                             }
 
@@ -245,10 +245,10 @@ namespace BackToTheFutureV.Utility
                             _wheelieRotX -= 15 * Game.LastFrameTime;
                             _wheeliePosZ -= 0.35f * Game.LastFrameTime;
 
-                            if (_wheelieRotX <= 0 && _wheeliePosZ <= -0.35f)
+                            if (_wheelieRotX <= 0 && _wheeliePosZ <= -0.23f)
                             {
                                 _wheelieRotX = 0;
-                                _wheeliePosZ = -0.35f;
+                                _wheeliePosZ = -0.23f;
                                 DoWheelie = false;
                             }
 

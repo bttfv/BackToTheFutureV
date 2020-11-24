@@ -73,7 +73,11 @@ namespace BackToTheFutureV.Utility
         DigitalSpeedo,
         AnalogSpeedo,
         FrontPassengerWheelLookAtRear,
-        TrainApproaching
+        TrainApproaching,
+        RightSide,
+        FrontToBack,
+        FrontOnRail,
+        FrontToBackRightSide
     }
 
     public class BTTFImportantDates
@@ -256,6 +260,11 @@ namespace BackToTheFutureV.Utility
                     return GetRandomVehicle(countryVehicles, model);
             }
             return VehicleHash.Premier;
+        }
+
+        public static float Distance2DBetween(Entity entity1, Entity entity2)
+        {
+            return entity1.Position.DistanceTo2D(entity2.Position);
         }
 
         private static Model GetRandomVehicle(VehicleHash[] array, Model model, float maxDiff = 0.6f)

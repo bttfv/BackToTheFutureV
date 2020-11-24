@@ -4,6 +4,7 @@ using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
+using CustomCamera;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -130,6 +131,9 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (Vehicle.Model == ModelHandler.DeluxoModel)
                 Mods.HoverUnderbody = ModState.On;
 
+            if (Mods.Hoodbox == ModState.On)
+                Events.OnHoodboxReady?.Invoke();
+
             BuildCustomCameras();
 
             TimeMachineHandler.AddTimeMachine(this);
@@ -146,16 +150,28 @@ namespace BackToTheFutureV.TimeMachineClasses
             CustomCameraManager.Add(Vehicle, new Vector3(0.53f, 0.11f, 0.727f), new Vector3(-0.445f, -0.08f, 0.65f), 46);
 
             //DigitalSpeedo
-            CustomCameraManager.Add(Vehicle, new Vector3(-0.26f, 0.18f, 0.75f), new Vector3(-0.23f, 1.17f, 0.6f), 26);
+            CustomCameraManager.Add(Vehicle, new Vector3(-0.12f, 0.06f, 0.8f), new Vector3(-0.48f, 0.98f, 0.656f), 50);
 
             //AnalogSpeedo
             CustomCameraManager.Add(Vehicle, new Vector3(-0.44f, 0.186f, 0.64f), new Vector3(-0.4f, 1.17f, 0.47f), 46);
 
-            //FrontPassengerWheel
+            //FrontPassengerWheelLookAtRear
             CustomCameraManager.Add(Vehicle, new Vector3(1.64f, 2.34f, 0.27f), new Vector3(1.25f, 1.42f, 0.28f), 38);
 
             //TrainApproaching
             CustomCameraManager.Add(Vehicle, new Vector3(2.43f, -2.43f, 0.33f), new Vector3(1.44f, -2.465f, 0.466f), 50);
+
+            //RightSide
+            CustomCameraManager.Add(Vehicle, new Vector3(3.33f, -1.0f, 0.736f), new Vector3(2.35f, -0.77f, 0.78f), 50);
+
+            //FrontToBack
+            CustomCameraManager.Add(Vehicle, new Vector3(0, 5.43f, 1.2f), new Vector3(0, 4.43f, 1.2f), 50);
+
+            //FrontOnRail
+            CustomCameraManager.Add(Vehicle, new Vector3(0, 2.656f, 0.23f), new Vector3(0, 3.656f, 0.23f), 50);
+
+            //FrontToBackRightSide
+            CustomCameraManager.Add(Vehicle, new Vector3(1.15f, 4.64f, 0.42f), new Vector3(0.87f, 3.68f, 0.49f), 50);
         }
 
         public T GetHandler<T>()

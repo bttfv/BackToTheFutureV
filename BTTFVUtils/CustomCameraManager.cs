@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using GTA;
 using GTA.Math;
 
-namespace BackToTheFutureV.Utility
+namespace CustomCamera
 {
     public enum CameraSwitchType
     {
@@ -116,7 +116,7 @@ namespace BackToTheFutureV.Utility
         }
 
         public void Stop()
-        {
+        {            
             if (CurrentCameraIndex > -1)
             {
                 CurrentCamera.Stop();
@@ -147,7 +147,7 @@ namespace BackToTheFutureV.Utility
                 }
             }
 
-            if (CurrentCameraIndex > -1 && !CurrentCamera.Camera.IsRendering())
+            if (CurrentCameraIndex > -1 && !CurrentCamera.Camera.IsActive)
                 Stop();
         }
     }

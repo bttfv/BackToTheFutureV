@@ -162,8 +162,6 @@
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PropsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\SoundsHandler.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineMods.cs" />
-    <Compile Include="Utility\CustomCamera.cs" />
-    <Compile Include="Utility\CustomCameraManager.cs" />
     <Compile Include="Utility\CustomControl.cs" />
     <Compile Include="Utility\CustomStopwatch.cs" />
     <Compile Include="Utility\PlayerSwitch.cs" />
@@ -207,6 +205,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BTTFVUtils\BTTFVUtils.csproj">
+      <Project>{f5aad1bd-63ca-4a12-97a8-f0d876ab4462}</Project>
+      <Name>BTTFVUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KlangRageAudioLibrary\KlangRageAudioLibrary.csproj">
       <Project>{e52db215-0aa9-453a-b5f3-91f3ff35c1d9}</Project>
       <Name>KlangRageAudioLibrary</Name>

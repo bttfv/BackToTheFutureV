@@ -1,16 +1,19 @@
 ﻿using System;
 using BackToTheFutureV.Utility;
+using CustomCamera;
 using GTA;
 using GTA.Math;
+using GTA.Native;
 
-namespace BackToTheFutureV.Story
+namespace BackToTheFutureV.Utility
 {
     public delegate void OnExecute(TimedEvent timedEvent);
 
     public enum CameraType
     {
         Position,        
-        Entity
+        Entity,
+        Custom
     }
 
     public class TimedEvent
@@ -22,6 +25,7 @@ namespace BackToTheFutureV.Story
         public TimeSpan EndTime { get; private set; }
         public TimeSpan Duration => EndTime - StartTime;
         public bool FirstExecution => _executionCount != 2;
+        public bool OneShot { get; private set; } = false;
 
         public float CurrentFloat { get; private set; }
         public float StartFloat = 0;
@@ -42,11 +46,12 @@ namespace BackToTheFutureV.Story
         public float FieldOfView { get; private set; }
 
         public Camera CustomCamera;
-        private CameraType _lookAtType = CameraType.Position;
-        private bool _updateCamera = false;
-        private bool _disableUpdate = false;        
+        private CameraType _lookAtType = CameraType.Position;    
         
         private int _executionCount = 0;
+
+        private CustomCameraManager _customCameraManager;
+        private int _customCameraIndex = -1;
 
         public TimedEvent(int tStep, TimeSpan tStartTime, TimeSpan tEndTime, float tTimeMultiplier)
         {
@@ -62,6 +67,24 @@ namespace BackToTheFutureV.Story
                 StartTime = tStartTime;
                 EndTime = tEndTime;
             }
+        }
+
+        public TimedEvent(int tStep, TimeSpan tStartTime, float tTimeMultiplier)
+        {
+            Step = tStep;
+
+            if (tTimeMultiplier != 1.0f)
+            {
+                StartTime = new TimeSpan(Convert.ToInt64(Convert.ToSingle(tStartTime.Ticks) * tTimeMultiplier));
+            }
+            else
+            {
+                StartTime = tStartTime;                
+            }
+
+            EndTime = TimeSpan.Zero;
+
+            OneShot = true;
         }
 
         public void ResetExecution()
@@ -85,7 +108,7 @@ namespace BackToTheFutureV.Story
             _setFloat = true;
         }
 
-        public void SetCamera(Entity tOnEntity, Vector3 tCameraOffset, CameraType cameraType, Entity tLookAtEntity, Vector3 tLookAtOffset, CameraType lookAtType, float fieldOfView = -1, bool tUpdateCamera = true)
+        public void SetCamera(Entity tOnEntity, Vector3 tCameraOffset, CameraType cameraType, Entity tLookAtEntity, Vector3 tLookAtOffset, CameraType lookAtType, float fieldOfView = -1)
         {
             _lookAtType = lookAtType;
             LookAtEntity = tLookAtEntity;
@@ -95,12 +118,11 @@ namespace BackToTheFutureV.Story
             CameraOnEntity = tOnEntity;
             CameraPosition = tCameraOffset;
 
-            _updateCamera = tUpdateCamera;
             FieldOfView = fieldOfView;
             IsSettingCamera = true;
         }
 
-        public void SetCamera(Vector3 tCameraPosition, Vector3 tLookAtPosition, float fieldOfView = -1, bool tUpdateCamera = true)
+        public void SetCamera(Vector3 tCameraPosition, Vector3 tLookAtPosition, float fieldOfView = -1)
         {
             _lookAtType = CameraType.Position;
             LookAtEntity = null;
@@ -110,8 +132,17 @@ namespace BackToTheFutureV.Story
             CameraOnEntity = null;
             CameraPosition = tCameraPosition;
 
-            _updateCamera = tUpdateCamera;
             FieldOfView = fieldOfView;
+            IsSettingCamera = true;
+        }
+
+        public void SetCamera(CustomCameraManager customCameraManager, int customCameraIndex)
+        {
+            _lookAtType = CameraType.Custom;
+            _cameraType = CameraType.Custom;
+
+            _customCameraManager = customCameraManager;
+            _customCameraIndex = customCameraIndex;
             IsSettingCamera = true;
         }
 
@@ -132,16 +163,16 @@ namespace BackToTheFutureV.Story
                 case CameraType.Entity:
                     if (CustomCamera == null)
                         CustomCamera = World.CreateCamera(CameraOnEntity.GetOffsetPosition(CameraPosition), Vector3.Zero, FieldOfView == -1 ? GameplayCamera.FieldOfView : FieldOfView);
-                    else
-                        CustomCamera.Position = CameraOnEntity.GetOffsetPosition(CameraPosition);                    
+                    
+                    CustomCamera.AttachTo(CameraOnEntity, CameraPosition);
                     break;
                 case CameraType.Position:
                     if (CustomCamera == null)
                         CustomCamera = World.CreateCamera(CameraPosition, Vector3.Zero, FieldOfView == -1 ? GameplayCamera.FieldOfView : FieldOfView);
                     else
                         CustomCamera.Position = CameraPosition;
-                    break;
-            }
+                    break;                    
+            }            
 
             switch (_lookAtType)
             {
@@ -153,15 +184,18 @@ namespace BackToTheFutureV.Story
                     break;
             }
 
-            World.RenderingCamera = CustomCamera;
+            if (_cameraType == CameraType.Custom && _lookAtType == CameraType.Custom)
+                _customCameraManager.Show(_customCameraIndex);
+            else
+                World.RenderingCamera = CustomCamera;
 
-            if (!_updateCamera)
-                _disableUpdate = true;
+            //Disable fake shake of the cars.
+            Function.Call((Hash)0x84FD40F56075E816, 0);
         }
 
         public bool Run(TimeSpan tCurrentTime, bool tManageCamera = false)
-        {            
-            bool ret = StartTime.TotalMilliseconds <= tCurrentTime.TotalMilliseconds && tCurrentTime.TotalMilliseconds <= EndTime.TotalMilliseconds;
+        {
+            bool ret = StartTime.TotalMilliseconds <= tCurrentTime.TotalMilliseconds && ((OneShot && _executionCount == 0) || tCurrentTime.TotalMilliseconds <= EndTime.TotalMilliseconds);
 
             if (ret) {
                 if (_executionCount < 2)
@@ -173,7 +207,7 @@ namespace BackToTheFutureV.Story
                 if (_setFloat)
                     CalculateCurrentFloat();
 
-                if (tManageCamera && IsSettingCamera && !_disableUpdate)
+                if (tManageCamera && IsSettingCamera && FirstExecution)
                     PlaceCamera();
 
                 OnExecute?.Invoke(this);
@@ -181,6 +215,5 @@ namespace BackToTheFutureV.Story
 
             return ret;
         }
-
     }
 }

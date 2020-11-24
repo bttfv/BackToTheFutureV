@@ -76,7 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _isReentryOn = true;
 
             if (customTrain == null || !customTrain.Exists)
-                Start();
+                Start(true);
 
             switch (Properties.TimeTravelType)
             {
@@ -88,14 +88,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     customTrain.SpeedMPH = 88;
                     break;                
                 case TimeTravelType.RC:
-                    Start();
+                    Start(true);
                     break;
             }            
         }
 
-        public void Start()
+        public void Start(bool force = false)
         {
-            if (!Vehicle.IsOnAllWheels)
+            if (!force && !Vehicle.IsOnAllWheels)
                 return;
 
             _speed = Vehicle.Speed;
@@ -115,6 +115,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return;
                 }
             }
+
+            GTA.UI.Screen.ShowSubtitle("1");
 
             customTrain.IsAccelerationOn = true;
             customTrain.IsAutomaticBrakeOn = true;
@@ -244,7 +246,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Utils.GetWheelsPositions(Vehicle).TrueForAll(x => Utils.IsWheelOnTracks(x, Vehicle)))
                 {
                     customTrain?.DeleteTrain();
-                    Start();
+                    Start(TimeMachine.Properties.TimeTravelPhase == TimeTravelPhase.Reentering);
                 }                    
             }
         }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GTA;
 
-namespace BackToTheFutureV.Story
+namespace BackToTheFutureV.Utility
 {
     public class TimedEventManager
     {
@@ -16,7 +16,7 @@ namespace BackToTheFutureV.Story
 
         public bool ManageCamera = false;
         public bool IsCustomCameraActive { get; private set; }
-
+        public bool Pause { get; set; }
         public int IndexOf(TimedEvent timedEvent) => _timedEvents.IndexOf(timedEvent);
 
         public TimeSpan CurrentTime { get; set; } = TimeSpan.Zero;
@@ -30,9 +30,27 @@ namespace BackToTheFutureV.Story
             return _timedEvents.Last();
         }
 
+        public TimedEvent Add(int startMinute, int startSecond, int startMillisecond, float tTimeMultiplier = 1.0f)
+        {
+            _timedEvents.Add(new TimedEvent(_newStep, new TimeSpan(0, 0, startMinute, startSecond, startMillisecond), tTimeMultiplier));
+
+            _newStep += 1;
+
+            return _timedEvents.Last();
+        }
+
         public TimedEvent Add(TimeSpan startTime, TimeSpan endTime, float tTimeMultiplier = 1.0f)
         {
             _timedEvents.Add(new TimedEvent(_newStep, startTime, endTime, tTimeMultiplier));
+
+            _newStep += 1;
+
+            return _timedEvents.Last();
+        }
+
+        public TimedEvent Add(TimeSpan startTime, float tTimeMultiplier = 1.0f)
+        {
+            _timedEvents.Add(new TimedEvent(_newStep, startTime, tTimeMultiplier));
 
             _newStep += 1;
 
@@ -53,28 +71,34 @@ namespace BackToTheFutureV.Story
 
         public void RunEvents()
         {
+            if (Pause)
+                return;
+
             CurrentTime = CurrentTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime));
             RunEvents(CurrentTime);
+        }
+
+        public void RunEvents(uint tCurrentTime)
+        {
+            RunEvents(TimeSpan.FromMilliseconds(tCurrentTime));
         }
        
         public void RunEvents(TimeSpan tCurrentTime)
         {
+            if (Pause)
+                return;
+
             List<TimedEvent> runningEvents = _timedEvents.Where(x => x.Run(tCurrentTime, ManageCamera)).ToList();
 
             if (runningEvents.Count > 0)
             {
                 if (runningEvents.Where(x => x.IsSettingCamera).Count() == 0)
-                {
                     ResetCamera();
-                }
                 else if (!IsCustomCameraActive)
                     IsCustomCameraActive = true;                    
             }
             else
-            {
                 ResetCamera();
-            }
-
         }
 
         public void ResetExecution()

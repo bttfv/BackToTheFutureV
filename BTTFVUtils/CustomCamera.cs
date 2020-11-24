@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using GTA;
 using GTA.Math;
 
-namespace BackToTheFutureV.Utility
+namespace CustomCamera
 {
     public class CustomCamera
     {

@@ -122,6 +122,9 @@ namespace BackToTheFutureV
 
             if (_firstTick)
             {
+                //Disable fake shake of the cars.
+                Function.Call((Hash)0x84FD40F56075E816, 0);
+
                 ModelHandler.RequestModels();
 
                 if (ModSettings.PersistenceSystem)
