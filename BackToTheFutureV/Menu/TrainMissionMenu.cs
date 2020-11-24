@@ -17,9 +17,9 @@ namespace BackToTheFutureV.Menu
     {
         private NativeCheckboxItem MissionToggle;
         private NativeSliderItem Speed;
-        private NativeCheckboxItem PlayMusic;
-        private NativeSliderItem MusicVolume;
-        private NativeCheckboxItem OnlyMusic;
+        private NativeCheckboxItem Mute;
+        private NativeSliderItem Volume;
+        private NativeCheckboxItem MusicOnly;
 
         public TrainMissionMenu() : base("", "Train Mission")
         {
@@ -30,40 +30,42 @@ namespace BackToTheFutureV.Menu
 
             Add(MissionToggle = new NativeCheckboxItem("Mission toggle"));
             Add(Speed = new NativeSliderItem("Speed"));
-            Speed.ValueChanged += Speed_ValueChanged;
-            Add(PlayMusic = new NativeCheckboxItem("Play soundtrack"));
-            Add(MusicVolume = new NativeSliderItem("Volume"));
-            Add(OnlyMusic = new NativeCheckboxItem("Only music", true));
-            MusicVolume.ValueChanged += MusicVolume_ValueChanged;
+            Speed.ValueChanged += Speed_ValueChanged;            
+            Add(Volume = new NativeSliderItem("Volume"));
+            Add(Mute = new NativeCheckboxItem("Mute"));
+            Add(MusicOnly = new NativeCheckboxItem("Music only", false));
+            Volume.ValueChanged += MusicVolume_ValueChanged;
         }
 
         private void MusicVolume_ValueChanged(object sender, EventArgs e)
         {
-            MissionHandler.TrainMission.MissionMusic.Volume = MusicVolume.Value / 100.0f;
-            MusicVolume.Title = "Music volume: " + MusicVolume.Value.ToString();            
+            MissionHandler.TrainMission.MissionMusic.Volume = Volume.Value / 100.0f;
+            Volume.Title = "Music volume: " + Volume.Value.ToString();            
         }
 
         private void TrainMissionMenu_Shown(object sender, EventArgs e)
         {
             if (MissionHandler.TrainMission.MissionMusic == null)
             {
-                if (OnlyMusic.Checked)
+                if (MusicOnly.Checked)
                     MissionHandler.TrainMission.MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
                 else
                     MissionHandler.TrainMission.MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/musicWithVoices.wav", Presets.No3D);
+
+                MissionHandler.TrainMission.MissionMusic.Volume = 0.7f;
             }
 
             MissionToggle.Checked = MissionHandler.TrainMission.IsPlaying;
-            PlayMusic.Checked = MissionHandler.TrainMission.PlayMusic;
+            Mute.Checked = MissionHandler.TrainMission.Mute;
             Speed.Value = (int)(MissionHandler.TrainMission.TimeMultiplier * 100);
-            MusicVolume.Value = (int)(MissionHandler.TrainMission.MissionMusic.Volume * 100);            
+            Volume.Value = (int)(MissionHandler.TrainMission.MissionMusic.Volume * 100);
         }
 
         public override void Tick()
         {            
             Speed.Enabled = !MissionToggle.Checked;
-            PlayMusic.Enabled = !MissionHandler.TrainMission.IsPlaying || MissionHandler.TrainMission.MissionMusic.IsAnyInstancePlaying;
-            OnlyMusic.Enabled = !MissionHandler.TrainMission.IsPlaying;
+            MusicOnly.Enabled = !MissionHandler.TrainMission.IsPlaying;
+            Volume.Enabled = !Mute.Checked;
         }
 
         private void Speed_ValueChanged(object sender, EventArgs e)
@@ -85,15 +87,27 @@ namespace BackToTheFutureV.Menu
                     MissionHandler.TrainMission.End();
             }
 
-            if (sender == PlayMusic)
+            if (sender == Mute)
             {
-                MissionHandler.TrainMission.PlayMusic = Checked;
+                MissionHandler.TrainMission.Mute = Checked;
 
-                if (MissionHandler.TrainMission.IsPlaying && !Checked)
-                    MissionHandler.TrainMission.MissionMusic.Stop();
+                if (MissionHandler.TrainMission.IsPlaying)
+                {
+                    if (Checked)
+                    {
+                        MissionHandler.TrainMission.OriginalVolume = MissionHandler.TrainMission.MissionMusic.Volume;
+                        MissionHandler.TrainMission.MissionMusic.Volume = 0;
+                    } 
+                    else
+                    {
+                        MissionHandler.TrainMission.MissionMusic.Volume = MissionHandler.TrainMission.OriginalVolume;                        
+                    }
+
+                    Volume.Value = (int)(MissionHandler.TrainMission.MissionMusic.Volume * 100);
+                }                    
             }
 
-            if (sender == OnlyMusic)
+            if (sender == MusicOnly)
             {
                 MissionHandler.TrainMission.MissionMusic.Dispose();
 
