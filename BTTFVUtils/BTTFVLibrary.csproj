@@ -7,8 +7,8 @@
     <ProjectGuid>{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BTTFVUtils</RootNamespace>
-    <AssemblyName>BTTFVUtils</AssemblyName>
+    <RootNamespace>BTTFVLibrary</RootNamespace>
+    <AssemblyName>BTTFVLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -55,6 +55,7 @@
     <Compile Include="Extensions\EntityExtensions.cs" />
     <Compile Include="Extensions\OtherExtensions.cs" />
     <Compile Include="GUI\InstrumentalMenu.cs" />
+    <Compile Include="Prop\PTFX.cs" />
     <Compile Include="GUI\RenderTarget.cs" />
     <Compile Include="GUI\ScaleformGui.cs" />
     <Compile Include="Memory\CEntityCustomization.cs" />
@@ -90,6 +91,9 @@
     <Compile Include="GUI\ScreenFlash.cs" />
     <Compile Include="Event\TimedEvent.cs" />
     <Compile Include="Event\TimedEventHandler.cs" />
+    <Compile Include="Prop\Light.cs" />
+    <Compile Include="Prop\LightHandler.cs" />
+    <Compile Include="Prop\SpawnLocation.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Replica\MomentReplica.cs" />
     <Compile Include="Replica\PedReplica.cs" />

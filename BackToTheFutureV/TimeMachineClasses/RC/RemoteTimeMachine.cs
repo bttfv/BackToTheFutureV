@@ -1,10 +1,10 @@
 ﻿using System;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
-using BTTFVUtils;
+using BTTFVLibrary;
 using GTA;
 using KlangRageAudioLibrary;
-using static BTTFVUtils.Enums;
+using static BTTFVLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.RC
 {    

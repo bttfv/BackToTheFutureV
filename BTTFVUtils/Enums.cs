@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BTTFVUtils
+namespace BTTFVLibrary
 {
     public class Enums
     {
@@ -88,6 +88,60 @@ namespace BTTFVUtils
             FrontToBack,
             FrontOnRail,
             FrontToBackRightSide
+        }
+
+        public enum SmokeColor
+        {
+            Off,
+            Default,
+            Green,
+            Yellow,
+            Red
+        }
+
+        public enum TrainCamera
+        {
+            Off = -1,
+            TowardsRail,
+            Pilot,
+            Front,
+            RightFunnel,
+            RightWheels,
+            RightFrontWheels,
+            RightFront2Wheels,
+            RightSide,
+            TopCabin,
+            LeftSide,
+            LeftFunnel,
+            LeftWheels,
+            LeftFrontWheels,
+            LeftFront2Wheels,
+            Inside,
+            WheelieUp,
+            WheelieDown
+        }
+
+        public struct CoordinateSetting
+        {
+            public bool Update;
+            public bool isIncreasing;
+            public float Minimum;
+            public float Maximum;
+            public float MaxMinRatio;
+            public float Step;
+            public float StepRatio;
+            public bool isFullCircle;
+            public bool Stop;
+        }
+
+        public enum AnimationStep
+        {
+            Off,
+            First,
+            Second,
+            Third,
+            Fourth,
+            Fifth
         }
     }
 }

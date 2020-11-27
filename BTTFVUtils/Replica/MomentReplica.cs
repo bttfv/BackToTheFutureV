@@ -1,11 +1,11 @@
-﻿using BTTFVUtils.Memory;
+﻿using BTTFVLibrary.Memory;
 using GTA;
 using GTA.Native;
 using System;
 using System.Collections.Generic;
-using static BTTFVUtils.Enums;
+using static BTTFVLibrary.Enums;
 
-namespace BTTFVUtils
+namespace BTTFVLibrary
 {
     public class MomentReplica
     {

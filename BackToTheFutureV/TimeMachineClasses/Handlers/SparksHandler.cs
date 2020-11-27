@@ -7,9 +7,9 @@ using AudioFlags = KlangRageAudioLibrary.AudioFlags;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BTTFVUtils;
-using static BTTFVUtils.Enums;
-using BTTFVUtils.Extensions;
+using BTTFVLibrary;
+using static BTTFVLibrary.Enums;
+using BTTFVLibrary.Extensions;
 using GTA.Math;
 using System.Collections.Generic;
 

@@ -1,4 +1,4 @@
-﻿using BTTFVUtils.Extensions;
+﻿using BTTFVLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using static BTTFVUtils.Enums;
+using static BTTFVLibrary.Enums;
 
-namespace BTTFVUtils
+namespace BTTFVLibrary
 {
     public static class Utils
     {
@@ -45,6 +45,18 @@ namespace BTTFVUtils
 
                 randomTrains = value;
             }
+        }
+
+        public static Model LoadAndRequestModel(string modelName)
+        {
+            Model ret = new Model(modelName);
+
+            ret.Request();
+
+            while (ret.IsLoaded == false)
+                Script.Yield();
+
+            return ret;
         }
 
         public static void ClearWorld()
@@ -168,6 +180,11 @@ namespace BTTFVUtils
             "wheel_rr",
             "wheel_rf"
         };
+
+        public static Vehicle CreateMissionTrain(int var, Vector3 pos, bool direction)
+        {
+            return Function.Call<Vehicle>(Hash.CREATE_MISSION_TRAIN, var, pos.X, pos.Y, pos.Z, direction);
+        }
 
         public static void LiftUpWheel(Vehicle vehicle, WheelId id, float height)
         {

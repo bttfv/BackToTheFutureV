@@ -1,4 +1,4 @@
-﻿namespace BTTFVUtils.Memory
+﻿namespace BTTFVLibrary.Memory
 {
     using System.Runtime.InteropServices;
 

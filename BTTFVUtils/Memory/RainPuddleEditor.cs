@@ -1,4 +1,4 @@
-﻿namespace BTTFVUtils.Memory
+﻿namespace BTTFVLibrary.Memory
 {
     // Credits to Dot. for this!!
     internal static unsafe class RainPuddleEditor

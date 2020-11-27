@@ -1,11 +1,10 @@
-﻿
-using BackToTheFutureV.GUI;
+﻿using BackToTheFutureV.GUI;
 using BackToTheFutureV.Players;
 using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
-using BTTFVUtils;
-using BTTFVUtils.Extensions;
+using BTTFVLibrary;
+using BTTFVLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -13,7 +12,7 @@ using GTA.UI;
 using RogersSierraRailway;
 using System;
 using System.Collections.Generic;
-using static BTTFVUtils.Enums;
+using static BTTFVLibrary.Enums;
 
 namespace BackToTheFutureV.Utility
 {

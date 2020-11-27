@@ -8,12 +8,12 @@ using BackToTheFutureV.GUI;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Vehicles;
-using BTTFVUtils;
+using BTTFVLibrary;
 using GTA;
 using GTA.Math;
 using LemonUI.Elements;
 using LemonUI.Menus;
-using static BTTFVUtils.Enums;
+using static BTTFVLibrary.Enums;
 
 namespace BackToTheFutureV.Menu
 {

@@ -1,4 +1,4 @@
-﻿namespace BTTFVUtils.Memory
+﻿namespace BTTFVLibrary.Memory
 {
     using GTA.Math;
     using System.Runtime.InteropServices;

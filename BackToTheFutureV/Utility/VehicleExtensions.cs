@@ -1,12 +1,12 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Vehicles;
-using BTTFVUtils;
-using BTTFVUtils.Extensions;
+using BTTFVLibrary;
+using BTTFVLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using static BTTFVUtils.Enums;
+using static BTTFVLibrary.Enums;
 
 namespace BackToTheFutureV.Utility
 {

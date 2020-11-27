@@ -6,8 +6,8 @@ using System.Linq;
 using System.Windows.Forms;
 using BackToTheFutureV.Settings;
 using KlangRageAudioLibrary;
-using BTTFVUtils;
-using BTTFVUtils.Extensions;
+using BTTFVLibrary;
+using BTTFVLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 { 

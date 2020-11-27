@@ -1,7 +1,7 @@
 ﻿using BackToTheFutureV.Story;
 using BackToTheFutureV.Utility;
-using BTTFVUtils;
-using BTTFVUtils.Extensions;
+using BTTFVLibrary;
+using BTTFVLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;

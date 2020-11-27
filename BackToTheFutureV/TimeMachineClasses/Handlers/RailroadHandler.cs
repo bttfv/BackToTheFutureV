@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using BackToTheFutureV.Story;
 using BackToTheFutureV.Vehicles;
-using BTTFVUtils;
-using static BTTFVUtils.Enums;
-using BTTFVUtils.Extensions;
+using BTTFVLibrary;
+using static BTTFVLibrary.Enums;
+using BTTFVLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

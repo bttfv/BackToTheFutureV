@@ -1,6 +1,6 @@
 ﻿using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
-using BTTFVUtils;
+using BTTFVLibrary;
 using GTA;
 using GTA.Math;
 using GTA.UI;
@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
-using static BTTFVUtils.Enums;
+using static BTTFVLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {

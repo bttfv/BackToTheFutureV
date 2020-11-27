@@ -9,7 +9,7 @@ using LemonUI;
 using LemonUI.Elements;
 using LemonUI.Menus;
 
-namespace BTTFVUtils
+namespace BTTFVLibrary
 {
     public delegate void OnItemSelected(NativeItem sender, SelectedEventArgs e);
     public delegate void OnItemActivated(NativeItem sender, EventArgs e);

@@ -1,12 +1,12 @@
-﻿using BTTFVUtils.Memory;
+﻿using BTTFVLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
 using System;
 using System.Collections.Generic;
-using static BTTFVUtils.Enums;
+using static BTTFVLibrary.Enums;
 
-namespace BTTFVUtils.Extensions
+namespace BTTFVLibrary.Extensions
 {
     public static class EntityExtensions
     {

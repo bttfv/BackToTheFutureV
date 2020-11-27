@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Control = GTA.Control;
 
-namespace BTTFVUtils
+namespace BTTFVLibrary
 {
     public class ControlInfo
     {

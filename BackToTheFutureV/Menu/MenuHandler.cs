@@ -1,7 +1,7 @@
 ﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
-using BTTFVUtils;
+using BTTFVLibrary;
 using GTA;
 using GTA.Native;
 using System;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BTTFVUtils.Enums;
+using static BTTFVLibrary.Enums;
 using Control = GTA.Control;
 
 namespace BackToTheFutureV.Menu

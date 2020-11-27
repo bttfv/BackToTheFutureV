@@ -6,10 +6,10 @@ using BackToTheFutureV.Utility;
 using KlangRageAudioLibrary;
 using GTA.Native;
 using BackToTheFutureV.Vehicles;
-using BTTFVUtils;
-using BTTFVUtils.Memory;
-using static BTTFVUtils.Enums;
-using BTTFVUtils.Extensions;
+using BTTFVLibrary;
+using BTTFVLibrary.Memory;
+using static BTTFVLibrary.Enums;
+using BTTFVLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

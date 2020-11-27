@@ -1,9 +1,9 @@
-﻿using BTTFVUtils.Extensions;
-using BTTFVUtils.Memory;
+﻿using BTTFVLibrary.Extensions;
+using BTTFVLibrary.Memory;
 using GTA;
 using GTA.Math;
 
-namespace BTTFVUtils
+namespace BTTFVLibrary
 {
     public unsafe class VehicleBone
     {

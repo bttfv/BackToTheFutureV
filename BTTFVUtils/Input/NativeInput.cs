@@ -1,7 +1,7 @@
 ﻿using GTA;
 using System.Collections.Generic;
 
-namespace BTTFVUtils
+namespace BTTFVLibrary
 {
     public delegate void OnControlJustPressed();
     public delegate void OnControlJustReleased();

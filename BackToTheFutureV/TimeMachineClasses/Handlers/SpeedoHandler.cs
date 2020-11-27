@@ -8,9 +8,9 @@ using BackToTheFutureV.Utility;
 using Screen = GTA.UI.Screen;
 using BackToTheFutureV.Settings;
 using KlangRageAudioLibrary;
-using BTTFVUtils;
-using static BTTFVUtils.Enums;
-using BTTFVUtils.Extensions;
+using BTTFVLibrary;
+using static BTTFVLibrary.Enums;
+using BTTFVLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

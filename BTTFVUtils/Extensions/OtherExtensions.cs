@@ -1,7 +1,7 @@
 ﻿using GTA;
 using GTA.Math;
 
-namespace BTTFVUtils.Extensions
+namespace BTTFVLibrary.Extensions
 {
     public static class OtherExtensions
     {

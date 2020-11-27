@@ -2,7 +2,7 @@
 using GTA.Math;
 using GTA.Native;
 
-namespace BTTFVUtils
+namespace BTTFVLibrary
 {
     public delegate void OnRenderTargetDraw();
 

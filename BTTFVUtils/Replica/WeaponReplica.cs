@@ -1,7 +1,7 @@
 ﻿using GTA;
 using System;
 
-namespace BTTFVUtils
+namespace BTTFVLibrary
 {
     [Serializable]
     public class WeaponReplica

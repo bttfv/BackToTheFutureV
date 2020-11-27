@@ -1,8 +1,8 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
-using BTTFVUtils;
-using BTTFVUtils.Extensions;
-using BTTFVUtils.Memory;
+using BTTFVLibrary;
+using BTTFVLibrary.Extensions;
+using BTTFVLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
