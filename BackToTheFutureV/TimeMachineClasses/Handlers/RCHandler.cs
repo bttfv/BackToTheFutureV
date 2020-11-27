@@ -7,6 +7,7 @@ using BackToTheFutureV.Utility;
 using KlangRageAudioLibrary;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.RC;
+using BTTFVUtils;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -85,7 +86,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Properties.IsRemoteControlled = true;
 
-            Clone = PlayerSwitch.CreatePedAndSwitch(out TimeMachine.OriginalPed, Main.PlayerPed.Position, Main.PlayerPed.Heading, true);
+            Clone = PlayerSwitch.CreatePedAndSwitch(out TimeMachine.OriginalPed, Utils.PlayerPed.Position, Utils.PlayerPed.Heading, true);
 
             Clone.SetIntoVehicle(Vehicle, VehicleSeat.Driver);
 
@@ -153,7 +154,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsRemoteControlled)
                 return;
 
-            if (Main.IsManualPlayerSwitchInProgress)
+            if (PlayerSwitch.IsManualInProgress)
                 return;
 
             if (TimeMachine.OriginalPed == null)
@@ -167,12 +168,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Game.IsControlJustPressed(GTA.Control.VehicleExit))
                 RCManager.StopRemoteControl();
-
-            rcHandbrake.Process();
-
+            
             //// When u go too far from clone ped, game removes collision under him and 
             ////  he falls through the ground, so if player is 50 we freeze clone
-            //var isCloneFreezed = Main.PlayerPed.Position.DistanceToSquared(OriginalPed.Position) >= 50*50;
+            //var isCloneFreezed = CommonSettings.PlayerPed.Position.DistanceToSquared(OriginalPed.Position) >= 50*50;
             //Function.Call(Hash.FREEZE_ENTITY_POSITION, OriginalPed, isCloneFreezed);
 
             var origPos = TimeMachine.OriginalPed.Position;
@@ -180,8 +179,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Function.Call(Hash.REQUEST_COLLISION_AT_COORD, origPos.X, origPos.Y, origPos.Z);
             Function.Call(Hash.REQUEST_COLLISION_AT_COORD, carPos.X, carPos.Y, carPos.Z);
 
-            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Main.PlayerPed);
-            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Main.PlayerPed);
+            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Utils.PlayerPed);
+            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Utils.PlayerPed);
             Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, TimeMachine.OriginalPed);
             Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, TimeMachine.OriginalPed);
 

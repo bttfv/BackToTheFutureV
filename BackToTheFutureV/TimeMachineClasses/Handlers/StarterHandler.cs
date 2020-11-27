@@ -5,6 +5,9 @@ using GTA;
 using BackToTheFutureV.Story;
 using System;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
+using static BTTFVUtils.Enums;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -16,7 +19,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private int _restartAt;
         private int _nextCheck;
 
-        private TimedEventManager timedEventManager;
+        private TimedEventHandler timedEventManager;
 
         private bool _lightsOn;
         private bool _highbeamsOn;
@@ -27,7 +30,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public StarterHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            timedEventManager = new TimedEventManager();
+            timedEventManager = new TimedEventHandler();
 
             int _timeStart = 0;
             int _timeEnd = _timeStart + 99;
@@ -146,7 +149,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return;
                 }
 
-                if((Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && Main.PlayerVehicle == Vehicle)
+                if((Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && Utils.PlayerVehicle == Vehicle)
                 {
                     if (timedEventManager.AllExecuted())
                         timedEventManager.ResetExecution();
@@ -155,7 +158,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     if (!_isRestarting)
                     {
-                        Main.PlayerPed.Task.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop | AnimationFlags.CancelableWithMovement);
+                        Utils.PlayerPed.Task.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop | AnimationFlags.CancelableWithMovement);
 
                         Sounds.EngineRestarter.Play();
                         _restartAt = Game.GameTime + Utils.Random.Next(3000, 10000);
@@ -197,7 +200,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Stop()
         {
-            Main.PlayerPed.Task.ClearAnimation("veh@low@front_ds@base", "start_engine");
+            Utils.PlayerPed.Task.ClearAnimation("veh@low@front_ds@base", "start_engine");
 
             Properties.IsEngineStalling = false;
             Properties.PhotoEngineStallActive = false;

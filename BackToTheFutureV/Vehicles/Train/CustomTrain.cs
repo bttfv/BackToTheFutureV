@@ -1,9 +1,11 @@
-﻿using BackToTheFutureV.Entities;
+﻿
 using BackToTheFutureV.GUI;
 using BackToTheFutureV.Players;
 using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -11,6 +13,7 @@ using GTA.UI;
 using RogersSierraRailway;
 using System;
 using System.Collections.Generic;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.Utility
 {
@@ -54,9 +57,9 @@ namespace BackToTheFutureV.Utility
         public bool IsAccelerationOn { get; set; } = false;
 
         public float CruiseSpeed { get { return _cruiseSpeed; } set { _cruiseSpeed = value; _setSpeed = false; IsAutomaticBrakeOn = false; Function.Call(Hash.SET_TRAIN_CRUISE_SPEED, Train, value); } }
-        public float CruiseSpeedMPH { get { return Utils.MsToMph(CruiseSpeed); } set { CruiseSpeed = Utils.MphToMs(value); } }
+        public float CruiseSpeedMPH { get { return CruiseSpeed.ToMPH(); } set { CruiseSpeed = value.ToMS(); } }
         public float Speed { get { return _speed; } set { _speed = value; _setSpeed = true; } }
-        public float SpeedMPH { get { return Utils.MsToMph(Speed); } set { Speed = Utils.MphToMs(value); } }
+        public float SpeedMPH { get { return Speed.ToMPH(); } set { Speed = value.ToMS(); } }
 
         public bool ToDestroy { get; private set; }
         public Vehicle TargetVehicle;
@@ -382,7 +385,7 @@ namespace BackToTheFutureV.Utility
             _checkOffset.Z = TrainManager.ClosestRogersSierra.Locomotive.GetPositionOffset(TargetVehicle.Position).Z;
             _checkOffset.Y = 5.13f - TargetVehicle.Model.Dimensions.rearBottomLeft.Y;
 
-            return Utils.EntitySpeedVector(TrainManager.ClosestRogersSierra).Y >= 0 && TargetVehicle.SameDirection(TrainManager.ClosestRogersSierra) && World.GetClosestVehicle(TrainManager.ClosestRogersSierra.Locomotive.GetOffsetPosition(_checkOffset), 0.1f) == TargetVehicle;
+            return TrainManager.ClosestRogersSierra.Locomotive.RelativeVelocity().Y >= 0 && TargetVehicle.SameDirection(TrainManager.ClosestRogersSierra) && World.GetClosestVehicle(TrainManager.ClosestRogersSierra.Locomotive.GetOffsetPosition(_checkOffset), 0.1f) == TargetVehicle;
         }
 
         public void TrySwitchToRogersSierra()

@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.Utility;
+using BTTFVUtils;
 using GTA;
 using GTA.Math;
 using System;
@@ -9,6 +10,50 @@ namespace BackToTheFutureV.Players
 {
     public class FireTrail
     {
+        // Fire trail in shape of "99" used when a time machine gets strike by lighting
+        public static readonly Vector3[] FireTrails99Offsets = new Vector3[39]
+        {
+            new Vector3(-0.755061f, 1.651605f, -0.02032154f),
+            new Vector3(-0.755047f, 1.765048f, -0.0212798f),
+            new Vector3(-0.7550347f, 1.878489f, -0.02215795f),
+            new Vector3(-0.7550243f, 1.991928f, -0.02288545f),
+            new Vector3(-0.7550176f, 2.105363f, -0.02338029f),
+            new Vector3(-0.7550131f, 2.218791f, -0.02355667f),
+            new Vector3(-0.7550124f, 2.33221f, -0.02332497f),
+            new Vector3(-0.7550139f, 2.445619f, -0.02259558f),
+            new Vector3(-0.7550696f, 2.558903f, -0.02126825f),
+            new Vector3(-0.7550794f, 2.672282f, -0.01921738f),
+            new Vector3(-0.7550399f, 2.785753f, -0.0163248f),
+            new Vector3(-0.7550461f, 2.899086f, -0.01244536f),
+            new Vector3(-0.7549998f, 3.012501f, -0.007422969f),
+            new Vector3(-0.7550375f, 3.125654f, -0.00105048f),
+            new Vector3(-0.755052f, 3.238759f, 0.006885365f),
+            new Vector3(-0.7550315f, 3.351803f, 0.01665901f),
+            new Vector3(-0.7550484f, 3.464545f, 0.02859843f),
+            new Vector3(-0.7550284f, 3.577074f, 0.04311036f),
+            new Vector3(-0.7550181f, 3.689133f, 0.06073608f),
+            new Vector3(-0.7550426f, 3.800449f, 0.08212345f),
+            new Vector3(-0.7550373f, 3.910842f, 0.1081744f),
+            new Vector3(-0.7549922f, 4.019742f, 0.1401516f),
+            new Vector3(-0.7550288f, 4.124271f, 0.183698f),
+            new Vector3(-0.7550554f, 4.21863f, 0.2460442f),
+            new Vector3(-0.7550278f, 4.289472f, 0.3337793f),
+            new Vector3(-0.755022f, 4.316851f, 0.4428475f),
+            new Vector3(-0.7550405f, 4.3048f, 0.5551998f),
+            new Vector3(-0.7550387f, 4.256822f, 0.6573231f),
+            new Vector3(-0.7550518f, 4.175659f, 0.7356399f),
+            new Vector3(-0.7550058f, 4.071905f, 0.7797211f),
+            new Vector3(-0.7550583f, 3.95907f, 0.7891212f),
+            new Vector3(-0.7550382f, 3.847078f, 0.7736835f),
+            new Vector3(-0.7550091f, 3.747692f, 0.7211241f),
+            new Vector3(-0.7550296f, 3.684013f, 0.6285456f),
+            new Vector3(-0.7550266f, 3.660522f, 0.5180218f),
+            new Vector3(-0.7550222f, 3.664883f, 0.4049845f),
+            new Vector3(-0.7550736f, 3.708662f, 0.3014302f),
+            new Vector3(-0.7550143f, 3.792399f, 0.2258026f),
+            new Vector3(-0.7550426f, 3.894026f, 0.1759465f)
+        };
+
         private List<PtfxPlayer> _fireTrailPtfxs = new List<PtfxPlayer>();
 
         private int _nextSpawn;
@@ -79,7 +124,7 @@ namespace BackToTheFutureV.Players
             else
             {
                 // Create fire particles out of pre-defines offsets
-                foreach(var offset in Constants.FireTrails99Offsets)
+                foreach(var offset in FireTrails99Offsets)
                 {
                     // Create start position on left and right wheels
                     var leftPosOffset = offset;

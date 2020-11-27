@@ -1,5 +1,7 @@
 ﻿using BackToTheFutureV.Story;
 using BackToTheFutureV.Utility;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -105,7 +107,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Step++;
                     break;
                 case 6:
-                    Driver.Task.CruiseWithVehicle(Vehicle, Utils.MphToMs(200), DrivingStyle.AvoidTrafficExtremely);
+                    Driver.Task.CruiseWithVehicle(Vehicle, MathExtensions.ToMS(200), DrivingStyle.AvoidTrafficExtremely);
                     Function.Call(Hash.SET_DRIVER_ABILITY, Driver, 1.0f);
                     Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, Driver, 1.0f);
 

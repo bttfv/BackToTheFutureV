@@ -3,13 +3,16 @@ using GTA;
 using GTA.Math;
 using System.Windows.Forms;
 using KlangRageAudioLibrary;
-using BackToTheFutureV.Entities;
+
 using GTA.Native;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO.Packaging;
+using BTTFVUtils;
+using static BTTFVUtils.Enums;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

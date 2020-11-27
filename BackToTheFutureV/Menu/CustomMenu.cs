@@ -8,10 +8,13 @@ using BackToTheFutureV.GUI;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
 using GTA;
 using GTA.Math;
 using LemonUI.Elements;
 using LemonUI.Menus;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.Menu
 {
@@ -180,16 +183,16 @@ namespace BackToTheFutureV.Menu
             if (MenuHandler.TimeMachineMenu.Visible)
                 MenuHandler.TimeMachineMenu.Close();
 
-            if (ForceNew || (Main.PlayerVehicle == null || !Main.PlayerVehicle.IsTimeMachine()))
+            if (ForceNew || (Utils.PlayerVehicle == null || !Utils.PlayerVehicle.IsTimeMachine()))
             {
                 if (ForceNew)
                     ForceNew = false;
 
                 _tempTimeMachine = TimeMachineHandler.Create(SpawnFlags.WarpPlayer);
             }
-            else if (Main.PlayerVehicle.IsTimeMachine())
+            else if (Utils.PlayerVehicle.IsTimeMachine())
             {
-                _tempTimeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
+                _tempTimeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Utils.PlayerVehicle);
                 _save = true;
 
                 if (_tempTimeMachine.Properties.FullDamaged)
@@ -251,7 +254,7 @@ namespace BackToTheFutureV.Menu
 
         public override void Tick()
         {
-            if (Main.PlayerVehicle != _tempTimeMachine)
+            if (Utils.PlayerVehicle != _tempTimeMachine)
             {
                 Close();
                 return;

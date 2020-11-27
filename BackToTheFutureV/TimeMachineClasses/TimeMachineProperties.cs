@@ -1,6 +1,7 @@
 ﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
 using GTA;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {

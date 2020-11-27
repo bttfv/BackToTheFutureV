@@ -8,6 +8,7 @@ using LemonUI.Menus;
 using BackToTheFutureV.TimeMachineClasses;
 using LemonUI.Elements;
 using System.Drawing;
+using BTTFVUtils;
 
 namespace BackToTheFutureV.Menu
 {
@@ -86,7 +87,7 @@ namespace BackToTheFutureV.Menu
                 TimeMachine.Properties.PhotoEngineStallActive = Checked;
 
             if (sender == HideHUD)
-                Main.HideGui = Checked;
+                Utils.HideGUI = Checked;
         }
 
         public override void Tick()
@@ -105,7 +106,7 @@ namespace BackToTheFutureV.Menu
             EngineStall.Checked = TimeMachine.Properties.IsEngineStalling;
             LightningStrike.Enabled = !TimeMachine.Properties.IsPhotoModeOn;
 
-            HideHUD.Checked = Main.HideGui;
+            HideHUD.Checked = Utils.HideGUI;
         }
     }
 }

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using BackToTheFutureV.Memory;
 using BackToTheFutureV.Utility;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
+using BTTFVUtils.Memory;
 using GTA;
 using GTA.Math;
 using KlangRageAudioLibrary;
@@ -413,7 +415,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
 
             // Play deceleration sound
-            if (Game.IsControlPressed(Control.VehicleBrake) && Speed > 15 && Utils.EntitySpeedVector(Vehicle).Y > 0)
+            if (Game.IsControlPressed(Control.VehicleBrake) && Speed > 15 && Vehicle.RelativeVelocity().Y > 0)
             {
                 if (!_engineDecellSound.IsAnyInstancePlaying || _engineDecellSound.Last?.PlayPosition > 1000)
                 {
@@ -566,7 +568,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void CheckReverse()
         {
-            if (Utils.EntitySpeedVector(Vehicle).Y < 0 && WheelSpeed < 0 && Game.IsControlPressed(Control.VehicleBrake))
+            if (Vehicle.RelativeVelocity().Y < 0 && WheelSpeed < 0 && Game.IsControlPressed(Control.VehicleBrake))
             {
                 IsReversing = true;
             }
@@ -590,7 +592,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private static bool IsPlayerBreaking(Vehicle vehicle, bool accountHandBrake = true)
         {
-            if (Main.PlayerVehicle != vehicle)
+            if (Utils.PlayerVehicle != vehicle)
                 return false;
 
             if (accountHandBrake)
@@ -603,7 +605,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private static bool IsPlayerRevving(Vehicle vehicle)
         {
-            if (Main.PlayerVehicle != vehicle)
+            if (Utils.PlayerVehicle != vehicle)
                 return false;
 
             return Game.IsControlPressed(Control.VehicleAccelerate) && Game.IsControlPressed(Control.VehicleHandbrake)

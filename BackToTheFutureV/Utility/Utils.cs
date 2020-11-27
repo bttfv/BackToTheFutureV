@@ -7,79 +7,18 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 //using IrrKlang;
-using BackToTheFutureV.Memory;
 using GTA.UI;
 //using NativeUI;
 using System.Drawing;
 using BackToTheFutureV.Vehicles;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
+using BTTFVUtils;
+using static BTTFVUtils.Enums;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.Utility
 {   
-    public enum LightsMode
-    {
-        Default,
-        Disabled,
-        AlwaysOn
-    }
-
-    public enum MapArea
-    {
-        County = 2072609373,
-        City = -289320599
-    }
-    public enum WheelId
-    {
-        FrontLeft = 0,
-        FrontRight = 1,
-        RearLeft = 4,
-        RearRight = 5
-    }
-
-    public enum Coordinate
-    {
-        X,
-        Y,
-        Z
-    }
-
-    public enum MissionType
-    {
-        None,
-        Escape,
-        Train
-    }
-
-    [Flags]
-    public enum SpawnFlags 
-    {
-        Default = 0,
-        WarpPlayer = 1,
-        ForcePosition = 2,
-        ResetValues = 4,
-        Broken = 8,
-        ForceReentry = 16,
-        CheckExists = 32,
-        NoOccupants = 64,
-        NoVelocity = 128,        
-    }
-
-    public enum TimeMachineCamera
-    {
-        Default = -1,
-        DestinationDate,
-        DriverSeat,
-        DigitalSpeedo,
-        AnalogSpeedo,
-        FrontPassengerWheelLookAtRear,
-        TrainApproaching,
-        RightSide,
-        FrontToBack,
-        FrontOnRail,
-        FrontToBackRightSide
-    }
-
     public class BTTFImportantDates
     {
         public readonly static List<DateTime> Dates = new List<DateTime>() { new DateTime(1985, 10, 26, 1, 21, 0), new DateTime(1885, 1, 1, 0, 0, 0), new DateTime(1955, 11, 5, 6, 15, 0), new DateTime(1985, 10, 26, 1, 24, 0), new DateTime(1985, 10, 26, 1, 24, 0), new DateTime(2015, 10, 21, 16, 29, 0), new DateTime(1955, 11, 12, 13, 40, 0), new DateTime(1985, 10, 26, 21, 0, 0), new DateTime(1955, 11, 12, 6, 0, 0), new DateTime(1885, 9, 2, 8, 0, 0), new DateTime(1985, 10, 27, 11, 0, 0) };
@@ -300,7 +239,7 @@ namespace BackToTheFutureV.Utility
             driver?.Task.WarpOutOfVehicle(vehicle);
 
             // Get the info for the original vehicle
-            VehicleInfo info = new VehicleInfo(vehicle);
+            VehicleReplica info = new VehicleReplica(vehicle);
             info.Model = newHash;
 
             // Delete original vehicle
@@ -334,7 +273,7 @@ namespace BackToTheFutureV.Utility
             return spawnedVehicle;
         }
 
-        public static Vehicle SpawnFromVehicleInfo(VehicleInfo vehicleInfo)
+        public static Vehicle SpawnFromVehicleInfo(VehicleReplica vehicleInfo)
         {
             ModelHandler.RequestModel(vehicleInfo.Model);
 
@@ -383,7 +322,7 @@ namespace BackToTheFutureV.Utility
 
         public static bool IsNight()
         {
-            return Main.CurrentTime.Hour >= 20 || (Main.CurrentTime.Hour >= 0 && Main.CurrentTime.Hour <= 5);
+            return CommonUtils.CurrentTime.Hour >= 20 || (CommonUtils.CurrentTime.Hour >= 0 && CommonUtils.CurrentTime.Hour <= 5);
         }
 
         public static Weather GetRandomWeather()
@@ -539,7 +478,7 @@ namespace BackToTheFutureV.Utility
 
         public static float CalculateVolume(Entity ent)
         {
-            var distance = Vector3.Distance(Main.PlayerPed.Position, ent.Position);
+            var distance = Vector3.Distance(CommonUtils.PlayerPed.Position, ent.Position);
 
             var volume = 25f / distance;
 
@@ -595,24 +534,6 @@ namespace BackToTheFutureV.Utility
             return radToDeg * val;
         }
 
-        public static unsafe int GetBoneIndex(Vehicle vehicle, string boneName)
-        {
-            if (vehicle == null)
-                return -1;
-
-            CVehicle* veh = (CVehicle*)vehicle.MemoryAddress;
-            crSkeletonData* skelData = veh->inst->archetype->skeleton->skeletonData;
-            uint boneCount = skelData->bonesCount;
-
-            for (uint i = 0; i < boneCount; i++)
-            {
-                if (skelData->GetBoneNameForIndex(i) == boneName)
-                    return unchecked((int)i);
-            }
-
-            return -1;
-        }
-
         public static Prop SpawnAttachedProp(Vehicle vehicle, string modelName, string bone, Vector3 rotation)
         {
             Model model = new Model(modelName);
@@ -643,72 +564,6 @@ namespace BackToTheFutureV.Utility
 
             return prop;
         }
-
-        public static unsafe Vector3 GetBoneOriginalTranslation(Vehicle vehicle, int index)
-        {
-            CVehicle* veh = (CVehicle*)vehicle.MemoryAddress;
-            NativeVector3 v = veh->inst->archetype->skeleton->skeletonData->bones[index].translation;
-            return v;
-        }
-
-        public static unsafe Quaternion GetBoneOriginalRotation(Vehicle vehicle, int index)
-        {
-            CVehicle* veh = (CVehicle*)vehicle.MemoryAddress;
-            NativeVector4 v = veh->inst->archetype->skeleton->skeletonData->bones[index].rotation;
-            return v;
-        }
-
-        // https://code.google.com/archive/p/slimmath/
-        public static bool Decompose(Matrix matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation)
-        {
-            const float ZeroTolerance = 1e-6f;
-
-            rotation = Quaternion.Identity;
-            translation = Vector3.Zero;
-            scale = Vector3.Zero;
-
-            //Source: Unknown
-            //References: http://www.gamedev.net/community/forums/topic.asp?topic_id=441695
-
-            //Get the translation.
-            translation.X = matrix.M41;
-            translation.Y = matrix.M42;
-            translation.Z = matrix.M43;
-
-            //Scaling is the length of the rows.
-            scale.X = (float)Math.Sqrt((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12) + (matrix.M13 * matrix.M13));
-            scale.Y = (float)Math.Sqrt((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22) + (matrix.M23 * matrix.M23));
-            scale.Z = (float)Math.Sqrt((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32) + (matrix.M33 * matrix.M33));
-
-            //If any of the scaling factors are zero, than the rotation matrix can not exist.
-            if (Math.Abs(scale.X) < ZeroTolerance ||
-                Math.Abs(scale.Y) < ZeroTolerance ||
-                Math.Abs(scale.Z) < ZeroTolerance)
-            {
-                rotation = Quaternion.Identity;
-                return false;
-            }
-
-            //The rotation is the left over matrix after dividing out the scaling.
-            Matrix rotationmatrix = new Matrix();
-            rotationmatrix.M11 = matrix.M11 / scale.X;
-            rotationmatrix.M12 = matrix.M12 / scale.X;
-            rotationmatrix.M13 = matrix.M13 / scale.X;
-
-            rotationmatrix.M21 = matrix.M21 / scale.Y;
-            rotationmatrix.M22 = matrix.M22 / scale.Y;
-            rotationmatrix.M23 = matrix.M23 / scale.Y;
-
-            rotationmatrix.M31 = matrix.M31 / scale.Z;
-            rotationmatrix.M32 = matrix.M32 / scale.Z;
-            rotationmatrix.M33 = matrix.M33 / scale.Z;
-
-            rotationmatrix.M44 = 1f;
-
-            rotation = Quaternion.RotationMatrix(rotationmatrix);
-            return true;
-        }
-
 
         public static bool SerializeObject<T>(T obj, string path)
         {
@@ -909,12 +764,12 @@ namespace BackToTheFutureV.Utility
         {
             var allVehicles = World.GetAllVehicles();
 
-            allVehicles.Where(x => !x.IsTimeMachine() && Main.PlayerVehicle != x && x.Model != ModelHandler.DMCDebugModel).ToList()
+            allVehicles.Where(x => !x.IsTimeMachine() && CommonUtils.PlayerVehicle != x && x.Model != ModelHandler.DMCDebugModel).ToList()
                 .ForEach(x => x.Delete());
 
             var allPeds = World.GetAllPeds();
 
-            allPeds.Where(x => x != Main.PlayerPed && !Main.PlayerVehicle.Passengers.Contains(x)).ToList()
+            allPeds.Where(x => x != CommonUtils.PlayerPed && !CommonUtils.PlayerVehicle.Passengers.Contains(x)).ToList()
                 .ForEach(x => x.Delete());
 
             Function.Call(Hash.DELETE_ALL_TRAINS);

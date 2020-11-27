@@ -1,6 +1,6 @@
-﻿using BackToTheFutureV.Entities;
-using BackToTheFutureV.TimeMachineClasses;
+﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
+using BTTFVUtils;
 using GTA;
 using GTA.Math;
 using System;

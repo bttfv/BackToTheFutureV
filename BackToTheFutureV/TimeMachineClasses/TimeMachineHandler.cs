@@ -2,6 +2,8 @@
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
 using GTA;
 using GTA.Math;
 using System;
@@ -10,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
@@ -122,7 +125,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             foreach (var veh in TimeMachines.ToList())
             {
-                if (noCurrent && veh.Vehicle == Main.PlayerVehicle)
+                if (noCurrent && veh.Vehicle == Utils.PlayerVehicle)
                     continue;
 
                 RemoveTimeMachine(veh);
@@ -152,7 +155,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                     return GetTimeMachineFromVehicle(vehicle);
             }
 
-            Ped ped = Main.PlayerPed;
+            Ped ped = Utils.PlayerPed;
 
             if (RCManager.IsRemoteOn)
                 ped = RCManager.RemoteControlling.OriginalPed;
@@ -161,7 +164,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             Vector3 spawnPos;
             TimeMachine timeMachine = null;
 
-            if (Main.PlayerVehicle != null && !RCManager.IsRemoteOn)
+            if (Utils.PlayerVehicle != null && !RCManager.IsRemoteOn)
                 spawnPos = ped.Position.Around(5f);
             else
                 spawnPos = ped.Position;
@@ -211,7 +214,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (RCManager.IsRemoteOn)
                     RCManager.StopRemoteControl(true);
 
-                Main.PlayerPed.SetIntoVehicle(timeMachine, VehicleSeat.Driver);
+                Utils.PlayerPed.SetIntoVehicle(timeMachine, VehicleSeat.Driver);
             }
                 
             if (spawnFlags.HasFlag(SpawnFlags.Broken))
@@ -221,7 +224,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             {
                 timeMachine.Vehicle.SetVisible(false);
 
-                timeMachine.Properties.DestinationTime = Main.CurrentTime;
+                timeMachine.Properties.DestinationTime = Utils.CurrentTime;
 
                 timeMachine.Properties.AreTimeCircuitsOn = true;
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);
@@ -321,14 +324,14 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             TimeMachinesNoStory.ForEach(x =>
             {
-                if (x.LastDisplacementClone.Properties.DestinationTime > time && Main.PlayerVehicle != x.Vehicle)
+                if (x.LastDisplacementClone.Properties.DestinationTime > time && Utils.PlayerVehicle != x.Vehicle)
                     RemoveTimeMachine(x);
             });
         }
 
         public static void UpdateClosestTimeMachine()
         {
-            if (Main.PlayerVehicle != null && CurrentTimeMachine != null && CurrentTimeMachine.Vehicle == Main.PlayerVehicle)
+            if (Utils.PlayerVehicle != null && CurrentTimeMachine != null && CurrentTimeMachine.Vehicle == Utils.PlayerVehicle)
             {
                 if (ClosestTimeMachine != CurrentTimeMachine)
                 {
@@ -355,7 +358,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                             
             foreach (var timeMachine in TimeMachines)
             {                
-                float dist = timeMachine.Vehicle.Position.DistanceToSquared(Main.PlayerPed.Position);
+                float dist = timeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position);
 
                 if (ClosestTimeMachine == timeMachine)
                     SquareDistToClosestTimeMachine = dist;
@@ -381,7 +384,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 return;
             }
                 
-            if (ClosestTimeMachine != null && Main.PlayerVehicle == ClosestTimeMachine.Vehicle)
+            if (ClosestTimeMachine != null && Utils.PlayerVehicle == ClosestTimeMachine.Vehicle)
             {
                 CurrentTimeMachine = ClosestTimeMachine;
 

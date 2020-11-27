@@ -1,6 +1,7 @@
 ﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
+using BTTFVUtils;
 using GTA;
 using GTA.Native;
 using System;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BTTFVUtils.Enums;
 using Control = GTA.Control;
 
 namespace BackToTheFutureV.Menu
@@ -42,15 +44,15 @@ namespace BackToTheFutureV.Menu
                             return;
                     }
 
-                    if (Main.PlayerPed.IsGoingIntoCover)
-                        Main.PlayerPed.Task.StandStill(1);
+                    if (Utils.PlayerPed.IsGoingIntoCover)
+                        Utils.PlayerPed.Task.StandStill(1);
 
                     if (RCManager.IsRemoteOn)
                     {
                         TimeMachineMenu.Open();
                         return;
                     }
-                    else if (Main.ObjectPool.AreAnyVisible)
+                    else if (CustomNativeMenu.ObjectPool.AreAnyVisible)
                         return;
 
                     if (TimeMachineHandler.CurrentTimeMachine != null)
@@ -59,8 +61,6 @@ namespace BackToTheFutureV.Menu
                         MainMenu.Open();
                 }
             }
-
-            CustomNativeMenu.ProcessAll();
         }
 
         public static void KeyDown(KeyEventArgs e)
@@ -74,7 +74,7 @@ namespace BackToTheFutureV.Menu
                     if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                         return;
 
-                Main.ObjectPool.HideAll();
+                CustomNativeMenu.ObjectPool.HideAll();
 
                 MainMenu.Open();
             }

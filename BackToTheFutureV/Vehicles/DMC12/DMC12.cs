@@ -1,7 +1,8 @@
-﻿using BackToTheFutureV.Entities;
-using BackToTheFutureV.Memory;
-using BackToTheFutureV.TimeMachineClasses;
+﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
+using BTTFVUtils.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -111,7 +112,7 @@ namespace BackToTheFutureV.Vehicles
                 return;
             }
 
-            if (Main.PlayerVehicle == Vehicle)
+            if (Utils.PlayerVehicle == Vehicle)
                 Function.Call(Hash.DISABLE_CONTROL_ACTION, 31, 337, true);
 
             if (!Vehicle.IsTimeMachine())

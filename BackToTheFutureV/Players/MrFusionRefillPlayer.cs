@@ -1,9 +1,9 @@
-﻿using BackToTheFutureV.Entities;
-using GTA;
+﻿using GTA;
 using GTA.Math;
 using BackToTheFutureV.Utility;
 using KlangRageAudioLibrary;
 using BackToTheFutureV.TimeMachineClasses;
+using BTTFVUtils;
 
 namespace BackToTheFutureV.Players
 {

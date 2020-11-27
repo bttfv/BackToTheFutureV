@@ -1,7 +1,8 @@
-﻿using BackToTheFutureV.Memory;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
 using GTA;
 using GTA.Math;
 using System;
@@ -13,6 +14,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
@@ -70,13 +72,13 @@ namespace BackToTheFutureV.TimeMachineClasses
     {
         public BaseMods Mods { get; }
         public BaseProperties Properties { get; }
-        public VehicleInfo Vehicle { get; }
+        public VehicleReplica Vehicle { get; }
 
         public TimeMachineClone(TimeMachine timeMachine)
         {
             Mods = timeMachine.Mods.Clone();
             Properties = timeMachine.Properties.Clone();
-            Vehicle = new VehicleInfo(timeMachine.Vehicle);
+            Vehicle = new VehicleReplica(timeMachine.Vehicle);
 
             if (Properties.TimeTravelDestPos != Vector3.Zero) 
             {

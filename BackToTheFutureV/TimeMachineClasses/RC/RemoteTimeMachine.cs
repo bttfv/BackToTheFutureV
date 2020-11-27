@@ -1,8 +1,10 @@
 ﻿using System;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
+using BTTFVUtils;
 using GTA;
 using KlangRageAudioLibrary;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.RC
 {    
@@ -48,7 +50,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             {
                 if(TimeMachineClone.Properties.IsRemoteControlled && !_hasPlayedWarningSound)
                 {
-                    _warningSound.SourceEntity = Main.PlayerPed;
+                    _warningSound.SourceEntity = Utils.PlayerPed;
                     _warningSound.Play();
                     _hasPlayedWarningSound = true;
                 }
@@ -86,7 +88,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
                     TimeMachine.Events.OnVehicleSpawned?.Invoke();
                     break;
                 case ReenterType.Forced:
-                    TimeMachineClone.Properties.DestinationTime = Main.CurrentTime;
+                    TimeMachineClone.Properties.DestinationTime = Utils.CurrentTime;
                     break;
             }
         }

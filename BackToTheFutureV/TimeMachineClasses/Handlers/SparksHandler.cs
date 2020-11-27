@@ -7,11 +7,16 @@ using AudioFlags = KlangRageAudioLibrary.AudioFlags;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using BTTFVUtils;
+using static BTTFVUtils.Enums;
+using BTTFVUtils.Extensions;
+using GTA.Math;
+using System.Collections.Generic;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class SparksHandler : Handler
-    {
+    {        
         private int _startStabilizedSoundAt;
         
         private int _startEffectsAt;
@@ -135,12 +140,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Players.Wormhole == null)
                     return;
 
-                Main.DisablePlayerSwitching = true;
+                PlayerSwitch.Disable = true;
 
                 if (Properties.TimeTravelPhase != TimeTravelPhase.OpeningWormhole && !Properties.HasBeenStruckByLightning)
                     Properties.TimeTravelPhase = TimeTravelPhase.OpeningWormhole;
 
-                //Function.Call(Hash.SPECIAL_ABILITY_LOCK, Main.PlayerPed.Model);
+                //Function.Call(Hash.SPECIAL_ABILITY_LOCK, CommonSettings.PlayerPed.Model);
                 Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
                 Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
 
@@ -221,7 +226,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _hasHit88 = false;
 
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
-            Main.DisablePlayerSwitching = false;
+            PlayerSwitch.Disable = false;
         }
 
         public override void Dispose()
@@ -238,7 +243,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Stop();
 
-            Main.DisablePlayerSwitching = true;
+            PlayerSwitch.Disable = true;
 
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
 

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using BackToTheFutureV.Entities;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -66,7 +67,7 @@ namespace BackToTheFutureV.Players
             Model modelWheel = _roadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
             Model modelWheelRear = _roadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
             
-            foreach (var wheel in Utils.GetWheelPositions(Vehicle))
+            foreach (var wheel in Vehicle.GetWheelPositions())
             {
                 string wheelName = wheel.Key;
                 Vector3 offset = wheel.Value;
@@ -143,7 +144,7 @@ namespace BackToTheFutureV.Players
             Model modelWheel = _roadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
             Model modelWheelRear = _roadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
 
-            foreach (var wheel in Utils.GetWheelPositions(Vehicle))
+            foreach (var wheel in Vehicle.GetWheelPositions())
             {
                 string wheelName = wheel.Key;
                 Vector3 offset = wheel.Value;
@@ -175,7 +176,7 @@ namespace BackToTheFutureV.Players
 
             IsPlaying = false;
             currentStep = 0;
-            Main.DisablePlayerSwitching = false;
+            PlayerSwitch.Disable = false;
         }
 
         public void Play(bool open)
@@ -187,11 +188,11 @@ namespace BackToTheFutureV.Players
             if (IsWheelsOpen)
                 ReloadWheelModels();
 
-            Mods.Wheel = Utils.GetVariantWheelType(_roadWheel);
+            Mods.Wheel = _roadWheel.GetVariantWheelType();
 
             IsPlaying = true;
 
-            Main.DisablePlayerSwitching = true;                    
+            PlayerSwitch.Disable = true;                    
         }
 
         public void SetInstant(bool open, bool trueInstant = true)
@@ -205,7 +206,7 @@ namespace BackToTheFutureV.Players
                 if (trueInstant)
                 {
                     ReloadWheelModels();
-                    Mods.Wheel = Utils.GetVariantWheelType(_roadWheel);
+                    Mods.Wheel = _roadWheel.GetVariantWheelType();
                 }
                                    
                 SetAnimationPosition();

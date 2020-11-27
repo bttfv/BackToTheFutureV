@@ -12,6 +12,9 @@ using BackToTheFutureV.TimeMachineClasses.RC;
 using GTA.UI;
 using LemonUI.Elements;
 using System.Drawing;
+using BTTFVUtils;
+using static BTTFVUtils.Enums;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.Menu
 {
@@ -105,11 +108,11 @@ namespace BackToTheFutureV.Menu
 
         public override void Tick()
         {
-            convertIntoTimeMachine.Enabled = Main.PlayerVehicle.NotNullAndExists() && !Main.PlayerVehicle.IsTimeMachine();
+            convertIntoTimeMachine.Enabled = Utils.PlayerVehicle.NotNullAndExists() && !Utils.PlayerVehicle.IsTimeMachine();
 
             outatimeMenu.Enabled = RemoteTimeMachineHandler.TimeMachineCount > 0;
 
-            rcMenu.Enabled = Main.PlayerVehicle == null && TimeMachineHandler.TimeMachineCount > 0;
+            rcMenu.Enabled = Utils.PlayerVehicle == null && TimeMachineHandler.TimeMachineCount > 0;
         }
 
         private void MainMenu_OnItemActivated(NativeItem sender, EventArgs e)
@@ -120,7 +123,7 @@ namespace BackToTheFutureV.Menu
             {
                 if (spawnBTTF.SelectedIndex == 0)
                 {
-                    Main.PlayerPed.Task.WarpIntoVehicle(DMC12Handler.CreateDMC12(Main.PlayerPed.Position, Main.PlayerPed.Heading), VehicleSeat.Driver);
+                    Utils.PlayerPed.Task.WarpIntoVehicle(DMC12Handler.CreateDMC12(Utils.PlayerPed.Position, Utils.PlayerPed.Heading), VehicleSeat.Driver);
                     Close();
                     return;
                 }
@@ -151,11 +154,11 @@ namespace BackToTheFutureV.Menu
             }
 
             if (sender == convertIntoTimeMachine)
-                Main.PlayerVehicle.TransformIntoTimeMachine();
+                Utils.PlayerVehicle.TransformIntoTimeMachine();
 
             if (sender == deleteCurrent)
             {
-                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Main.PlayerVehicle);
+                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Utils.PlayerVehicle);
 
                 if (timeMachine == null)
                 {

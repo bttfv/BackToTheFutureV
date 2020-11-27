@@ -2,10 +2,11 @@
 using GTA;
 using GTA.Math;
 using BackToTheFutureV.Utility;
-using BackToTheFutureV.Entities;
+
 using BackToTheFutureV.Settings;
 using GTA.Native;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -67,7 +68,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void HookProcess()
         {
-            if (Main.PlayerPed.IsInVehicle())
+            if (Utils.PlayerPed.IsInVehicle())
                 return;
 
             if (Mods.Hook != HookState.OnDoor)
@@ -75,7 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Vector3 worldPos = Vehicle.GetOffsetPosition(hookPosition);
 
-            float dist = Main.PlayerPed.Position.DistanceToSquared(worldPos);
+            float dist = Utils.PlayerPed.Position.DistanceToSquared(worldPos);
 
             if (dist <= 2f * 2f)
             {
@@ -124,10 +125,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (Mods.Hoodbox == ModState.Off | Main.PlayerPed.IsInVehicle() | TcdEditer.IsEditing | _warmUp > 0)
+            if (Mods.Hoodbox == ModState.Off | Utils.PlayerPed.IsInVehicle() | TcdEditer.IsEditing | _warmUp > 0)
                 return;
 
-            if (!(Main.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position) <= 2f * 2f))
+            if (!(Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position) <= 2f * 2f))
                 return;
 
             Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hoodbox_Warmup_Start"));

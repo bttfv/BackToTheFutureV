@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using GTA;
 using BackToTheFutureV.Utility;
+using BTTFVUtils;
 
 namespace BackToTheFutureV
 {
@@ -45,8 +46,8 @@ namespace BackToTheFutureV
                 if (vehicle.Model == ModelHandler.DMC12)
                     continue;
 
-                var dist = vehicle.Position.DistanceToSquared2D(Main.PlayerPed.Position);
-                if (vehicle != null && dist > 100f * 100f && dist < 150f * 150f && !vehicle.IsPersistent && vehicle.Model != ModelHandler.DMC12 && vehicle.GetPedOnSeat(VehicleSeat.Driver) != Main.PlayerPed)
+                var dist = vehicle.Position.DistanceToSquared2D(CommonUtils.PlayerPed.Position);
+                if (vehicle != null && dist > 100f * 100f && dist < 150f * 150f && !vehicle.IsPersistent && vehicle.Model != ModelHandler.DMC12 && vehicle.GetPedOnSeat(VehicleSeat.Driver) != CommonUtils.PlayerPed)
                 {
                     var veh = Utils.ReplaceVehicle(vehicle, ModelHandler.DMC12);
                     veh.Mods.PrimaryColor = VehicleColor.BrushedAluminium;
@@ -116,7 +117,7 @@ namespace BackToTheFutureV
         private static bool IsVehicleValid(Vehicle vehicle)
         {
             // Maybe add more checks here
-            return vehicle.NotNullAndExists() && vehicle.Driver != Main.PlayerPed && vehicle.Model.IsCar && !vehicle.IsPersistent && !currentEra.SpawnableVehicles.Select(x => new Model(x.Model)).Contains(vehicle.Model);
+            return vehicle.NotNullAndExists() && vehicle.Driver != CommonUtils.PlayerPed && vehicle.Model.IsCar && !vehicle.IsPersistent && !currentEra.SpawnableVehicles.Select(x => new Model(x.Model)).Contains(vehicle.Model);
         }
     }
 }

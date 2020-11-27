@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.Utility;
+using BTTFVUtils;
 using GTA;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace BackToTheFutureV.Story
         public abstract void KeyDown(KeyEventArgs key);
         public abstract void Process();
 
-        public TimedEventManager TimedEventManager = new TimedEventManager();
+        public TimedEventHandler TimedEventManager = new TimedEventHandler();
 
         public Mission()
         {

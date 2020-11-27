@@ -1,10 +1,11 @@
-﻿using BackToTheFutureV.Memory;
-using BackToTheFutureV.Story;
+﻿using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
-using CustomCamera;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
+using BTTFVUtils.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
@@ -31,7 +33,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         public ScaleformsHandler Scaleforms { get; private set; }
         public ParticlesHandler Particles { get; private set; }
 
-        public CustomCameraManager CustomCameraManager { get; private set; }
+        public CustomCameraHandler CustomCameraManager { get; private set; }
 
         public TimeMachineCamera CustomCamera 
         { 
@@ -124,7 +126,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
 
             LastDisplacementClone = Clone;
-            LastDisplacementClone.Properties.DestinationTime = Main.CurrentTime;
+            LastDisplacementClone.Properties.DestinationTime = Utils.CurrentTime;
 
             Events.OnWormholeTypeChanged += UpdateBlip;
 
@@ -141,7 +143,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         private void BuildCustomCameras()
         {
-            CustomCameraManager = new CustomCameraManager();
+            CustomCameraManager = new CustomCameraHandler();
 
             //DestinationDate
             CustomCameraManager.Add(Vehicle, new Vector3(-0.1f, 0.16f, 0.7f), new Vector3(0.12f, 1.1f, 0.45f), 28);
@@ -226,10 +228,10 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (Mods.IsDMC12)
             {
                 //In certain situations car can't be entered after hover transformation, here is forced enter task.
-                if (Main.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(Main.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
+                if (Utils.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(Utils.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
                 {
-                    if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, Main.PlayerPed) != Vehicle)
-                        Main.PlayerPed.Task.EnterVehicle(Vehicle);
+                    if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, Utils.PlayerPed) != Vehicle)
+                        Utils.PlayerPed.Task.EnterVehicle(Vehicle);
                 }
 
                 VehicleWindowCollection windows = Vehicle.Windows;
@@ -308,7 +310,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 Mods.SyncMods();
             }
 
-            if (Main.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)
+            if (Utils.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)
             {
                 if (Blip == null || !Blip.Exists())
                 {
@@ -399,7 +401,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Properties.PhotoGlowingCoilsActive && Props.Coils != null && !Props.Coils.IsSpawned)
             {
-                if (Main.CurrentTime.Hour >= 20 || (Main.CurrentTime.Hour >= 0 && Main.CurrentTime.Hour <= 5))
+                if (Utils.CurrentTime.Hour >= 20 || (Utils.CurrentTime.Hour >= 0 && Utils.CurrentTime.Hour <= 5))
                     Props.Coils.Model = ModelHandler.CoilsGlowingNight;
                 else
                     Props.Coils.Model = ModelHandler.CoilsGlowing;

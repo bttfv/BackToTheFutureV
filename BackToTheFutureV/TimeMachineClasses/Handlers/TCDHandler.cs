@@ -5,7 +5,7 @@ using GTA;
 using GTA.Math;
 using System.Globalization;
 using System.Drawing;
-using BackToTheFutureV.Entities;
+
 using BackToTheFutureV.GUI;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Settings;
@@ -14,6 +14,8 @@ using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Vehicles;
 using GTA.NaturalMotion;
+using BTTFVUtils;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -186,7 +188,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private int nextCheckGlitch;
 
-        private TimedEventManager glitchEvents = new TimedEventManager();
+        private TimedEventHandler glitchEvents = new TimedEventHandler();
         private bool softGlitch;
 
         private bool doGlitch;
@@ -370,7 +372,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if (Main.PlayerVehicle != Vehicle) return;
+            if (Utils.PlayerVehicle != Vehicle) return;
 
             if (key == ModControls.TCToggle && !Properties.IsRemoteControlled)
                 SetTimeCircuitsOn(!Properties.AreTimeCircuitsOn);
@@ -396,9 +398,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Main.PlayerPed.IsInVehicle() && !Properties.FullDamaged)
+            if (Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Utils.PlayerPed.IsInVehicle() && !Properties.FullDamaged)
             {
-                var dist = Main.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position);
+                var dist = Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position);
 
                 if (!(dist <= 2f * 2f))
                     return;
@@ -451,7 +453,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void DrawGUI()
         {
-            if (Main.HideGui || Main.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing)
+            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing)
                 return;
 
             Scaleforms.GUI.SetBackground(ModSettings.TCDBackground);

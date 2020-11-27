@@ -1,5 +1,5 @@
-﻿using BackToTheFutureV.Entities;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.Utility;
+using BTTFVUtils;
 using GTA.Math;
 using System;
 using System.Collections.Generic;

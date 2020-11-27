@@ -3,11 +3,14 @@ using System.Drawing;
 using BackToTheFutureV.GUI;
 using GTA;
 using GTA.Math;
-using BackToTheFutureV.Entities;
+
 using BackToTheFutureV.Utility;
 using Screen = GTA.UI.Screen;
 using BackToTheFutureV.Settings;
 using KlangRageAudioLibrary;
+using BTTFVUtils;
+using static BTTFVUtils.Enums;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -32,7 +35,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (!Properties.IsGivenScaleformPriority || Main.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f)
+            if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f)
                 return;
 
             Scaleforms.SpeedoRT.Draw();

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using BackToTheFutureV.Story;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
+using static BTTFVUtils.Enums;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -116,8 +119,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            GTA.UI.Screen.ShowSubtitle("1");
-
             customTrain.IsAccelerationOn = true;
             customTrain.IsAutomaticBrakeOn = true;
 
@@ -125,7 +126,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             customTrain.SetToAttach(Vehicle, new Vector3(0, 4.5f, Mods.IsDMC12 ? 0 : Vehicle.HeightAboveGround - customTrain.Carriage(1).HeightAboveGround), 1, 0);
 
-            customTrain.SetPosition(Vehicle.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Y, -1)));
+            customTrain.SetPosition(Vehicle.GetOffsetPosition(offset: Vector3.Zero.GetSingleOffset(Coordinate.Y, -1)));
             
             customTrain.OnVehicleAttached += customTrain_OnVehicleAttached;
             customTrain.OnTrainDeleted += customTrain_OnTrainDeleted;            
@@ -191,7 +192,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (Properties.IsAttachedToRogersSierra)
                 {
-                    if (Game.IsControlPressed(GTA.Control.VehicleAccelerate) && Main.PlayerVehicle == Vehicle && Vehicle.IsEngineRunning && !customTrain.RogersSierra.IsOnTrainMission)
+                    if (Game.IsControlPressed(GTA.Control.VehicleAccelerate) && Utils.PlayerVehicle == Vehicle && Vehicle.IsEngineRunning && !customTrain.RogersSierra.IsOnTrainMission)
                     {
                         customTrain.SwitchToRegular();
                         return;
@@ -203,9 +204,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return;
                 }
                 else
-                    customTrain.IsAccelerationOn = Main.PlayerVehicle == Vehicle && Vehicle.IsVisible && Vehicle.IsEngineRunning;
+                    customTrain.IsAccelerationOn = Utils.PlayerVehicle == Vehicle && Vehicle.IsVisible && Vehicle.IsEngineRunning;
 
-                if (Main.PlayerVehicle == Vehicle)
+                if (Utils.PlayerVehicle == Vehicle)
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
 
                 if (_isReentryOn && customTrain.AttachedToTarget && customTrain.SpeedMPH == 0)

@@ -1,6 +1,4 @@
-﻿using BackToTheFutureV.Entities;
-using BackToTheFutureV.Memory;
-using BackToTheFutureV.Players;
+﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
@@ -13,6 +11,9 @@ using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using GTA.UI;
 using BackToTheFutureV.Settings;
+using BTTFVUtils;
+using BTTFVUtils.Memory;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -125,7 +126,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (ModControls.LongPressForHover)
             {
-                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && Utils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
@@ -145,7 +146,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (!ModControls.LongPressForHover)
             {
-                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && Main.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && Utils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
@@ -194,7 +195,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsLanding)
                 Function.Call((Hash)0x438b3d7ca026fe91, Vehicle, Properties.AreWheelsInHoverMode ? 1f : 0f);
             else
-                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Input_VTOL_Tip").Replace("~INPUT_VEH_AIM~", (new CustomControl(ModControls.HoverVTOL)).Button));
+                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Input_VTOL_Tip").Replace("~INPUT_VEH_AIM~", (new ControlInfo(ModControls.HoverVTOL)).Button));
 
             if (Properties.AreWheelsInHoverMode && !instant)
             {
@@ -230,7 +231,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if(key == ModControls.HoverAltitudeHold && Main.PlayerVehicle == Vehicle && Properties.IsFlying)
+            if(key == ModControls.HoverAltitudeHold && Utils.PlayerVehicle == Vehicle && Properties.IsFlying)
                 SetHoverMode(!Properties.IsAltitudeHolding);
         }
 
@@ -257,9 +258,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // Process the wheel animations
             Players.HoverModeWheels?.Process();
 
-            _flyModeInput.Process();
-
-            Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player.Handle, Main.PlayerVehicle != Vehicle);
+            Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player.Handle, Utils.PlayerVehicle != Vehicle);
                 
             if (Vehicle == null || !Vehicle.IsVisible)
                 return;
@@ -365,7 +364,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
 
             // Force fly mode
-            if (ModSettings.ForceFlyMode && Main.PlayerVehicle == Vehicle)
+            if (ModSettings.ForceFlyMode && Utils.PlayerVehicle == Vehicle)
                 VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
 
             // Force brake lights on if flying
@@ -379,7 +378,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void HandleBoosting()
         {
             // First of all, check if vehicle is in fly mode, if its not just return
-            if (Main.PlayerVehicle != Vehicle) 
+            if (Utils.PlayerVehicle != Vehicle) 
                 return;
 
             // If the Handbrake control is pressed
@@ -415,7 +414,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void UpDown()
         {
             // What are you doing 
-            if (Main.PlayerVehicle != Vehicle)
+            if (Utils.PlayerVehicle != Vehicle)
                 return;
 
             // Get how much value is moved up/down

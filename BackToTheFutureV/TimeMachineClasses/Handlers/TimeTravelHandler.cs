@@ -5,14 +5,16 @@ using BackToTheFutureV.Players;
 using System.Windows.Forms;
 using System;
 using Screen = GTA.UI.Screen;
-using BackToTheFutureV.Memory;
 using BackToTheFutureV.Story;
-using BackToTheFutureV.Entities;
+
 using GTA.Native;
 using KlangRageAudioLibrary;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Settings;
+using BTTFVUtils;
+using static BTTFVUtils.Enums;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -26,6 +28,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Events.StartTimeTravel += StartTimeTravel;
             Events.SetCutsceneMode += SetCutsceneMode;
+
+            TimeHandler.OnTimeChanged += TimeChanged;
+        }
+
+        public static void TimeChanged(DateTime time)
+        {
+            TimeMachineHandler.ExistenceCheck(time);
+            RemoteTimeMachineHandler.ExistenceCheck(time);
         }
 
         public void SetCutsceneMode(bool cutsceneOn)
@@ -64,7 +74,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Properties.TimeTravelType = TimeTravelType.RC;
                     else
                     {
-                        if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Main.PlayerPed)
+                        if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Utils.PlayerPed)
                             Properties.TimeTravelType = TimeTravelType.RC;
                         else
                         {
@@ -113,9 +123,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         }
                             
                         Properties.TimeTravelDestPos = Vector3.Zero;
-
-                        // Have to call SetupJump manually here.
-                        TimeHandler.TimeTravelTo(TimeMachine, Properties.DestinationTime);
+                        
+                        TimeHandler.TimeTravelTo(Properties.DestinationTime);
 
                         // Invoke delegate
                         Events.OnTimeTravelCompleted?.Invoke();
@@ -175,9 +184,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Game.Player.IgnoredByPolice = true;
 
-                    Main.HideGui = true;
+                    Utils.HideGUI = true;
 
-                    Main.DisablePlayerSwitching = true;
+                    PlayerSwitch.Disable = true;
 
                     Vehicle.SetVisible(false);
 
@@ -215,8 +224,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 3:
-                    TimeHandler.TimeTravelTo(TimeMachine, Properties.DestinationTime);
                     FireTrailsHandler.RemoveTrail(trails);
+                    TimeHandler.TimeTravelTo(Properties.DestinationTime);
 
                     if (Properties.TimeTravelDestPos != Vector3.Zero)
                     {
@@ -268,7 +277,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if (Main.PlayerVehicle != Vehicle)
+            if (Utils.PlayerVehicle != Vehicle)
                 return;
 
             if (key == ModControls.CutsceneToggle)

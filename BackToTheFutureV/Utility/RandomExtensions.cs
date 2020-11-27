@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.Utility
 {

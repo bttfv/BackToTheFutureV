@@ -1,10 +1,10 @@
 ﻿using BackToTheFutureV.Utility;
 using GTA;
 using GTA.Math;
-using BackToTheFutureV.Entities;
 using GTA.UI;
 using BackToTheFutureV.TimeMachineClasses;
 using System.Threading.Tasks;
+using BTTFVUtils;
 
 namespace BackToTheFutureV.Players
 {

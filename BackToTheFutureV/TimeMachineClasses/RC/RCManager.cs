@@ -12,6 +12,7 @@ using Screen = GTA.UI.Screen;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.Handlers;
 using LemonUI.TimerBars;
+using BTTFVUtils;
 
 namespace BackToTheFutureV.TimeMachineClasses.RC
 {
@@ -30,7 +31,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             TimerBarCollection = new TimerBarCollection(SignalBar = new TimerBarProgress(Game.GetLocalizedString("BTTFV_RC_Signal")));
             TimerBarCollection.Visible = false;
 
-            Main.ObjectPool.Add(TimerBarCollection);
+            CustomNativeMenu.ObjectPool.Add(TimerBarCollection);
         }
 
         public static void RemoteControl(TimeMachine timeMachine)
@@ -44,7 +45,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             timeMachine.Events.SetRCMode?.Invoke(true);
             RemoteControlling = timeMachine;
 
-            Main.DisablePlayerSwitching = true;
+            PlayerSwitch.Disable = true;
         }
 
         public static void Process()
@@ -73,7 +74,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             RemoteControlling.Events.SetRCMode?.Invoke(false, instant);
             RemoteControlling = null;
 
-            Main.DisablePlayerSwitching = false;
+            PlayerSwitch.Disable = false;
             TimerBarCollection.Visible = false;
         }
     }

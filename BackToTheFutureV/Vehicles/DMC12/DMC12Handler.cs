@@ -1,5 +1,7 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
 using GTA;
 using GTA.Math;
 using System;
@@ -7,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.Vehicles
 {
@@ -29,7 +32,7 @@ namespace BackToTheFutureV.Vehicles
             Vehicle vehicle = World.CreateVehicle(ModelHandler.DMC12, position, heading);
 
             if (warpInPlayer)
-                Main.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+                Utils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
 
             return new DMC12(vehicle);
         }
@@ -37,7 +40,7 @@ namespace BackToTheFutureV.Vehicles
         public static DMC12 CreateDMC12(Vehicle vehicle, bool warpInPlayer = false)
         {            
             if (warpInPlayer)
-                Main.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+                Utils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
 
             return new DMC12(vehicle);
         }

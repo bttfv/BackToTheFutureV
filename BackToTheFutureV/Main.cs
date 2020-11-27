@@ -6,7 +6,6 @@ using BackToTheFutureV.Utility;
 using BackToTheFutureV.Story;
 using LemonUI;
 using Screen = GTA.UI.Screen;
-using BackToTheFutureV.Entities;
 using BackToTheFutureV.Settings;
 using System.Net.Sockets;
 using System.Net;
@@ -22,25 +21,12 @@ using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.Menu;
 using RogersSierraRailway;
 using GTA.Math;
+using BTTFVUtils;
 
 namespace BackToTheFutureV
 {
     public class Main : Script
-    {
-        public static ObjectPool ObjectPool { get; private set; }
-        public static DateTime CurrentTime
-        {
-            get => Utils.GetWorldTime();
-            set => Utils.SetWorldTime(value);
-        }
-        public static Ped PlayerPed => Game.Player.Character;
-        public static Vehicle PlayerVehicle => PlayerPed.CurrentVehicle;
-        //public static cRogersSierra CurrentRogersSierra => Manager.CurrentRogersSierra;
-        //public static List<cRogersSierra> RogersSierra => Manager.RogersSierra;
-        public static bool IsPlayerSwitchInProgress => Function.Call<bool>(Hash.IS_PLAYER_SWITCH_IN_PROGRESS);
-        public static bool IsManualPlayerSwitchInProgress => IsPlayerSwitchInProgress && PlayerSwitch.IsSwitching;
-        public static bool DisablePlayerSwitching { get; set; } = false;
-        public static bool HideGui { get; set; } = false;
+    {        
         public static Version Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
         public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
@@ -77,9 +63,7 @@ namespace BackToTheFutureV
             DateTime buildDate = new DateTime(2000, 1, 1).AddDays(Version.Build).AddSeconds(Version.Revision * 2);
 
             System.IO.File.AppendAllText($"./ScriptHookVDotNet.log", $"BackToTheFutureV - {Version} ({buildDate})" + Environment.NewLine);
-
-            ObjectPool = new ObjectPool();
-
+            
             ModSettings.LoadSettings();
             
             Tick += Main_Tick;
@@ -133,36 +117,23 @@ namespace BackToTheFutureV
                     RemoteTimeMachineHandler.Load();
                 }
 
-                Function.Call(Hash.SET_RANDOM_TRAINS, ModSettings.RandomTrains);
+                Utils.RandomTrains = ModSettings.RandomTrains;
 
-                if (!ModSettings.RandomTrains)
-                    Function.Call(Hash.DELETE_ALL_TRAINS);
+                TimeHandler.TrafficVolumeYearBased = true;
 
                 StartListening();
 
                 _firstTick = false;
             }
 
-            ObjectPool.Process();
-
-            if (HideGui)
-                Function.Call(Hash.HIDE_HUD_AND_RADAR_THIS_FRAME);
-
-            if (DisablePlayerSwitching)
-                Function.Call(Hash.DISABLE_CONTROL_ACTION, 2, 19, true);
-
             CustomTrainHandler.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();
-            AnimatePropsHandler.Process();
             RCManager.Process();
-            TimeHandler.Process();
             RemoteTimeMachineHandler.Process();
-            FireTrailsHandler.Process();
-            ScreenFlash.Process();
+            FireTrailsHandler.Process();            
             TcdEditer.Process();
-            MissionHandler.Process();                        
-            PlayerSwitch.Process();
+            MissionHandler.Process();                                    
             StoryTimeMachine.ProcessAll();
             MenuHandler.Process();
 

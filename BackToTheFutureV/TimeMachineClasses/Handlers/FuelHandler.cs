@@ -1,4 +1,4 @@
-﻿using BackToTheFutureV.Entities;
+﻿
 using BackToTheFutureV.Players;
 using BackToTheFutureV.Utility;
 using GTA;
@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using BackToTheFutureV.Settings;
 using KlangRageAudioLibrary;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -153,7 +154,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.IsRefueling)
             {
-                if(_refuelingPed == Main.PlayerPed && Main.PlayerVehicle == null)
+                if(_refuelingPed == Utils.PlayerPed && Utils.PlayerVehicle == null)
                 {
                     Game.DisableAllControlsThisFrame();
                     Game.EnableControlThisFrame(GTA.Control.LookUpDown);
@@ -189,14 +190,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (!CanRefuel(Vehicle, Main.PlayerPed) || Properties.IsRefueling || Properties.IsFueled)
+            if (!CanRefuel(Vehicle, Utils.PlayerPed) || Properties.IsRefueling || Properties.IsFueled)
                 return;
 
             if (!TcdEditer.IsEditing)
                 Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Refuel_Hotkey"));
 
             if (Game.IsControlJustPressed(GTA.Control.Context))
-                Refuel(Main.PlayerPed);
+                Refuel(Utils.PlayerPed);
         }
 
         public static void RefillAnimation(Vehicle Vehicle, Ped Ped)
@@ -219,11 +220,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Vector3 dir;
                 float angle, dist;
 
-                if(ped == Main.PlayerPed)
+                if(ped == Utils.PlayerPed)
                 {
                     dir = bootPos - GameplayCamera.Position;
                     angle = Vector3.Angle(dir, GameplayCamera.Direction);
-                    dist = Vector3.Distance(bootPos, Main.PlayerPed.Position);
+                    dist = Vector3.Distance(bootPos, Utils.PlayerPed.Position);
                 }
                 else
                 {
@@ -260,7 +261,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void SetEmpty(bool isOn)
         {
-            if (Main.PlayerVehicle == Vehicle)
+            if (Utils.PlayerVehicle == Vehicle)
                 Scaleforms.GUI.CallFunction("SET_EMPTY_STATE", !isOn);
 
             if (Vehicle.IsVisible == false)
@@ -279,7 +280,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         }
         private void HideEmpty()
         {
-            if (Main.PlayerVehicle != Vehicle)
+            if (Utils.PlayerVehicle != Vehicle)
                 return;
 
             Scaleforms.GUI.CallFunction("HIDE_EMPTY");

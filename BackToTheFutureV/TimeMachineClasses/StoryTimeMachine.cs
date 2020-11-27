@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
 using GTA;
 using GTA.Math;
 using GTA.UI;
@@ -10,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
+using static BTTFVUtils.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
@@ -75,9 +77,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Spawned && !IsUsed) 
             {
-                if (!WarningMessageShowed && TimeMachine.Properties.FullDamaged && TimeMachine.Vehicle.Position.DistanceToSquared(Main.PlayerPed.Position) < 20)
+                if (!WarningMessageShowed && TimeMachine.Properties.FullDamaged && TimeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position) < 20)
                 {
-                    DateTime diff = new DateTime((Main.CurrentTime - SpawnDate).Ticks);
+                    DateTime diff = new DateTime((Utils.CurrentTime - SpawnDate).Ticks);
 
                     int years = diff.Year - 1;
                     int months = diff.Month - 1;
@@ -108,7 +110,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 }
             }
 
-            if (Spawned && !IsUsed && Main.PlayerPed.IsInVehicle(TimeMachine))
+            if (Spawned && !IsUsed && Utils.PlayerPed.IsInVehicle(TimeMachine))
             {
                 TimeMachine.Vehicle.IsInvincible = false;
                 TimeMachineHandler.RemoveStory(TimeMachine);
@@ -117,13 +119,13 @@ namespace BackToTheFutureV.TimeMachineClasses
                 return;
             }
                 
-            if (!Exists(Main.CurrentTime) && Spawned && !IsUsed)
+            if (!Exists(Utils.CurrentTime) && Spawned && !IsUsed)
             {
                 TimeMachine.Dispose(true);
                 return;
             }
 
-            if (Exists(Main.CurrentTime) && !Spawned)
+            if (Exists(Utils.CurrentTime) && !Spawned)
                 Spawn();
         }
 

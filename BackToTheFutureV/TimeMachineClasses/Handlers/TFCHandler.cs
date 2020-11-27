@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using BackToTheFutureV.Entities;
+
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
 using GTA;
 using GTA.Math;
 

@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,13 +30,18 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LemonUI.SHVDN3, Version=1.2.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\LemonUI.SHVDN3.1.2.0\lib\net48\LemonUI.SHVDN3.dll</HintPath>
+    </Reference>
     <Reference Include="ScriptHookVDotNet3, Version=3.0.4.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\ScriptHookVDotNet3.3.0.4\lib\net48\ScriptHookVDotNet3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,13 +50,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomCamera.cs" />
-    <Compile Include="CustomCameraManager.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Extensions\MathExtensions.cs" />
+    <Compile Include="Extensions\EntityExtensions.cs" />
+    <Compile Include="Extensions\OtherExtensions.cs" />
+    <Compile Include="GUI\InstrumentalMenu.cs" />
+    <Compile Include="GUI\RenderTarget.cs" />
+    <Compile Include="GUI\ScaleformGui.cs" />
+    <Compile Include="Memory\CEntityCustomization.cs" />
+    <Compile Include="Memory\CEntitySkeleton.cs" />
+    <Compile Include="Memory\crSkeletonData.cs" />
+    <Compile Include="Memory\CVehicle.cs" />
+    <Compile Include="Memory\CWheels.cs" />
+    <Compile Include="Memory\fragInstGta.cs" />
+    <Compile Include="Memory\fragPhysicsLOD.cs" />
+    <Compile Include="Memory\fragPhysicsLODGroup.cs" />
+    <Compile Include="Memory\GameFunctions.cs" />
+    <Compile Include="Memory\gtaFragType.cs" />
+    <Compile Include="Memory\MemoryFunctions.cs" />
+    <Compile Include="Memory\NativeMatrix4x4.cs" />
+    <Compile Include="Memory\NativeVector.cs" />
+    <Compile Include="Memory\phArchetypeDamp.cs" />
+    <Compile Include="Memory\phBound.cs" />
+    <Compile Include="Memory\phBoundComposite.cs" />
+    <Compile Include="Memory\RainPuddleEditor.cs" />
+    <Compile Include="Memory\VehicleBone.cs" />
+    <Compile Include="Memory\VehicleControl.cs" />
+    <Compile Include="Other\CustomStopwatch.cs" />
+    <Compile Include="Prop\AnimateProp.cs" />
+    <Compile Include="Prop\AnimatePropsHandler.cs" />
+    <Compile Include="Camera\CustomCamera.cs" />
+    <Compile Include="Camera\CustomCameraHandler.cs" />
+    <Compile Include="Input\ControlInfo.cs" />
+    <Compile Include="GUI\CustomNativeMenu.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Input\NativeInput.cs" />
+    <Compile Include="Other\PlayerSwitch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GUI\ScreenFlash.cs" />
+    <Compile Include="Event\TimedEvent.cs" />
+    <Compile Include="Event\TimedEventHandler.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Replica\MomentReplica.cs" />
+    <Compile Include="Replica\PedReplica.cs" />
+    <Compile Include="Replica\VehicleReplica.cs" />
+    <Compile Include="Replica\WeaponReplica.cs" />
+    <Compile Include="Time\TimeHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT "%25GTAPath%25" == "" (

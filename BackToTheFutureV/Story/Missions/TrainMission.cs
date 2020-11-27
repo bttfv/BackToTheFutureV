@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Entities;
-using BackToTheFutureV.GUI;
+﻿using BackToTheFutureV.GUI;
 using BackToTheFutureV.Players;
 using BackToTheFutureV.Utility;
 using GTA;
@@ -15,6 +14,9 @@ using RogersSierraRailway;
 using static RogersSierraRailway.Commons;
 using BackToTheFutureV.TimeMachineClasses;
 using GTA.UI;
+using BTTFVUtils;
+using static BTTFVUtils.Enums;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.Story
 {
@@ -56,7 +58,7 @@ namespace BackToTheFutureV.Story
             TimeMachine.Properties.BlockSparks = false;
 
             if (TimeMachine.Properties.TimeTravelPhase != TimeTravelPhase.InTime)
-                Main.HideGui = false;
+                Utils.HideGUI = false;
         }
 
         private void OnVehicleAttached(TimeMachine timeMachine)
@@ -71,7 +73,7 @@ namespace BackToTheFutureV.Story
 
             TimedEventManager.Pause = false;
 
-            MissionMusic.SourceEntity = Main.PlayerPed;
+            MissionMusic.SourceEntity = Utils.PlayerPed;
             MissionMusic.Play();
 
             //MissionMusic.Last.PlayPosition = (uint)new TimeSpan(0, 0, 5, 10, 200).TotalMilliseconds;
@@ -83,7 +85,7 @@ namespace BackToTheFutureV.Story
                 MissionMusic.Volume = 0;
             }
 
-            Main.HideGui = true;
+            Utils.HideGUI = true;
         }
 
         private void InsertDate_OnExecute(TimedEvent timedEvent)
@@ -115,8 +117,8 @@ namespace BackToTheFutureV.Story
             if (!IsPlaying)
                 return;
 
-            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Main.PlayerPed);
-            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Main.PlayerPed);
+            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Utils.PlayerPed);
+            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Utils.PlayerPed);
 
             if (MissionMusic.IsAnyInstancePlaying && !_useInternalTime)
                 TimedEventManager.RunEvents(MissionMusic.Last.PlayPosition);
@@ -378,7 +380,7 @@ namespace BackToTheFutureV.Story
             RogersSierra.RandomTrain = false;
             RogersSierra.UnlockSpeed = true;
 
-            RogersSierra.LocomotiveSpeed = Utils.MphToMs(2);
+            RogersSierra.LocomotiveSpeed = MathExtensions.ToMS(2);
 
             if (RogersSierra.AttachedVehicle == TimeMachine)
                 OnVehicleAttached(TimeMachine);
@@ -386,7 +388,7 @@ namespace BackToTheFutureV.Story
             {
                 TimedEventManager.Pause = true;
 
-                TrainApproachingSound.SourceEntity = Main.PlayerPed;
+                TrainApproachingSound.SourceEntity = Utils.PlayerPed;
                 TrainApproachingSound.Play();
 
                 TimeMachine.CustomCamera = TimeMachineCamera.FrontPassengerWheelLookAtRear;

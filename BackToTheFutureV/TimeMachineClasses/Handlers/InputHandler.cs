@@ -6,6 +6,8 @@ using System.Linq;
 using System.Windows.Forms;
 using BackToTheFutureV.Settings;
 using KlangRageAudioLibrary;
+using BTTFVUtils;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 { 
@@ -40,7 +42,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if (Main.PlayerVehicle != Vehicle || !Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible) return;
+            if (Utils.PlayerVehicle != Vehicle || !Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible) return;
 
             if(key == ModControls.InputToggle && ModSettings.UseInputToggle)
             {
@@ -54,7 +56,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Utils.DisplayHelpText($"{inputMode} {(InputMode ? on : off)}");
             }
 
-            if((InputMode && ModSettings.UseInputToggle) || !ModSettings.UseInputToggle && !Main.ObjectPool.AreAnyVisible)
+            if((InputMode && ModSettings.UseInputToggle) || !ModSettings.UseInputToggle && !CustomNativeMenu.ObjectPool.AreAnyVisible)
             {
                 string keyCode = key.ToString();
 
@@ -90,7 +92,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void ProcessInputEnter()
         {
             if (Mods.IsDMC12)
-                Main.PlayerPed.Task.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.CancelableWithMovement);
+                Utils.PlayerPed.Task.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.CancelableWithMovement);
 
             // If its not a valid length/mode
             if (_destinationTimeRaw.Length != 12 && _destinationTimeRaw.Length != 4 && _destinationTimeRaw.Length != 8)
@@ -124,7 +126,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (Properties.AreTimeCircuitsOn && Main.PlayerVehicle != null && Main.PlayerVehicle == Vehicle)
+            if (Properties.AreTimeCircuitsOn && Utils.PlayerVehicle != null && Utils.PlayerVehicle == Vehicle)
             {
                 if (_simulateDatePos > -1)
                 {
@@ -158,7 +160,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (Main.PlayerVehicle == null || !Main.PlayerVehicle.IsTimeMachine() || (Main.PlayerVehicle == Vehicle && !Properties.AreTimeCircuitsOn))
+            if (Utils.PlayerVehicle == null || !Utils.PlayerVehicle.IsTimeMachine() || (Utils.PlayerVehicle == Vehicle && !Properties.AreTimeCircuitsOn))
             {
                 if (EnterInputBuffer)
                     EnterInputBuffer = false;

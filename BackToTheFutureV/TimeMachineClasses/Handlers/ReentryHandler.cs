@@ -5,8 +5,11 @@ using System.Windows.Forms;
 using BackToTheFutureV.Utility;
 using KlangRageAudioLibrary;
 using GTA.Native;
-using BackToTheFutureV.Memory;
 using BackToTheFutureV.Vehicles;
+using BTTFVUtils;
+using BTTFVUtils.Memory;
+using static BTTFVUtils.Enums;
+using BTTFVUtils.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -118,9 +121,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Vehicle.SetVisible(true);
 
-            Main.HideGui = false;
+            Utils.HideGUI = false;
 
-            Main.DisablePlayerSwitching = false;
+            PlayerSwitch.Disable = false;
 
             Game.Player.IgnoredByPolice = false;
 
@@ -146,7 +149,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 VehicleControl.SetBrake(Vehicle, 1f);
             }
                     
-            //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, Main.PlayerPed.Model);
+            //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, CommonSettings.PlayerPed.Model);
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
         }
 
