@@ -4,3 +4,6 @@
 [submodule "RogerSierra"]
 	path = RogerSierra
 	url = https://github.com/bttfv/RogerSierra
+[submodule "FusionLibrary"]
+	path = FusionLibrary
+	url = https://github.com/bttfv/FusionLibrary
