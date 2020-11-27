@@ -167,7 +167,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BTTFVUtils\FusionLibrary.csproj">
+    <ProjectReference Include="..\FusionLibrary\FusionLibrary.csproj">
       <Project>{f5aad1bd-63ca-4a12-97a8-f0d876ab4462}</Project>
       <Name>FusionLibrary</Name>
     </ProjectReference>
