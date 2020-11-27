@@ -1,4 +1,4 @@
-﻿namespace BTTFVLibrary.Memory
+﻿namespace FusionLibrary.Memory
 {
     using GTA.Math;
     using System.Runtime.InteropServices;

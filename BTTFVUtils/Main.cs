@@ -2,7 +2,7 @@
 using GTA;
 using GTA.Native;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public class Main : Script
     {

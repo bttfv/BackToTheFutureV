@@ -13,9 +13,9 @@ using System.Windows.Forms;
 using RogersSierraRailway;
 using BackToTheFutureV.TimeMachineClasses;
 using GTA.UI;
-using BTTFVLibrary;
-using static BTTFVLibrary.Enums;
-using BTTFVLibrary.Extensions;
+using FusionLibrary;
+using static FusionLibrary.Enums;
+using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.Story
 {

@@ -4,7 +4,7 @@ using GTA.UI;
 using GTA.Native;
 using System.Collections.Generic;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public class AnimateProp
     {

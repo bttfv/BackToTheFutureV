@@ -10,9 +10,9 @@ using BackToTheFutureV.TimeMachineClasses.RC;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO.Packaging;
-using BTTFVLibrary;
-using static BTTFVLibrary.Enums;
-using BTTFVLibrary.Extensions;
+using FusionLibrary;
+using static FusionLibrary.Enums;
+using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

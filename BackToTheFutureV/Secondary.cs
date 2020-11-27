@@ -1,6 +1,6 @@
 ﻿using BackToTheFutureV.Utility;
-using BTTFVLibrary;
-using BTTFVLibrary.Extensions;
+using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System;

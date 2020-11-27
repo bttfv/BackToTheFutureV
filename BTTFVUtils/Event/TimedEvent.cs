@@ -1,10 +1,10 @@
 ﻿using System;
-using BTTFVLibrary;
+using FusionLibrary;
 using GTA;
 using GTA.Math;
 using GTA.Native;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public delegate void OnExecute(TimedEvent timedEvent);
 

@@ -2,8 +2,8 @@
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
-using BTTFVLibrary;
-using BTTFVLibrary.Extensions;
+using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BTTFVLibrary.Enums;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {

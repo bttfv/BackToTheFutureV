@@ -1,4 +1,4 @@
-﻿namespace BTTFVLibrary.Memory
+﻿namespace FusionLibrary.Memory
 {
     using System;
     using System.Runtime.InteropServices;

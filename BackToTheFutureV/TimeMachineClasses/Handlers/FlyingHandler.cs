@@ -11,9 +11,9 @@ using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using GTA.UI;
 using BackToTheFutureV.Settings;
-using BTTFVLibrary;
-using BTTFVLibrary.Memory;
-using BTTFVLibrary.Extensions;
+using FusionLibrary;
+using FusionLibrary.Memory;
+using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

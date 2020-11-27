@@ -1,7 +1,7 @@
 ﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.Utility;
-using BTTFVLibrary;
-using BTTFVLibrary.Extensions;
+using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA.Math;
 using System;
 using System.Collections.Generic;

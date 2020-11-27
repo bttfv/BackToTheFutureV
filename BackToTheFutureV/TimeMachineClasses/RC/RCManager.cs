@@ -12,7 +12,7 @@ using Screen = GTA.UI.Screen;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.Handlers;
 using LemonUI.TimerBars;
-using BTTFVLibrary;
+using FusionLibrary;
 
 namespace BackToTheFutureV.TimeMachineClasses.RC
 {

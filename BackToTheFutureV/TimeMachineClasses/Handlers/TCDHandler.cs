@@ -14,8 +14,8 @@ using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Vehicles;
 using GTA.NaturalMotion;
-using BTTFVLibrary;
-using static BTTFVLibrary.Enums;
+using FusionLibrary;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

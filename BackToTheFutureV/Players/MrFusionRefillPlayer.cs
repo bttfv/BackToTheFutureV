@@ -3,7 +3,7 @@ using GTA.Math;
 using BackToTheFutureV.Utility;
 using KlangRageAudioLibrary;
 using BackToTheFutureV.TimeMachineClasses;
-using BTTFVLibrary;
+using FusionLibrary;
 
 namespace BackToTheFutureV.Players
 {

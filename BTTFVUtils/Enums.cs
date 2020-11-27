@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public class Enums
     {

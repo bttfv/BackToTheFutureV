@@ -12,9 +12,9 @@ using BackToTheFutureV.TimeMachineClasses.RC;
 using GTA.UI;
 using LemonUI.Elements;
 using System.Drawing;
-using BTTFVLibrary;
-using static BTTFVLibrary.Enums;
-using BTTFVLibrary.Extensions;
+using FusionLibrary;
+using static FusionLibrary.Enums;
+using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.Menu
 {

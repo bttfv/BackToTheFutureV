@@ -12,9 +12,9 @@ using KlangRageAudioLibrary;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Settings;
-using BTTFVLibrary;
-using static BTTFVLibrary.Enums;
-using BTTFVLibrary.Extensions;
+using FusionLibrary;
+using static FusionLibrary.Enums;
+using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

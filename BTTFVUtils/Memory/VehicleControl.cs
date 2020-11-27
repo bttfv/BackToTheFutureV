@@ -1,10 +1,10 @@
 ﻿using System;
-using BTTFVLibrary.Extensions;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
 
-namespace BTTFVLibrary.Memory
+namespace FusionLibrary.Memory
 {
     public struct WheelDimensions
     {

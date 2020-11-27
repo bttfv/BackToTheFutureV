@@ -1,7 +1,7 @@
 ﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
-using BTTFVLibrary;
+using FusionLibrary;
 using GTA;
 using GTA.Native;
 using System;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
-using static BTTFVLibrary.Enums;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Vehicles
 {

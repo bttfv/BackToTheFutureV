@@ -1,4 +1,4 @@
-﻿using BTTFVLibrary.Extensions;
+﻿using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using static BTTFVLibrary.Enums;
+using static FusionLibrary.Enums;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public static class Utils
     {

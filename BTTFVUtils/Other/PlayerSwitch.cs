@@ -3,7 +3,7 @@ using GTA.Math;
 using GTA.Native;
 using System;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public delegate void OnSwitchingComplete();
     public delegate void OnSwitchingStart();

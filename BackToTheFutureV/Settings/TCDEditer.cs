@@ -2,7 +2,7 @@
 using GTA;
 using BackToTheFutureV.GUI;
 using GTA.UI;
-using BTTFVLibrary;
+using FusionLibrary;
 
 namespace BackToTheFutureV.Settings
 {

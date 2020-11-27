@@ -10,7 +10,7 @@ using BackToTheFutureV.TimeMachineClasses.RC;
 using System.Drawing;
 using LemonUI.Elements;
 using BackToTheFutureV.Story;
-using BTTFVLibrary;
+using FusionLibrary;
 
 namespace BackToTheFutureV.Menu
 {

@@ -167,9 +167,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BTTFVUtils\BTTFVLibrary.csproj">
+    <ProjectReference Include="..\BTTFVUtils\FusionLibrary.csproj">
       <Project>{f5aad1bd-63ca-4a12-97a8-f0d876ab4462}</Project>
-      <Name>BTTFVLibrary</Name>
+      <Name>FusionLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\KlangRageAudioLibrary\KlangRageAudioLibrary.csproj">
       <Project>{e52db215-0aa9-453a-b5f3-91f3ff35c1d9}</Project>

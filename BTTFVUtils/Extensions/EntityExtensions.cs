@@ -1,12 +1,12 @@
-﻿using BTTFVLibrary.Memory;
+﻿using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
 using System;
 using System.Collections.Generic;
-using static BTTFVLibrary.Enums;
+using static FusionLibrary.Enums;
 
-namespace BTTFVLibrary.Extensions
+namespace FusionLibrary.Extensions
 {
     public static class EntityExtensions
     {

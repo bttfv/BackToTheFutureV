@@ -1,8 +1,8 @@
 ﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
-using BTTFVLibrary;
-using BTTFVLibrary.Extensions;
+using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System;
@@ -14,7 +14,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static BTTFVLibrary.Enums;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {

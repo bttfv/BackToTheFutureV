@@ -2,7 +2,7 @@
 using GTA.Math;
 using System.Collections.Generic;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public class SpawnLocation
     {

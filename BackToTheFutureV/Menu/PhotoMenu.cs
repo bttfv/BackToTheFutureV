@@ -8,7 +8,7 @@ using LemonUI.Menus;
 using BackToTheFutureV.TimeMachineClasses;
 using LemonUI.Elements;
 using System.Drawing;
-using BTTFVLibrary;
+using FusionLibrary;
 
 namespace BackToTheFutureV.Menu
 {

@@ -1,7 +1,7 @@
 ﻿using GTA;
 using System;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     [Serializable]
     public class WeaponReplica

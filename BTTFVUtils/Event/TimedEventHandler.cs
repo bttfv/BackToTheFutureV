@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GTA;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public class TimedEventHandler
     {

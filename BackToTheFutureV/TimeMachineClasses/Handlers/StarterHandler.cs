@@ -5,9 +5,9 @@ using GTA;
 using BackToTheFutureV.Story;
 using System;
 using BackToTheFutureV.Vehicles;
-using BTTFVLibrary;
-using static BTTFVLibrary.Enums;
-using BTTFVLibrary.Extensions;
+using FusionLibrary;
+using static FusionLibrary.Enums;
+using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

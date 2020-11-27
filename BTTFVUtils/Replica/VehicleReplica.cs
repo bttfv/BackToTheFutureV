@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BTTFVLibrary.Enums;
+using static FusionLibrary.Enums;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public class VehicleReplica
     {

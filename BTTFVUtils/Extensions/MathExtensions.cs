@@ -3,9 +3,9 @@ using GTA.Math;
 using GTA.Native;
 using System;
 using System.Drawing;
-using static BTTFVLibrary.Enums;
+using static FusionLibrary.Enums;
 
-namespace BTTFVLibrary.Extensions
+namespace FusionLibrary.Extensions
 {
     public static class MathExtensions
     {

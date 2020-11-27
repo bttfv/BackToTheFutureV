@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace BTTFVLibrary.Memory
+namespace FusionLibrary.Memory
 {
     public enum Protection : uint
     {

@@ -10,7 +10,7 @@ using LemonUI.Elements;
 using System.Drawing;
 using BackToTheFutureV.Story;
 using KlangRageAudioLibrary;
-using BTTFVLibrary;
+using FusionLibrary;
 
 namespace BackToTheFutureV.Menu
 {

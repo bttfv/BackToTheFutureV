@@ -5,7 +5,7 @@ using GTA.Math;
 using GTA;
 using System.Collections.Generic;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public class ScaleformGui
     {

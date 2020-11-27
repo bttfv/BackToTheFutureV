@@ -9,11 +9,11 @@ using BackToTheFutureV.GUI;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
-using BTTFVLibrary;
+using FusionLibrary;
 using GTA;
 using LemonUI.Elements;
 using LemonUI.Menus;
-using static BTTFVLibrary.Enums;
+using static FusionLibrary.Enums;
 using Control = GTA.Control;
 
 namespace BackToTheFutureV.Menu

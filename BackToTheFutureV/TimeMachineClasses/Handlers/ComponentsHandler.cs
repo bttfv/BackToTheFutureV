@@ -6,7 +6,7 @@ using BackToTheFutureV.Utility;
 using BackToTheFutureV.Settings;
 using GTA.Native;
 using BackToTheFutureV.Vehicles;
-using BTTFVLibrary;
+using FusionLibrary;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

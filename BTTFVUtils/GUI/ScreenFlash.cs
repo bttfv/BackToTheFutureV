@@ -3,7 +3,7 @@ using GTA.Native;
 using GTA.UI;
 using System.Drawing;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public class ScreenFlash
     {

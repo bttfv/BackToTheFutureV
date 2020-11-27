@@ -1,10 +1,10 @@
-﻿using BTTFVLibrary.Extensions;
+﻿using FusionLibrary.Extensions;
 using GTA;
 using GTA.Native;
 using System;
 using System.Collections.Generic;
 
-namespace BTTFVLibrary
+namespace FusionLibrary
 {
     public delegate void OnTimeChanged(DateTime time);
     public delegate void OnDayNightChange();
