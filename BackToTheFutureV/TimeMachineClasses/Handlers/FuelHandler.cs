@@ -269,13 +269,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (isOn)
             {
-                Props.EmptyOff?.DeleteProp();
+                Props.EmptyOff?.Delete();
                 Props.EmptyGlowing?.SpawnProp();
             }
             else
             {
                 Props.EmptyOff?.SpawnProp();
-                Props.EmptyGlowing?.DeleteProp();
+                Props.EmptyGlowing?.Delete();
             }
         }
         private void HideEmpty()

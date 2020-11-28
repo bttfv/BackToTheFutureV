@@ -208,7 +208,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 }
                 else
                 {
-                    TimeMachine.Props?.RRWheels?.ForEach(x => x?.DeleteProp());
+                    TimeMachine.Props?.RRWheels?.ForEach(x => x?.Delete());
 
                     Utils.SetTiresBurst(Vehicle, false);
                 }

@@ -93,8 +93,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if((!toggleTo && amPm) || (toggleTo && !amPm))
             {
-                amProp?.DeleteProp();
-                pmProp?.DeleteProp();
+                amProp?.Delete();
+                pmProp?.Delete();
             }
             else if((!toggleTo && !amPm) || (toggleTo && amPm))
             {
@@ -144,8 +144,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void Dispose()
         {
             RenderTarget?.Dispose();
-            amProp?.DeleteProp();
-            pmProp?.DeleteProp();
+            amProp?.Delete();
+            pmProp?.Delete();
         }
 
         private void OnRenderTargetDraw()
@@ -322,7 +322,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 currentState = false;
                 Sounds.TCDBeep?.Stop();
                 Scaleforms.GUI.CallFunction("SET_DIODE_STATE", false);
-                Props.TickingDiodes?.DeleteProp();
+                Props.TickingDiodes?.Delete();
                 Props.TickingDiodesOff?.SpawnProp();
             }
         }

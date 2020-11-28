@@ -120,20 +120,20 @@ namespace BackToTheFutureV.Vehicles
 
             if (!Vehicle.IsVisible)
             {
-                speedNeedle.DeleteProp();
-                rpmNeedle.DeleteProp();
-                fuelNeedle.DeleteProp();
-                tempNeedle.DeleteProp();
-                oilNeedle.DeleteProp();
-                voltNeedle.DeleteProp();
-                doorIndicator.DeleteProp();
-                leftFan.DeleteProp();
-                rightFan.DeleteProp();
+                speedNeedle.Delete();
+                rpmNeedle.Delete();
+                fuelNeedle.Delete();
+                tempNeedle.Delete();
+                oilNeedle.Delete();
+                voltNeedle.Delete();
+                doorIndicator.Delete();
+                leftFan.Delete();
+                rightFan.Delete();
 
-                suspensionLeftFront?.DeleteProp();
-                suspensionLeftRear?.DeleteProp();
-                suspensionRightFront?.DeleteProp();
-                suspensionRightRear?.DeleteProp();
+                suspensionLeftFront?.Delete();
+                suspensionLeftRear?.Delete();
+                suspensionRightFront?.Delete();
+                suspensionRightRear?.Delete();
 
                 return;
             }
@@ -195,16 +195,16 @@ namespace BackToTheFutureV.Vehicles
             }
             else
             {
-                suspensionLeftFront?.DeleteProp();
-                suspensionLeftRear?.DeleteProp();
-                suspensionRightFront?.DeleteProp();
-                suspensionRightRear?.DeleteProp();
+                suspensionLeftFront?.Delete();
+                suspensionLeftRear?.Delete();
+                suspensionRightFront?.Delete();
+                suspensionRightRear?.Delete();
             }
 
             if (Utils.IsAnyOfFrontDoorsOpen(Vehicle))
                 doorIndicator.SpawnProp();
             else
-                doorIndicator.DeleteProp();
+                doorIndicator.Delete();
         }
 
         public void Dispose(bool deleteVeh = true)

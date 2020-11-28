@@ -133,10 +133,10 @@ namespace BackToTheFutureV.Players
             if (_roadWheel == Mods.Wheel)
                 return;
 
-            leftWheelProps.ForEach(x => x?.DeleteProp());
+            leftWheelProps.ForEach(x => x?.Delete());
             leftWheelProps.Clear();
 
-            rightWheelProps.ForEach(x => x?.DeleteProp());
+            rightWheelProps.ForEach(x => x?.Delete());
             rightWheelProps.Clear();
 
             _roadWheel = Properties.IsStockWheel ? WheelType.Stock : WheelType.Red;
@@ -171,8 +171,8 @@ namespace BackToTheFutureV.Players
 
         public override void Stop()
         {
-            leftWheelGlowProps.ForEach(x => x?.DeleteProp());
-            rightWheelGlowProps.ForEach(x => x?.DeleteProp());
+            leftWheelGlowProps.ForEach(x => x?.Delete());
+            rightWheelGlowProps.ForEach(x => x?.Delete());
 
             IsPlaying = false;
             currentStep = 0;
@@ -217,8 +217,8 @@ namespace BackToTheFutureV.Players
 
                 if (!Properties.IsLanding)
                 {
-                    leftWheelProps.ForEach(x => x.DeleteProp());
-                    rightWheelProps.ForEach(x => x.DeleteProp());
+                    leftWheelProps.ForEach(x => x.Delete());
+                    rightWheelProps.ForEach(x => x.Delete());
 
                     Mods.Wheel = _roadWheel;
                 }                
@@ -248,13 +248,13 @@ namespace BackToTheFutureV.Players
             {
                 for (int i = 0; i < leftWheelProps.Count; i++)
                 {
-                    leftWheelGlowProps[i].EntityAttachedTo = leftWheelProps[i].Prop;
+                    leftWheelGlowProps[i].Entity = leftWheelProps[i].Prop;
                     leftWheelGlowProps[i].SpawnProp(false);
                 }
 
                 for (int i = 0; i < rightWheelProps.Count; i++)
                 {
-                    rightWheelGlowProps[i].EntityAttachedTo = rightWheelProps[i].Prop;
+                    rightWheelGlowProps[i].Entity = rightWheelProps[i].Prop;
                     rightWheelGlowProps[i].SpawnProp(false);
                 }
             }

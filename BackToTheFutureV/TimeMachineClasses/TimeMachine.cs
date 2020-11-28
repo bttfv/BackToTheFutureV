@@ -413,7 +413,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (!Properties.PhotoGlowingCoilsActive && Props.Coils != null && Props.Coils.IsSpawned)
             {
                 Mods.OffCoils = ModState.On;
-                Props.Coils.DeleteProp();
+                Props.Coils.Delete();
             }
 
             if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingBlueAnim)

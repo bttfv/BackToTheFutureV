@@ -145,15 +145,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 prop?.Dispose();
 
             //Fuel
-            EmptyGlowing?.DeleteProp();
-            EmptyOff?.DeleteProp();
+            EmptyGlowing?.Delete();
+            EmptyOff?.Delete();
 
             //Hoodbox
-            HoodboxLights?.DeleteProp();
+            HoodboxLights?.Delete();
 
             //Time travel
             Coils?.Dispose();
-            WhiteSphere?.DeleteProp();
+            WhiteSphere?.Delete();
 
             //Plutonium gauge
             GaugeGlow?.Dispose();
@@ -173,8 +173,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             RRWheels?.ForEach(x => x?.Dispose());
 
             //TCD
-            TickingDiodes?.DeleteProp();
-            TickingDiodesOff?.DeleteProp();
+            TickingDiodes?.Delete();
+            TickingDiodesOff?.Delete();
         }
 
         public override void KeyDown(Keys key)

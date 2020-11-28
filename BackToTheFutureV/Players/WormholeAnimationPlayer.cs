@@ -342,9 +342,9 @@ namespace BackToTheFutureV.Players
             _hasStartedWormhole = false;            
             numOfProps = 0;
 
-            _coilsProp?.DeleteProp();
+            _coilsProp?.Delete();
 
-            _separatedCoils?.ForEach(x => x?.DeleteProp());
+            _separatedCoils?.ForEach(x => x?.Delete());
 
             _separatedCoils?.Clear();
 

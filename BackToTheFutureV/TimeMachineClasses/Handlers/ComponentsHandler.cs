@@ -58,7 +58,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnDayNightChange()
         {
-            Props.HoodboxLights?.DeleteProp();
+            Props.HoodboxLights?.Delete();
 
             if (TimeHandler.IsNight)
                 Props.HoodboxLights.Model = ModelHandler.HoodboxLightsNight;
@@ -148,7 +148,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Stop()
         {
-            Props.HoodboxLights?.DeleteProp();
+            Props.HoodboxLights?.Delete();
             _warmUp = 0;
         }
 

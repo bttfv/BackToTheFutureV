@@ -63,7 +63,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         
         private void OnDayNightChange()
         {            
-            Props.HoverModeVentsGlow?.DeleteProp();
+            Props.HoverModeVentsGlow?.Delete();
 
             if (TimeHandler.IsNight)
                 Props.HoverModeVentsGlow.Model = ModelHandler.VentGlowingNight;
@@ -99,7 +99,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 SetFlyMode(false, true);
 
             foreach (AnimateProp x in Props.HoverModeUnderbodyLights)
-                x?.DeleteProp();
+                x?.Delete();
         }
         
         private void OnAnimCompleted()
@@ -207,7 +207,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Properties.IsFlying)
                     Sounds.HoverModeOff.Play();
 
-                Props.HoverModeWheelsGlow?.DeleteProp();
+                Props.HoverModeWheelsGlow?.Delete();
             }
 
             Properties.IsFlying = Properties.AreWheelsInHoverMode;
@@ -223,8 +223,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsFlying && Properties.IsAltitudeHolding)
                 Properties.IsAltitudeHolding = false;
 
-            Props.HoverModeVentsGlow?.DeleteProp();
-            Props.HoverModeWheelsGlow?.DeleteProp();
+            Props.HoverModeVentsGlow?.Delete();
+            Props.HoverModeWheelsGlow?.Delete();
 
             Events.OnHoverTransformation?.Invoke();
         }
@@ -393,7 +393,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             else
             {
                 // Set vent effect invisible
-                Props.HoverModeVentsGlow?.DeleteProp();
+                Props.HoverModeVentsGlow?.Delete();
 
                 // Reset flag
                 _hasPlayedBoostSound = false;
@@ -483,7 +483,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             for(int i = Props.HoverModeUnderbodyLights.Count-1; i >= 0; i--)
             {
                 if (_currentLightIndex != i)
-                    Props.HoverModeUnderbodyLights[i]?.DeleteProp();
+                    Props.HoverModeUnderbodyLights[i]?.Delete();
                 else
                     Props.HoverModeUnderbodyLights[i]?.SpawnProp();
             }

@@ -97,7 +97,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if(Properties.AreTimeCircuitsOn)
             {
                 Props.TFCOn?.SpawnProp(false);
-                Props.TFCOff?.DeleteProp();
+                Props.TFCOff?.Delete();
 
                 rotate = true;
                 rotateTfcTo = -45f;
@@ -107,7 +107,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             else
             {
                 Props.TFCOff?.SpawnProp(false);
-                Props.TFCOn?.DeleteProp();
+                Props.TFCOn?.Delete();
 
                 rotate = true;
                 rotateTfcTo = 0;
@@ -116,7 +116,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _gaugeNeedle2.On = false;
                 _gaugeNeedle3.On = false;
 
-                Props.GaugeGlow?.DeleteProp();
+                Props.GaugeGlow?.Delete();
             }
 
             hasPlayed = false;
