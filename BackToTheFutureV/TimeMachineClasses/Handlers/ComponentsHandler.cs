@@ -89,7 +89,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void CompassProcess()
         {
-            Props.Compass?.SpawnProp(Vector3.Zero, new Vector3(0, 0, Vehicle.Heading), false);
+            Props.Compass?.MoveProp(Vector3.Zero, new Vector3(0, 0, Vehicle.Heading), false);
 
             if (Props.Compass.Prop.IsVisible != Vehicle.IsVisible)
                 Props.Compass.Prop.IsVisible = Vehicle.IsVisible;

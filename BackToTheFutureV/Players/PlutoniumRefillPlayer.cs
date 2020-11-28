@@ -78,7 +78,7 @@ namespace BackToTheFutureV.Players
                     break;
             }
 
-            plutoniumCap.SpawnProp(new Vector3(0, 0, currentOffset), new Vector3(0, 0, currentRotation), false);
+            plutoniumCap.MoveProp(new Vector3(0, 0, currentOffset), new Vector3(0, 0, currentRotation), false);
         }
 
         public override void Stop()

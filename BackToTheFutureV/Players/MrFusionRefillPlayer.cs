@@ -101,8 +101,8 @@ namespace BackToTheFutureV.Players
                     break;
             }
 
-            _mrFusion.SpawnProp(new Vector3(0, 0, 0), new Vector3(_currentRotation, 0, 0), false);
-            _mrFusionHandle.SpawnProp(new Vector3(0, 0, 0), new Vector3(_currentHandleRotation, 0, 0), false);
+            _mrFusion.MoveProp(new Vector3(0, 0, 0), new Vector3(_currentRotation, 0, 0), false);
+            _mrFusionHandle.MoveProp(new Vector3(0, 0, 0), new Vector3(_currentHandleRotation, 0, 0), false);
         }
 
         public override void Stop()

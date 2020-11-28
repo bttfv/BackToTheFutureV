@@ -8,6 +8,7 @@ using GTA;
 using GTA.Math;
 using GTA.Native;
 using GTA.UI;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Players
 {
@@ -15,48 +16,40 @@ namespace BackToTheFutureV.Players
 
     public class WheelAnimationPlayer : Player
     {
-        public const float MAX_OFFSET = -0.17f;
-        public const float MAX_STRUT_OFFSET = -0.18f;
-        public const float MAX_ROTATION = -90f;
-        public const float MAX_PISTON_ROTATION = -90f;
+        public const float MAX_POSITION_OFFSET = 0.18f;
+        public const float MAX_ROTATION_OFFSET = -90f;
 
         public bool IsWheelsOpen { get; private set; }
-
-        public bool IsVisible => leftStruts[0].IsSpawned && leftStruts[0].Prop.IsVisible;
 
         public OnAnimCompleted OnAnimCompleted { get; set; }
 
         private WheelType _roadWheel;
 
-        private List<AnimateProp> leftWheelProps = new List<AnimateProp>();
-        private List<AnimateProp> rightWheelProps = new List<AnimateProp>();
+        private AnimatePropsHandler AllProps = new AnimatePropsHandler();
 
-        private List<AnimateProp> leftStruts = new List<AnimateProp>();
-        private List<AnimateProp> leftPistons = new List<AnimateProp>();
-        private List<AnimateProp> leftDisks = new List<AnimateProp>();
+        private AnimatePropsHandler GlowWheels = new AnimatePropsHandler();
+        private AnimatePropsHandler Pistons = new AnimatePropsHandler();
 
-        private List<AnimateProp> rightStruts = new List<AnimateProp>();
-        private List<AnimateProp> rightPistons = new List<AnimateProp>();
-        private List<AnimateProp> rightDisks = new List<AnimateProp>();
-
-        private List<AnimateProp> leftWheelGlowProps = new List<AnimateProp>();
-        private List<AnimateProp> rightWheelGlowProps = new List<AnimateProp>();
-
+        private AnimatePropsHandler LeftWheels = new AnimatePropsHandler();
+        private AnimatePropsHandler LeftStruts = new AnimatePropsHandler();
+        private AnimatePropsHandler LeftDisks = new AnimatePropsHandler();
+        
+        private AnimatePropsHandler RightWheels = new AnimatePropsHandler();
+        private AnimatePropsHandler RightStruts = new AnimatePropsHandler();
+        private AnimatePropsHandler RightDisks = new AnimatePropsHandler();
+        
         private bool _firstAnimation = true;
 
         private int currentStep;
         private float currentRotation;
-        private float currentOffset;
-
-        private float currentStrutOffset;
-        private float currentPistonRotation;
+        private float currentPosition;
 
         //0.4681351f
-        public Vector3 strutFrontOffset = new Vector3(-0.5655205f, 1.267366f, 0.3080211f);
+        public Vector3 strutFrontOffset = new Vector3(-0.5655205f, 1.267366f, 0.2580211f);
         public Vector3 diskOffsetFromStrut = new Vector3(-0.23691f, 0.002096051f, -0.1387549f);
         public Vector3 pistonOffsetFromDisk = new Vector3(-0.05293572f, -0.002848367f, 0.0005371129f);
 
-        public Vector3 strutRearOffset = new Vector3(-0.5655205f, -1.200989f, 0.327969f);
+        public Vector3 strutRearOffset = new Vector3(-0.5655205f, -1.200989f, 0.2580211f);
         public Vector3 diskOffsetFromRearStrut = new Vector3(-0.2380092f, 0.002005455f, -0.1414804f);
         public Vector3 pistonOffsetFromRearDisk = new Vector3(-0.05293572f, -0.002848367f, 0.0005371129f);
 
@@ -70,7 +63,7 @@ namespace BackToTheFutureV.Players
             foreach (var wheel in Vehicle.GetWheelPositions())
             {
                 string wheelName = wheel.Key;
-                Vector3 offset = wheel.Value;
+
                 bool leftWheel = (wheelName.Contains("lf") || wheelName.Contains("lr"));
                 bool frontWheel = (wheelName.Contains("lf") || wheelName.Contains("rf"));
 
@@ -89,9 +82,7 @@ namespace BackToTheFutureV.Players
                     strutOffset = new Vector3(-strutFrontOffset.X, strutFrontOffset.Y, strutFrontOffset.Z);
                 else if (!leftWheel && !frontWheel)
                     strutOffset = new Vector3(-strutRearOffset.X, strutRearOffset.Y, strutRearOffset.Z);
-
-                AnimateProp wheelAnimateProp = new AnimateProp(Vehicle, wheelModel, offset, Vector3.Zero);
-
+                
                 AnimateProp wheelGlowAnimateProp = new AnimateProp(null, wheelGlowModel, Vector3.Zero, Vector3.Zero);
 
                 AnimateProp strut = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.Strut), strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
@@ -103,41 +94,37 @@ namespace BackToTheFutureV.Players
                 AnimateProp piston = new AnimateProp(disk.Prop, ModelHandler.RequestModel(ModelHandler.Piston), frontWheel ? pistonOffsetFromDisk : pistonOffsetFromRearDisk, Vector3.Zero);
                 piston.SpawnProp();
 
+                AnimateProp wheelAnimateProp = new AnimateProp(disk.Prop, wheelModel, Vector3.Zero, new Vector3(0, -90, 0));
+
                 if (leftWheel)
                 {
-                    leftStruts.Add(strut);
-                    leftPistons.Add(piston);
-                    leftDisks.Add(disk);
-
-                    leftWheelProps.Add(wheelAnimateProp);
-                    leftWheelGlowProps.Add(wheelGlowAnimateProp);
+                    LeftStruts.Props.Add(strut);
+                    LeftDisks.Props.Add(disk);
+                    LeftWheels.Props.Add(wheelAnimateProp);
                 }
                 else
                 {
-                    rightStruts.Add(strut);
-                    rightPistons.Add(piston);
-                    rightDisks.Add(disk);
-
-                    rightWheelProps.Add(wheelAnimateProp);
-                    rightWheelGlowProps.Add(wheelGlowAnimateProp);
+                    RightStruts.Props.Add(strut);
+                    RightDisks.Props.Add(disk);
+                    RightWheels.Props.Add(wheelAnimateProp);
                 }
+
+                GlowWheels.Props.Add(wheelGlowAnimateProp);
+                Pistons.Props.Add(piston);
+
+                AllProps.Props.Add(strut);
+                AllProps.Props.Add(piston);
+                AllProps.Props.Add(disk);
+                AllProps.Props.Add(wheelGlowAnimateProp);
             }
 
-            currentPistonRotation = MAX_PISTON_ROTATION;
-
-            ApplyAnimation(currentOffset, currentStrutOffset, currentRotation, currentPistonRotation);
+            ApplyAnimation();
         }
 
         private void ReloadWheelModels()
         {
             if (_roadWheel == Mods.Wheel)
                 return;
-
-            leftWheelProps.ForEach(x => x?.Delete());
-            leftWheelProps.Clear();
-
-            rightWheelProps.ForEach(x => x?.Delete());
-            rightWheelProps.Clear();
 
             _roadWheel = Properties.IsStockWheel ? WheelType.Stock : WheelType.Red;
 
@@ -147,7 +134,7 @@ namespace BackToTheFutureV.Players
             foreach (var wheel in Vehicle.GetWheelPositions())
             {
                 string wheelName = wheel.Key;
-                Vector3 offset = wheel.Value;
+                
                 bool leftWheel = (wheelName.Contains("lf") || wheelName.Contains("lr"));
                 bool frontWheel = (wheelName.Contains("lf") || wheelName.Contains("rf"));
 
@@ -155,12 +142,20 @@ namespace BackToTheFutureV.Players
 
                 ModelHandler.RequestModel(wheelModel);
 
-                AnimateProp wheelAnimateProp = new AnimateProp(Vehicle, wheelModel, offset, Vector3.Zero);
-
                 if (leftWheel)
-                    leftWheelProps.Add(wheelAnimateProp);
+                {
+                    if (frontWheel)
+                        LeftWheels.Props[0].SwapModel(wheelModel);
+                    else
+                        LeftWheels.Props[1].SwapModel(wheelModel);
+                }
                 else
-                    rightWheelProps.Add(wheelAnimateProp);
+                {
+                    if (frontWheel)
+                        RightWheels.Props[0].SwapModel(wheelModel);
+                    else
+                        RightWheels.Props[1].SwapModel(wheelModel);
+                }
             }
         }
 
@@ -171,8 +166,7 @@ namespace BackToTheFutureV.Players
 
         public override void Stop()
         {
-            leftWheelGlowProps.ForEach(x => x?.Delete());
-            rightWheelGlowProps.ForEach(x => x?.Delete());
+            GlowWheels.Delete();
 
             IsPlaying = false;
             currentStep = 0;
@@ -217,8 +211,8 @@ namespace BackToTheFutureV.Players
 
                 if (!Properties.IsLanding)
                 {
-                    leftWheelProps.ForEach(x => x.Delete());
-                    rightWheelProps.ForEach(x => x.Delete());
+                    LeftWheels.Delete();
+                    RightWheels.Delete();
 
                     Mods.Wheel = _roadWheel;
                 }                
@@ -229,34 +223,26 @@ namespace BackToTheFutureV.Players
         {
             if (IsWheelsOpen)
             {
-                currentOffset = MAX_OFFSET;
-                currentStrutOffset = MAX_STRUT_OFFSET;
-                currentRotation = MAX_ROTATION;
-                currentPistonRotation = 0;
+                currentPosition = MAX_POSITION_OFFSET;
+                currentRotation = MAX_ROTATION_OFFSET;
             }
             else
             {
-                currentOffset = 0;
-                currentStrutOffset = 0;
+                currentPosition = 0;
                 currentRotation = 0;
-                currentPistonRotation = MAX_PISTON_ROTATION;                
             }
 
-            ApplyAnimation(currentOffset, currentStrutOffset, currentRotation, currentPistonRotation);
+            ApplyAnimation();
 
             if (IsWheelsOpen && _roadWheel == WheelType.Stock)
             {
-                for (int i = 0; i < leftWheelProps.Count; i++)
-                {
-                    leftWheelGlowProps[i].Entity = leftWheelProps[i].Prop;
-                    leftWheelGlowProps[i].SpawnProp(false);
-                }
+                for (int i = 0; i < 4; i++)
+                    if (i < 2)
+                        GlowWheels.Props[i].Entity = LeftWheels.Props[i].Prop;                
+                    else
+                        GlowWheels.Props[i].Entity = RightWheels.Props[i-2].Prop;
 
-                for (int i = 0; i < rightWheelProps.Count; i++)
-                {
-                    rightWheelGlowProps[i].Entity = rightWheelProps[i].Prop;
-                    rightWheelGlowProps[i].SpawnProp(false);
-                }
+                GlowWheels.SpawnProp();
             }
         }
 
@@ -265,52 +251,38 @@ namespace BackToTheFutureV.Players
             if (!IsPlaying)
                 return;
 
-            ApplyAnimation(currentOffset, currentStrutOffset, currentRotation, currentPistonRotation);
+            ApplyAnimation();
 
             switch (currentStep)
             {
                 case 0:
                     if (IsWheelsOpen)
                     {
-                        // Wheel stuff
-                        float offsetToAdd = (0.17f * Game.LastFrameTime) / 0.75f;
-                        currentOffset -= offsetToAdd;
-
                         // Strut stuff
-                        offsetToAdd = (0.18f * Game.LastFrameTime) / 0.75f;
-                        currentStrutOffset -= offsetToAdd;
-                       
-                        if (currentOffset < -0.17f || currentStrutOffset < -0.18f)
+                        float offsetToAdd = (MAX_POSITION_OFFSET * Game.LastFrameTime) / 0.75f;
+                        currentPosition += offsetToAdd;
+
+                        if (currentPosition > MAX_POSITION_OFFSET)
                             currentStep++;
                     }
                     else
                     {
                         // Wheel stuff
-                        float numToAdd = (90f * Game.LastFrameTime) / 0.75f;
+                        float numToAdd = (-MAX_ROTATION_OFFSET * Game.LastFrameTime) / 0.75f;
                         currentRotation += numToAdd;
-
-                        // Piston stuff
-                        numToAdd = (90f * Game.LastFrameTime) / 0.75f;
-                        currentPistonRotation -= numToAdd;
 
                         if (currentRotation >= 0)
                             currentStep++;
                     }
-
                     break;
-
                 case 1:
                     if (IsWheelsOpen)
                     {
                         // Wheel stuff
-                        float numToAdd = (90f * Game.LastFrameTime) / 0.75f;
+                        float numToAdd = (-MAX_ROTATION_OFFSET * Game.LastFrameTime) / 0.75f;
                         currentRotation -= numToAdd;
 
-                        // Piston stuff
-                        numToAdd = (90f * Game.LastFrameTime) / 0.75f;
-                        currentPistonRotation += numToAdd;
-
-                        if (currentRotation < -90)
+                        if (currentRotation < MAX_ROTATION_OFFSET)
                         {
                             SetInstant(true, false);
                             OnAnimCompleted.Invoke();
@@ -318,15 +290,11 @@ namespace BackToTheFutureV.Players
                     }
                     else
                     {
-                        // Wheel stuff
-                        float offsetToAdd = (0.17f * Game.LastFrameTime) / 0.75f;
-                        currentOffset += offsetToAdd;
-
                         // Strut stuff
-                        offsetToAdd = (0.18f * Game.LastFrameTime) / 0.75f;
-                        currentStrutOffset += offsetToAdd;
+                        float offsetToAdd = (MAX_POSITION_OFFSET * Game.LastFrameTime) / 0.75f;
+                        currentPosition -= offsetToAdd;
 
-                        if (currentOffset >= 0 || currentStrutOffset >= 0)
+                        if (currentPosition < 0)
                         {
                             SetInstant(false, false);
                             OnAnimCompleted.Invoke();
@@ -336,50 +304,24 @@ namespace BackToTheFutureV.Players
             }
         }
 
-        public void ApplyAnimation(float offset, float strutOffset, float rotation, float pistonRotation)
+        public void ApplyAnimation()
         {
             if (!_firstAnimation)
             {
-                foreach (var wheelProp in leftWheelProps)
-                {
-                    wheelProp.SpawnProp(new Vector3(offset, 0, 0), new Vector3(0, rotation, 0), false);
-                }
+                if (!LeftWheels.IsSpawned)
+                    LeftWheels.SpawnProp();
 
-                foreach (var wheelProp in rightWheelProps)
-                {
-                    wheelProp.SpawnProp(new Vector3(-offset, 0, 0), new Vector3(0, -rotation - 180f, 0), false);
-                }
+                if (!RightWheels.IsSpawned)
+                    RightWheels.SpawnProp();
             }
 
-            foreach (var piston in leftPistons)
-            {
-                piston.SpawnProp(Vector3.Zero, new Vector3(0, pistonRotation, 0), false);
-            }
+            LeftStruts.MoveProp(new Vector3(-currentPosition, 0, 0), Vector3.Zero, false);
+            RightStruts.MoveProp(new Vector3(currentPosition, 0, 0), Vector3.Zero, false);
 
-            foreach (var piston in rightPistons)
-            {
-                piston.SpawnProp(Vector3.Zero, new Vector3(0, pistonRotation, 0), false);
-            }
+            LeftDisks.MoveProp(Vector3.Zero, new Vector3(0, currentRotation, 0), false);
+            RightDisks.MoveProp(Vector3.Zero, new Vector3(0, currentRotation - 180f, 0), false);
 
-            foreach (var strut in leftStruts)
-            {
-                strut.SpawnProp(new Vector3(strutOffset, 0, 0), Vector3.Zero, false);
-            }
-
-            foreach (var strut in rightStruts)
-            {
-                strut.SpawnProp(new Vector3(-strutOffset, 0, 0), Vector3.Zero, false);
-            }
-
-            foreach (var disk in leftDisks)
-            {
-                disk.SpawnProp(Vector3.Zero, new Vector3(0, rotation, 0), false);
-            }
-
-            foreach (var disk in rightDisks)
-            {
-                disk.SpawnProp(Vector3.Zero, new Vector3(0, rotation - 180f, 0), false);
-            }
+            Pistons.MoveProp(Vector3.Zero, new Vector3(0, -90 - currentRotation, 0), false);
 
             if (_firstAnimation)
                 _firstAnimation = false;
@@ -387,55 +329,9 @@ namespace BackToTheFutureV.Players
 
         public override void Dispose()
         {
-            foreach (var wheelProp in leftWheelProps)
-            {
-                wheelProp?.Dispose();
-            }
-
-            foreach (var wheelProp in rightWheelProps)
-            {
-                wheelProp?.Dispose();
-            }
-
-            foreach (var glowProp in leftWheelGlowProps)
-            {
-                glowProp?.Dispose();
-            }
-
-            foreach (var glowProp in rightWheelGlowProps)
-            {
-                glowProp?.Dispose();
-            }
-
-            foreach (var strut in leftStruts)
-            {
-                strut?.Dispose();
-            }
-
-            foreach (var piston in leftPistons)
-            {
-                piston?.Dispose();
-            }
-
-            foreach (var disk in leftDisks)
-            {
-                disk?.Dispose();
-            }
-
-            foreach (var strut in rightStruts)
-            {
-                strut?.Dispose();
-            }
-
-            foreach (var piston in rightPistons)
-            {
-                piston?.Dispose();
-            }
-
-            foreach (var disk in rightDisks)
-            {
-                disk?.Dispose();
-            }
+            AllProps.Dispose();
+            LeftWheels.Dispose();
+            RightWheels.Dispose();
         }
     }
 }

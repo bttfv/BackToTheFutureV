@@ -61,7 +61,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     rotate = false;
             }
 
-            Prop.SpawnProp(Vector3.Zero, new Vector3(0, Rotation, 0));
+            Prop.MoveProp(Vector3.Zero, new Vector3(0, Rotation, 0));
         }
 
         public void Dispose()
@@ -131,7 +131,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if(rotate)
             {
                 currentTfcRotation = Utils.Lerp(currentTfcRotation, rotateTfcTo, Game.LastFrameTime * 8f);
-                Props.TFCHandle?.SpawnProp(Vector3.Zero, new Vector3(0, currentTfcRotation, 0), false);
+                Props.TFCHandle?.MoveProp(Vector3.Zero, new Vector3(0, currentTfcRotation, 0), false);
 
                 var diff = Math.Abs(currentTfcRotation - rotateTfcTo);
                 if (diff <= 0.001)
