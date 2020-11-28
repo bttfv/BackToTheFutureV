@@ -98,7 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             HoverModeVentsGlow = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.VentGlowing), Vector3.Zero, Vector3.Zero);
             HoverModeWheelsGlow = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.HoverGlowing), Vector3.Zero, Vector3.Zero)
             {
-                Duration = 1.7f
+                Duration = 3f
             };
 
             //Fuel
@@ -113,7 +113,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Speedo
             Speedo = new AnimateProp(Vehicle, ModelHandler.BTTFSpeedo, "bttf_speedo");
-            Speedo.SpawnProp(false);
+            Speedo.SpawnProp();
 
             //Compass
             Compass = new AnimateProp(Vehicle, ModelHandler.Compass, "bttf_compass");
@@ -122,7 +122,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TFCOn = new AnimateProp(Vehicle, ModelHandler.TFCOn, Vector3.Zero, Vector3.Zero);
             TFCOff = new AnimateProp(Vehicle, ModelHandler.TFCOff, Vector3.Zero, Vector3.Zero);
             TFCHandle = new AnimateProp(Vehicle, ModelHandler.TFCHandle, new Vector3(-0.03805999f, -0.0819466f, 0.5508024f), Vector3.Zero);
-            TFCHandle.SpawnProp(false);
+            TFCHandle.SpawnProp();
 
             //TCD
             TickingDiodes = new AnimateProp(Vehicle, ModelHandler.TickingDiodes, Vector3.Zero, Vector3.Zero);

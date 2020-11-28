@@ -85,7 +85,7 @@ namespace BackToTheFutureV.Players
 
             _spark.Offset += _lastDirection * Speed * Game.LastFrameTime;
             _spark.Rotation = Vector3.Lerp(_spark.Rotation, _lastRotation, Game.LastFrameTime * Speed);
-            _spark.SpawnProp(false);
+            _spark.SpawnProp();
         }
 
         public override void Stop()

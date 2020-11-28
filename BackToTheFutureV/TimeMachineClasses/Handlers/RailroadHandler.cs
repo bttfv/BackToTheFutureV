@@ -105,7 +105,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             customTrain = CustomTrainHandler.CreateInvisibleTrain(Vehicle, _direction);
 
-            if (!customTrain.Train.Heading.MostlyNear(Vehicle.Heading))
+            if (!customTrain.Train.Heading.Near(Vehicle.Heading))
             {
                 _direction = !_direction;
                 customTrain.DeleteTrain();

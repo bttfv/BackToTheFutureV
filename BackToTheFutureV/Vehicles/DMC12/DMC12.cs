@@ -169,19 +169,19 @@ namespace BackToTheFutureV.Vehicles
             {
                 fanRotation += Game.LastFrameTime * 10.8f * (Vehicle.EngineTemperature - 50);
 
-                leftFan.MoveProp(Vector3.Zero, new Vector3(16f, fanRotation, 0), false);
-                rightFan.MoveProp(Vector3.Zero, new Vector3(16f, fanRotation, 0), false);
+                leftFan.MoveProp(Vector3.Zero, new Vector3(16f, fanRotation, 0));
+                rightFan.MoveProp(Vector3.Zero, new Vector3(16f, fanRotation, 0));
 
                 if (fanRotation >= 360)
                     fanRotation -= 360;
             }
 
-            speedNeedle.MoveProp(Vector3.Zero, new Vector3(0, speedRotation, 0), false);
-            rpmNeedle.MoveProp(Vector3.Zero, new Vector3(0, rpmRotation, 0), false);
-            fuelNeedle.MoveProp(Vector3.Zero, new Vector3(0, fuelRotation, 0), false);
-            tempNeedle.MoveProp(Vector3.Zero, new Vector3(0, tempRotation, 0), false);
-            oilNeedle.MoveProp(Vector3.Zero, new Vector3(0, oilRotation, 0), false);
-            voltNeedle.MoveProp(Vector3.Zero, new Vector3(0, voltRotation, 0), false);
+            speedNeedle.MoveProp(Vector3.Zero, new Vector3(0, speedRotation, 0));
+            rpmNeedle.MoveProp(Vector3.Zero, new Vector3(0, rpmRotation, 0));
+            fuelNeedle.MoveProp(Vector3.Zero, new Vector3(0, fuelRotation, 0));
+            tempNeedle.MoveProp(Vector3.Zero, new Vector3(0, tempRotation, 0));
+            oilNeedle.MoveProp(Vector3.Zero, new Vector3(0, oilRotation, 0));
+            voltNeedle.MoveProp(Vector3.Zero, new Vector3(0, voltRotation, 0));
 
             if (spawnSuspension)
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
@@ -16,10 +17,12 @@ namespace BackToTheFutureV.Players
 
     public class WheelAnimationPlayer : Player
     {
-        public const float MAX_POSITION_OFFSET = 0.18f;
+        public const float MAX_POSITION_OFFSET = 0.20f;
         public const float MAX_ROTATION_OFFSET = -90f;
 
         public bool IsWheelsOpen { get; private set; }
+
+        private AnimationStep WheelAnimation = AnimationStep.Off;
 
         public OnAnimCompleted OnAnimCompleted { get; set; }
 
@@ -29,22 +32,10 @@ namespace BackToTheFutureV.Players
 
         private AnimatePropsHandler GlowWheels = new AnimatePropsHandler();
         private AnimatePropsHandler Pistons = new AnimatePropsHandler();
+        private AnimatePropsHandler Wheels = new AnimatePropsHandler();
+        private AnimatePropsHandler Disks = new AnimatePropsHandler();
+        private AnimatePropsHandler Struts = new AnimatePropsHandler();
 
-        private AnimatePropsHandler LeftWheels = new AnimatePropsHandler();
-        private AnimatePropsHandler LeftStruts = new AnimatePropsHandler();
-        private AnimatePropsHandler LeftDisks = new AnimatePropsHandler();
-        
-        private AnimatePropsHandler RightWheels = new AnimatePropsHandler();
-        private AnimatePropsHandler RightStruts = new AnimatePropsHandler();
-        private AnimatePropsHandler RightDisks = new AnimatePropsHandler();
-        
-        private bool _firstAnimation = true;
-
-        private int currentStep;
-        private float currentRotation;
-        private float currentPosition;
-
-        //0.4681351f
         public Vector3 strutFrontOffset = new Vector3(-0.5655205f, 1.267366f, 0.2580211f);
         public Vector3 diskOffsetFromStrut = new Vector3(-0.23691f, 0.002096051f, -0.1387549f);
         public Vector3 pistonOffsetFromDisk = new Vector3(-0.05293572f, -0.002848367f, 0.0005371129f);
@@ -60,65 +51,112 @@ namespace BackToTheFutureV.Players
             Model modelWheel = _roadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
             Model modelWheelRear = _roadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
             
-            foreach (var wheel in Vehicle.GetWheelPositions())
+            foreach (WheelId wheel in Enum.GetValues(typeof(WheelId)))
             {
-                string wheelName = wheel.Key;
+                bool leftWheel = wheel == WheelId.FrontLeft | wheel == WheelId.RearLeft;
+                bool frontWheel = wheel == WheelId.FrontLeft | wheel == WheelId.FrontRight;
 
-                bool leftWheel = (wheelName.Contains("lf") || wheelName.Contains("lr"));
-                bool frontWheel = (wheelName.Contains("lf") || wheelName.Contains("rf"));
+                Model wheelModel = frontWheel ? modelWheel : modelWheelRear;
+                Model wheelGlowModel = frontWheel ? ModelHandler.WheelGlowing : ModelHandler.RearWheelGlowing;
 
-                Model wheelModel = !frontWheel ? modelWheelRear : modelWheel;
-                Model wheelGlowModel = !frontWheel ? ModelHandler.RearWheelGlowing : ModelHandler.WheelGlowing;
                 Vector3 strutOffset = Vector3.Zero;
 
                 ModelHandler.RequestModel(wheelModel);
                 ModelHandler.RequestModel(wheelGlowModel);
 
-                if (leftWheel && frontWheel)
-                    strutOffset = strutFrontOffset;
-                else if (leftWheel && !frontWheel)
-                    strutOffset = strutRearOffset;
-                else if (!leftWheel && frontWheel)
-                    strutOffset = new Vector3(-strutFrontOffset.X, strutFrontOffset.Y, strutFrontOffset.Z);
-                else if (!leftWheel && !frontWheel)
-                    strutOffset = new Vector3(-strutRearOffset.X, strutRearOffset.Y, strutRearOffset.Z);
-                
-                AnimateProp wheelGlowAnimateProp = new AnimateProp(null, wheelGlowModel, Vector3.Zero, Vector3.Zero);
+                switch (wheel)
+                {
+                    case WheelId.FrontLeft:
+                        strutOffset = strutFrontOffset;
+                        break;
+                    case WheelId.FrontRight:
+                        strutOffset = new Vector3(-strutFrontOffset.X, strutFrontOffset.Y, strutFrontOffset.Z);
+                        break;
+                    case WheelId.RearLeft:
+                        strutOffset = strutRearOffset;
+                        break;
+                    case WheelId.RearRight:
+                        strutOffset = new Vector3(-strutRearOffset.X, strutRearOffset.Y, strutRearOffset.Z);
+                        break;
+                }
 
                 AnimateProp strut = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.Strut), strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
+
+                if (leftWheel)
+                    strut.setOffsetSettings(Coordinate.X, false, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.11f, 1, true);
+                else
+                    strut.setOffsetSettings(Coordinate.X, false, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.11f, 1, true);
+
+                strut.AnimationStopped += AnimationStopped;
                 strut.SpawnProp();
 
-                AnimateProp disk = new AnimateProp(strut.Prop, ModelHandler.RequestModel(ModelHandler.Disk), frontWheel ? diskOffsetFromStrut : diskOffsetFromRearStrut, new Vector3(0, leftWheel ? 90 : -90, 0));
+                AnimateProp disk = new AnimateProp(strut.Prop, ModelHandler.RequestModel(ModelHandler.Disk), frontWheel ? diskOffsetFromStrut : diskOffsetFromRearStrut, new Vector3(0, 90, 0));
+                disk.setRotationSettings(Coordinate.Y, false, false, 0, 90, 1, 90, 1, true);
+                disk.AnimationStopped += AnimationStopped;
                 disk.SpawnProp();
 
-                AnimateProp piston = new AnimateProp(disk.Prop, ModelHandler.RequestModel(ModelHandler.Piston), frontWheel ? pistonOffsetFromDisk : pistonOffsetFromRearDisk, Vector3.Zero);
+                AnimateProp piston = new AnimateProp(disk.Prop, ModelHandler.RequestModel(ModelHandler.Piston), frontWheel ? pistonOffsetFromDisk : pistonOffsetFromRearDisk, new Vector3(0, -90, 0));
+                piston.setRotationSettings(Coordinate.Y, false, true, -90, 0, 1, 90, 1, true);
                 piston.SpawnProp();
 
                 AnimateProp wheelAnimateProp = new AnimateProp(disk.Prop, wheelModel, Vector3.Zero, new Vector3(0, -90, 0));
 
-                if (leftWheel)
-                {
-                    LeftStruts.Props.Add(strut);
-                    LeftDisks.Props.Add(disk);
-                    LeftWheels.Props.Add(wheelAnimateProp);
-                }
-                else
-                {
-                    RightStruts.Props.Add(strut);
-                    RightDisks.Props.Add(disk);
-                    RightWheels.Props.Add(wheelAnimateProp);
-                }
+                AnimateProp wheelGlowAnimateProp = new AnimateProp(null, wheelGlowModel, Vector3.Zero, Vector3.Zero);
 
+                Struts.Props.Add(strut);
                 GlowWheels.Props.Add(wheelGlowAnimateProp);
                 Pistons.Props.Add(piston);
+                Wheels.Props.Add(wheelAnimateProp);
+                Disks.Props.Add(disk);
 
                 AllProps.Props.Add(strut);
                 AllProps.Props.Add(piston);
                 AllProps.Props.Add(disk);
                 AllProps.Props.Add(wheelGlowAnimateProp);
             }
+        }
 
-            ApplyAnimation();
+        public void AnimationStopped(AnimateProp animateProp, Coordinate coordinate, CoordinateSetting coordinateSetting, bool IsRotation)
+        {
+            if (!IsPlaying)
+                return;
+
+            if (IsWheelsOpen)
+            {
+                if (WheelAnimation == AnimationStep.First && !Struts.getOffsetUpdate(Coordinate.X))
+                {
+                    Disks.setRotationUpdate(Coordinate.Y, true);
+                    Pistons.setRotationUpdate(Coordinate.Y, true);
+
+                    WheelAnimation = AnimationStep.Second;
+                }
+
+                if (WheelAnimation == AnimationStep.Second && !Disks.getRotationUpdate(Coordinate.Y) && !Pistons.getRotationUpdate(Coordinate.Y))
+                {
+                    Stop();
+                    OnAnimCompleted.Invoke();
+                }
+            }
+            else
+            {
+                if (WheelAnimation == AnimationStep.First && !Disks.getRotationUpdate(Coordinate.Y) && !Pistons.getRotationUpdate(Coordinate.Y))
+                {
+                    Struts[0].setOffsetIncreasing(Coordinate.X, true);
+                    Struts[1].setOffsetIncreasing(Coordinate.X, false);
+                    Struts[2].setOffsetIncreasing(Coordinate.X, true);
+                    Struts[3].setOffsetIncreasing(Coordinate.X, false);
+
+                    Struts.setOffsetUpdate(Coordinate.X, true);
+
+                    WheelAnimation = AnimationStep.Second;
+                }
+
+                if (WheelAnimation == AnimationStep.Second && !Struts.getOffsetUpdate(Coordinate.X))
+                {
+                    Stop();
+                    OnAnimCompleted.Invoke();
+                }
+            }
         }
 
         private void ReloadWheelModels()
@@ -131,32 +169,10 @@ namespace BackToTheFutureV.Players
             Model modelWheel = _roadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
             Model modelWheelRear = _roadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
 
-            foreach (var wheel in Vehicle.GetWheelPositions())
-            {
-                string wheelName = wheel.Key;
-                
-                bool leftWheel = (wheelName.Contains("lf") || wheelName.Contains("lr"));
-                bool frontWheel = (wheelName.Contains("lf") || wheelName.Contains("rf"));
-
-                Model wheelModel = !frontWheel ? modelWheelRear : modelWheel;
-
-                ModelHandler.RequestModel(wheelModel);
-
-                if (leftWheel)
-                {
-                    if (frontWheel)
-                        LeftWheels.Props[0].SwapModel(wheelModel);
-                    else
-                        LeftWheels.Props[1].SwapModel(wheelModel);
-                }
-                else
-                {
-                    if (frontWheel)
-                        RightWheels.Props[0].SwapModel(wheelModel);
-                    else
-                        RightWheels.Props[1].SwapModel(wheelModel);
-                }
-            }
+            Wheels[0].SwapModel(modelWheel);
+            Wheels[1].SwapModel(modelWheel);
+            Wheels[2].SwapModel(modelWheelRear);
+            Wheels[3].SwapModel(modelWheelRear);
         }
 
         public override void Play()
@@ -166,172 +182,120 @@ namespace BackToTheFutureV.Players
 
         public override void Stop()
         {
-            GlowWheels.Delete();
+            if (IsWheelsOpen)
+            {
+                if ( _roadWheel == WheelType.Stock)
+                {
+                    for (int i = 0; i < 4; i++)
+                        GlowWheels[i].TransferTo(Wheels[i]);
+
+                    GlowWheels.SpawnProp();
+                }
+            }
+            else
+            {
+                if (!Properties.IsLanding)
+                {
+                    Wheels.Delete();
+
+                    ReloadWheelModels();
+
+                    Mods.Wheel = _roadWheel;
+                }
+            }                
 
             IsPlaying = false;
-            currentStep = 0;
+            WheelAnimation = AnimationStep.Off;
             PlayerSwitch.Disable = false;
+        }
+
+        public void SetInstant(bool open)
+        {
+            IsWheelsOpen = open;
+
+            if (IsWheelsOpen)
+            {
+                ReloadWheelModels();
+
+                Mods.Wheel = _roadWheel.GetVariantWheelType();
+
+                if (!Wheels.IsSpawned)
+                    Wheels.SpawnProp();
+
+                Struts[0].setOffsetAtMinimum(Coordinate.X);
+                Struts[1].setOffsetAtMaximum(Coordinate.X);
+                Struts[2].setOffsetAtMinimum(Coordinate.X);
+                Struts[3].setOffsetAtMaximum(Coordinate.X);
+
+                Disks.setRotationAtMinimum(Coordinate.Y);
+                Pistons.setRotationAtMaximum(Coordinate.Y);
+            }
+            else
+            {
+                Struts[0].setOffsetAtMaximum(Coordinate.X);
+                Struts[1].setOffsetAtMinimum(Coordinate.X);
+                Struts[2].setOffsetAtMaximum(Coordinate.X);
+                Struts[3].setOffsetAtMinimum(Coordinate.X);
+
+                Disks.setRotationAtMaximum(Coordinate.Y);
+                Pistons.setRotationAtMinimum(Coordinate.Y);
+
+                Wheels.Delete();
+
+                Mods.Wheel = _roadWheel;
+            }
         }
 
         public void Play(bool open)
         {
             Stop();
 
+            if (IsWheelsOpen == open)
+                return;
+
             IsWheelsOpen = open;
+
+            WheelAnimation = AnimationStep.First;
 
             if (IsWheelsOpen)
                 ReloadWheelModels();
+            else
+                GlowWheels.Delete();
 
             Mods.Wheel = _roadWheel.GetVariantWheelType();
 
             IsPlaying = true;
 
+            if (IsWheelsOpen && !Wheels.IsSpawned)
+                Wheels.SpawnProp();
+
+            if (open)
+            {
+                Struts[0].setOffsetIncreasing(Coordinate.X, false);
+                Struts[1].setOffsetIncreasing(Coordinate.X, true);
+                Struts[2].setOffsetIncreasing(Coordinate.X, false);
+                Struts[3].setOffsetIncreasing(Coordinate.X, true);
+
+                Struts.setOffsetUpdate(Coordinate.X, true);
+            } 
+            else
+            {
+                Disks.setRotationUpdate(Coordinate.Y, true);
+                Pistons.setRotationUpdate(Coordinate.Y, true);
+            }
+
             PlayerSwitch.Disable = true;                    
-        }
-
-        public void SetInstant(bool open, bool trueInstant = true)
-        {
-            Stop();
-
-            IsWheelsOpen = open;
-
-            if (IsWheelsOpen)
-            {
-                if (trueInstant)
-                {
-                    ReloadWheelModels();
-                    Mods.Wheel = _roadWheel.GetVariantWheelType();
-                }
-                                   
-                SetAnimationPosition();
-            }
-            else
-            {
-                SetAnimationPosition();
-
-                if (!Properties.IsLanding)
-                {
-                    LeftWheels.Delete();
-                    RightWheels.Delete();
-
-                    Mods.Wheel = _roadWheel;
-                }                
-            }
-        }
-
-        private void SetAnimationPosition()
-        {
-            if (IsWheelsOpen)
-            {
-                currentPosition = MAX_POSITION_OFFSET;
-                currentRotation = MAX_ROTATION_OFFSET;
-            }
-            else
-            {
-                currentPosition = 0;
-                currentRotation = 0;
-            }
-
-            ApplyAnimation();
-
-            if (IsWheelsOpen && _roadWheel == WheelType.Stock)
-            {
-                for (int i = 0; i < 4; i++)
-                    if (i < 2)
-                        GlowWheels.Props[i].Entity = LeftWheels.Props[i].Prop;                
-                    else
-                        GlowWheels.Props[i].Entity = RightWheels.Props[i-2].Prop;
-
-                GlowWheels.SpawnProp();
-            }
         }
 
         public override void Process()
         {
-            if (!IsPlaying)
-                return;
 
-            ApplyAnimation();
-
-            switch (currentStep)
-            {
-                case 0:
-                    if (IsWheelsOpen)
-                    {
-                        // Strut stuff
-                        float offsetToAdd = (MAX_POSITION_OFFSET * Game.LastFrameTime) / 0.75f;
-                        currentPosition += offsetToAdd;
-
-                        if (currentPosition > MAX_POSITION_OFFSET)
-                            currentStep++;
-                    }
-                    else
-                    {
-                        // Wheel stuff
-                        float numToAdd = (-MAX_ROTATION_OFFSET * Game.LastFrameTime) / 0.75f;
-                        currentRotation += numToAdd;
-
-                        if (currentRotation >= 0)
-                            currentStep++;
-                    }
-                    break;
-                case 1:
-                    if (IsWheelsOpen)
-                    {
-                        // Wheel stuff
-                        float numToAdd = (-MAX_ROTATION_OFFSET * Game.LastFrameTime) / 0.75f;
-                        currentRotation -= numToAdd;
-
-                        if (currentRotation < MAX_ROTATION_OFFSET)
-                        {
-                            SetInstant(true, false);
-                            OnAnimCompleted.Invoke();
-                        }
-                    }
-                    else
-                    {
-                        // Strut stuff
-                        float offsetToAdd = (MAX_POSITION_OFFSET * Game.LastFrameTime) / 0.75f;
-                        currentPosition -= offsetToAdd;
-
-                        if (currentPosition < 0)
-                        {
-                            SetInstant(false, false);
-                            OnAnimCompleted.Invoke();
-                        }
-                    }
-                    break;
-            }
-        }
-
-        public void ApplyAnimation()
-        {
-            if (!_firstAnimation)
-            {
-                if (!LeftWheels.IsSpawned)
-                    LeftWheels.SpawnProp();
-
-                if (!RightWheels.IsSpawned)
-                    RightWheels.SpawnProp();
-            }
-
-            LeftStruts.MoveProp(new Vector3(-currentPosition, 0, 0), Vector3.Zero, false);
-            RightStruts.MoveProp(new Vector3(currentPosition, 0, 0), Vector3.Zero, false);
-
-            LeftDisks.MoveProp(Vector3.Zero, new Vector3(0, currentRotation, 0), false);
-            RightDisks.MoveProp(Vector3.Zero, new Vector3(0, currentRotation - 180f, 0), false);
-
-            Pistons.MoveProp(Vector3.Zero, new Vector3(0, -90 - currentRotation, 0), false);
-
-            if (_firstAnimation)
-                _firstAnimation = false;
         }
 
         public override void Dispose()
         {
             AllProps.Dispose();
-            LeftWheels.Dispose();
-            RightWheels.Dispose();
+            Wheels.Dispose();
         }
     }
 }

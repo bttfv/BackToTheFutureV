@@ -229,7 +229,7 @@ namespace BackToTheFutureV.Players
             foreach(var coilModel in ModelHandler.CoilSeparated.Values)
             {
                 _separatedCoils.Add(new AnimateProp(TimeMachine.Vehicle, coilModel, Vector3.Zero, Vector3.Zero));
-                _separatedCoils.Last().SpawnProp(false);
+                _separatedCoils.Last().SpawnProp();
                 _separatedCoils.Last().Prop.IsVisible = false;
             }
                 
@@ -279,7 +279,7 @@ namespace BackToTheFutureV.Players
 
                 TimeMachine.Mods.OffCoils = ModState.Off;
 
-                _coilsProp?.SpawnProp(false);
+                _coilsProp?.SpawnProp();
             } else
             {               
                 List<int> propsToBeSpawned = Enumerable.Range(0, 11).OrderBy(x => Utils.Random.Next()).Take(numOfProps).ToList();
@@ -330,7 +330,7 @@ namespace BackToTheFutureV.Players
             {
                 TimeMachine.Mods.OffCoils = ModState.Off;
 
-                _coilsProp?.SpawnProp(false);
+                _coilsProp?.SpawnProp();
             }
 
             TimeMachine.Events.OnWormholeStarted?.Invoke();

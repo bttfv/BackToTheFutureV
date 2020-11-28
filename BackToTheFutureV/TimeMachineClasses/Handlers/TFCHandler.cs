@@ -96,7 +96,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if(Properties.AreTimeCircuitsOn)
             {
-                Props.TFCOn?.SpawnProp(false);
+                Props.TFCOn?.SpawnProp();
                 Props.TFCOff?.Delete();
 
                 rotate = true;
@@ -106,7 +106,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
             else
             {
-                Props.TFCOff?.SpawnProp(false);
+                Props.TFCOff?.SpawnProp();
                 Props.TFCOn?.Delete();
 
                 rotate = true;
@@ -131,7 +131,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if(rotate)
             {
                 currentTfcRotation = Utils.Lerp(currentTfcRotation, rotateTfcTo, Game.LastFrameTime * 8f);
-                Props.TFCHandle?.MoveProp(Vector3.Zero, new Vector3(0, currentTfcRotation, 0), false);
+                Props.TFCHandle?.MoveProp(Vector3.Zero, new Vector3(0, currentTfcRotation, 0));
 
                 var diff = Math.Abs(currentTfcRotation - rotateTfcTo);
                 if (diff <= 0.001)

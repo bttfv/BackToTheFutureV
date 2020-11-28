@@ -407,7 +407,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                     Props.Coils.Model = ModelHandler.CoilsGlowing;
 
                 Mods.OffCoils = ModState.Off;
-                Props.Coils.SpawnProp(false);
+                Props.Coils.SpawnProp();
             }
 
             if (!Properties.PhotoGlowingCoilsActive && Props.Coils != null && Props.Coils.IsSpawned)
