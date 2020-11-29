@@ -25,7 +25,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
         public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;
         public bool AreTimeCircuitsBroken { get; set; }
-        public bool IsFueled { get; set; } = false;
+        public bool IsFueled { get; set; } = true;
         public bool IsRefueling { get; set; }
         public bool CutsceneMode { get; set; } = true;
         public bool IsFluxDoingBlueAnim { get; set; }
