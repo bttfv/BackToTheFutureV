@@ -21,12 +21,12 @@ namespace BackToTheFutureV.Players
         public MrFusionRefillPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
             _mrFusion = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFMrFusion), "mr_fusion");
-            _mrFusion.setRotationSettings(Coordinate.X, false, false, -70, 0, 1, 70, 1, true);
+            _mrFusion.setRotationSettings(Coordinate.X, false, false, -70, 0, 1, 140, 1, true);
             _mrFusion.AnimationStopped += AnimationStopped;
             _mrFusion.SpawnProp();
 
             _mrFusionHandle = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFMrFusionHandle), "mr_fusion_handle");
-            _mrFusionHandle.setRotationSettings(Coordinate.X, false, true, 0, 30, 1, 45, 1, true);
+            _mrFusionHandle.setRotationSettings(Coordinate.X, false, true, 0, 30, 1, 140, 1, true);
             _mrFusionHandle.AnimationStopped += AnimationStopped;            
             _mrFusionHandle.SpawnProp();
             

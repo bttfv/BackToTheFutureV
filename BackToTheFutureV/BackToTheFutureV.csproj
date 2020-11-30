@@ -100,6 +100,7 @@
     <Compile Include="Menu\TimeMachineMenu.cs" />
     <Compile Include="Players\FireTrail.cs" />
     <Compile Include="Players\FireTrailsHandler.cs" />
+    <Compile Include="Players\PtfxPlayer.cs" />
     <Compile Include="Players\SparkPlayer.cs" />
     <Compile Include="Settings\ModControls.cs" />
     <Compile Include="Story\Mission.cs" />
@@ -149,7 +150,6 @@
     <Compile Include="Players\WormholeAnimationPlayer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Players\PtfxPlayer.cs" />
     <Compile Include="Settings\ModSettings.cs" />
     <Compile Include="Settings\TCDEditer.cs" />
     <Compile Include="Vehicles\BaseMods.cs" />

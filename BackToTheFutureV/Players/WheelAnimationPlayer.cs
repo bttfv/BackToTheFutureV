@@ -36,11 +36,11 @@ namespace BackToTheFutureV.Players
         private AnimatePropsHandler Disks = new AnimatePropsHandler();
         private AnimatePropsHandler Struts = new AnimatePropsHandler();
 
-        public Vector3 strutFrontOffset = new Vector3(-0.5655205f, 1.267366f, 0.2580211f);
+        public Vector3 strutFrontOffset = new Vector3(-0.5455205f, 1.267366f, 0.2580211f);
         public Vector3 diskOffsetFromStrut = new Vector3(-0.23691f, 0.002096051f, -0.1387549f);
         public Vector3 pistonOffsetFromDisk = new Vector3(-0.05293572f, -0.002848367f, 0.0005371129f);
 
-        public Vector3 strutRearOffset = new Vector3(-0.5655205f, -1.200989f, 0.2580211f);
+        public Vector3 strutRearOffset = new Vector3(-0.5455205f, -1.200989f, 0.2580211f);
         public Vector3 diskOffsetFromRearStrut = new Vector3(-0.2380092f, 0.002005455f, -0.1414804f);
         public Vector3 pistonOffsetFromRearDisk = new Vector3(-0.05293572f, -0.002848367f, 0.0005371129f);
 
@@ -83,20 +83,20 @@ namespace BackToTheFutureV.Players
                 AnimateProp strut = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.Strut), strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
 
                 if (leftWheel)
-                    strut.setOffsetSettings(Coordinate.X, false, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.11f, 1, true);
+                    strut.setOffsetSettings(Coordinate.X, false, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.24f, 1, true);
                 else
-                    strut.setOffsetSettings(Coordinate.X, false, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.11f, 1, true);
+                    strut.setOffsetSettings(Coordinate.X, false, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.24f, 1, true);
 
                 strut.AnimationStopped += AnimationStopped;
                 strut.SpawnProp();
 
                 AnimateProp disk = new AnimateProp(strut.Prop, ModelHandler.RequestModel(ModelHandler.Disk), frontWheel ? diskOffsetFromStrut : diskOffsetFromRearStrut, new Vector3(0, 90, 0));
-                disk.setRotationSettings(Coordinate.Y, false, false, 0, 90, 1, 90, 1, true);
+                disk.setRotationSettings(Coordinate.Y, false, false, 0, 90, 1, 120, 1, true);
                 disk.AnimationStopped += AnimationStopped;
                 disk.SpawnProp();
 
                 AnimateProp piston = new AnimateProp(disk.Prop, ModelHandler.RequestModel(ModelHandler.Piston), frontWheel ? pistonOffsetFromDisk : pistonOffsetFromRearDisk, new Vector3(0, -90, 0));
-                piston.setRotationSettings(Coordinate.Y, false, true, -90, 0, 1, 90, 1, true);
+                piston.setRotationSettings(Coordinate.Y, false, true, -90, 0, 1, 120, 1, true);
                 piston.SpawnProp();
 
                 AnimateProp wheelAnimateProp = new AnimateProp(disk.Prop, wheelModel, Vector3.Zero, new Vector3(0, -90, 0));
@@ -123,38 +123,53 @@ namespace BackToTheFutureV.Players
 
             if (IsWheelsOpen)
             {
-                if (WheelAnimation == AnimationStep.First && !Struts.getOffsetUpdate(Coordinate.X))
+                switch (WheelAnimation)
                 {
-                    Disks.setRotationUpdate(Coordinate.Y, true);
-                    Pistons.setRotationUpdate(Coordinate.Y, true);
+                    case AnimationStep.First:
+                        if (Struts.getOffsetUpdate(Coordinate.X))
+                            return;
 
-                    WheelAnimation = AnimationStep.Second;
-                }
+                        Disks.setRotationIncreasing(Coordinate.Y, false);
+                        Pistons.setRotationIncreasing(Coordinate.Y, true);
 
-                if (WheelAnimation == AnimationStep.Second && !Disks.getRotationUpdate(Coordinate.Y) && !Pistons.getRotationUpdate(Coordinate.Y))
-                {
-                    Stop();
-                    OnAnimCompleted.Invoke();
+                        Disks.setRotationUpdate(Coordinate.Y, true);
+                        Pistons.setRotationUpdate(Coordinate.Y, true);
+
+                        WheelAnimation = AnimationStep.Second;
+                        break;
+                    case AnimationStep.Second:
+                        if (Disks.getRotationUpdate(Coordinate.Y) | Pistons.getRotationUpdate(Coordinate.Y))
+                            return;
+
+                        Stop();
+                        OnAnimCompleted.Invoke();
+                        break;
                 }
             }
             else
             {
-                if (WheelAnimation == AnimationStep.First && !Disks.getRotationUpdate(Coordinate.Y) && !Pistons.getRotationUpdate(Coordinate.Y))
+                switch (WheelAnimation)
                 {
-                    Struts[0].setOffsetIncreasing(Coordinate.X, true);
-                    Struts[1].setOffsetIncreasing(Coordinate.X, false);
-                    Struts[2].setOffsetIncreasing(Coordinate.X, true);
-                    Struts[3].setOffsetIncreasing(Coordinate.X, false);
+                    case AnimationStep.First:
+                        if (Disks.getRotationUpdate(Coordinate.Y) | Pistons.getRotationUpdate(Coordinate.Y))
+                            return;
 
-                    Struts.setOffsetUpdate(Coordinate.X, true);
+                        Struts[0].setOffsetIncreasing(Coordinate.X, true);
+                        Struts[1].setOffsetIncreasing(Coordinate.X, false);
+                        Struts[2].setOffsetIncreasing(Coordinate.X, true);
+                        Struts[3].setOffsetIncreasing(Coordinate.X, false);
 
-                    WheelAnimation = AnimationStep.Second;
-                }
+                        Struts.setOffsetUpdate(Coordinate.X, true);
 
-                if (WheelAnimation == AnimationStep.Second && !Struts.getOffsetUpdate(Coordinate.X))
-                {
-                    Stop();
-                    OnAnimCompleted.Invoke();
+                        WheelAnimation = AnimationStep.Second;
+                        break;
+                    case AnimationStep.Second:
+                        if (Struts.getOffsetUpdate(Coordinate.X))
+                            return;
+
+                        Stop();
+                        OnAnimCompleted.Invoke();
+                        break;
                 }
             }
         }
@@ -275,11 +290,14 @@ namespace BackToTheFutureV.Players
                 Struts[1].setOffsetIncreasing(Coordinate.X, true);
                 Struts[2].setOffsetIncreasing(Coordinate.X, false);
                 Struts[3].setOffsetIncreasing(Coordinate.X, true);
-
+               
                 Struts.setOffsetUpdate(Coordinate.X, true);
             } 
             else
             {
+                Disks.setRotationIncreasing(Coordinate.Y, true);
+                Pistons.setRotationIncreasing(Coordinate.Y, false);
+
                 Disks.setRotationUpdate(Coordinate.Y, true);
                 Pistons.setRotationUpdate(Coordinate.Y, true);
             }
