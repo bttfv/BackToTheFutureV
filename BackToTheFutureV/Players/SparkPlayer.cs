@@ -50,8 +50,8 @@ namespace BackToTheFutureV.Players
         public override void Play()
         {
             _currentFrame = 1;
-            _spark.Offset = _frames[0];
-            _spark.Rotation = Utils.DirectionToRotation(_frames[_currentFrame], _spark.Offset, 0);
+            _spark.setOffset(_frames[0]);
+            _spark.setRotation(Utils.DirectionToRotation(_frames[_currentFrame], _spark.Offset, 0));
             _spark.SpawnProp();
             IsPlaying = true;
         }
@@ -83,8 +83,8 @@ namespace BackToTheFutureV.Players
             _lastDirection = (_frames[_currentFrame] - _spark.Offset).Normalized;
             _lastRotation = Utils.DirectionToRotation(_frames[_currentFrame], _spark.Offset, 0);
 
-            _spark.Offset += _lastDirection * Speed * Game.LastFrameTime;
-            _spark.Rotation = Vector3.Lerp(_spark.Rotation, _lastRotation, Game.LastFrameTime * Speed);
+            _spark.setOffset(_spark.CurrentOffset + _lastDirection * Speed * Game.LastFrameTime);
+            _spark.setRotation(_spark.CurrentRotation + Vector3.Lerp(_spark.Rotation, _lastRotation, Game.LastFrameTime * Speed));
             _spark.SpawnProp();
         }
 

@@ -133,8 +133,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         
         static StoryTimeMachine()
         {
-            //Inside mine
-            //StoryTimeMachines.Add(new StoryTimeMachine(new Vector3(-594.14f, 2083.52f, 130.78f), 14.78f, WormholeType.BTTF2, true, new DateTime(1885, 9, 1, 0, 0, 1), new DateTime(1955, 11, 15, 23, 59, 59), true));
+            //Inside mine            
             StoryTimeMachines.Add(new StoryTimeMachine(new Vector3(-595.14f, 2085.36f, 130.78f), 13.78f, WormholeType.BTTF2, SpawnFlags.ForcePosition | SpawnFlags.Broken, new DateTime(1885, 9, 1, 0, 0, 1), new DateTime(1955, 11, 15, 23, 59, 59), true, new DateTime(1885, 1, 1, 0, 0, 0), new DateTime(1955, 11, 12, 21, 43, 0)));
 
             //Parking lot

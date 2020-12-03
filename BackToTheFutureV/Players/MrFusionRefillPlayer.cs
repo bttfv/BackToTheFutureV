@@ -21,13 +21,13 @@ namespace BackToTheFutureV.Players
         public MrFusionRefillPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
             _mrFusion = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFMrFusion), "mr_fusion");
-            _mrFusion.setRotationSettings(Coordinate.X, false, false, -70, 0, 1, 140, 1, true);
-            _mrFusion.AnimationStopped += AnimationStopped;
+            _mrFusion[AnimationType.Rotation][AnimationStep.First][Coordinate.X].Setup(false, true, false, -70, 0, 1, 140, 1);
+            _mrFusion.OnAnimCompleted += _mrFusion_OnAnimCompleted;
             _mrFusion.SpawnProp();
 
             _mrFusionHandle = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFMrFusionHandle), "mr_fusion_handle");
-            _mrFusionHandle.setRotationSettings(Coordinate.X, false, true, 0, 30, 1, 140, 1, true);
-            _mrFusionHandle.AnimationStopped += AnimationStopped;            
+            _mrFusionHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.X].Setup(false, true, true, 0, 30, 1, 140, 1);
+            _mrFusionHandle.OnAnimCompleted += _mrFusionHandle_OnAnimCompleted;
             _mrFusionHandle.SpawnProp();
             
             _mrfusionOpen = TimeMachine.Sounds.AudioEngine.Create("general/mrfusionOpen.wav", Presets.Exterior);
@@ -37,19 +37,16 @@ namespace BackToTheFutureV.Players
             _mrfusionClosed.Volume = 0.4f;
         }
 
-        public void AnimationStopped(AnimateProp animateProp, Coordinate coordinate, CoordinateSetting coordinateSetting, bool IsRotation)
+        private void _mrFusionHandle_OnAnimCompleted(AnimationStep animationStep)
         {
-            if (animateProp == _mrFusionHandle)
-            {
-                if (open)
-                    _mrFusion.setRotationUpdate(Coordinate.X, true);
-            }
+            if (open)
+                _mrFusion.Play();
+        }
 
-            if (animateProp == _mrFusion)
-            {
-                if (!open)
-                    _mrFusionHandle.setRotationUpdate(Coordinate.X, true);
-            }
+        private void _mrFusion_OnAnimCompleted(AnimationStep animationStep)
+        {
+            if (!open)
+                _mrFusionHandle.Play();
         }
 
         public override void Play()
@@ -61,12 +58,12 @@ namespace BackToTheFutureV.Players
             
             if (open)
             {
-                _mrFusionHandle.setRotationUpdate(Coordinate.X, true);
+                _mrFusionHandle.Play();
                 _mrfusionOpen.Play();
             }                
             else
             {
-                _mrFusion.setRotationUpdate(Coordinate.X, true);
+                _mrFusion.Play();
                 _mrfusionClosed.Play();
             }                
         }
@@ -83,10 +80,10 @@ namespace BackToTheFutureV.Players
 
         public override void Dispose()
         {
+            _mrFusion.Dispose();
+            _mrFusionHandle.Dispose();
             _mrfusionOpen?.Dispose();
             _mrfusionClosed?.Dispose();
-            _mrFusion?.Dispose();
-            _mrFusionHandle?.Dispose();
         }
     }
 }

@@ -415,7 +415,6 @@ namespace BackToTheFutureV.Players
                 _endAt = _startWormholeAt + MaxTime;
                 _hasStartedWormhole = true;
             }
-
         }
 
         public override void Dispose()

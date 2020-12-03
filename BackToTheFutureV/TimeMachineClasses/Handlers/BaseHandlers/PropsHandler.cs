@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
@@ -122,6 +123,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TFCOn = new AnimateProp(Vehicle, ModelHandler.TFCOn, Vector3.Zero, Vector3.Zero);
             TFCOff = new AnimateProp(Vehicle, ModelHandler.TFCOff, Vector3.Zero, Vector3.Zero);
             TFCHandle = new AnimateProp(Vehicle, ModelHandler.TFCHandle, new Vector3(-0.03805999f, -0.0819466f, 0.5508024f), Vector3.Zero);
+            TFCHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, true, false, -45, 0, 1, 135, 1);
             TFCHandle.SpawnProp();
 
             //TCD
@@ -184,7 +186,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public override void Process()
         {
-
+            
         }
 
         public override void Stop()

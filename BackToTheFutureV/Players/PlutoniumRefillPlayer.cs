@@ -17,11 +17,25 @@ namespace BackToTheFutureV.Players
 
         public PlutoniumRefillPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
-            plutoniumCap = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFReactorCap), "bttf_reactorcap");            
-            plutoniumCap.setRotationSettings(Coordinate.Z, false, false, -90, 0, 1, 120, 1, true);
-            plutoniumCap.setOffsetSettings(Coordinate.Z, false, true, 0, 0.06f, 1, 0.08f, 1, true);
-            plutoniumCap.AnimationStopped += AnimationStopped;
+            plutoniumCap = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFReactorCap), "bttf_reactorcap");
+            plutoniumCap[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(false, true, false, -90, 0, 1, 120, 1);
+            plutoniumCap[AnimationType.Offset][AnimationStep.Second][Coordinate.Z].Setup(false, true, true, 0, 0.06f, 1, 0.08f, 1);
+            plutoniumCap.OnAnimCompleted += PlutoniumCap_OnAnimCompleted;
             plutoniumCap.SpawnProp();            
+        }
+
+        private void PlutoniumCap_OnAnimCompleted(AnimationStep animationStep)
+        {
+            if (open)
+            {
+                if (animationStep == AnimationStep.First)
+                    plutoniumCap.Play(AnimationStep.Second);
+            }
+            else
+            {
+                if (animationStep == AnimationStep.Second)
+                    plutoniumCap.Play();
+            }
         }
 
         public override void Play()
@@ -29,26 +43,9 @@ namespace BackToTheFutureV.Players
             open = !open;
 
             if (open)
-                plutoniumCap.setRotationUpdate(Coordinate.Z, true);
+                plutoniumCap.Play();
             else
-                plutoniumCap.setOffsetUpdate(Coordinate.Z, true);
-        }
-
-        public void AnimationStopped(AnimateProp animateProp, Coordinate coordinate, CoordinateSetting coordinateSetting, bool IsRotation)
-        {
-            if (animateProp == plutoniumCap)
-            {
-                if (open)
-                {
-                    if (IsRotation && coordinate == Coordinate.Z)
-                        plutoniumCap.setOffsetUpdate(Coordinate.Z, true);
-                }
-                else
-                {
-                    if (!IsRotation && coordinate == Coordinate.Z)
-                        plutoniumCap.setRotationUpdate(Coordinate.Z, true);
-                }
-            }
+                plutoniumCap.Play(AnimationStep.Second);
         }
 
         public override void Process()
@@ -63,7 +60,7 @@ namespace BackToTheFutureV.Players
 
         public override void Dispose()
         {
-            plutoniumCap?.Dispose();
+            plutoniumCap.Dispose();
         }
     }
 }

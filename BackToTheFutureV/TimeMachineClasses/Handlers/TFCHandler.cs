@@ -61,7 +61,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     rotate = false;
             }
 
-            Prop.MoveProp(Vector3.Zero, new Vector3(0, Rotation, 0));
+            Prop.MoveProp(Vector3.Zero, new Vector3(0, Rotation, 0), false);
         }
 
         public void Dispose()
@@ -72,10 +72,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
     public class TFCHandler : Handler
     {
-        private float rotateTfcTo;
-        private float currentTfcRotation;
-        private bool rotate;
-
         private readonly Gauge _gaugeNeedle1;
         private readonly Gauge _gaugeNeedle2;
         private readonly Gauge _gaugeNeedle3;
@@ -99,8 +95,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Props.TFCOn?.SpawnProp();
                 Props.TFCOff?.Delete();
 
-                rotate = true;
-                rotateTfcTo = -45f;
+                Props.TFCHandle?.Play();
 
                 playAt = Game.GameTime + 2000;
             }
@@ -109,8 +104,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Props.TFCOff?.SpawnProp();
                 Props.TFCOn?.Delete();
 
-                rotate = true;
-                rotateTfcTo = 0;
+                Props.TFCHandle?.Play();
 
                 _gaugeNeedle1.On = false;
                 _gaugeNeedle2.On = false;
@@ -128,16 +122,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if(rotate)
-            {
-                currentTfcRotation = Utils.Lerp(currentTfcRotation, rotateTfcTo, Game.LastFrameTime * 8f);
-                Props.TFCHandle?.MoveProp(Vector3.Zero, new Vector3(0, currentTfcRotation, 0));
-
-                var diff = Math.Abs(currentTfcRotation - rotateTfcTo);
-                if (diff <= 0.001)
-                    rotate = false;
-            }
-
             if (!hasPlayed && Properties.AreTimeCircuitsOn && Game.GameTime > playAt)
             {
                 if (Mods.Reactor == ReactorType.Nuclear)
