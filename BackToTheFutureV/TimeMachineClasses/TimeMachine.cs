@@ -133,9 +133,6 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (Vehicle.Model == ModelHandler.DeluxoModel)
                 Mods.HoverUnderbody = ModState.On;
 
-            if (Mods.Hoodbox == ModState.On)
-                Events.OnHoodboxReady?.Invoke();
-
             BuildCustomCameras();
 
             TimeMachineHandler.AddTimeMachine(this);

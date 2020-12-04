@@ -30,7 +30,7 @@ namespace BackToTheFutureV.Story
         public TimeMachine TimeMachine { get; private set; }
         public RogersSierra RogersSierra { get; private set; }
 
-        public float TimeMultiplier { get; set; } = 0.1f;
+        public float TimeMultiplier { get; set; } = 1f;
 
         public AudioPlayer MissionMusic { get; set; }
         public bool Mute { get; set; } = false;
