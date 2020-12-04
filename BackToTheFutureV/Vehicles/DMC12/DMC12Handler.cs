@@ -90,8 +90,8 @@ namespace BackToTheFutureV.Vehicles
 
             foreach (var delo in _deloreans)
             {
-                //if (delo.Mods.WormholeType != WormholeType.DMC12 && !delo.Vehicle.IsTimeMachine())
-                //    TimeMachineHandler.Create(delo, SpawnFlags.Default, delo.Mods.WormholeType);
+                if (delo.Mods.WormholeType != WormholeType.DMC12 && !delo.Vehicle.IsTimeMachine())
+                    TimeMachineHandler.Create(delo, SpawnFlags.Default, delo.Mods.WormholeType);
 
                 delo.Process();
             }                
