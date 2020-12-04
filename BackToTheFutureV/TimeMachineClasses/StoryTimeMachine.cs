@@ -134,10 +134,10 @@ namespace BackToTheFutureV.TimeMachineClasses
         static StoryTimeMachine()
         {
             //Inside mine            
-            StoryTimeMachines.Add(new StoryTimeMachine(new Vector3(-595.14f, 2085.36f, 130.78f), 13.78f, WormholeType.BTTF2, SpawnFlags.ForcePosition | SpawnFlags.Broken, new DateTime(1885, 9, 1, 0, 0, 1), new DateTime(1955, 11, 15, 23, 59, 59), true, new DateTime(1885, 1, 1, 0, 0, 0), new DateTime(1955, 11, 12, 21, 43, 0)));
+            //StoryTimeMachines.Add(new StoryTimeMachine(new Vector3(-595.14f, 2085.36f, 130.78f), 13.78f, WormholeType.BTTF2, SpawnFlags.ForcePosition | SpawnFlags.Broken, new DateTime(1885, 9, 1, 0, 0, 1), new DateTime(1955, 11, 15, 23, 59, 59), true, new DateTime(1885, 1, 1, 0, 0, 0), new DateTime(1955, 11, 12, 21, 43, 0)));
 
             //Parking lot
-            StoryTimeMachines.Add(new StoryTimeMachine(new Vector3(-264.22f, -2092.08f, 26.76f), 287.57f, WormholeType.BTTF1, SpawnFlags.ForcePosition, new DateTime(1985, 10, 26, 1, 15, 0), new DateTime(1985, 10, 26, 1, 35, 0), false, new DateTime(1985, 10, 26, 1, 21, 0)));
+            //StoryTimeMachines.Add(new StoryTimeMachine(new Vector3(-264.22f, -2092.08f, 26.76f), 287.57f, WormholeType.BTTF1, SpawnFlags.ForcePosition, new DateTime(1985, 10, 26, 1, 15, 0), new DateTime(1985, 10, 26, 1, 35, 0), false, new DateTime(1985, 10, 26, 1, 21, 0)));
         }
 
         public static void ProcessAll()

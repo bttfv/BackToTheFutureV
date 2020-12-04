@@ -28,8 +28,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             { "green", new Vector3(-0.01737539f, 0.2979541f, 0.6045464f) }
         };
 
-        public RenderTarget RenderTarget { get; private set; }
-        public TCDRowScaleform Scaleform { get; private set; }
+        private static Dictionary<string, TCDRowScaleform> TCDRowsScaleforms = new Dictionary<string, TCDRowScaleform>()
+        {
+            { "red", new TCDRowScaleform("red") { DrawInPauseMenu = true } },
+            { "yellow", new TCDRowScaleform("yellow") { DrawInPauseMenu = true } },
+            { "green", new TCDRowScaleform("green") { DrawInPauseMenu = true } }
+        };
+
+        static TCDSlot()
+        {
+
+        }
+
+        public RenderTarget RenderTarget { get; private set; }       
         public TimeCircuitsScaleform ScreenTCD { get; private set; }
         public TimeMachine TimeMachine { get; private set; }
 
@@ -52,12 +63,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             TimeMachine = timeMachine;
 
             if (TimeMachine.Mods.IsDMC12)
-            {
-                Scaleform = new TCDRowScaleform(slotType);
+            {                
                 RenderTarget = new RenderTarget(new Model("bttf_3d_row_" + slotType), "bttf_tcd_row_" + slotType, TimeMachine.Vehicle, offsets[slotType], new Vector3(355.9951f, 0.04288517f, 352.7451f));
                 RenderTarget.CreateProp();
-                Scaleform.DrawInPauseMenu = true;
-
+             
                 amProp = new AnimateProp(TimeMachine.Vehicle, new Model($"bttf_{slotType}_am"), Vector3.Zero, Vector3.Zero);
                 pmProp = new AnimateProp(TimeMachine.Vehicle, new Model($"bttf_{slotType}_pm"), Vector3.Zero, Vector3.Zero);
 
@@ -74,7 +83,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 ScreenTCD.SetDate(SlotType, dateToSet);
             }
 
-            Scaleform?.SetDate(dateToSet);
+            TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
             amProp?.SetState(dateToSet.ToString("tt", CultureInfo.InvariantCulture) == "AM");
             pmProp?.SetState(dateToSet.ToString("tt", CultureInfo.InvariantCulture) != "AM");
 
@@ -89,7 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 ScreenTCD.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
             }
 
-            Scaleform?.SetVisible(toggleTo, month, day, year, hour, minute);
+            TCDRowsScaleforms[SlotType]?.SetVisible(toggleTo, month, day, year, hour, minute);
 
             if((!toggleTo && amPm) || (toggleTo && !amPm))
             {
@@ -150,7 +159,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnRenderTargetDraw()
         {
-            Scaleform?.Render2D(new PointF(0.379f, 0.12f), new SizeF(0.75f, 0.27f));
+            TCDRowsScaleforms[SlotType]?.Render2D(new PointF(0.379f, 0.12f), new SizeF(0.75f, 0.27f));
         }
     }
 

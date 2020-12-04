@@ -58,9 +58,6 @@ namespace BackToTheFutureV.Players
 
                 Vector3 strutOffset = Vector3.Zero;
 
-                ModelHandler.RequestModel(wheelModel);
-                ModelHandler.RequestModel(wheelGlowModel);
-
                 switch (wheel)
                 {
                     case WheelId.FrontLeft:
@@ -77,7 +74,7 @@ namespace BackToTheFutureV.Players
                         break;
                 }
 
-                AnimateProp strut = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.Strut), strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
+                AnimateProp strut = new AnimateProp(Vehicle, ModelHandler.Strut, strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
 
                 if (leftWheel)
                     strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.24f, 1);
@@ -85,15 +82,15 @@ namespace BackToTheFutureV.Players
                     strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.24f, 1);                
                 strut.SpawnProp();
 
-                AnimateProp disk = new AnimateProp(strut.Prop, ModelHandler.RequestModel(ModelHandler.Disk), frontWheel ? diskOffsetFromStrut : diskOffsetFromRearStrut, new Vector3(0, 90, 0));
+                AnimateProp disk = new AnimateProp(strut, ModelHandler.Disk, frontWheel ? diskOffsetFromStrut : diskOffsetFromRearStrut, new Vector3(0, 90, 0));
                 disk[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, true, false, 0, 90, 1, 120, 1);                
                 disk.SpawnProp();
 
-                AnimateProp piston = new AnimateProp(disk.Prop, ModelHandler.RequestModel(ModelHandler.Piston), frontWheel ? pistonOffsetFromDisk : pistonOffsetFromRearDisk, new Vector3(0, -90, 0));
+                AnimateProp piston = new AnimateProp(disk, ModelHandler.Piston, frontWheel ? pistonOffsetFromDisk : pistonOffsetFromRearDisk, new Vector3(0, -90, 0));
                 piston[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, true, true, -90, 0, 1, 120, 1);
                 piston.SpawnProp();
 
-                AnimateProp wheelAnimateProp = new AnimateProp(disk.Prop, wheelModel, Vector3.Zero, new Vector3(0, -90, 0));
+                AnimateProp wheelAnimateProp = new AnimateProp(disk, wheelModel, Vector3.Zero, new Vector3(0, -90, 0));
 
                 AnimateProp wheelGlowAnimateProp = new AnimateProp(null, wheelGlowModel, Vector3.Zero, Vector3.Zero);
 

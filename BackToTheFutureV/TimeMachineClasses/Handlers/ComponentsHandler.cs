@@ -91,8 +91,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Props.Compass?.MoveProp(Vector3.Zero, new Vector3(0, 0, Vehicle.Heading));
 
-            if (Props.Compass.Prop.IsVisible != Vehicle.IsVisible)
-                Props.Compass.Prop.IsVisible = Vehicle.IsVisible;
+            if (Props.Compass.Visible != Vehicle.IsVisible)
+                Props.Compass.Visible = Vehicle.IsVisible;
         }
 
         private void HoodboxProcess()
@@ -108,8 +108,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (!Props.HoodboxLights.IsSpawned)
                     Props.HoodboxLights.SpawnProp();
 
-                if (Vehicle.IsVisible != Props.HoodboxLights?.Prop.IsVisible)
-                    Props.HoodboxLights.Prop.IsVisible = Vehicle.IsVisible;
+                if (Vehicle.IsVisible != Props.HoodboxLights?.Visible)
+                    Props.HoodboxLights.Visible = Vehicle.IsVisible;
 
                 return;
             }

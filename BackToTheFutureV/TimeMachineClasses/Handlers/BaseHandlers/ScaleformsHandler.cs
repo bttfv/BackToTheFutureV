@@ -17,21 +17,26 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public TimeCircuitsScaleform GUI { get; private set; }
 
         //Flux Capacitor
-        public ScaleformGui FluxCapacitor { get; private set; }
+        public static ScaleformGui FluxCapacitor { get; private set; }
         public RenderTarget FluxCapacitorRT { get; private set; }
 
         //Speedo
-        public ScaleformGui Speedo { get; private set; }
+        public static ScaleformGui Speedo { get; private set; }
         public RenderTarget SpeedoRT { get; private set; }
+
+
+        static ScaleformsHandler()
+        {
+            FluxCapacitor = new ScaleformGui("bttf_flux_scaleform") { DrawInPauseMenu = true };
+            Speedo = new ScaleformGui("bttf_3d_speedo") { DrawInPauseMenu = true };
+        }
 
         public ScaleformsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             GUI = new TimeCircuitsScaleform("bttf_2d_gui");
 
-            //Flux Capacitor
-            FluxCapacitor = new ScaleformGui("bttf_flux_scaleform");
+            //Flux Capacitor            
             FluxCapacitorRT = new RenderTarget(ModelHandler.FluxModel, "bttf_flux", Vehicle, "flux_capacitor");
-            FluxCapacitor.DrawInPauseMenu = true;
 
             FluxCapacitorRT.OnRenderTargetDraw += () =>
             {
@@ -42,10 +47,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Speedo
             SpeedoRT = new RenderTarget(ModelHandler.BTTFSpeedo, "bttf_speedo");
-            Speedo = new ScaleformGui("bttf_3d_speedo")
-            {
-                DrawInPauseMenu = true
-            };
 
             SpeedoRT.OnRenderTargetDraw += () =>
             {

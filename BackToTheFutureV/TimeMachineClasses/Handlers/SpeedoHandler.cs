@@ -11,6 +11,7 @@ using KlangRageAudioLibrary;
 using FusionLibrary;
 using static FusionLibrary.Enums;
 using FusionLibrary.Extensions;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -61,7 +62,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (ModSettings.PlaySpeedoBeep && Vehicle.IsVisible)
                         Sounds.Speedo.Play();
 
-                    UpdateGUI(Scaleforms.Speedo, speedDigit1, speedDigit2);
+                    UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2);
 
                     if (!TcdEditer.IsEditing)
                         UpdateGUI(Scaleforms.GUI, speedDigit1, speedDigit2);

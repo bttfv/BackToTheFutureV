@@ -11,6 +11,7 @@ using GTA;
 using GTA.Math;
 using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -29,13 +30,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void StartTimeTravelEffect()
         {
-            Scaleforms.FluxCapacitor.CallFunction("START_BLUE_ANIMATION");
+            ScaleformsHandler.FluxCapacitor.CallFunction("START_BLUE_ANIMATION");
             Properties.IsFluxDoingBlueAnim = true;
         }
 
         public void StartNormalFluxing()
         {
-            Scaleforms.FluxCapacitor.CallFunction("START_ANIMATION");
+            ScaleformsHandler.FluxCapacitor.CallFunction("START_ANIMATION");
             Properties.IsFluxDoingBlueAnim = false;
         }
 
@@ -77,7 +78,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (!Properties.AreTimeCircuitsOn)
             {
-                Scaleforms.FluxCapacitor.CallFunction("STOP_ANIMATION");
+                ScaleformsHandler.FluxCapacitor.CallFunction("STOP_ANIMATION");
 
                 if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
                     Sounds.FluxCapacitor.Stop();
@@ -87,7 +88,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (ModSettings.PlayFluxCapacitorSound && !Sounds.FluxCapacitor.IsAnyInstancePlaying)
                     Sounds.FluxCapacitor.Play();
 
-                Scaleforms.FluxCapacitor.CallFunction("START_ANIMATION");
+                ScaleformsHandler.FluxCapacitor.CallFunction("START_ANIMATION");
             }
             
 

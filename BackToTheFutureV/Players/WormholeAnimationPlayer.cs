@@ -113,6 +113,15 @@ namespace BackToTheFutureV.Players
             }
         };
 
+        public static List<ScaleformGui> WormholeScaleforms = new List<ScaleformGui>();
+
+        static WormholeAnimationPlayer()
+        {
+            WormholeScaleforms.Add(new ScaleformGui("bttf_wormhole_scaleform") { DrawInPauseMenu = true });
+            WormholeScaleforms.Add(new ScaleformGui("bttf_wormhole_scaleform_blue") { DrawInPauseMenu = true });
+            WormholeScaleforms.Add(new ScaleformGui("bttf_wormhole_scaleform_red") { DrawInPauseMenu = true });
+        }
+
         public int MaxTime { get; set; }
         
         public static readonly Vector3 wormholeOffset = new Vector3(0.02835939f, 2.822448f, 0.8090208f);
@@ -123,7 +132,6 @@ namespace BackToTheFutureV.Players
 
             MaxTime = maxTime;
 
-            string wormholeScaleformName = "bttf_wormhole_scaleform"; // default
             string wormholeRenderTargetName = "bttf_wormhole"; // default
 
             switch(TimeMachine.Mods.WormholeType)
@@ -136,17 +144,17 @@ namespace BackToTheFutureV.Players
                     _wormholeNightModel = ModelHandler.WormholeVioletNight;
                     _sparkModel = ModelHandler.SparkModel;
                     _sparkNightModel = ModelHandler.SparkNightModel;
-                    wormholeScaleformName = "bttf_wormhole_scaleform";
+                    wormholeScaleformIndex = 0;
                     wormholeRenderTargetName = "bttf_wormhole";
                     break;
 
                 case WormholeType.BTTF2:
-
+                
                     _wormholeModel = ModelHandler.WormholeBlue;
                     _wormholeNightModel = ModelHandler.WormholeBlueNight;
                     _sparkModel = ModelHandler.SparkModel;
                     _sparkNightModel = ModelHandler.SparkNightModel;
-                    wormholeScaleformName = "bttf_wormhole_scaleform_blue";
+                    wormholeScaleformIndex = 1;
                     wormholeRenderTargetName = "bttf_wormhole_blue";
                     break;
 
@@ -155,16 +163,13 @@ namespace BackToTheFutureV.Players
                     SetupWheelPTFXs("veh_xs_vehicle_mods", "veh_nitrous", new Vector3(0, -0.25f, -0.15f), new Vector3(0, 0, 0), 1.3f);
                     SetupWheelPTFXs("des_bigjobdrill", "ent_ray_big_drill_start_sparks", new Vector3(0, 0, 0.18f), new Vector3(90f, 0, 0), 1f, true);
 
-                    _sparkProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.InvisibleProp, new Vector3(0, 3.4f, -0.6f), new Vector3(0, 0, 180));
-                    _sparkProp.SpawnProp();
-                    
-                    _sparkPTFX = new PtfxEntityPlayer("scr_paletoscore", "scr_paleto_box_sparks", _sparkProp.Prop, Vector3.Zero, Vector3.Zero, 1.5f, true, true, 300);
+                    _sparkPTFX = new PtfxEntityPlayer("scr_paletoscore", "scr_paleto_box_sparks", Props.InvisibleProp, Vector3.Zero, Vector3.Zero, 1.5f, true, true, 300);
 
                     _wormholeModel = ModelHandler.WormholeRed;
                     _wormholeNightModel = ModelHandler.WormholeRedNight;
                     _sparkModel = ModelHandler.SparkRedModel;
                     _sparkNightModel = ModelHandler.SparkRedNightModel;
-                    wormholeScaleformName = "bttf_wormhole_scaleform_red";
+                    wormholeScaleformIndex = 2;
                     wormholeRenderTargetName = "bttf_wormhole_red";
                     break;
             }
@@ -175,9 +180,6 @@ namespace BackToTheFutureV.Players
                 _wormholeRT = new RenderTarget(TimeHandler.IsNight ? _wormholeNightModel : _wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 1, 0.4f));
 
             _wormholeRT.OnRenderTargetDraw += OnRenderTargetDraw;
-
-            _wormholeScaleform = new ScaleformGui(wormholeScaleformName);            
-            _wormholeScaleform.DrawInPauseMenu = true;
                        
             _sparks = new List<SparkPlayer>();
 
@@ -189,7 +191,7 @@ namespace BackToTheFutureV.Players
         }
 
         private RenderTarget _wormholeRT;
-        private ScaleformGui _wormholeScaleform;
+        int wormholeScaleformIndex;
         private bool _hasStartedWormhole;
 
         private int _startSparksAt;
@@ -201,7 +203,6 @@ namespace BackToTheFutureV.Players
         private int _nextFlicker;
         private List<AnimateProp> _separatedCoils;
 
-        private AnimateProp _sparkProp;
         private PtfxEntityPlayer _sparkPTFX;
 
         private int _nextSpark;
@@ -219,7 +220,7 @@ namespace BackToTheFutureV.Players
 
         private void OnRenderTargetDraw()
         {
-            _wormholeScaleform.Render2D(new PointF(0.5f, 0.5f), 0.9f);
+            WormholeScaleforms[wormholeScaleformIndex].Render2D(new PointF(0.5f, 0.5f), 0.9f);
         }
 
         private void SetupSeparatedCoils()
@@ -230,7 +231,7 @@ namespace BackToTheFutureV.Players
             {
                 _separatedCoils.Add(new AnimateProp(TimeMachine.Vehicle, coilModel, Vector3.Zero, Vector3.Zero));
                 _separatedCoils.Last().SpawnProp();
-                _separatedCoils.Last().Prop.IsVisible = false;
+                _separatedCoils.Last().Visible = false;
             }
                 
         }
@@ -271,7 +272,7 @@ namespace BackToTheFutureV.Players
             numOfProps = Utils.Lerp(1, 11, by);
 
             // Delete all other props
-            _separatedCoils?.ForEach(x => { x.Prop.IsVisible = false; });
+            _separatedCoils?.ForEach(x => { x.Visible = false; });
 
             if (numOfProps >= 11)
             {
@@ -285,7 +286,7 @@ namespace BackToTheFutureV.Players
                 List<int> propsToBeSpawned = Enumerable.Range(0, 11).OrderBy(x => Utils.Random.Next()).Take(numOfProps).ToList();
 
                 foreach (var propindex in propsToBeSpawned)
-                    _separatedCoils[propindex].Prop.IsVisible = true;
+                    _separatedCoils[propindex].Visible = true;
 
                 // Set next flicker 
                 _nextFlicker = Game.GameTime + Utils.Random.Next(30, 60);
@@ -396,7 +397,7 @@ namespace BackToTheFutureV.Players
                 if(!_wormholeRT.Prop.IsSpawned && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.PhotoWormholeActive))
                 {
                     _wormholeRT.CreateProp();
-                    _wormholeScaleform.CallFunction("START_ANIMATION");
+                    WormholeScaleforms[wormholeScaleformIndex].CallFunction("START_ANIMATION");
                     _hasStartedWormhole = true;
                 }
 
@@ -424,9 +425,7 @@ namespace BackToTheFutureV.Players
             _wheelPtfxes?.ForEach(x => x?.Dispose());
             _separatedCoils?.ForEach(x => x?.Dispose());
             _sparks?.ForEach(x => x?.Dispose());
-            _wormholeScaleform?.Unload();
             _sparkPTFX?.StopNonLooped();
-            _sparkProp?.Dispose();
         }
     }
 }

@@ -46,6 +46,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         //Time travel
         public AnimateProp WhiteSphere;
+        public AnimateProp InvisibleProp;
 
         //Wheels
         public List<AnimateProp> RRWheels = new List<AnimateProp>();
@@ -82,7 +83,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             if (!Mods.IsDMC12)
                 return;
 
-            BTTFDecals = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.BTTFDecals), Vector3.Zero, Vector3.Zero);
+            BTTFDecals = new AnimateProp(Vehicle, ModelHandler.BTTFDecals, Vector3.Zero, Vector3.Zero);
             BTTFDecals.SpawnProp();
 
             //Hover Mode
@@ -91,23 +92,24 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 if (!ModelHandler.UnderbodyLights.TryGetValue(i, out var model))
                     continue;
 
-                ModelHandler.RequestModel(model);
                 var prop = new AnimateProp(Vehicle, model, Vector3.Zero, Vector3.Zero);
                 HoverModeUnderbodyLights.Add(prop);
             }
 
-            HoverModeVentsGlow = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.VentGlowing), Vector3.Zero, Vector3.Zero);
-            HoverModeWheelsGlow = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.HoverGlowing), Vector3.Zero, Vector3.Zero)
+            HoverModeVentsGlow = new AnimateProp(Vehicle, ModelHandler.VentGlowing, Vector3.Zero, Vector3.Zero);
+            HoverModeWheelsGlow = new AnimateProp(Vehicle, ModelHandler.HoverGlowing, Vector3.Zero, Vector3.Zero)
             {
                 Duration = 3f
             };
 
             //Fuel
-            EmptyGlowing = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.Empty), Vector3.Zero, Vector3.Zero);
-            EmptyOff = new AnimateProp(Vehicle, ModelHandler.RequestModel(ModelHandler.EmptyOff), Vector3.Zero, Vector3.Zero);
+            EmptyGlowing = new AnimateProp(Vehicle, ModelHandler.Empty, Vector3.Zero, Vector3.Zero);
+            EmptyOff = new AnimateProp(Vehicle, ModelHandler.EmptyOff, Vector3.Zero, Vector3.Zero);
 
             //Time travel
             Coils = new AnimateProp(Vehicle, ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
+            InvisibleProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.InvisibleProp, new Vector3(0, 3.4f, -0.6f), new Vector3(0, 0, 180));
+            InvisibleProp.SpawnProp();
 
             //Plutonium gauge
             GaugeGlow = new AnimateProp(Vehicle, ModelHandler.GaugeGlow, Vector3.Zero, Vector3.Zero);

@@ -96,12 +96,12 @@ namespace BackToTheFutureV.TimeMachineClasses
             registeredHandlers.Add("ParticlesHandler", Particles = new ParticlesHandler(this));
 
             registeredHandlers.Add("SpeedoHandler", new SpeedoHandler(this));
-            registeredHandlers.Add("TimeTravelHandler", new TimeTravelHandler(this));                        
-            registeredHandlers.Add("TCDHandler", new TCDHandler(this));            
+            registeredHandlers.Add("TimeTravelHandler", new TimeTravelHandler(this));
+            registeredHandlers.Add("TCDHandler", new TCDHandler(this));
             registeredHandlers.Add("InputHandler", new InputHandler(this));
             registeredHandlers.Add("RcHandler", new RcHandler(this));
             registeredHandlers.Add("FuelHandler", new FuelHandler(this));
-            registeredHandlers.Add("ReentryHandler", new ReentryHandler(this));                                    
+            registeredHandlers.Add("ReentryHandler", new ReentryHandler(this));
             registeredHandlers.Add("SparksHandler", new SparksHandler(this));
 
             registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
@@ -111,8 +111,8 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (Mods.IsDMC12)
             {                
                 registeredHandlers.Add("FluxCapacitorHandler", new FluxCapacitorHandler(this));
-                registeredHandlers.Add("FreezeHandler", new FreezeHandler(this));                
-                registeredHandlers.Add("TFCHandler", new TFCHandler(this));                                
+                registeredHandlers.Add("FreezeHandler", new FreezeHandler(this));
+                registeredHandlers.Add("TFCHandler", new TFCHandler(this));
                 registeredHandlers.Add("ComponentsHandler", new ComponentsHandler(this));
                 registeredHandlers.Add("EngineHandler", new EngineHandler(this));
                 registeredHandlers.Add("StarterHandler", new StarterHandler(this));
