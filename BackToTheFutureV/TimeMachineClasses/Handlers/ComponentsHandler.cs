@@ -61,9 +61,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Props.HoodboxLights?.Delete();
 
             if (TimeHandler.IsNight)
-                Props.HoodboxLights.Model = ModelHandler.HoodboxLightsNight;
+                Props.HoodboxLights.SwapModel(ModelHandler.HoodboxLightsNight);
             else
-                Props.HoodboxLights.Model = ModelHandler.HoodboxLights;
+                Props.HoodboxLights.SwapModel(ModelHandler.HoodboxLights);
         }
 
         private void HookProcess()

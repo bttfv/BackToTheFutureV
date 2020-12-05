@@ -35,8 +35,8 @@ namespace BackToTheFutureV.Players
         private Vector3 _lastRotation;
 
         public void UpdateSparkModel(Model model)
-        {
-            _spark.Model = model;
+        {            
+            _spark.SwapModel(model);
 
             if (_spark.IsSpawned)
                 _spark.SpawnProp();

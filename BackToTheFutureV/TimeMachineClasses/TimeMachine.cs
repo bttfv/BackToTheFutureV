@@ -63,6 +63,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         private Blip Blip;
 
+        public bool IsReady { get; } = false;
+
         public bool Disposed { get; private set; }
 
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
@@ -77,12 +79,9 @@ namespace BackToTheFutureV.TimeMachineClasses
                     DMC12 = new DMC12(vehicle);
             }
            
-            BuildTimeMachine(wormholeType);
-        }
-
-        private void BuildTimeMachine(WormholeType wormholeType)
-        {
             Vehicle.IsPersistent = true;
+
+            TimeMachineHandler.AddTimeMachine(this);
 
             Mods = new TimeMachineMods(this, wormholeType);
 
@@ -133,13 +132,6 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (Vehicle.Model == ModelHandler.DeluxoModel)
                 Mods.HoverUnderbody = ModState.On;
 
-            BuildCustomCameras();
-
-            TimeMachineHandler.AddTimeMachine(this);
-        }
-
-        private void BuildCustomCameras()
-        {
             CustomCameraManager = new CustomCameraHandler();
 
             //DestinationDate
@@ -171,6 +163,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             //FrontToBackRightSide
             CustomCameraManager.Add(Vehicle, new Vector3(1.15f, 4.64f, 0.42f), new Vector3(0.87f, 3.68f, 0.49f), 50);
+
+            IsReady = true;
         }
 
         public T GetHandler<T>()
@@ -189,6 +183,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void Process()
         {
+            if (!IsReady)
+                return;
+
             if (!Vehicle.IsFunctioning())
             {
                 TimeMachineHandler.RemoveTimeMachine(this, false);
@@ -399,9 +396,9 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (Properties.PhotoGlowingCoilsActive && Props.Coils != null && !Props.Coils.IsSpawned)
             {
                 if (Utils.CurrentTime.Hour >= 20 || (Utils.CurrentTime.Hour >= 0 && Utils.CurrentTime.Hour <= 5))
-                    Props.Coils.Model = ModelHandler.CoilsGlowingNight;
+                    Props.Coils.SwapModel(ModelHandler.CoilsGlowingNight);
                 else
-                    Props.Coils.Model = ModelHandler.CoilsGlowing;
+                    Props.Coils.SwapModel(ModelHandler.CoilsGlowing);
 
                 Mods.OffCoils = ModState.Off;
                 Props.Coils.SpawnProp();

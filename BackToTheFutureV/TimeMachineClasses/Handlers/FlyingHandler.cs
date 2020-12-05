@@ -66,9 +66,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Props.HoverModeVentsGlow?.Delete();
 
             if (TimeHandler.IsNight)
-                Props.HoverModeVentsGlow.Model = ModelHandler.VentGlowingNight;
+                Props.HoverModeVentsGlow.SwapModel(ModelHandler.VentGlowingNight);
             else
-                Props.HoverModeVentsGlow.Model = ModelHandler.VentGlowing;
+                Props.HoverModeVentsGlow.SwapModel(ModelHandler.VentGlowing);
         }
 
         public void OnHoverUnderbodyToggle(bool reload = false)
