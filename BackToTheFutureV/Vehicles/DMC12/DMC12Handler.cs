@@ -71,7 +71,7 @@ namespace BackToTheFutureV.Vehicles
         public static void Process()
         {
             foreach (var veh in World.GetAllVehicles())
-                if (veh.Model.Hash == ModelHandler.DMC12.Hash && veh.IsFunctioning() && GetDeloreanFromVehicle(veh) == null)
+                if (veh.Model.Hash == ModelHandler.DMC12.Model.Hash && veh.IsFunctioning() && GetDeloreanFromVehicle(veh) == null)
                     CreateDMC12(veh);
 
             if (_deloreansToRemove.Count > 0)

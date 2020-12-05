@@ -61,13 +61,13 @@ namespace BackToTheFutureV.Vehicles
 
             Mods = new DMC12Mods(Vehicle);
 
-            rpmNeedle = new AnimateProp(Vehicle, "dmc12_rpm_needle", "rpm_needle");
-            speedNeedle = new AnimateProp(Vehicle, "dmc12_speed_needle", "speed_needle");
-            fuelNeedle = new AnimateProp(Vehicle, "dmc12_fuel_needle", "fuel_needle");
-            tempNeedle = new AnimateProp(Vehicle, "dmc12_temperature_needle", "temperature_needle");
-            oilNeedle = new AnimateProp(Vehicle, "dmc12_oil_needle", "oil_needle");
-            voltNeedle = new AnimateProp(Vehicle, "dmc12_voltage_needle", "voltage_needle");
-            doorIndicator = new AnimateProp(Vehicle, "dmc12_door_indicator", Vector3.Zero, Vector3.Zero);
+            rpmNeedle = new AnimateProp(Vehicle, ModelHandler.RPMNeedle, "rpm_needle");
+            speedNeedle = new AnimateProp(Vehicle, ModelHandler.SpeedNeedle, "speed_needle");
+            fuelNeedle = new AnimateProp(Vehicle, ModelHandler.FuelNeedle, "fuel_needle");
+            tempNeedle = new AnimateProp(Vehicle, ModelHandler.TemperatureNeedle, "temperature_needle");
+            oilNeedle = new AnimateProp(Vehicle, ModelHandler.OilNeedle, "oil_needle");
+            voltNeedle = new AnimateProp(Vehicle, ModelHandler.VoltageNeedle, "voltage_needle");
+            doorIndicator = new AnimateProp(Vehicle, ModelHandler.DoorIndicator, Vector3.Zero, Vector3.Zero);
             leftFan = new AnimateProp(Vehicle, ModelHandler.RadiatorFan, "radiator_fan_l");
             rightFan = new AnimateProp(Vehicle, ModelHandler.RadiatorFan, "radiator_fan_r");
 
