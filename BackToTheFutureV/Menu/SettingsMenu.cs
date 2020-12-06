@@ -64,7 +64,13 @@ namespace BackToTheFutureV.Menu
 
         private void SettingsMenu_Shown(object sender, EventArgs e)
         {
+            if (Utils.RandomTrains != ModSettings.RandomTrains)
+            {
+                ModSettings.RandomTrains = Utils.RandomTrains;
+                ModSettings.SaveSettings();
 
+                RandomTrains.Checked = Utils.RandomTrains;
+            }
         }
 
         private void SettingsMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -88,10 +94,7 @@ namespace BackToTheFutureV.Menu
             {
                 ModSettings.RandomTrains = Checked;
 
-                Function.Call(Hash.SET_RANDOM_TRAINS, ModSettings.RandomTrains);
-
-                if (!ModSettings.RandomTrains)
-                    Function.Call(Hash.DELETE_ALL_TRAINS);
+                Utils.RandomTrains = Checked;
             }                
 
             if (sender == GlowingWormholeEmitter)
