@@ -99,7 +99,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             HoverModeVentsGlow = new AnimateProp(Vehicle, ModelHandler.VentGlowing, Vector3.Zero, Vector3.Zero);
             HoverModeWheelsGlow = new AnimateProp(Vehicle, ModelHandler.HoverGlowing, Vector3.Zero, Vector3.Zero)
             {
-                Duration = 3f
+                Duration = 1.8f
             };
 
             //Fuel

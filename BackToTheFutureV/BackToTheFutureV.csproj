@@ -100,7 +100,6 @@
     <Compile Include="Menu\TimeMachineMenu.cs" />
     <Compile Include="Players\FireTrail.cs" />
     <Compile Include="Players\FireTrailsHandler.cs" />
-    <Compile Include="Players\PtfxPlayer.cs" />
     <Compile Include="Players\SparkPlayer.cs" />
     <Compile Include="Settings\ModControls.cs" />
     <Compile Include="Story\Mission.cs" />

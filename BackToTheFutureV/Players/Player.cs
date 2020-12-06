@@ -11,7 +11,7 @@ namespace BackToTheFutureV.Players
 {
     public delegate void OnCompleted();
 
-    public abstract class Player
+    public abstract class Player : FusionLibrary.Player
     {
         public TimeMachine TimeMachine { get; }
 
@@ -40,17 +40,5 @@ namespace BackToTheFutureV.Players
         {
             Vehicle = vehicle;
         }
-
-        public OnCompleted OnCompleted { get; set; }
-
-        public bool IsPlaying { get; protected set; }
-
-        public abstract void Play();
-
-        public abstract void Process();
-
-        public abstract void Stop();
-
-        public abstract void Dispose();
     }
 }

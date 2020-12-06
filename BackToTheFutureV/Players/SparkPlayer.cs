@@ -50,9 +50,9 @@ namespace BackToTheFutureV.Players
         public override void Play()
         {
             _currentFrame = 1;
-            _spark.setOffset(_frames[0]);
-            _spark.setRotation(Utils.DirectionToRotation(_frames[_currentFrame], _spark.Offset, 0));
-            _spark.SpawnProp();
+
+            _spark.MoveProp(_frames[0], Utils.DirectionToRotation(_frames[_currentFrame], _spark.CurrentOffset, 0));
+
             IsPlaying = true;
         }
 
@@ -64,7 +64,7 @@ namespace BackToTheFutureV.Players
             if(_currentFrame > 0)
             {
                 float totalLengthSquared = (_frames[_currentFrame - 1] - _frames[_currentFrame]).LengthSquared();
-                float lengthToSpark = (_frames[_currentFrame - 1] - _spark.Offset).LengthSquared();
+                float lengthToSpark = (_frames[_currentFrame - 1] - _spark.CurrentOffset).LengthSquared();
 
                 if (lengthToSpark > totalLengthSquared)
                 {
@@ -80,12 +80,10 @@ namespace BackToTheFutureV.Players
                 }
             }
 
-            _lastDirection = (_frames[_currentFrame] - _spark.Offset).Normalized;
-            _lastRotation = Utils.DirectionToRotation(_frames[_currentFrame], _spark.Offset, 0);
+            _lastDirection = (_frames[_currentFrame] - _spark.CurrentOffset).Normalized;
+            _lastRotation = Utils.DirectionToRotation(_frames[_currentFrame], _spark.CurrentOffset, 0);
 
-            _spark.setOffset(_spark.CurrentOffset + _lastDirection * Speed * Game.LastFrameTime);
-            _spark.setRotation(_spark.CurrentRotation + Vector3.Lerp(_spark.Rotation, _lastRotation, Game.LastFrameTime * Speed));
-            _spark.SpawnProp();
+            _spark.MoveProp(_spark.CurrentOffset + _lastDirection * Speed * Game.LastFrameTime, _spark.Rotation + Vector3.Lerp(_spark.CurrentRotation, _lastRotation, Game.LastFrameTime * Speed));
         }
 
         public override void Stop()

@@ -108,7 +108,7 @@ namespace BackToTheFutureV.Utility
 
         public static void RequestModels()
         {
-            GetAllModels().ForEach(x => PreloadModel(x));
+            GetAllModels(typeof(ModelHandler)).ForEach(x => PreloadModel(x));
 
             foreach (var x in Lightnings)
                 PreloadModel(x);
