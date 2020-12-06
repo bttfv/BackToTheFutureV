@@ -158,8 +158,6 @@ namespace BackToTheFutureV.Utility
                 
                 CoilSeparated.Add(i, model);
             }
-
-            Function.Call(Hash.BUSYSPINNER_OFF);
         }
     }
 }
