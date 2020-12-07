@@ -211,7 +211,7 @@ namespace BackToTheFutureV.Players
 
         public void Stop()
         {
-            _fireTrailPtfxs.ForEach(x => x.RemovePtfx(x.ParticleId));
+            _fireTrailPtfxs.ForEach(x => x.RemovePtfx(x.Handle));
             _fireTrailPtfxs.ForEach(x => x.Dispose());
             _fireTrailPtfxs.Clear();
         }

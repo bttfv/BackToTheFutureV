@@ -75,9 +75,6 @@ namespace BackToTheFutureV.Story
             MissionMusic.SourceEntity = Utils.PlayerPed;
             MissionMusic.Play();
 
-            //MissionMusic.Last.PlayPosition = (uint)new TimeSpan(0, 0, 5, 10, 200).TotalMilliseconds;
-            //RogersSierra.LocomotiveSpeed = Utils.MphToMs(72);
-
             if (Mute)
             {
                 OriginalVolume = MissionMusic.Volume;
@@ -116,6 +113,12 @@ namespace BackToTheFutureV.Story
             if (!IsPlaying)
                 return;
 
+            if (!RogersSierra.Locomotive.NotNullAndExists())
+            {
+                End();
+                return;
+            }
+
             Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Utils.PlayerPed);
             Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Utils.PlayerPed);
 
@@ -152,7 +155,6 @@ namespace BackToTheFutureV.Story
             End();
         }
 
-
         protected override void OnEnd()
         {
             if (!IsPlaying)
@@ -170,17 +172,20 @@ namespace BackToTheFutureV.Story
             _wheelPtfxes?.ForEach(x => x?.Stop());
             _wheelPtfxes.Clear();
 
-            RogersSierra.IsOnTrainMission = false;
+            if (RogersSierra.Locomotive.NotNullAndExists())
+            {
+                RogersSierra.IsOnTrainMission = false;
 
-            if (RogersSierra.IsExploded == false)
-                RogersSierra.FunnelSmoke = SmokeColor.Default;
+                if (RogersSierra.IsExploded == false)
+                    RogersSierra.FunnelSmoke = SmokeColor.Default;
 
-            if (TimeMachine != null)
-                OnVehicleDetached(TimeMachine);
+                if (TimeMachine != null)
+                    OnVehicleDetached(TimeMachine);                
+            }
 
-            _useInternalTime = false;
+            _useInternalTime = false;            
+            TimeMachine = null; 
             RogersSierra = null;
-            TimeMachine = null;            
         }
 
         protected override void OnStart()
