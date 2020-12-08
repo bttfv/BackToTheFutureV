@@ -37,6 +37,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             RogersSierraRailway.TrainManager.RogersSierraList.ForEach(x => x.Delete());                
             TimeMachineHandler.ExistenceCheck(time);
             RemoteTimeMachineHandler.ExistenceCheck(time);
+
+            WaybackMachineHandler.ResetRecordings();
         }
 
         public void SetCutsceneMode(bool cutsceneOn)
@@ -163,8 +165,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (Properties.IsRemoteControlled)
                             RCManager.StopRemoteControl();
 
+                        Screen.ShowSubtitle($"{Properties.IsWaybackPlaying}");
+
                         // Add to time travelled list
-                        RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone);
+                        if (!Properties.IsWaybackPlaying)
+                            RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone);
 
                         Vehicle.SetVisible(false);
 

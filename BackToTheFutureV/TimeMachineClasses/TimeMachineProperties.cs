@@ -26,7 +26,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public PropertiesHandler(TimeMachine timeMachine)
         {
-            TimeMachine = timeMachine;            
+            TimeMachine = timeMachine;
+
+            GUID = Guid.NewGuid();
         }
 
         public new MissionType MissionType 

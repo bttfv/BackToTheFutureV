@@ -173,6 +173,7 @@ namespace BackToTheFutureV.Menu
             {
                 TimeMachineHandler.RemoveAllTimeMachines(true);
                 RemoteTimeMachineHandler.DeleteAll();
+                WaybackMachineHandler.WaybackMachines.Clear();
                 Notification.Show(Game.GetLocalizedString("BTTFV_RemovedOtherTimeMachines"));
             }
 
@@ -180,6 +181,7 @@ namespace BackToTheFutureV.Menu
             {
                 TimeMachineHandler.RemoveAllTimeMachines();
                 RemoteTimeMachineHandler.DeleteAll();
+                WaybackMachineHandler.WaybackMachines.Clear();
                 Notification.Show(Game.GetLocalizedString("BTTFV_RemovedAllTimeMachines"));
             }
 

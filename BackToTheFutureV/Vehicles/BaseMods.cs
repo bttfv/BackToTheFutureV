@@ -141,21 +141,29 @@ namespace BackToTheFutureV.Vehicles
             return ret;
         }
 
-        public void ApplyTo(TimeMachine timeMachine)
+        public void ApplyTo(TimeMachine timeMachine, bool dotNotSetTransparentWheel = false)
         {
             TimeMachineMods ret = timeMachine.Mods;
 
             ret.IsDMC12 = IsDMC12;
             ret.WormholeType = WormholeType;
-            ret.SuspensionsType = SuspensionsType;
-            ret.Wheel = Wheel;
+
+            if (!dotNotSetTransparentWheel || (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible))
+                ret.SuspensionsType = SuspensionsType;
+
+            if (!dotNotSetTransparentWheel || (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible))
+                ret.Wheel = Wheel;
+
             ret.Exterior = Exterior;
             ret.Interior = Interior;
             ret.OffCoils = OffCoils;
             ret.GlowingEmitter = GlowingEmitter;
             ret.GlowingReactor = GlowingReactor;
             ret.DamagedBumper = DamagedBumper;
-            ret.HoverUnderbody = HoverUnderbody;
+
+            if (!dotNotSetTransparentWheel || (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible))
+                ret.HoverUnderbody = HoverUnderbody;
+
             ret.SteeringWheelsButtons = SteeringWheelsButtons;
             ret.Vents = Vents;
             ret.Seats = Seats;

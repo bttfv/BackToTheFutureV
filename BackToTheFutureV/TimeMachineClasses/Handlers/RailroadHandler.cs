@@ -186,6 +186,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
+            if (Properties.IsOnTracks && customTrain == null)
+                Stop();
+
             if (Properties.IsOnTracks)
             {
                 Properties.IsAttachedToRogersSierra = customTrain.IsRogersSierra;

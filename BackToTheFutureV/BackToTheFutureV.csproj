@@ -151,6 +151,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\ModSettings.cs" />
     <Compile Include="Settings\TCDEditer.cs" />
+    <Compile Include="Utility\WaybackMachine.cs" />
+    <Compile Include="Utility\WaybackMachineHandler.cs" />
     <Compile Include="Vehicles\BaseMods.cs" />
     <Compile Include="Vehicles\DMC12\DMC12.cs" />
     <Compile Include="Vehicles\DMC12\DMC12Handler.cs" />

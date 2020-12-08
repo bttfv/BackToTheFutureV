@@ -22,6 +22,11 @@ namespace BackToTheFutureV.Utility
 
     public static class VehicleExtensions
     {
+        public static bool NotNullAndExists(this TimeMachine timeMachine)
+        {
+            return timeMachine != null && timeMachine.Vehicle.NotNullAndExists();
+        }
+
         public static bool IsTimeMachine(this Vehicle vehicle)
         {
             return TimeMachineHandler.IsVehicleATimeMachine(vehicle);

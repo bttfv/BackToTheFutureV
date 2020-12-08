@@ -1,213 +1,196 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using BackToTheFutureV.Vehicles;
+using FusionLibrary;
+using FusionLibrary.Extensions;
+using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
-using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Utility
 {
-    public class WaybackInfo
+    public class WaybackReplica
     {
-        public DateTime Date { get; }
+        public DateTime Time { get; }
+        public int Timestamp { get; }
+        public bool EngineRunning { get; }
+        public float Throttle { get; }
+        public float Brake { get; }
+        public int Gear { get; }
+        public float RPM { get; }
+        public float SteeringAngle { get; }
         public Vector3 Position { get; }
         public Vector3 Rotation { get; }
-        public float Speed { get; }
-        public float SteeringAngle { get; }
-        public PedInfo PedInfo { get; }
-        public bool StartPoint { get; }
+        public Vector3 Velocity { get; }
+        public float[] Wheels { get; }
 
-        public WaybackInfo(Vehicle vehicle, bool startPoint = false)
+        public BaseProperties Properties { get; }
+        public BaseMods Mods { get; }
+
+        public WaybackReplica(TimeMachine timeMachine)
         {
-            Date = Main.CurrentTime;
-            Position = vehicle.Position;
-            Rotation = vehicle.Rotation;
-            Speed = vehicle.Speed+2;
-            SteeringAngle = vehicle.SteeringAngle;
-            StartPoint = startPoint;
+            Time = Utils.CurrentTime;
+            Timestamp = Game.GameTime;
 
-            if (!vehicle.IsSeatFree(VehicleSeat.Driver))
-                PedInfo = new PedInfo(vehicle.GetPedOnSeat(VehicleSeat.Driver));
+            EngineRunning = timeMachine.Vehicle.IsEngineRunning;
+            Throttle = VehicleControl.GetThrottle(timeMachine.Vehicle);
+            Brake = VehicleControl.GetBrake(timeMachine.Vehicle);            
+            Gear = timeMachine.Vehicle.CurrentGear;
+            RPM = timeMachine.Vehicle.CurrentRPM;
+            SteeringAngle = timeMachine.Vehicle.SteeringAngle;
+
+            Position = timeMachine.Vehicle.Position;
+            Rotation = timeMachine.Vehicle.Rotation;
+            Velocity = timeMachine.Vehicle.Velocity;
+
+            Properties = timeMachine.Properties.Clone();
+            Mods = timeMachine.Mods.Clone();
         }
 
-        public void ApplyTo(Vehicle vehicle)
+        public void Apply(TimeMachine timeMachine, WaybackReplica nextReplica, int startTimestamp)
         {
-            vehicle.Position = Position;
-            vehicle.Rotation = Rotation;
-            vehicle.Speed = Speed;
-            vehicle.SteeringAngle = SteeringAngle;
-        }
-    }
+            if (!timeMachine.NotNullAndExists())
+                return;
 
-    public enum CurrentStatus
-    {
-        NotSpawned,
-        Running,
-        Stopped,
-        Recording
+            if (timeMachine.Vehicle.IsEngineRunning != EngineRunning)
+                timeMachine.Vehicle.IsEngineRunning = EngineRunning;
+
+            VehicleControl.SetThrottle(timeMachine, Throttle);
+            VehicleControl.SetBrake(timeMachine, Brake);
+            timeMachine.Vehicle.CurrentGear = Gear;
+            timeMachine.Vehicle.CurrentRPM = RPM;
+            timeMachine.Vehicle.SteeringAngle = SteeringAngle;
+
+            if (nextReplica != null)
+            {
+                float timeRatio = 0;
+
+                if (Timestamp != startTimestamp)
+                    timeRatio = (nextReplica.Timestamp - Timestamp) / (Timestamp - startTimestamp);
+
+                timeMachine.Vehicle.PositionNoOffset = Vector3.Lerp(Position, nextReplica.Position, timeRatio);
+                timeMachine.Vehicle.Rotation = Vector3.Lerp(Rotation, nextReplica.Rotation, timeRatio);
+                timeMachine.Vehicle.Velocity = Vector3.Lerp(Velocity, nextReplica.Velocity, timeRatio);
+            }
+            else
+            {
+                timeMachine.Vehicle.PositionNoOffset = Position;
+                timeMachine.Vehicle.Rotation = Rotation;
+                timeMachine.Vehicle.Velocity = Velocity;
+            }
+
+            Properties.ApplyToWayback(timeMachine);
+            Mods.ApplyTo(timeMachine, true);
+
+            timeMachine.Properties.IsWaybackPlaying = true;
+        }
     }
 
     public class WaybackMachine
     {
-        private List<WaybackInfo> WaybackInfos = new List<WaybackInfo>();
+        public List<WaybackReplica> WaybackReplicas { get; } = new List<WaybackReplica>();
 
-        public WaybackMachine(Vehicle vehicle)
-        {
-            Vehicle = vehicle;
+        public Guid GUID { get; }
+        public TimeMachine TimeMachine { get; internal set; }
+        public TimeMachineClone TimeMachineClone { get; }
 
-            VehicleInfo = new VehicleInfo(vehicle);
+        public WaybackReplica CurrentReplica => WaybackReplicas.FirstOrDefault(x => x.Time >= Utils.CurrentTime);
+        public DateTime StartTime => WaybackReplicas.FirstOrDefault().Time;
+        public DateTime EndTime => WaybackReplicas.LastOrDefault().Time;
+        
+        public bool IsRecording { get; internal set; } = true;
 
-            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Vehicle);
+        private int gameTime;
 
-            IsTimeMachine = timeMachine != null;
+        public int StartTimestamp { get; }
 
-            if (IsTimeMachine)
-            {
-                TimeMachineClone = timeMachine.Clone;
-                timeMachine.Events.OnTimeTravelCompleted += Duplicate;
-            }                
+        public WaybackMachine(TimeMachine timeMachine)
+        {            
+            GUID = timeMachine.Properties.GUID;
+            TimeMachine = timeMachine;
+
+            TimeMachineClone = timeMachine.Clone;
+
+            Record();
+
+            StartTimestamp = WaybackReplicas.First().Timestamp;
+
+            gameTime = Game.GameTime + 10;
+
+            WaybackMachineHandler.WaybackMachines.Add(this);
         }
 
-        public WaybackMachine(WaybackMachine waybackMachine)
+        internal void Process()
         {
-            Vehicle = null;
-
-            CurrentStatus = CurrentStatus.NotSpawned;
-
-            VehicleInfo = waybackMachine.VehicleInfo;
-
-            IsTimeMachine = waybackMachine.IsTimeMachine;
-
-            if (IsTimeMachine)
+            if (Utils.CurrentTime < StartTime)
             {
-                TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Vehicle);
-                TimeMachineClone = timeMachine.Clone;
-                timeMachine.Events.OnTimeTravelCompleted += Duplicate;
-            }
+                if (IsRecording)
+                    Stop();
 
-            WaybackInfos.AddRange(waybackMachine.WaybackInfos);
-        }
-
-        public Vehicle Vehicle { get; private set; }
-        public bool IsTimeMachine { get; private set; }
-        public TimeMachineClone TimeMachineClone { get; private set; }
-        public VehicleInfo VehicleInfo { get; private set; }
-        public CurrentStatus CurrentStatus { get; private set; } = CurrentStatus.Recording;        
-        private Ped Driver { get; set; }
-        private WaybackInfo NextWaybackInfo { get; set; }
-
-        public void Process()
-        {
-            if (CurrentStatus != CurrentStatus.NotSpawned && (Vehicle == null || !Vehicle.Exists() || Vehicle.IsDead || !Vehicle.IsAlive))
-            {
-                CurrentStatus = CurrentStatus.NotSpawned;
-
-                Vehicle = null;
-
-                NextWaybackInfo = null;
-            }
-
-            if (NextWaybackInfo == null || NextWaybackInfo == default)
-            {
-                NextWaybackInfo = WaybackInfos.FirstOrDefault(x => x.Date > Main.CurrentTime);
-
-                if (NextWaybackInfo == default && CurrentStatus != CurrentStatus.NotSpawned)
-                {
-                    GTA.UI.Screen.ShowSubtitle(CurrentStatus.ToString() + $" {IsTimeMachine}");
-
-                    Record();
-
-                    return;
-                }
-            }
-
-            if (NextWaybackInfo == null || NextWaybackInfo == default)
                 return;
-
-            string test = $"{NextWaybackInfo.Date} {NextWaybackInfo.Position} {NextWaybackInfo.Speed} {NextWaybackInfo.StartPoint}";
-           
-            GTA.UI.Screen.ShowSubtitle(CurrentStatus.ToString() + $" {test}");
-
-            if (Main.CurrentTime >= NextWaybackInfo.Date)
-            {
-                NextWaybackInfo = WaybackInfos.ElementAtOrDefault(WaybackInfos.IndexOf(NextWaybackInfo) + 1);
-
-                if (NextWaybackInfo == null || NextWaybackInfo == default)
-                    return;
-
+            }
+   
+            if (IsRecording)
+                Record();
+            else
                 Play();
-            }                
         }
 
-        private void Play()
+        internal void Record()
         {
-            if (CurrentStatus == CurrentStatus.NotSpawned)
+            if (!TimeMachine.NotNullAndExists())
             {
-                if (IsTimeMachine)
-                    Vehicle = TimeMachineClone.Spawn();
-                else
-                    Vehicle = VehicleInfo.Spawn(NextWaybackInfo.Position, 0);
-
-                NextWaybackInfo.ApplyTo(Vehicle);
-
-                CurrentStatus = CurrentStatus.Stopped;
-
-                NextWaybackInfo = null;
+                Stop();
 
                 return;
             }
 
-            if (CurrentStatus == CurrentStatus.Stopped && NextWaybackInfo.Speed == 0)
+            if (Utils.Distance2DBetween(TimeMachine, Utils.PlayerPed) > 300 * 300)
                 return;
 
-            if (NextWaybackInfo.Speed > 0)
+            if (Game.GameTime < gameTime)
+                return;
+           
+            WaybackReplicas.Add(new WaybackReplica(TimeMachine));
+
+            gameTime = Game.GameTime + 10;
+        }
+
+        internal void Play()
+        {
+            WaybackReplica waybackReplica = CurrentReplica;
+
+            if (waybackReplica == default || (TimeMachine.NotNullAndExists() && TimeMachine.Properties.IsWaybackPlaying && Utils.PlayerVehicle == TimeMachine))
             {
-                if (Driver == null || !Driver.Exists())
-					Driver = NextWaybackInfo.PedInfo.Spawn(Vehicle, VehicleSeat.Driver);
-				
-                Function.Call(Hash.TASK_VEHICLE_GOTO_NAVMESH, Driver, Vehicle, NextWaybackInfo.Position.X, NextWaybackInfo.Position.Y, NextWaybackInfo.Position.Z, NextWaybackInfo.Speed, 156, 5.0f);
-
-                CurrentStatus = CurrentStatus.Running;
-
-                NextWaybackInfo = null;
+                if (TimeMachine.NotNullAndExists() && TimeMachine.Properties.IsWaybackPlaying)
+                    TimeMachine.Properties.IsWaybackPlaying = false;
 
                 return;
             }
 
-            if (NextWaybackInfo.Speed == 0 && CurrentStatus == CurrentStatus.Running)
-            {
-                Driver.Task.ClearAllImmediately();
+            if (!TimeMachine.NotNullAndExists())
+                TimeMachine = TimeMachineClone.Spawn(SpawnFlags.Default | SpawnFlags.NoWayback);
 
-                CurrentStatus = CurrentStatus.Stopped;
+            int nextReplica = WaybackReplicas.IndexOf(waybackReplica) + 1;
 
-                NextWaybackInfo = null;
-
-                return;
-            }
-
-            NextWaybackInfo = null;
+            if (nextReplica == WaybackReplicas.Count)
+                waybackReplica.Apply(TimeMachine, null, StartTimestamp);
+            else
+                waybackReplica.Apply(TimeMachine, WaybackReplicas[nextReplica], StartTimestamp);
         }
 
-        private void Record()
+        internal void Stop(bool resetTimeMachine = false)
         {
-            CurrentStatus = CurrentStatus.Recording;
+            if (resetTimeMachine)
+                TimeMachine = null;
 
-            if (Main.PlayerVehicle != Vehicle)
-                return;
-
-            if (WaybackInfos.Count > 0 && WaybackInfos.Last()?.Speed == 0 && Vehicle.Speed == 0)
-                return;
-
-            WaybackInfos.Add(new WaybackInfo(Vehicle, WaybackInfos.Count == 0));
-        }
-
-        private void Duplicate()
-        {
-            WaybackMachineHandler.Add(new WaybackMachine(this));
+            IsRecording = false;
         }
     }
 }

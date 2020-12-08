@@ -16,6 +16,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     [Serializable]
     public class BaseProperties
     {
+        public Guid GUID { get; set; }
+        public bool IsWaybackPlaying { get; set; } = false;
         public bool IsGivenScaleformPriority { get; set; }
         public bool AreWheelsStock { get; set; }
         public bool AreTimeCircuitsOn { get; set; }
@@ -98,6 +100,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             ret.BlockSparks = false;
 
+            ret.IsWaybackPlaying = false;
+
             return ret;
         }
 
@@ -115,6 +119,21 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             if (AreHoodboxCircuitsReady)
                 timeMachine.Events.OnHoodboxReady?.Invoke();
+        }
+
+        public void ApplyToWayback(TimeMachine timeMachine)
+        {
+            timeMachine.Properties.IsFueled = IsFueled;
+            timeMachine.Properties.PreviousTime = PreviousTime;
+
+            if (AreTimeCircuitsOn != timeMachine.Properties.AreTimeCircuitsOn)
+                timeMachine.Events.SetTimeCircuits?.Invoke(AreTimeCircuitsOn);
+
+            if (DestinationTime != timeMachine.Properties.DestinationTime)
+                timeMachine.Events.SimulateInputDate?.Invoke(DestinationTime);
+
+            if (IsFlying != timeMachine.Properties.IsFlying)
+                timeMachine.Events.SetFlyMode?.Invoke(IsFlying);            
         }
     }
 }

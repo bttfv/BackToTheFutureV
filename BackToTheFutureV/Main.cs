@@ -126,6 +126,7 @@ namespace BackToTheFutureV
                 _firstTick = false;
             }
 
+            WaybackMachineHandler.Process();
             CustomTrainHandler.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();
