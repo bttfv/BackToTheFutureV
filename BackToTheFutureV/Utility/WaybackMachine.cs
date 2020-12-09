@@ -167,8 +167,6 @@ namespace BackToTheFutureV.Utility
 
             if (!TimeMachine.NotNullAndExists())
             {
-                GTA.UI.Screen.ShowSubtitle($"{TimeMachineClone.Properties.TimeTravelPhase}");
-
                 if (TimeMachineClone.Properties.TimeTravelPhase == TimeTravelPhase.InTime && TimeMachineClone.Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
                     return;
 
