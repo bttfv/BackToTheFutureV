@@ -53,7 +53,7 @@ namespace BackToTheFutureV.Utility
             Mods = timeMachine.Mods.Clone();
         }
 
-        public void Apply(TimeMachine timeMachine, WaybackReplica nextReplica, int startTimestamp)
+        public void Apply(TimeMachine timeMachine)
         {
             if (!timeMachine.NotNullAndExists())
                 return;
@@ -67,23 +67,9 @@ namespace BackToTheFutureV.Utility
             timeMachine.Vehicle.CurrentRPM = RPM;
             timeMachine.Vehicle.SteeringAngle = SteeringAngle;
 
-            if (nextReplica != null)
-            {
-                float timeRatio = 0;
-
-                if (Timestamp != startTimestamp)
-                    timeRatio = (nextReplica.Timestamp - Timestamp) / (Timestamp - startTimestamp);
-
-                timeMachine.Vehicle.PositionNoOffset = Vector3.Lerp(Position, nextReplica.Position, timeRatio);
-                timeMachine.Vehicle.Rotation = Vector3.Lerp(Rotation, nextReplica.Rotation, timeRatio);
-                timeMachine.Vehicle.Velocity = Vector3.Lerp(Velocity, nextReplica.Velocity, timeRatio);
-            }
-            else
-            {
-                timeMachine.Vehicle.PositionNoOffset = Position;
-                timeMachine.Vehicle.Rotation = Rotation;
-                timeMachine.Vehicle.Velocity = Velocity;
-            }
+            timeMachine.Vehicle.PositionNoOffset = Position;
+            timeMachine.Vehicle.Rotation = Rotation;
+            timeMachine.Vehicle.Velocity = Velocity;
 
             Properties.ApplyToWayback(timeMachine);
             Mods.ApplyTo(timeMachine, true);
@@ -92,13 +78,13 @@ namespace BackToTheFutureV.Utility
         }
     }
 
-    public class WaybackMachine
+    public class WaybackMachine : Script
     {
         public List<WaybackReplica> WaybackReplicas { get; } = new List<WaybackReplica>();
 
-        public Guid GUID { get; }
+        public Guid GUID { get; private set; } = Guid.Empty;
         public TimeMachine TimeMachine { get; internal set; }
-        public TimeMachineClone TimeMachineClone { get; }
+        public TimeMachineClone TimeMachineClone { get; private set; }
 
         public WaybackReplica CurrentReplica => WaybackReplicas.FirstOrDefault(x => x.Time >= Utils.CurrentTime);
         public DateTime StartTime => WaybackReplicas.FirstOrDefault().Time;
@@ -106,11 +92,25 @@ namespace BackToTheFutureV.Utility
         
         public bool IsRecording { get; internal set; } = true;
 
-        private int gameTime;
+        public WaybackMachine()
+        {
+            Interval = 1;
 
-        public int StartTimestamp { get; }
+            Tick += WaybackMachine_Tick;
+        }
 
-        public WaybackMachine(TimeMachine timeMachine)
+        private void WaybackMachine_Tick(object sender, EventArgs e)
+        {
+            if (Game.IsLoading)
+                return;
+
+            if (GUID == Guid.Empty)
+                Abort();
+
+            Process();
+        }
+
+        public void Create(TimeMachine timeMachine)
         {            
             GUID = timeMachine.Properties.GUID;
             TimeMachine = timeMachine;
@@ -118,10 +118,6 @@ namespace BackToTheFutureV.Utility
             TimeMachineClone = timeMachine.Clone;
 
             Record();
-
-            StartTimestamp = WaybackReplicas.First().Timestamp;
-
-            gameTime = Game.GameTime + 10;
 
             WaybackMachineHandler.WaybackMachines.Add(this);
         }
@@ -154,12 +150,7 @@ namespace BackToTheFutureV.Utility
             if (Utils.Distance2DBetween(TimeMachine, Utils.PlayerPed) > 300 * 300)
                 return;
 
-            if (Game.GameTime < gameTime)
-                return;
-           
             WaybackReplicas.Add(new WaybackReplica(TimeMachine));
-
-            gameTime = Game.GameTime + 10;
         }
 
         internal void Play()
@@ -175,21 +166,21 @@ namespace BackToTheFutureV.Utility
             }
 
             if (!TimeMachine.NotNullAndExists())
+            {
+                GTA.UI.Screen.ShowSubtitle($"{TimeMachineClone.Properties.TimeTravelPhase}");
+
+                if (TimeMachineClone.Properties.TimeTravelPhase == TimeTravelPhase.InTime && TimeMachineClone.Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
+                    return;
+
                 TimeMachine = TimeMachineClone.Spawn(SpawnFlags.Default | SpawnFlags.NoWayback);
+            }
 
-            int nextReplica = WaybackReplicas.IndexOf(waybackReplica) + 1;
-
-            if (nextReplica == WaybackReplicas.Count)
-                waybackReplica.Apply(TimeMachine, null, StartTimestamp);
-            else
-                waybackReplica.Apply(TimeMachine, WaybackReplicas[nextReplica], StartTimestamp);
+            waybackReplica.Apply(TimeMachine);
         }
 
-        internal void Stop(bool resetTimeMachine = false)
+        internal void Stop()
         {
-            if (resetTimeMachine)
-                TimeMachine = null;
-
+            TimeMachine = null;
             IsRecording = false;
         }
     }

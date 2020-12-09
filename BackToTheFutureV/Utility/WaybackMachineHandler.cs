@@ -13,20 +13,35 @@ namespace BackToTheFutureV.Utility
     {
         public static List<WaybackMachine> WaybackMachines { get; } = new List<WaybackMachine>();
 
-        internal static void Process()
+        public static void Abort()
         {
-            //WaybackMachines.ForEach(x => x.Process());
+            WaybackMachines.ForEach(x => x.Abort());
         }
 
-        public static void ResetRecordings()
+        public static void Stop()
         {
-            //WaybackMachines.ForEach(x => x.Stop(true));
-            //TimeMachineHandler.TimeMachinesNoStory.ForEach(x => Create(x));
+            WaybackMachines.ForEach(x => x.Stop());
         }
 
-        public static void Create(TimeMachine timeMachine)
+        public static WaybackMachine Start(TimeMachine timeMachine)
         {
-            //WaybackMachines.Add(new WaybackMachine(timeMachine));
+            WaybackMachine waybackMachine = Script.InstantiateScript<WaybackMachine>();
+
+            waybackMachine.Create(timeMachine);
+
+            return waybackMachine;
+        }
+
+        public static WaybackMachine CheckIfExists(TimeMachine timeMachine)
+        {
+            WaybackMachine waybackMachine = WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && Utils.CurrentTime >= x.StartTime && Utils.CurrentTime <= x.EndTime);
+
+            if (waybackMachine == default)
+                return Start(timeMachine);
+            else
+                waybackMachine.TimeMachine = timeMachine;
+            
+            return waybackMachine;
         }
     }
 }

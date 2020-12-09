@@ -38,7 +38,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             TimeMachineHandler.ExistenceCheck(time);
             RemoteTimeMachineHandler.ExistenceCheck(time);
 
-            WaybackMachineHandler.ResetRecordings();
+            WaybackMachineHandler.Stop();
         }
 
         public void SetCutsceneMode(bool cutsceneOn)
@@ -78,7 +78,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     else
                     {
                         if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Utils.PlayerPed)
-                            Properties.TimeTravelType = TimeTravelType.RC;
+                        {
+                            if (Properties.IsWaybackPlaying)
+                                Properties.TimeTravelType = TimeTravelType.RC;
+                            else
+                                Properties.TimeTravelType = TimeTravelType.Wayback;
+                        }                            
                         else
                         {
                             if (!Properties.CutsceneMode || Utils.IsPlayerUseFirstPerson())
@@ -157,7 +162,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Mods.WormholeType == WormholeType.BTTF1, Mods.Wheel == WheelType.RailroadInvisible ? 75 : 50);
 
                     // If the Vehicle is remote controlled or the player is not the one in the driver seat
-                    if (Properties.TimeTravelType == TimeTravelType.RC)
+                    if (Properties.TimeTravelType == TimeTravelType.RC || Properties.TimeTravelType == TimeTravelType.Wayback)
                     {                        
                         Vehicle.SetMPHSpeed(0);
 
@@ -165,10 +170,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (Properties.IsRemoteControlled)
                             RCManager.StopRemoteControl();
 
-                        Screen.ShowSubtitle($"{Properties.IsWaybackPlaying}");
-
                         // Add to time travelled list
-                        if (!Properties.IsWaybackPlaying)
+                        if (Properties.TimeTravelType == TimeTravelType.RC)
                             RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone);
 
                         Vehicle.SetVisible(false);
@@ -204,7 +207,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 case 1:
                     Particles.TimeTravelEffect.Stop();
 
-                    if (Properties.TimeTravelType == TimeTravelType.RC)
+                    if (Properties.TimeTravelType == TimeTravelType.RC || Properties.TimeTravelType == TimeTravelType.Wayback)
                     {
                         TimeMachineHandler.RemoveTimeMachine(TimeMachine, true, true);
 

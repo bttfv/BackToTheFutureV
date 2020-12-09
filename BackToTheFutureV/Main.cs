@@ -83,6 +83,7 @@ namespace BackToTheFutureV
             if (ModSettings.PersistenceSystem)
                 TimeMachineHandler.SaveAllTimeMachines();
 
+            WaybackMachineHandler.Abort();
             MissionHandler.Abort();
             StoryTimeMachine.Abort();
             RemoteTimeMachineHandler.Dispose();
@@ -125,8 +126,7 @@ namespace BackToTheFutureV
 
                 _firstTick = false;
             }
-
-            WaybackMachineHandler.Process();
+            
             CustomTrainHandler.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();

@@ -218,7 +218,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
 
             if (!spawnFlags.HasFlag(SpawnFlags.NoWayback))
-                WaybackMachineHandler.Create(timeMachine);
+                WaybackMachineHandler.Start(timeMachine);
                 
             if (spawnFlags.HasFlag(SpawnFlags.Broken))
                 timeMachine.Break();
