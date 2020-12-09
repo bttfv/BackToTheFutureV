@@ -94,7 +94,7 @@ namespace BackToTheFutureV.Utility
 
         public WaybackMachine()
         {
-            Interval = 1;
+            //Interval = 1;
 
             Tick += WaybackMachine_Tick;
         }
@@ -166,12 +166,7 @@ namespace BackToTheFutureV.Utility
             }
 
             if (!TimeMachine.NotNullAndExists())
-            {
-                if (TimeMachineClone.Properties.TimeTravelPhase == TimeTravelPhase.InTime && TimeMachineClone.Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
-                    return;
-
                 TimeMachine = TimeMachineClone.Spawn(SpawnFlags.Default | SpawnFlags.NoWayback);
-            }
 
             waybackReplica.Apply(TimeMachine);
         }

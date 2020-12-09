@@ -149,9 +149,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 VehicleControl.SetBrake(Vehicle, 1f);
             }
 
-            if (Vehicle.Driver == null)
-                WaybackMachineHandler.CheckIfExists(TimeMachine);
-            else
+            if (Vehicle.Driver == Utils.PlayerPed)
                 WaybackMachineHandler.Start(TimeMachine);
                     
             //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, CommonSettings.PlayerPed.Model);

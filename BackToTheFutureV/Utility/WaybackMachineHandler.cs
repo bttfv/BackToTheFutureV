@@ -16,6 +16,7 @@ namespace BackToTheFutureV.Utility
         public static void Abort()
         {
             WaybackMachines.ForEach(x => x.Abort());
+            WaybackMachines.Clear();
         }
 
         public static void Stop()
