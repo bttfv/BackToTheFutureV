@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BackToTheFutureV.GUI;
+using BackToTheFutureV.Utility;
 using FusionLibrary;
 using GTA;
 using GTA.Native;
@@ -20,6 +21,7 @@ namespace BackToTheFutureV.Menu
         private NativeCheckboxItem forceFlyMode;
         private NativeCheckboxItem LandingSystem;
         private NativeCheckboxItem PersistenceSystem;
+        private NativeCheckboxItem WaybackSystem;
         private NativeCheckboxItem RandomTrains;
         private NativeCheckboxItem GlowingWormholeEmitter;
         private NativeCheckboxItem GlowingPlutoniumReactor;
@@ -41,6 +43,7 @@ namespace BackToTheFutureV.Menu
             Add(forceFlyMode = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode"), Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode_Description"), ModSettings.ForceFlyMode));
             Add(LandingSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_LandingSystem"), Game.GetLocalizedString("BTTFV_Menu_LandingSystem_Description"), ModSettings.LandingSystem));
             Add(PersistenceSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem"), Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem_Description"), ModSettings.PersistenceSystem));
+            Add(WaybackSystem = new NativeCheckboxItem("Wayback system", WaybackMachineHandler.Enabled));
             Add(RandomTrains = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RandomTrains"), Game.GetLocalizedString("BTTFV_Menu_RandomTrains_Description"), ModSettings.RandomTrains));
             Add(GlowingWormholeEmitter = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter_Description"), ModSettings.GlowingWormholeEmitter));
             Add(GlowingPlutoniumReactor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor_Description"), ModSettings.GlowingPlutoniumReactor));
@@ -102,6 +105,9 @@ namespace BackToTheFutureV.Menu
 
             if (sender == GlowingPlutoniumReactor)
                 ModSettings.GlowingPlutoniumReactor = Checked;
+
+            if (sender == WaybackSystem)
+                WaybackMachineHandler.SetState(Checked);
 
             ModSettings.SaveSettings();
         }

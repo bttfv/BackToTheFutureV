@@ -123,8 +123,8 @@ namespace BackToTheFutureV.Utility
         }
 
         internal void Process()
-        {
-            if (Utils.CurrentTime < StartTime)
+        {            
+            if (Utils.CurrentTime < StartTime || !WaybackMachineHandler.Enabled)
             {
                 if (IsRecording)
                     Stop();
