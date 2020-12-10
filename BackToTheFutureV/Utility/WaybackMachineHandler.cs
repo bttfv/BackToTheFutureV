@@ -34,19 +34,19 @@ namespace BackToTheFutureV.Utility
             WaybackMachines.ForEach(x => x.Stop());
         }
 
-        public static WaybackMachine Start(TimeMachine timeMachine)
+        public static WaybackMachine Start(TimeMachine timeMachine, bool doNotSpawn)
         {
             if (!Enabled)
                 return null;
 
             WaybackMachine waybackMachine = Script.InstantiateScript<WaybackMachine>();
 
-            waybackMachine.Create(timeMachine);
+            waybackMachine.Create(timeMachine, doNotSpawn);
 
             return waybackMachine;
         }
 
-        public static WaybackMachine CheckIfExists(TimeMachine timeMachine)
+        public static WaybackMachine CheckIfExists(TimeMachine timeMachine, bool doNotSpawn)
         {
             if (!Enabled)
                 return null;
@@ -54,7 +54,7 @@ namespace BackToTheFutureV.Utility
             WaybackMachine waybackMachine = WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && Utils.CurrentTime >= x.StartTime && Utils.CurrentTime <= x.EndTime);
 
             if (waybackMachine == default)
-                return Start(timeMachine);
+                return Start(timeMachine, doNotSpawn);
             else
                 waybackMachine.TimeMachine = timeMachine;
             

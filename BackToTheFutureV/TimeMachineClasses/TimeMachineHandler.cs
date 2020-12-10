@@ -217,11 +217,13 @@ namespace BackToTheFutureV.TimeMachineClasses
                 Utils.PlayerPed.SetIntoVehicle(timeMachine, VehicleSeat.Driver);
             }
 
+            WaybackMachine waybackMachine = null;
+
             if (!spawnFlags.HasFlag(SpawnFlags.NoWayback))
-                WaybackMachineHandler.Start(timeMachine);
+                waybackMachine = WaybackMachineHandler.Start(timeMachine, timeMachineClone != default);
 
             if (spawnFlags.HasFlag(SpawnFlags.CheckWayback))
-                WaybackMachineHandler.CheckIfExists(timeMachine);
+                waybackMachine = WaybackMachineHandler.CheckIfExists(timeMachine, timeMachineClone != default);
 
             if (spawnFlags.HasFlag(SpawnFlags.Broken))
                 timeMachine.Break();

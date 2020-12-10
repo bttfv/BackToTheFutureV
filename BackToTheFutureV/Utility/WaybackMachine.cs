@@ -29,6 +29,9 @@ namespace BackToTheFutureV.Utility
         public Vector3 Rotation { get; }
         public Vector3 Velocity { get; }
         public float[] Wheels { get; }
+        public bool Lights { get; }
+        public bool Headlights { get; }
+        public bool IsVisible { get; }
 
         public BaseProperties Properties { get; }
         public BaseMods Mods { get; }
@@ -44,12 +47,15 @@ namespace BackToTheFutureV.Utility
             Gear = timeMachine.Vehicle.CurrentGear;
             RPM = timeMachine.Vehicle.CurrentRPM;
             SteeringAngle = timeMachine.Vehicle.SteeringAngle;
+            Lights = timeMachine.Vehicle.AreLightsOn;
+            Headlights = timeMachine.Vehicle.AreHighBeamsOn;
+            IsVisible = timeMachine.Vehicle.IsVisible;
 
             Position = timeMachine.Vehicle.Position;
             Rotation = timeMachine.Vehicle.Rotation;
             Velocity = timeMachine.Vehicle.Velocity;
 
-            Properties = timeMachine.Properties.Clone();
+            Properties = timeMachine.Properties.Clone(true);
             Mods = timeMachine.Mods.Clone();
         }
 
@@ -66,13 +72,18 @@ namespace BackToTheFutureV.Utility
             timeMachine.Vehicle.CurrentGear = Gear;
             timeMachine.Vehicle.CurrentRPM = RPM;
             timeMachine.Vehicle.SteeringAngle = SteeringAngle;
+            timeMachine.Vehicle.AreLightsOn = Lights;
+            timeMachine.Vehicle.AreHighBeamsOn = Headlights;
+
+            if (timeMachine.Vehicle.IsVisible != IsVisible)
+                timeMachine.Vehicle.SetVisible(IsVisible);
 
             timeMachine.Vehicle.PositionNoOffset = Position;
             timeMachine.Vehicle.Rotation = Rotation;
             timeMachine.Vehicle.Velocity = Velocity;
 
             Properties.ApplyToWayback(timeMachine);
-            Mods.ApplyTo(timeMachine, true);
+            Mods.ApplyToWayback(timeMachine);
 
             timeMachine.Properties.IsWaybackPlaying = true;
         }
@@ -83,7 +94,8 @@ namespace BackToTheFutureV.Utility
         public List<WaybackReplica> WaybackReplicas { get; } = new List<WaybackReplica>();
 
         public Guid GUID { get; private set; } = Guid.Empty;
-        public TimeMachine TimeMachine { get; internal set; }
+        
+        public TimeMachine TimeMachine { get; set; }
         public TimeMachineClone TimeMachineClone { get; private set; }
 
         public WaybackReplica CurrentReplica => WaybackReplicas.FirstOrDefault(x => x.Time >= Utils.CurrentTime);
@@ -91,6 +103,8 @@ namespace BackToTheFutureV.Utility
         public DateTime EndTime => WaybackReplicas.LastOrDefault().Time;
         
         public bool IsRecording { get; internal set; } = true;
+
+        public bool DoNotSpawn { get; private set; }
 
         public WaybackMachine()
         {
@@ -110,8 +124,9 @@ namespace BackToTheFutureV.Utility
             Process();
         }
 
-        public void Create(TimeMachine timeMachine)
-        {            
+        public void Create(TimeMachine timeMachine, bool doNotSpawn)
+        {
+            DoNotSpawn = doNotSpawn;
             GUID = timeMachine.Properties.GUID;
             TimeMachine = timeMachine;
 
@@ -120,6 +135,7 @@ namespace BackToTheFutureV.Utility
             Record();
 
             WaybackMachineHandler.WaybackMachines.Add(this);
+
         }
 
         internal void Process()
@@ -165,7 +181,7 @@ namespace BackToTheFutureV.Utility
                 return;
             }
 
-            if (!TimeMachine.NotNullAndExists())
+            if (!TimeMachine.NotNullAndExists() && !DoNotSpawn)
                 TimeMachine = TimeMachineClone.Spawn(SpawnFlags.Default | SpawnFlags.NoWayback);
 
             waybackReplica.Apply(TimeMachine);

@@ -75,11 +75,11 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             switch (reenterType)
             {
                 case ReenterType.Normal:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry | SpawnFlags.CheckWayback);
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry | SpawnFlags.NoWayback | SpawnFlags.CheckWayback);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;                    
                     break;
                 case ReenterType.Spawn:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity | SpawnFlags.CheckWayback);
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoWayback | SpawnFlags.CheckWayback);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     if (!TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12)

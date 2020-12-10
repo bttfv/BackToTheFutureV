@@ -141,29 +141,21 @@ namespace BackToTheFutureV.Vehicles
             return ret;
         }
 
-        public void ApplyTo(TimeMachine timeMachine, bool dotNotSetTransparentWheel = false)
+        public void ApplyTo(TimeMachine timeMachine)
         {
             TimeMachineMods ret = timeMachine.Mods;
 
             ret.IsDMC12 = IsDMC12;
             ret.WormholeType = WormholeType;
-
-            if (!dotNotSetTransparentWheel || (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible))
-                ret.SuspensionsType = SuspensionsType;
-
-            if (!dotNotSetTransparentWheel || (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible))
-                ret.Wheel = Wheel;
-
+            ret.SuspensionsType = SuspensionsType;
+            ret.Wheel = Wheel;
             ret.Exterior = Exterior;
             ret.Interior = Interior;
             ret.OffCoils = OffCoils;
             ret.GlowingEmitter = GlowingEmitter;
             ret.GlowingReactor = GlowingReactor;
             ret.DamagedBumper = DamagedBumper;
-
-            if (!dotNotSetTransparentWheel || (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible))
-                ret.HoverUnderbody = HoverUnderbody;
-
+            ret.HoverUnderbody = HoverUnderbody;
             ret.SteeringWheelsButtons = SteeringWheelsButtons;
             ret.Vents = Vents;
             ret.Seats = Seats;
@@ -172,6 +164,70 @@ namespace BackToTheFutureV.Vehicles
             ret.Exhaust = Exhaust;
             ret.Hoodbox = Hoodbox;
             ret.Hook = Hook;
+        }
+
+        public void ApplyToWayback(TimeMachine timeMachine)
+        {
+            TimeMachineMods ret = timeMachine.Mods;
+
+            if (ret.IsDMC12 != IsDMC12)
+                ret.IsDMC12 = IsDMC12;
+
+            if (ret.WormholeType != WormholeType)
+                ret.WormholeType = WormholeType;
+
+            if (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible)
+                if (ret.SuspensionsType != SuspensionsType)
+                    ret.SuspensionsType = SuspensionsType;
+
+            if (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible)
+                if (ret.Wheel != Wheel)
+                    ret.Wheel = Wheel;
+
+            if (ret.Exterior != Exterior)
+                ret.Exterior = Exterior;
+
+            if (ret.Interior != Interior)
+                ret.Interior = Interior;
+
+            if (ret.OffCoils != OffCoils)
+                ret.OffCoils = OffCoils;
+
+            if (ret.GlowingEmitter != GlowingEmitter)
+                ret.GlowingEmitter = GlowingEmitter;
+
+            if (ret.GlowingReactor != GlowingReactor)
+                ret.GlowingReactor = GlowingReactor;
+
+            if (ret.DamagedBumper != DamagedBumper)
+                ret.DamagedBumper = DamagedBumper;
+
+            if (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible)
+                ret.HoverUnderbody = HoverUnderbody;
+
+            if (ret.SteeringWheelsButtons != SteeringWheelsButtons)
+                ret.SteeringWheelsButtons = SteeringWheelsButtons;
+
+            if (ret.Vents != Vents)
+                ret.Vents = Vents;
+
+            if (ret.Seats != Seats)
+                ret.Seats = Seats;
+
+            if (ret.Reactor != Reactor)
+                ret.Reactor = Reactor;
+
+            if (ret.Plate != Plate)
+                ret.Plate = Plate;
+
+            if (ret.Exhaust != Exhaust)
+                ret.Exhaust = Exhaust;
+
+            if (ret.Hoodbox != Hoodbox)
+                ret.Hoodbox = Hoodbox;
+
+            if (ret.Hook != Hook)
+                ret.Hook = Hook;
         }
     }
 }

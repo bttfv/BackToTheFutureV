@@ -60,13 +60,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public int TimeTravelsCount { get; set; } = 0;
         public bool BlockSparks { get; set; } = false;
 
-        public BaseProperties Clone()
+        public BaseProperties Clone(bool waybackClone = false)
         {
             BaseProperties ret = new BaseProperties();
 
             PropertyInfo[] properties = ret.GetType().GetProperties();
             foreach (PropertyInfo property in properties)
                 property.SetValue(ret, property.GetValue(this));
+
+            //if (waybackClone)
+            //    return ret;
 
             ret.IsGivenScaleformPriority = false;
 
