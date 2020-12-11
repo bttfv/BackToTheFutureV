@@ -51,7 +51,7 @@ namespace BackToTheFutureV.Utility
 
         public static WaybackMachine Exists(TimeMachine timeMachine)
         {
-            return WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsRecording && Utils.CurrentTime >= x.StartTime && Utils.CurrentTime <= x.EndTime);
+            return WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsRecording && (Utils.CurrentTime - x.StartTime).Duration() < TimeSpan.FromMinutes(1) && Utils.CurrentTime <= x.EndTime);
         }
 
         public static WaybackMachine Assign(TimeMachine timeMachine)

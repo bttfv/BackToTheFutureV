@@ -109,20 +109,26 @@ namespace BackToTheFutureV.Utility
 
         public WaybackMachine()
         {
-            //Interval = 1;
-
             Tick += WaybackMachine_Tick;
         }
 
         private void WaybackMachine_Tick(object sender, EventArgs e)
         {
-            if (Game.IsLoading)
-                return;
-
             if (GUID == Guid.Empty)
                 Abort();
 
-            Process();
+            if (!WaybackMachineHandler.Enabled || Utils.CurrentTime < StartTime)
+            {
+                if (IsRecording)
+                    Stop();
+
+                return;
+            }
+
+            if (IsRecording)
+                Record();
+            else
+                Play();
         }
 
         public void Create(TimeMachine timeMachine)
@@ -137,23 +143,7 @@ namespace BackToTheFutureV.Utility
             WaybackMachineHandler.WaybackMachines.Add(this);
         }
 
-        internal void Process()
-        {
-            if (!WaybackMachineHandler.Enabled || Utils.CurrentTime < StartTime)
-            {
-                if (IsRecording)
-                    Stop();
-
-                return;
-            }
-   
-            if (IsRecording)
-                Record();
-            else
-                Play();
-        }
-
-        internal void Record()
+        private void Record()
         {
             if (!TimeMachine.NotNullAndExists())
             {
@@ -168,7 +158,7 @@ namespace BackToTheFutureV.Utility
             WaybackReplicas.Add(new WaybackReplica(TimeMachine));
         }
 
-        internal void Play()
+        private void Play()
         {
             if (!TimeMachine.NotNullAndExists())
                 return;
@@ -181,7 +171,7 @@ namespace BackToTheFutureV.Utility
             waybackReplica.Apply(TimeMachine);
         }
 
-        internal void Stop()
+        public void Stop()
         {
             if (TimeMachine.NotNullAndExists() && TimeMachine.Properties.IsWaybackPlaying)
                 TimeMachine.Properties.IsWaybackPlaying = false;

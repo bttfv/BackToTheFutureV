@@ -67,9 +67,12 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
             if (!Reentry)
             {
-                if (Utils.CurrentTime >= SpawnTime && !blockSpawn)
-                    Spawn(ReenterType.Spawn);
-
+                if (!blockSpawn)
+                {
+                    if ((Utils.CurrentTime - SpawnTime).Duration() < TimeSpan.FromMinutes(1))
+                        Spawn(ReenterType.Spawn);
+                }
+                    
                 return;
             }
 
