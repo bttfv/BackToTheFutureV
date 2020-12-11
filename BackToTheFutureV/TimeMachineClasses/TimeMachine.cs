@@ -67,6 +67,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public bool Disposed { get; private set; }
 
+        public WaybackMachine WaybackMachine { get; set; }
+
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
             Vehicle = vehicle;
@@ -323,6 +325,13 @@ namespace BackToTheFutureV.TimeMachineClasses
             PhotoMode();
 
             CustomCameraManager.Process();
+
+            if (Properties.Story || !WaybackMachineHandler.Enabled)
+                return;
+
+            if (WaybackMachine == null || !WaybackMachine.IsRecording && !Properties.IsWaybackPlaying)
+                if (Properties.TimeTravelPhase < TimeTravelPhase.InTime)
+                    WaybackMachine = WaybackMachineHandler.Assign(this);
         }
 
         private void UpdateBlip()

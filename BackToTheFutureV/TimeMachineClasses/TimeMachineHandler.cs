@@ -209,6 +209,9 @@ namespace BackToTheFutureV.TimeMachineClasses
                     timeMachine = TransformIntoTimeMachine(veh, wormholeType);
             }
 
+            if (spawnFlags.HasFlag(SpawnFlags.New) && WaybackMachineHandler.Enabled)
+                RemoteTimeMachineHandler.AddRemote(timeMachine.Clone).SetAsSpawn(Utils.CurrentTime);
+
             if (spawnFlags.HasFlag(SpawnFlags.WarpPlayer) && !spawnFlags.HasFlag(SpawnFlags.ForceReentry))
             {
                 if (RCManager.IsRemoteOn)
@@ -216,14 +219,6 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 Utils.PlayerPed.SetIntoVehicle(timeMachine, VehicleSeat.Driver);
             }
-
-            WaybackMachine waybackMachine = null;
-
-            if (!spawnFlags.HasFlag(SpawnFlags.NoWayback))
-                waybackMachine = WaybackMachineHandler.Start(timeMachine, timeMachineClone != default);
-
-            if (spawnFlags.HasFlag(SpawnFlags.CheckWayback))
-                waybackMachine = WaybackMachineHandler.CheckIfExists(timeMachine, timeMachineClone != default);
 
             if (spawnFlags.HasFlag(SpawnFlags.Broken))
                 timeMachine.Break();

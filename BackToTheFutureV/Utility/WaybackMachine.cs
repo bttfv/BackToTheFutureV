@@ -42,8 +42,14 @@ namespace BackToTheFutureV.Utility
             Timestamp = Game.GameTime;
 
             EngineRunning = timeMachine.Vehicle.IsEngineRunning;
-            Throttle = VehicleControl.GetThrottle(timeMachine.Vehicle);
-            Brake = VehicleControl.GetBrake(timeMachine.Vehicle);            
+
+            try
+            {
+                Throttle = VehicleControl.GetThrottle(timeMachine.Vehicle);
+                Brake = VehicleControl.GetBrake(timeMachine.Vehicle);
+            }
+            catch { }
+            
             Gear = timeMachine.Vehicle.CurrentGear;
             RPM = timeMachine.Vehicle.CurrentRPM;
             SteeringAngle = timeMachine.Vehicle.SteeringAngle;
@@ -61,9 +67,6 @@ namespace BackToTheFutureV.Utility
 
         public void Apply(TimeMachine timeMachine)
         {
-            if (!timeMachine.NotNullAndExists())
-                return;
-
             if (timeMachine.Vehicle.IsEngineRunning != EngineRunning)
                 timeMachine.Vehicle.IsEngineRunning = EngineRunning;
 
@@ -96,15 +99,13 @@ namespace BackToTheFutureV.Utility
         public Guid GUID { get; private set; } = Guid.Empty;
         
         public TimeMachine TimeMachine { get; set; }
-        public TimeMachineClone TimeMachineClone { get; private set; }
 
         public WaybackReplica CurrentReplica => WaybackReplicas.FirstOrDefault(x => x.Time >= Utils.CurrentTime);
-        public DateTime StartTime => WaybackReplicas.FirstOrDefault().Time;
+
+        public DateTime StartTime { get; set; }
         public DateTime EndTime => WaybackReplicas.LastOrDefault().Time;
         
-        public bool IsRecording { get; internal set; } = true;
-
-        public bool DoNotSpawn { get; private set; }
+        public bool IsRecording { get; private set; } = true;
 
         public WaybackMachine()
         {
@@ -124,23 +125,21 @@ namespace BackToTheFutureV.Utility
             Process();
         }
 
-        public void Create(TimeMachine timeMachine, bool doNotSpawn)
+        public void Create(TimeMachine timeMachine)
         {
-            DoNotSpawn = doNotSpawn;
             GUID = timeMachine.Properties.GUID;
             TimeMachine = timeMachine;
 
-            TimeMachineClone = timeMachine.Clone;
+            WaybackReplicas.Add(new WaybackReplica(TimeMachine));
 
-            Record();
+            StartTime = WaybackReplicas.First().Time;
 
             WaybackMachineHandler.WaybackMachines.Add(this);
-
         }
 
         internal void Process()
-        {            
-            if (Utils.CurrentTime < StartTime || !WaybackMachineHandler.Enabled)
+        {
+            if (!WaybackMachineHandler.Enabled || Utils.CurrentTime < StartTime)
             {
                 if (IsRecording)
                     Stop();
@@ -163,32 +162,30 @@ namespace BackToTheFutureV.Utility
                 return;
             }
 
-            if (Utils.Distance2DBetween(TimeMachine, Utils.PlayerPed) > 300 * 300)
-                return;
+            //if (Utils.Distance2DBetween(TimeMachine, Utils.PlayerPed) > 300)
+            //    return;
 
             WaybackReplicas.Add(new WaybackReplica(TimeMachine));
         }
 
         internal void Play()
         {
+            if (!TimeMachine.NotNullAndExists())
+                return;
+
             WaybackReplica waybackReplica = CurrentReplica;
 
-            if (waybackReplica == default || (TimeMachine.NotNullAndExists() && TimeMachine.Properties.IsWaybackPlaying && Utils.PlayerVehicle == TimeMachine))
-            {
-                if (TimeMachine.NotNullAndExists() && TimeMachine.Properties.IsWaybackPlaying)
-                    TimeMachine.Properties.IsWaybackPlaying = false;
-
+            if (waybackReplica == default)
                 return;
-            }
-
-            if (!TimeMachine.NotNullAndExists() && !DoNotSpawn)
-                TimeMachine = TimeMachineClone.Spawn(SpawnFlags.Default | SpawnFlags.NoWayback);
-
+           
             waybackReplica.Apply(TimeMachine);
         }
 
         internal void Stop()
         {
+            if (TimeMachine.NotNullAndExists() && TimeMachine.Properties.IsWaybackPlaying)
+                TimeMachine.Properties.IsWaybackPlaying = false;
+
             TimeMachine = null;
             IsRecording = false;
         }

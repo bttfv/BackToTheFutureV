@@ -14,6 +14,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
     public class RemoteTimeMachineHandler
     {
         public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
+        public static List<RemoteTimeMachine> RemoteTimeMachinesOnlyReentry => RemoteTimeMachines.Where(x => x.Reentry).ToList();
         public static int TimeMachineCount => RemoteTimeMachines.Count;
 
         private static IFormatter formatter = new BinaryFormatter();
@@ -30,7 +31,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             }
         } 
         
-        public static void AddRemote(TimeMachineClone timeMachineClone)
+        public static RemoteTimeMachine AddRemote(TimeMachineClone timeMachineClone)
         {
             if (RemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
             {
@@ -38,10 +39,14 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
                 RemoteTimeMachines.RemoveAt(0);
             }
 
-            RemoteTimeMachines.Add(new RemoteTimeMachine(timeMachineClone));
+            RemoteTimeMachine timeMachine;
+
+            RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
 
             if (ModSettings.PersistenceSystem)
                 Save();
+
+            return timeMachine;
         }
 
         public static void ExistenceCheck(DateTime time)

@@ -64,12 +64,21 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         {
             BaseProperties ret = new BaseProperties();
 
+            if (waybackClone)
+            {
+                ret.GUID = GUID;
+                ret.IsFueled = IsFueled;
+                ret.AreTimeCircuitsOn = AreTimeCircuitsOn;
+                ret.DestinationTime = DestinationTime;
+                ret.PreviousTime = PreviousTime;                
+                ret.IsFlying = IsFlying;
+
+                return ret;
+            }
+
             PropertyInfo[] properties = ret.GetType().GetProperties();
             foreach (PropertyInfo property in properties)
                 property.SetValue(ret, property.GetValue(this));
-
-            //if (waybackClone)
-            //    return ret;
 
             ret.IsGivenScaleformPriority = false;
 
@@ -126,6 +135,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public void ApplyToWayback(TimeMachine timeMachine)
         {
+            timeMachine.Properties.GUID = GUID;
             timeMachine.Properties.IsFueled = IsFueled;
             timeMachine.Properties.PreviousTime = PreviousTime;
 

@@ -80,9 +80,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Utils.PlayerPed)
                         {
                             if (Properties.IsWaybackPlaying)
-                                Properties.TimeTravelType = TimeTravelType.RC;
-                            else
                                 Properties.TimeTravelType = TimeTravelType.Wayback;
+                            else
+                                Properties.TimeTravelType = TimeTravelType.RC;
                         }                            
                         else
                         {

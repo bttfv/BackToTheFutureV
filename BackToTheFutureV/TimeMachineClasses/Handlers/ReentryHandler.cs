@@ -10,6 +10,7 @@ using FusionLibrary;
 using FusionLibrary.Memory;
 using static FusionLibrary.Enums;
 using FusionLibrary.Extensions;
+using System;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -55,6 +56,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             switch (_currentStep)
             {
                 case 0:
+
                     Sounds.Reenter.Play();
 
                     Particles.Flash.Play();
@@ -149,15 +151,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 VehicleControl.SetBrake(Vehicle, 1f);
             }
 
-            if (Vehicle.Driver == Utils.PlayerPed)
-                WaybackMachineHandler.Start(TimeMachine, true);
-            //else
-            //    WaybackMachineHandler.CheckIfExists(TimeMachine);
-
             //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, CommonSettings.PlayerPed.Model);
-            Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+            Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);            
         }
-
 
         public override void Stop()
         {

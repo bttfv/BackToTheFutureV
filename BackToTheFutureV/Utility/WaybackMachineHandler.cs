@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.RC;
 using FusionLibrary;
 using GTA;
 using System;
@@ -34,29 +35,38 @@ namespace BackToTheFutureV.Utility
             WaybackMachines.ForEach(x => x.Stop());
         }
 
-        public static WaybackMachine Start(TimeMachine timeMachine, bool doNotSpawn)
+        public static WaybackMachine Start(TimeMachine timeMachine)
         {
             if (!Enabled)
                 return null;
 
             WaybackMachine waybackMachine = Script.InstantiateScript<WaybackMachine>();
 
-            waybackMachine.Create(timeMachine, doNotSpawn);
+            waybackMachine.Create(timeMachine);
+
+            //GTA.UI.Screen.ShowSubtitle("New wayback machine");
 
             return waybackMachine;
         }
 
-        public static WaybackMachine CheckIfExists(TimeMachine timeMachine, bool doNotSpawn)
+        public static WaybackMachine Exists(TimeMachine timeMachine)
+        {
+            return WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsRecording && Utils.CurrentTime >= x.StartTime && Utils.CurrentTime <= x.EndTime);
+        }
+
+        public static WaybackMachine Assign(TimeMachine timeMachine)
         {
             if (!Enabled)
                 return null;
 
-            WaybackMachine waybackMachine = WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && Utils.CurrentTime >= x.StartTime && Utils.CurrentTime <= x.EndTime);
+            WaybackMachine waybackMachine = Exists(timeMachine);
 
             if (waybackMachine == default)
-                return Start(timeMachine, doNotSpawn);
+                return Start(timeMachine);
             else
                 waybackMachine.TimeMachine = timeMachine;
+
+            //GTA.UI.Screen.ShowSubtitle("Wayback machine found");
             
             return waybackMachine;
         }
