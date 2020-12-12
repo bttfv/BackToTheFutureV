@@ -331,7 +331,12 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (WaybackMachine == null || !WaybackMachine.IsRecording && !Properties.IsWaybackPlaying)
                 if (Properties.TimeTravelPhase < TimeTravelPhase.InTime)
-                    WaybackMachine = WaybackMachineHandler.Assign(this);
+                {
+                    if (Utils.PlayerVehicle == Vehicle)
+                        WaybackMachine = WaybackMachineHandler.Start(this);
+                    else
+                        WaybackMachine = WaybackMachineHandler.Assign(this);
+                }                                       
         }
 
         private void UpdateBlip()

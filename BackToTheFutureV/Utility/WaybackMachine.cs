@@ -115,7 +115,7 @@ namespace BackToTheFutureV.Utility
         
         public bool IsRecording { get; private set; } = true;
 
-        public bool IsPlaying { get; set; } = false;
+        public bool IsPlaying { get; private set; } = false;
 
         public WaybackMachine()
         {
