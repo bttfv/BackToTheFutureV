@@ -44,14 +44,14 @@ namespace BackToTheFutureV.Utility
 
             waybackMachine.Create(timeMachine);
 
-            //GTA.UI.Screen.ShowSubtitle("New wayback machine");
+            //GTA.UI.Screen.ShowSubtitle($"New wayback machine {waybackMachine.StartTime}");
 
             return waybackMachine;
         }
 
         public static WaybackMachine Exists(TimeMachine timeMachine)
         {
-            return WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsRecording && (Utils.CurrentTime - x.StartTime).Duration() < TimeSpan.FromMinutes(1) && Utils.CurrentTime <= x.EndTime);
+            return WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsRecording && (Utils.CurrentTime - x.StartTime).Duration() < TimeSpan.FromMinutes(2) && Utils.CurrentTime <= x.EndTime);
         }
 
         public static WaybackMachine Assign(TimeMachine timeMachine)
@@ -66,8 +66,8 @@ namespace BackToTheFutureV.Utility
             else
                 waybackMachine.TimeMachine = timeMachine;
 
-            //GTA.UI.Screen.ShowSubtitle("Wayback machine found");
-            
+            //GTA.UI.Screen.ShowSubtitle($"Wayback machine found {waybackMachine.StartTime} {waybackMachine.EndTime}");
+                       
             return waybackMachine;
         }
     }

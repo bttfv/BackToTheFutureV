@@ -36,10 +36,10 @@ namespace BackToTheFutureV.Utility
         public BaseProperties Properties { get; }
         public BaseMods Mods { get; }
 
-        public WaybackReplica(TimeMachine timeMachine)
+        public WaybackReplica(TimeMachine timeMachine, int startGameTime)
         {
             Time = Utils.CurrentTime;
-            Timestamp = Game.GameTime;
+            Timestamp = Game.GameTime - startGameTime;
 
             EngineRunning = timeMachine.Vehicle.IsEngineRunning;
 
@@ -65,7 +65,7 @@ namespace BackToTheFutureV.Utility
             Mods = timeMachine.Mods.Clone();
         }
 
-        public void Apply(TimeMachine timeMachine)
+        public void Apply(TimeMachine timeMachine, int startPlayGameTime, WaybackReplica nextReplica)
         {
             if (timeMachine.Vehicle.IsEngineRunning != EngineRunning)
                 timeMachine.Vehicle.IsEngineRunning = EngineRunning;
@@ -81,9 +81,14 @@ namespace BackToTheFutureV.Utility
             if (timeMachine.Vehicle.IsVisible != IsVisible)
                 timeMachine.Vehicle.SetVisible(IsVisible);
 
-            timeMachine.Vehicle.PositionNoOffset = Position;
-            timeMachine.Vehicle.Rotation = Rotation;
-            timeMachine.Vehicle.Velocity = Velocity;
+            float timeRatio = 0;
+
+            if (Timestamp != nextReplica.Timestamp)
+                timeRatio = (float)(Game.GameTime - startPlayGameTime - Timestamp) / (float)(nextReplica.Timestamp - Timestamp);
+
+            timeMachine.Vehicle.PositionNoOffset = Vector3.Lerp(Position, nextReplica.Position, timeRatio);
+            timeMachine.Vehicle.Rotation = Vector3.Lerp(Rotation, nextReplica.Rotation, timeRatio);
+            timeMachine.Vehicle.Velocity = Vector3.Lerp(Velocity, nextReplica.Velocity, timeRatio);
 
             Properties.ApplyToWayback(timeMachine);
             Mods.ApplyToWayback(timeMachine);
@@ -102,10 +107,15 @@ namespace BackToTheFutureV.Utility
 
         public WaybackReplica CurrentReplica => WaybackReplicas.FirstOrDefault(x => x.Time >= Utils.CurrentTime);
 
-        public DateTime StartTime { get; set; }
+        public int StartGameTime { get; set; }
+        public int StartPlayGameTime { get; set; }
+
+        public DateTime StartTime { get; set; }        
         public DateTime EndTime => WaybackReplicas.LastOrDefault().Time;
         
         public bool IsRecording { get; private set; } = true;
+
+        public bool IsPlaying { get; set; } = false;
 
         public WaybackMachine()
         {
@@ -135,8 +145,9 @@ namespace BackToTheFutureV.Utility
         {
             GUID = timeMachine.Properties.GUID;
             TimeMachine = timeMachine;
+            StartGameTime = Game.GameTime;
 
-            WaybackReplicas.Add(new WaybackReplica(TimeMachine));
+            WaybackReplicas.Add(new WaybackReplica(TimeMachine, StartGameTime));
 
             StartTime = WaybackReplicas.First().Time;
 
@@ -152,10 +163,10 @@ namespace BackToTheFutureV.Utility
                 return;
             }
 
-            //if (Utils.Distance2DBetween(TimeMachine, Utils.PlayerPed) > 300)
+            //if (TimeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position) < 300f*300f)
             //    return;
 
-            WaybackReplicas.Add(new WaybackReplica(TimeMachine));
+            WaybackReplicas.Add(new WaybackReplica(TimeMachine, StartGameTime));
         }
 
         private void Play()
@@ -166,9 +177,21 @@ namespace BackToTheFutureV.Utility
             WaybackReplica waybackReplica = CurrentReplica;
 
             if (waybackReplica == default)
+            {
+                if (IsPlaying)
+                    IsPlaying = false;
+
                 return;
+            }
+            else if (!IsPlaying)
+            {
+                StartPlayGameTime = Game.GameTime;
+                IsPlaying = true;
+            }
+                
+            WaybackReplica nextReplica = WaybackReplicas.SkipWhile(x => x != waybackReplica).Skip(1).DefaultIfEmpty(waybackReplica).FirstOrDefault();
            
-            waybackReplica.Apply(TimeMachine);
+            waybackReplica.Apply(TimeMachine, StartPlayGameTime, nextReplica);
         }
 
         public void Stop()
