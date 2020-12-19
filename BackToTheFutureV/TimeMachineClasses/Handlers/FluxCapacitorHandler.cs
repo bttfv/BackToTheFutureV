@@ -68,7 +68,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Sounds.FluxCapacitor?.Stop();
 
                 if (!Sounds.FluxCapacitor.IsAnyInstancePlaying && Vehicle.IsVisible)
-                    Sounds.FluxCapacitor.Play();
+                    Sounds.FluxCapacitor?.Play();
             }
             else if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
                 Sounds.FluxCapacitor?.Stop();
@@ -81,12 +81,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 ScaleformsHandler.FluxCapacitor.CallFunction("STOP_ANIMATION");
 
                 if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
-                    Sounds.FluxCapacitor.Stop();
+                    Sounds.FluxCapacitor?.Stop();
             }                
             else
             {
                 if (ModSettings.PlayFluxCapacitorSound && !Sounds.FluxCapacitor.IsAnyInstancePlaying)
-                    Sounds.FluxCapacitor.Play();
+                    Sounds.FluxCapacitor?.Play();
 
                 ScaleformsHandler.FluxCapacitor.CallFunction("START_ANIMATION");
             }

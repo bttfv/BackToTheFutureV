@@ -116,7 +116,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (!_hasPlayedDiodeSound && Properties.IsFueled)
                 {
-                    Sounds.DiodesGlowing.Play();
+                    Sounds.DiodesGlowing?.Play();
                     _hasPlayedDiodeSound = true;
                 }
             }
@@ -124,7 +124,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (Players.Wormhole != null && Players.Wormhole.IsPlaying)
                 {
-                    Sounds.WormholeInterrupted.Play();
+                    Sounds.WormholeInterrupted?.Play();
                     Events.OnTimeTravelInterrupted?.Invoke();
 
                     Properties.TimeTravelPhase = TimeTravelPhase.Completed;
@@ -164,7 +164,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (Mods.HoverUnderbody == ModState.On)
                             Properties.CanConvert = false;
 
-                        Sounds.Sparks.Play();
+                        Sounds.Sparks?.Play();
                     }
 
                     if (Vehicle.GetMPHSpeed() >= 88 && !_hasHit88)
@@ -180,10 +180,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     if (Mods.WormholeType == WormholeType.BTTF3 && Game.GameTime > _startStabilizedSoundAt && _hasHit88)
                     {
-                        Sounds.Sparks.Stop();
+                        Sounds.Sparks?.Stop();
 
                         if(!Sounds.SparkStabilized.IsAnyInstancePlaying)
-                            Sounds.SparkStabilized.Play();
+                            Sounds.SparkStabilized?.Play();
                     }
 
                     if (Game.GameTime > _timeTravelAtTime && _hasHit88)
@@ -195,7 +195,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Players.Wormhole.Play(false);
 
                     if (!Sounds.SparksEmpty.IsAnyInstancePlaying)
-                        Sounds.SparksEmpty.Play();
+                        Sounds.SparksEmpty?.Play();
                 }
             }
         }

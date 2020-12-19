@@ -125,7 +125,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!hasPlayed && Properties.AreTimeCircuitsOn && Game.GameTime > playAt)
             {
                 if (Mods.Reactor == ReactorType.Nuclear)
-                    Sounds.PlutoniumGauge.Play();
+                    Sounds.PlutoniumGauge?.Play();
 
                 _gaugeNeedle1.On = true;
                 _gaugeNeedle2.On = true;

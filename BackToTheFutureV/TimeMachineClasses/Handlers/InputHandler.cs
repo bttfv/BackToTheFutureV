@@ -32,7 +32,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void InputDate(DateTime date)
         {
-            Sounds.InputEnter.Play();
+            Sounds.InputEnter?.Play();
             Properties.DestinationTime = date;
             InputMode = false;
             _destinationTimeRaw = string.Empty;
@@ -79,7 +79,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             try
             {
-                Sounds.Keypad[int.Parse(number)].Play();
+                Sounds.Keypad[int.Parse(number)]?.Play();
 
                 _destinationTimeRaw += number;
                 _nextReset = Game.GameTime + 15000;
@@ -97,7 +97,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // If its not a valid length/mode
             if (_destinationTimeRaw.Length != 12 && _destinationTimeRaw.Length != 4 && _destinationTimeRaw.Length != 8)
             {
-                Sounds.InputEnterError.Play();
+                Sounds.InputEnterError?.Play();
                 InputMode = false;
                 _nextReset = 0;
                 _destinationTimeRaw = string.Empty;
@@ -108,7 +108,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (dateTime == null)
             {
-                Sounds.InputEnterError.Play();
+                Sounds.InputEnterError?.Play();
                 InputMode = false;
                 _nextReset = 0;
                 _destinationTimeRaw = string.Empty;

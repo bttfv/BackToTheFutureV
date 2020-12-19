@@ -60,6 +60,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void Refuel(Ped refuelPed)
         {
+            if (!TimeMachine.IsWaybackPlaying && WaybackMachineHandler.Enabled)
+                TimeMachine.WaybackMachine.NextEvent = new WaybackEvent(WaybackEventType.Refuel);
+
             RefillAnimation(Vehicle, refuelPed);
             Properties.IsRefueling = true;
             _refuelTimer = 0;
@@ -126,7 +129,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         _nextId = 1;
                         _nextBlink = Game.GameTime + 640;
 
-                        Sounds.FuelEmpty.Play();
+                        Sounds.FuelEmpty?.Play();
                     }
                     else
                     {
@@ -171,7 +174,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                             Players.Refuel?.Play();
 
                             if (Mods.Reactor == ReactorType.Nuclear)
-                                Sounds.Refuel.Play();
+                                Sounds.Refuel?.Play();
 
                             _refuelTimer = Game.GameTime + 2500;
                             _currentRefuelStep++;
@@ -208,7 +211,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             taskSequence.AddTask.PlayAnimation("anim@narcotics@trash", "drop_front");
             taskSequence.AddTask.ClearAnimation("anim@narcotics@trash", "drop_front");
 
-            Ped.Task.PerformSequence(taskSequence);
+            Ped?.Task.PerformSequence(taskSequence);
         }
 
         public static bool CanRefuel(Vehicle vehicle,  Ped ped)

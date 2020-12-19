@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.Utility;
 using GTA;
 
 namespace BackToTheFutureV.TimeMachineClasses.RC
@@ -42,6 +43,24 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             RemoteTimeMachine timeMachine;
 
             RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
+
+            if (ModSettings.PersistenceSystem)
+                Save();
+
+            return timeMachine;
+        }
+
+        public static RemoteTimeMachine AddRemote(TimeMachineClone timeMachineClone, WaybackMachine waybackMachine)
+        {
+            if (RemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
+            {
+                RemoteTimeMachines[0].Dispose();
+                RemoteTimeMachines.RemoveAt(0);
+            }
+
+            RemoteTimeMachine timeMachine;
+
+            RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone, waybackMachine));
 
             if (ModSettings.PersistenceSystem)
                 Save();

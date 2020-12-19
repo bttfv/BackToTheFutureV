@@ -79,7 +79,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     {
                         if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Utils.PlayerPed)
                         {
-                            if (Properties.IsWaybackPlaying)
+                            if (TimeMachine.IsWaybackPlaying)
                                 Properties.TimeTravelType = TimeTravelType.Wayback;
                             else
                                 Properties.TimeTravelType = TimeTravelType.RC;
@@ -110,7 +110,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         // Create a copy of the current status of the time machine
                         TimeMachine.LastDisplacementClone = TimeMachine.Clone;
 
-                        Sounds.TimeTravelInstant.Play();
+                        Sounds.TimeTravelInstant?.Play();
 
                         if (Utils.IsPlayerUseFirstPerson())
                             Props.WhiteSphere.SpawnProp();
@@ -144,13 +144,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         return;
                     }
 
-                    Sounds.TimeTravelCutscene.Play();
+                    Sounds.TimeTravelCutscene?.Play();
 
                     // Play the effects
-                    Particles.TimeTravelEffect.Play();
+                    Particles?.TimeTravelEffect?.Play();
 
                     // Play the light explosion
-                    Particles.LightExplosion.Play();
+                    Particles?.LightExplosion?.Play();
 
                     bool is99 = Properties.HasBeenStruckByLightning && Properties.IsFlying;
 
@@ -205,7 +205,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 1:
-                    Particles.TimeTravelEffect.Stop();
+                    Particles?.TimeTravelEffect.Stop();
 
                     if (Properties.TimeTravelType == TimeTravelType.RC || Properties.TimeTravelType == TimeTravelType.Wayback)
                     {

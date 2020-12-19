@@ -104,7 +104,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.AreTimeCircuitsOn)
             {
                 // Time travel by lightning strike
-                Sounds.LightningStrike.Play();
+                Sounds.LightningStrike?.Play();
 
                 if (Mods.Hook == HookState.On && !Properties.IsFlying)
                 {

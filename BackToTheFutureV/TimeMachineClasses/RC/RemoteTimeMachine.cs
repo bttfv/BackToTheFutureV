@@ -11,14 +11,9 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
     public class RemoteTimeMachine
     {
         public TimeMachineClone TimeMachineClone { get; }
-
-        public bool Reentry { get; private set; } = true;
-        public DateTime SpawnTime { get; private set; }
-
         public TimeMachine TimeMachine { get; private set; }
-
-        public Blip Blip;
-
+        public bool Reentry { get; } = true;
+        public Blip Blip { get; set; }
         public bool Spawned => TimeMachineHandler.Exists(TimeMachine);
 
         private int _timer;
@@ -26,8 +21,9 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         private readonly AudioPlayer _warningSound;
 
-        private bool blockSpawn = true;
-
+        private bool blockSpawn = true;        
+        public WaybackMachine WaybackMachine { get; }
+        
         public RemoteTimeMachine(TimeMachineClone timeMachineClone)
         {
             TimeMachineClone = timeMachineClone;
@@ -45,16 +41,16 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             TimeHandler.OnTimeChanged += OnTimeChanged;
         }
 
+        public RemoteTimeMachine(TimeMachineClone timeMachineClone, WaybackMachine waybackMachine) : this(timeMachineClone)
+        {
+            WaybackMachine = waybackMachine;
+            Reentry = false;
+        }
+
         public void OnTimeChanged(DateTime time)
         {
             if (!Reentry)
                 blockSpawn = false;
-        }
-
-        public void SetAsSpawn(DateTime dateTime)
-        {
-            SpawnTime = dateTime;
-            Reentry = false;
         }
 
         public void Process()
@@ -67,12 +63,9 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
             if (!Reentry)
             {
-                if (!blockSpawn)
-                {
-                    if ((Utils.CurrentTime - SpawnTime).Duration() < TimeSpan.FromMinutes(1))
-                        Spawn(ReenterType.Spawn);
-                }
-                    
+                if (!blockSpawn && (Utils.CurrentTime - WaybackMachine.StartTime).Duration() < TimeSpan.FromMinutes(1))
+                    WaybackMachine.TimeMachine = Spawn(ReenterType.Spawn);
+
                 return;
             }
 
@@ -97,7 +90,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             }
         }
 
-        public void Spawn(ReenterType reenterType)
+        public TimeMachine Spawn(ReenterType reenterType)
         {
             if (Blip != null && Blip.Exists())
                 Blip.Delete();
@@ -109,8 +102,9 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
             {
                 case ReenterType.Normal:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
-                    TimeMachine.LastDisplacementClone = TimeMachineClone;                    
-                    break;
+                    TimeMachine.LastDisplacementClone = TimeMachineClone;
+
+                    return TimeMachine;
                 case ReenterType.Spawn:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
@@ -119,11 +113,13 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
                         TimeMachine.Properties.IsFueled = false;
 
                     TimeMachine.Events.OnVehicleSpawned?.Invoke();
-                    break;
+                    return TimeMachine;
                 case ReenterType.Forced:
                     TimeMachineClone.Properties.DestinationTime = Utils.CurrentTime;
                     break;
             }
+
+            return null;
         }
 
         public void ExistenceCheck(DateTime time)

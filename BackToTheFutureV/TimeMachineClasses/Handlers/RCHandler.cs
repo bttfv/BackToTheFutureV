@@ -55,11 +55,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (_forcedHandbrake || Game.IsControlPressed(GTA.Control.VehicleDuck))
             {
-                Sounds.RCBrake.Play();
+                Sounds.RCBrake?.Play();
                 SetForcedHandbrake();
 
                 if (_forcedHandbrake && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled)
-                    Sounds.RCSomeSerious.Play();
+                    Sounds.RCSomeSerious?.Play();
             }            
         }
 
@@ -103,7 +103,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             foreach (var sound in Sounds.RCSounds)
                 sound.SourceEntity = TimeMachine.OriginalPed;
 
-            Sounds.RCOn.Play();
+            Sounds.RCOn?.Play();
 
             TimeMachine.OriginalPed.Task.TurnTo(Vehicle);
 
@@ -129,7 +129,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 PlayerSwitch.Switch(TimeMachine.OriginalPed, true, instant);
 
                 if (!instant)
-                    Sounds.RCOff.Play();
+                    Sounds.RCOff?.Play();
                 else
                     Clone?.Delete();
 
@@ -185,7 +185,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, TimeMachine.OriginalPed);
 
             if (Game.IsControlJustPressed(GTA.Control.VehicleAccelerate))
-                Sounds.RCAcceleration.Play();
+                Sounds.RCAcceleration?.Play();
 
             if (Game.IsControlJustPressed(GTA.Control.NextCamera))
             {

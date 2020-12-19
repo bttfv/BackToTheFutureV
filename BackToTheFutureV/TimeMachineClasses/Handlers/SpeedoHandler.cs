@@ -60,7 +60,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     currentSpeed = mphSpeed;
 
                     if (ModSettings.PlaySpeedoBeep && Vehicle.IsVisible)
-                        Sounds.Speedo.Play();
+                        Sounds.Speedo?.Play();
 
                     UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2);
 

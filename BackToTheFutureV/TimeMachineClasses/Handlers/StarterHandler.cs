@@ -160,7 +160,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     {
                         Utils.PlayerPed.Task.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop | AnimationFlags.CancelableWithMovement);
 
-                        Sounds.EngineRestarter.Play();
+                        Sounds.EngineRestarter?.Play();
                         _restartAt = Game.GameTime + Utils.Random.Next(3000, 10000);
                         _isRestarting = true;
                     }
@@ -181,7 +181,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     timedEventManager.ResetExecution();
 
                     _isRestarting = false;
-                    Sounds.EngineRestarter.Stop();
+                    Sounds.EngineRestarter?.Stop();
                 }
             }
 
@@ -206,7 +206,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Properties.PhotoEngineStallActive = false;
             _isRestarting = false;
             Vehicle.FuelLevel = _deloreanMaxFuelLevel;
-            Sounds.EngineRestarter.Stop();
+            Sounds.EngineRestarter?.Stop();
 
             if (_lightsOn)
             {

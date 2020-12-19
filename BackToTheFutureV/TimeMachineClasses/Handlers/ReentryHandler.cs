@@ -57,9 +57,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 case 0:
 
-                    Sounds.Reenter.Play();
+                    Sounds.Reenter?.Play();
 
-                    Particles.Flash.Play();
+                    Particles?.Flash?.Play();
 
                     Function.Call(Hash.ADD_SHOCKING_EVENT_AT_POSITION, 88, Vehicle.Position.X, Vehicle.Position.Y, Vehicle.Position.Z, 1f);
 
@@ -82,7 +82,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 case 1:
 
-                    Particles.Flash.Play();
+                    Particles?.Flash?.Play();
 
                     timeToAdd = 500;
 
@@ -103,7 +103,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 case 2:
 
-                    Particles.Flash.Play();
+                    Particles?.Flash?.Play();
 
                     _currentStep++;
                     break;

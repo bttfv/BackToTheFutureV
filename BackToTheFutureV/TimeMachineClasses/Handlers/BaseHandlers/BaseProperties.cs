@@ -17,7 +17,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public class BaseProperties
     {
         public Guid GUID { get; set; }
-        public bool IsWaybackPlaying { get; set; } = false;
         public bool IsGivenScaleformPriority { get; set; }
         public bool AreWheelsStock { get; set; }
         public bool AreTimeCircuitsOn { get; set; }
@@ -111,8 +110,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             ret.PhotoWormholeActive = false;
 
             ret.BlockSparks = false;
-
-            ret.IsWaybackPlaying = false;
 
             return ret;
         }

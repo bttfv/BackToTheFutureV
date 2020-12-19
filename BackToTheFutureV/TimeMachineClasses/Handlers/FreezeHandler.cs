@@ -90,12 +90,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (newIce <= 0.15f)
                 {
-                    Particles.IceSmoke?.StopNaturally();
+                    Particles?.IceSmoke?.StopNaturally();
 
-                    foreach (var waterDrop in Particles.IceWaterDrops)
+                    foreach (var waterDrop in Particles?.IceWaterDrops)
                         waterDrop?.StopNaturally();
 
-                    Sounds.Ice.Stop();
+                    Sounds.Ice?.Stop();
                     Properties.IsDefrosting = false;
                 }
 
@@ -124,16 +124,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (Mods.Reactor == ReactorType.Nuclear)
                     {
                         // Spawn the ice particles
-                        Particles.IceSmoke?.Play();
+                        Particles?.IceSmoke?.Play();
 
-                        foreach (var waterDrop in Particles.IceWaterDrops)
+                        foreach (var waterDrop in Particles?.IceWaterDrops)
                         {
                             UpdateDoorIce(waterDrop.BoneName.Contains("left")
                                 ? VehicleDoorIndex.FrontLeftDoor
                                 : VehicleDoorIndex.FrontRightDoor, waterDrop);
                         }
 
-                        Sounds.Ice.Play();
+                        Sounds.Ice?.Play();
                         Properties.IsDefrosting = true;
                     }
 
@@ -148,7 +148,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 case 2:
                     if (Mods.Reactor == ReactorType.Nuclear && !_resuming)
-                        Sounds.IceVents.Play();
+                        Sounds.IceVents?.Play();
 
                     _currentStep++;
                     _gameTimer = Game.GameTime + 1000;
@@ -158,8 +158,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (Mods.Reactor == ReactorType.Nuclear)
                         for (; _smokeIndex < 7;)
                         {
-                            Particles.IceVentLeftSmoke.Play();
-                            Particles.IceVentRightSmoke.Play();
+                            Particles?.IceVentLeftSmoke?.Play();
+                            Particles?.IceVentRightSmoke?.Play();
 
                             _gameTimer = Game.GameTime + 500;
 
@@ -204,10 +204,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Sounds.Ice?.Stop(!Vehicle.IsVisible);
             Sounds.IceVents?.Stop(!Vehicle.IsVisible);
 
-            foreach (var waterDrop in Particles.IceWaterDrops)
-                waterDrop.StopNaturally();
+            //foreach (var waterDrop in Particles?.IceWaterDrops)
+            //    waterDrop.StopNaturally();
 
-            Particles.IceSmoke?.StopNaturally();
+            //Particles?.IceSmoke?.StopNaturally();
         }
 
         public override void Dispose()

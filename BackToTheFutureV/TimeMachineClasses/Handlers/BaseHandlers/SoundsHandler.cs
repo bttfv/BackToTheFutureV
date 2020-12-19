@@ -1,4 +1,5 @@
-﻿using GTA;
+﻿using BackToTheFutureV.Utility;
+using GTA;
 using GTA.Native;
 using KlangRageAudioLibrary;
 using System;
@@ -338,6 +339,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                         _doorOpenColdSound.Play();
 
                     _doorStatus[door.Key].IsDoorOpen = true;
+
+                    if (!TimeMachine.IsWaybackPlaying && WaybackMachineHandler.Enabled)
+                        TimeMachine.WaybackMachine.NextEvent = new WaybackEvent(door.Key, true);
                 }
                 else if (doorAngle == 0)
                 {
@@ -356,6 +360,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                         _doorCloseColdsound.Play();
 
                     _doorStatus[door.Key].IsDoorFullyOpen = false;
+
+                    if (!TimeMachine.IsWaybackPlaying && WaybackMachineHandler.Enabled)
+                        TimeMachine.WaybackMachine.NextEvent = new WaybackEvent(door.Key, false);
                 }
             }
 

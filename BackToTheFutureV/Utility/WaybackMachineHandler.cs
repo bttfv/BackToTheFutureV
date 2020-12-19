@@ -35,7 +35,7 @@ namespace BackToTheFutureV.Utility
             WaybackMachines.ForEach(x => x.Stop());
         }
 
-        public static WaybackMachine Start(TimeMachine timeMachine)
+        public static WaybackMachine Create(TimeMachine timeMachine)
         {
             if (!Enabled)
                 return null;
@@ -49,20 +49,15 @@ namespace BackToTheFutureV.Utility
             return waybackMachine;
         }
 
-        public static WaybackMachine Exists(TimeMachine timeMachine)
-        {
-            return WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsRecording && (Utils.CurrentTime - x.StartTime).Duration() < TimeSpan.FromMinutes(2) && Utils.CurrentTime <= x.EndTime);
-        }
-
-        public static WaybackMachine Assign(TimeMachine timeMachine)
+        public static WaybackMachine TryFind(TimeMachine timeMachine)
         {
             if (!Enabled)
                 return null;
 
-            WaybackMachine waybackMachine = Exists(timeMachine);
+            WaybackMachine waybackMachine = WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsRecording && !x.IsPlaying && (Utils.CurrentTime - x.StartTime).Duration() < TimeSpan.FromMinutes(1) && Utils.CurrentTime <= x.EndTime);
 
             if (waybackMachine == default)
-                return Start(timeMachine);
+                return Create(timeMachine);
             else
                 waybackMachine.TimeMachine = timeMachine;
 

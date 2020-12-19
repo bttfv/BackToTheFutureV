@@ -22,6 +22,9 @@ using BackToTheFutureV.Menu;
 using RogersSierraRailway;
 using GTA.Math;
 using FusionLibrary;
+using static FusionLibrary.Enums;
+using FusionLibrary.Extensions;
+using FusionLibrary.Memory;
 
 namespace BackToTheFutureV
 {

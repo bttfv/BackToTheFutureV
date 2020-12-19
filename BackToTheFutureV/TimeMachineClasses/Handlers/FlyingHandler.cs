@@ -118,7 +118,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void SpawnHoverGlow()
         {
             Props.HoverModeWheelsGlow?.SpawnProp();
-            Sounds.HoverModeUp.Play();
+            Sounds.HoverModeUp?.Play();
             _startHoverGlowLater = false;
         }
 
@@ -199,13 +199,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.AreWheelsInHoverMode && !instant)
             {
-                Sounds.HoverModeOn.Play();
-                Particles.HoverModeSmoke.ForEach(x => x.Play());
+                Sounds.HoverModeOn?.Play();
+                Particles?.HoverModeSmoke?.ForEach(x => x?.Play());
             }
             else if(!Properties.AreWheelsInHoverMode && !instant)
             {
                 if (Properties.IsFlying)
-                    Sounds.HoverModeOff.Play();
+                    Sounds.HoverModeOff?.Play();
 
                 Props.HoverModeWheelsGlow?.Delete();
             }
@@ -283,7 +283,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (Vehicle.HeightAboveGround < 2 && !_landingSmoke)
                 {
-                    Particles.HoverModeSmoke.ForEach(x => x.Play());
+                    Particles?.HoverModeSmoke?.ForEach(x => x?.Play());
                     _landingSmoke = true;
                 }
 
@@ -500,7 +500,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // Play boost sound
             if (!_hasPlayedBoostSound)
             {
-                Sounds.HoverModeBoost.Play();
+                Sounds.HoverModeBoost?.Play();
                 _hasPlayedBoostSound = true;
             }
 
