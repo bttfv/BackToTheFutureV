@@ -124,11 +124,14 @@ namespace BackToTheFutureV.TimeMachineClasses
                 registeredHandlers.Add("StarterHandler", new StarterHandler(this));
                 registeredHandlers.Add("DriverAIHandler", new DriverAIHandler(this));
 
-                //VehicleBone.TryGetForVehicle(Vehicle, "suspension_lf", out boneLf);
-                //VehicleBone.TryGetForVehicle(Vehicle, "suspension_rf", out boneRf);
+                VehicleBone.TryGetForVehicle(Vehicle, "suspension_lf", out boneLf);
+                VehicleBone.TryGetForVehicle(Vehicle, "suspension_rf", out boneRf);
 
-                //leftSuspesionOffset = Vehicle.Bones["suspension_lf"].GetRelativeOffsetPosition(new Vector3(0.025f, 0, 0.005f));
-                //rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.03f, 0, 0.005f));
+                //leftSuspesionOffset = boneLf.OriginalTranslation;
+                //rightSuspesionOffset = boneRf.OriginalTranslation;
+
+                leftSuspesionOffset = Vehicle.Bones["suspension_lf"].GetRelativeOffsetPosition(new Vector3(0.025f, 0, 0.005f));
+                rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.03f, 0, 0.005f));
             }
 
             LastDisplacementClone = Clone;
@@ -249,64 +252,64 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (Mods.SuspensionsType != SuspensionsType.Stock && Properties.TorqueMultiplier != 2.4f)
                     Properties.TorqueMultiplier = 2.4f;
 
-                //switch (Mods.SuspensionsType)
-                //{
-                //    case SuspensionsType.LiftFrontLowerRear:
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
-                //        break;
-                //    case SuspensionsType.LiftFront:
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
-                //        break;
-                //    case SuspensionsType.LiftRear:
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
-                //        break;
-                //    case SuspensionsType.LiftFrontAndRear:
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
-                //        break;
-                //    case SuspensionsType.LowerFront:
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
-                //        break;
-                //    case SuspensionsType.LowerRear:
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
-                //        break;
-                //    case SuspensionsType.LowerFrontAndRear:
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
-                //        break;
-                //}
+                switch (Mods.SuspensionsType)
+                {
+                    case SuspensionsType.LiftFrontLowerRear:
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                        break;
+                    case SuspensionsType.LiftFront:
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
+                        break;
+                    case SuspensionsType.LiftRear:
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
+                        break;
+                    case SuspensionsType.LiftFrontAndRear:
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
+                        break;
+                    case SuspensionsType.LowerFront:
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
+                        break;
+                    case SuspensionsType.LowerRear:
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                        break;
+                    case SuspensionsType.LowerFrontAndRear:
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                        break;
+                }
 
-                //if (Mods.Wheel == WheelType.Red && Mods.HoverUnderbody == ModState.Off)
-                //{
-                //    if (_firstRedSetup)
-                //    {
-                //        boneLf?.SetTranslation(leftSuspesionOffset);
-                //        boneRf?.SetTranslation(rightSuspesionOffset);
+                if (Mods.Wheel == WheelType.Red && Mods.HoverUnderbody == ModState.Off)
+                {
+                    if (_firstRedSetup)
+                    {
+                        boneLf?.SetTranslation(leftSuspesionOffset);
+                        boneRf?.SetTranslation(rightSuspesionOffset);
 
-                //        _firstRedSetup = false;
-                //    }
+                        _firstRedSetup = false;
+                    }
 
-                //    if (VehicleControl.GetWheelSize(Vehicle) != 1.1f)
-                //        VehicleControl.SetWheelSize(Vehicle, 1.1f);
-                //}
-                //else if (!_firstRedSetup)
-                //{
-                //    boneLf?.ResetTranslation();
-                //    boneRf?.ResetTranslation();
+                    if (VehicleControl.GetWheelSize(Vehicle) != 1.1f)
+                        VehicleControl.SetWheelSize(Vehicle, 1.1f);
+                }
+                else if (!_firstRedSetup)
+                {
+                    boneLf?.ResetTranslation();
+                    boneRf?.ResetTranslation();
 
-                //    _firstRedSetup = true;
-                //}
+                    _firstRedSetup = true;
+                }
 
                 Mods.SyncMods();
             }

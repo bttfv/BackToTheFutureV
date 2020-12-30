@@ -33,8 +33,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public ParticlesHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             //Hover Mode
-            //foreach (var wheelPos in Vehicle.GetWheelPositions())
-            //    HoverModeSmoke.Add(new PtfxEntityPlayer("cut_trevor1", "cs_meth_pipe_smoke", Vehicle, wheelPos.Value, new Vector3(-90, 0, 0), 7f));
+            foreach (var wheelPos in Vehicle.GetWheelPositions())
+                HoverModeSmoke.Add(new PtfxEntityPlayer("cut_trevor1", "cs_meth_pipe_smoke", Vehicle, wheelPos.Value, new Vector3(-90, 0, 0), 7f));
 
             LightExplosion = new PtfxEntityPlayer("scr_josh3", "scr_josh3_light_explosion", Vehicle, Vector3.Zero, Vector3.Zero, 4f);
             TimeTravelEffect = new PtfxEntityPlayer("core", "veh_exhaust_spacecraft", Vehicle, new Vector3(0, 4, 0), Vector3.Zero, 8f, true);

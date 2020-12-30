@@ -105,27 +105,27 @@ namespace BackToTheFutureV.Vehicles
                 else
                     Vehicle.Mods[VehicleModType.Hydraulics].Index = (int)value;
 
-                //switch (value)
-                //{
-                //    case SuspensionsType.Stock:
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
+                switch (value)
+                {
+                    case SuspensionsType.Stock:
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
 
-                //        Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
-                //        Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
-                //        break;
-                //    default:
-                //        Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, true);
-                //        Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, true);
+                        Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
+                        Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
+                        break;
+                    default:
+                        Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, true);
+                        Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, true);
 
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
-                //        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
-                //        break;
-                //}                
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
+                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
+                        break;
+                }
             }
         }
         
