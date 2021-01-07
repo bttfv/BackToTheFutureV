@@ -348,13 +348,13 @@ namespace BackToTheFutureV.TimeMachineClasses
                     CurrentTimeMachine.Events.OnScaleformPriority?.Invoke();
                 }
 
-                if (ExternalTimeCircuits.IsOpen && !ExternalTimeCircuits.TimeCircuits.IsVisible)
-                    ExternalTimeCircuits.TimeCircuits.IsVisible = true;
+                if (ExternalTimeCircuits.IsOpen && !ExternalTimeCircuits.TimeCircuits.IsHUDVisible)
+                    ExternalTimeCircuits.TimeCircuits.IsHUDVisible = true;
 
                 return;
             }
 
-            if (CurrentTimeMachine != null && Utils.PlayerVehicle == null && ExternalTimeCircuits.IsOpen && ExternalTimeCircuits.TimeCircuits.IsVisible)
+            if (CurrentTimeMachine != null && Utils.PlayerVehicle == null && ExternalTimeCircuits.IsOpen && ExternalTimeCircuits.TimeCircuits.IsHUDVisible)
                 ExternalTimeCircuits.TimeCircuits?.SetOff();
 
             CurrentTimeMachine = null;

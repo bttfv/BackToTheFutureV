@@ -11,7 +11,7 @@ namespace BackToTheFutureV
     {
         private static Thread _backgroundThread;
 
-        public static TimeCircuits.Game TimeCircuits { get; private set; }
+        public static TimeCircuits.Display TimeCircuits { get; private set; }
 
         public static bool IsOpen => TimeCircuits != null;
 
@@ -28,7 +28,7 @@ namespace BackToTheFutureV
             if (IsOpen)
                 Stop();
 
-            TimeCircuits = new TimeCircuits.Game();
+            TimeCircuits = new TimeCircuits.Display();
 
             TimeCircuits.Exiting += TimeCircuits_Exiting;
 

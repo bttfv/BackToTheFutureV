@@ -7,3 +7,6 @@
 [submodule "FusionLibrary"]
 	path = FusionLibrary
 	url = https://github.com/bttfv/FusionLibrary
+[submodule "TimeCircuits"]
+	path = TimeCircuits
+	url = https://github.com/bttfv/TimeCircuits

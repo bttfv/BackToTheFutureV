@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -67,8 +69,7 @@
       <HintPath>..\packages\LemonUI.SHVDN3.1.2.0\lib\net48\LemonUI.SHVDN3.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework, Version=3.8.0.1641, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ExternalTimeCircuits\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\lib\net452\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="ScriptHookVDotNet3, Version=3.1.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\ScriptHookVDotNet3.3.1.0\lib\net48\ScriptHookVDotNet3.dll</HintPath>
@@ -83,10 +84,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TimeCircuits.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ExternalTimeCircuits\TimeCircuits.Core.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +174,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <MonoGameContentReference Include="..\TimeCircuits\TimeCircuits.Core\Content\Content.mgcb">
+      <Link>Content\Content.mgcb</Link>
+    </MonoGameContentReference>
+  </ItemGroup>  
+  <ItemGroup>
     <ProjectReference Include="..\FusionLibrary\FusionLibrary.csproj">
       <Project>{f5aad1bd-63ca-4a12-97a8-f0d876ab4462}</Project>
       <Name>FusionLibrary</Name>
@@ -188,6 +190,10 @@
     <ProjectReference Include="..\RogerSierra\RogersSierraRailway.vbproj">
       <Project>{ef32b843-71f4-4af6-93e3-bec5f727c9a3}</Project>
       <Name>RogersSierraRailway</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeCircuits\TimeCircuits.Core\TimeCircuits.Core.csproj">
+      <Project>{b32480f2-767c-4426-afa1-ff9511c612d9}</Project>
+      <Name>TimeCircuits.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
@@ -201,4 +207,11 @@ copy "$(TargetPath)" "%25GTAPath%25\scripts\$(TargetFileName)"
 copy "$(TargetDir)\$(TargetName).pdb" "%25GTAPath%25\scripts\$(TargetName).pdb"
 )</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Questo progetto fa riferimento a uno o più pacchetti NuGet che non sono presenti in questo computer. Usare lo strumento di ripristino dei pacchetti NuGet per scaricarli. Per altre informazioni, vedere http://go.microsoft.com/fwlink/?LinkID=322105. Il file mancante è {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets'))" />
+  </Target>
 </Project>

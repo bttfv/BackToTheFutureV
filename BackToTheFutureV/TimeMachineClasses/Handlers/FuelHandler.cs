@@ -277,7 +277,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Props.EmptyGlowing?.SpawnProp();
 
                 if (ExternalTimeCircuits.IsOpen)
-                    ExternalTimeCircuits.TimeCircuits.EmptyType = TimeCircuits.EmptyType.On;
+                    ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.On;
             }
             else
             {
@@ -285,7 +285,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Props.EmptyGlowing?.Delete();
 
                 if (ExternalTimeCircuits.IsOpen)
-                    ExternalTimeCircuits.TimeCircuits.EmptyType = TimeCircuits.EmptyType.Off;
+                    ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.Off;
             }
         }
         private void HideEmpty()
@@ -296,7 +296,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             ScaleformsHandler.GUI.CallFunction("HIDE_EMPTY");
 
             if (ExternalTimeCircuits.IsOpen)
-                ExternalTimeCircuits.TimeCircuits.EmptyType = TimeCircuits.EmptyType.Hide;
+                ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.Hide;
         }
     }
 }
