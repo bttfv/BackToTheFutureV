@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using BackToTheFutureV.TimeMachineClasses;
 using FusionLibrary;
 using GTA.Math;
 using GTA.Native;
@@ -47,6 +48,7 @@ namespace BackToTheFutureV.GUI
         {
             if(toggle)
             {
+                ExternalTimeCircuits.TimeCircuits?.SetDate(type, dates[type]);
                 SetDate(type, dates[type]);
 
                 if (!month)
@@ -88,6 +90,8 @@ namespace BackToTheFutureV.GUI
                 if (amPm)
                     CallFunction("SET_AM_PM", type.ToLower(), 3);
             }
+
+            ExternalTimeCircuits.TimeCircuits?.SetVisible(type, toggle, month, day, year, hour, minute, amPm);
         }
 
         private string GetStringFromBackgroundType(TCDBackground background)

@@ -66,6 +66,10 @@
     <Reference Include="LemonUI.SHVDN3, Version=1.2.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\LemonUI.SHVDN3.1.2.0\lib\net48\LemonUI.SHVDN3.dll</HintPath>
     </Reference>
+    <Reference Include="MonoGame.Framework, Version=3.8.0.1641, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalTimeCircuits\MonoGame.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="ScriptHookVDotNet3, Version=3.1.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\ScriptHookVDotNet3.3.1.0\lib\net48\ScriptHookVDotNet3.dll</HintPath>
     </Reference>
@@ -79,9 +83,14 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TimeCircuits.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalTimeCircuits\TimeCircuits.Core.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExternalTimeCircuits.cs" />
     <Compile Include="GUI\TCDRowScaleform.cs" />
     <Compile Include="GUI\TimeCircuitsScaleform.cs" />
     <Compile Include="Menu\CustomMenu.cs" />

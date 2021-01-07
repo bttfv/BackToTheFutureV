@@ -8,6 +8,7 @@ using BackToTheFutureV.Settings;
 using KlangRageAudioLibrary;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -265,7 +266,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void SetEmpty(bool isOn)
         {
             if (Utils.PlayerVehicle == Vehicle)
-                Scaleforms.GUI.CallFunction("SET_EMPTY_STATE", !isOn);
+                ScaleformsHandler.GUI.CallFunction("SET_EMPTY_STATE", !isOn);
 
             if (Vehicle.IsVisible == false)
                 return;
@@ -274,11 +275,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 Props.EmptyOff?.Delete();
                 Props.EmptyGlowing?.SpawnProp();
+
+                if (ExternalTimeCircuits.IsOpen)
+                    ExternalTimeCircuits.TimeCircuits.EmptyType = TimeCircuits.EmptyType.On;
             }
             else
             {
                 Props.EmptyOff?.SpawnProp();
                 Props.EmptyGlowing?.Delete();
+
+                if (ExternalTimeCircuits.IsOpen)
+                    ExternalTimeCircuits.TimeCircuits.EmptyType = TimeCircuits.EmptyType.Off;
             }
         }
         private void HideEmpty()
@@ -286,7 +293,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Utils.PlayerVehicle != Vehicle)
                 return;
 
-            Scaleforms.GUI.CallFunction("HIDE_EMPTY");
+            ScaleformsHandler.GUI.CallFunction("HIDE_EMPTY");
+
+            if (ExternalTimeCircuits.IsOpen)
+                ExternalTimeCircuits.TimeCircuits.EmptyType = TimeCircuits.EmptyType.Hide;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace BackToTheFutureV.Menu
     {
         private NativeCheckboxItem cinematicSpawn;
         private NativeCheckboxItem useInputToggle;
+        private NativeCheckboxItem useExternalTCD;
         private NativeCheckboxItem forceFlyMode;
         private NativeCheckboxItem LandingSystem;
         private NativeCheckboxItem PersistenceSystem;
@@ -40,6 +41,7 @@ namespace BackToTheFutureV.Menu
 
             Add(cinematicSpawn = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn"), Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn_Description"), ModSettings.CinematicSpawn));
             Add(useInputToggle = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_InputToggle"), Game.GetLocalizedString("BTTFV_Menu_InputToggle_Description"), ModSettings.UseInputToggle));
+            Add(useExternalTCD = new NativeCheckboxItem("External TCD", "", ModSettings.ExternalTCDToggle));
             Add(forceFlyMode = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode"), Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode_Description"), ModSettings.ForceFlyMode));
             Add(LandingSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_LandingSystem"), Game.GetLocalizedString("BTTFV_Menu_LandingSystem_Description"), ModSettings.LandingSystem));
             Add(PersistenceSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem"), Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem_Description"), ModSettings.PersistenceSystem));
@@ -108,6 +110,9 @@ namespace BackToTheFutureV.Menu
 
             if (sender == WaybackSystem)
                 WaybackMachineHandler.SetState(Checked);
+
+            if (sender == useExternalTCD)
+                ModSettings.ExternalTCDToggle = Checked;
 
             ModSettings.SaveSettings();
         }

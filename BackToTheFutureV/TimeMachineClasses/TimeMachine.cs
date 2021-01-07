@@ -209,7 +209,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
 
             if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole | Properties.IsRemoteControlled)
-                Vehicle.LockStatus = VehicleLockStatus.StickPlayerInside;
+                Vehicle.LockStatus = VehicleLockStatus.PlayerCannotLeaveCanBeBrokenIntoPersist;
             else
                 Vehicle.LockStatus = VehicleLockStatus.None;
 

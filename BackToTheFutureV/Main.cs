@@ -94,6 +94,8 @@ namespace BackToTheFutureV
             FireTrailsHandler.Stop();
             CustomTrainHandler.Abort();
             DMC12Handler.Abort();
+
+            ExternalTimeCircuits.Stop();
         }
 
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
@@ -129,7 +131,13 @@ namespace BackToTheFutureV
 
                 _firstTick = false;
             }
-            
+
+            if (ModSettings.ExternalTCDToggle && !ExternalTimeCircuits.IsOpen)
+                ExternalTimeCircuits.Toggle(true);
+
+            if (!ModSettings.ExternalTCDToggle && ExternalTimeCircuits.IsOpen)
+                ExternalTimeCircuits.Toggle(false);
+
             CustomTrainHandler.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();

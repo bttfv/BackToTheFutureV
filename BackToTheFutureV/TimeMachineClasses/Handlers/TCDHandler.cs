@@ -16,6 +16,7 @@ using BackToTheFutureV.Vehicles;
 using GTA.NaturalMotion;
 using FusionLibrary;
 using static FusionLibrary.Enums;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -35,13 +36,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             { "green", new TCDRowScaleform("green") { DrawInPauseMenu = true } }
         };
 
-        static TCDSlot()
-        {
-
-        }
-
         public RenderTarget RenderTarget { get; private set; }       
-        public TimeCircuitsScaleform ScreenTCD { get; private set; }
         public TimeMachine TimeMachine { get; private set; }
 
         public string SlotType { get; private set; }
@@ -56,10 +51,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private AnimateProp amProp;
         private AnimateProp pmProp;
 
-        public TCDSlot(string slotType, TimeCircuitsScaleform scaleform, TimeMachine timeMachine)
+        public TCDSlot(string slotType, TimeMachine timeMachine)
         {
             SlotType = slotType;
-            ScreenTCD = scaleform;
             TimeMachine = timeMachine;
 
             if (TimeMachine.Mods.IsDMC12)
@@ -80,7 +74,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (!TcdEditer.IsEditing)
             {
-                ScreenTCD.SetDate(SlotType, dateToSet);
+                ScaleformsHandler.GUI.SetDate(SlotType, dateToSet);
             }
 
             TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
@@ -95,7 +89,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if(!TcdEditer.IsEditing)
             {
-                ScreenTCD.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
+                ScaleformsHandler.GUI.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
             }
 
             TCDRowsScaleforms[SlotType]?.SetVisible(toggleTo, month, day, year, hour, minute);
@@ -217,13 +211,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public TCDHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            destinationSlot = new TCDSlot("red", Scaleforms.GUI, timeMachine);
+            destinationSlot = new TCDSlot("red", timeMachine);
             destinationSlot.SetVisible(false);
 
-            presentSlot = new TCDSlot("green", Scaleforms.GUI, timeMachine);
+            presentSlot = new TCDSlot("green", timeMachine);
             presentSlot.SetVisible(false);
 
-            previousSlot = new TCDSlot("yellow", Scaleforms.GUI, timeMachine);
+            previousSlot = new TCDSlot("yellow", timeMachine);
             previousSlot.SetVisible(false);
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
@@ -330,7 +324,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 currentState = false;
                 Sounds.TCDBeep?.Stop();
-                Scaleforms.GUI.CallFunction("SET_DIODE_STATE", false);
+                ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", false);
+
+                if (ExternalTimeCircuits.IsOpen)
+                    ExternalTimeCircuits.TimeCircuits.IsTickVisible = false;
+
                 Props.TickingDiodes?.Delete();
                 Props.TickingDiodesOff?.SpawnProp();
             }
@@ -427,7 +425,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             previousSlot.Update();
             presentSlot.Update();
 
-            DrawGUI();
+            if (!ExternalTimeCircuits.IsOpen)
+                DrawGUI();
 
             if (!Properties.AreTimeCircuitsOn)
                 return;
@@ -465,8 +464,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing)
                 return;
 
-            Scaleforms.GUI.SetBackground(ModSettings.TCDBackground);
-            Scaleforms.GUI.Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / GTA.UI.Screen.AspectRatio, ModSettings.TCDScale));
+            ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
+            ScaleformsHandler.GUI.Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / GTA.UI.Screen.AspectRatio, ModSettings.TCDScale));
         }
 
         private void UpdateCurrentTimeDisplay()
@@ -542,7 +541,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Props.TickingDiodesOff?.SetState(!currentState);
                 }
 
-                Scaleforms.GUI.CallFunction("SET_DIODE_STATE", currentState);
+                ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", currentState);
+
+                if (ExternalTimeCircuits.IsOpen)
+                    ExternalTimeCircuits.TimeCircuits.IsTickVisible = currentState;
 
                 if(ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
                     Sounds.TCDBeep?.Play(true);

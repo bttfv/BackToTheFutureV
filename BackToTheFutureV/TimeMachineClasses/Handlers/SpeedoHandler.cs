@@ -22,7 +22,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public SpeedoHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            UpdateGUI(Scaleforms.GUI, "8", "8");
+            UpdateGUI(ScaleformsHandler.GUI, "8", "8");
         }
 
         public override void Dispose()
@@ -65,7 +65,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2);
 
                     if (!TcdEditer.IsEditing)
-                        UpdateGUI(Scaleforms.GUI, speedDigit1, speedDigit2);
+                        UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2);
                 }
             }
 
@@ -80,6 +80,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 scaleform.CallFunction("SET_DIGIT_1", 15);
 
             scaleform.CallFunction("SET_DIGIT_2", int.Parse(digit2));
+
+            if (ExternalTimeCircuits.IsOpen)
+                ExternalTimeCircuits.TimeCircuits.Speed = int.Parse(digit1 + digit2);
         }
 
         public override void Stop()

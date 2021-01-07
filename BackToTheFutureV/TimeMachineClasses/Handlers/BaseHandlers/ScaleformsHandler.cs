@@ -14,7 +14,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
     public class ScaleformsHandler : Handler
     {
-        public TimeCircuitsScaleform GUI { get; private set; }
+        public static TimeCircuitsScaleform GUI { get; private set; }
 
         //Flux Capacitor
         public static ScaleformGui FluxCapacitor { get; private set; }
@@ -27,14 +27,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         static ScaleformsHandler()
         {
+            GUI = new TimeCircuitsScaleform("bttf_2d_gui");
             FluxCapacitor = new ScaleformGui("bttf_flux_scaleform") { DrawInPauseMenu = true };
             Speedo = new ScaleformGui("bttf_3d_speedo") { DrawInPauseMenu = true };
         }
 
         public ScaleformsHandler(TimeMachine timeMachine) : base(timeMachine)
-        {
-            GUI = new TimeCircuitsScaleform("bttf_2d_gui");
-
+        {            
             //Flux Capacitor            
             FluxCapacitorRT = new RenderTarget(ModelHandler.FluxModel, "bttf_flux", Vehicle, "flux_capacitor");
 
