@@ -87,7 +87,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExternalTimeCircuits.cs" />
+    <Compile Include="Utility\ExternalHUD.cs" />
     <Compile Include="GUI\TCDRowScaleform.cs" />
     <Compile Include="GUI\TimeCircuitsScaleform.cs" />
     <Compile Include="Menu\CustomMenu.cs" />
@@ -104,6 +104,7 @@
     <Compile Include="Menu\SoundsSettingsMenu.cs" />
     <Compile Include="Menu\SettingsMenu.cs" />
     <Compile Include="Menu\TimeMachineMenu.cs" />
+    <Compile Include="Utility\NetworkHUD.cs" />
     <Compile Include="Players\FireTrail.cs" />
     <Compile Include="Players\FireTrailsHandler.cs" />
     <Compile Include="Players\SparkPlayer.cs" />
@@ -177,7 +178,7 @@
     <MonoGameContentReference Include="..\TimeCircuits\TimeCircuits.Core\Content\Content.mgcb">
       <Link>Content\Content.mgcb</Link>
     </MonoGameContentReference>
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FusionLibrary\FusionLibrary.csproj">
       <Project>{f5aad1bd-63ca-4a12-97a8-f0d876ab4462}</Project>

@@ -64,9 +64,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2);
 
-                    if (ModSettings.NetworkTCDToggle)
-                        Network.SendMsg($"Speed={mphSpeed}", 1985);
-
+                    ExternalHUD.Speed = mphSpeed;
+                    NetworkHUD.Speed = mphSpeed;
+                    
                     if (!TcdEditer.IsEditing)
                         UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2);
                 }
@@ -83,9 +83,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 scaleform.CallFunction("SET_DIGIT_1", 15);
 
             scaleform.CallFunction("SET_DIGIT_2", int.Parse(digit2));
-
-            if (ExternalTimeCircuits.IsOpen)
-                ExternalTimeCircuits.TimeCircuits.Speed = int.Parse(digit1 + digit2);
         }
 
         public override void Stop()

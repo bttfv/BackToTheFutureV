@@ -348,22 +348,25 @@ namespace BackToTheFutureV.TimeMachineClasses
                     CurrentTimeMachine.Events.OnScaleformPriority?.Invoke();
                 }
 
-                if (ExternalTimeCircuits.IsOpen && !ExternalTimeCircuits.TimeCircuits.IsHUDVisible)
-                    ExternalTimeCircuits.TimeCircuits.IsHUDVisible = true;
+                if (CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+                    return;
 
-                if (ModSettings.NetworkTCDToggle)
-                    Network.SendBool("IsHUDVisible", true, 1985);
+                if (!ExternalHUD.IsHUDVisible)
+                    ExternalHUD.IsHUDVisible = true;
+
+                if (!NetworkHUD.IsHUDVisible)
+                    NetworkHUD.IsHUDVisible = true;
 
                 return;
             }
 
             if (CurrentTimeMachine != null && Utils.PlayerVehicle == null)
             {
-                if (ExternalTimeCircuits.IsOpen && ExternalTimeCircuits.TimeCircuits.IsHUDVisible)
-                    ExternalTimeCircuits.TimeCircuits?.SetOff();
+                if (ExternalHUD.IsHUDVisible)
+                    ExternalHUD.SetOff();
 
-                if (ModSettings.NetworkTCDToggle)
-                    Network.SendMsg("SetOff=1", 1985);
+                if (NetworkHUD.IsHUDVisible)
+                    NetworkHUD.SetOff();
             }
 
             CurrentTimeMachine = null;

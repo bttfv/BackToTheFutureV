@@ -90,7 +90,7 @@ namespace BackToTheFutureV
             UseInputToggle = settings.GetValue("TimeCircuits", "InputMode", UseInputToggle);
             ExternalTCDToggle = settings.GetValue("TimeCircuits", "ExternalTCDToggle", ExternalTCDToggle);
             NetworkTCDToggle = settings.GetValue("TimeCircuits", "NetworkTCDToggle", NetworkTCDToggle);
-            NetworkTCDToggle = settings.GetValue("TimeCircuits", "HideIngameTCDToggle", HideIngameTCDToggle);
+            HideIngameTCDToggle = settings.GetValue("TimeCircuits", "HideIngameTCDToggle", HideIngameTCDToggle);
             GlowingWormholeEmitter = settings.GetValue("TimeCircuits", "GlowingWormholeEmitter", GlowingWormholeEmitter);
             GlowingPlutoniumReactor = settings.GetValue("TimeCircuits", "GlowingPlutoniumReactor", GlowingPlutoniumReactor);
 

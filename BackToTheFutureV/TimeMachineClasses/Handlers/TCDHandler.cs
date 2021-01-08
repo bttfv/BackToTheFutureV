@@ -326,11 +326,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Sounds.TCDBeep?.Stop();
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", false);
 
-                if (ExternalTimeCircuits.IsOpen)
-                    ExternalTimeCircuits.TimeCircuits.IsTickVisible = false;
-
-                if (ModSettings.NetworkTCDToggle)
-                    Network.SendBool("IsTickVisible", false, 1985);
+                ExternalHUD.IsTickVisible = false;
+                NetworkHUD.IsTickVisible = false;
 
                 Props.TickingDiodes?.Delete();
                 Props.TickingDiodesOff?.SpawnProp();
@@ -546,11 +543,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", currentState);
 
-                if (ExternalTimeCircuits.IsOpen)
-                    ExternalTimeCircuits.TimeCircuits.IsTickVisible = currentState;
-
-                if (ModSettings.NetworkTCDToggle)
-                    Network.SendBool("IsTickVisible", currentState, 1985);
+                ExternalHUD.IsTickVisible = currentState;
+                NetworkHUD.IsTickVisible = currentState;
 
                 if (ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
                     Sounds.TCDBeep?.Play(true);

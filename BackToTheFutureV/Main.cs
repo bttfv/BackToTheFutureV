@@ -27,11 +27,11 @@ namespace BackToTheFutureV
 
         private bool _firstTick = true;
         private int _saveDelay;
-        private readonly UdpClient udp = new UdpClient(1985);
+        private readonly UdpClient udp = new UdpClient(1955);
 
         private void Receive(IAsyncResult ar)
         {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Any, 1985);
+            IPEndPoint ip = new IPEndPoint(IPAddress.Any, 1955);
 
             string message = Encoding.ASCII.GetString(udp.EndReceive(ar, ref ip));
 
@@ -87,7 +87,7 @@ namespace BackToTheFutureV
             CustomTrainHandler.Abort();
             DMC12Handler.Abort();
 
-            ExternalTimeCircuits.Stop();
+            ExternalHUD.Stop();
         }
 
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
@@ -119,16 +119,22 @@ namespace BackToTheFutureV
 
                 TimeHandler.TrafficVolumeYearBased = true;
 
-                //StartListening();
+                StartListening();
 
                 _firstTick = false;
             }
 
-            if (ModSettings.ExternalTCDToggle && !ExternalTimeCircuits.IsOpen)
-                ExternalTimeCircuits.Toggle(true);
+            if (ModSettings.ExternalTCDToggle && !ExternalHUD.IsActive)
+                ExternalHUD.Toggle(true);
 
-            if (!ModSettings.ExternalTCDToggle && ExternalTimeCircuits.IsOpen)
-                ExternalTimeCircuits.Toggle(false);
+            if (!ModSettings.ExternalTCDToggle && ExternalHUD.IsActive)
+                ExternalHUD.Toggle(false);
+
+            if (Utils.HideGUI)
+            {
+                ExternalHUD.IsHUDVisible = false;
+                NetworkHUD.IsHUDVisible = false;
+            }
 
             CustomTrainHandler.Process();
             DMC12Handler.Process();

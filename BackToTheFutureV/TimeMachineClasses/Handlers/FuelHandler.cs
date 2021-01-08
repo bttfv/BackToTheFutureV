@@ -27,8 +27,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private float _reactorGlowingTime = 0;
 
-        private bool _isHide = true;
-
         public FuelHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             SetEmpty(false);
@@ -151,11 +149,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (Properties.IsFueled)
                 {
-                    if (!_isHide)
-                    {
-                        SetEmpty(false);
-                        HideEmpty();
-                    }
+                    SetEmpty(false);
+                    HideEmpty();
                 }
                 else
                     SetEmpty(true);
@@ -271,7 +266,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void SetEmpty(bool isOn)
         {
             if (Utils.PlayerVehicle == Vehicle)
-                ScaleformsHandler.GUI.CallFunction("SET_EMPTY_STATE", !isOn);
+            {
+                ScaleformsHandler.GUI.CallFunction("SET_EMPTY_STATE", isOn);
+
+                if (Properties.IsFueled)
+                    return;
+
+                ExternalHUD.Empty = isOn ? TimeCircuits.EmptyType.On : TimeCircuits.EmptyType.Off;
+                NetworkHUD.Empty = isOn ? TimeCircuits.EmptyType.On : TimeCircuits.EmptyType.Off;
+            }
 
             if (Vehicle.IsVisible == false)
                 return;
@@ -280,26 +283,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 Props.EmptyOff?.Delete();
                 Props.EmptyGlowing?.SpawnProp();
-
-                if (ExternalTimeCircuits.IsOpen)
-                    ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.On;
-
-                if (ModSettings.NetworkTCDToggle)
-                    Network.SendInt("Empty", 2, 1985);
             }
             else
             {
                 Props.EmptyOff?.SpawnProp();
                 Props.EmptyGlowing?.Delete();
-
-                if (ExternalTimeCircuits.IsOpen)
-                    ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.Off;
-
-                if (ModSettings.NetworkTCDToggle)
-                    Network.SendInt("Empty", 1, 1985);
             }
-
-            _isHide = false;
         }
 
         private void HideEmpty()
@@ -308,14 +297,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
 
             ScaleformsHandler.GUI.CallFunction("HIDE_EMPTY");
-
-            if (ExternalTimeCircuits.IsOpen)
-                ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.Hide;
-
-            if (ModSettings.NetworkTCDToggle)
-                Network.SendInt("Empty", 0, 1985);
-
-            _isHide = true;
+            
+            ExternalHUD.Empty = TimeCircuits.EmptyType.Hide;
+            NetworkHUD.Empty = TimeCircuits.EmptyType.Hide;
         }
     }
 }

@@ -50,11 +50,10 @@ namespace BackToTheFutureV.Menu
 
             if (sender == useNetworkTCD)
             {
-                ModSettings.NetworkTCDToggle = Checked;
-
                 if (!Checked)
-                    Network.SendMsg("SetOff=1", 1985);
+                    NetworkHUD.SetOff();
 
+                ModSettings.NetworkTCDToggle = Checked;
             }
 
             if (sender == hideIngameTCD)
