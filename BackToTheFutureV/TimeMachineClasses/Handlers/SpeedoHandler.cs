@@ -64,6 +64,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2);
 
+                    if (ModSettings.NetworkTCDToggle)
+                        Network.SendMsg($"Speed={mphSpeed}", 1985);
+
                     if (!TcdEditer.IsEditing)
                         UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2);
                 }

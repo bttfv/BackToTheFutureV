@@ -329,6 +329,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (ExternalTimeCircuits.IsOpen)
                     ExternalTimeCircuits.TimeCircuits.IsTickVisible = false;
 
+                if (ModSettings.NetworkTCDToggle)
+                    Network.SendBool("IsTickVisible", false, 1985);
+
                 Props.TickingDiodes?.Delete();
                 Props.TickingDiodesOff?.SpawnProp();
             }
@@ -425,7 +428,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             previousSlot.Update();
             presentSlot.Update();
 
-            if (!ExternalTimeCircuits.IsOpen)
+            if (!ModSettings.HideIngameTCDToggle)
                 DrawGUI();
 
             if (!Properties.AreTimeCircuitsOn)
@@ -546,7 +549,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (ExternalTimeCircuits.IsOpen)
                     ExternalTimeCircuits.TimeCircuits.IsTickVisible = currentState;
 
-                if(ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
+                if (ModSettings.NetworkTCDToggle)
+                    Network.SendBool("IsTickVisible", currentState, 1985);
+
+                if (ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
                     Sounds.TCDBeep?.Play(true);
 
                 nextTick = Game.GameTime + 500;

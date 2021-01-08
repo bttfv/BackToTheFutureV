@@ -351,11 +351,20 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (ExternalTimeCircuits.IsOpen && !ExternalTimeCircuits.TimeCircuits.IsHUDVisible)
                     ExternalTimeCircuits.TimeCircuits.IsHUDVisible = true;
 
+                if (ModSettings.NetworkTCDToggle)
+                    Network.SendBool("IsHUDVisible", true, 1985);
+
                 return;
             }
 
-            if (CurrentTimeMachine != null && Utils.PlayerVehicle == null && ExternalTimeCircuits.IsOpen && ExternalTimeCircuits.TimeCircuits.IsHUDVisible)
-                ExternalTimeCircuits.TimeCircuits?.SetOff();
+            if (CurrentTimeMachine != null && Utils.PlayerVehicle == null)
+            {
+                if (ExternalTimeCircuits.IsOpen && ExternalTimeCircuits.TimeCircuits.IsHUDVisible)
+                    ExternalTimeCircuits.TimeCircuits?.SetOff();
+
+                if (ModSettings.NetworkTCDToggle)
+                    Network.SendMsg("SetOff=1", 1985);
+            }
 
             CurrentTimeMachine = null;
 

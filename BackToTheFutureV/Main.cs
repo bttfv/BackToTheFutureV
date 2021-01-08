@@ -4,27 +4,19 @@ using GTA;
 using GTA.Native;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Story;
-using LemonUI;
 using Screen = GTA.UI.Screen;
 using BackToTheFutureV.Settings;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using KlangRageAudioLibrary;
-//using RogersSierra;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Players;
-using System.Collections.Generic;
 using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.Menu;
-using RogersSierraRailway;
-using GTA.Math;
 using FusionLibrary;
-using static FusionLibrary.Enums;
-using FusionLibrary.Extensions;
-using FusionLibrary.Memory;
 
 namespace BackToTheFutureV
 {
@@ -127,7 +119,7 @@ namespace BackToTheFutureV
 
                 TimeHandler.TrafficVolumeYearBased = true;
 
-                StartListening();
+                //StartListening();
 
                 _firstTick = false;
             }

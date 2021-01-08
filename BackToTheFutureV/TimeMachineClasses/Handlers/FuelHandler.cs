@@ -283,6 +283,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (ExternalTimeCircuits.IsOpen)
                     ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.On;
+
+                if (ModSettings.NetworkTCDToggle)
+                    Network.SendInt("Empty", 2, 1985);
             }
             else
             {
@@ -291,6 +294,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (ExternalTimeCircuits.IsOpen)
                     ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.Off;
+
+                if (ModSettings.NetworkTCDToggle)
+                    Network.SendInt("Empty", 1, 1985);
             }
 
             _isHide = false;
@@ -305,6 +311,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (ExternalTimeCircuits.IsOpen)
                 ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.Hide;
+
+            if (ModSettings.NetworkTCDToggle)
+                Network.SendInt("Empty", 0, 1985);
 
             _isHide = true;
         }

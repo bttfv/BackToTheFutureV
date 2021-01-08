@@ -49,6 +49,10 @@ namespace BackToTheFutureV.GUI
             if(toggle)
             {
                 ExternalTimeCircuits.TimeCircuits?.SetDate(type, dates[type]);
+
+                if (ModSettings.NetworkTCDToggle)
+                    Network.SendMsg($"SetDate={type}|{dates[type]}", 1985);
+
                 SetDate(type, dates[type]);
 
                 if (!month)
@@ -92,6 +96,9 @@ namespace BackToTheFutureV.GUI
             }
 
             ExternalTimeCircuits.TimeCircuits?.SetVisible(type, toggle, month, day, year, hour, minute, amPm);
+
+            if (ModSettings.NetworkTCDToggle)
+                Network.SendMsg($"SetVisible={type}|{toggle}|{month}|{day}|{year}|{hour}|{minute}|{amPm}", 1985);
         }
 
         private string GetStringFromBackgroundType(TCDBackground background)
