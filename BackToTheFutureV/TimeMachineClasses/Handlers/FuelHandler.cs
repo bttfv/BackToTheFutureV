@@ -27,6 +27,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private float _reactorGlowingTime = 0;
 
+        private bool _isHide = true;
+
         public FuelHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             SetEmpty(false);
@@ -149,8 +151,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (Properties.IsFueled)
                 {
-                    SetEmpty(false);
-                    HideEmpty();
+                    if (!_isHide)
+                    {
+                        SetEmpty(false);
+                        HideEmpty();
+                    }
                 }
                 else
                     SetEmpty(true);
@@ -287,7 +292,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (ExternalTimeCircuits.IsOpen)
                     ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.Off;
             }
+
+            _isHide = false;
         }
+
         private void HideEmpty()
         {
             if (Utils.PlayerVehicle != Vehicle)
@@ -297,6 +305,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (ExternalTimeCircuits.IsOpen)
                 ExternalTimeCircuits.TimeCircuits.Empty = TimeCircuits.EmptyType.Hide;
+
+            _isHide = true;
         }
     }
 }
