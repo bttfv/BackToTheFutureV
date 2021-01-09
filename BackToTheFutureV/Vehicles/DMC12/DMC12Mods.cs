@@ -42,29 +42,10 @@ namespace BackToTheFutureV.Vehicles
 
                 if ((SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index == SuspensionsType.Unknown)
                     SuspensionsType = SuspensionsType.Stock;
-            }
-        }
 
-        public void ForceMods()
-        {
-            WormholeType = WormholeType;
-            SuspensionsType = SuspensionsType;
-            Wheel = Wheel;
-            Exterior = Exterior;
-            Interior = Interior;
-            OffCoils = OffCoils;
-            GlowingEmitter = GlowingEmitter;
-            GlowingReactor = GlowingReactor;
-            DamagedBumper = DamagedBumper;
-            HoverUnderbody = HoverUnderbody;
-            SteeringWheelsButtons = SteeringWheelsButtons;
-            Vents = Vents;
-            Seats = Seats;
-            Reactor = Reactor;
-            Plate = Plate;
-            Exhaust = Exhaust;
-            Hoodbox = HoverUnderbody;
-            Hook = Hook;
+                if ((WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index <= WormholeType.DMC12)
+                    Hood = (HoodType)Utils.Random.Next(-1, 1);
+            }
         }
 
         public new WormholeType WormholeType
@@ -362,6 +343,18 @@ namespace BackToTheFutureV.Vehicles
                         Vehicle.Mods[VehicleModType.Grille].Variation = false;
                         break;
                 }
+            }
+        }
+
+        public new HoodType Hood
+        {
+            get => base.Hood;
+            set
+            {
+                base.Hood = value;
+
+                if (IsDMC12)
+                    Vehicle.Mods[VehicleModType.Hood].Index = (int)value;
             }
         }
     }

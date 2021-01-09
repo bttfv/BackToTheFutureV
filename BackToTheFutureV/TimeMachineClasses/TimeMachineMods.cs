@@ -42,6 +42,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             Vents = ModState.On;
             OffCoils = ModState.On;
             Hook = HookState.Off;
+            Hood = HoodType.Stock;
 
             switch (WormholeType)
             {
@@ -100,6 +101,11 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (exhaustType != Exhaust)
                 Exhaust = exhaustType;
+
+            HoodType hoodType = (HoodType)Vehicle.Mods[VehicleModType.Hood].Index;
+
+            if (hoodType != Hood)
+                Hood = hoodType;
 
             ModState modState = (ModState)Vehicle.Mods[VehicleModType.Spoilers].Index;
 

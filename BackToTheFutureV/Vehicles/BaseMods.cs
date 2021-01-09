@@ -86,6 +86,13 @@ namespace BackToTheFutureV.Vehicles
         LowerFrontAndRear = 8
     }
 
+    public enum HoodType 
+    {
+        Stock = -1,
+        H1983 = 0,
+        H1981 = 1
+    }
+
     [Serializable]
     public class BaseMods
     {
@@ -108,6 +115,7 @@ namespace BackToTheFutureV.Vehicles
         public ExhaustType Exhaust { get; set; } = ExhaustType.Stock;
         public ModState Hoodbox { get; set; } = ModState.Off;
         public HookState Hook { get; set; } = HookState.Off;
+        public HoodType Hood { get; set; } = HoodType.Stock;
 
         public BaseMods()
         {
@@ -137,6 +145,7 @@ namespace BackToTheFutureV.Vehicles
             ret.Exhaust = Exhaust;
             ret.Hoodbox = Hoodbox;
             ret.Hook = Hook;
+            ret.Hood = Hood;
 
             return ret;
         }
@@ -164,6 +173,7 @@ namespace BackToTheFutureV.Vehicles
             ret.Exhaust = Exhaust;
             ret.Hoodbox = Hoodbox;
             ret.Hook = Hook;
+            ret.Hood = Hood;
         }
 
         public void ApplyToWayback(TimeMachine timeMachine)
@@ -228,6 +238,9 @@ namespace BackToTheFutureV.Vehicles
 
             if (ret.Hook != Hook)
                 ret.Hook = Hook;
+
+            if (ret.Hood != Hood)
+                ret.Hood = Hood;
         }
     }
 }

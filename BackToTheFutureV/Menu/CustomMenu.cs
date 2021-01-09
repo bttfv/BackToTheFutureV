@@ -31,6 +31,7 @@ namespace BackToTheFutureV.Menu
         private NativeListItem<string> _plate;
         private NativeListItem<string> _exhaust;
         private NativeListItem<string> _suspensions;
+        private NativeListItem<string> _hood;
         private NativeItem _saveConf;
         private NativeItem _confirm;
 
@@ -40,6 +41,7 @@ namespace BackToTheFutureV.Menu
         private readonly List<string> _listPlateTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Empty"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Outatime"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Futuristic"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_NoTime"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Timeless"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Timeless2"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_DMCFactory"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_DMCFactory2") };
         private readonly List<string> _listExhaustTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_BTTF"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_None") };
         private readonly List<string> _listSuspensionsTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontLowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontAndRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontLiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontAndRear") };
+        private readonly List<string> _listHoodTypes = new List<string> { "Stock", "1983", "1981 w/ gas cap" };
 
         private bool _save = false;
         private TimeMachine _tempTimeMachine;
@@ -71,6 +73,10 @@ namespace BackToTheFutureV.Menu
             _exhaust.ItemChanged += ModList_ItemChanged;
             Add(_suspensions = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_Description"), _listSuspensionsTypes.ToArray()));
             _suspensions.ItemChanged += ModList_ItemChanged;
+
+            Add(_hood = new NativeListItem<string>("Hood", "", _listHoodTypes.ToArray()));
+            _hood.ItemChanged += ModList_ItemChanged;
+
             Add(_saveConf = new NativeItem(Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Save"), Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Save_Description")));
 
             Add(_confirm = new NativeItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Confirm")));
@@ -121,6 +127,10 @@ namespace BackToTheFutureV.Menu
             {
                 _tempTimeMachine.Mods.SuspensionsType = (SuspensionsType)newIndex;
             }
+            else if (sender == _hood)
+            {
+                _tempTimeMachine.Mods.Hood = (HoodType)(newIndex - 1);
+            }
         }
 
         private void LoadVehicleType()
@@ -136,6 +146,7 @@ namespace BackToTheFutureV.Menu
                 _plate.SelectedIndex = (int)(_tempTimeMachine.Mods.Plate) + 1;
                 _exhaust.SelectedIndex = (int)(_tempTimeMachine.Mods.Exhaust) + 1;
                 _suspensions.SelectedIndex = (int)_tempTimeMachine.Mods.SuspensionsType;
+                _hood.SelectedIndex = (int)_tempTimeMachine.Mods.Hood + 1;
 
                 _canFly.Enabled = !_tempTimeMachine.Properties.IsFlying;// && _tempTimeMachine.Mods.SuspensionsType == SuspensionsType.Stock;
                 _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
