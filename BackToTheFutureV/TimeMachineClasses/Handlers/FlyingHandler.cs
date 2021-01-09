@@ -117,6 +117,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void SpawnHoverGlow()
         {
+            if (Props.HoverModeWheelsGlow != null && Props.HoverModeWheelsGlow.IsSpawned)
+                return;
+
             Props.HoverModeWheelsGlow?.SpawnProp();
             Sounds.HoverModeUp?.Play();
             _startHoverGlowLater = false;

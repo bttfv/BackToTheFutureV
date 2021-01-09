@@ -248,6 +248,7 @@ namespace BackToTheFutureV.Players
         {
             AllProps.Dispose();
             Wheels.Dispose();
+            GlowWheels.Dispose();
         }
     }
 }
