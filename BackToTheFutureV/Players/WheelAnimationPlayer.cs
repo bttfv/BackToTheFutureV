@@ -30,8 +30,6 @@ namespace BackToTheFutureV.Players
 
         private AnimatePropsHandler GlowWheels = new AnimatePropsHandler();
         private AnimatePropsHandler Wheels = new AnimatePropsHandler();
-        private AnimatePropsHandler Disks = new AnimatePropsHandler();
-        private AnimatePropsHandler Struts = new AnimatePropsHandler();
 
         public Vector3 strutFrontOffset = new Vector3(-0.5455205f, 1.267366f, 0.2580211f);
         public Vector3 diskOffsetFromStrut = new Vector3(-0.23691f, 0.002096051f, -0.1387549f);
@@ -43,6 +41,8 @@ namespace BackToTheFutureV.Players
 
         public WheelAnimationPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
+            AllProps.OnAnimCompleted += OnAnimationCompleted;
+
             _roadWheel = Properties.IsStockWheel ? WheelType.Stock : WheelType.Red;
 
             Model modelWheel = _roadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
@@ -75,7 +75,6 @@ namespace BackToTheFutureV.Players
                 }
 
                 AnimateProp strut = new AnimateProp(Vehicle, ModelHandler.Strut, strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
-
                 if (leftWheel)
                     strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.24f, 1);
                 else
@@ -94,20 +93,13 @@ namespace BackToTheFutureV.Players
 
                 AnimateProp wheelGlowAnimateProp = new AnimateProp(null, wheelGlowModel, Vector3.Zero, Vector3.Zero);
 
-                Struts.Add(strut);
-                Struts.OnAnimCompleted += OnAnimationCompleted;
-
-                Disks.Add(disk);
-                Disks.Add(piston);                
-                Disks.OnAnimCompleted += OnAnimationCompleted;
-
-                GlowWheels.Props.Add(wheelGlowAnimateProp);
-                Wheels.Props.Add(wheelAnimateProp);
+                GlowWheels.Add(wheelGlowAnimateProp);
+                Wheels.Add(wheelAnimateProp);
                                                              
-                AllProps.Props.Add(strut);
-                AllProps.Props.Add(piston);
-                AllProps.Props.Add(disk);
-                AllProps.Props.Add(wheelGlowAnimateProp);
+                AllProps.Add(strut);
+                AllProps.Add(piston);
+                AllProps.Add(disk);
+                AllProps.Add(wheelGlowAnimateProp);                
             }
         }
 
@@ -121,7 +113,7 @@ namespace BackToTheFutureV.Players
                 switch (animationStep)
                 {
                     case AnimationStep.First:
-                        Disks.Play(AnimationStep.Second);
+                        AllProps.Play(AnimationStep.Second);
                         break;
                     case AnimationStep.Second:
                         Stop();
@@ -134,7 +126,7 @@ namespace BackToTheFutureV.Players
                 switch (animationStep)
                 {
                     case AnimationStep.Second:
-                        Struts.Play();
+                        AllProps.Play();
                         break;
                     case AnimationStep.First:
                         Stop();
@@ -206,41 +198,11 @@ namespace BackToTheFutureV.Players
                 if (!Wheels.IsSpawned)
                     Wheels.SpawnProp();
 
-                Struts[0].setCoordinateAt(false, AnimationType.Offset, AnimationStep.First, Coordinate.X);
-                Struts[1].setCoordinateAt(true, AnimationType.Offset, AnimationStep.First, Coordinate.X);
-                Struts[2].setCoordinateAt(false, AnimationType.Offset, AnimationStep.First, Coordinate.X);
-                Struts[3].setCoordinateAt(true, AnimationType.Offset, AnimationStep.First, Coordinate.X);
-
-                Disks[0].setCoordinateAt(false, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-                Disks[1].setCoordinateAt(true, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-
-                Disks[2].setCoordinateAt(false, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-                Disks[3].setCoordinateAt(true, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-
-                Disks[4].setCoordinateAt(false, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-                Disks[5].setCoordinateAt(true, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-
-                Disks[6].setCoordinateAt(false, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-                Disks[7].setCoordinateAt(true, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
+                AllProps.Play(AnimationStep.Second, true, true);
             }
             else
             {
-                Struts[0].setCoordinateAt(true, AnimationType.Offset, AnimationStep.First, Coordinate.X);
-                Struts[1].setCoordinateAt(false, AnimationType.Offset, AnimationStep.First, Coordinate.X);
-                Struts[2].setCoordinateAt(true, AnimationType.Offset, AnimationStep.First, Coordinate.X);
-                Struts[3].setCoordinateAt(false, AnimationType.Offset, AnimationStep.First, Coordinate.X);
-
-                Disks[1].setCoordinateAt(false, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-                Disks[0].setCoordinateAt(true, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-
-                Disks[3].setCoordinateAt(false, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-                Disks[2].setCoordinateAt(true, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-
-                Disks[5].setCoordinateAt(false, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-                Disks[4].setCoordinateAt(true, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-
-                Disks[7].setCoordinateAt(false, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
-                Disks[6].setCoordinateAt(true, AnimationType.Rotation, AnimationStep.Second, Coordinate.Y);
+                AllProps.Play(AnimationStep.Second, true, true);
 
                 Wheels.Delete();
 
@@ -270,9 +232,9 @@ namespace BackToTheFutureV.Players
                 Wheels.SpawnProp();
 
             if (open)
-                Struts.Play();
+                AllProps.Play();
             else
-                Disks.Play(AnimationStep.Second);
+                AllProps.Play(AnimationStep.Second);
 
             PlayerSwitch.Disable = true;
         }
