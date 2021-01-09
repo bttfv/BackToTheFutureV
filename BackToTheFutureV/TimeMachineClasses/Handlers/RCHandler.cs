@@ -8,6 +8,7 @@ using KlangRageAudioLibrary;
 using BackToTheFutureV.Vehicles;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -30,6 +31,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private bool _forcedHandbrake = false;
 
+        private bool _handleBoost = false;
+
         public RcHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             PlayerSwitch.OnSwitchingComplete += OnSwitchingComplete;
@@ -38,6 +41,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             rcHandbrake.OnControlJustPressed += RcHandbrake_OnControlJustPressed;
 
             Events.SetRCMode += SetRCMode;
+            Events.OnSimulateSpeedReached += StopForcedHandbrake;
         }
 
         public void SetRCMode(bool state, bool instant = false)
@@ -50,6 +54,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void RcHandbrake_OnControlJustPressed()
         {
+            if (!Properties.IsRemoteControlled || !Mods.IsDMC12)
+                return;
+
             if (Mods.HoverUnderbody == ModState.On && Properties.IsFlying)
                 return;
 
@@ -63,11 +70,29 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }            
         }
 
+        private void StopForcedHandbrake()
+        {
+            if (Properties.IsRemoteControlled && _forcedHandbrake)
+                SetForcedHandbrake();
+        }
+
         private void SetForcedHandbrake()
-        {            
+        {
+            if (!Mods.IsDMC12)
+                return;
+
             _forcedHandbrake = !_forcedHandbrake;
+
             Vehicle.IsBurnoutForced = _forcedHandbrake;
             Vehicle.CanTiresBurst = !_forcedHandbrake;
+
+            if (_forcedHandbrake)
+            {
+                Properties.TorqueMultiplier *= 4;
+                _handleBoost = true;
+
+                Events.SetSimulateSpeed?.Invoke(64, 10);
+            }
         }
 
         private void OnSwitchingComplete()
@@ -83,6 +108,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (Vehicle == null) 
                 return;
+
+            _handleBoost = false;
 
             Properties.IsRemoteControlled = true;
 
@@ -145,14 +172,28 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 _camera?.Delete();
                 _camera = null;
-                World.RenderingCamera = null;                
+                World.RenderingCamera = null;                          
             }
         }
 
         public override void Process()
         {
             if (!Properties.IsRemoteControlled)
+            {
+                if (_handleBoost)
+                {
+                    Properties.TorqueMultiplier /= 4;
+                    _handleBoost = false;
+                }
+
                 return;
+            }
+
+            if (_handleBoost && Game.IsControlPressed(GTA.Control.VehicleBrake))
+            {
+                Properties.TorqueMultiplier /= 4;
+                _handleBoost = false;
+            }
 
             if (PlayerSwitch.IsManualInProgress)
                 return;

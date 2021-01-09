@@ -28,6 +28,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void OnVehicleSpawned();
     public delegate void OnHoodboxReady();
     public delegate void OnMissionChange();
+    public delegate void OnSimulateSpeedReached();
 
     public delegate void SetRCMode(bool state, bool instant = false);
     public delegate void SetTimeCircuits(bool state);
@@ -45,6 +46,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void SetEngineStall(bool state);
     public delegate void StartLightningStrike(int delay);
     public delegate void SimulateInputDate(DateTime dateTime);
+    public delegate void SetSimulateSpeed(int maxSpeed, int seconds);
 
     public class EventsHandler : Handler
     {
@@ -66,6 +68,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public OnVehicleSpawned OnVehicleSpawned;
         public OnHoodboxReady OnHoodboxReady;
         public OnMissionChange OnMissionChange;
+        public OnSimulateSpeedReached OnSimulateSpeedReached;
 
         public SetRCMode SetRCMode;
         public SetTimeCircuits SetTimeCircuits;
@@ -84,6 +87,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public SetEngineStall SetEngineStall;
         public StartLightningStrike StartLightningStrike;
         public SimulateInputDate SimulateInputDate;
+        public SetSimulateSpeed SetSimulateSpeed;
 
         public EventsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
