@@ -104,6 +104,9 @@ namespace BackToTheFutureV
 
             if (_firstTick)
             {
+                if (ModSettings.ExternalTCDToggle)
+                    ExternalHUD.Toggle(true);
+
                 //Disable fake shake of the cars.
                 Function.Call((Hash)0x84FD40F56075E816, 0);
 

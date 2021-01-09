@@ -91,7 +91,7 @@ namespace BackToTheFutureV.Menu
 
         private void SettingsMenu_Shown(object sender, EventArgs e)
         {
-            
+            useExternalTCD.Checked = ModSettings.ExternalTCDToggle;
         }
 
         public override void Tick()
