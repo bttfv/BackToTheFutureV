@@ -3,15 +3,8 @@ using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using FusionLibrary;
 using GTA;
-using GTA.Native;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
-using Control = GTA.Control;
 
 namespace BackToTheFutureV.Menu
 {

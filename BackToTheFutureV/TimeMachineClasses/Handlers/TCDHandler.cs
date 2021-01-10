@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using BackToTheFutureV.GUI;
+using BackToTheFutureV.Settings;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using BackToTheFutureV.Vehicles;
+using FusionLibrary;
 using GTA;
 using GTA.Math;
-using System.Globalization;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
-
-using BackToTheFutureV.GUI;
-using BackToTheFutureV.Utility;
-using BackToTheFutureV.Settings;
-using KlangRageAudioLibrary;
-using BackToTheFutureV.Story;
-using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Vehicles;
-using GTA.NaturalMotion;
-using FusionLibrary;
+using System.Globalization;
+using System.Windows.Forms;
 using static FusionLibrary.Enums;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -327,7 +321,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", false);
 
                 ExternalHUD.IsTickVisible = false;
-                NetworkHUD.IsTickVisible = false;
+                RemoteHUD.IsTickVisible = false;
 
                 Props.TickingDiodes?.Delete();
                 Props.TickingDiodesOff?.SpawnProp();
@@ -544,7 +538,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", currentState);
 
                 ExternalHUD.IsTickVisible = currentState;
-                NetworkHUD.IsTickVisible = currentState;
+                RemoteHUD.IsTickVisible = currentState;
 
                 if (ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
                     Sounds.TCDBeep?.Play(true);

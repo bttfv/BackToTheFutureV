@@ -1,16 +1,10 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.Utility;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BackToTheFutureV.Vehicles
 {
@@ -147,15 +141,16 @@ namespace BackToTheFutureV.Vehicles
                 rpmRotation = Vehicle.CurrentRPM * 210;
 
                 // --- Speed ---
-                float speed = Vehicle.Speed / 0.27777f / 1.60934f;
-                speedRotation = 270 * speed / 95;
+                float speed = Vehicle.GetMPHSpeed();
+                speedRotation = 270 * speed / 95 - 8;
 
-                if (speedRotation > 270) speedRotation = 270;
+                if (speedRotation > 270)
+                    speedRotation = 270;
 
-                fuelRotation = Utils.Lerp(fuelRotation, -31.5f, Game.LastFrameTime * 10f);
-                tempRotation = Utils.Lerp(tempRotation, 4.5f, Game.LastFrameTime * 10f);
-                oilRotation = Utils.Lerp(oilRotation, -5f, Game.LastFrameTime * 10f);
-                voltRotation = Utils.Lerp(voltRotation, 5.5f, Game.LastFrameTime * 10f);
+                fuelRotation = Utils.Lerp(fuelRotation, -50f, Game.LastFrameTime * 10f);
+                tempRotation = Utils.Lerp(tempRotation, 50f, Game.LastFrameTime * 10f);
+                oilRotation = Utils.Lerp(oilRotation, -50f, Game.LastFrameTime * 10f);
+                voltRotation = Utils.Lerp(voltRotation, 50f, Game.LastFrameTime * 10f);
             }
             else
             {

@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using GTA;
-using GTA.Native;
-using GTA.Math;
-using System.Windows.Forms;
-using BackToTheFutureV.Utility;
-using KlangRageAudioLibrary;
+﻿using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Vehicles;
-using BackToTheFutureV.TimeMachineClasses.RC;
 using FusionLibrary;
-using FusionLibrary.Extensions;
+using GTA;
+using GTA.Math;
+using GTA.Native;
+using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -91,7 +87,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Properties.TorqueMultiplier *= 4;
                 _handleBoost = true;
 
-                Events.SetSimulateSpeed?.Invoke(64, 10);
+                Events.SetSimulateSpeed?.Invoke(64, 8);
             }
         }
 
@@ -109,9 +105,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Vehicle == null) 
                 return;
 
-            _handleBoost = false;
-
             Properties.IsRemoteControlled = true;
+
+            if (_handleBoost)
+            {                
+                Events.SetSimulateSpeed?.Invoke(0, 0);
+                _handleBoost = false;
+            }
 
             Clone = PlayerSwitch.CreatePedAndSwitch(out TimeMachine.OriginalPed, Utils.PlayerPed.Position, Utils.PlayerPed.Heading, true);
 

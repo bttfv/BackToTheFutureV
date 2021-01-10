@@ -1,22 +1,22 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using BackToTheFutureV.Menu;
+using BackToTheFutureV.Players;
+using BackToTheFutureV.Settings;
+using BackToTheFutureV.Story;
+using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.Handlers;
+using BackToTheFutureV.TimeMachineClasses.RC;
+using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
+using FusionLibrary;
 using GTA;
 using GTA.Native;
-using BackToTheFutureV.Utility;
-using BackToTheFutureV.Story;
-using Screen = GTA.UI.Screen;
-using BackToTheFutureV.Settings;
-using System.Net.Sockets;
-using System.Net;
-using System.Text;
 using KlangRageAudioLibrary;
-using BackToTheFutureV.Vehicles;
-using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.RC;
-using BackToTheFutureV.Players;
-using BackToTheFutureV.TimeMachineClasses.Handlers;
-using BackToTheFutureV.Menu;
-using FusionLibrary;
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Windows.Forms;
+using Screen = GTA.UI.Screen;
 
 namespace BackToTheFutureV
 {
@@ -136,7 +136,7 @@ namespace BackToTheFutureV
             if (Utils.HideGUI)
             {
                 ExternalHUD.IsHUDVisible = false;
-                NetworkHUD.IsHUDVisible = false;
+                RemoteHUD.IsHUDVisible = false;
             }
 
             CustomTrainHandler.Process();

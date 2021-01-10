@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing;
-using BackToTheFutureV.GUI;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using GTA;
-using GTA.Math;
-using BackToTheFutureV.TimeMachineClasses.Handlers;
-using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

@@ -1,14 +1,10 @@
 ﻿using FusionLibrary;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimeCircuits;
 
 namespace BackToTheFutureV
 {
-    public static class NetworkHUD
+    public static class RemoteHUD
     {
         private const int port = 1985;
 

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using BackToTheFutureV.TimeMachineClasses;
+﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
-using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using GTA.Native;
-using GTA.UI;
+using System;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Players

@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Drawing;
-using GTA;
-using GTA.Math;
-using System.Globalization;
-using BackToTheFutureV.GUI;
-using BackToTheFutureV.TimeMachineClasses.RC;
-using BackToTheFutureV.TimeMachineClasses;
-using System.Net;
-using BackToTheFutureV.Utility;
-using System.Runtime.InteropServices.WindowsRuntime;
-using GTA.NaturalMotion;
-using System.Web;
+﻿using BackToTheFutureV.GUI;
 using BackToTheFutureV.Settings;
+using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.RC;
+using GTA;
+using System;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
 
 namespace BackToTheFutureV
 {

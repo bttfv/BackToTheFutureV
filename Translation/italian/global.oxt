@@ -263,4 +263,17 @@
 	BTTFV_Menu_PhotoMenu_LightningStrike_Description = L'auto viene colpita da un fulmine.
 	BTTFV_Menu_PhotoMenu_StrikeDelay = Ritardo del fulmine
 	BTTFV_Menu_PhotoMenu_StrikeDelay_Description = Imposta il ritardo del fulmine in secondi (max 60).
+	BTTFV_Input_SpawnMenu_Hood = Cofano motore
+	BTTFV_Input_SpawnMenu_Hood_Description = Cambia il tipo di cofano motore.
+	BTTFV_Input_SpawnMenu_Hood_Stock = Originale
+	BTTFV_Input_SpawnMenu_Hood_1983 = 1983
+	BTTFV_Input_SpawnMenu_Hood_1981 = 1981 con tappo gas
+	BTTFV_TCD_Edit_External = HUD esterno
+	BTTFV_TCD_Edit_External_Description = Abilita/disabilita l'HUD esterno.
+	BTTFV_TCD_Edit_Remote = HUD remoto
+	BTTFV_TCD_Edit_Remote_Description = Abilita/disabilita l'HUD remoto.
+	BTTFV_TCD_Edit_HideHUD = Nascondi HUD nel gioco
+	BTTFV_TCD_Edit_HideHUD_Description = Nasconde/mostra l'HUD nel gioco.
+	BTTFV_Menu_WaybackSystem = Sistema Wayback
+	BTTFV_Menu_WaybackSystem_Description = *SPERIMENTALE* Abilita (a tuo rischio) se vuoi vedere te stesso nel passato. Attualmente registra soltanto i movimenti delle macchine del tempo.
 }

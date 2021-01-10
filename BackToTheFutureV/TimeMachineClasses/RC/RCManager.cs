@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FusionLibrary;
 using GTA;
-using GTA.UI;
-using System.Drawing;
-using LemonUI;
-using System.Windows.Forms;
-using Screen = GTA.UI.Screen;
-using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.Handlers;
 using LemonUI.TimerBars;
-using FusionLibrary;
 
 namespace BackToTheFutureV.TimeMachineClasses.RC
 {

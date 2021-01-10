@@ -1,12 +1,7 @@
 ﻿using BackToTheFutureV.GUI;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Screen = GTA.UI.Screen;
 

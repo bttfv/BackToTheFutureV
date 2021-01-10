@@ -104,7 +104,6 @@
     <Compile Include="Menu\SoundsSettingsMenu.cs" />
     <Compile Include="Menu\SettingsMenu.cs" />
     <Compile Include="Menu\TimeMachineMenu.cs" />
-    <Compile Include="Utility\NetworkHUD.cs" />
     <Compile Include="Players\FireTrail.cs" />
     <Compile Include="Players\FireTrailsHandler.cs" />
     <Compile Include="Players\SparkPlayer.cs" />
@@ -158,6 +157,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\ModSettings.cs" />
     <Compile Include="Settings\TCDEditer.cs" />
+    <Compile Include="Utility\RemoteHUD.cs" />
     <Compile Include="Utility\WaybackMachine.cs" />
     <Compile Include="Utility\WaybackMachineHandler.cs" />
     <Compile Include="Vehicles\BaseMods.cs" />
@@ -188,11 +188,11 @@
       <Project>{e52db215-0aa9-453a-b5f3-91f3ff35c1d9}</Project>
       <Name>KlangRageAudioLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RogerSierra\RogersSierraRailway.vbproj">
+    <ProjectReference Include="..\RogersSierra\RogersSierraRailway.vbproj">
       <Project>{ef32b843-71f4-4af6-93e3-bec5f727c9a3}</Project>
       <Name>RogersSierraRailway</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeCircuits\TimeCircuits.Core\TimeCircuits.Core.csproj">
+    <ProjectReference Include="..\BackToTheFutureV.HUD\BackToTheFutureV.HUD.Core\BackToTheFutureV.HUD.Core.csproj">
       <Project>{b32480f2-767c-4426-afa1-ff9511c612d9}</Project>
       <Name>TimeCircuits.Core</Name>
     </ProjectReference>

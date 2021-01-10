@@ -25,7 +25,7 @@ namespace BackToTheFutureV
             if (IsActive)
                 Stop();
 
-            TimeCircuits = new TimeCircuits.Display();
+            TimeCircuits = new Display();
 
             TimeCircuits.Exiting += TimeCircuits_Exiting;
 

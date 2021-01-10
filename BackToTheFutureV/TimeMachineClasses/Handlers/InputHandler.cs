@@ -1,16 +1,13 @@
-﻿using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.Settings;
+using BackToTheFutureV.Utility;
+using FusionLibrary;
 using GTA;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using BackToTheFutureV.Settings;
-using KlangRageAudioLibrary;
-using FusionLibrary;
-using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
-{ 
+{
     public class InputHandler : Handler
     {
         public bool InputMode { get; private set; }

@@ -1,13 +1,8 @@
-﻿using System.Windows.Forms;
-using BackToTheFutureV.Players;
-using BackToTheFutureV.Utility;
-using BackToTheFutureV.Vehicles;
+﻿using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
-using GTA.Math;
 using GTA.Native;
-using KlangRageAudioLibrary;
-using Screen = GTA.UI.Screen;
+using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -204,10 +199,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Sounds.Ice?.Stop(!Vehicle.IsVisible);
             Sounds.IceVents?.Stop(!Vehicle.IsVisible);
 
-            //foreach (var waterDrop in Particles?.IceWaterDrops)
-            //    waterDrop.StopNaturally();
+            foreach (var waterDrop in Particles?.IceWaterDrops)
+                waterDrop.StopNaturally();
 
-            //Particles?.IceSmoke?.StopNaturally();
+            Particles?.IceSmoke?.StopNaturally();
         }
 
         public override void Dispose()

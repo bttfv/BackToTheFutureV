@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BackToTheFutureV.GUI;
+﻿using BackToTheFutureV.GUI;
 using BackToTheFutureV.Settings;
 using FusionLibrary;
 using GTA;
 using LemonUI.Elements;
 using LemonUI.Menus;
+using System;
+using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
@@ -36,9 +32,9 @@ namespace BackToTheFutureV.Menu
 
             Add(changeTCD = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TCDEditMode"), Game.GetLocalizedString("BTTFV_Menu_TCDEditMode_Description")));
 
-            Add(useExternalTCD = new NativeCheckboxItem("External HUD", "", ModSettings.ExternalTCDToggle));
-            Add(useNetworkTCD = new NativeCheckboxItem("Network HUD", "", ModSettings.NetworkTCDToggle));
-            Add(hideIngameTCD = new NativeCheckboxItem("Hide in-game HUD", "", ModSettings.HideIngameTCDToggle));
+            Add(useExternalTCD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_External"), Game.GetLocalizedString("BTTFV_TCD_Edit_External_Description"), ModSettings.ExternalTCDToggle));
+            Add(useNetworkTCD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_Remote"), Game.GetLocalizedString("BTTFV_TCD_Edit_Remote_Description"), ModSettings.NetworkTCDToggle));
+            Add(hideIngameTCD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_HideHUD"), Game.GetLocalizedString("BTTFV_TCD_Edit_HideHUD_Description"), ModSettings.HideIngameTCDToggle));
 
             Add(resetToDefaultTCD = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TCDReset"), Game.GetLocalizedString("BTTFV_Menu_TCDReset_Description")));
         }
@@ -51,7 +47,7 @@ namespace BackToTheFutureV.Menu
             if (sender == useNetworkTCD)
             {
                 if (!Checked)
-                    NetworkHUD.SetOff();
+                    RemoteHUD.SetOff();
 
                 ModSettings.NetworkTCDToggle = Checked;
             }

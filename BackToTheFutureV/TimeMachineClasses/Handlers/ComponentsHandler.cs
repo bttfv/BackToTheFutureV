@@ -1,12 +1,10 @@
-﻿using System.Windows.Forms;
-using GTA;
-using GTA.Math;
+﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.Utility;
-
-using BackToTheFutureV.Settings;
-using GTA.Native;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
+using GTA;
+using GTA.Math;
+using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

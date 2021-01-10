@@ -1,14 +1,12 @@
-﻿
-using BackToTheFutureV.Players;
+﻿using BackToTheFutureV.Players;
+using BackToTheFutureV.Settings;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
+using FusionLibrary;
 using GTA;
 using GTA.Math;
 using System.Windows.Forms;
-using BackToTheFutureV.Settings;
-using KlangRageAudioLibrary;
-using BackToTheFutureV.Vehicles;
-using FusionLibrary;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -273,7 +271,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return;
 
                 ExternalHUD.Empty = isOn ? TimeCircuits.EmptyType.On : TimeCircuits.EmptyType.Off;
-                NetworkHUD.Empty = isOn ? TimeCircuits.EmptyType.On : TimeCircuits.EmptyType.Off;
+                RemoteHUD.Empty = isOn ? TimeCircuits.EmptyType.On : TimeCircuits.EmptyType.Off;
             }
 
             if (Vehicle.IsVisible == false)
@@ -299,7 +297,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             ScaleformsHandler.GUI.CallFunction("HIDE_EMPTY");
             
             ExternalHUD.Empty = TimeCircuits.EmptyType.Hide;
-            NetworkHUD.Empty = TimeCircuits.EmptyType.Hide;
+            RemoteHUD.Empty = TimeCircuits.EmptyType.Hide;
         }
     }
 }

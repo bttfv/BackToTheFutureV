@@ -1,21 +1,16 @@
-﻿using BackToTheFutureV.GUI;
-using BackToTheFutureV.Players;
+﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
+using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
 using KlangRageAudioLibrary;
+using RogersSierraRailway;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
-using RogersSierraRailway;
-using BackToTheFutureV.TimeMachineClasses;
-using GTA.UI;
-using FusionLibrary;
 using static FusionLibrary.Enums;
-using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.Story
 {

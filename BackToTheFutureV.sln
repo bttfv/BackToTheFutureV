@@ -7,15 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackToTheFutureV", "BackToT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlangRageAudioLibrary", "KlangRageAudioLibrary\KlangRageAudioLibrary.csproj", "{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RogersSierraRailway", "RogerSierra\RogersSierraRailway.vbproj", "{EF32B843-71F4-4AF6-93E3-BEC5F727C9A3}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RogersSierraRailway", "RogersSierra\RogersSierraRailway.vbproj", "{EF32B843-71F4-4AF6-93E3-BEC5F727C9A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FusionLibrary", "FusionLibrary\FusionLibrary.csproj", "{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeCircuits.Core", "TimeCircuits\TimeCircuits.Core\TimeCircuits.Core.csproj", "{B32480F2-767C-4426-AFA1-FF9511C612D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackToTheFutureV.HUD.Core", "BackToTheFutureV.HUD\BackToTheFutureV.HUD.Core\BackToTheFutureV.HUD.Core.csproj", "{B32480F2-767C-4426-AFA1-FF9511C612D9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeCircuits.Desktop", "TimeCircuits\TimeCircuits.Desktop\TimeCircuits.Desktop.csproj", "{D074FECB-F620-4F0B-8F63-F20466D3D533}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackToTheFutureV.HUD.Desktop", "BackToTheFutureV.HUD\BackToTheFutureV.HUD.Desktop\BackToTheFutureV.HUD.Desktop.csproj", "{D074FECB-F620-4F0B-8F63-F20466D3D533}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeCircuits.Android", "TimeCircuits\TimeCircuits.Android\TimeCircuits.Android.csproj", "{07A654CD-A801-4CE2-9E42-73A2210D43B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackToTheFutureV.HUD.Android", "BackToTheFutureV.HUD\BackToTheFutureV.HUD.Android\BackToTheFutureV.HUD.Android.csproj", "{07A654CD-A801-4CE2-9E42-73A2210D43B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

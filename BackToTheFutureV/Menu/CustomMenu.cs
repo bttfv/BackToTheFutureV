@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BackToTheFutureV.GUI;
-using BackToTheFutureV.TimeMachineClasses;
+﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.Math;
 using LemonUI.Elements;
 using LemonUI.Menus;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Menu
@@ -35,13 +30,13 @@ namespace BackToTheFutureV.Menu
         private NativeItem _saveConf;
         private NativeItem _confirm;
 
-        private readonly List<string> _listTypes = new List<string> { "BTTF1", "BTTF2", "BTTF3" };
+        private readonly List<string> _listTypes = new List<string> { Game.GetLocalizedString("BTTFV_Menu_BTTF1"), Game.GetLocalizedString("BTTFV_Menu_BTTF2"), Game.GetLocalizedString("BTTFV_Menu_BTTF3") };
         private readonly List<string> _listPowerSources = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_MrFusion"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Nuclear") };
         private readonly List<string> _listWheelTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_RedWhite"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Railroads") };
         private readonly List<string> _listPlateTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Empty"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Outatime"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Futuristic"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_NoTime"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Timeless"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Timeless2"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_DMCFactory"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_DMCFactory2") };
         private readonly List<string> _listExhaustTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_BTTF"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_None") };
         private readonly List<string> _listSuspensionsTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontLowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontAndRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontLiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontAndRear") };
-        private readonly List<string> _listHoodTypes = new List<string> { "Stock", "1983", "1981 w/ gas cap" };
+        private readonly List<string> _listHoodTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hood_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hood_1983"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hood_1981") };
 
         private bool _save = false;
         private TimeMachine _tempTimeMachine;
@@ -74,7 +69,7 @@ namespace BackToTheFutureV.Menu
             Add(_suspensions = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_Description"), _listSuspensionsTypes.ToArray()));
             _suspensions.ItemChanged += ModList_ItemChanged;
 
-            Add(_hood = new NativeListItem<string>("Hood", "", _listHoodTypes.ToArray()));
+            Add(_hood = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hood"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hood_Description"), _listHoodTypes.ToArray()));
             _hood.ItemChanged += ModList_ItemChanged;
 
             Add(_saveConf = new NativeItem(Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Save"), Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Save_Description")));

@@ -1,12 +1,7 @@
-﻿using System;
+﻿using FusionLibrary;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
-using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
-using GTA.Math;
-using GTA.Native;
-using GTA.UI;
 
 namespace BackToTheFutureV.GUI
 {
@@ -49,7 +44,7 @@ namespace BackToTheFutureV.GUI
             if(toggle)
             {
                 ExternalHUD.SetDate(type, dates[type]);
-                NetworkHUD.SetDate(type, dates[type]);
+                RemoteHUD.SetDate(type, dates[type]);
 
                 SetDate(type, dates[type]);
 
@@ -94,7 +89,7 @@ namespace BackToTheFutureV.GUI
             }
 
             ExternalHUD.SetVisible(type, toggle, month, day, year, hour, minute, amPm);
-            NetworkHUD.SetVisible(type, toggle, month, day, year, hour, minute, amPm);
+            RemoteHUD.SetVisible(type, toggle, month, day, year, hour, minute, amPm);
         }
 
         private string GetStringFromBackgroundType(TCDBackground background)

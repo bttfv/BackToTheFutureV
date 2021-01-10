@@ -1,15 +1,8 @@
-﻿using BackToTheFutureV.Story;
-using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using BackToTheFutureV.Utility;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
@@ -101,9 +94,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Step++;
                     break;
                 case 5:
-                    Properties.DestinationTime = BTTFImportantDates.GetRandom();
-                    Events.OnDestinationDateChange?.Invoke();
-
+                    Events.SimulateInputDate?.Invoke(BTTFImportantDates.GetRandom());
+                    
                     Step++;
                     break;
                 case 6:

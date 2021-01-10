@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using BackToTheFutureV.GUI;
-using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
-using BackToTheFutureV.Vehicles;
+﻿using BackToTheFutureV.TimeMachineClasses;
 using FusionLibrary;
 using GTA;
 using LemonUI.Elements;
 using LemonUI.Menus;
+using System;
+using System.Drawing;
 using static FusionLibrary.Enums;
 using Control = GTA.Control;
 

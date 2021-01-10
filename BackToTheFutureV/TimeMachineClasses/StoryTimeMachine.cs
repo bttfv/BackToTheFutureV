@@ -1,16 +1,10 @@
-﻿using BackToTheFutureV.Utility;
-using BackToTheFutureV.Vehicles;
+﻿using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
 using GTA.Math;
 using GTA.UI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses

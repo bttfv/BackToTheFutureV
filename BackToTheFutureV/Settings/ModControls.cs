@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GTA;
 using System.Windows.Forms;
-using GTA;
-using KlangRageAudioLibrary;
 using Control = GTA.Control;
 
 namespace BackToTheFutureV.Settings
@@ -28,8 +22,7 @@ namespace BackToTheFutureV.Settings
         public static Keys TCToggle { get; set; } = Keys.Add;
         public static Keys CutsceneToggle { get; set; } = Keys.Multiply;
         public static Keys InputToggle { get; set; } = Keys.Divide;
-        public static Keys ExternalTCDToggle { get; set; } = Keys.Cancel;
-
+        
         public static void Reset()
         {
             UseControlForMainMenu = true;
@@ -45,7 +38,6 @@ namespace BackToTheFutureV.Settings
             TCToggle = Keys.Add;
             CutsceneToggle = Keys.Multiply;
             InputToggle = Keys.Divide;
-            ExternalTCDToggle = Keys.Cancel;
 
             ModSettings.SaveSettings();
         }
@@ -68,7 +60,6 @@ namespace BackToTheFutureV.Settings
             TCToggle = settings.GetValue("Controls", "TCToggle", TCToggle);
             CutsceneToggle = settings.GetValue("Controls", "CutsceneToggle", CutsceneToggle);
             InputToggle = settings.GetValue("Controls", "InputToggle", InputToggle);
-            ExternalTCDToggle = settings.GetValue("Controls", "ExternalTCDToggle", ExternalTCDToggle);
 
             SaveControls(settings);
         }
@@ -91,7 +82,6 @@ namespace BackToTheFutureV.Settings
             settings.SetValue("Controls", "TCToggle", TCToggle);
             settings.SetValue("Controls", "CutsceneToggle", CutsceneToggle);
             settings.SetValue("Controls", "InputToggle", InputToggle);
-            settings.SetValue("Controls", "ExternalTCDToggle", ExternalTCDToggle);
 
             settings.Save();
         }

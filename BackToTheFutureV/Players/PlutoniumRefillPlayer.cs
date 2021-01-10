@@ -1,9 +1,5 @@
-﻿using BackToTheFutureV.Utility;
-using GTA;
-using GTA.Math;
-using GTA.UI;
-using BackToTheFutureV.TimeMachineClasses;
-using System.Threading.Tasks;
+﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.Utility;
 using FusionLibrary;
 using static FusionLibrary.Enums;
 

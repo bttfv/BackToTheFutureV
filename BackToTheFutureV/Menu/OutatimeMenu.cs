@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BackToTheFutureV.GUI;
-using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.RC;
+﻿using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
 using GTA.Math;
 using LemonUI.Elements;
 using LemonUI.Menus;
+using System;
+using System.Drawing;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Menu
@@ -54,8 +48,8 @@ namespace BackToTheFutureV.Menu
         private void UpdateInfos()
         {
             TypeDescription.Title = $"{Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type")}: {CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType}";
-            DestinationTimeDescription.Title = Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy HH:mm");
-            LastTimeDescription.Title = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy HH:mm");
+            DestinationTimeDescription.Title = Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt");
+            LastTimeDescription.Title = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy hh:mm tt");
 
             Spawned.Checked = CurrentRemoteTimeMachine.Spawned;
 

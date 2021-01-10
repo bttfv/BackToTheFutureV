@@ -5,7 +5,6 @@ using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Utility

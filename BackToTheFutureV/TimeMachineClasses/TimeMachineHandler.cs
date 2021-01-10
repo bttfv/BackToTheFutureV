@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.TimeMachineClasses.Handlers;
-using BackToTheFutureV.TimeMachineClasses.RC;
+﻿using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
@@ -9,8 +8,6 @@ using GTA.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
 
@@ -354,8 +351,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (!ExternalHUD.IsHUDVisible)
                     ExternalHUD.IsHUDVisible = true;
 
-                if (!NetworkHUD.IsHUDVisible)
-                    NetworkHUD.IsHUDVisible = true;
+                if (!RemoteHUD.IsHUDVisible)
+                    RemoteHUD.IsHUDVisible = true;
 
                 return;
             }
@@ -365,8 +362,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (ExternalHUD.IsHUDVisible)
                     ExternalHUD.SetOff();
 
-                if (NetworkHUD.IsHUDVisible)
-                    NetworkHUD.SetOff();
+                if (RemoteHUD.IsHUDVisible)
+                    RemoteHUD.SetOff();
             }
 
             CurrentTimeMachine = null;

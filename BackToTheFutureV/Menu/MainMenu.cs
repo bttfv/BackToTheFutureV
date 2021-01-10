@@ -1,20 +1,17 @@
-﻿using GTA;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LemonUI.Menus;
-using BackToTheFutureV.Vehicles;
-using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
+using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
+using FusionLibrary;
+using FusionLibrary.Extensions;
+using GTA;
 using GTA.UI;
 using LemonUI.Elements;
+using LemonUI.Menus;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
-using FusionLibrary;
 using static FusionLibrary.Enums;
-using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.Menu
 {
@@ -147,8 +144,11 @@ namespace BackToTheFutureV.Menu
                     timeMachine = TimeMachineHandler.Create(SpawnFlags.WarpPlayer | SpawnFlags.New, wormholeType);
 
                 if (spawnBTTF.SelectedIndex == 2)
+                {
                     timeMachine.Mods.Hook = HookState.OnDoor;
-
+                    timeMachine.Mods.Plate = PlateType.Empty;
+                }
+                    
                 if (spawnBTTF.SelectedIndex == 5)
                     timeMachine.Mods.Wheel = WheelType.RailroadInvisible;
             }

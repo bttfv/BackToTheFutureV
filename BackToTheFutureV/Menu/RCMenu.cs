@@ -1,17 +1,13 @@
-﻿using GTA;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LemonUI.Menus;
-using BackToTheFutureV.TimeMachineClasses;
-using GTA.Native;
+﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.RC;
-using GTA.Math;
-using System.Drawing;
-using LemonUI.Elements;
 using FusionLibrary;
+using GTA;
+using GTA.Math;
+using GTA.Native;
+using LemonUI.Elements;
+using LemonUI.Menus;
+using System;
+using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
@@ -81,7 +77,7 @@ namespace BackToTheFutureV.Menu
         {
             FuelChamberDescription.Checked = CurrentTimeMachine.Properties.IsFueled;
             TimeCircuitsOnDescription.Checked = CurrentTimeMachine.Properties.AreTimeCircuitsOn;
-            DestinationTimeDescription.Title = $"{Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime")} {CurrentTimeMachine.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm")}";
+            DestinationTimeDescription.Title = $"{Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime")} {CurrentTimeMachine.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt")}";
 
             float dist = CurrentTimeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position);
 

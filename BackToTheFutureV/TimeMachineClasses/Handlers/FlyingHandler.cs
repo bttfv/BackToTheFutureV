@@ -1,19 +1,15 @@
 ﻿using BackToTheFutureV.Players;
+using BackToTheFutureV.Settings;
 using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
+using FusionLibrary;
+using FusionLibrary.Extensions;
+using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using KlangRageAudioLibrary;
 using Control = GTA.Control;
-using BackToTheFutureV.Vehicles;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using GTA.UI;
-using BackToTheFutureV.Settings;
-using FusionLibrary;
-using FusionLibrary.Memory;
-using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

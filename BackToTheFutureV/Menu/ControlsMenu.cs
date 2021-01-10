@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using BackToTheFutureV.GUI;
-using BackToTheFutureV.Settings;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.Settings;
 using FusionLibrary;
 using GTA;
-using GTA.UI;
-using LemonUI.Elements;
 using LemonUI.Menus;
-using Control = GTA.Control;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BackToTheFutureV.Menu
 {

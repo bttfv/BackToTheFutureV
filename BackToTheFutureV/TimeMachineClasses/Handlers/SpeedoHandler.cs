@@ -1,17 +1,10 @@
-﻿using System.Windows.Forms;
-using System.Drawing;
-using BackToTheFutureV.GUI;
-using GTA;
-using GTA.Math;
-
-using BackToTheFutureV.Utility;
-using Screen = GTA.UI.Screen;
-using BackToTheFutureV.Settings;
-using KlangRageAudioLibrary;
-using FusionLibrary;
-using static FusionLibrary.Enums;
-using FusionLibrary.Extensions;
+﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using FusionLibrary;
+using FusionLibrary.Extensions;
+using GTA;
+using System.Windows.Forms;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -108,7 +101,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2);
 
                     ExternalHUD.Speed = mphSpeed;
-                    NetworkHUD.Speed = mphSpeed;
+                    RemoteHUD.Speed = mphSpeed;
                     
                     if (!TcdEditer.IsEditing)
                         UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2);

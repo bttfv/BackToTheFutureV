@@ -1,15 +1,14 @@
-﻿using System;
+﻿using BackToTheFutureV.Story;
 using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
+using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
-using System.Collections.Generic;
+using System;
 using System.Windows.Forms;
-using BackToTheFutureV.Story;
-using BackToTheFutureV.Vehicles;
-using FusionLibrary;
 using static FusionLibrary.Enums;
-using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

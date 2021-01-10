@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Story;
-using BackToTheFutureV.TimeMachineClasses.Handlers;
+﻿using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
@@ -10,11 +9,7 @@ using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
 
@@ -126,9 +121,6 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 VehicleBone.TryGetForVehicle(Vehicle, "suspension_lf", out boneLf);
                 VehicleBone.TryGetForVehicle(Vehicle, "suspension_rf", out boneRf);
-
-                //leftSuspesionOffset = boneLf.OriginalTranslation;
-                //rightSuspesionOffset = boneRf.OriginalTranslation;
 
                 leftSuspesionOffset = Vehicle.Bones["suspension_lf"].GetRelativeOffsetPosition(new Vector3(0.025f, 0, 0.005f));
                 rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.03f, 0, 0.005f));

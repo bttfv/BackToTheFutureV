@@ -1,13 +1,12 @@
-﻿using System;
-using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.Utility;
 using FusionLibrary;
 using GTA;
 using KlangRageAudioLibrary;
+using System;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.RC
-{    
+{
     public class RemoteTimeMachine
     {
         public TimeMachineClone TimeMachineClone { get; }

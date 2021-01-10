@@ -1,10 +1,5 @@
-﻿using System;
+﻿using FusionLibrary;
 using System.Collections.Generic;
-using System.Linq;
-using FusionLibrary;
-using GTA;
-using GTA.Native;
-using GTA.UI;
 
 namespace BackToTheFutureV.Utility
 {

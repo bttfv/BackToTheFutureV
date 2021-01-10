@@ -1,12 +1,12 @@
 [submodule "KlangRageAudioLibrary"]
 	path = KlangRageAudioLibrary
 	url = https://github.com/bttfv/KlangRageAudioLibrary
-[submodule "RogerSierra"]
-	path = RogerSierra
-	url = https://github.com/bttfv/RogerSierra
 [submodule "FusionLibrary"]
 	path = FusionLibrary
 	url = https://github.com/bttfv/FusionLibrary
-[submodule "TimeCircuits"]
-	path = TimeCircuits
-	url = https://github.com/bttfv/TimeCircuits
+[submodule "RogersSierra"]
+	path = RogersSierra
+	url = https://github.com/bttfv/RogersSierra
+[submodule "BackToTheFutureV.HUD"]
+	path = BackToTheFutureV.HUD
+	url = https://github.com/bttfv/BackToTheFutureV.HUD
