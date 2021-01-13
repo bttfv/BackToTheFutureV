@@ -120,7 +120,7 @@ namespace BackToTheFutureV
 
                 Utils.RandomTrains = ModSettings.RandomTrains;
 
-                TimeHandler.TrafficVolumeYearBased = true;
+                //TimeHandler.TrafficVolumeYearBased = true;
 
                 StartListening();
 

@@ -460,6 +460,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
             ScaleformsHandler.GUI.Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / GTA.UI.Screen.AspectRatio, ModSettings.TCDScale));
+
+            ScaleformsHandler.SID.Random();
+            ScaleformsHandler.SID.Draw();
         }
 
         private void UpdateCurrentTimeDisplay()

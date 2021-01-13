@@ -105,7 +105,7 @@ namespace BackToTheFutureV.Menu
 
         public override void Tick()
         {
-            convertIntoTimeMachine.Enabled = Utils.PlayerVehicle.NotNullAndExists() && !Utils.PlayerVehicle.IsTimeMachine();
+            convertIntoTimeMachine.Enabled = Utils.PlayerVehicle.IsFunctioning() && !Utils.PlayerVehicle.IsTimeMachine();
 
             outatimeMenu.Enabled = RemoteTimeMachineHandler.TimeMachineCount > 0;
 

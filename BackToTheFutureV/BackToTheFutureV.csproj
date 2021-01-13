@@ -87,6 +87,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\SIDScaleform.cs" />
     <Compile Include="Utility\ExternalHUD.cs" />
     <Compile Include="GUI\TCDRowScaleform.cs" />
     <Compile Include="GUI\TimeCircuitsScaleform.cs" />

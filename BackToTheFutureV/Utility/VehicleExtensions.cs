@@ -26,6 +26,11 @@ namespace BackToTheFutureV.Utility
             return timeMachine != null && timeMachine.Vehicle.NotNullAndExists();
         }
 
+        public static bool IsFunctioning(this TimeMachine timeMachine)
+        {
+            return timeMachine != null && timeMachine.Vehicle.IsFunctioning();
+        }
+
         public static bool IsTimeMachine(this Vehicle vehicle)
         {
             return TimeMachineHandler.IsVehicleATimeMachine(vehicle);

@@ -5,6 +5,7 @@ using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -331,7 +332,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void UpdateClosestTimeMachine()
         {
-            if (Utils.PlayerVehicle != null && CurrentTimeMachine != null && CurrentTimeMachine.Vehicle == Utils.PlayerVehicle)
+            if (Utils.PlayerVehicle.IsFunctioning() && CurrentTimeMachine.IsFunctioning() && CurrentTimeMachine.Vehicle == Utils.PlayerVehicle)
             {
                 if (ClosestTimeMachine != CurrentTimeMachine)
                 {
@@ -354,16 +355,21 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (!RemoteHUD.IsHUDVisible)
                     RemoteHUD.IsHUDVisible = true;
 
+                if (CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
+                    Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, false);
+
                 return;
             }
 
-            if (CurrentTimeMachine != null && Utils.PlayerVehicle == null)
+            if (CurrentTimeMachine.IsFunctioning() && !Utils.PlayerVehicle.IsFunctioning())
             {
                 if (ExternalHUD.IsHUDVisible)
                     ExternalHUD.SetOff();
 
                 if (RemoteHUD.IsHUDVisible)
                     RemoteHUD.SetOff();
+
+                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
             }
 
             CurrentTimeMachine = null;
@@ -402,7 +408,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 return;
             }
                 
-            if (ClosestTimeMachine != null && Utils.PlayerVehicle == ClosestTimeMachine.Vehicle)
+            if (ClosestTimeMachine.IsFunctioning() && Utils.PlayerVehicle == ClosestTimeMachine.Vehicle)
             {
                 CurrentTimeMachine = ClosestTimeMachine;
 

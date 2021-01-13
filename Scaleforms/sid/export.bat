@@ -1,0 +1,1 @@
+gfxexport.exe -strip_images sid.swf

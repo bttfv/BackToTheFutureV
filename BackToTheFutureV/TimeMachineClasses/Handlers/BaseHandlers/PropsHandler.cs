@@ -76,6 +76,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 Duration = 0.25f
             };
 
+            InvisibleProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.InvisibleProp, new Vector3(0, 3.4f, -0.6f), new Vector3(0, 0, 180));
+            InvisibleProp.SpawnProp();
+
             if (!Mods.IsDMC12)
                 return;
 
@@ -104,9 +107,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Time travel
             Coils = new AnimateProp(Vehicle, ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
-            InvisibleProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.InvisibleProp, new Vector3(0, 3.4f, -0.6f), new Vector3(0, 0, 180));
-            InvisibleProp.SpawnProp();
-
+            
             //Plutonium gauge
             GaugeGlow = new AnimateProp(Vehicle, ModelHandler.GaugeGlow, Vector3.Zero, Vector3.Zero);
 

@@ -136,7 +136,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         
                     SetFlyMode(!Properties.AreWheelsInHoverMode);
 
-                    _nextModeChangeAllowed = Game.GameTime + 1500;
+                    _nextModeChangeAllowed = Game.GameTime + 3000;
                 }
             }                
         }
@@ -156,7 +156,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     SetFlyMode(!Properties.AreWheelsInHoverMode);
 
-                    _nextModeChangeAllowed = Game.GameTime + 1500;
+                    _nextModeChangeAllowed = Game.GameTime + 3000;
                 }
             }
         }
@@ -256,10 +256,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             // Process the wheel animations
             Players.HoverModeWheels?.Process();
-
-            Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player.Handle, Utils.PlayerVehicle != Vehicle);
-                
-            if (Vehicle == null || !Vehicle.IsVisible)
+            
+            if (!Vehicle.IsVisible)
                 return;
 
             // Process underbody lights
