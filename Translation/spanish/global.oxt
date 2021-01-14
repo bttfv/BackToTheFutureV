@@ -264,4 +264,19 @@
 	BTTFV_Menu_PhotoMenu_LightningStrike_Description = Forces a lightning strike upon car.
 	BTTFV_Menu_PhotoMenu_StrikeDelay = Strike delay
 	BTTFV_Menu_PhotoMenu_StrikeDelay_Description = Sets the delay for the lightning strike in seconds (max 60).
+	BTTFV_Input_SpawnMenu_Hood = Hood
+	BTTFV_Input_SpawnMenu_Hood_Description = Changes hood type.
+	BTTFV_Input_SpawnMenu_Hood_Stock = Stock
+	BTTFV_Input_SpawnMenu_Hood_1983 = 1983
+	BTTFV_Input_SpawnMenu_Hood_1981 = 1981 w/ gas cap
+	BTTFV_TCD_Edit_External = External HUD
+	BTTFV_TCD_Edit_External_Description = Enable/disable external HUD.
+	BTTFV_TCD_Edit_Remote = Remote HUD
+	BTTFV_TCD_Edit_Remote_Description = Enable/disable remote HUD.
+	BTTFV_TCD_Edit_HideHUD = Hide in-game HUD
+	BTTFV_TCD_Edit_HideHUD_Description = Hide/unhide in-game HUD.
+	BTTFV_Menu_WaybackSystem = Wayback system
+	BTTFV_Menu_WaybackSystem_Description = *EXPERIMENTAL* Enable (at your risk) if you want see your pastself (at the moment system records only time machine's actions).
+	BTTFV_TCD_Edit_HideSID = Hide SID
+	BTTFV_TCD_Edit_HideSID_Description = Hide/unhide SID on in-game HUD.
 }

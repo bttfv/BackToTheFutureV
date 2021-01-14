@@ -46,7 +46,7 @@ namespace BackToTheFutureV.GUI
             _newHeight[column] = height;
             _ledDelay[column] = 0;
 
-            return Math.Abs(height - _currentHeight[column]) * (_minDelay + Utils.Random.Next(-30,31));
+            return Math.Abs(height - _currentHeight[column]) * (_minDelay + Utils.Random.Next(-30, 31));
         }
 
         public void Random(int min = 0, int max = 20)

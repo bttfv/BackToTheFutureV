@@ -276,4 +276,6 @@
 	BTTFV_TCD_Edit_HideHUD_Description = Nasconde/mostra l'HUD nel gioco.
 	BTTFV_Menu_WaybackSystem = Sistema Wayback
 	BTTFV_Menu_WaybackSystem_Description = *SPERIMENTALE* Abilita (a tuo rischio) se vuoi vedere te stesso nel passato. Attualmente registra soltanto i movimenti delle macchine del tempo.
+	BTTFV_TCD_Edit_HideSID = Nascondi SID
+	BTTFV_TCD_Edit_HideSID_Description = Nasconde/mostra il SID nell'HUD del gioco.
 }
