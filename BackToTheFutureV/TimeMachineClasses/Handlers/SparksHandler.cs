@@ -111,11 +111,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (!_hasPlayedDiodeSound && Properties.IsFueled)
                 {
                     Sounds.DiodesGlowing?.Play();
+                    Events.OnSIDReachMax?.Invoke(_playDiodeSoundAt);
                     _hasPlayedDiodeSound = true;
                 }
             }
             else
             {
+                if (_hasPlayedDiodeSound)
+                    _hasPlayedDiodeSound = false;
+
                 if (Players.Wormhole != null && Players.Wormhole.IsPlaying)
                 {
                     Sounds.WormholeInterrupted?.Play();

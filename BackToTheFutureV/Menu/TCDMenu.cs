@@ -15,6 +15,7 @@ namespace BackToTheFutureV.Menu
         private NativeItem changeTCD;
         private NativeItem resetToDefaultTCD;
 
+        private NativeCheckboxItem hideSID;
         private NativeCheckboxItem useExternalTCD;
         private NativeCheckboxItem useNetworkTCD;
         private NativeCheckboxItem hideIngameTCD;
@@ -32,6 +33,7 @@ namespace BackToTheFutureV.Menu
 
             Add(changeTCD = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TCDEditMode"), Game.GetLocalizedString("BTTFV_Menu_TCDEditMode_Description")));
 
+            Add(hideSID = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_HideSID"), Game.GetLocalizedString("BTTFV_TCD_Edit_HideSID_Description"), ModSettings.HideSID));
             Add(useExternalTCD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_External"), Game.GetLocalizedString("BTTFV_TCD_Edit_External_Description"), ModSettings.ExternalTCDToggle));
             Add(useNetworkTCD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_Remote"), Game.GetLocalizedString("BTTFV_TCD_Edit_Remote_Description"), ModSettings.NetworkTCDToggle));
             Add(hideIngameTCD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_HideHUD"), Game.GetLocalizedString("BTTFV_TCD_Edit_HideHUD_Description"), ModSettings.HideIngameTCDToggle));
@@ -54,6 +56,9 @@ namespace BackToTheFutureV.Menu
 
             if (sender == hideIngameTCD)
                 ModSettings.HideIngameTCDToggle = Checked;
+
+            if (sender == hideSID)
+                ModSettings.HideSID = Checked;
 
             ModSettings.SaveSettings();
         }

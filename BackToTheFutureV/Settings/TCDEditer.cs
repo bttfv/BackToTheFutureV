@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.GUI;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary;
 using GTA;
 using GTA.UI;
@@ -25,8 +26,15 @@ namespace BackToTheFutureV.Settings
 
         private static int exitDelay = 500;
 
+        private static PointF origSIDPos;
+        private static float origSIDScale;
+
         private static PointF origPos;
         private static float origScale;
+
+        private static float posSIDX;
+        private static float posSIDY;
+        private static float scaleSID;
 
         private static float posX;
         private static float posY;
@@ -50,6 +58,9 @@ namespace BackToTheFutureV.Settings
         {
             if (!toggle)
             {
+                ModSettings.SIDPosition = origSIDPos;
+                ModSettings.SIDScale = origSIDScale;
+
                 ModSettings.TCDPosition = origPos;
                 ModSettings.TCDScale = origScale;
 
@@ -59,10 +70,17 @@ namespace BackToTheFutureV.Settings
                 return;
             }
 
+            origSIDPos = ModSettings.SIDPosition;
+            origSIDScale = ModSettings.SIDScale;
+
             origPos = ModSettings.TCDPosition;
             origScale = ModSettings.TCDScale;
 
             exitDelay = Game.GameTime + 500;
+
+            posSIDX = origSIDPos.X;
+            posSIDY = origSIDPos.Y;
+            scaleSID = origSIDScale;
 
             posX = origPos.X;
             posY = origPos.Y;
@@ -73,6 +91,9 @@ namespace BackToTheFutureV.Settings
 
         public static void ResetToDefault()
         {
+            ModSettings.SIDPosition = new PointF(0.88f, 0.75f);
+            ModSettings.SIDScale = 0.3f;
+
             ModSettings.TCDPosition = new PointF(0.88f, 0.75f);
             ModSettings.TCDScale = 0.3f;
 
@@ -104,66 +125,81 @@ namespace BackToTheFutureV.Settings
 
             InstrumentalMenu.Render2DFullscreen();
 
-            Preview.Render2D(
-                ModSettings.TCDPosition, 
-                new SizeF(ModSettings.TCDScale * (1501f / 1100f) / Screen.AspectRatio, ModSettings.TCDScale));
+            Preview.Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / Screen.AspectRatio, ModSettings.TCDScale));
+
+            ScaleformsHandler.SID.Render2D(ModSettings.SIDPosition, new SizeF(ModSettings.SIDScale * (800f / 1414f) / Screen.AspectRatio, ModSettings.SIDScale));
 
             Game.DisableAllControlsThisFrame();
+
+            float _posX, _posY, _scale;
+
+            if (Game.IsControlPressed(Control.VehicleHandbrake))
+            {
+                _posX = posSIDX;
+                _posY = posSIDY;
+                _scale = scaleSID;
+            }
+            else
+            {
+                _posX = posX;
+                _posY = posY;
+                _scale = scale;
+            }
 
             // This is a long mess but i dont think there any other way to write it
             if (Game.IsControlPressed(Control.PhoneUp) && Game.IsControlPressed(Control.PhoneRight)) // Up Right
             {
                 multiplier += MultiplierAdd;
-                posY -= Offset * multiplier;
-                posX += Offset * multiplier;
+                _posY -= Offset * multiplier;
+                _posX += Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneUp) && Game.IsControlPressed(Control.PhoneLeft)) // Up Left
             {
                 multiplier += MultiplierAdd;
-                posY -= Offset * multiplier;
-                posX -= Offset * multiplier;
+                _posY -= Offset * multiplier;
+                _posX -= Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneDown) && Game.IsControlPressed(Control.PhoneRight)) // Down Right
             {
                 multiplier += MultiplierAdd;
-                posY += Offset * multiplier;
-                posX += Offset * multiplier;
+                _posY += Offset * multiplier;
+                _posX += Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneDown) && Game.IsControlPressed(Control.PhoneLeft)) // Down Left
             {
                 multiplier += MultiplierAdd;
-                posY += Offset * multiplier;
-                posX -= Offset * multiplier;
+                _posY += Offset * multiplier;
+                _posX -= Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneUp)) // Up
             {
                 multiplier += MultiplierAdd;
-                posY -= Offset * multiplier;
+                _posY -= Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneDown)) // Down
             {
                 multiplier += MultiplierAdd;
-                posY += Offset * multiplier;
+                _posY += Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneLeft)) // Left
             {
                 multiplier += MultiplierAdd;
-                posX -= Offset * multiplier;
+                _posX -= Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneRight)) // Right
             {
                 multiplier += MultiplierAdd;
-                posX += Offset * multiplier;
+                _posX += Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.ReplayFOVDecrease)) // Scale down
             {
                 multiplier += MultiplierAdd;
-                scale -= Offset * multiplier;
+                _scale -= Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.ReplayFOVIncrease)) // Scale up
             {
                 multiplier += MultiplierAdd;
-                scale += Offset * multiplier;
+                _scale += Offset * multiplier;
             }
             else
             {
@@ -172,16 +208,31 @@ namespace BackToTheFutureV.Settings
 
             if (multiplier > MultiplierMax)
                 multiplier = MultiplierMax;
-            
-            ModSettings.TCDPosition = new PointF(posX, posY);
 
-            ModSettings.TCDScale = scale;
+            // Limit for scale
+            if (_scale > 1.0f)
+                _scale = 1.0f;
+            else if (_scale < 0.1f)
+                _scale = 0.1f;
 
-            // Limit for TCD Scale
-            if (ModSettings.TCDScale > 1.0f)
-                ModSettings.TCDScale = 1.0f;
-            else if (ModSettings.TCDScale < 0.1f)
-                ModSettings.TCDScale = 0.1f;
+            if (Game.IsControlPressed(Control.VehicleHandbrake))
+            {
+                posSIDX = _posX;
+                posSIDY = _posY;
+                scaleSID = _scale;
+
+                ModSettings.SIDPosition = new PointF(posSIDX, posSIDY);
+                ModSettings.SIDScale = scaleSID;
+            }
+            else
+            {
+                posX = _posX;
+                posY = _posY;
+                scale = _scale;
+
+                ModSettings.TCDPosition = new PointF(posX, posY);
+                ModSettings.TCDScale = scale;
+            }
 
             // Otherwise game instantly saves changes
             if (Game.GameTime < exitDelay)

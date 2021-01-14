@@ -1,9 +1,7 @@
 ﻿class sid extends MovieClip
 {
 	var globalMC : MovieClip
-	
-	var sidBackground : MovieClip
-	
+
 	var sidLeds : Array = [10];
 	
 	// Constructor
@@ -17,42 +15,48 @@
 		
 		// Save ref to global movie clip
 		this.globalMC = globalMovieClip;
-		
-		this.sidBackground = this.globalMC.attachMovie("sidBackground", "sidBackground", this.globalMC.getNextHighestDepth());
-		sidBackground.stop();
 				
-		for (var column = 0;column < 20;column++) 
+		for (var column = 0;column < 10;column++) 
 		{
 			sidLeds[column] = Array(20);
 			
-			for (var i=0; i < 13;i++) 
+			var ledX = 152 + column * 49.6;
+			var ledY = 972;
+			var ledYOff = 49.3;
+			
+			for (var i=0; i < 14;i++) 
 			{
 				sidLeds[column][i] = this.globalMC.attachMovie("sidLedGreen", "ledCol" + column + "Row" + i, this.globalMC.getNextHighestDepth());
 			
-				sidLeds[column][i].stop();
-				sidLeds[column][i]._x = 82 + column * 25.6;
-				sidLeds[column][i]._y = 507 - i * 25.5;			
+				sidLeds[column][i].gotoAndStop(1);
+				sidLeds[column][i]._x = ledX;
+				sidLeds[column][i]._y = ledY - i * ledYOff;			
 			}
 		
-			for (var i=13; i < 19;i++) 
+			for (var i=14; i < 19;i++) 
 			{
 				sidLeds[column][i] = this.globalMC.attachMovie("sidLedYellow", "ledCol" + column + "Row" + i, this.globalMC.getNextHighestDepth());
 			
-				sidLeds[column][i].stop();
-				sidLeds[column][i]._x = 82 + column * 25.6;
-				sidLeds[column][i]._y = 507 - i * 25.5;
+				sidLeds[column][i].gotoAndStop(1);
+				sidLeds[column][i]._x = ledX
+				sidLeds[column][i]._y = ledY - i * ledYOff;
 			}
 		
 			sidLeds[column][19] = this.globalMC.attachMovie("sidLedRed", "ledCol" + column + "Row" + i, this.globalMC.getNextHighestDepth());
 			
-			sidLeds[column][19].stop();
-			sidLeds[column][19]._x = 82 + column * 25.6;
-			sidLeds[column][19]._y = 507 - 19 * 25.5;	
+			sidLeds[column][19].gotoAndStop(1);
+			sidLeds[column][19]._x = ledX;
+			sidLeds[column][19]._y = ledY - 19 * ledYOff;	
 		}
 	}
 	
 	function setLed(column, row, _state) 
 	{
-		sidLeds[column][row].gotoAndStop(_state + 1);
+		sidLeds[column][row].gotoAndStop(1);
+		
+		if (_state == 1) 
+		{
+			sidLeds[column][row].gotoAndStop(2);
+		}			
 	}
 }

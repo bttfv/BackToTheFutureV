@@ -111,6 +111,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Mods.IsDMC12)
             {
+                registeredHandlers.Add("SIDHandler", new SIDHandler(this));
                 registeredHandlers.Add("FluxCapacitorHandler", new FluxCapacitorHandler(this));
                 registeredHandlers.Add("FreezeHandler", new FreezeHandler(this));
                 registeredHandlers.Add("TFCHandler", new TFCHandler(this));

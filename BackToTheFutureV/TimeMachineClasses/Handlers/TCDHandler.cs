@@ -308,6 +308,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 presentSlot.SetVisible(false);
                 presentSlot.SetVisibleAt(true, 500, 600);
 
+                ScaleformsHandler.SID.SetAllState(true);
+
                 nextCheckGlitch = Game.GameTime + 30000;
             }
             else
@@ -325,6 +327,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 Props.TickingDiodes?.Delete();
                 Props.TickingDiodesOff?.SpawnProp();
+
+                ScaleformsHandler.SID.SetAllState(false);
             }
         }
 
@@ -419,6 +423,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             previousSlot.Update();
             presentSlot.Update();
 
+            if (!ModSettings.HideSID || !Mods.IsDMC12)
+                ScaleformsHandler.SID3D?.Draw3D();
+
             if (!ModSettings.HideIngameTCDToggle)
                 DrawGUI();
 
@@ -461,8 +468,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
             ScaleformsHandler.GUI.Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / GTA.UI.Screen.AspectRatio, ModSettings.TCDScale));
 
-            ScaleformsHandler.SID.Random();
-            ScaleformsHandler.SID.Draw();
+            if (ModSettings.HideSID || !Mods.IsDMC12)
+                return;
+
+            ScaleformsHandler.SID?.Draw2D();
         }
 
         private void UpdateCurrentTimeDisplay()

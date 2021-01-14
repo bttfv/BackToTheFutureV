@@ -24,6 +24,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void OnHoodboxReady();
     public delegate void OnMissionChange();
     public delegate void OnSimulateSpeedReached();
+    public delegate void OnSIDReachMax(int soundSpeed);
 
     public delegate void SetRCMode(bool state, bool instant = false);
     public delegate void SetTimeCircuits(bool state);
@@ -64,6 +65,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public OnHoodboxReady OnHoodboxReady;
         public OnMissionChange OnMissionChange;
         public OnSimulateSpeedReached OnSimulateSpeedReached;
+        public OnSIDReachMax OnSIDReachMax;
 
         public SetRCMode SetRCMode;
         public SetTimeCircuits SetTimeCircuits;

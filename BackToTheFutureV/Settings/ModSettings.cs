@@ -17,6 +17,9 @@ namespace BackToTheFutureV
         private static Version LastCompatibleVersion = new Version(2, 0, 0, 0);
         public static OnGUIChange OnGUIChange { get; set; }
 
+        public static PointF SIDPosition { get; set; } = new PointF(0.88f, 0.75f);
+        public static float SIDScale { get; set; } = 0.3f;
+        public static bool HideSID { get; set; } = false;
         public static PointF TCDPosition { get; set; } = new PointF(0.88f, 0.75f);
         public static float TCDScale { get; set; } = 0.3f;
         public static TCDBackground TCDBackground { get; set; } = TCDBackground.Metal;
@@ -73,7 +76,11 @@ namespace BackToTheFutureV
             } 
             else if (savedVersion != Main.Version)
                 settings.SetValue("General", "Version", Main.Version);
-                       
+
+            SIDPosition = new PointF(float.Parse(settings.GetValue("SID", "PositionX", SIDPosition.X.ToString("G", info)), info), float.Parse(settings.GetValue("SID", "PositionY", SIDPosition.Y.ToString("G", info)), info));
+            SIDScale = float.Parse(settings.GetValue("SID", "Scale", SIDScale.ToString("G", info)), info);
+            HideSID = settings.GetValue("SID", "HideSID", HideSID);
+
             TCDScale = float.Parse(settings.GetValue("TimeCircuits", "Scale", TCDScale.ToString("G", info)), info);
             TCDPosition = new PointF(float.Parse(settings.GetValue("TimeCircuits", "PositionX", TCDPosition.X.ToString("G", info)), info), float.Parse(settings.GetValue("TimeCircuits", "PositionY", TCDPosition.Y.ToString("G", info)), info));
             TCDBackground = (TCDBackground)Enum.Parse(typeof(TCDBackground), settings.GetValue("TimeCircuits", "Background", "Metal"));
@@ -110,9 +117,14 @@ namespace BackToTheFutureV
 
         public static void SaveSettings()
         {
+            settings.SetValue("SID", "PositionX", SIDPosition.X.ToString("G", info));
+            settings.SetValue("SID", "PositionY", SIDPosition.Y.ToString("G", info));
+            settings.SetValue("SID", "Scale", SIDScale.ToString("G", info));
+            settings.SetValue("SID", "HideSID", HideSID);
+
             settings.SetValue("TimeCircuits", "Scale", TCDScale.ToString("G", info));
             settings.SetValue("TimeCircuits", "PositionX", TCDPosition.X.ToString("G", info));
-            settings.SetValue("TimeCircuits", "PositionY", TCDPosition.Y.ToString("G", info));            
+            settings.SetValue("TimeCircuits", "PositionY", TCDPosition.Y.ToString("G", info));
             settings.SetValue("TimeCircuits", "Background", TCDBackground.ToString());
             settings.SetValue("TimeCircuits", "InputMode", UseInputToggle);
             settings.SetValue("TimeCircuits", "ExternalTCDToggle", ExternalTCDToggle);

@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GUI\SIDScaleform.cs" />
+    <Compile Include="TimeMachineClasses\Handlers\SIDHandler.cs" />
     <Compile Include="Utility\ExternalHUD.cs" />
     <Compile Include="GUI\TCDRowScaleform.cs" />
     <Compile Include="GUI\TimeCircuitsScaleform.cs" />

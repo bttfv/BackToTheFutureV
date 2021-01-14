@@ -1,70 +1,87 @@
-﻿using BackToTheFutureV.Entities;
-using BackToTheFutureV.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
+﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
-using GTA.Math;
+using System.Windows.Forms;
 
-namespace BackToTheFutureV.Delorean.Handlers
+namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class SIDHandler : Handler
     {
+        private bool _sidMax;
+        private int _playDiodeSoundAt;
 
-        private Dictionary<int, AnimateProp> sidProps = new Dictionary<int, AnimateProp>();
-
-        public SIDHandler(TimeCircuits circuits) : base(circuits)
+        public SIDHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            for(int i = 1; i < 89; i++)
-            {
-                //if(ModelHandler.SIDModels.TryGetValue(i, out Model model))
-                //{
-                //    ModelHandler.RequestModel(model);
-                //    var animProp = new AnimateProp(Vehicle, model, Vector3.Zero, Vector3.Zero);
-                //    sidProps.Add(i, animProp);
-                //}
-            }
-        }
-
-        public override void KeyPress(Keys key)
-        {
-        }
-
-        public override void Process()
-        {
-            if(Vehicle == null || !Vehicle.IsVisible)
-            {
-                foreach(var sidProp in sidProps)
-                {
-                    sidProp.Value.DeleteProp();
-                }
-
-                return;
-            }
-
-            int speed = (int)MPHSpeed;
-            int chosenKey = sidProps.Keys.OrderBy(item => Math.Abs(speed - item)).First();
-
-            foreach(var prop in sidProps)
-            {
-                if (prop.Key != chosenKey)
-                    prop.Value?.DeleteProp();
-                else
-                    prop.Value?.SpawnProp();
-            }
-        }
-
-        public override void Stop()
-        {
+            Events.OnSIDReachMax += OnSIDReachMax;
         }
 
         public override void Dispose()
         {
-            foreach (var sidProp in sidProps)
+            
+        }
+
+        public override void KeyDown(Keys key)
+        {
+            
+        }
+
+        private void OnSIDReachMax(int playDiodeSoundAt)
+        {
+            _sidMax = true;
+            _playDiodeSoundAt = playDiodeSoundAt;
+        }
+
+        public override void Process()
+        {
+            if (Utils.PlayerVehicle != Vehicle || !Properties.AreTimeCircuitsOn || Properties.TimeTravelPhase > Enums.TimeTravelPhase.OpeningWormhole)
+                return;
+
+            if (_sidMax)
             {
-                sidProp.Value.DeleteProp();
+                if (Vehicle.GetMPHSpeed() < _playDiodeSoundAt)
+                {
+                    _sidMax = false;
+                    return;
+                }
+
+                ScaleformsHandler.SID?.Random(20, 20);
+                ScaleformsHandler.SID3D?.Random(20, 20);
+
+                return;
             }
+
+            float speed = Vehicle.GetMPHSpeed();
+
+            if (speed == 0)
+            {
+                ScaleformsHandler.SID?.Random(0, 0);
+                ScaleformsHandler.SID3D?.Random(0, 0);
+
+                return;
+            }
+
+            if (speed > 88)
+                speed = 88;
+
+            int height = (int)((speed / 88) * 18);
+
+            int min = height - 2;
+            int max = height + 2;
+
+            if (min < 0)
+                min = 0;
+
+            if (max > 20)
+                max = 20;
+
+            ScaleformsHandler.SID?.Random(min, max);
+            ScaleformsHandler.SID3D?.Random(min, max);
+        }
+
+        public override void Stop()
+        {
+            
         }
     }
 }

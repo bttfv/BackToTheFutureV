@@ -1,4 +1,4 @@
-version: 3.0.{build}
+version: 2.0.{build}
 branches:
   only:
   - dev
@@ -15,12 +15,16 @@ after_build:
 - cmd: >-
     7z a BackToTheFutureV.zip %APPVEYOR_BUILD_FOLDER%\BackToTheFutureV\bin\Release\*
 
-    7z a RogersSierraRailway.zip %APPVEYOR_BUILD_FOLDER%\RogerSierra\bin\Release\*
+    7z a RogersSierraRailway.zip %APPVEYOR_BUILD_FOLDER%\RogersSierra\bin\Release\*
 
     7z a KlangRageAudioLibrary.zip %APPVEYOR_BUILD_FOLDER%\KlangRageAudioLibrary\bin\Release\*
+
+    7z a BackToTheFutureV.HUD.Desktop.zip %APPVEYOR_BUILD_FOLDER%\BackToTheFutureV.HUD\BackToTheFutureV.HUD.Desktop\bin\Release\netcoreapp3.1\*
 
     appveyor PushArtifact BackToTheFutureV.zip
 
     appveyor PushArtifact RogersSierraRailway.zip
 
     appveyor PushArtifact KlangRageAudioLibrary.zip
+
+    appveyor PushArtifact BackToTheFutureV.HUD.Desktop.zip

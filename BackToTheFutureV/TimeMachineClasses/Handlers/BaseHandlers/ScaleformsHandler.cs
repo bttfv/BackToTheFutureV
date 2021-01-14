@@ -21,6 +21,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         //SID
         public static SIDScaleform SID { get; private set; }
+        public static SIDScaleform SID3D { get; private set; }
 
         static ScaleformsHandler()
         {
@@ -28,18 +29,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             FluxCapacitor = new ScaleformGui("bttf_flux_scaleform") { DrawInPauseMenu = true };
             Speedo = new ScaleformGui("bttf_3d_speedo") { DrawInPauseMenu = true };
 
-            SID = new SIDScaleform();
-
-            SID.SetColumnHeight(0, 20);
-            SID.SetColumnHeight(1, 20);
-            SID.SetColumnHeight(2, 13);
-            SID.SetColumnHeight(3, 20);
-            SID.SetColumnHeight(4, 20);
-            SID.SetColumnHeight(5, 19);
-            SID.SetColumnHeight(6, 20);
-            SID.SetColumnHeight(7, 10);
-            SID.SetColumnHeight(8, 20);
-            SID.SetColumnHeight(9, 17);
+            SID = new SIDScaleform("sid");
+            SID3D = new SIDScaleform("sid_3d");
         }
 
         public ScaleformsHandler(TimeMachine timeMachine) : base(timeMachine)
@@ -77,7 +68,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public override void Process()
         {
-            
+            if (!Mods.IsDMC12 || Utils.PlayerVehicle != Vehicle)
+                return;
+
+            SID?.Process();
+            SID3D?.Process();
         }
 
         public override void Stop()
