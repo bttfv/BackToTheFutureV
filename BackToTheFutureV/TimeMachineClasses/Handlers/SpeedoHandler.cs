@@ -20,9 +20,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public SpeedoHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            ScaleformsHandler.Speedo.CallFunction("SET_DIGIT_1", 15);
-            ScaleformsHandler.Speedo.CallFunction("SET_DIGIT_2", 0);
-
             Events.SetSimulateSpeed += SetSimulateSpeed;
         }
 

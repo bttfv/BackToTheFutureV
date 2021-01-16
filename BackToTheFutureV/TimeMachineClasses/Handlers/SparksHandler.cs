@@ -108,7 +108,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Vehicle.GetMPHSpeed() >= _playDiodeSoundAt)
             {
-                if (!_hasPlayedDiodeSound && Properties.IsFueled)
+                if (!_hasPlayedDiodeSound)
                 {
                     Sounds.DiodesGlowing?.Play();
                     Events.OnSIDReachMax?.Invoke(_playDiodeSoundAt);

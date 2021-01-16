@@ -15,8 +15,8 @@ namespace BackToTheFutureV.GUI
         private int[] _currentHeight;
         private int[] _newHeight;
         private int[] _ledDelay;
-        private int _delay;
 
+        private bool _randomDelay;
         private const int _minDelay = 60;
 
         public SIDScaleform(string scaleformID) : base(scaleformID)
@@ -33,52 +33,76 @@ namespace BackToTheFutureV.GUI
 
         public void SetLedState(int column, int row, bool on)
         {
+            if (column > 9)
+                column = 9;
+
+            if (row > 19)
+                row = 19;
+
+            if (row < 0)
+                row = 0;
+
             ledState[column][row] = on;
         }
 
         public bool GetLedState(int column, int row)
         {
+            if (column > 9)
+                column = 9;
+
+            if (row > 19)
+                row = 19;
+
+            if (row < 0)
+                row = 0;
+
             return ledState[column][row];
         }
 
-        public int SetColumnHeight(int column, int height)
+        public void SetColumnHeight(int column, int height)
         {
+            if (column > 9)
+                column = 9;
+
+            if (height > 20)
+                height = 20;
+
+            if (height < 0)
+                height = 0;
+
             _newHeight[column] = height;
             _ledDelay[column] = 0;
-
-            return Math.Abs(height - _currentHeight[column]) * (_minDelay + Utils.Random.Next(-30, 31));
         }
 
         public void Random(int min = 0, int max = 20)
         {
-            if (_delay > Game.GameTime || (_waitTurnOn && AreColumnProcessing()))
+            if (_waitTurnOn && AreColumnProcessing()) 
                 return;
 
             if (_waitTurnOn)
-            {
-                _delay = Game.GameTime + _minDelay;
                 _waitTurnOn = false;
-                return;
-            }
 
-            int maxWait = 0;
+            if (!_randomDelay)
+                _randomDelay = true;
 
             for (int column = 0; column < 10; column++)
             {
-                int curWait = SetColumnHeight(column, Utils.Random.Next(min, 1 + max));
+                if (_ledDelay[column] > Game.GameTime)
+                    continue;
 
-                if (curWait > maxWait)
-                    maxWait = curWait;
+                SetColumnHeight(column, Utils.Random.Next(min, max + 1));
             }
-                
-            _delay = Game.GameTime + maxWait;
         }
 
-        public void SetAllState(bool on)
+        public void SetAllState(bool on, bool force = false)
         {
+            if (AreColumnProcessing() && !force)
+                return;
+
             for (int column = 0; column < 10; column++)
                 SetColumnHeight(column, on ? 20 : 0);
 
+            _randomDelay = false;
             _waitTurnOn = on;
         }
 
@@ -91,24 +115,44 @@ namespace BackToTheFutureV.GUI
             return false;
         }
 
+        private int GetMaxHeight(int column)
+        {
+            switch (column)
+            {
+                case 2:
+                    return 13;
+                case 5:
+                    return 19;
+                case 7:
+                    return 10;
+                case 9:
+                    return 17;
+                default:
+                    return 20;
+            }
+        }
+
         public void Process()
         {
             for (int column = 0; column < 10; column++)
             {
                 if (_ledDelay[column] < Game.GameTime && _newHeight[column] != _currentHeight[column])
                 {
+                    if (_newHeight[column] > GetMaxHeight(column))
+                        _newHeight[column] = GetMaxHeight(column);
+
                     if (_newHeight[column] > _currentHeight[column])
-                    {
+                    {                        
+                        ledState[column][_currentHeight[column]] = true;
                         _currentHeight[column]++;
-                        ledState[column][_currentHeight[column] - 1] = true;
                     }
                     else if (_newHeight[column] < _currentHeight[column])
                     {
-                        ledState[column][_currentHeight[column] - 1] = false;
                         _currentHeight[column]--;
+                        ledState[column][_currentHeight[column]] = false;
                     }
 
-                    _ledDelay[column] = Game.GameTime + _minDelay;
+                    _ledDelay[column] = Game.GameTime + _minDelay + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
                 }
             }
         }
@@ -128,8 +172,8 @@ namespace BackToTheFutureV.GUI
 
         public void Draw3D()
         {
-            //SetLed();
-            //Render3D(Vector3.Zero, Vector3.Zero, Vector3.Zero);
+            SetLed();
+            Render2D(new PointF(0.5f, 0.5f), 0.9f);
         }
     }
 }

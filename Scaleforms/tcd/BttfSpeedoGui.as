@@ -14,7 +14,7 @@
 		this.digit2MC._x = 339;
 		this.digit2MC._y = 115;
 		
-		this.digit1MC.stop();
+		this.digit1MC.gotoAndStop(15);
 		this.digit2MC.stop();
 		
 	}

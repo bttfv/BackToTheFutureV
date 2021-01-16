@@ -50,6 +50,7 @@ namespace BackToTheFutureV.Utility
         public static CustomModel CoilsIndicatorRight = new CustomModel("indicator_right");
         public static CustomModel InvisibleProp = new CustomModel("prop_dummy");
         public static List<CustomModel> Lightnings = new List<CustomModel>() { new CustomModel("ls_1"), new CustomModel("ls_2"), new CustomModel("ls_3"), new CustomModel("ls_4") };
+        public static CustomModel SID = new CustomModel("bttf_sid");
 
         // BTTF1 CustomModels
         public static CustomModel BTTFReactorCap = new CustomModel("bttf_reactorcap");

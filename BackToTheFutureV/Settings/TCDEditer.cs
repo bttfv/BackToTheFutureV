@@ -127,7 +127,7 @@ namespace BackToTheFutureV.Settings
 
             Preview.Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / Screen.AspectRatio, ModSettings.TCDScale));
 
-            ScaleformsHandler.SID.Render2D(ModSettings.SIDPosition, new SizeF(ModSettings.SIDScale * (800f / 1414f) / Screen.AspectRatio, ModSettings.SIDScale));
+            ScaleformsHandler.SID2D.Render2D(ModSettings.SIDPosition, new SizeF(ModSettings.SIDScale * (800f / 1414f) / Screen.AspectRatio, ModSettings.SIDScale));
 
             Game.DisableAllControlsThisFrame();
 

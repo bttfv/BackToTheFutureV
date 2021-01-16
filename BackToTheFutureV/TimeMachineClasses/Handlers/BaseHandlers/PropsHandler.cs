@@ -51,6 +51,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public AnimateProp TickingDiodes;
         public AnimateProp TickingDiodesOff;
 
+        //SID
+        public AnimateProp SID;
+
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             //Wheels
@@ -81,6 +84,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             if (!Mods.IsDMC12)
                 return;
+
+            //SID = new AnimateProp(Vehicle, ModelHandler.SID, "bttf_sid");
+            //SID.SpawnProp();
 
             BTTFDecals = new AnimateProp(Vehicle, ModelHandler.BTTFDecals, Vector3.Zero, Vector3.Zero);
             BTTFDecals.SpawnProp();
@@ -176,6 +182,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             //TCD
             TickingDiodes?.Delete();
             TickingDiodesOff?.Delete();
+
+            //SID
+            SID?.Delete();
         }
 
         public override void KeyDown(Keys key)
