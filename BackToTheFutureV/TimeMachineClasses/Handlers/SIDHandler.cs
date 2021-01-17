@@ -32,8 +32,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _playDiodeSoundAt = playDiodeSoundAt;
         }
 
+        private void DrawRT()
+        {
+            if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f || ModSettings.HideSID)
+                return;
+
+            Scaleforms.SIDRT?.Draw();
+        }
+
         public override void Process()
         {
+            DrawRT();
+
             if (Utils.PlayerVehicle != Vehicle || !Properties.AreTimeCircuitsOn || Properties.TimeTravelPhase > Enums.TimeTravelPhase.OpeningWormhole)
                 return;
 
@@ -48,6 +58,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 ScaleformsHandler.SID2D?.SetAllState(true);
                 ScaleformsHandler.SID3D?.SetAllState(true);
 
+                if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f || ModSettings.HideSID)
+                    return;
+
+                Scaleforms.SIDRT?.Draw();
+
                 return;
             }
 
@@ -57,6 +72,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 ScaleformsHandler.SID2D?.Random(0, 0);
                 ScaleformsHandler.SID3D?.Random(0, 0);
+
+                if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f || ModSettings.HideSID)
+                    return;
+
+                Scaleforms.SIDRT?.Draw();
 
                 return;
             }
@@ -78,10 +98,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             ScaleformsHandler.SID2D?.Random(min, max);
             ScaleformsHandler.SID3D?.Random(min, max);
 
-            if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f || ModSettings.HideSID)
-                return;
-
-            Scaleforms.SIDRT?.Draw();
         }
 
         public override void Stop()

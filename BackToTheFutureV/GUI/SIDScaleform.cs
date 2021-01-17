@@ -1,6 +1,8 @@
-﻿using FusionLibrary;
+﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using FusionLibrary;
 using GTA;
 using GTA.Math;
+using GTA.UI;
 using System;
 using System.Drawing;
 
@@ -18,6 +20,8 @@ namespace BackToTheFutureV.GUI
 
         private bool _randomDelay;
         private const int _minDelay = 60;
+
+        public float x=0.626f, y=1.967f, scale=3.932f;
 
         public SIDScaleform(string scaleformID) : base(scaleformID)
         {
@@ -167,13 +171,15 @@ namespace BackToTheFutureV.GUI
         public void Draw2D()
         {
             SetLed();
-            Render2D(ModSettings.SIDPosition, new SizeF(ModSettings.SIDScale * (800f / 1414f) / GTA.UI.Screen.AspectRatio, ModSettings.SIDScale));
+            Render2D(ModSettings.SIDPosition, new SizeF(ModSettings.SIDScale * (800f / 1414f) / Screen.AspectRatio, ModSettings.SIDScale));
         }
 
         public void Draw3D()
         {
             SetLed();
-            Render2D(new PointF(0.5f, 0.5f), 0.9f);
+            Render2D(new PointF(x, y), new SizeF(scale * (800f / 1414f) / Screen.AspectRatio, scale));
+
+            //Screen.ShowSubtitle($"{x} {y} {scale}");
         }
     }
 }

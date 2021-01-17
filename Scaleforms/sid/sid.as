@@ -1,6 +1,8 @@
 ﻿class sid extends MovieClip
 {
 	var globalMC : MovieClip
+	
+	var sidBackground : MovieClip;
 
 	var sidLeds : Array = [10];
 	
@@ -15,6 +17,9 @@
 		
 		// Save ref to global movie clip
 		this.globalMC = globalMovieClip;
+		
+		sidBackground = this.globalMC.attachMovie("sidBackground", "sidBackground", this.globalMC.getNextHighestDepth());
+		sidBackground.gotoAndStop(1);
 				
 		for (var column = 0;column < 10;column++) 
 		{
@@ -28,7 +33,7 @@
 			{
 				sidLeds[column][i] = this.globalMC.attachMovie("sidLedGreen", "ledCol" + column + "Row" + i, this.globalMC.getNextHighestDepth());
 			
-				sidLeds[column][i].gotoAndStop(2);
+				sidLeds[column][i].gotoAndStop(1);
 				sidLeds[column][i]._x = ledX;
 				sidLeds[column][i]._y = ledY - i * ledYOff;			
 			}
@@ -58,5 +63,10 @@
 		{
 			sidLeds[column][row].gotoAndStop(2);
 		}			
+	}
+	
+	function setBackground(_state) 
+	{
+		sidBackground.gotoAndStop(_state);
 	}
 }

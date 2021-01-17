@@ -11,7 +11,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
     public class SpeedoHandler : Handler
     {
         private int nextCheck;
-        private int currentSpeed;
+        private int currentSpeed = -1;
 
         private bool simulateSpeed;
         private int maxSpeed;

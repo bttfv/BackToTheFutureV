@@ -63,6 +63,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             SIDRT.OnRenderTargetDraw += () =>
             {
                 SID3D.Draw3D();
+
+                //GTA.World.DrawLine(SIDRT.Prop.WorldPosition, SIDRT.Prop.Prop.ForwardVector + SIDRT.Prop.WorldPosition, Color.Blue);
             };
 
             SIDRT.CreateProp();
@@ -77,7 +79,30 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public override void KeyDown(Keys key)
         {
+            if (!Mods.IsDMC12 || Utils.PlayerVehicle != Vehicle)
+                return;
 
+            switch (key)
+            {
+                case Keys.D1:
+                    SID3D.x += 0.001f;
+                    break;
+                case Keys.D2:
+                    SID3D.x -= 0.001f;
+                    break;
+                case Keys.D3:
+                    SID3D.y += 0.001f;
+                    break;
+                case Keys.D4:
+                    SID3D.y -= 0.001f;
+                    break;
+                case Keys.D5:
+                    SID3D.scale += 0.001f;
+                    break;
+                case Keys.D6:
+                    SID3D.scale -= 0.001f;
+                    break;
+            }
         }
 
         public override void Process()
@@ -86,7 +111,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 return;
 
             SID2D?.Process();
+            SID2D.CallFunction("setBackground", 2);
+
             SID3D?.Process();
+            SID3D.CallFunction("setBackground", 2);
         }
 
         public override void Stop()

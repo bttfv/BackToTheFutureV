@@ -76,6 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public static void DeleteAll()
         {
+            RemoteTimeMachines.ForEach(x => x.Dispose());
             RemoteTimeMachines.Clear();
 
             if (File.Exists(_saveFile))
@@ -117,7 +118,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         public static void Dispose()
         {
             foreach (var x in RemoteTimeMachines)
-                x.Dispose();
+                x?.Dispose();
         }
     }
 }

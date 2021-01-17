@@ -50,7 +50,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             switch (Step)
             {
                 case 0:
-                    Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
+                    Driver = Vehicle.GetPedOnSeat(VehicleSeat.Driver);
+
+                    if (Driver == null)
+                        Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
 
                     Step++;
                     break;
@@ -58,7 +61,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (!Properties.IsFueled)
                         Driver.Task.GoStraightTo(Vehicle.GetOffsetPosition(new Vector3(0, -2.5f, 0f)), -1, Vehicle.Heading);
                     else
-                        Step = 3;
+                        Step = 4;
 
                     Step++;
                     break;

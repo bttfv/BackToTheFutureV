@@ -129,8 +129,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public void Dispose()
         {
-            if (Blip != null && Blip.Exists())
-                Blip.Delete();
+            Blip?.Delete();
 
             _warningSound?.Dispose();         
         }
