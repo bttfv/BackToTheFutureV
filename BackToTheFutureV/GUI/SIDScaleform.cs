@@ -159,6 +159,9 @@ namespace BackToTheFutureV.GUI
                     _ledDelay[column] = Game.GameTime + _minDelay + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
                 }
             }
+
+            ExternalHUD.SetLedState(ledState);
+            RemoteHUD.SetLedState(ledState);
         }
 
         private void SetLed()

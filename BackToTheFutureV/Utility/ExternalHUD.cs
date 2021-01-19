@@ -142,5 +142,10 @@ namespace BackToTheFutureV
         {
             TimeCircuits?.SetVisible(type, toggle, month, day, year, hour, minute, amPm);
         }
+
+        public static void SetLedState(bool[][] ledState)
+        {
+            TimeCircuits?.SetLedState(ledState);
+        }
     }
 }

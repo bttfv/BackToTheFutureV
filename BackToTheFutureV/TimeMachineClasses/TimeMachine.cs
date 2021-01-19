@@ -227,8 +227,13 @@ namespace BackToTheFutureV.TimeMachineClasses
                 //In certain situations car can't be entered after hover transformation, here is forced enter task.
                 if (Utils.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(Utils.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
                 {
-                    if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, Utils.PlayerPed) != Vehicle)
-                        Utils.PlayerPed.Task.EnterVehicle(Vehicle);
+                    if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, Utils.PlayerPed) != Vehicle || Vehicle.Driver != null)
+                    {
+                        if (Vehicle.Driver != null)
+                            Vehicle.Driver.Task.LeaveVehicle(LeaveVehicleFlags.WarpOut);
+
+                        Utils.PlayerPed.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
+                    }                        
                 }
 
                 VehicleWindowCollection windows = Vehicle.Windows;

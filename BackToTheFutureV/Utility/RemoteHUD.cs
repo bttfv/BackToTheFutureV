@@ -1,5 +1,7 @@
 ﻿using FusionLibrary;
 using System;
+using System.Linq;
+using System.Text;
 using TimeCircuits;
 
 namespace BackToTheFutureV
@@ -76,6 +78,27 @@ namespace BackToTheFutureV
         {
             if (ModSettings.NetworkTCDToggle)
                 Network.SendMsg($"SetVisible={type}|{toggle}|{month}|{day}|{year}|{hour}|{minute}|{amPm}", port);
+        }
+
+        public static void SetLedState(bool[][] ledState)
+        {
+            if (!ModSettings.NetworkTCDToggle)
+                return;
+            
+            byte[] ret = new byte[20 * 10];
+
+            int pos = 0;
+            
+            for (int column = 0; column < 10; column++)
+                for (int row = 0; row < 20; row++)
+                {
+                    ret[pos] = Convert.ToByte(ledState[column][row]);
+                    pos++;
+                }
+
+            ret = Encoding.ASCII.GetBytes("SetLedState=").Concat(ret).ToArray();
+
+            Network.SendMsg(ret, port);
         }
     }
 }

@@ -81,7 +81,7 @@ namespace BackToTheFutureV.Menu
 
             float dist = CurrentTimeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position);
 
-            if (dist <= RCManager.MAX_DIST * RCManager.MAX_DIST)
+            if (dist <= RCManager.MAX_DIST * RCManager.MAX_DIST && CurrentTimeMachine.Vehicle.Driver == null)
             {
                 PreviewCar();
 
