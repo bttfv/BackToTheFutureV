@@ -50,6 +50,8 @@ namespace BackToTheFutureV
 
         public static void Stop()
         {
+            SetOff();
+
             _backgroundThread?.Abort();
 
             if (IsActive)
@@ -76,6 +78,17 @@ namespace BackToTheFutureV
                 return;
 
             Network.SendMsg(properties, port);
+        }
+
+        public static void SetOff()
+        {
+            if (ModSettings.ExternalTCDToggle && IsActive)
+                HUD.Properties = new HUDProperties();
+
+            if (!ModSettings.NetworkTCDToggle)
+                return;
+
+            Network.SendMsg(new HUDProperties(), port);
         }
     }
 }

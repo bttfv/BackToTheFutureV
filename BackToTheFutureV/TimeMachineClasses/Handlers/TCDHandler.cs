@@ -433,7 +433,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!ModSettings.HideIngameTCDToggle)
                 DrawGUI();
 
-            if (Utils.PlayerVehicle == Vehicle)
+            if (Utils.PlayerVehicle == Vehicle && Properties.TimeTravelPhase < TimeTravelPhase.InTime)
                 ExternalHUD.Update(Properties.HUDProperties);
 
             if (!Properties.AreTimeCircuitsOn)

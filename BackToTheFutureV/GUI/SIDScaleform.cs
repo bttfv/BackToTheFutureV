@@ -169,7 +169,7 @@ namespace BackToTheFutureV.GUI
 
         public void Draw3D()
         {
-            SetLed();
+            //SetLed();
             Render2D(new PointF(x, y), new SizeF(scale * (800f / 1414f) / Screen.AspectRatio, scale));
         }
     }

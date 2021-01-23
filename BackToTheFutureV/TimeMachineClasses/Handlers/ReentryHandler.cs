@@ -149,8 +149,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, CommonSettings.PlayerPed.Model);
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
 
-            if (Vehicle.Driver != Utils.PlayerPed)
-                Events.StartDriverAI?.Invoke(true);
+            //if (Vehicle.Driver != Utils.PlayerPed)
+            //    Events.StartDriverAI?.Invoke(true);
         }
 
         public override void Stop()

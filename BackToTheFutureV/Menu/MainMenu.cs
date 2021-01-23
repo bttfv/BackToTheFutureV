@@ -168,7 +168,7 @@ namespace BackToTheFutureV.Menu
 
                 TimeMachineHandler.RemoveTimeMachine(timeMachine);
 
-                ExternalHUD.Update(new HUD.Core.HUDProperties());
+                ExternalHUD.SetOff();
             }
 
             if (sender == deleteOthers)
@@ -186,7 +186,7 @@ namespace BackToTheFutureV.Menu
                 WaybackMachineHandler.Abort();
                 Notification.Show(Game.GetLocalizedString("BTTFV_RemovedAllTimeMachines"));
 
-                ExternalHUD.Update(new HUD.Core.HUDProperties());
+                ExternalHUD.SetOff();
             }
 
             Close();

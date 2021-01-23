@@ -124,6 +124,8 @@ namespace BackToTheFutureV
 
                 StartListening();
 
+                ExternalHUD.SetOff();
+
                 _firstTick = false;
             }
 

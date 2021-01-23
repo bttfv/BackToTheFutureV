@@ -56,8 +56,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
 
                 ScaleformsHandler.SID2D?.SetAllState(true);
-                ScaleformsHandler.SID3D?.SetAllState(true);
-
+                
                 if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f || ModSettings.HideSID)
                     return;
 
@@ -71,8 +70,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (speed.ToMPH() <= 1)
             {
                 ScaleformsHandler.SID2D?.Random(0, 0);
-                ScaleformsHandler.SID3D?.Random(0, 0);
-
+                
                 if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f || ModSettings.HideSID)
                     return;
 
@@ -96,8 +94,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 max = 20;
 
             ScaleformsHandler.SID2D?.Random(min, max);
-            ScaleformsHandler.SID3D?.Random(min, max);
-
         }
 
         public override void Stop()

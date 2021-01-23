@@ -111,10 +111,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 return;
 
             SID2D?.Process();
-            SID2D.CallFunction("setBackground", 2);
 
-            SID3D?.Process();
-            SID3D.CallFunction("setBackground", 2);
+            SID2D.CallFunction("setBackground", 2);
+            SID3D.CallFunction("setBackground", 1);
         }
 
         public override void Stop()

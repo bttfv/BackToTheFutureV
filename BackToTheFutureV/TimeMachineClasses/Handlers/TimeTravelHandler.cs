@@ -191,6 +191,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Utils.HideGUI = true;
 
+                    ExternalHUD.SetOff();
+
                     PlayerSwitch.Disable = true;
 
                     Vehicle.SetVisible(false);

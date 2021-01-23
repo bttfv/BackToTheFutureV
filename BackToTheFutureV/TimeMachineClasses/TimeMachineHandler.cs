@@ -360,7 +360,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (CurrentTimeMachine.IsFunctioning() && !Utils.PlayerVehicle.IsFunctioning())
             {
-                ExternalHUD.Update(new HUD.Core.HUDProperties());
+                ExternalHUD.SetOff();
                 
                 Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
             }
