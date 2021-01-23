@@ -133,12 +133,6 @@ namespace BackToTheFutureV
             if (!ModSettings.ExternalTCDToggle && ExternalHUD.IsActive)
                 ExternalHUD.Toggle(false);
 
-            if (Utils.HideGUI)
-            {
-                ExternalHUD.IsHUDVisible = false;
-                RemoteHUD.IsHUDVisible = false;
-            }
-
             CustomTrainHandler.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();

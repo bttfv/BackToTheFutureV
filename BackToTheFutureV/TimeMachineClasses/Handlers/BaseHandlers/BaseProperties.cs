@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.HUD.Core;
+using BackToTheFutureV.Utility;
 using GTA.Math;
 using System;
 using System.Reflection;
@@ -51,6 +52,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool Story { get; set; }
         public int TimeTravelsCount { get; set; } = 0;
         public bool BlockSparks { get; set; } = false;
+        public HUDProperties HUDProperties { get; set; } = new HUDProperties();
 
         public BaseProperties Clone(bool waybackClone = false)
         {
@@ -103,6 +105,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             ret.PhotoWormholeActive = false;
 
             ret.BlockSparks = false;
+
+            ret.HUDProperties = new HUDProperties();
 
             return ret;
         }

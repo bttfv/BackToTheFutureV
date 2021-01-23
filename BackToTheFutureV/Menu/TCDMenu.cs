@@ -47,12 +47,7 @@ namespace BackToTheFutureV.Menu
                 ModSettings.ExternalTCDToggle = Checked;
 
             if (sender == useNetworkTCD)
-            {
-                if (!Checked)
-                    RemoteHUD.SetOff();
-
                 ModSettings.NetworkTCDToggle = Checked;
-            }
 
             if (sender == hideIngameTCD)
                 ModSettings.HideIngameTCDToggle = Checked;

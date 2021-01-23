@@ -270,8 +270,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Properties.IsFueled)
                     return;
 
-                ExternalHUD.Empty = isOn ? TimeCircuits.EmptyType.On : TimeCircuits.EmptyType.Off;
-                RemoteHUD.Empty = isOn ? TimeCircuits.EmptyType.On : TimeCircuits.EmptyType.Off;
+                Properties.HUDProperties.Empty = isOn ? HUD.Core.EmptyType.On : HUD.Core.EmptyType.Off;
             }
 
             if (Vehicle.IsVisible == false)
@@ -295,9 +294,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
 
             ScaleformsHandler.GUI.CallFunction("HIDE_EMPTY");
-            
-            ExternalHUD.Empty = TimeCircuits.EmptyType.Hide;
-            RemoteHUD.Empty = TimeCircuits.EmptyType.Hide;
+
+            Properties.HUDProperties.Empty = HUD.Core.EmptyType.Hide;
         }
     }
 }

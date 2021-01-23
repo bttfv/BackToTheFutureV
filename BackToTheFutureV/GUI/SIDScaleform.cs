@@ -1,4 +1,6 @@
-﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+﻿using BackToTheFutureV.HUD.Core;
+using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary;
 using GTA;
 using GTA.Math;
@@ -8,31 +10,21 @@ using System.Drawing;
 
 namespace BackToTheFutureV.GUI
 {
-    public  class SIDScaleform : ScaleformGui
+    public class SIDScaleform : ScaleformGui
     {
-        private bool[][] ledState;
+        private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Properties.HUDProperties;
 
         private bool _waitTurnOn;
 
-        private int[] _currentHeight;
-        private int[] _newHeight;
-        private int[] _ledDelay;
-
         private bool _randomDelay;
+
         private const int _minDelay = 60;
 
-        public float x=0.626f, y=1.967f, scale=3.932f;
+        public float x = 0.626f, y = 1.967f, scale = 3.932f;
 
         public SIDScaleform(string scaleformID) : base(scaleformID)
         {
-            ledState = new bool[10][];
-
-            _currentHeight = new int[10];
-            _newHeight = new int[10];
-            _ledDelay = new int[10];
-
-            for (int i = 0; i < 10; i++)
-                ledState[i] = new bool[20];
+            
         }
 
         public void SetLedState(int column, int row, bool on)
@@ -46,7 +38,7 @@ namespace BackToTheFutureV.GUI
             if (row < 0)
                 row = 0;
 
-            ledState[column][row] = on;
+            HUDProperties.LedState[column][row] = on;
         }
 
         public bool GetLedState(int column, int row)
@@ -60,7 +52,7 @@ namespace BackToTheFutureV.GUI
             if (row < 0)
                 row = 0;
 
-            return ledState[column][row];
+            return HUDProperties.LedState[column][row];
         }
 
         public void SetColumnHeight(int column, int height)
@@ -74,8 +66,8 @@ namespace BackToTheFutureV.GUI
             if (height < 0)
                 height = 0;
 
-            _newHeight[column] = height;
-            _ledDelay[column] = 0;
+            HUDProperties.NewHeight[column] = height;
+            HUDProperties.LedDelay[column] = 0;
         }
 
         public void Random(int min = 0, int max = 20)
@@ -91,7 +83,7 @@ namespace BackToTheFutureV.GUI
 
             for (int column = 0; column < 10; column++)
             {
-                if (_ledDelay[column] > Game.GameTime)
+                if (HUDProperties.LedDelay[column] > Game.GameTime)
                     continue;
 
                 SetColumnHeight(column, Utils.Random.Next(min, max + 1));
@@ -113,7 +105,7 @@ namespace BackToTheFutureV.GUI
         public bool AreColumnProcessing()
         {
             for (int column = 0; column < 10; column++)
-                if (_newHeight[column] != _currentHeight[column])
+                if (HUDProperties.NewHeight[column] != HUDProperties.CurrentHeight[column])
                     return true;
 
             return false;
@@ -140,35 +132,32 @@ namespace BackToTheFutureV.GUI
         {
             for (int column = 0; column < 10; column++)
             {
-                if (_ledDelay[column] < Game.GameTime && _newHeight[column] != _currentHeight[column])
+                if (HUDProperties.LedDelay[column] < Game.GameTime && HUDProperties.NewHeight[column] != HUDProperties.CurrentHeight[column])
                 {
-                    if (_newHeight[column] > GetMaxHeight(column))
-                        _newHeight[column] = GetMaxHeight(column);
+                    if (HUDProperties.NewHeight[column] > GetMaxHeight(column))
+                        HUDProperties.NewHeight[column] = GetMaxHeight(column);
 
-                    if (_newHeight[column] > _currentHeight[column])
-                    {                        
-                        ledState[column][_currentHeight[column]] = true;
-                        _currentHeight[column]++;
-                    }
-                    else if (_newHeight[column] < _currentHeight[column])
+                    if (HUDProperties.NewHeight[column] > HUDProperties.CurrentHeight[column])
                     {
-                        _currentHeight[column]--;
-                        ledState[column][_currentHeight[column]] = false;
+                        HUDProperties.LedState[column][HUDProperties.CurrentHeight[column]] = true;
+                        HUDProperties.CurrentHeight[column]++;
+                    }
+                    else if (HUDProperties.NewHeight[column] < HUDProperties.CurrentHeight[column])
+                    {
+                        HUDProperties.CurrentHeight[column]--;
+                        HUDProperties.LedState[column][HUDProperties.CurrentHeight[column]] = false;
                     }
 
-                    _ledDelay[column] = Game.GameTime + _minDelay + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
+                    HUDProperties.LedDelay[column] = Game.GameTime + _minDelay + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
                 }
             }
-
-            ExternalHUD.SetLedState(ledState);
-            RemoteHUD.SetLedState(ledState);
         }
 
         private void SetLed()
         {
             for (int column = 0; column < 10; column++)
                 for (int row = 0; row < 20; row++)
-                    CallFunction("setLed", column, row, Convert.ToInt32(ledState[column][row]));
+                    CallFunction("setLed", column, row, Convert.ToInt32(HUDProperties.LedState[column][row]));
         }
 
         public void Draw2D()
@@ -181,8 +170,6 @@ namespace BackToTheFutureV.GUI
         {
             SetLed();
             Render2D(new PointF(x, y), new SizeF(scale * (800f / 1414f) / Screen.AspectRatio, scale));
-
-            //Screen.ShowSubtitle($"{x} {y} {scale}");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
-using TimeCircuits;
+using BackToTheFutureV.HUD.Core;
+using FusionLibrary;
 
 namespace BackToTheFutureV
 {
@@ -8,9 +9,11 @@ namespace BackToTheFutureV
     {
         private static Thread _backgroundThread;
 
-        private static Display TimeCircuits;
+        private static HUDDisplay HUD;
 
-        public static bool IsActive => TimeCircuits != null;
+        private const int port = 1985;
+
+        public static bool IsActive => HUD != null;
 
         public static void Toggle(bool state)
         {
@@ -25,9 +28,9 @@ namespace BackToTheFutureV
             if (IsActive)
                 Stop();
 
-            TimeCircuits = new Display();
+            HUD = new HUDDisplay();
 
-            TimeCircuits.Exiting += TimeCircuits_Exiting;
+            HUD.Exiting += TimeCircuits_Exiting;
 
             _backgroundThread = new Thread(Process)
             {
@@ -50,102 +53,29 @@ namespace BackToTheFutureV
             _backgroundThread?.Abort();
 
             if (IsActive)
-                TimeCircuits.Exiting -= TimeCircuits_Exiting;
+                HUD.Exiting -= TimeCircuits_Exiting;
 
-            TimeCircuits?.Exit();
-            TimeCircuits?.Dispose();
+            HUD?.Exit();
+            HUD?.Dispose();
 
-            TimeCircuits = null;
+            HUD = null;
             _backgroundThread = null;
         }
 
         private static void Process()
         {
-            TimeCircuits?.Run();
+            HUD?.Run();
         }
 
-        public static bool IsHUDVisible
+        public static void Update(HUDProperties properties)
         {
-            get
-            {
-                if (IsActive)
-                    return TimeCircuits.IsHUDVisible;
+            if (ModSettings.ExternalTCDToggle && IsActive)
+                HUD.Properties = properties;
 
-                return false;
-            }
-            set
-            {
-                if (IsActive)
-                    TimeCircuits.IsHUDVisible = value;
-            }
-        }
+            if (!ModSettings.NetworkTCDToggle)
+                return;
 
-        public static bool IsTickVisible
-        {
-            get 
-            {
-                if (IsActive)
-                    return TimeCircuits.IsTickVisible;
-
-                return false;
-            }
-            set
-            {
-                if (IsActive)
-                    TimeCircuits.IsTickVisible = value;
-            }
-        }
-
-        public static EmptyType Empty
-        {
-            get 
-            {
-                if (IsActive)
-                    return TimeCircuits.Empty;
-
-                return EmptyType.Hide;
-            }
-            set
-            {
-                if (IsActive)
-                    TimeCircuits.Empty = value;
-            }
-        }
-
-        public static int Speed
-        {
-            get 
-            {
-                if (IsActive)
-                    return TimeCircuits.Speed;
-
-                return 0;
-            }
-            set
-            {
-                if (IsActive)
-                    TimeCircuits.Speed = value;
-            }
-        }
-
-        public static void SetOff()
-        {
-            TimeCircuits?.SetOff();
-        }
-
-        public static void SetDate(string type, DateTime date)
-        {
-            TimeCircuits?.SetDate(type, date);
-        }
-
-        public static void SetVisible(string type, bool toggle, bool month = true, bool day = true, bool year = true, bool hour = true, bool minute = true, bool amPm = true)
-        {
-            TimeCircuits?.SetVisible(type, toggle, month, day, year, hour, minute, amPm);
-        }
-
-        public static void SetLedState(bool[][] ledState)
-        {
-            TimeCircuits?.SetLedState(ledState);
+            Network.SendMsg(new HUDCommand("HUDProperties", properties), port);
         }
     }
 }

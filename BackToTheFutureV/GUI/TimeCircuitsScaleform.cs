@@ -1,4 +1,5 @@
-﻿using FusionLibrary;
+﻿using BackToTheFutureV.TimeMachineClasses;
+using FusionLibrary;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -43,11 +44,8 @@ namespace BackToTheFutureV.GUI
         {
             if(toggle)
             {
-                ExternalHUD.SetDate(type, dates[type]);
-                RemoteHUD.SetDate(type, dates[type]);
-
                 SetDate(type, dates[type]);
-
+                
                 if (!month)
                     CallFunction("SET_" + type.ToUpper() + "_MONTH", -1);
 
@@ -87,9 +85,6 @@ namespace BackToTheFutureV.GUI
                 if (amPm)
                     CallFunction("SET_AM_PM", type.ToLower(), 3);
             }
-
-            ExternalHUD.SetVisible(type, toggle, month, day, year, hour, minute, amPm);
-            RemoteHUD.SetVisible(type, toggle, month, day, year, hour, minute, amPm);
         }
 
         private string GetStringFromBackgroundType(TCDBackground background)

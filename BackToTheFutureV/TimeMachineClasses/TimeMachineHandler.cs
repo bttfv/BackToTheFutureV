@@ -349,11 +349,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                     return;
 
-                if (!ExternalHUD.IsHUDVisible)
-                    ExternalHUD.IsHUDVisible = true;
-
-                if (!RemoteHUD.IsHUDVisible)
-                    RemoteHUD.IsHUDVisible = true;
+                if (!CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible)
+                    CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible = true;
 
                 if (CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
                     Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, false);
@@ -363,12 +360,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (CurrentTimeMachine.IsFunctioning() && !Utils.PlayerVehicle.IsFunctioning())
             {
-                if (ExternalHUD.IsHUDVisible)
-                    ExternalHUD.SetOff();
-
-                if (RemoteHUD.IsHUDVisible)
-                    RemoteHUD.SetOff();
-
+                ExternalHUD.Update(new HUD.Core.HUDProperties());
+                
                 Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
             }
 

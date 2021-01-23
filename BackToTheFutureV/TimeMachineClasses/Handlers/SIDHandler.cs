@@ -68,7 +68,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             float speed = Vehicle.GetMPHSpeed();
 
-            if (speed == 0)
+            if (speed.ToMPH() <= 1)
             {
                 ScaleformsHandler.SID2D?.Random(0, 0);
                 ScaleformsHandler.SID3D?.Random(0, 0);

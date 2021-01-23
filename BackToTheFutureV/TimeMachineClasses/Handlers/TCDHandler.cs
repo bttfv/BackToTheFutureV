@@ -69,6 +69,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!TcdEditer.IsEditing)
             {
                 ScaleformsHandler.GUI.SetDate(SlotType, dateToSet);
+                TimeMachine.Properties.HUDProperties.SetDate(SlotType, dateToSet);
             }
 
             TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
@@ -84,6 +85,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if(!TcdEditer.IsEditing)
             {
                 ScaleformsHandler.GUI.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
+
+                if (toggleTo)
+                    TimeMachine.Properties.HUDProperties.SetDate(SlotType, date);
+
+                TimeMachine.Properties.HUDProperties.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
             }
 
             TCDRowsScaleforms[SlotType]?.SetVisible(toggleTo, month, day, year, hour, minute);
@@ -323,8 +329,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Sounds.TCDBeep?.Stop();
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", false);
 
-                ExternalHUD.IsTickVisible = false;
-                RemoteHUD.IsTickVisible = false;
+                Properties.HUDProperties.IsTickVisible = false;
 
                 Props.TickingDiodes?.Delete();
                 Props.TickingDiodesOff?.SpawnProp();
@@ -427,6 +432,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (!ModSettings.HideIngameTCDToggle)
                 DrawGUI();
+
+            if (Utils.PlayerVehicle == Vehicle)
+                ExternalHUD.Update(Properties.HUDProperties);
 
             if (!Properties.AreTimeCircuitsOn)
                 return;
@@ -548,9 +556,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", currentState);
 
-                ExternalHUD.IsTickVisible = currentState;
-                RemoteHUD.IsTickVisible = currentState;
-
+                Properties.HUDProperties.IsTickVisible = currentState;
+                
                 if (ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
                     Sounds.TCDBeep?.Play(true);
 
