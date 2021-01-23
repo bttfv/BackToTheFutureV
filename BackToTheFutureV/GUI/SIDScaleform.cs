@@ -13,6 +13,7 @@ namespace BackToTheFutureV.GUI
     public class SIDScaleform : ScaleformGui
     {
         private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Properties.HUDProperties;
+        private BaseProperties Properties => TimeMachineHandler.ClosestTimeMachine.Properties;
 
         private bool _waitTurnOn;
 
@@ -66,8 +67,8 @@ namespace BackToTheFutureV.GUI
             if (height < 0)
                 height = 0;
 
-            HUDProperties.NewHeight[column] = height;
-            HUDProperties.LedDelay[column] = 0;
+            Properties.NewHeight[column] = height;
+            Properties.LedDelay[column] = 0;
         }
 
         public void Random(int min = 0, int max = 20)
@@ -83,7 +84,7 @@ namespace BackToTheFutureV.GUI
 
             for (int column = 0; column < 10; column++)
             {
-                if (HUDProperties.LedDelay[column] > Game.GameTime)
+                if (Properties.LedDelay[column] > Game.GameTime)
                     continue;
 
                 SetColumnHeight(column, Utils.Random.Next(min, max + 1));
@@ -105,7 +106,7 @@ namespace BackToTheFutureV.GUI
         public bool AreColumnProcessing()
         {
             for (int column = 0; column < 10; column++)
-                if (HUDProperties.NewHeight[column] != HUDProperties.CurrentHeight[column])
+                if (Properties.NewHeight[column] != Properties.CurrentHeight[column])
                     return true;
 
             return false;
@@ -132,23 +133,23 @@ namespace BackToTheFutureV.GUI
         {
             for (int column = 0; column < 10; column++)
             {
-                if (HUDProperties.LedDelay[column] < Game.GameTime && HUDProperties.NewHeight[column] != HUDProperties.CurrentHeight[column])
+                if (Properties.LedDelay[column] < Game.GameTime && Properties.NewHeight[column] != Properties.CurrentHeight[column])
                 {
-                    if (HUDProperties.NewHeight[column] > GetMaxHeight(column))
-                        HUDProperties.NewHeight[column] = GetMaxHeight(column);
+                    if (Properties.NewHeight[column] > GetMaxHeight(column))
+                        Properties.NewHeight[column] = GetMaxHeight(column);
 
-                    if (HUDProperties.NewHeight[column] > HUDProperties.CurrentHeight[column])
+                    if (Properties.NewHeight[column] > Properties.CurrentHeight[column])
                     {
-                        HUDProperties.LedState[column][HUDProperties.CurrentHeight[column]] = true;
-                        HUDProperties.CurrentHeight[column]++;
+                        HUDProperties.LedState[column][Properties.CurrentHeight[column]] = true;
+                        Properties.CurrentHeight[column]++;
                     }
-                    else if (HUDProperties.NewHeight[column] < HUDProperties.CurrentHeight[column])
+                    else if (Properties.NewHeight[column] < Properties.CurrentHeight[column])
                     {
-                        HUDProperties.CurrentHeight[column]--;
-                        HUDProperties.LedState[column][HUDProperties.CurrentHeight[column]] = false;
+                        Properties.CurrentHeight[column]--;
+                        HUDProperties.LedState[column][Properties.CurrentHeight[column]] = false;
                     }
 
-                    HUDProperties.LedDelay[column] = Game.GameTime + _minDelay + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
+                    Properties.LedDelay[column] = Game.GameTime + _minDelay + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
                 }
             }
         }

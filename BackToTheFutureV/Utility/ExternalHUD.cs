@@ -75,7 +75,7 @@ namespace BackToTheFutureV
             if (!ModSettings.NetworkTCDToggle)
                 return;
 
-            Network.SendMsg(new HUDCommand("HUDProperties", properties), port);
+            Network.SendMsg(properties, port);
         }
     }
 }
