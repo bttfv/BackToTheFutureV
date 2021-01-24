@@ -113,9 +113,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             for (int i = 0; i < 10; i++)
             {
-                CurrentHeight[i] = 0;
-                NewHeight[i] = 0;
-                LedDelay[i] = 0;
+                ret.CurrentHeight[i] = 0;
+                ret.NewHeight[i] = 0;
+                ret.LedDelay[i] = 0;
             }
 
             return ret;

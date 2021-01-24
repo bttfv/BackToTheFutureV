@@ -74,7 +74,7 @@ namespace BackToTheFutureV
             if (ModSettings.ExternalTCDToggle && IsActive)
                 HUD.Properties = properties;
 
-            if (!ModSettings.NetworkTCDToggle)
+            if (!ModSettings.RemoteTCDToggle)
                 return;
 
             Network.SendMsg(properties, port);
@@ -85,7 +85,7 @@ namespace BackToTheFutureV
             if (ModSettings.ExternalTCDToggle && IsActive)
                 HUD.Properties = new HUDProperties();
 
-            if (!ModSettings.NetworkTCDToggle)
+            if (!ModSettings.RemoteTCDToggle)
                 return;
 
             Network.SendMsg(new HUDProperties(), port);
