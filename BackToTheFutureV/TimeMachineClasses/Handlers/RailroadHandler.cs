@@ -206,7 +206,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return;
                 }
                 else
-                    customTrain.IsAccelerationOn = Utils.PlayerVehicle == Vehicle && Vehicle.IsVisible && Vehicle.IsEngineRunning;
+                    customTrain.IsAccelerationOn = Vehicle.IsPlayerDriving() && Vehicle.IsVisible && Vehicle.IsEngineRunning;
 
                 if (Utils.PlayerVehicle == Vehicle)
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
