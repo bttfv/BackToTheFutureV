@@ -181,7 +181,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (presetName != default)
                 timeMachineClone = TimeMachineClone.Load(presetName);
 
-            if (spawnFlags.HasFlag(SpawnFlags.CheckExists) && timeMachineClone != default && vehicle != default)
+            if (spawnFlags.HasFlag(SpawnFlags.CheckExists) && timeMachineClone != default)
                 veh = World.GetClosestVehicle(timeMachineClone.Vehicle.Position, 1.0f, timeMachineClone.Vehicle.Model);
 
             if (vehicle != default)
