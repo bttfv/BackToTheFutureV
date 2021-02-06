@@ -131,11 +131,23 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Vehicle.GetMPHSpeed() == 0)
                     Vehicle.SetMPHSpeed(88);
             }
-                
-            if (!Properties.HasBeenStruckByLightning && Mods.IsDMC12)
-                Properties.IsFueled = false;
+                            
+            if (Properties.HasBeenStruckByLightning)
+            {
+                Events.SetSIDLedsState?.Invoke(true, true);
 
-            Properties.HasBeenStruckByLightning = false;
+                Properties.HasBeenStruckByLightning = false;
+
+                if (Properties.IsFlying)
+                {
+                    Properties.AreFlyingCircuitsBroken = true;
+
+                    if (!Mods.IsDMC12 || Mods.Hoodbox == ModState.Off)
+                        Events.SetTimeCircuitsBroken?.Invoke();
+                }
+            } 
+            else if (Mods.IsDMC12)
+                Properties.IsFueled = false;
 
             if (!Properties.IsOnTracks && !Properties.IsFlying && Vehicle.Driver == null)
             {

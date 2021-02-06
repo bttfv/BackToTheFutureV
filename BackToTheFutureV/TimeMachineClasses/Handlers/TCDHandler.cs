@@ -314,8 +314,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 presentSlot.SetVisible(false);
                 presentSlot.SetVisibleAt(true, 500, 600);
 
-                ScaleformsHandler.SID2D.SetAllState(true, true);
-                ScaleformsHandler.SID3D.SetAllState(true, true);
+                Events.SetSIDLedsState?.Invoke(true);
 
                 nextCheckGlitch = Game.GameTime + 30000;
             }
@@ -334,8 +333,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Props.TickingDiodes?.Delete();
                 Props.TickingDiodesOff?.SpawnProp();
 
-                ScaleformsHandler.SID2D.SetAllState(false, true);
-                ScaleformsHandler.SID3D.SetAllState(false, true);
+                Events.SetSIDLedsState?.Invoke(false);
             }
         }
 
@@ -533,15 +531,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.OnTimeCircuitsToggle?.Invoke();
         }
 
-        public void SetTimeCircuitsBroken(bool state)
-        {
-            Properties.AreTimeCircuitsBroken = state;
-
-            if (!state)
-                return;
-            
-            Properties.AreTimeCircuitsOn = false;
-            Events.OnTimeCircuitsToggle?.Invoke();
+        public void SetTimeCircuitsBroken()
+        {            
+            SetTimeCircuitsOn(false);
+            Properties.AreTimeCircuitsBroken = true;
         }
 
         private void TickDiodes()

@@ -100,6 +100,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.AreTimeCircuitsOn)
             {
+                Events.SetSIDLedsState?.Invoke(true, true);
+
                 // Time travel by lightning strike
                 Sounds.LightningStrike?.Play();
 
@@ -119,16 +121,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 RemoteTimeMachineHandler.AddRemote(timeMachineClone);
             }
             else
-                Function.Call(Hash.FORCE_LIGHTNING_FLASH);
-           
-            if (Properties.IsFlying)
             {
-                Properties.AreFlyingCircuitsBroken = true;
+                Function.Call(Hash.FORCE_LIGHTNING_FLASH);
 
-                if (Properties.AreTimeCircuitsOn && (!Mods.IsDMC12 || Mods.Hoodbox == ModState.Off))
-                    Events.SetTimeCircuitsBroken?.Invoke(true);
+                if (Properties.IsFlying)
+                    Properties.AreFlyingCircuitsBroken = true;
             }
-                
+                                      
             Vehicle.EngineHealth -= 700;
 
             _hasBeenStruckByLightning = true;

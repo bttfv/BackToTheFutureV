@@ -10,14 +10,12 @@ using static FusionLibrary.Enums;
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class SparksHandler : Handler
-    {        
+    {
+        private WormholeProperties WormholeProperties => Mods.WormholeProperties;
+
         private int _startStabilizedSoundAt;
-        
-        private int _startEffectsAt;
-        private int _playDiodeSoundAt;
 
         private int _timeTravelAtTime;
-        private int _wormholeLengthTime;
 
         private float _cooldownTime = -1;
 
@@ -37,39 +35,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void OnWormholeTypeChanged()
         {
             Players.Wormhole?.Dispose();
-
-            switch (Mods.WormholeType)
-            {
-                case WormholeType.BTTF1:
-                    Players.Wormhole = new WormholeAnimationPlayer(TimeMachine, 5000);
-                    _wormholeLengthTime = 5000;
-                    _startEffectsAt = 88;
-                    _playDiodeSoundAt = 82;
-                    break;
-
-                case WormholeType.BTTF2:
-                    Players.Wormhole = new WormholeAnimationPlayer(TimeMachine, 2900);
-                    _wormholeLengthTime = 2900;
-                    _startEffectsAt = 88;
-                    _playDiodeSoundAt = 82;
-                    break;
-
-                case WormholeType.BTTF3:
-                    if (Mods.Wheel == WheelType.RailroadInvisible)
-                    {
-                        Players.Wormhole = new WormholeAnimationPlayer(TimeMachine, 4200);
-                        _wormholeLengthTime = 4200;
-                        _startEffectsAt = 82;
-                        _playDiodeSoundAt = 80;
-                    } else
-                    {
-                        Players.Wormhole = new WormholeAnimationPlayer(TimeMachine, 4200);
-                        _wormholeLengthTime = 4200;
-                        _startEffectsAt = 65;
-                        _playDiodeSoundAt = 60;
-                    }
-                    break;
-            }
+            Players.Wormhole = new WormholeAnimationPlayer(TimeMachine);
         }
 
         private void OnTimeCircuitsToggle()
@@ -106,12 +72,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.IsPhotoModeOn)
                 return;
 
-            if (Vehicle.GetMPHSpeed() >= _playDiodeSoundAt)
+            if (Vehicle.GetMPHSpeed() >= WormholeProperties.PlayDiodeSoundAt)
             {
                 if (!_hasPlayedDiodeSound)
                 {
                     Sounds.DiodesGlowing?.Play();
-                    Events.OnSIDReachMax?.Invoke(_playDiodeSoundAt);
                     _hasPlayedDiodeSound = true;
                 }
             }
@@ -133,7 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (Vehicle.GetMPHSpeed() >= _startEffectsAt && !Properties.BlockSparks)
+            if (Vehicle.GetMPHSpeed() >= WormholeProperties.StartEffectsAt && !Properties.BlockSparks)
             {
                 if (Players.Wormhole == null)
                     return;
@@ -168,7 +133,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (Vehicle.GetMPHSpeed() >= 88 && !_hasHit88)
                     {
                         _hasHit88 = true;
-                        _timeTravelAtTime = Game.GameTime + _wormholeLengthTime + 1000;
+                        _timeTravelAtTime = Game.GameTime + WormholeProperties.WormholeLengthTime + 1000;
 
                         if (Mods.WormholeType == WormholeType.BTTF3)
                             _startStabilizedSoundAt = Game.GameTime + 1000;

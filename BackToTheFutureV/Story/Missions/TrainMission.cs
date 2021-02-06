@@ -250,6 +250,9 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.DigitalSpeedo);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
+            TimedEventManager.Add(2, 59, 700, TimeMultiplier); //move player to passenger seat            
+            TimedEventManager.Last.OnExecute += MovePlayer_OnExecute;
+
             TimedEventManager.Add(3, 1, 700, 3, 3, 406, TimeMultiplier); //open door
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.RightSide);
             TimedEventManager.Last.OnExecute += OpenDoor_OnExecute;
@@ -356,6 +359,9 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.RightSide);
             TimedEventManager.Last.OnExecute += CloseDoor_OnExecute;
 
+            TimedEventManager.Add(6, 55, 0, TimeMultiplier); //move player to driver seat
+            TimedEventManager.Last.OnExecute += MovePlayer_OnExecute;
+
             TimedEventManager.Add(6, 55, 0, TimeMultiplier); //start sparks
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.RightSide);
             TimedEventManager.Last.OnExecute += StartSparks_OnExecute;
@@ -392,6 +398,14 @@ namespace BackToTheFutureV.Story
 
                 TimeMachine.CustomCamera = TimeMachineCamera.FrontPassengerWheelLookAtRear;
             }
+        }
+
+        private void MovePlayer_OnExecute(TimedEvent timedEvent)
+        {
+            if (Utils.PlayerVehicle != TimeMachine)
+                return;
+
+            Utils.PlayerPed.Task.ShuffleToNextVehicleSeat();
         }
 
         private void CloseDoor_OnExecute(TimedEvent timedEvent)

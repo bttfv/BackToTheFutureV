@@ -116,16 +116,12 @@ namespace BackToTheFutureV.Players
             WormholeScaleforms.Add(new ScaleformGui("bttf_wormhole_scaleform_blue") { DrawInPauseMenu = true });
             WormholeScaleforms.Add(new ScaleformGui("bttf_wormhole_scaleform_red") { DrawInPauseMenu = true });
         }
-
-        public int MaxTime { get; set; }
-        
+                
         public static readonly Vector3 wormholeOffset = new Vector3(0.02835939f, 2.822448f, 0.8090208f);
 
-        public WormholeAnimationPlayer(TimeMachine timeMachine, int maxTime = 4350) : base(timeMachine)
+        public WormholeAnimationPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
             _wheelPtfxes = new List<PtfxEntityPlayer>();
-
-            MaxTime = maxTime;
 
             string wormholeRenderTargetName = "bttf_wormhole"; // default
 
@@ -408,7 +404,7 @@ namespace BackToTheFutureV.Players
             if (!_hasStartedWormhole && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.PhotoWormholeActive))
             {
                 _startWormholeAt = Game.GameTime + 1000;
-                _endAt = _startWormholeAt + MaxTime;
+                _endAt = _startWormholeAt + Mods.WormholeProperties.WormholeLengthTime;
                 _hasStartedWormhole = true;
             }
         }

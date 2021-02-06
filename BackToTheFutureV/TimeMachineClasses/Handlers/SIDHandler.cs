@@ -1,19 +1,27 @@
-﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+﻿using BackToTheFutureV.HUD.Core;
+using BackToTheFutureV.Settings;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using System.Windows.Forms;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class SIDHandler : Handler
     {
-        private bool _sidMax;
-        private int _playDiodeSoundAt;
+         private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Properties.HUDProperties;
+
+        private bool _waitTurnOn;
+
+        private bool _randomDelay;
+
+        private const int _minDelay = 60;
 
         public SIDHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            Events.OnSIDReachMax += OnSIDReachMax;
+            Events.SetSIDLedsState += SetAllState;
         }
 
         public override void Dispose()
@@ -26,41 +34,123 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             
         }
 
-        private void OnSIDReachMax(int playDiodeSoundAt)
+        private void SetColumnHeight(int column, int height)
         {
-            _sidMax = true;
-            _playDiodeSoundAt = playDiodeSoundAt;
+            int max = GetMaxHeight(column);
+
+            if (height > max)
+                height = max;
+
+            if (height < 0)
+                height = 0;
+
+            Properties.NewHeight[column] = height;
+            Properties.LedDelay[column] = 0;
         }
 
-        private void DrawRT()
+        private void Random(int min = 0, int max = 20)
         {
-            if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f || ModSettings.HideSID)
+            if (_waitTurnOn && AreColumnProcessing())
                 return;
 
-            Scaleforms.SIDRT?.Draw();
+            if (_waitTurnOn)
+                _waitTurnOn = false;
+
+            if (!_randomDelay)
+                _randomDelay = true;
+
+            for (int column = 0; column < 10; column++)
+            {
+                if (Properties.LedDelay[column] > Game.GameTime)
+                    continue;
+
+                SetColumnHeight(column, Utils.Random.Next(min, max + 1));
+            }
+        }
+
+        private void SetAllState(bool on, bool instant = false)
+        {
+            for (int column = 0; column < 10; column++)
+            {
+                int max = GetMaxHeight(column);
+
+                SetColumnHeight(column, on ? max : 0);
+
+                if (instant)
+                {                    
+                    for (int row = 0; row < max; row++)
+                        HUDProperties.LedState[column][row] = on;
+
+                    Properties.CurrentHeight[column] = max;
+                }
+            }
+
+            if (instant)
+                return;
+            
+            _randomDelay = false;
+            _waitTurnOn = on;
+        }
+
+        private bool AreColumnProcessing()
+        {
+            for (int column = 0; column < 10; column++)
+                if (Properties.NewHeight[column] != Properties.CurrentHeight[column])
+                    return true;
+
+            return false;
+        }
+
+        private int GetMaxHeight(int column)
+        {
+            switch (column)
+            {
+                case 2:
+                    return 13;
+                case 5:
+                    return 19;
+                case 7:
+                    return 10;
+                case 9:
+                    return 17;
+                default:
+                    return 20;
+            }
         }
 
         public override void Process()
         {
-            DrawRT();
+            //SID leds processing
+            for (int column = 0; column < 10; column++)
+            {
+                if (Properties.LedDelay[column] < Game.GameTime && Properties.NewHeight[column] != Properties.CurrentHeight[column])
+                {
+                    if (Properties.NewHeight[column] > Properties.CurrentHeight[column])
+                    {
+                        HUDProperties.LedState[column][Properties.CurrentHeight[column]] = true;
+                        Properties.CurrentHeight[column]++;
+                    }
+                    else if (Properties.NewHeight[column] < Properties.CurrentHeight[column])
+                    {
+                        Properties.CurrentHeight[column]--;
+                        HUDProperties.LedState[column][Properties.CurrentHeight[column]] = false;
+                    }
 
-            if (Utils.PlayerVehicle != Vehicle || !Properties.AreTimeCircuitsOn || Properties.TimeTravelPhase > Enums.TimeTravelPhase.OpeningWormhole)
+                    Properties.LedDelay[column] = Game.GameTime + _minDelay + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
+                }
+            }
+
+            if (Properties.IsGivenScaleformPriority && Vehicle.IsVisible)
+                Scaleforms.SIDRT?.Draw();
+            else
                 return;
 
-            if (_sidMax)
+            if (!Properties.AreTimeCircuitsOn || Properties.HasBeenStruckByLightning || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+                return;
+
+            if (Vehicle.GetMPHSpeed() >= Mods.WormholeProperties.PlayDiodeSoundAt)
             {
-                if (Vehicle.GetMPHSpeed() < _playDiodeSoundAt)
-                {
-                    _sidMax = false;
-                    return;
-                }
-
-                ScaleformsHandler.SID2D?.SetAllState(true);
-                
-                if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f || ModSettings.HideSID)
-                    return;
-
-                Scaleforms.SIDRT?.Draw();
+                Random(20, 20);
 
                 return;
             }
@@ -69,12 +159,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (speed.ToMPH() <= 1)
             {
-                ScaleformsHandler.SID2D?.Random(0, 0);
-                
-                if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f || ModSettings.HideSID)
-                    return;
-
-                Scaleforms.SIDRT?.Draw();
+                Random(0, 0);
 
                 return;
             }
@@ -93,7 +178,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (max > 20)
                 max = 20;
 
-            ScaleformsHandler.SID2D?.Random(min, max);
+            Random(min, max);
         }
 
         public override void Stop()

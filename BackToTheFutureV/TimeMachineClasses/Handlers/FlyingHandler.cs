@@ -293,7 +293,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsFlying)
                 return;
                 
-            if (ModSettings.TurbulenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard))
+            if (Properties.HasBeenStruckByLightning || (ModSettings.TurbulenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)))
             {
                 if (Game.GameTime > _nextForce)
                 {
@@ -312,6 +312,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                             _force = 1;
                             break;
                     }
+
+                    if (Properties.HasBeenStruckByLightning)
+                        _force = 1;
 
                     _force *= (Vehicle.HeightAboveGround / 20f);
 

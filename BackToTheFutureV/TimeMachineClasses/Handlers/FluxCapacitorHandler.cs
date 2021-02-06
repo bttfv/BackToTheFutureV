@@ -1,13 +1,22 @@
 ﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using FusionLibrary;
 using GTA;
+using GTA.Math;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class FluxCapacitorHandler : Handler
     {
+        private LightHandler FluxBlueLight;
+
         public FluxCapacitorHandler(TimeMachine timeMachine) : base(timeMachine)
-        {           
+        {
+            FluxBlueLight = new LightHandler(TimeMachine, TimeMachineHandler.TimeMachineCount + 1);
+            FluxBlueLight.Add("flux_capacitor", "windscreen", Color.LightBlue, 10, 5, 0, 45, 100);
+            FluxBlueLight.Add("windscreen", "flux_capacitor", Color.LightBlue, 10, 10, 0, 6, 0);
+
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
             Events.OnScaleformPriority += OnScaleformPriority;
 
@@ -51,6 +60,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.IsGivenScaleformPriority)
                 Scaleforms.FluxCapacitorRT.Draw();
 
+            if (Properties.IsFluxDoingBlueAnim)
+                FluxBlueLight.Draw();
+
             if (ModSettings.PlayFluxCapacitorSound)
             {
                 if (!Vehicle.IsVisible && Sounds.FluxCapacitor.IsAnyInstancePlaying)
@@ -78,8 +90,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Sounds.FluxCapacitor?.Play();
 
                 ScaleformsHandler.FluxCapacitor.CallFunction("START_ANIMATION");
-            }
-            
+            }            
 
             Properties.IsFluxDoingBlueAnim = false;
             Properties.PhotoFluxCapacitorActive = false;

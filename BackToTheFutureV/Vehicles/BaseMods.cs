@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using System;
+using System.Collections.Generic;
 
 namespace BackToTheFutureV.Vehicles
 {
@@ -76,11 +77,35 @@ namespace BackToTheFutureV.Vehicles
         LowerFrontAndRear = 8
     }
 
-    public enum HoodType 
+    public enum HoodType
     {
         Stock = -1,
         H1983 = 0,
         H1981 = 1
+    }
+
+    public class WormholeProperties 
+    {
+        public int StartEffectsAt { get; }
+        public int WormholeLengthTime { get; }
+        public int PlayDiodeSoundAt { get; }
+
+        public static List<WormholeProperties> WormholePropertiesList { get; } = new List<WormholeProperties>();
+
+        static WormholeProperties()
+        {
+            WormholePropertiesList.Add(new WormholeProperties(82, 88, 5000));
+            WormholePropertiesList.Add(new WormholeProperties(82, 88, 2900));
+            WormholePropertiesList.Add(new WormholeProperties(60, 65, 4200));
+            WormholePropertiesList.Add(new WormholeProperties(80, 82, 4200));
+        }
+
+        public WormholeProperties(int playDiodeSoundAt, int startEffectsAt, int wormholeLengthTime)
+        {
+            StartEffectsAt = startEffectsAt;
+            WormholeLengthTime = wormholeLengthTime;
+            PlayDiodeSoundAt = playDiodeSoundAt;
+        }
     }
 
     [Serializable]
