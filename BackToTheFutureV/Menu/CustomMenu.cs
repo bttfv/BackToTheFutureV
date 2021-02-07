@@ -214,8 +214,7 @@ namespace BackToTheFutureV.Menu
                 _plate.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _exhaust.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _suspensions.Enabled = _tempTimeMachine.Mods.IsDMC12;
-                _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
-                _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _hood.Enabled = _tempTimeMachine.Mods.IsDMC12;
             }
             
             LoadVehicleType();

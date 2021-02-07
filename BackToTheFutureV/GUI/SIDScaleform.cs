@@ -31,7 +31,12 @@ namespace BackToTheFutureV.GUI
         {
             for (int column = 0; column < 10; column++)
                 for (int row = 0; row < 20; row++)
+                {
+                    if (row > 0 && !HUDProperties.LedState[column][row - 1] && HUDProperties.LedState[column][row])
+                        HUDProperties.LedState[column][row] = false;
+
                     CallFunction("setLed", column, row, Convert.ToInt32(HUDProperties.LedState[column][row]));
+                }                    
         }
 
         public void Draw2D()

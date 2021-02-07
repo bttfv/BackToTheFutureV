@@ -112,6 +112,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
                 Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
 
+                if (!Utils.IsPadShaking)
+                    Utils.SetPadShake(Mods.WormholeProperties.WormholeLengthTime, 100);
+
                 if (Properties.IsFueled)
                 {
                     if (!Players.Wormhole.IsPlaying)
@@ -170,6 +173,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Stop()
         {
+            Utils.StopPadShake();
+
             Sounds.Sparks?.Stop(true);
 
             Sounds.SparkStabilized?.Stop(true);

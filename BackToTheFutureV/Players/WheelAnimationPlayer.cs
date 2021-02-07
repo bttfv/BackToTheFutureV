@@ -14,7 +14,7 @@ namespace BackToTheFutureV.Players
     public class WheelAnimationPlayer : Player
     {
         public const float MAX_POSITION_OFFSET = 0.20f;
-        public const float MAX_ROTATION_OFFSET = -90f;
+        public const float MAX_ROTATION_OFFSET = 90f;
 
         public bool IsWheelsOpen { get; private set; }
 
@@ -72,17 +72,17 @@ namespace BackToTheFutureV.Players
 
                 AnimateProp strut = new AnimateProp(Vehicle, ModelHandler.Strut, strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
                 if (leftWheel)
-                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.24f, 1);
+                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(false, true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.24f, 1);
                 else
-                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.24f, 1);                
+                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(false, true, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.24f, 1);                
                 strut.SpawnProp();
 
-                AnimateProp disk = new AnimateProp(strut, ModelHandler.Disk, frontWheel ? diskOffsetFromStrut : diskOffsetFromRearStrut, new Vector3(0, 90, 0));
-                disk[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, true, false, 0, 90, 1, 120, 1);                
+                AnimateProp disk = new AnimateProp(strut, ModelHandler.Disk, frontWheel ? diskOffsetFromStrut : diskOffsetFromRearStrut, new Vector3(0, MAX_ROTATION_OFFSET, 0));
+                disk[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(false, true, false, 0, MAX_ROTATION_OFFSET, 1, 120, 1);                
                 disk.SpawnProp();
 
-                AnimateProp piston = new AnimateProp(disk, ModelHandler.Piston, frontWheel ? pistonOffsetFromDisk : pistonOffsetFromRearDisk, new Vector3(0, -90, 0));
-                piston[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, true, true, -90, 0, 1, 120, 1);
+                AnimateProp piston = new AnimateProp(disk, ModelHandler.Piston, frontWheel ? pistonOffsetFromDisk : pistonOffsetFromRearDisk, new Vector3(0, -MAX_ROTATION_OFFSET, 0));
+                piston[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(false, true, true, -MAX_ROTATION_OFFSET, 0, 1, 120, 1);
                 piston.SpawnProp();
 
                 AnimateProp wheelAnimateProp = new AnimateProp(disk, wheelModel, Vector3.Zero, new Vector3(0, -90, 0));
@@ -95,8 +95,10 @@ namespace BackToTheFutureV.Players
                 AllProps.Add(strut);
                 AllProps.Add(piston);
                 AllProps.Add(disk);
-                AllProps.Add(wheelGlowAnimateProp);                
+                AllProps.Add(wheelGlowAnimateProp);
             }
+
+            AllProps.SaveAnimation();
         }
 
         public void OnAnimationCompleted(AnimationStep animationStep)
@@ -113,7 +115,6 @@ namespace BackToTheFutureV.Players
                         break;
                     case AnimationStep.Second:
                         Stop();
-                        OnAnimCompleted.Invoke();
                         break;
                 }
             }
@@ -125,8 +126,7 @@ namespace BackToTheFutureV.Players
                         AllProps.Play();
                         break;
                     case AnimationStep.First:
-                        Stop();
-                        OnAnimCompleted.Invoke();
+                        Stop();                        
                         break;
                 }
             }
@@ -155,8 +155,17 @@ namespace BackToTheFutureV.Players
 
         public override void Stop()
         {
+            Utils.StopPadShake();
+
+            IsPlaying = false;
+            PlayerSwitch.Disable = false;
+
+            AllProps.RestoreAnimation();
+
             if (IsWheelsOpen)
-            {
+            {                
+                AllProps.Play(AnimationStep.Second, true, true);
+
                 if ( _roadWheel == WheelType.Stock)
                 {
                     for (int i = 0; i < 4; i++)
@@ -166,19 +175,16 @@ namespace BackToTheFutureV.Players
                 }
             }
             else
-            {
+            {             
                 if (!Properties.IsLanding)
                 {
                     Wheels.Delete();
 
-                    ReloadWheelModels();
-
                     Mods.Wheel = _roadWheel;
                 }
-            }                
+            }
 
-            IsPlaying = false;
-            PlayerSwitch.Disable = false;
+            OnAnimCompleted?.Invoke();
         }
 
         public void SetInstant(bool open)
@@ -193,23 +199,13 @@ namespace BackToTheFutureV.Players
 
                 if (!Wheels.IsSpawned)
                     Wheels.SpawnProp();
-
-                AllProps.Play(AnimationStep.Second, true, true);
             }
-            else
-            {
-                AllProps.Play(AnimationStep.Second, true, true);
 
-                Wheels.Delete();
-
-                Mods.Wheel = _roadWheel;
-            }
+            Stop();
         }
 
         public void Play(bool open)
         {
-            Stop();
-
             if (IsWheelsOpen == open)
                 return;
 
@@ -237,7 +233,8 @@ namespace BackToTheFutureV.Players
 
         public override void Process()
         {
-            
+            if (IsPlaying && !Utils.IsPadShaking)
+                Utils.SetPadShake(100, 80);
         }
 
         public override void Dispose()

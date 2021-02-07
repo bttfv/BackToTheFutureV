@@ -26,6 +26,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         //Time travel
         public AnimateProp Coils;
 
+        //Flux capacitor
+        public AnimateProp FluxBlue;
+
         //Plutonium gauge
         public AnimateProp GaugeGlow;
 
@@ -50,9 +53,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         //TCD
         public AnimateProp TickingDiodes;
         public AnimateProp TickingDiodesOff;
-
-        //SID
-        public AnimateProp SID;
 
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -84,10 +84,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             if (!Mods.IsDMC12)
                 return;
-
-            //SID = new AnimateProp(Vehicle, ModelHandler.SID, "bttf_sid");
-            //SID.SpawnProp();
-
             BTTFDecals = new AnimateProp(Vehicle, ModelHandler.BTTFDecals, Vector3.Zero, Vector3.Zero);
             BTTFDecals.SpawnProp();
 
@@ -138,6 +134,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Hoodbox lights
             HoodboxLights = new AnimateProp(Vehicle, ModelHandler.HoodboxLights, "bonnet");
+
+            //Flux capacitor
+            FluxBlue = new AnimateProp(Vehicle, ModelHandler.FluxBlueModel, "flux_capacitor");
         }
 
         public override void Dispose()
@@ -152,15 +151,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 prop?.Dispose();
 
             //Fuel
-            EmptyGlowing?.Delete();
-            EmptyOff?.Delete();
+            EmptyGlowing?.Dispose();
+            EmptyOff?.Dispose();
 
             //Hoodbox
-            HoodboxLights?.Delete();
+            HoodboxLights?.Dispose();
 
             //Time travel
             Coils?.Dispose();
-            WhiteSphere?.Delete();
+            WhiteSphere?.Dispose();
 
             //Plutonium gauge
             GaugeGlow?.Dispose();
@@ -180,16 +179,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             RRWheels?.ForEach(x => x?.Dispose());
 
             //TCD
-            TickingDiodes?.Delete();
-            TickingDiodesOff?.Delete();
+            TickingDiodes?.Dispose();
+            TickingDiodesOff?.Dispose();
 
-            //SID
-            SID?.Delete();
+            //Flux capacitor
+            FluxBlue?.Dispose();
         }
 
         public override void KeyDown(Keys key)
         {
-            
+
         }
 
         public override void Process()

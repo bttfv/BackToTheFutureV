@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System.Drawing;
@@ -14,8 +15,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public FluxCapacitorHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             FluxBlueLight = new LightHandler(TimeMachine, TimeMachineHandler.TimeMachineCount + 1);
-            FluxBlueLight.Add("flux_capacitor", "windscreen", Color.LightBlue, 10, 5, 0, 45, 100);
-            FluxBlueLight.Add("windscreen", "flux_capacitor", Color.LightBlue, 10, 10, 0, 6, 0);
+            FluxBlueLight.Add("flux_capacitor", "windscreen", Color.FromArgb(118, 147, 230), 10, 5, 0, 45, 100);
+            FluxBlueLight.Add("windscreen", "flux_capacitor", Color.FromArgb(118, 147, 230), 10, 10, 0, 6, 0);
+
+            Vector3 pos = Vehicle.Bones["flux_capacitor"].RelativePosition;
+            Vector3 dir = pos.GetDirectionTo(new Vector3(-0.03805999f, -0.0819466f, 0.5508024f));
+
+            FluxBlueLight.Add(pos, dir, Color.FromArgb(118, 147, 230), 10, 20, 0, 90, 100);
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
             Events.OnScaleformPriority += OnScaleformPriority;
@@ -62,6 +68,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.IsFluxDoingBlueAnim)
                 FluxBlueLight.Draw();
+
+            if (Properties.IsFluxDoingBlueAnim && !Props.FluxBlue.IsSpawned)
+                Props.FluxBlue.SpawnProp();
+
+            if (!Properties.IsFluxDoingBlueAnim && Props.FluxBlue.IsSpawned)
+                Props.FluxBlue?.Delete();
 
             if (ModSettings.PlayFluxCapacitorSound)
             {

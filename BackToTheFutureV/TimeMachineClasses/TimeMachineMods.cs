@@ -179,11 +179,8 @@ namespace BackToTheFutureV.TimeMachineClasses
             get => base.Wheel;
             set
             {
-                if (IsDMC12)
-                {
-                    if (TimeMachine.Properties != null && TimeMachine.Properties.IsFlying)
-                        return;
-                }
+                if (TimeMachine.Properties == null)
+                    return;
 
                 base.Wheel = value;
 

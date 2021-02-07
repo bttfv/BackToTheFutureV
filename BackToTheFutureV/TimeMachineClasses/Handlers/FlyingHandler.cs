@@ -181,7 +181,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Properties.AreWheelsInHoverMode = open;
 
-            Properties.IsLanding = ModSettings.LandingSystem && Mods.IsDMC12 && !Properties.AreWheelsInHoverMode && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
+            Properties.IsLanding = ModSettings.LandingSystem && Mods.IsDMC12 && !Properties.AreWheelsInHoverMode && !Properties.AreFlyingCircuitsBroken && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
 
             if (instant)
                 Players.HoverModeWheels?.SetInstant(open);
@@ -287,7 +287,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (!Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 0.5f && Vehicle.HeightAboveGround < 20)
                     return;
 
-                SetFlyMode(false);
+                SetFlyMode(false, true);
             }
 
             if (!Properties.IsFlying)
@@ -385,6 +385,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // Using this so that controllers are also supported
             if(Game.IsControlPressed(ModControls.HoverBoost) && Vehicle.IsEngineRunning)
             {
+                if (Game.IsControlJustPressed(ModControls.HoverBoost))
+                    Utils.SetPadShake(100, 200);
+
                 // Boost!
                 Boost();
 
@@ -434,7 +437,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     }
 
                     upNormal = 1;
-                }
+                } else
+                    Utils.SetPadShake(100, 80);
             }
             else if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
             {
@@ -444,7 +448,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Game.DisableControlThisFrame(Control.VehicleFlyThrottleDown);
 
                     upNormal = -1;
-                }
+                } else
+                    Utils.SetPadShake(100, 80);
             }
 
             if (upNormal == 0 && _hoverGlowUp)

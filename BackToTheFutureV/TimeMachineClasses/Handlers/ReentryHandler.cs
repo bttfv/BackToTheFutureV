@@ -58,6 +58,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Function.Call(Hash.ADD_SHOCKING_EVENT_AT_POSITION, 88, Vehicle.Position.X, Vehicle.Position.Y, Vehicle.Position.Z, 1f);
 
+                    Utils.SetPadShake(500, 200);
+
                     var timeToAdd = 500;
 
                     switch (Mods.WormholeType)
@@ -79,6 +81,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Particles?.Flash?.Play();
 
+                    Utils.SetPadShake(500, 200);
+
                     timeToAdd = 500;
 
                     switch (Mods.WormholeType)
@@ -99,6 +103,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 case 2:
 
                     Particles?.Flash?.Play();
+
+                    Utils.SetPadShake(500, 200);
 
                     _currentStep++;
                     break;
