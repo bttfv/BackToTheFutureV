@@ -25,7 +25,7 @@ namespace BackToTheFutureV.Menu
 
             Add(MissionToggle = new NativeCheckboxItem("Mission toggle"));
             Add(Speed = new NativeSliderItem("Speed"));
-            Speed.ValueChanged += Speed_ValueChanged;            
+            Speed.ValueChanged += Speed_ValueChanged;
             Add(Volume = new NativeSliderItem("Volume"));
             Add(Mute = new NativeCheckboxItem("Mute"));
             Add(MusicOnly = new NativeCheckboxItem("Music only", false));
@@ -35,7 +35,7 @@ namespace BackToTheFutureV.Menu
         private void MusicVolume_ValueChanged(object sender, EventArgs e)
         {
             MissionHandler.TrainMission.MissionMusic.Volume = Volume.Value / 100.0f;
-            Volume.Title = "Music volume: " + Volume.Value.ToString();            
+            Volume.Title = "Music volume: " + Volume.Value.ToString();
         }
 
         private void TrainMissionMenu_Shown(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace BackToTheFutureV.Menu
         }
 
         public override void Tick()
-        {            
+        {
             Speed.Enabled = !MissionToggle.Checked;
             MusicOnly.Enabled = !MissionHandler.TrainMission.IsPlaying;
             Volume.Enabled = !Mute.Checked;
@@ -92,14 +92,14 @@ namespace BackToTheFutureV.Menu
                     {
                         MissionHandler.TrainMission.OriginalVolume = MissionHandler.TrainMission.MissionMusic.Volume;
                         MissionHandler.TrainMission.MissionMusic.Volume = 0;
-                    } 
+                    }
                     else
                     {
-                        MissionHandler.TrainMission.MissionMusic.Volume = MissionHandler.TrainMission.OriginalVolume;                        
+                        MissionHandler.TrainMission.MissionMusic.Volume = MissionHandler.TrainMission.OriginalVolume;
                     }
 
                     Volume.Value = (int)(MissionHandler.TrainMission.MissionMusic.Volume * 100);
-                }                    
+                }
             }
 
             if (sender == MusicOnly)
@@ -110,7 +110,7 @@ namespace BackToTheFutureV.Menu
                     MissionHandler.TrainMission.MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/music.wav", Presets.No3D);
                 else
                     MissionHandler.TrainMission.MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/musicWithVoices.wav", Presets.No3D);
-            }                
+            }
         }
     }
 }

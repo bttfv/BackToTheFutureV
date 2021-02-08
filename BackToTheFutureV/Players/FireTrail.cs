@@ -91,7 +91,7 @@ namespace BackToTheFutureV.Players
                     Vector3 rightPosOffset = rightWheelOffset + new Vector3(0, i * baseOffset, -0.2f);
 
                     // Place fire offset on ground if car is not flying
-                    if(vehicle.IsInAir)
+                    if (vehicle.IsInAir)
                     {
                         leftPosOffset = vehicle.GetOffsetPosition(leftPosOffset);
                         rightPosOffset = vehicle.GetOffsetPosition(rightPosOffset);
@@ -122,7 +122,7 @@ namespace BackToTheFutureV.Players
             else
             {
                 // Create fire particles out of pre-defines offsets
-                foreach(var offset in FireTrails99Offsets)
+                foreach (var offset in FireTrails99Offsets)
                 {
                     // Create start position on left and right wheels
                     var leftPosOffset = offset;
@@ -164,7 +164,7 @@ namespace BackToTheFutureV.Players
         {
             if (_fireTrailPtfxs.Count > 0)
             {
-                if(!_hasSpawned && Game.GameTime > _nextSpawn)
+                if (!_hasSpawned && Game.GameTime > _nextSpawn)
                 {
                     if (_currentSpawnIndex > (_fireTrailPtfxs.Count - 1))
                     {
@@ -189,7 +189,7 @@ namespace BackToTheFutureV.Players
 
                 _fireTrailPtfxs.ForEach(x => x.SetEvolutionParam("strength", _currentStrength));
 
-                if(_useBlueFadein)
+                if (_useBlueFadein)
                 {
                     amountToSub = (0.15f * Game.LastFrameTime) / _disappearTime;
                     _currentFadeIn -= amountToSub;
@@ -202,7 +202,7 @@ namespace BackToTheFutureV.Players
 
                 if (_currentStrength <= 0 && _disappearAt == -1)
                     _disappearAt = Game.GameTime + 5000;
-                else if(_currentStrength <= 0 && Game.GameTime > _disappearAt)
+                else if (_currentStrength <= 0 && Game.GameTime > _disappearAt)
                     Stop();
             }
         }

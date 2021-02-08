@@ -22,7 +22,7 @@ namespace BackToTheFutureV.Settings
         public static Keys TCToggle { get; set; } = Keys.Add;
         public static Keys CutsceneToggle { get; set; } = Keys.Multiply;
         public static Keys InputToggle { get; set; } = Keys.Divide;
-        
+
         public static void Reset()
         {
             UseControlForMainMenu = true;

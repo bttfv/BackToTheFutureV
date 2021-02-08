@@ -3,11 +3,8 @@ using BackToTheFutureV.Vehicles;
 using GTA;
 using GTA.Native;
 using KlangRageAudioLibrary;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
 
@@ -205,7 +202,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             FuelEmpty.SourceBone = "bttf_tcd_green";
             Refuel = AudioEngine.Create("bttf1/refuel.wav", Presets.Exterior);
             Refuel.SourceBone = "bttf_reactorcap";
-           
+
             //Plutonium gauge
             PlutoniumGauge = AudioEngine.Create("bttf1/timeCircuits/plutoniumGauges.wav", Presets.Interior);
             PlutoniumGauge.SourceBone = "bttf_tcd_green";
@@ -237,7 +234,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             FluxCapacitor = AudioEngine.Create("general/fluxCapacitor.wav", Presets.InteriorLoop);
             FluxCapacitor.Volume = 0.1f;
             FluxCapacitor.MinimumDistance = 0.5f;
-            FluxCapacitor.SourceBone = "flux_capacitor";     
+            FluxCapacitor.SourceBone = "flux_capacitor";
         }
 
         public void OnWormholeTypeChanged()
@@ -319,14 +316,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public override void KeyDown(Keys key)
         {
-            
+
         }
 
         public override void Process()
         {
             if (Game.GameTime < _gameTimer | !Vehicle.IsVisible | !Mods.IsDMC12)
                 return;
-            
+
             foreach (var door in _doorStatus.ToList())
             {
                 var doorAngle = Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, Vehicle.Handle, (int)door.Key);

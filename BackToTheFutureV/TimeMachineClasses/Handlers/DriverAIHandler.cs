@@ -15,7 +15,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         ParkAndLeave,
         DriveAround,
         DriveAroundAndTimeTravel,
-        TimeTravel        
+        TimeTravel
     }
 
     public class DriverAIHandler : Handler
@@ -38,7 +38,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            
+
         }
 
         private void StartAI(bool state)
@@ -48,11 +48,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 DriverTask = (DriverTaskType)Utils.Random.Next(2, 2);
 
                 IsPlaying = true;
-            }                
+            }
             else
                 Stop();
         }
- 
+
         private void OnTimeTravelCompleted()
         {
             if (IsPlaying)

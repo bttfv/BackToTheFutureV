@@ -17,7 +17,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
     {
         private int _nextCheck;
         private int _delay = -1;
-                
+
         private int _flashes;
         private int _nextFlash;
 
@@ -50,7 +50,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (_hasBeenStruckByLightning && _flashes <= 3)
             {
-                if(Game.GameTime > _nextFlash)
+                if (Game.GameTime > _nextFlash)
                 {
                     // Flash the screen
                     //ScreenFlash.FlashScreen(0.25f);
@@ -63,16 +63,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     // Dont do it anymore if flashed enough times
                     if (_flashes > 3)
-                    {                        
+                    {
                         _flashes = 0;
                         _hasBeenStruckByLightning = false;
                     }
                 }
 
-                if(Properties.IsFlying && Game.GameTime > _nextForce)
+                if (Properties.IsFlying && Game.GameTime > _nextForce)
                 {
                     //Vehicle.ApplyForce(Vector3.RandomXYZ() * 3f, Vector3.RandomXYZ());
-                    Vehicle.ApplyForce(Vector3.Zero, Vector3.RandomXYZ()*3);
+                    Vehicle.ApplyForce(Vector3.Zero, Vector3.RandomXYZ() * 3);
 
                     _nextForce = Game.GameTime + 100;
                 }
@@ -82,8 +82,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (!ModSettings.LightningStrikeEvent || World.Weather != Weather.ThunderStorm || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole || Game.GameTime < _nextCheck)
                 return;
-          
-            if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying)) 
+
+            if ((Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
             {
                 if (Utils.Random.NextDouble() < 0.2)
                     Strike();
@@ -127,7 +127,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Properties.IsFlying)
                     Properties.AreFlyingCircuitsBroken = true;
             }
-                                      
+
             Vehicle.EngineHealth -= 700;
 
             _hasBeenStruckByLightning = true;
@@ -144,7 +144,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Stop()
         {
-            
+
         }
 
         public override void Dispose()

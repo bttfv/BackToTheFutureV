@@ -2,7 +2,6 @@
 using FusionLibrary;
 using GTA;
 using System;
-using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
@@ -25,7 +24,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                     return;
                 }
             }
-                           
+
             WormholeType = wormholeType;
 
             Exterior = ModState.On;
@@ -191,7 +190,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                     if (!IsDMC12)
                         return;
-                   
+
                     if (HoverUnderbody == ModState.On)
                         HoverUnderbody = ModState.Off;
 
@@ -210,7 +209,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
         }
 
-        public new PlateType Plate 
+        public new PlateType Plate
         {
             get => base.Plate;
             set
@@ -244,7 +243,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                     if (Wheel == WheelType.RailroadInvisible)
                         Wheel = WheelType.Stock;
-                } else
+                }
+                else
                 {
                     if (TimeMachine.Properties != null)
                         TimeMachine.Properties.TorqueMultiplier = 1;
@@ -255,7 +255,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         public new ModState HoverUnderbody
         {
             get => base.HoverUnderbody;
-            set 
+            set
             {
                 if (IsDMC12)
                 {
@@ -285,7 +285,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                     TimeMachine.DMC12.SetStockSuspensions?.Invoke(value == ModState.Off);
 
                     TimeMachine.Events?.OnHoverUnderbodyToggle?.Invoke(reload);
-                }                                  
+                }
             }
         }
 
@@ -351,13 +351,14 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                     TimeMachine.Properties.AreTimeCircuitsBroken = false;
                     WormholeType = WormholeType.BTTF3;
-                }                    
+                }
             }
         }
 
         public WormholeProperties WormholeProperties
         {
-            get {
+            get
+            {
                 switch (WormholeType)
                 {
                     case WormholeType.BTTF1:

@@ -55,10 +55,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 customTrain.RogersSierra.RejectAttach = true;
 
-                Stop();                
+                Stop();
                 return;
             }
-                
+
             switch (Properties.TimeTravelType)
             {
                 case TimeTravelType.Cutscene:
@@ -88,11 +88,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
                 case TimeTravelType.Cutscene:
                     customTrain.SpeedMPH = 88;
-                    break;                
+                    break;
                 case TimeTravelType.RC:
                     Start(true);
                     break;
-            }            
+            }
         }
 
         public void Start(bool force = false)
@@ -126,15 +126,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             customTrain.SetToAttach(Vehicle, new Vector3(0, 4.5f, Mods.IsDMC12 ? 0 : Vehicle.HeightAboveGround - customTrain.Carriage(1).HeightAboveGround), 1, 0);
 
             customTrain.SetPosition(Vehicle.GetOffsetPosition(offset: Vector3.Zero.GetSingleOffset(Coordinate.Y, -1)));
-            
+
             customTrain.OnVehicleAttached += customTrain_OnVehicleAttached;
-            customTrain.OnTrainDeleted += customTrain_OnTrainDeleted;            
+            customTrain.OnTrainDeleted += customTrain_OnTrainDeleted;
         }
 
         private void customTrain_OnTrainDeleted()
-        {            
+        {
             customTrain.OnTrainDeleted -= customTrain_OnTrainDeleted;
-            customTrain.OnVehicleAttached -= customTrain_OnVehicleAttached;            
+            customTrain.OnVehicleAttached -= customTrain_OnVehicleAttached;
             customTrain = null;
 
             if (Properties.IsAttachedToRogersSierra)
@@ -157,7 +157,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (customTrain.SpeedMPH == 0)
                     customTrain.SpeedMPH = 88;
-            }                
+            }
             else
                 customTrain.Speed = Vehicle.IsGoingForward() ? _speed : -_speed;
         }
@@ -171,7 +171,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (!Properties.IsOnTracks || !customTrain.IsRogersSierra)
                 return;
-            
+
             customTrain.RogersSierra.KeyDown(key);
         }
 
@@ -234,23 +234,24 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     {
                         if (Math.Abs(_train.GetMPHSpeed() + Vehicle.GetMPHSpeed()) > 35)
                             Vehicle.Explode();
-                    } else
+                    }
+                    else
                         if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 35)
-                            Vehicle.Explode();
+                        Vehicle.Explode();
 
                     _attachDelay = Game.GameTime + 3000;
                 }
-                
+
                 return;
             }
 
             if (_attachDelay < Game.GameTime && Mods.Wheel == WheelType.RailroadInvisible && !Properties.IsFlying)
-            {                
+            {
                 if (Utils.GetWheelsPositions(Vehicle).TrueForAll(x => Utils.IsWheelOnTracks(x, Vehicle)))
                 {
                     customTrain?.DeleteTrain();
                     Start(TimeMachine.Properties.TimeTravelPhase == TimeTravelPhase.Reentering);
-                }                    
+                }
             }
         }
 
@@ -268,7 +269,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _attachDelay = Game.GameTime + delay;
 
             if (customTrain != null)
-            {                
+            {
                 if (customTrain.Exists && customTrain.AttachedToTarget)
                     customTrain.DetachTargetVehicle();
 

@@ -15,13 +15,13 @@ namespace BackToTheFutureV.Menu
         public static EventsSettingsMenu EventsSettingsMenu { get; } = new EventsSettingsMenu();
         public static TCDMenu TCDMenu { get; } = new TCDMenu();
         public static SettingsMenu SettingsMenu { get; } = new SettingsMenu();
-        public static RCMenu RCMenu { get; } = new RCMenu();        
+        public static RCMenu RCMenu { get; } = new RCMenu();
         public static PhotoMenu PhotoMenu { get; } = new PhotoMenu();
         public static CustomMenu CustomMenu { get; } = new CustomMenu();
         public static CustomMenu CustomMenuForced { get; } = new CustomMenu() { ForceNew = true };
         public static PresetsMenu PresetsMenu { get; } = new PresetsMenu();
         public static OutatimeMenu OutatimeMenu { get; } = new OutatimeMenu();
-        public static MainMenu MainMenu { get; } = new MainMenu();        
+        public static MainMenu MainMenu { get; } = new MainMenu();
         public static TrainMissionMenu TrainMissionMenu { get; } = new TrainMissionMenu();
         public static TimeMachineMenu TimeMachineMenu { get; } = new TimeMachineMenu();
 

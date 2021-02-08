@@ -46,7 +46,7 @@ namespace BackToTheFutureV.Utility
         public static Dictionary<int, CustomModel> GaugeModels = new Dictionary<int, CustomModel>();
         public static Dictionary<string, CustomModel> TCDRTModels = new Dictionary<string, CustomModel>();
         public static CustomModel WhiteSphere = new CustomModel("tm_flash");
-        public static CustomModel Compass = new CustomModel("bttf_compass");        
+        public static CustomModel Compass = new CustomModel("bttf_compass");
         public static CustomModel CoilsIndicatorLeft = new CustomModel("indicator_left");
         public static CustomModel CoilsIndicatorRight = new CustomModel("indicator_right");
         public static CustomModel InvisibleProp = new CustomModel("prop_dummy");
@@ -121,12 +121,12 @@ namespace BackToTheFutureV.Utility
                 UnderbodyLights.Add(i, model);
             }
 
-            foreach(var strModel in tcdTypes)
+            foreach (var strModel in tcdTypes)
             {
                 var str = "bttf_3d_row_" + strModel;
 
                 var slotModel = new CustomModel(str);
-                
+
                 PreloadModel(slotModel);
                 TCDRTModels.Add(strModel, slotModel);
 
@@ -144,7 +144,7 @@ namespace BackToTheFutureV.Utility
                 var modelString = $"bttf_needle{i}";
                 var model = new CustomModel(modelString);
                 PreloadModel(model);
-                
+
                 GaugeModels.Add(i, model);
             }
 
@@ -153,7 +153,7 @@ namespace BackToTheFutureV.Utility
                 var modelStr = $"bttf3_coils_glowing_{i}";
                 var model = new CustomModel(modelStr);
                 PreloadModel(model);
-                
+
                 CoilSeparated.Add(i, model);
             }
         }

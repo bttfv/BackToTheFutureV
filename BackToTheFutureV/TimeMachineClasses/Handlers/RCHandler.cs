@@ -32,7 +32,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public RcHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             PlayerSwitch.OnSwitchingComplete += OnSwitchingComplete;
-           
+
             rcHandbrake = new NativeInput(GTA.Control.VehicleHandbrake);
             rcHandbrake.OnControlJustPressed += RcHandbrake_OnControlJustPressed;
 
@@ -63,7 +63,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (_forcedHandbrake && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled)
                     Sounds.RCSomeSerious?.Play();
-            }            
+            }
         }
 
         private void StopForcedHandbrake()
@@ -102,13 +102,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void StartRC()
         {
-            if (Vehicle == null) 
+            if (Vehicle == null)
                 return;
 
             Properties.IsRemoteControlled = true;
 
             if (_handleBoost)
-            {                
+            {
                 Events.SetSimulateSpeed?.Invoke(0, 0);
                 _handleBoost = false;
             }
@@ -122,7 +122,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Clone.BlockPermanentEvents = true;
             Clone.AlwaysKeepTask = true;
             Clone.IsVisible = false;
-            
+
             _blip = TimeMachine.OriginalPed.AddBlip();
             _blip.Sprite = (BlipSprite)480;
             _blip.Color = BlipColor.White;
@@ -172,7 +172,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 _camera?.Delete();
                 _camera = null;
-                World.RenderingCamera = null;                          
+                World.RenderingCamera = null;
             }
         }
 
@@ -209,7 +209,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Game.IsControlJustPressed(GTA.Control.VehicleExit))
                 RCManager.StopRemoteControl();
-            
+
             //// When u go too far from clone ped, game removes collision under him and 
             ////  he falls through the ground, so if player is 50 we freeze clone
             //var isCloneFreezed = CommonSettings.PlayerPed.Position.DistanceToSquared(OriginalPed.Position) >= 50*50;
@@ -240,7 +240,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     _camera = null;
                     World.RenderingCamera = null;
 
-                    Function.Call(Hash.SET_FOLLOW_VEHICLE_CAM_VIEW_MODE, 0);                    
+                    Function.Call(Hash.SET_FOLLOW_VEHICLE_CAM_VIEW_MODE, 0);
                 }
                 else if (Function.Call<int>(Hash.GET_FOLLOW_VEHICLE_CAM_VIEW_MODE) == 1)
                 {
@@ -250,12 +250,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     _camera = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
                     _camera.PointAt(Vehicle);
-                    World.RenderingCamera = _camera;                    
+                    World.RenderingCamera = _camera;
                 }
             }
 
             if (CurrentMode == RcModes.FromPlayerCamera && _camera != null && _camera.Exists())
-                _camera.Position = TimeMachine.OriginalPed.Bones[Bone.SkelHead].GetOffsetPosition(new Vector3(0,0.1f,0));
+                _camera.Position = TimeMachine.OriginalPed.Bones[Bone.SkelHead].GetOffsetPosition(new Vector3(0, 0.1f, 0));
         }
 
         public override void Stop()

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading;
-using BackToTheFutureV.HUD.Core;
+﻿using BackToTheFutureV.HUD.Core;
 using FusionLibrary;
+using System;
+using System.Threading;
 
 namespace BackToTheFutureV
 {

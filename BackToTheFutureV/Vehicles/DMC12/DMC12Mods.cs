@@ -43,7 +43,7 @@ namespace BackToTheFutureV.Vehicles
 
         public new WormholeType WormholeType
         {
-            get 
+            get
             {
                 if (IsDMC12)
                 {
@@ -52,7 +52,7 @@ namespace BackToTheFutureV.Vehicles
                     if (wormholeType != base.WormholeType)
                         base.WormholeType = wormholeType;
                 }
-                
+
                 return base.WormholeType;
             }
             set
@@ -63,7 +63,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.TrimDesign].Index = (int)value;
             }
         }
-        
+
         public new SuspensionsType SuspensionsType
         {
             get => base.SuspensionsType;
@@ -102,7 +102,7 @@ namespace BackToTheFutureV.Vehicles
                 }
             }
         }
-        
+
         public new WheelType Wheel
         {
             get => base.Wheel;
@@ -114,7 +114,7 @@ namespace BackToTheFutureV.Vehicles
                 Vehicle.Mods[VehicleModType.FrontWheel].Index = (int)value;
             }
         }
-        
+
         public new ModState Exterior
         {
             get => base.Exterior;
@@ -126,7 +126,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.Spoilers].Index = (int)value;
             }
         }
-        
+
         public new ModState Interior
         {
             get => base.Interior;
@@ -138,7 +138,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.SideSkirt].Index = (int)value;
             }
         }
-        
+
         public new ModState OffCoils
         {
             get => base.OffCoils;
@@ -150,7 +150,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.FrontBumper].Index = (int)value;
             }
         }
-        
+
         public new ModState GlowingEmitter
         {
             get => base.GlowingEmitter;
@@ -162,7 +162,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.Frame].Index = (int)value;
             }
         }
-        
+
         public new ModState GlowingReactor
         {
             get => base.GlowingReactor;
@@ -174,7 +174,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.Fender].Index = (int)value;
             }
         }
-        
+
         public new ModState DamagedBumper
         {
             get => base.DamagedBumper;
@@ -186,7 +186,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.Aerials].Index = (int)value;
             }
         }
-        
+
         public new ModState HoverUnderbody
         {
             get => base.HoverUnderbody;
@@ -198,7 +198,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.DialDesign].Index = (int)value;
             }
         }
-        
+
         public new ModState SteeringWheelsButtons
         {
             get => base.SteeringWheelsButtons;
@@ -210,7 +210,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.SteeringWheels].Index = (int)value;
             }
         }
-        
+
         public new ModState Vents
         {
             get => base.Vents;
@@ -222,7 +222,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.ColumnShifterLevers].Index = (int)value;
             }
         }
-        
+
         public new ModState Seats
         {
             get => base.Seats;
@@ -234,7 +234,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.VanityPlates].Index = (int)value;
             }
         }
-        
+
         public new ReactorType Reactor
         {
             get => base.Reactor;
@@ -246,7 +246,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.Plaques].Index = (int)value;
             }
         }
-        
+
         public new PlateType Plate
         {
             get => base.Plate;
@@ -258,7 +258,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.Ornaments].Index = (int)value;
             }
         }
-        
+
         public new ExhaustType Exhaust
         {
             get => base.Exhaust;
@@ -270,7 +270,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.Windows].Index = (int)value;
             }
         }
-        
+
         public new ModState Hoodbox
         {
             get => base.Hoodbox;
@@ -282,7 +282,7 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.Livery].Index = (int)value;
             }
         }
-        
+
         public new HookState Hook
         {
             get => base.Hook;

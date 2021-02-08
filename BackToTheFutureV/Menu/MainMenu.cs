@@ -22,7 +22,7 @@ namespace BackToTheFutureV.Menu
         private NativeSubmenuItem presetsMenu;
 
         private NativeItem convertIntoTimeMachine;
-        
+
         private NativeSubmenuItem customMenu;
         private NativeSubmenuItem rcMenu;
         private NativeSubmenuItem outatimeMenu;
@@ -34,7 +34,7 @@ namespace BackToTheFutureV.Menu
         private NativeSubmenuItem settingsMenu;
 
         private readonly List<string> _bttfTypes = new List<string> { Game.GetLocalizedString("BTTFV_Menu_DMC12"), Game.GetLocalizedString("BTTFV_Menu_BTTF1"), Game.GetLocalizedString("BTTFV_Menu_BTTF1H"), Game.GetLocalizedString("BTTFV_Menu_BTTF2"), Game.GetLocalizedString("BTTFV_Menu_BTTF3"), Game.GetLocalizedString("BTTFV_Menu_BTTF3RR") };
-       
+
         public MainMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_Description"))
         {
             Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
@@ -75,7 +75,7 @@ namespace BackToTheFutureV.Menu
             //AddSeparator();
 
             settingsMenu = AddSubMenu(MenuHandler.SettingsMenu);
-            settingsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_Settings");            
+            settingsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_Settings");
         }
 
         private void SpawnBTTF_ItemChanged(object sender, ItemChangedEventArgs<string> e)
@@ -115,7 +115,7 @@ namespace BackToTheFutureV.Menu
         private void MainMenu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             TimeMachine timeMachine;
-            
+
             if (sender == spawnBTTF)
             {
                 if (spawnBTTF.SelectedIndex == 0)
@@ -150,7 +150,7 @@ namespace BackToTheFutureV.Menu
 
                     timeMachine.Properties.IsFueled = false;
                 }
-                    
+
                 if (spawnBTTF.SelectedIndex == 5)
                     timeMachine.Mods.Wheel = WheelType.RailroadInvisible;
             }

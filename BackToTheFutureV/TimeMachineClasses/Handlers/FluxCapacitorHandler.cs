@@ -57,7 +57,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if(!Vehicle.IsVisible)
+            if (!Vehicle.IsVisible)
                 return;
 
             if (!Properties.AreTimeCircuitsOn)
@@ -95,14 +95,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
                     Sounds.FluxCapacitor?.Stop();
-            }                
+            }
             else
             {
                 if (ModSettings.PlayFluxCapacitorSound && !Sounds.FluxCapacitor.IsAnyInstancePlaying)
                     Sounds.FluxCapacitor?.Play();
 
                 ScaleformsHandler.FluxCapacitor.CallFunction("START_ANIMATION");
-            }            
+            }
 
             Properties.IsFluxDoingBlueAnim = false;
             Properties.PhotoFluxCapacitorActive = false;
@@ -115,7 +115,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-            
+
         }
 
         public override void KeyDown(Keys key)

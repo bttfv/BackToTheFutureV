@@ -44,7 +44,7 @@ namespace BackToTheFutureV.Utility
         private float _cruiseSpeed;
         private bool _setSpeed;
         private float _speed;
-        
+
         public bool Exists { get; private set; } = true;
         public bool IsAutomaticBrakeOn { get; set; } = true;
         public bool IsAccelerationOn { get; set; } = false;
@@ -366,7 +366,7 @@ namespace BackToTheFutureV.Utility
         }
 
         public void DisableToDestroy()
-        {            
+        {
             DestroyCounter = 0;
             ToDestroy = false;
         }
@@ -392,7 +392,7 @@ namespace BackToTheFutureV.Utility
             {
                 RogersSierra = null;
                 return;
-            }                
+            }
 
             Function.Call(Hash.DETACH_ENTITY, TargetVehicle, false, false);
 
@@ -429,11 +429,11 @@ namespace BackToTheFutureV.Utility
         }
 
         public void StartWheelie(bool goUp)
-        {           
+        {
             if (IsRogersSierra)
             {
                 DoWheelie = true;
-                WheelieUp = goUp;                
+                WheelieUp = goUp;
             }
         }
 

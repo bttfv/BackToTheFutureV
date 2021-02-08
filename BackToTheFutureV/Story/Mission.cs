@@ -18,23 +18,23 @@ namespace BackToTheFutureV.Story
         {
             MissionHandler.Add(this);
         }
-        
+
         public void Start()
         {
             if (!IsPlaying)
             {
                 IsPlaying = true;
-                OnStart();                                
-            }         
+                OnStart();
+            }
         }
 
         public void End()
         {
             if (IsPlaying)
-            {                
+            {
                 OnEnd();
                 IsPlaying = false;
-            }            
+            }
         }
     }
 }

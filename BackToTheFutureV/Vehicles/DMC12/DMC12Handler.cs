@@ -11,7 +11,7 @@ namespace BackToTheFutureV.Vehicles
 {
     public class DMC12Handler
     {
-        private static List<DMC12> _deloreans  = new List<DMC12>();
+        private static List<DMC12> _deloreans = new List<DMC12>();
         private static List<DMC12> _deloreansToAdd = new List<DMC12>();
         private static Dictionary<DMC12, bool> _deloreansToRemove = new Dictionary<DMC12, bool>();
 
@@ -34,7 +34,7 @@ namespace BackToTheFutureV.Vehicles
         }
 
         public static DMC12 CreateDMC12(Vehicle vehicle, bool warpInPlayer = false)
-        {            
+        {
             if (warpInPlayer)
                 Utils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
 
@@ -90,7 +90,7 @@ namespace BackToTheFutureV.Vehicles
                     TimeMachineHandler.Create(delo, SpawnFlags.Default, delo.Mods.WormholeType);
 
                 delo.Process();
-            }                
+            }
         }
 
         public static DMC12 GetDeloreanFromVehicle(Vehicle vehicle)

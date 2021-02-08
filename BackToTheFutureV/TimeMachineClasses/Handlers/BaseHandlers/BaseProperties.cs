@@ -67,7 +67,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 ret.IsFueled = IsFueled;
                 ret.AreTimeCircuitsOn = AreTimeCircuitsOn;
                 ret.DestinationTime = DestinationTime;
-                ret.PreviousTime = PreviousTime;                
+                ret.PreviousTime = PreviousTime;
                 ret.IsFlying = IsFlying;
 
                 return ret;
@@ -150,7 +150,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 timeMachine.Events.SimulateInputDate?.Invoke(DestinationTime);
 
             if (IsFlying != timeMachine.Properties.IsFlying)
-                timeMachine.Events.SetFlyMode?.Invoke(IsFlying);            
+                timeMachine.Events.SetFlyMode?.Invoke(IsFlying);
         }
     }
 }

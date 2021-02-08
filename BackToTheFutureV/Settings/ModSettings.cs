@@ -73,7 +73,7 @@ namespace BackToTheFutureV
                 ModControls.LoadControls(settings);
 
                 return;
-            } 
+            }
             else if (savedVersion != Main.Version)
                 settings.SetValue("General", "Version", Main.Version);
 
@@ -95,14 +95,14 @@ namespace BackToTheFutureV
             PlayDiodeBeep = settings.GetValue("Sounds", "DiodeBeep", PlayDiodeBeep);
             PlayEngineSounds = settings.GetValue("Sounds", "CustomEngine", PlayEngineSounds);
             PlaySpeedoBeep = settings.GetValue("Sounds", "SpeedoBeep", PlaySpeedoBeep);
-                       
+
             CinematicSpawn = settings.GetValue("General", "CinematicSpawn", CinematicSpawn);
             PersistenceSystem = settings.GetValue("General", "PersistenceSystem", PersistenceSystem);
             RandomTrains = settings.GetValue("General", "RandomTrains", RandomTrains);
 
             ForceFlyMode = settings.GetValue("Hover", "ForceFly", ForceFlyMode);
             LandingSystem = settings.GetValue("Hover", "LandingSystem", LandingSystem);
-                     
+
             LightningStrikeEvent = settings.GetValue("Events", "LightningStrike", LightningStrikeEvent);
             EngineStallEvent = settings.GetValue("Events", "EngineStall", EngineStallEvent);
             TurbulenceEvent = settings.GetValue("Events", "Turbulence", TurbulenceEvent);
@@ -134,7 +134,7 @@ namespace BackToTheFutureV
             settings.SetValue("TimeCircuits", "GlowingPlutoniumReactor", GlowingPlutoniumReactor);
 
             settings.SetValue("Sounds", "FluxCapacitor", PlayFluxCapacitorSound);
-            settings.SetValue("Sounds", "DiodeBeep", PlayDiodeBeep);            
+            settings.SetValue("Sounds", "DiodeBeep", PlayDiodeBeep);
             settings.SetValue("Sounds", "CustomEngine", PlayEngineSounds);
             settings.SetValue("Sounds", "SpeedoBeep", PlaySpeedoBeep);
 
@@ -144,7 +144,7 @@ namespace BackToTheFutureV
 
             settings.SetValue("Hover", "ForceFly", ForceFlyMode);
             settings.SetValue("Hover", "LandingSystem", LandingSystem);
-           
+
             settings.SetValue("Events", "LightningStrike", LightningStrikeEvent);
             settings.SetValue("Events", "EngineStall", EngineStallEvent);
             settings.SetValue("Events", "Turbulence", TurbulenceEvent);

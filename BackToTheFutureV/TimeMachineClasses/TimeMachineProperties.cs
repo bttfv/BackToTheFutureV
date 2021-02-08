@@ -25,8 +25,8 @@ namespace BackToTheFutureV.TimeMachineClasses
             GUID = Guid.NewGuid();
         }
 
-        public new MissionType MissionType 
-        { 
+        public new MissionType MissionType
+        {
             get
             {
                 return base.MissionType;

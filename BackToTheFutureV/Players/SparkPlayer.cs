@@ -12,7 +12,7 @@ namespace BackToTheFutureV.Players
         public float Speed { get; set; }
 
         public SparkPlayer(TimeMachine timeMachine, IEnumerable<Vector3> frames, Model model, float speed = 20f) : base(timeMachine)
-        {            
+        {
             _frames = frames.ToList();
             _spark = new AnimateProp(Vehicle, model, _frames[0], Vector3.Zero);
 
@@ -31,7 +31,7 @@ namespace BackToTheFutureV.Players
         private Vector3 _lastRotation;
 
         public void UpdateSparkModel(Model model)
-        {            
+        {
             _spark.SwapModel(model);
 
             if (_spark.IsSpawned)
@@ -57,7 +57,7 @@ namespace BackToTheFutureV.Players
             if (!IsPlaying)
                 return;
 
-            if(_currentFrame > 0)
+            if (_currentFrame > 0)
             {
                 float totalLengthSquared = (_frames[_currentFrame - 1] - _frames[_currentFrame]).LengthSquared();
                 float lengthToSpark = (_frames[_currentFrame - 1] - _spark.CurrentOffset).LengthSquared();

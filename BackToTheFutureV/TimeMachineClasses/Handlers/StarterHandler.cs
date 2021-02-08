@@ -9,9 +9,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class StarterHandler : Handler
     {
-        private bool _isRestarting;        
+        private bool _isRestarting;
         private bool _firstTimeTravel;
-        
+
         private int _restartAt;
         private int _nextCheck;
 
@@ -107,23 +107,23 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     Vehicle.SetLightsMode(LightsMode.AlwaysOn);
                     Vehicle.SetLightsBrightness(_lightsBrightness);
-                }                    
+                }
             }
-                
+
             if (Mods.Reactor != ReactorType.Nuclear && _firstTimeTravel)
             {
                 if (Properties.IsEngineStalling)
                     Stop();
 
                 _firstTimeTravel = false;
-            }               
+            }
 
             if (Game.GameTime < _nextCheck || !_firstTimeTravel || !Vehicle.IsVisible)
                 return;
 
             if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled)
-            {                
-                if(Utils.Random.NextDouble() < 0.25)
+            {
+                if (Utils.Random.NextDouble() < 0.25)
                 {
                     SetEngineStall(true);
                 }
@@ -145,11 +145,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return;
                 }
 
-                if((Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && Utils.PlayerVehicle == Vehicle)
+                if ((Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && Utils.PlayerVehicle == Vehicle)
                 {
                     if (timedEventManager.AllExecuted())
                         timedEventManager.ResetExecution();
-                    
+
                     timedEventManager.RunEvents();
 
                     if (!_isRestarting)
@@ -192,7 +192,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _lightsBrightness += timedEvent.CurrentFloat;
         }
 
-        public override void KeyDown(Keys key) {}
+        public override void KeyDown(Keys key) { }
 
         public override void Stop()
         {
@@ -215,7 +215,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-            Vehicle.FuelLevel = _deloreanMaxFuelLevel;            
+            Vehicle.FuelLevel = _deloreanMaxFuelLevel;
         }
     }
 }

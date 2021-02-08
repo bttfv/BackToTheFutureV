@@ -11,7 +11,7 @@ namespace BackToTheFutureV.Menu
     public class SettingsMenu : CustomNativeMenu
     {
         private NativeCheckboxItem cinematicSpawn;
-        private NativeCheckboxItem useInputToggle;        
+        private NativeCheckboxItem useInputToggle;
         private NativeCheckboxItem forceFlyMode;
         private NativeCheckboxItem LandingSystem;
         private NativeCheckboxItem PersistenceSystem;
@@ -92,7 +92,7 @@ namespace BackToTheFutureV.Menu
                 ModSettings.RandomTrains = Checked;
 
                 Utils.RandomTrains = Checked;
-            }                
+            }
 
             if (sender == GlowingWormholeEmitter)
                 ModSettings.GlowingWormholeEmitter = Checked;
@@ -108,7 +108,7 @@ namespace BackToTheFutureV.Menu
 
         public override void Tick()
         {
-            
+
         }
     }
 }

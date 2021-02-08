@@ -84,7 +84,7 @@ namespace BackToTheFutureV.Vehicles
         H1981 = 1
     }
 
-    public class WormholeProperties 
+    public class WormholeProperties
     {
         public int StartEffectsAt { get; }
         public int WormholeLengthTime { get; }

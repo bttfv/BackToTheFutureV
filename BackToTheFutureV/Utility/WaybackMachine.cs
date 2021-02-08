@@ -118,13 +118,13 @@ namespace BackToTheFutureV.Utility
                 Wheels = VehicleControl.GetWheelRotations(timeMachine.Vehicle);
             }
             catch { }
-            
+
             Gear = timeMachine.Vehicle.CurrentGear;
             RPM = timeMachine.Vehicle.CurrentRPM;
             SteeringAngle = timeMachine.Vehicle.SteeringAngle;
             Lights = timeMachine.Vehicle.AreLightsOn;
             Headlights = timeMachine.Vehicle.AreHighBeamsOn;
-            IsVisible = timeMachine.Vehicle.IsVisible;                       
+            IsVisible = timeMachine.Vehicle.IsVisible;
 
             Position = timeMachine.Vehicle.Position;
             Rotation = timeMachine.Vehicle.Rotation;
@@ -178,9 +178,9 @@ namespace BackToTheFutureV.Utility
         public Guid GUID { get; private set; } = Guid.Empty;
 
         private TimeMachine timeMachine;
-        public TimeMachine TimeMachine 
-        { 
-            get => timeMachine; 
+        public TimeMachine TimeMachine
+        {
+            get => timeMachine;
             set
             {
                 timeMachine = value;
@@ -195,7 +195,7 @@ namespace BackToTheFutureV.Utility
 
         public DateTime StartTime { get; private set; }
         public DateTime EndTime => WaybackReplicas.LastOrDefault().Time;
-        
+
         public bool IsRecording { get; private set; } = true;
 
         public bool IsPlaying { get; private set; } = false;
@@ -275,9 +275,9 @@ namespace BackToTheFutureV.Utility
                 StartPlayGameTime = Game.GameTime;
                 IsPlaying = true;
             }
-                
+
             WaybackReplica nextReplica = WaybackReplicas.SkipWhile(x => x != waybackReplica).Skip(1).DefaultIfEmpty(waybackReplica).FirstOrDefault();
-           
+
             waybackReplica.Apply(TimeMachine, StartPlayGameTime, nextReplica);
         }
 

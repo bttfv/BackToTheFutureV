@@ -3,7 +3,6 @@ using BackToTheFutureV.Utility;
 using FusionLibrary;
 using System.Drawing;
 using System.Windows.Forms;
-using Screen = GTA.UI.Screen;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
@@ -35,7 +34,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         }
 
         public ScaleformsHandler(TimeMachine timeMachine) : base(timeMachine)
-        {            
+        {
             //Flux Capacitor            
             FluxCapacitorRT = new RenderTarget(ModelHandler.FluxModel, "bttf_flux", Vehicle, "flux_capacitor");
 
@@ -87,7 +86,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public override void Stop()
         {
-            
+
         }
     }
 }

@@ -51,7 +51,7 @@ namespace BackToTheFutureV.Menu
 
             Add(UseControlForMainMenu = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_UseControlForMainMenu"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_UseControlForMainMenu_Description")));
 
-            
+
             Add(InteractionMenu1 = new NativeListItem<ControlInfo>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_InteractionMenu1"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_InteractionMenu1_Description")));
             InteractionMenu1.Items = ControlInfo.CustomControls;
             InteractionMenu1.ItemChanged += InteractionMenu1_ItemChanged;
@@ -62,7 +62,7 @@ namespace BackToTheFutureV.Menu
 
             Add(CombinationsForInteractionMenu = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_CombinationsForInteractionMenu"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_CombinationsForInteractionMenu_Description")));
 
-            
+
             Add(Hover = new NativeListItem<ControlInfo>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Hover"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Hover_Description")));
             Hover.Items = ControlInfo.CustomControls;
             Hover.ItemChanged += Hover_ItemChanged;
@@ -81,7 +81,7 @@ namespace BackToTheFutureV.Menu
             HoverAltitudeHold.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
             HoverAltitudeHold.ItemChanged += HoverAltitudeHold_ItemChanged;
 
-            
+
             Add(TCToggle = new NativeListItem<Keys>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_TCToggle"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_TCToggle_Description")));
             TCToggle.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
             TCToggle.ItemChanged += TCToggle_ItemChanged;
@@ -103,7 +103,7 @@ namespace BackToTheFutureV.Menu
             {
                 ModControls.Reset();
                 ControlsMenu_Shown(this, new EventArgs());
-            }                
+            }
         }
 
         private void InputToggle_ItemChanged(object sender, ItemChangedEventArgs<Keys> e)
@@ -217,7 +217,7 @@ namespace BackToTheFutureV.Menu
 
         public override void Tick()
         {
-            
+
         }
     }
 }

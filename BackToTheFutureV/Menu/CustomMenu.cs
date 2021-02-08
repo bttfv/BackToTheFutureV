@@ -44,7 +44,7 @@ namespace BackToTheFutureV.Menu
         public CustomMenu() : base("", Game.GetLocalizedString("BTTFV_Input_SpawnMenu"))
         {
             Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
-            
+
             Shown += SettingsMenu_Shown;
             Closing += CustomMenu_Closing;
             OnItemCheckboxChanged += SettingsMenu_OnItemCheckboxChanged;
@@ -105,7 +105,7 @@ namespace BackToTheFutureV.Menu
                     case 1:
                         _tempTimeMachine.Mods.Wheel = WheelType.Red;
                         break;
-                    case 2:                        
+                    case 2:
                         _tempTimeMachine.Mods.Wheel = WheelType.RailroadInvisible;
                         break;
                 }
@@ -132,7 +132,7 @@ namespace BackToTheFutureV.Menu
         {
             _baseType.SelectedIndex = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
             _canFly.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
-            
+
             if (_tempTimeMachine.Mods.IsDMC12)
             {
                 _powerSource.SelectedIndex = (int)_tempTimeMachine.Mods.Reactor;
@@ -148,7 +148,7 @@ namespace BackToTheFutureV.Menu
                 _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying;
                 _suspensions.Enabled = !_tempTimeMachine.Properties.IsFlying;
             }
-            
+
             switch (_tempTimeMachine.Mods.Wheel)
             {
                 case WheelType.Stock:
@@ -216,7 +216,7 @@ namespace BackToTheFutureV.Menu
                 _suspensions.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _hood.Enabled = _tempTimeMachine.Mods.IsDMC12;
             }
-            
+
             LoadVehicleType();
         }
 

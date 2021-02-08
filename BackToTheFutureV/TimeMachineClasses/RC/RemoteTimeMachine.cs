@@ -20,9 +20,9 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         private readonly AudioPlayer _warningSound;
 
-        private bool blockSpawn = true;        
+        private bool blockSpawn = true;
         public WaybackMachine WaybackMachine { get; }
-        
+
         public RemoteTimeMachine(TimeMachineClone timeMachineClone)
         {
             TimeMachineClone = timeMachineClone;
@@ -33,7 +33,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
             _timer = Game.GameTime + 3000;
 
-            _warningSound = Main.CommonAudioEngine.Create("general/rc/warning.wav", Presets.Exterior);            
+            _warningSound = Main.CommonAudioEngine.Create("general/rc/warning.wav", Presets.Exterior);
             _warningSound.MinimumDistance = 0.5f;
             _warningSound.Volume = 0.5f;
 
@@ -53,11 +53,11 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         }
 
         public void Process()
-        {            
+        {
             if (!Spawned && TimeMachine != null)
                 TimeMachine = null;
 
-            if (Game.GameTime < _timer) 
+            if (Game.GameTime < _timer)
                 return;
 
             if (!Reentry)
@@ -68,9 +68,9 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
                 return;
             }
 
-            if(Utils.GetWorldTime() > (TimeMachineClone.Properties.DestinationTime - new TimeSpan(0, 0, 10)) && Utils.GetWorldTime() < TimeMachineClone.Properties.DestinationTime)
+            if (Utils.GetWorldTime() > (TimeMachineClone.Properties.DestinationTime - new TimeSpan(0, 0, 10)) && Utils.GetWorldTime() < TimeMachineClone.Properties.DestinationTime)
             {
-                if(TimeMachineClone.Properties.IsRemoteControlled && !_hasPlayedWarningSound)
+                if (TimeMachineClone.Properties.IsRemoteControlled && !_hasPlayedWarningSound)
                 {
                     _warningSound.SourceEntity = Utils.PlayerPed;
                     _warningSound.Play();
@@ -131,7 +131,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         {
             Blip?.Delete();
 
-            _warningSound?.Dispose();         
+            _warningSound?.Dispose();
         }
 
         public override string ToString()

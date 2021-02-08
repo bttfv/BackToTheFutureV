@@ -269,7 +269,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 Acceleration = VehicleAcceleration() * 100;
             }
-            
+
 
             // Simulate Doppler Effect
             _engineSounds.ForEach(x => x.Velocity = Vehicle.Velocity);
@@ -302,7 +302,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Debug(-1);
 
             // Re-check acceleration and reset timer
-            if (Game.GameTime <= _check) 
+            if (Game.GameTime <= _check)
                 return;
 
             _prevAccel = Utils.Magnitude(Vehicle.Velocity);
@@ -466,7 +466,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Utils.IsAnyTireBurst(Vehicle))
                 return;
 
-            if ((WheelSpeed < 12) || (Acceleration < 0.2f)) 
+            if ((WheelSpeed < 12) || (Acceleration < 0.2f))
                 return;
 
             if (Speed <= 3.5f && !_possibleFastAccel)

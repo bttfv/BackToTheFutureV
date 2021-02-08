@@ -25,7 +25,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-                        
+
         }
 
         public override void KeyDown(Keys key)
@@ -57,7 +57,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.TimeTravelPhase < TimeTravelPhase.InTime)
             {
-                int mphSpeed = ((int) Vehicle.GetMPHSpeed());
+                int mphSpeed = ((int)Vehicle.GetMPHSpeed());
 
                 if (simulateSpeed)
                 {
@@ -70,7 +70,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (currentSimSpeed < 0)
                             currentSimSpeed = 0;
                     }
-                        
+
                     mphSpeed = (int)currentSimSpeed;
 
                     if (mphSpeed >= maxSpeed)
@@ -98,7 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2);
 
                     Properties.HUDProperties.Speed = mphSpeed;
-                    
+
                     if (!TcdEditer.IsEditing)
                         UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2);
                 }

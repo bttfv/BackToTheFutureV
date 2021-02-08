@@ -27,7 +27,7 @@ namespace BackToTheFutureV.Players
             _mrFusionHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.X].Setup(false, true, true, 0, 30, 1, 140, 1);
             _mrFusionHandle.OnAnimCompleted += _mrFusionHandle_OnAnimCompleted;
             _mrFusionHandle.SpawnProp();
-            
+
             _mrfusionOpen = TimeMachine.Sounds.AudioEngine.Create("general/mrfusionOpen.wav", Presets.Exterior);
             _mrfusionClosed = TimeMachine.Sounds.AudioEngine.Create("general/mrfusionClose.wav", Presets.Exterior);
 
@@ -53,17 +53,17 @@ namespace BackToTheFutureV.Players
             _mrfusionOpen?.Stop();
 
             open = !open;
-            
+
             if (open)
             {
                 _mrFusionHandle.Play();
                 _mrfusionOpen.Play();
-            }                
+            }
             else
             {
                 _mrFusion.Play();
                 _mrfusionClosed.Play();
-            }                
+            }
         }
 
         public override void Process()
@@ -73,7 +73,7 @@ namespace BackToTheFutureV.Players
 
         public override void Stop()
         {
-            
+
         }
 
         public override void Dispose()

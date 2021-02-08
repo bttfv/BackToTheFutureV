@@ -15,7 +15,7 @@ using static FusionLibrary.Enums;
 namespace BackToTheFutureV.TimeMachineClasses
 {
     public class TimeMachineHandler
-    {        
+    {
         public static TimeMachine ClosestTimeMachine { get; private set; }
         public static TimeMachine CurrentTimeMachine { get; private set; }
         public static float SquareDistToClosestTimeMachine { get; private set; } = -1;
@@ -59,7 +59,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             {
                 timeMachine.Properties.Story = true;
                 StoryTimeMachines.Add(timeMachine);
-            }                
+            }
         }
 
         public static void RemoveStory(TimeMachine timeMachine)
@@ -68,7 +68,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             {
                 timeMachine.Properties.Story = false;
                 StoryTimeMachines.Remove(timeMachine);
-            }                
+            }
         }
 
         private static TimeMachine TransformIntoTimeMachine(Vehicle vehicle, WormholeType wormholeType)
@@ -113,7 +113,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             if (_timeMachinesToRemoveWaitSounds.ContainsKey(vehicle))
                 _timeMachinesToRemoveWaitSounds.Remove(vehicle);
-            
+
             vehicle?.Dispose(deleteVeh);
 
             TimeMachines.Remove(vehicle);
@@ -171,7 +171,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 spawnPos = position;
             else
                 heading = ped.Heading;
-           
+
             if (spawnFlags.HasFlag(SpawnFlags.ForceReentry))
             {
                 spawnPos = ped.GetOffsetPosition(new Vector3(0, 25, 0));
@@ -186,23 +186,24 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (vehicle != default)
                 veh = vehicle;
-            
-            if (veh == null)            
+
+            if (veh == null)
             {
                 if (timeMachineClone != default)
                     veh = timeMachineClone.Vehicle.Spawn(spawnFlags, spawnPos, heading);
                 else
                     timeMachine = new TimeMachine(DMC12Handler.CreateDMC12(spawnPos, heading), wormholeType);
-            } else if (veh.IsTimeMachine())
+            }
+            else if (veh.IsTimeMachine())
                 timeMachine = GetTimeMachineFromVehicle(veh);
 
             if (timeMachine == null)
-            {                
+            {
                 if (timeMachineClone != default)
                 {
                     timeMachine = TransformIntoTimeMachine(veh, timeMachineClone.Mods.WormholeType);
                     timeMachineClone.ApplyTo(timeMachine, spawnFlags);
-                }                    
+                }
                 else
                     timeMachine = TransformIntoTimeMachine(veh, wormholeType);
             }
@@ -361,7 +362,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (CurrentTimeMachine.IsFunctioning() && !Utils.PlayerVehicle.IsFunctioning())
             {
                 ExternalHUD.SetOff();
-                
+
                 Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
             }
 
@@ -372,9 +373,9 @@ namespace BackToTheFutureV.TimeMachineClasses
                 ClosestTimeMachine = null;
                 SquareDistToClosestTimeMachine = -1;
             }
-                            
+
             foreach (var timeMachine in TimeMachines)
-            {                
+            {
                 float dist = timeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position);
 
                 if (ClosestTimeMachine == timeMachine)
@@ -390,7 +391,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                     ClosestTimeMachine.Properties.IsGivenScaleformPriority = true;
                     ClosestTimeMachine.Events.OnScaleformPriority?.Invoke();
 
-                    SquareDistToClosestTimeMachine = dist;               
+                    SquareDistToClosestTimeMachine = dist;
                 }
             }
 
@@ -400,14 +401,14 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 return;
             }
-                
+
             if (ClosestTimeMachine.IsFunctioning() && Utils.PlayerVehicle == ClosestTimeMachine.Vehicle)
             {
                 CurrentTimeMachine = ClosestTimeMachine;
 
                 if (CurrentTimeMachine.Properties.FullDamaged)
                     GTA.UI.Screen.ShowHelpTextThisFrame(string.Format(Game.GetLocalizedString("BTTFV_Restore_Damanged_Delorean"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_Restore"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu")));
-            }                
+            }
         }
     }
 }

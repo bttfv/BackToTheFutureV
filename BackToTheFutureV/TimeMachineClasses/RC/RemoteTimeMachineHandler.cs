@@ -17,17 +17,18 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         private static IFormatter formatter = new BinaryFormatter();
         private const int MAX_REMOTE_TIMEMACHINES = 10;
 
-        public static RemoteTimeMachine GetTimeMachineFromIndex(int index) 
-        { 
+        public static RemoteTimeMachine GetTimeMachineFromIndex(int index)
+        {
             try
             {
                 return RemoteTimeMachines[index];
-            } catch
+            }
+            catch
             {
                 return null;
             }
-        } 
-        
+        }
+
         public static RemoteTimeMachine AddRemote(TimeMachineClone timeMachineClone)
         {
             if (RemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
@@ -108,11 +109,12 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
                 foreach (var x in timeMachineClones)
                     RemoteTimeMachines.Add(new RemoteTimeMachine(x));
-            } catch
+            }
+            catch
             {
                 if (File.Exists(_saveFile))
                     File.Delete(_saveFile);
-            }          
+            }
         }
 
         public static void Dispose()

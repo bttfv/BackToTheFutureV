@@ -65,17 +65,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public override void KeyDown(Keys key)
         {
-            
+
         }
 
         public override void Process()
         {
-            
+
         }
 
         public override void Stop()
         {
-            
+
         }
     }
 }

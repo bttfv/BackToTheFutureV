@@ -9,7 +9,7 @@ namespace BackToTheFutureV
     public class Secondary : Script
     {
         private static bool _loadScene;
-        private static Vector3 _position;        
+        private static Vector3 _position;
 
         private static bool _loadWaypoint;
         private static bool _loadSceneAfter;

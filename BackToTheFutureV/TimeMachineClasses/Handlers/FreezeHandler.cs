@@ -48,9 +48,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!resume)
             {
                 // Set maximum ice level depending on delorean type
-                Properties.IceValue = Mods.Reactor == ReactorType.Nuclear ? 0.4f : 0.15f;                
+                Properties.IceValue = Mods.Reactor == ReactorType.Nuclear ? 0.4f : 0.15f;
             }
-                       
+
             Function.Call<float>(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, Properties.IceValue);
 
             Properties.IsFreezed = true;
@@ -79,7 +79,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // 0 is no ice
             var iceScale = Function.Call<float>(Hash.GET_VEHICLE_ENVEFF_SCALE, Vehicle);
 
-            if(iceScale > 0f)
+            if (iceScale > 0f)
             {
                 float newIce = Utils.Lerp(Properties.IceValue, 0f, _iceDisappearVal / _timeToDisappear);
 
@@ -107,10 +107,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!_doingFreezingSequence)
                 return;
 
-            if (Game.GameTime < _gameTimer) 
+            if (Game.GameTime < _gameTimer)
                 return;
 
-            switch(_currentStep)
+            switch (_currentStep)
             {
                 case 0:
                     // Set the ice

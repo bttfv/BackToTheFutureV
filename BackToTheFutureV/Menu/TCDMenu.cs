@@ -76,7 +76,7 @@ namespace BackToTheFutureV.Menu
                 ModSettings.RemoteTCDToggle = false;
 
                 ModSettings.SaveSettings();
-            }                
+            }
         }
 
         private void TcdBackground_ItemChanged(object sender, ItemChangedEventArgs<TCDBackground> e)
@@ -92,7 +92,7 @@ namespace BackToTheFutureV.Menu
 
         public override void Tick()
         {
-            
+
         }
     }
 }

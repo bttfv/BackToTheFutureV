@@ -69,7 +69,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (!Spawned && IsUsed)
                 IsUsed = false;
 
-            if (Spawned && !IsUsed) 
+            if (Spawned && !IsUsed)
             {
                 if (!WarningMessageShowed && TimeMachine.Properties.FullDamaged && TimeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position) < 20)
                 {
@@ -108,11 +108,11 @@ namespace BackToTheFutureV.TimeMachineClasses
             {
                 TimeMachine.Vehicle.IsInvincible = false;
                 TimeMachineHandler.RemoveStory(TimeMachine);
-                    
+
                 IsUsed = true;
                 return;
             }
-                
+
             if (!Exists(Utils.CurrentTime) && Spawned && !IsUsed)
             {
                 TimeMachine.Dispose(true);
@@ -124,7 +124,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         }
 
         public static List<StoryTimeMachine> StoryTimeMachines { get; private set; } = new List<StoryTimeMachine>();
-        
+
         static StoryTimeMachine()
         {
             //Inside mine            
@@ -136,13 +136,13 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void ProcessAll()
         {
-            foreach(var x in StoryTimeMachines)
+            foreach (var x in StoryTimeMachines)
                 x.Process();
         }
 
         public static void Abort()
         {
-            foreach(var x in StoryTimeMachines)
+            foreach (var x in StoryTimeMachines)
             {
                 if (x.Spawned && !x.IsUsed)
                     x.TimeMachine.Dispose();

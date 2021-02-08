@@ -85,11 +85,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _gaugeNeedle3 = new Gauge(ModelHandler.GaugeModels[3], new Vector3(0.509564f, 0.4745394f, 0.6380013f), 50f, Vehicle);
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
-        }   
+        }
 
         private void OnTimeCircuitsToggle()
         {
-            if(Properties.AreTimeCircuitsOn)
+            if (Properties.AreTimeCircuitsOn)
             {
                 Props.TFCOn?.SpawnProp();
                 Props.TFCOff?.Delete();

@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Settings;
-using BackToTheFutureV.TimeMachineClasses.Handlers;
+﻿using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
@@ -32,12 +31,12 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public CustomCameraHandler CustomCameraManager { get; private set; }
 
-        public TimeMachineCamera CustomCamera 
-        { 
+        public TimeMachineCamera CustomCamera
+        {
             get
             {
                 return (TimeMachineCamera)CustomCameraManager.CurrentCameraIndex;
-            } 
+            }
             set
             {
                 CustomCameraManager.Show((int)value);
@@ -81,7 +80,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (DMC12 == null)
                     DMC12 = new DMC12(vehicle);
             }
-           
+
             Vehicle.IsPersistent = true;
 
             TimeMachineHandler.AddTimeMachine(this);
@@ -246,7 +245,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                             Vehicle.Driver.Task.LeaveVehicle(LeaveVehicleFlags.WarpOut);
 
                         Utils.PlayerPed.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
-                    }                        
+                    }
                 }
 
                 VehicleWindowCollection windows = Vehicle.Windows;
@@ -337,7 +336,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
             else if (Blip != null && Blip.Exists())
                 Blip.Delete();
-            
+
             foreach (var entry in registeredHandlers)
                 entry.Value.Process();
 
@@ -360,8 +359,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                     {
                         RemoteTimeMachineHandler.AddRemote(Clone, WaybackMachine);
                         CreateCloneSpawn = false;
-                    }                        
-                }                                       
+                    }
+                }
         }
 
         private void UpdateBlip()
@@ -408,7 +407,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             Properties.AreFlyingCircuitsBroken = true;
             Utils.SetTiresBurst(Vehicle, true);
 
-            Vehicle.FuelLevel = 0;            
+            Vehicle.FuelLevel = 0;
         }
 
         public void Repair()
@@ -424,7 +423,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             Vehicle.FuelLevel = 60.0f;
         }
 
-        private void PhotoMode() 
+        private void PhotoMode()
         {
             if (Properties.PhotoWormholeActive && Players.Wormhole != null && !Players.Wormhole.IsPlaying)
                 Players.Wormhole.Play(true);

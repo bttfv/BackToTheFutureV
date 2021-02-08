@@ -36,7 +36,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 OnReactorTypeChanged();
                 Events.OnReactorTypeChanged += OnReactorTypeChanged;
-            }            
+            }
         }
 
         public void OnReactorTypeChanged()
@@ -51,7 +51,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void StartFuelBlink()
         {
-            if (Properties.IsFueled) 
+            if (Properties.IsFueled)
                 return;
 
             _isBlinking = true;
@@ -101,7 +101,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     }
                 }
             }
-            else if (Mods.GlowingReactor !=  ModState.Off)
+            else if (Mods.GlowingReactor != ModState.Off)
                 Mods.GlowingReactor = ModState.Off;
 
             // Empty animation
@@ -156,7 +156,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.IsRefueling)
             {
-                if(_refuelingPed == Utils.PlayerPed && Utils.PlayerVehicle == null)
+                if (_refuelingPed == Utils.PlayerPed && Utils.PlayerVehicle == null)
                 {
                     Game.DisableAllControlsThisFrame();
                     Game.EnableControlThisFrame(GTA.Control.LookUpDown);
@@ -213,16 +213,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Ped?.Task.PerformSequence(taskSequence);
         }
 
-        public static bool CanRefuel(Vehicle vehicle,  Ped ped)
+        public static bool CanRefuel(Vehicle vehicle, Ped ped)
         {
-            if(ped.CurrentVehicle == null)
+            if (ped.CurrentVehicle == null)
             {
                 var bootPos = vehicle.Bones["mr_fusion"].Position;
 
                 Vector3 dir;
                 float angle, dist;
 
-                if(ped == Utils.PlayerPed)
+                if (ped == Utils.PlayerPed)
                 {
                     dir = bootPos - GameplayCamera.Position;
                     angle = Vector3.Angle(dir, GameplayCamera.Direction);
@@ -231,7 +231,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 else
                 {
                     dir = bootPos - ped.Position;
-                    angle = Vector3.Angle(dir, ped.ForwardVector);                    
+                    angle = Vector3.Angle(dir, ped.ForwardVector);
                     dist = Vector3.Distance(bootPos, ped.Position) - 0.1f;
                 }
 
@@ -258,7 +258,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-            
+
         }
 
         private void SetEmpty(bool isOn)

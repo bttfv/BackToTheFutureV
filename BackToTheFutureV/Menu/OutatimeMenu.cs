@@ -59,7 +59,7 @@ namespace BackToTheFutureV.Menu
         private void OutatimeMenu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (sender == ForceReenter && !CurrentRemoteTimeMachine.Spawned)
-                CurrentRemoteTimeMachine.Spawn(ReenterType.Forced);        
+                CurrentRemoteTimeMachine.Spawn(ReenterType.Forced);
         }
 
         private void OutatimeMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)

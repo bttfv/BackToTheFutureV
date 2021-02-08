@@ -58,7 +58,7 @@ namespace BackToTheFutureV.Menu
                 {
                     Close();
 
-                    RCManager.RemoteControl(CurrentTimeMachine);                    
+                    RCManager.RemoteControl(CurrentTimeMachine);
                 }
             }
         }

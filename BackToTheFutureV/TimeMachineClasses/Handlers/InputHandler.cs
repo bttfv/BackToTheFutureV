@@ -34,14 +34,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             InputMode = false;
             _destinationTimeRaw = string.Empty;
 
-            Events.OnDestinationDateChange?.Invoke();            
+            Events.OnDestinationDateChange?.Invoke();
         }
 
         public override void KeyDown(Keys key)
         {
             if (Utils.PlayerVehicle != Vehicle || !Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible) return;
 
-            if(key == ModControls.InputToggle && ModSettings.UseInputToggle)
+            if (key == ModControls.InputToggle && ModSettings.UseInputToggle)
             {
                 InputMode = !InputMode;
                 _nextReset = 0;
@@ -53,7 +53,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Utils.DisplayHelpText($"{inputMode} {(InputMode ? on : off)}");
             }
 
-            if((InputMode && ModSettings.UseInputToggle) || !ModSettings.UseInputToggle && !CustomNativeMenu.ObjectPool.AreAnyVisible)
+            if ((InputMode && ModSettings.UseInputToggle) || !ModSettings.UseInputToggle && !CustomNativeMenu.ObjectPool.AreAnyVisible)
             {
                 string keyCode = key.ToString();
 
@@ -133,7 +133,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         {
                             _simulateDatePos = -1;
                             ProcessInputEnter();
-                        } else
+                        }
+                        else
                         {
                             ProcessInputNumber(DateToInput(_simulateDate, _simulateDatePos));
 

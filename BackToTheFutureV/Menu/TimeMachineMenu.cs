@@ -41,14 +41,14 @@ namespace BackToTheFutureV.Menu
 
             CustomMenu = AddSubMenu(MenuHandler.CustomMenu);
             CustomMenu.Title = Game.GetLocalizedString("BTTFV_Input_SpawnMenu");
-            
+
             PhotoMenu = AddSubMenu(MenuHandler.PhotoMenu);
             PhotoMenu.Title = Game.GetLocalizedString("BTTFV_Menu_PhotoMenu");
             PhotoMenu.Description = Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Description");
 
             TrainMissionMenu = AddSubMenu(MenuHandler.TrainMissionMenu);
             TrainMissionMenu.Title = "Train Mission";
-            
+
             BackToMain = AddSubMenu(MenuHandler.MainMenu);
             BackToMain.Title = Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu");
             BackToMain.Description = Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu_Description");
@@ -60,11 +60,11 @@ namespace BackToTheFutureV.Menu
             {
                 TimeMachineHandler.CurrentTimeMachine.Repair();
                 Close();
-            }                
+            }
         }
 
         private void TimeMachineMenu_Shown(object sender, EventArgs e)
-        {            
+        {
             if (TimeMachineHandler.CurrentTimeMachine == null)
             {
                 Close();

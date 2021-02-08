@@ -23,7 +23,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private bool _hasPlayedDiodeSound;
         public SparksHandler(TimeMachine timeMachine) : base(timeMachine)
-        {            
+        {
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
             Events.OnWormholeTypeChanged += OnWormholeTypeChanged;
             Events.OnReenterCompleted += StartTimeTravelCooldown;
@@ -125,7 +125,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                             Mods.GlowingEmitter = ModState.On;
                     }
 
-                    if(!Sounds.Sparks.IsAnyInstancePlaying && !Sounds.SparkStabilized.IsAnyInstancePlaying)
+                    if (!Sounds.Sparks.IsAnyInstancePlaying && !Sounds.SparkStabilized.IsAnyInstancePlaying)
                     {
                         if (Mods.HoverUnderbody == ModState.On)
                             Properties.CanConvert = false;
@@ -140,7 +140,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                         if (Mods.WormholeType == WormholeType.BTTF3)
                             _startStabilizedSoundAt = Game.GameTime + 1000;
-                        
+
                         Secondary.LoadWaypointPosition(true);
                     }
 
@@ -148,7 +148,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     {
                         Sounds.Sparks?.Stop();
 
-                        if(!Sounds.SparkStabilized.IsAnyInstancePlaying)
+                        if (!Sounds.SparkStabilized.IsAnyInstancePlaying)
                             Sounds.SparkStabilized?.Play();
                     }
 
@@ -158,7 +158,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (Game.GameTime > _timeTravelAtTime && _hasHit88)
                         SparksEnded();
                 }
-                else if(!Properties.IsFueled)
+                else if (!Properties.IsFueled)
                 {
                     if (!Players.Wormhole.IsPlaying)
                         Players.Wormhole.Play(false);

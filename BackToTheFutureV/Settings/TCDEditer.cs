@@ -118,7 +118,7 @@ namespace BackToTheFutureV.Settings
 
         public static void Process()
         {
-            if (!IsEditing) 
+            if (!IsEditing)
                 return;
 
             InstrumentalMenu.UpdatePanel();

@@ -1,6 +1,5 @@
 ﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.Settings;
-using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
@@ -16,11 +15,11 @@ using Screen = GTA.UI.Screen;
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class TimeTravelHandler : Handler
-    {        
+    {
         private int _currentStep;
-        private float gameTimer;        
+        private float gameTimer;
         private FireTrail trails;
-        
+
         public TimeTravelHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.StartTimeTravel += StartTimeTravel;
@@ -45,7 +44,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public static void TimeChanged(DateTime time)
         {
-            RogersSierraRailway.TrainManager.RogersSierraList.ForEach(x => x.Delete());                
+            RogersSierraRailway.TrainManager.RogersSierraList.ForEach(x => x.Delete());
             TimeMachineHandler.ExistenceCheck(time);
             RemoteTimeMachineHandler.ExistenceCheck(time);
 
@@ -68,19 +67,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (Properties.TimeTravelPhase != TimeTravelPhase.InTime) 
+            if (Properties.TimeTravelPhase != TimeTravelPhase.InTime)
                 return;
 
             if (!Vehicle.IsVisible)
                 Vehicle.IsEngineRunning = false;
 
-            if (Vehicle == null) 
+            if (Vehicle == null)
                 return;
 
-            if (Game.GameTime < gameTimer) 
+            if (Game.GameTime < gameTimer)
                 return;
 
-            switch(_currentStep)
+            switch (_currentStep)
             {
                 case 0:
 
@@ -94,7 +93,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                                 Properties.TimeTravelType = TimeTravelType.Wayback;
                             else
                                 Properties.TimeTravelType = TimeTravelType.RC;
-                        }                            
+                        }
                         else
                         {
                             if (!Properties.CutsceneMode || Utils.IsPlayerUseFirstPerson())
@@ -126,7 +125,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (Utils.IsPlayerUseFirstPerson())
                             Props.WhiteSphere.SpawnProp();
                         else
-                            ScreenFlash.FlashScreen(0.25f);                        
+                            ScreenFlash.FlashScreen(0.25f);
 
                         if (Properties.TimeTravelDestPos != Vector3.Zero)
                         {
@@ -137,12 +136,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                                 TimeMachine.LastDisplacementClone.Properties.WasOnTracks = false;
                             }
-                                
+
                             Vehicle.TeleportTo(Properties.TimeTravelDestPos);
                         }
-                            
+
                         Properties.TimeTravelDestPos = Vector3.Zero;
-                        
+
                         TimeHandler.TimeTravelTo(Properties.DestinationTime);
 
                         // Invoke delegate
@@ -284,7 +283,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                         Vehicle.TeleportTo(Properties.TimeTravelDestPos);
                     }
-                        
+
                     Properties.TimeTravelDestPos = Vector3.Zero;
 
                     gameTimer = Game.GameTime + 1000;
@@ -317,7 +316,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-          
+
         }
 
         public override void KeyDown(Keys key)

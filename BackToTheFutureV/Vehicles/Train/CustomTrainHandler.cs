@@ -24,7 +24,7 @@ namespace BackToTheFutureV.Utility
             trainHandlers.Add(new CustomTrain(vehicle.GetOffsetPosition(new Vector3(0, -10, 0)), direction, 25, 1));
 
             trainHandlers.Last().SetCollision(false);
-            
+
             trainHandlers.Last().SetVisible(false);
             trainHandlers.Last().SetHorn(false);
 
@@ -39,14 +39,14 @@ namespace BackToTheFutureV.Utility
                 trainHandlersToRemove.Clear();
             }
 
-            trainHandlers.ForEach(x => 
+            trainHandlers.ForEach(x =>
             {
                 if (!x.Exists || !x.Train.Exists())
                 {
                     trainHandlersToRemove.Add(x);
                     return;
                 }
-                    
+
                 x.Process();
             });
         }

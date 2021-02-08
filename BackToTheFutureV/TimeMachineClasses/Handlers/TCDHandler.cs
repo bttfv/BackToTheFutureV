@@ -30,7 +30,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             { "green", new TCDRowScaleform("green") { DrawInPauseMenu = true } }
         };
 
-        public RenderTarget RenderTarget { get; private set; }       
+        public RenderTarget RenderTarget { get; private set; }
         public TimeMachine TimeMachine { get; private set; }
 
         public string SlotType { get; private set; }
@@ -51,10 +51,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             TimeMachine = timeMachine;
 
             if (TimeMachine.Mods.IsDMC12)
-            {                
+            {
                 RenderTarget = new RenderTarget(new Model("bttf_3d_row_" + slotType), "bttf_tcd_row_" + slotType, TimeMachine.Vehicle, offsets[slotType], new Vector3(355.9951f, 0.04288517f, 352.7451f));
                 RenderTarget.CreateProp();
-             
+
                 amProp = new AnimateProp(TimeMachine.Vehicle, new Model($"bttf_{slotType}_am"), Vector3.Zero, Vector3.Zero);
                 pmProp = new AnimateProp(TimeMachine.Vehicle, new Model($"bttf_{slotType}_pm"), Vector3.Zero, Vector3.Zero);
 
@@ -82,7 +82,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void SetVisible(bool toggleTo, bool month = true, bool day = true, bool year = true, bool hour = true, bool minute = true, bool amPm = true)
         {
-            if(!TcdEditer.IsEditing)
+            if (!TcdEditer.IsEditing)
             {
                 ScaleformsHandler.GUI.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
 
@@ -94,12 +94,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             TCDRowsScaleforms[SlotType]?.SetVisible(toggleTo, month, day, year, hour, minute);
 
-            if((!toggleTo && amPm) || (toggleTo && !amPm))
+            if ((!toggleTo && amPm) || (toggleTo && !amPm))
             {
                 amProp?.Delete();
                 pmProp?.Delete();
             }
-            else if((!toggleTo && !amPm) || (toggleTo && amPm))
+            else if ((!toggleTo && !amPm) || (toggleTo && amPm))
             {
                 amProp?.SetState(date.ToString("tt", CultureInfo.InvariantCulture) == "AM");
                 pmProp?.SetState(date.ToString("tt", CultureInfo.InvariantCulture) != "AM");
@@ -271,12 +271,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     destinationSlot.SetDate(errorDate);
 
                 destinationSlot.Update();
-            }                
+            }
         }
 
         private void RandomDate_OnExecute(TimedEvent timedEvent)
         {
-            if (!timedEvent.FirstExecution) 
+            if (!timedEvent.FirstExecution)
                 return;
 
             destinationSlot.SetDate(Utils.RandomDate());
@@ -294,7 +294,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsGivenScaleformPriority)
                 return;
 
-            if(Properties.AreTimeCircuitsOn)
+            if (Properties.AreTimeCircuitsOn)
             {
                 destinationSlot.SetDate(Properties.DestinationTime);
                 destinationSlot.SetVisible(false);
@@ -437,7 +437,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Vehicle.IsVisible)
                 return;
 
-            HandleGlitching();                       
+            HandleGlitching();
 
             if (Game.GameTime > nextCheckGlitch)
             {
@@ -447,7 +447,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     return;
 
                 if (Vehicle.Health < 300)
-                {                    
+                {
                     if (Utils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 100 ? 100 : Vehicle.Health)))
                         StartTimeCircuitsGlitch(true);
                 }
@@ -526,7 +526,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         }
 
         public void SetTimeCircuitsBroken()
-        {            
+        {
             SetTimeCircuitsOn(false);
             Properties.AreTimeCircuitsBroken = true;
         }
@@ -544,7 +544,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", currentState);
 
                 Properties.HUDProperties.IsTickVisible = currentState;
-                
+
                 if (ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
                     Sounds.TCDBeep?.Play(true);
 

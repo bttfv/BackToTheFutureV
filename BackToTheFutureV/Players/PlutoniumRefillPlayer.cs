@@ -17,7 +17,7 @@ namespace BackToTheFutureV.Players
             plutoniumCap[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(false, true, false, -90, 0, 1, 120, 1);
             plutoniumCap[AnimationType.Offset][AnimationStep.Second][Coordinate.Z].Setup(false, true, true, 0, 0.06f, 1, 0.08f, 1);
             plutoniumCap.OnAnimCompleted += PlutoniumCap_OnAnimCompleted;
-            plutoniumCap.SpawnProp();            
+            plutoniumCap.SpawnProp();
         }
 
         private void PlutoniumCap_OnAnimCompleted(AnimationStep animationStep)
@@ -51,7 +51,7 @@ namespace BackToTheFutureV.Players
 
         public override void Stop()
         {
-            
+
         }
 
         public override void Dispose()

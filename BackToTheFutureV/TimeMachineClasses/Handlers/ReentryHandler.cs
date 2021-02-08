@@ -10,13 +10,13 @@ using static FusionLibrary.Enums;
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class ReentryHandler : Handler
-    {       
+    {
         private float _reentryTimer;
         private int _currentStep;
         private int _gameTimer;
 
         public ReentryHandler(TimeMachine timeMachine) : base(timeMachine)
-        {           
+        {
             Events.OnReenter += OnReenter;
             Events.OnReenterCompleted += OnReenterCompleted;
         }
@@ -39,10 +39,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (Properties.TimeTravelPhase != TimeTravelPhase.Reentering) 
+            if (Properties.TimeTravelPhase != TimeTravelPhase.Reentering)
                 return;
 
-            if (Game.GameTime < _gameTimer) 
+            if (Game.GameTime < _gameTimer)
                 return;
 
             // Time will be fixed to your destination time until reentry is completed.
@@ -135,7 +135,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Vehicle.GetMPHSpeed() == 0)
                     Vehicle.SetMPHSpeed(88);
             }
-                            
+
             if (Properties.HasBeenStruckByLightning)
             {
                 Events.SetSIDLedsState?.Invoke(true, true);
@@ -149,7 +149,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (!Mods.IsDMC12 || Mods.Hoodbox == ModState.Off)
                         Events.SetTimeCircuitsBroken?.Invoke();
                 }
-            } 
+            }
             else if (Mods.IsDMC12)
                 Properties.IsFueled = false;
 

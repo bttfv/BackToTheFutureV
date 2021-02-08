@@ -21,7 +21,7 @@ using Screen = GTA.UI.Screen;
 namespace BackToTheFutureV
 {
     public class Main : Script
-    {        
+    {
         public static Version Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
         public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
@@ -58,9 +58,9 @@ namespace BackToTheFutureV
             DateTime buildDate = new DateTime(2000, 1, 1).AddDays(Version.Build).AddSeconds(Version.Revision * 2);
 
             System.IO.File.AppendAllText($"./ScriptHookVDotNet.log", $"BackToTheFutureV - {Version} ({buildDate})" + Environment.NewLine);
-            
+
             ModSettings.LoadSettings();
-            
+
             Tick += Main_Tick;
             KeyDown += Main_KeyDown;
             Aborted += Main_Aborted;
@@ -140,9 +140,9 @@ namespace BackToTheFutureV
             TimeMachineHandler.Process();
             RCManager.Process();
             RemoteTimeMachineHandler.Process();
-            FireTrailsHandler.Process();            
+            FireTrailsHandler.Process();
             TcdEditer.Process();
-            MissionHandler.Process();                                    
+            MissionHandler.Process();
             StoryTimeMachine.ProcessAll();
             MenuHandler.Process();
 
@@ -151,7 +151,7 @@ namespace BackToTheFutureV
                 TimeMachineHandler.SaveAllTimeMachines();
 
                 _saveDelay = Game.GameTime + 2000;
-            }                
+            }
         }
     }
 }

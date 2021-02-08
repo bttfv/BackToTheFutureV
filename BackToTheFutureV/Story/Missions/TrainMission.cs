@@ -30,7 +30,7 @@ namespace BackToTheFutureV.Story
         public AudioPlayer MissionMusic { get; set; }
         public bool Mute { get; set; } = false;
         public float OriginalVolume { get; set; }
-        
+
         private AudioPlayer TrainApproachingSound { get; set; }
         private bool _useInternalTime = false;
         private List<PtfxEntityBonePlayer> _wheelPtfxes = new List<PtfxEntityBonePlayer>();
@@ -39,7 +39,7 @@ namespace BackToTheFutureV.Story
         {
             OnVehicleAttachedToRogersSierra += OnVehicleAttached;
             OnVehicleDetachedFromRogersSierra += OnVehicleDetached;
-            
+
             TrainApproachingSound = Main.CommonAudioEngine.Create($"story/trainMission/trainApproaching.wav", Presets.No3DLoop);
         }
 
@@ -84,7 +84,7 @@ namespace BackToTheFutureV.Story
             if (!timedEvent.FirstExecution)
                 return;
 
-            TimeMachine.Events.SimulateInputDate.Invoke(new DateTime(1985,10,27,11,0,0));
+            TimeMachine.Events.SimulateInputDate.Invoke(new DateTime(1985, 10, 27, 11, 0, 0));
         }
 
         private void TurnOnTC_OnExecute(TimedEvent timedEvent)
@@ -175,11 +175,11 @@ namespace BackToTheFutureV.Story
                     RogersSierra.FunnelSmoke = SmokeColor.Default;
 
                 if (TimeMachine != null)
-                    OnVehicleDetached(TimeMachine);                
+                    OnVehicleDetached(TimeMachine);
             }
 
-            _useInternalTime = false;            
-            TimeMachine = null; 
+            _useInternalTime = false;
+            TimeMachine = null;
             RogersSierra = null;
         }
 
@@ -199,7 +199,7 @@ namespace BackToTheFutureV.Story
             TimeMachine.Properties.DestinationTime = new DateTime(1885, 9, 2, 08, 0, 0);
             TimeMachine.Properties.PreviousTime = new DateTime(1955, 11, 15, 09, 14, 0);
 
-            TimeMachine.Properties.BlockSparks = true;            
+            TimeMachine.Properties.BlockSparks = true;
 
             TimedEventManager.ResetExecution();
             TimedEventManager.ClearEvents();
@@ -293,7 +293,7 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
             TimedEventManager.Add(4, 25, 800, 4, 27, 0, TimeMultiplier); //reach 60mph
-            TimedEventManager.Last.SetSpeed(59, 60);            
+            TimedEventManager.Last.SetSpeed(59, 60);
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.DigitalSpeedo);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
@@ -302,12 +302,12 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
             TimedEventManager.Add(4, 44, 800, 4, 46, 0, TimeMultiplier); //reach 71mph
-            TimedEventManager.Last.SetSpeed(69, 71);            
+            TimedEventManager.Last.SetSpeed(69, 71);
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.DigitalSpeedo);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
             TimedEventManager.Add(5, 4, 300, 5, 5, 500, TimeMultiplier); //reach 72mph
-            TimedEventManager.Last.SetSpeed(71, 72);            
+            TimedEventManager.Last.SetSpeed(71, 72);
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.DigitalSpeedo);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
@@ -447,7 +447,7 @@ namespace BackToTheFutureV.Story
             {
                 SetupFrontWheelsPTFXs("des_bigjobdrill", "ent_ray_big_drill_start_sparks", new Vector3(0, -0.3f, 0), new Vector3(0, 90f, 0), 1f, true);
                 SetupFrontWheelsPTFXs("veh_impexp_rocket", "veh_rocket_boost", new Vector3(0.2f, 0, 0), new Vector3(0, 0, 90f), 2.5f);
-            }                
+            }
         }
 
         private void WheelieDown_OnExecute(TimedEvent timedEvent)
@@ -459,11 +459,11 @@ namespace BackToTheFutureV.Story
         private void WheelieUp_OnExecute(TimedEvent timedEvent)
         {
             if (timedEvent.FirstExecution)
-            {                
+            {
                 TimeMachine.Events.SetWheelie?.Invoke(true);
                 SetupRearWheelsPTFXs("des_bigjobdrill", "ent_ray_big_drill_start_sparks", new Vector3(0, -0.3f, 0), new Vector3(0, 90f, 0), 1f, true);
                 SetupRearWheelsPTFXs("veh_impexp_rocket", "veh_rocket_boost", new Vector3(0.2f, 0, 0), new Vector3(0, 0, 90f), 2.5f);
-            }                
+            }
         }
 
         private void Whistle_OnExecute(TimedEvent timedEvent)
@@ -481,7 +481,7 @@ namespace BackToTheFutureV.Story
         private void Explosion_OnExecute(TimedEvent timedEvent)
         {
             if (timedEvent.FirstExecution)
-            {                               
+            {
                 switch (RogersSierra.FunnelSmoke)
                 {
                     case SmokeColor.Default:
@@ -556,7 +556,7 @@ namespace BackToTheFutureV.Story
 
         public override void KeyDown(KeyEventArgs key)
         {
-            
+
         }
     }
 }

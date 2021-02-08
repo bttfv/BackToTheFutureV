@@ -1,6 +1,4 @@
 ﻿using BackToTheFutureV.HUD.Core;
-using BackToTheFutureV.Settings;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
@@ -11,7 +9,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class SIDHandler : Handler
     {
-         private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Properties.HUDProperties;
+        private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Properties.HUDProperties;
 
         private bool _waitTurnOn;
 
@@ -26,12 +24,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Dispose()
         {
-            
+
         }
 
         public override void KeyDown(Keys key)
         {
-            
+
         }
 
         private void SetColumnHeight(int column, int height)
@@ -77,7 +75,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 SetColumnHeight(column, on ? max : 0);
 
                 if (instant)
-                {                    
+                {
                     for (int row = 0; row < max; row++)
                         HUDProperties.LedState[column][row] = on;
 
@@ -87,7 +85,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (instant)
                 return;
-            
+
             _randomDelay = false;
             _waitTurnOn = on;
         }
@@ -183,7 +181,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Stop()
         {
-            
+
         }
     }
 }

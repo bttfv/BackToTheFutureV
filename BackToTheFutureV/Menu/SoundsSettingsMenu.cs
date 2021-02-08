@@ -29,7 +29,7 @@ namespace BackToTheFutureV.Menu
 
         private void SettingsMenu_Shown(object sender, EventArgs e)
         {
-            
+
         }
 
         private void SettingsMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -51,7 +51,7 @@ namespace BackToTheFutureV.Menu
 
         public override void Tick()
         {
-            
+
         }
     }
 }

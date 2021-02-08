@@ -18,7 +18,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private int _warmUp = 0;
 
         private float _fluxBandsCooldown = -1;
-        
+
         public ComponentsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnReenterCompleted += OnReenterCompleted;
@@ -44,7 +44,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 Properties.PhotoGlowingCoilsActive = true;
                 _fluxBandsCooldown = 0;
-            }                
+            }
 
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 

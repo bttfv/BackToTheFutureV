@@ -58,7 +58,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         }
 
         public static void StopRemoteControl(bool instant = false)
-        {            
+        {
             RemoteControlling.Events.SetRCMode?.Invoke(false, instant);
             RemoteControlling = null;
 

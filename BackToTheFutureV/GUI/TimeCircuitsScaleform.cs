@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
+﻿using FusionLibrary;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -42,10 +41,10 @@ namespace BackToTheFutureV.GUI
 
         public void SetVisible(string type, bool toggle, bool month = true, bool day = true, bool year = true, bool hour = true, bool minute = true, bool amPm = true)
         {
-            if(toggle)
+            if (toggle)
             {
                 SetDate(type, dates[type]);
-                
+
                 if (!month)
                     CallFunction("SET_" + type.ToUpper() + "_MONTH", -1);
 

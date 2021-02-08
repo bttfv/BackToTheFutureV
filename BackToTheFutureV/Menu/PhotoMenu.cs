@@ -29,7 +29,7 @@ namespace BackToTheFutureV.Menu
             OnItemCheckboxChanged += PhotoMenu_OnItemCheckboxChanged;
             OnItemActivated += PhotoMenu_OnItemActivated;
             OnItemValueChanged += PhotoMenu_OnItemValueChanged;
-                
+
             Add(Wormhole = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole_Description")));
             Add(Coils = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils_Description")));
             Add(Ice = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice_Description")));
@@ -47,7 +47,7 @@ namespace BackToTheFutureV.Menu
         }
 
         private void PhotoMenu_OnItemActivated(NativeItem sender, EventArgs e)
-        {         
+        {
             if (sender == LightningStrike)
             {
                 TimeMachine.Events.StartLightningStrike?.Invoke(StrikeDelay.Value);

@@ -26,7 +26,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private bool _startHoverGlowLater;
 
         private bool _landingSmoke;
-                
+
         private int _currentLightIndex;
         private int _nextLightChange;
 
@@ -56,9 +56,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             OnDayNightChange();
         }
-        
+
         private void OnDayNightChange()
-        {            
+        {
             Props.HoverModeVentsGlow?.Delete();
 
             if (TimeHandler.IsNight)
@@ -97,7 +97,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             foreach (AnimateProp x in Props.HoverModeUnderbodyLights)
                 x?.Delete();
         }
-        
+
         private void OnAnimCompleted()
         {
             if (Properties.AreWheelsInHoverMode)
@@ -133,12 +133,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                         return;
                     }
-                        
+
                     SetFlyMode(!Properties.AreWheelsInHoverMode);
 
                     _nextModeChangeAllowed = Game.GameTime + 3000;
                 }
-            }                
+            }
         }
 
         private void OnFlyModeControlJustPressed()
@@ -201,7 +201,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Sounds.HoverModeOn?.Play();
                 Particles?.HoverModeSmoke?.ForEach(x => x?.Play());
             }
-            else if(!Properties.AreWheelsInHoverMode && !instant)
+            else if (!Properties.AreWheelsInHoverMode && !instant)
             {
                 if (Properties.IsFlying)
                     Sounds.HoverModeOff?.Play();
@@ -230,7 +230,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if(key == ModControls.HoverAltitudeHold && Utils.PlayerVehicle == Vehicle && Properties.IsFlying)
+            if (key == ModControls.HoverAltitudeHold && Utils.PlayerVehicle == Vehicle && Properties.IsFlying)
                 SetHoverMode(!Properties.IsAltitudeHolding);
         }
 
@@ -247,7 +247,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             // Automatically fold wheels in if fly mode is exited in any other way
             // Example: getting out of vehicle, flipping vehicle over, etc
-            if (Properties.IsFlying && VehicleControl.GetDeluxoTransformation(Vehicle) <= 0 )
+            if (Properties.IsFlying && VehicleControl.GetDeluxoTransformation(Vehicle) <= 0)
                 SetFlyMode(false);
 
             // Automatically set fly mode if deluxo is transformed in any other way.
@@ -256,7 +256,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             // Process the wheel animations
             Players.HoverModeWheels?.Process();
-            
+
             if (!Vehicle.IsVisible)
                 return;
 
@@ -292,7 +292,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (!Properties.IsFlying)
                 return;
-                
+
             if (Properties.HasBeenStruckByLightning || (ModSettings.TurbulenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)))
             {
                 if (Game.GameTime > _nextForce)
@@ -338,7 +338,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 Vehicle.ApplyForce(force, Vector3.Zero);
 
-                if(Vehicle.HeightAboveGround < 2)
+                if (Vehicle.HeightAboveGround < 2)
                     SetFlyMode(false);
 
                 return;
@@ -358,7 +358,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 // Altitude holder
                 if (Properties.IsAltitudeHolding)
                     HandleAltitudeHolding();
-            }            
+            }
 
             // Apply force
             Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
@@ -378,12 +378,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void HandleBoosting()
         {
             // First of all, check if vehicle is in fly mode, if its not just return
-            if (Utils.PlayerVehicle != Vehicle) 
+            if (Utils.PlayerVehicle != Vehicle)
                 return;
 
             // If the Handbrake control is pressed
             // Using this so that controllers are also supported
-            if(Game.IsControlPressed(ModControls.HoverBoost) && Vehicle.IsEngineRunning)
+            if (Game.IsControlPressed(ModControls.HoverBoost) && Vehicle.IsEngineRunning)
             {
                 if (Game.IsControlJustPressed(ModControls.HoverBoost))
                     Utils.SetPadShake(100, 200);
@@ -406,7 +406,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         }
 
         private void HandleAltitudeHolding()
-        {            
+        {
             var velocity = Vehicle.Velocity;
             var zVel = velocity.Z;
 
@@ -437,7 +437,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     }
 
                     upNormal = 1;
-                } else
+                }
+                else
                     Utils.SetPadShake(100, 80);
             }
             else if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
@@ -448,7 +449,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Game.DisableControlThisFrame(Control.VehicleFlyThrottleDown);
 
                     upNormal = -1;
-                } else
+                }
+                else
                     Utils.SetPadShake(100, 80);
             }
 
@@ -485,7 +487,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _currentLightIndex = 4;
 
             // Update the actual lights
-            for(int i = Props.HoverModeUnderbodyLights.Count-1; i >= 0; i--)
+            for (int i = Props.HoverModeUnderbodyLights.Count - 1; i >= 0; i--)
             {
                 if (_currentLightIndex != i)
                     Props.HoverModeUnderbodyLights[i]?.Delete();

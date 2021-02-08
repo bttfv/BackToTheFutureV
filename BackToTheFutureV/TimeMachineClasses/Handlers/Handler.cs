@@ -13,12 +13,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public TimeMachineMods Mods => TimeMachine.Mods;
 
         public EventsHandler Events => TimeMachine.Events;
-        public PropertiesHandler Properties => TimeMachine.Properties;        
+        public PropertiesHandler Properties => TimeMachine.Properties;
         public SoundsHandler Sounds => TimeMachine.Sounds;
         public PropsHandler Props => TimeMachine.Props;
         public PlayersHandler Players => TimeMachine.Players;
         public ScaleformsHandler Scaleforms => TimeMachine.Scaleforms;
-        public ParticlesHandler Particles => TimeMachine.Particles;       
+        public ParticlesHandler Particles => TimeMachine.Particles;
 
         public DMC12 DMC12 => TimeMachine.DMC12;
 

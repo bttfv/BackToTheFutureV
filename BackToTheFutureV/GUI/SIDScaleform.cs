@@ -1,9 +1,6 @@
 ﻿using BackToTheFutureV.HUD.Core;
 using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary;
-using GTA;
-using GTA.Math;
 using GTA.UI;
 using System;
 using System.Drawing;
@@ -19,7 +16,7 @@ namespace BackToTheFutureV.GUI
 
         public SIDScaleform(string scaleformID) : base(scaleformID)
         {
-            
+
         }
 
         public void Process()
@@ -36,7 +33,7 @@ namespace BackToTheFutureV.GUI
                         HUDProperties.LedState[column][row] = false;
 
                     CallFunction("setLed", column, row, Convert.ToInt32(HUDProperties.LedState[column][row]));
-                }                    
+                }
         }
 
         public void Draw2D()

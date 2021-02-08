@@ -59,7 +59,7 @@ namespace BackToTheFutureV.Utility
                 waybackMachine.TimeMachine = timeMachine;
 
             //GTA.UI.Screen.ShowSubtitle($"Wayback machine found {waybackMachine.StartTime} {waybackMachine.EndTime}");
-                       
+
             return waybackMachine;
         }
     }

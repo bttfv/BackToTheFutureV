@@ -41,7 +41,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         }
 
         public static void Save(List<TimeMachine> timeMachines)
-        {            
+        {
             Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
 
             formatter.Serialize(stream, new TimeMachineCloneManager(timeMachines));
@@ -55,7 +55,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
 
-            TimeMachineCloneManager timeMachineCloneManager  = (TimeMachineCloneManager)formatter.Deserialize(stream);
+            TimeMachineCloneManager timeMachineCloneManager = (TimeMachineCloneManager)formatter.Deserialize(stream);
 
             stream.Close();
 
@@ -76,7 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             Properties = timeMachine.Properties.Clone();
             Vehicle = new VehicleReplica(timeMachine.Vehicle);
 
-            if (Properties.TimeTravelDestPos != Vector3.Zero) 
+            if (Properties.TimeTravelDestPos != Vector3.Zero)
             {
                 Vehicle.Position = Vehicle.Position.TransferHeight(Properties.TimeTravelDestPos);
                 Properties.TimeTravelDestPos = Vector3.Zero;
@@ -95,7 +95,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             Vehicle.ApplyTo(timeMachine.Vehicle, spawnFlags);
             Mods.ApplyTo(timeMachine);
-            
+
             if (!spawnFlags.HasFlag(SpawnFlags.ResetValues))
                 Properties.ApplyTo(timeMachine);
         }

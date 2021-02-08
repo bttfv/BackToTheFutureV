@@ -1,10 +1,10 @@
 ﻿using BackToTheFutureV.Utility;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA.Math;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
-using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
@@ -114,7 +114,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Time travel
             Coils = new AnimateProp(Vehicle, ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
-            
+
             //Plutonium gauge
             GaugeGlow = new AnimateProp(Vehicle, ModelHandler.GaugeGlow, Vector3.Zero, Vector3.Zero);
 
@@ -217,12 +217,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public override void Process()
         {
-            
+
         }
 
         public override void Stop()
         {
-            
+
         }
     }
 }
