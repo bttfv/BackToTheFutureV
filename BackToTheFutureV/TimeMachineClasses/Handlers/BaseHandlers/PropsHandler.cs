@@ -4,6 +4,7 @@ using GTA.Math;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
+using FusionLibrary.Extensions;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
@@ -51,8 +52,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public List<AnimateProp> RRWheels = new List<AnimateProp>();
 
         //TCD
+        public AnimateProp DiodesOff;
         public AnimateProp TickingDiodes;
         public AnimateProp TickingDiodesOff;
+
+        //License plate
+        public AnimateProp LicensePlate;
 
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -128,6 +133,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TFCHandle.SpawnProp();
 
             //TCD
+            DiodesOff = new AnimateProp(Vehicle, ModelHandler.DiodesOff, Vector3.Zero, Vector3.Zero);
+            DiodesOff.SpawnProp();
             TickingDiodes = new AnimateProp(Vehicle, ModelHandler.TickingDiodes, Vector3.Zero, Vector3.Zero);
             TickingDiodesOff = new AnimateProp(Vehicle, ModelHandler.TickingDiodesOff, Vector3.Zero, Vector3.Zero);
             TickingDiodesOff.SpawnProp();
@@ -137,6 +144,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Flux capacitor
             FluxBlue = new AnimateProp(Vehicle, ModelHandler.FluxBlueModel, "flux_capacitor");
+
+            //License plate
+            LicensePlate = new AnimateProp(Vehicle, ModelHandler.LicensePlate, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, -0.1f), Vector3.Zero);
+
+            LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(false, true, true, 0, 360 * 2, 1, 720, 1);
+            LicensePlate[AnimationType.Rotation][AnimationStep.Second][Coordinate.X].Setup(false, true, false, -90, 0, 1, 180, 1);
+            LicensePlate[AnimationType.Offset][AnimationStep.Second][Coordinate.Z].Setup(false, true, true, -0.1f, -0.07f, 1, 0.06f, 1);
+
+            LicensePlate.SaveAnimation();
         }
 
         public override void Dispose()
@@ -179,16 +195,24 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             RRWheels?.ForEach(x => x?.Dispose());
 
             //TCD
+            DiodesOff?.Dispose();
             TickingDiodes?.Dispose();
             TickingDiodesOff?.Dispose();
 
             //Flux capacitor
             FluxBlue?.Dispose();
+
+            //License plate
+            LicensePlate?.Dispose(LicensePlate.IsSpawned);
         }
 
         public override void KeyDown(Keys key)
         {
-
+            //if (key == Keys.L)
+            //{
+            //    LicensePlate.SpawnProp();
+            //    LicensePlate.Play();
+            //}
         }
 
         public override void Process()

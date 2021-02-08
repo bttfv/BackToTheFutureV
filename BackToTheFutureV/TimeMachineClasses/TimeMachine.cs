@@ -168,6 +168,18 @@ namespace BackToTheFutureV.TimeMachineClasses
             //FrontToBackRightSide
             CustomCameraManager.Add(Vehicle, new Vector3(1.15f, 4.64f, 0.42f), new Vector3(0.87f, 3.68f, 0.49f), 50);
 
+            //LicensePlate
+            CustomCameraManager.Add(Vehicle, new Vector3(0f, -3.97f, 0.41f), new Vector3(0f, -2.97f, 0.36f), 50);
+
+            //TimeTravelOnTracks
+            CustomCameraManager.Add(Vehicle, new Vector3(-9.71f, -3.84f, 8.42f), new Vector3(-8.91f, -3.54f, 7.90f), 50);
+
+            //DigitalSpeedoTowardsFront
+            CustomCameraManager.Add(Vehicle, new Vector3(-0.41f, 0f, 0.83f), new Vector3(-0.42f, 0.96f, 0.78f), 40);
+
+            //RearCarTowardsFront
+            CustomCameraManager.Add(Vehicle, new Vector3(0f, -7.81f, 2f), new Vector3(0f, -6.81f, 2f), 50);
+
             IsReady = true;
         }
 

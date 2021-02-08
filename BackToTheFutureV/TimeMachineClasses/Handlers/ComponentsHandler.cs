@@ -5,6 +5,7 @@ using FusionLibrary;
 using GTA;
 using GTA.Math;
 using System.Windows.Forms;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -15,6 +16,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         //Hoodbox
         private int _warmUp = 0;
+
+        private float _fluxBandsCooldown = -1;
         
         public ComponentsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -36,6 +39,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Mods.Hook == HookState.On)
                 Mods.Hook = HookState.Removed;
+
+            if (Mods.IsDMC12 && Properties.IsFlying && Mods.Reactor == ReactorType.MrFusion)
+            {
+                Properties.PhotoGlowingCoilsActive = true;
+                _fluxBandsCooldown = 0;
+            }                
+
+            Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
             if (Mods.Hoodbox == ModState.Off || Properties.AreHoodboxCircuitsReady)
                 return;
@@ -142,6 +153,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             CompassProcess();
 
             HoodboxProcess();
+
+            if (_fluxBandsCooldown > -1)
+            {
+                _fluxBandsCooldown += Game.LastFrameTime;
+
+                if (_fluxBandsCooldown > 2)
+                {
+                    Properties.PhotoGlowingCoilsActive = false;
+                    _fluxBandsCooldown = -1;
+                }
+            }
         }
 
         public override void Stop()

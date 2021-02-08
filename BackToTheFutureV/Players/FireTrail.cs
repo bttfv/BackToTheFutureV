@@ -80,8 +80,8 @@ namespace BackToTheFutureV.Players
             if (!is99)
             {
                 // World positions
-                Vector3 leftWheelOffset = vehicle.GetPositionOffset(vehicle.Bones["wheel_lf"].Position);
-                Vector3 rightWheelOffset = vehicle.GetPositionOffset(vehicle.Bones["wheel_rf"].Position);
+                Vector3 leftWheelOffset = vehicle.GetPositionOffset(vehicle.Bones["wheel_lr"].Position);
+                Vector3 rightWheelOffset = vehicle.GetPositionOffset(vehicle.Bones["wheel_rr"].Position);
 
                 float baseOffset = 0.3f;
                 for (int i = 0; i < maxLength; i++)

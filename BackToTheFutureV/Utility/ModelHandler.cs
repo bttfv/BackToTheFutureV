@@ -32,7 +32,7 @@ namespace BackToTheFutureV.Utility
         public static CustomModel TFCOn = new CustomModel("bttf_tfc_on");
         public static CustomModel TFCOff = new CustomModel("bttf_tfc_off");
         public static CustomModel TFCHandle = new CustomModel("bttf_handle");
-        //public static CustomModel LicensePlate = new CustomModel("bttf_licenseplate");
+        public static CustomModel LicensePlate = new CustomModel("bttf_outatime_plate");
         public static CustomModel TickingDiodes = new CustomModel("bttf_diodes_ticking");
         public static CustomModel TickingDiodesOff = new CustomModel("bttf_diodes_ticking_off");
         public static CustomModel DiodesOff = new CustomModel("bttf_diodes_off");
@@ -52,6 +52,7 @@ namespace BackToTheFutureV.Utility
         public static CustomModel InvisibleProp = new CustomModel("prop_dummy");
         public static List<CustomModel> Lightnings = new List<CustomModel>() { new CustomModel("ls_1"), new CustomModel("ls_2"), new CustomModel("ls_3"), new CustomModel("ls_4") };
         public static CustomModel SID = new CustomModel("bttf_sid");
+        public static CustomModel BucketWithAlmanac = new CustomModel("bttf_bucket_book");
 
         // BTTF1 CustomModels
         public static CustomModel BTTFReactorCap = new CustomModel("bttf_reactorcap");

@@ -113,7 +113,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             this.toggle = toggle;
             this.showPropsAt = Game.GameTime + showPropsAt;
             this.showMonthAt = Game.GameTime + showMonthAt;
-            this.IsDoingTimedVisible = true;
+            IsDoingTimedVisible = true;
         }
 
         public void Update()
@@ -129,19 +129,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
 
             if (Game.GameTime > showPropsAt)
-            {
                 SetVisible(toggle, false);
-            }
 
-            if(Game.GameTime > showMonthAt)
-            {
+            if (Game.GameTime > showMonthAt)
                 SetVisible(toggle);
-            }
 
-            if(Game.GameTime > showPropsAt && Game.GameTime > showMonthAt)
-            {
+            if (Game.GameTime > showPropsAt && Game.GameTime > showMonthAt)
                 IsDoingTimedVisible = false;
-            }
         }
 
         public void Dispose()

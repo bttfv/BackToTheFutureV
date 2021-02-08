@@ -120,8 +120,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnReenterCompleted()
         {
-            Properties.TimeTravelPhase = TimeTravelPhase.Completed;
-
             Vehicle.SetVisible(true);
 
             Utils.HideGUI = false;

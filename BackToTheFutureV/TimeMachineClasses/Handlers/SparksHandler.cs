@@ -152,6 +152,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                             Sounds.SparkStabilized?.Play();
                     }
 
+                    if (Game.GameTime >= _timeTravelAtTime - 1000 && Game.GameTime < _timeTravelAtTime && _hasHit88 && Properties.IsOnTracks && Properties.IsAttachedToRogersSierra)
+                        TimeMachine.CustomCamera = TimeMachineCamera.TimeTravelOnTracks;
+
                     if (Game.GameTime > _timeTravelAtTime && _hasHit88)
                         SparksEnded();
                 }

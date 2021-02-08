@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.Settings;
+using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
@@ -25,7 +26,21 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.StartTimeTravel += StartTimeTravel;
             Events.SetCutsceneMode += SetCutsceneMode;
 
+            if (Mods.IsDMC12)
+                Props.LicensePlate.OnAnimCompleted += LicensePlate_OnAnimCompleted;
+
             TimeHandler.OnTimeChanged += TimeChanged;
+        }
+
+        private void LicensePlate_OnAnimCompleted(AnimationStep animationStep)
+        {
+            if (animationStep == AnimationStep.First)
+            {
+                Props.LicensePlate.Play(AnimationStep.Second);
+
+                if (Properties.TimeTravelType == TimeTravelType.Cutscene)
+                    gameTimer += 1500;
+            }
         }
 
         public static void TimeChanged(DateTime time)
@@ -159,7 +174,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     // If the Vehicle is remote controlled or the player is not the one in the driver seat
                     if (Properties.TimeTravelType == TimeTravelType.RC || Properties.TimeTravelType == TimeTravelType.Wayback)
-                    {                        
+                    {
+                        if (!Properties.IsFlying && Mods.Plate == PlateType.Outatime)
+                        {
+                            Props.LicensePlate.SpawnProp();
+                            Props.LicensePlate.Play();
+                        }
+
                         Vehicle.SetMPHSpeed(0);
 
                         // Stop remote controlling
@@ -197,6 +218,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Vehicle.SetVisible(false);
 
+                    if (!Properties.IsFlying && Mods.Plate == PlateType.Outatime)
+                    {
+                        if (Properties.TimeTravelType == TimeTravelType.Cutscene)
+                            TimeMachine.CustomCamera = TimeMachineCamera.LicensePlate;
+
+                        Props.LicensePlate.SpawnProp();
+                        Props.LicensePlate.Play();
+                    }
+
                     gameTimer = Game.GameTime + 300;
 
                     _currentStep++;
@@ -231,6 +261,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 3:
+                    if (Mods.Plate == PlateType.Outatime)
+                    {
+                        TimeMachine.CustomCameraManager.Stop();
+                        Props.LicensePlate?.Delete();
+                        Props.LicensePlate?.RestoreAnimation();
+                    }
+
+                    TimeMachine.CustomCameraManager.Stop();
                     FireTrailsHandler.RemoveTrail(trails);
                     TimeHandler.TimeTravelTo(Properties.DestinationTime);
 

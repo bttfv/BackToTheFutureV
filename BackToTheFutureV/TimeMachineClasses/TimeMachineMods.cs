@@ -2,6 +2,7 @@
 using FusionLibrary;
 using GTA;
 using System;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
@@ -206,6 +207,17 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                     Utils.SetTiresBurst(Vehicle, false);
                 }
+            }
+        }
+
+        public new PlateType Plate 
+        {
+            get => base.Plate;
+            set
+            {
+                base.Plate = value;
+
+                TimeMachine?.Events?.OnWormholeTypeChanged?.Invoke();
             }
         }
 

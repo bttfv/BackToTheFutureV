@@ -367,15 +367,18 @@ namespace BackToTheFutureV.Story
             TimedEventManager.Last.OnExecute += StartSparks_OnExecute;
 
             TimedEventManager.Add(6, 58, 0, 7, 0, 0, TimeMultiplier); //reach 86mph
+            TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.TimeTravelOnTracks);
             TimedEventManager.Last.SetSpeed(84, 86);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
             TimedEventManager.Add(7, 1, 0, 7, 3, 0, TimeMultiplier); //reach 87mph
             TimedEventManager.Last.SetSpeed(86, 87);
+            TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.DigitalSpeedoTowardsFront);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
             TimedEventManager.Add(7, 3, 0, 7, 3, 500, TimeMultiplier); //reach 88mph
             TimedEventManager.Last.SetSpeed(87, 88);
+            TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.DigitalSpeedoTowardsFront);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
 
             TimedEventManager.Add(7, 6, 0, 7, 7, 200, TimeMultiplier); //show destination date            

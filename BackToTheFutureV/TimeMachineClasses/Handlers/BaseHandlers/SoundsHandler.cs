@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.Utility;
+using BackToTheFutureV.Vehicles;
 using GTA;
 using GTA.Native;
 using KlangRageAudioLibrary;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
@@ -235,13 +237,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             FluxCapacitor = AudioEngine.Create("general/fluxCapacitor.wav", Presets.InteriorLoop);
             FluxCapacitor.Volume = 0.1f;
             FluxCapacitor.MinimumDistance = 0.5f;
-            FluxCapacitor.SourceBone = "flux_capacitor";
+            FluxCapacitor.SourceBone = "flux_capacitor";     
         }
 
         public void OnWormholeTypeChanged()
         {
             TimeTravelCutscene?.Dispose();
-            TimeTravelCutscene = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/cutscene.wav", Presets.ExteriorLoud);
+            TimeTravelCutscene = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/cutscene{(Mods.WormholeType == WormholeType.BTTF1 && Mods.Plate == PlateType.Outatime ? "_plate" : "")}.wav", Presets.ExteriorLoud);
+
+            if (Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
+                return;
 
             TimeTravelInstant?.Dispose();
             TimeTravelInstant = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/instant.wav", Presets.ExteriorLoud);
