@@ -135,7 +135,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 RCOn, RCOff, RCBrake, RCAcceleration, RCSomeSerious
             };
 
-            foreach (var sound in RCSounds)
+            foreach (AudioPlayer sound in RCSounds)
             {
                 sound.Volume = 0.4f;
                 sound.MinimumDistance = 1f;
@@ -165,7 +165,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             for (int i = 0; i <= 9; i++)
                 Keypad[i] = AudioEngine.Create("general/keypad/" + i + ".wav", Presets.Interior);
 
-            foreach (var keypad in Keypad)
+            foreach (KeyValuePair<int, AudioPlayer> keypad in Keypad)
             {
                 keypad.Value.Volume = 0.45f;
                 keypad.Value.SourceBone = "bttf_tcd_green";
@@ -324,13 +324,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             if (Game.GameTime < _gameTimer | !Vehicle.IsVisible | !Mods.IsDMC12)
                 return;
 
-            foreach (var door in _doorStatus.ToList())
+            foreach (KeyValuePair<VehicleDoorIndex, DoorInfo> door in _doorStatus.ToList())
             {
-                var doorAngle = Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, Vehicle.Handle, (int)door.Key);
+                float doorAngle = Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, Vehicle.Handle, (int)door.Key);
 
                 // Detect door index (d -> driver side) (p - passenger side) for correct 3d sound
-                var doorSide = door.Key == VehicleDoorIndex.FrontLeftDoor ? "d" : "p";
-                var doorBone = $"handle_{doorSide}side_f";
+                string doorSide = door.Key == VehicleDoorIndex.FrontLeftDoor ? "d" : "p";
+                string doorBone = $"handle_{doorSide}side_f";
 
                 _doorSounds.ForEach(x => x.SourceBone = doorBone);
                 if (doorAngle > 0 && !door.Value.IsDoorOpen)

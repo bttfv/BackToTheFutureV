@@ -217,7 +217,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (ped.CurrentVehicle == null)
             {
-                var bootPos = vehicle.Bones["mr_fusion"].Position;
+                Vector3 bootPos = vehicle.Bones["mr_fusion"].Position;
 
                 Vector3 dir;
                 float angle, dist;

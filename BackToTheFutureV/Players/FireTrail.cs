@@ -111,7 +111,7 @@ namespace BackToTheFutureV.Players
 
                     _fireTrailPtfxs.Add(leftWheelPtfx);
                     _fireTrailPtfxs.Add(rightWheelPtfx);
-                    foreach (var ptfx in _fireTrailPtfxs)
+                    foreach (PtfxPlayer ptfx in _fireTrailPtfxs)
                     {
                         ptfx.SetEvolutionParam("strength", 1f);
                         ptfx.SetEvolutionParam("dist", 0f);
@@ -122,11 +122,11 @@ namespace BackToTheFutureV.Players
             else
             {
                 // Create fire particles out of pre-defines offsets
-                foreach (var offset in FireTrails99Offsets)
+                foreach (Vector3 offset in FireTrails99Offsets)
                 {
                     // Create start position on left and right wheels
-                    var leftPosOffset = offset;
-                    var rightPosOffset = new Vector3(Math.Abs(leftPosOffset.X), leftPosOffset.Y, leftPosOffset.Z);
+                    Vector3 leftPosOffset = offset;
+                    Vector3 rightPosOffset = new Vector3(Math.Abs(leftPosOffset.X), leftPosOffset.Y, leftPosOffset.Z);
 
                     leftPosOffset = vehicle.GetOffsetPosition(leftPosOffset);
                     rightPosOffset = vehicle.GetOffsetPosition(rightPosOffset);
@@ -138,7 +138,7 @@ namespace BackToTheFutureV.Players
 
                     _fireTrailPtfxs.Add(leftWheelPtfx);
                     _fireTrailPtfxs.Add(rightWheelPtfx);
-                    foreach (var ptfx in _fireTrailPtfxs)
+                    foreach (PtfxPlayer ptfx in _fireTrailPtfxs)
                     {
                         ptfx.SetEvolutionParam("strength", 1);
                         ptfx.SetEvolutionParam("dist", 0f);
@@ -181,7 +181,7 @@ namespace BackToTheFutureV.Players
                     return;
                 }
 
-                var amountToSub = (1f * Game.LastFrameTime) / (_disappearTime * 0.75f);
+                float amountToSub = (1f * Game.LastFrameTime) / (_disappearTime * 0.75f);
                 _currentStrength -= amountToSub;
 
                 if (_currentStrength < 0)

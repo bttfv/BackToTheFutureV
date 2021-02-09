@@ -139,28 +139,29 @@ namespace BackToTheFutureV.Vehicles
 
         public BaseMods Clone()
         {
-            BaseMods ret = new BaseMods();
-
-            ret.IsDMC12 = IsDMC12;
-            ret.WormholeType = WormholeType;
-            ret.SuspensionsType = SuspensionsType;
-            ret.Wheel = Wheel;
-            ret.Exterior = Exterior;
-            ret.Interior = Interior;
-            ret.OffCoils = OffCoils;
-            ret.GlowingEmitter = GlowingEmitter;
-            ret.GlowingReactor = GlowingReactor;
-            ret.DamagedBumper = DamagedBumper;
-            ret.HoverUnderbody = HoverUnderbody;
-            ret.SteeringWheelsButtons = SteeringWheelsButtons;
-            ret.Vents = Vents;
-            ret.Seats = Seats;
-            ret.Reactor = Reactor;
-            ret.Plate = Plate;
-            ret.Exhaust = Exhaust;
-            ret.Hoodbox = Hoodbox;
-            ret.Hook = Hook;
-            ret.Hood = Hood;
+            BaseMods ret = new BaseMods
+            {
+                IsDMC12 = IsDMC12,
+                WormholeType = WormholeType,
+                SuspensionsType = SuspensionsType,
+                Wheel = Wheel,
+                Exterior = Exterior,
+                Interior = Interior,
+                OffCoils = OffCoils,
+                GlowingEmitter = GlowingEmitter,
+                GlowingReactor = GlowingReactor,
+                DamagedBumper = DamagedBumper,
+                HoverUnderbody = HoverUnderbody,
+                SteeringWheelsButtons = SteeringWheelsButtons,
+                Vents = Vents,
+                Seats = Seats,
+                Reactor = Reactor,
+                Plate = Plate,
+                Exhaust = Exhaust,
+                Hoodbox = Hoodbox,
+                Hook = Hook,
+                Hood = Hood
+            };
 
             return ret;
         }

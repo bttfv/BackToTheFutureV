@@ -33,14 +33,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachineCamera CustomCamera
         {
-            get
-            {
-                return (TimeMachineCamera)CustomCameraManager.CurrentCameraIndex;
-            }
-            set
-            {
-                CustomCameraManager.Show((int)value);
-            }
+            get => (TimeMachineCamera)CustomCameraManager.CurrentCameraIndex;
+            set => CustomCameraManager.Show((int)value);
         }
 
         public TimeMachineClone Clone => new TimeMachineClone(this);
@@ -192,7 +186,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         private void DisposeAllHandlers()
         {
-            foreach (var handler in registeredHandlers.Values)
+            foreach (Handler handler in registeredHandlers.Values)
                 handler.Dispose();
         }
 
@@ -337,7 +331,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             else if (Blip != null && Blip.Exists())
                 Blip.Delete();
 
-            foreach (var entry in registeredHandlers)
+            foreach (KeyValuePair<string, Handler> entry in registeredHandlers)
                 entry.Value.Process();
 
             PhotoMode();
@@ -465,7 +459,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void KeyDown(Keys key)
         {
-            foreach (var entry in registeredHandlers)
+            foreach (KeyValuePair<string, Handler> entry in registeredHandlers)
                 entry.Value.KeyDown(key);
         }
 
@@ -490,7 +484,14 @@ namespace BackToTheFutureV.TimeMachineClasses
             return TimeMachineHandler.TimeMachinesNoStory.IndexOf(this).ToString();
         }
 
-        public static implicit operator Vehicle(TimeMachine timeMachine) => timeMachine.Vehicle;
-        public static implicit operator Entity(TimeMachine timeMachine) => timeMachine.Vehicle;
+        public static implicit operator Vehicle(TimeMachine timeMachine)
+        {
+            return timeMachine.Vehicle;
+        }
+
+        public static implicit operator Entity(TimeMachine timeMachine)
+        {
+            return timeMachine.Vehicle;
+        }
     }
 }

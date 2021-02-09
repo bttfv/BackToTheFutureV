@@ -21,13 +21,13 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public TimeMachineCloneManager(List<TimeMachine> timeMachines)
         {
-            foreach (var x in timeMachines)
+            foreach (TimeMachine x in timeMachines)
                 timeMachineClones.Add(x.Clone);
         }
 
         public void SpawnAll()
         {
-            foreach (var x in timeMachineClones)
+            foreach (TimeMachineClone x in timeMachineClones)
                 x.Spawn(SpawnFlags.CheckExists);
         }
 
@@ -165,8 +165,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         private static string RemoveIllegalFileNameChars(string input, string replacement = "")
         {
-            var regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-            var r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
+            string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
             return r.Replace(input, replacement);
         }
 

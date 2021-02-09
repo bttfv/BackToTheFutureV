@@ -36,7 +36,7 @@ namespace BackToTheFutureV.Utility
 
         public Vehicle Train;
         public bool Direction { get; set; }
-        public Vector3 Position { get { return Train.Position; } set { Function.Call(Hash.SET_MISSION_TRAIN_COORDS, Train, value.X, value.Y, value.Z); } }
+        public Vector3 Position { get => Train.Position; set => Function.Call(Hash.SET_MISSION_TRAIN_COORDS, Train, value.X, value.Y, value.Z); }
         public int CarriageCount { get; }
 
         private Vector3 _checkOffset;
@@ -49,10 +49,10 @@ namespace BackToTheFutureV.Utility
         public bool IsAutomaticBrakeOn { get; set; } = true;
         public bool IsAccelerationOn { get; set; } = false;
 
-        public float CruiseSpeed { get { return _cruiseSpeed; } set { _cruiseSpeed = value; _setSpeed = false; IsAutomaticBrakeOn = false; Function.Call(Hash.SET_TRAIN_CRUISE_SPEED, Train, value); } }
-        public float CruiseSpeedMPH { get { return CruiseSpeed.ToMPH(); } set { CruiseSpeed = value.ToMS(); } }
-        public float Speed { get { return _speed; } set { _speed = value; _setSpeed = true; } }
-        public float SpeedMPH { get { return Speed.ToMPH(); } set { Speed = value.ToMS(); } }
+        public float CruiseSpeed { get => _cruiseSpeed; set { _cruiseSpeed = value; _setSpeed = false; IsAutomaticBrakeOn = false; Function.Call(Hash.SET_TRAIN_CRUISE_SPEED, Train, value); } }
+        public float CruiseSpeedMPH { get => CruiseSpeed.ToMPH(); set => CruiseSpeed = value.ToMS(); }
+        public float Speed { get => _speed; set { _speed = value; _setSpeed = true; } }
+        public float SpeedMPH { get => Speed.ToMPH(); set => Speed = value.ToMS(); }
 
         public bool ToDestroy { get; private set; }
         public Vehicle TargetVehicle;

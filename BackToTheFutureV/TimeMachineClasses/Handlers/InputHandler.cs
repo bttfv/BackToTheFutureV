@@ -47,9 +47,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _nextReset = 0;
                 _destinationTimeRaw = string.Empty;
 
-                var inputMode = Game.GetLocalizedString("BTTFV_Input_Mode");
-                var on = Game.GetLocalizedString("BTTFV_On");
-                var off = Game.GetLocalizedString("BTTFV_Off");
+                string inputMode = Game.GetLocalizedString("BTTFV_Input_Mode");
+                string on = Game.GetLocalizedString("BTTFV_On");
+                string off = Game.GetLocalizedString("BTTFV_Off");
                 Utils.DisplayHelpText($"{inputMode} {(InputMode ? on : off)}");
             }
 
@@ -57,8 +57,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 string keyCode = key.ToString();
 
-                if (keyCode.Contains("NumPad") || (keyCode.Contains("D") && keyCode.Where(Char.IsDigit).Count() > 0))
-                    ProcessInputNumber(new string(keyCode.Where(Char.IsDigit).ToArray()));
+                if (keyCode.Contains("NumPad") || (keyCode.Contains("D") && keyCode.Where(char.IsDigit).Count() > 0))
+                    ProcessInputNumber(new string(keyCode.Where(char.IsDigit).ToArray()));
 
                 if (key == Keys.Enter)
                     ProcessInputEnter();
@@ -101,7 +101,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            var dateTime = Utils.ParseFromRawString(_destinationTimeRaw, Properties.DestinationTime);
+            DateTime? dateTime = Utils.ParseFromRawString(_destinationTimeRaw, Properties.DestinationTime);
 
             if (dateTime == null)
             {

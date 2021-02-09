@@ -127,7 +127,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _blip.Sprite = (BlipSprite)480;
             _blip.Color = BlipColor.White;
 
-            foreach (var sound in Sounds.RCSounds)
+            foreach (KlangRageAudioLibrary.AudioPlayer sound in Sounds.RCSounds)
                 sound.SourceEntity = TimeMachine.OriginalPed;
 
             Sounds.RCOn?.Play();
@@ -215,8 +215,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             //var isCloneFreezed = CommonSettings.PlayerPed.Position.DistanceToSquared(OriginalPed.Position) >= 50*50;
             //Function.Call(Hash.FREEZE_ENTITY_POSITION, OriginalPed, isCloneFreezed);
 
-            var origPos = TimeMachine.OriginalPed.Position;
-            var carPos = Vehicle.Position;
+            Vector3 origPos = TimeMachine.OriginalPed.Position;
+            Vector3 carPos = Vehicle.Position;
             Function.Call(Hash.REQUEST_COLLISION_AT_COORD, origPos.X, origPos.Y, origPos.Z);
             Function.Call(Hash.REQUEST_COLLISION_AT_COORD, carPos.X, carPos.Y, carPos.Z);
 

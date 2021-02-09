@@ -60,7 +60,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Utils.SetPadShake(500, 200);
 
-                    var timeToAdd = 500;
+                    int timeToAdd = 500;
 
                     switch (Mods.WormholeType)
                     {

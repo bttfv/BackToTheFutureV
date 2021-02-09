@@ -126,7 +126,7 @@ namespace BackToTheFutureV.Story
                 TimeMachine.CustomCamera = TimeMachineCamera.TrainApproaching;
 
             if (_wheelPtfxes != null)
-                foreach (var wheelPTFX in _wheelPtfxes)
+                foreach (PtfxEntityBonePlayer wheelPTFX in _wheelPtfxes)
                     wheelPTFX.Process();
         }
 
@@ -502,7 +502,7 @@ namespace BackToTheFutureV.Story
 
         private void SetupRearWheelsPTFXs(string particleAssetName, string particleName, Vector3 wheelOffset, Vector3 wheelRot, float size = 3f, bool doLoopHandling = false)
         {
-            var ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, TimeMachine, "wheel_lr", wheelOffset, wheelRot, size, true, doLoopHandling);
+            PtfxEntityBonePlayer ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, TimeMachine, "wheel_lr", wheelOffset, wheelRot, size, true, doLoopHandling);
 
             ptfx.Play();
 
@@ -529,7 +529,7 @@ namespace BackToTheFutureV.Story
 
         private void SetupFrontWheelsPTFXs(string particleAssetName, string particleName, Vector3 wheelOffset, Vector3 wheelRot, float size = 3f, bool doLoopHandling = false)
         {
-            var ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, TimeMachine, "wheel_lf", wheelOffset, wheelRot, size, true, doLoopHandling);
+            PtfxEntityBonePlayer ptfx = new PtfxEntityBonePlayer(particleAssetName, particleName, TimeMachine, "wheel_lf", wheelOffset, wheelRot, size, true, doLoopHandling);
 
             ptfx.Play();
 

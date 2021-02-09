@@ -179,10 +179,10 @@ namespace BackToTheFutureV.TimeMachineClasses
             get => base.Wheel;
             set
             {
+                base.Wheel = value;
+
                 if (TimeMachine.Properties == null)
                     return;
-
-                base.Wheel = value;
 
                 if (value == WheelType.RailroadInvisible)
                 {

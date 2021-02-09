@@ -24,10 +24,7 @@ namespace BackToTheFutureV
 
                 return tmp;
             }
-            private set
-            {
-                _waypointPos = value;
-            }
+            private set => _waypointPos = value;
         }
 
         public Secondary()

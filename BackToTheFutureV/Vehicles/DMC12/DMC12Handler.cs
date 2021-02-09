@@ -66,13 +66,13 @@ namespace BackToTheFutureV.Vehicles
 
         public static void Process()
         {
-            foreach (var veh in World.GetAllVehicles())
+            foreach (Vehicle veh in World.GetAllVehicles())
                 if (veh.Model.Hash == ModelHandler.DMC12.Model.Hash && veh.IsFunctioning() && GetDeloreanFromVehicle(veh) == null)
                     CreateDMC12(veh);
 
             if (_deloreansToRemove.Count > 0)
             {
-                foreach (var delo in _deloreansToRemove)
+                foreach (KeyValuePair<DMC12, bool> delo in _deloreansToRemove)
                     RemoveInstantlyDelorean(delo.Key, delo.Value);
 
                 _deloreansToRemove.Clear();
@@ -84,7 +84,7 @@ namespace BackToTheFutureV.Vehicles
                 _deloreansToAdd.Clear();
             }
 
-            foreach (var delo in _deloreans)
+            foreach (DMC12 delo in _deloreans)
             {
                 if (delo.Mods.WormholeType != WormholeType.DMC12 && !delo.Vehicle.IsTimeMachine())
                     TimeMachineHandler.Create(delo, SpawnFlags.Default, delo.Mods.WormholeType);
@@ -95,13 +95,13 @@ namespace BackToTheFutureV.Vehicles
 
         public static DMC12 GetDeloreanFromVehicle(Vehicle vehicle)
         {
-            foreach (var delo in _deloreans)
+            foreach (DMC12 delo in _deloreans)
             {
                 if (delo.Vehicle == vehicle)
                     return delo;
             }
 
-            foreach (var delo in _deloreansToAdd)
+            foreach (DMC12 delo in _deloreansToAdd)
             {
                 if (delo.Vehicle == vehicle)
                     return delo;

@@ -21,13 +21,13 @@ namespace BackToTheFutureV.Story
 
         public static void KeyDown(KeyEventArgs key)
         {
-            foreach (var mission in _missions)
+            foreach (Mission mission in _missions)
                 mission.KeyDown(key);
         }
 
         public static void Abort()
         {
-            foreach (var mission in _missions)
+            foreach (Mission mission in _missions)
                 mission.End();
 
             _missions.Clear();

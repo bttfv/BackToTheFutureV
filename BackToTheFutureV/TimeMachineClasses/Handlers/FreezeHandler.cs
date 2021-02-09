@@ -77,7 +77,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
 
             // 0 is no ice
-            var iceScale = Function.Call<float>(Hash.GET_VEHICLE_ENVEFF_SCALE, Vehicle);
+            float iceScale = Function.Call<float>(Hash.GET_VEHICLE_ENVEFF_SCALE, Vehicle);
 
             if (iceScale > 0f)
             {
@@ -87,7 +87,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     Particles?.IceSmoke?.StopNaturally();
 
-                    foreach (var waterDrop in Particles?.IceWaterDrops)
+                    foreach (PtfxEntityBonePlayer waterDrop in Particles?.IceWaterDrops)
                         waterDrop?.StopNaturally();
 
                     Sounds.Ice?.Stop();
@@ -121,7 +121,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         // Spawn the ice particles
                         Particles?.IceSmoke?.Play();
 
-                        foreach (var waterDrop in Particles?.IceWaterDrops)
+                        foreach (PtfxEntityBonePlayer waterDrop in Particles?.IceWaterDrops)
                         {
                             UpdateDoorIce(waterDrop.BoneName.Contains("left")
                                 ? VehicleDoorIndex.FrontLeftDoor
@@ -199,7 +199,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Sounds.Ice?.Stop(!Vehicle.IsVisible);
             Sounds.IceVents?.Stop(!Vehicle.IsVisible);
 
-            foreach (var waterDrop in Particles?.IceWaterDrops)
+            foreach (PtfxEntityBonePlayer waterDrop in Particles?.IceWaterDrops)
                 waterDrop.StopNaturally();
 
             Particles?.IceSmoke?.StopNaturally();

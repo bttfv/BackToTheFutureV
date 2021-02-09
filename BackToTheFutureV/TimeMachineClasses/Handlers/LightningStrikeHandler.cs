@@ -29,7 +29,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public LightningStrikeHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            foreach (var x in ModelHandler.Lightnings)
+            foreach (CustomModel x in ModelHandler.Lightnings)
             {
                 _lightnings.Add(new AnimateProp(Vehicle, x, Vector3.Zero, Vector3.Zero));
                 _lightnings.Last().Duration = 1;

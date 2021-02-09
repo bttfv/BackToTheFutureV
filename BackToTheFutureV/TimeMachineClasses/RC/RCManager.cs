@@ -16,8 +16,10 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         static RCManager()
         {
-            TimerBarCollection = new TimerBarCollection(SignalBar = new TimerBarProgress(Game.GetLocalizedString("BTTFV_RC_Signal")));
-            TimerBarCollection.Visible = false;
+            TimerBarCollection = new TimerBarCollection(SignalBar = new TimerBarProgress(Game.GetLocalizedString("BTTFV_RC_Signal")))
+            {
+                Visible = false
+            };
 
             CustomNativeMenu.ObjectPool.Add(TimerBarCollection);
         }

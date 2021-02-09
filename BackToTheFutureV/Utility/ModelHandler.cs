@@ -108,32 +108,32 @@ namespace BackToTheFutureV.Utility
         {
             GetAllModels(typeof(ModelHandler)).ForEach(x => PreloadModel(x));
 
-            foreach (var x in Lightnings)
+            foreach (CustomModel x in Lightnings)
                 PreloadModel(x);
 
             for (int i = 1; i < 6; i++)
             {
-                var str = "bttf_light_" + i.ToString();
+                string str = "bttf_light_" + i.ToString();
 
-                var model = new CustomModel(str);
+                CustomModel model = new CustomModel(str);
 
                 PreloadModel(model);
                 UnderbodyLights.Add(i, model);
             }
 
-            foreach (var strModel in tcdTypes)
+            foreach (string strModel in tcdTypes)
             {
-                var str = "bttf_3d_row_" + strModel;
+                string str = "bttf_3d_row_" + strModel;
 
-                var slotModel = new CustomModel(str);
+                CustomModel slotModel = new CustomModel(str);
 
                 PreloadModel(slotModel);
                 TCDRTModels.Add(strModel, slotModel);
 
-                var amModelStr = $"bttf_{strModel}_am";
-                var pmModelStr = $"bttf_{strModel}_pm";
-                var amModel = new CustomModel(amModelStr);
-                var pmModel = new CustomModel(pmModelStr);
+                string amModelStr = $"bttf_{strModel}_am";
+                string pmModelStr = $"bttf_{strModel}_pm";
+                CustomModel amModel = new CustomModel(amModelStr);
+                CustomModel pmModel = new CustomModel(pmModelStr);
 
                 PreloadModel(amModel);
                 PreloadModel(pmModel);
@@ -141,8 +141,8 @@ namespace BackToTheFutureV.Utility
 
             for (int i = 1; i <= 3; i++)
             {
-                var modelString = $"bttf_needle{i}";
-                var model = new CustomModel(modelString);
+                string modelString = $"bttf_needle{i}";
+                CustomModel model = new CustomModel(modelString);
                 PreloadModel(model);
 
                 GaugeModels.Add(i, model);
@@ -150,8 +150,8 @@ namespace BackToTheFutureV.Utility
 
             for (int i = 1; i <= 11; i++)
             {
-                var modelStr = $"bttf3_coils_glowing_{i}";
-                var model = new CustomModel(modelStr);
+                string modelStr = $"bttf3_coils_glowing_{i}";
+                CustomModel model = new CustomModel(modelStr);
                 PreloadModel(model);
 
                 CoilSeparated.Add(i, model);

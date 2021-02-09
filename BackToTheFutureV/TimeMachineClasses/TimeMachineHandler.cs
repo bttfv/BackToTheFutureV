@@ -121,7 +121,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void RemoveAllTimeMachines(bool noCurrent = false)
         {
-            foreach (var veh in TimeMachines.ToList())
+            foreach (TimeMachine veh in TimeMachines.ToList())
             {
                 if (noCurrent && veh.Vehicle == Utils.PlayerVehicle)
                     continue;
@@ -246,14 +246,14 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             if (_timeMachinesToRemoveWaitSounds.Count > 0)
             {
-                foreach (var timeMachine in _timeMachinesToRemoveWaitSounds)
+                foreach (KeyValuePair<TimeMachine, bool> timeMachine in _timeMachinesToRemoveWaitSounds)
                     if (!timeMachine.Key.Sounds.TimeTravelCutscene.IsAnyInstancePlaying)
                         RemoveTimeMachine(timeMachine.Key, timeMachine.Value);
             }
 
             if (_timeMachinesToRemove.Count > 0)
             {
-                foreach (var timeMachine in _timeMachinesToRemove)
+                foreach (KeyValuePair<TimeMachine, bool> timeMachine in _timeMachinesToRemove)
                     RemoveInstantlyTimeMachine(timeMachine.Key, timeMachine.Value);
 
                 _timeMachinesToRemove.Clear();
@@ -267,7 +267,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             UpdateClosestTimeMachine();
 
-            foreach (var timeMachine in TimeMachines)
+            foreach (TimeMachine timeMachine in TimeMachines)
                 timeMachine.Process();
         }
 
@@ -289,13 +289,13 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (vehicle == null)
                 return null;
 
-            foreach (var timeMachine in TimeMachines)
+            foreach (TimeMachine timeMachine in TimeMachines)
             {
                 if (timeMachine.Vehicle == vehicle)
                     return timeMachine;
             }
 
-            foreach (var timeMachine in _timeMachinesToAdd)
+            foreach (TimeMachine timeMachine in _timeMachinesToAdd)
             {
                 if (timeMachine.Vehicle == vehicle)
                     return timeMachine;
@@ -311,11 +311,11 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static bool IsVehicleATimeMachine(Vehicle vehicle)
         {
-            foreach (var timeMachine in TimeMachines)
+            foreach (TimeMachine timeMachine in TimeMachines)
                 if (timeMachine.Vehicle == vehicle)
                     return true;
 
-            foreach (var timeMachine in _timeMachinesToAdd)
+            foreach (TimeMachine timeMachine in _timeMachinesToAdd)
                 if (timeMachine.Vehicle == vehicle)
                     return true;
 
@@ -374,7 +374,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 SquareDistToClosestTimeMachine = -1;
             }
 
-            foreach (var timeMachine in TimeMachines)
+            foreach (TimeMachine timeMachine in TimeMachines)
             {
                 float dist = timeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position);
 

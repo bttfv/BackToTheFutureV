@@ -107,7 +107,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
                 stream.Close();
 
-                foreach (var x in timeMachineClones)
+                foreach (TimeMachineClone x in timeMachineClones)
                     RemoteTimeMachines.Add(new RemoteTimeMachine(x));
             }
             catch
@@ -119,7 +119,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
 
         public static void Dispose()
         {
-            foreach (var x in RemoteTimeMachines)
+            foreach (RemoteTimeMachine x in RemoteTimeMachines)
                 x?.Dispose();
         }
     }

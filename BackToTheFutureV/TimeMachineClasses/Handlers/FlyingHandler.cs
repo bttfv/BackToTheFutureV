@@ -329,7 +329,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.AreFlyingCircuitsBroken)
             {
-                var force = Vehicle.UpVector;
+                Vector3 force = Vehicle.UpVector;
 
                 if (!Vehicle.IsUpsideDown)
                     force.Z = -force.Z;
@@ -407,8 +407,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void HandleAltitudeHolding()
         {
-            var velocity = Vehicle.Velocity;
-            var zVel = velocity.Z;
+            Vector3 velocity = Vehicle.Velocity;
+            float zVel = velocity.Z;
 
             // Apply opposite of zVel.
             _forceToBeApplied.Z += -zVel;

@@ -9,7 +9,7 @@ namespace BackToTheFutureV.Players
 
         public static FireTrail SpawnForTimeMachine(TimeMachine timeMachine, bool is99 = false, float disappearTime = 45, int appearTime = 15, bool useBlue = true, int maxLength = 50)
         {
-            var fireTrail = new FireTrail(timeMachine.Vehicle, is99, disappearTime, appearTime, useBlue, maxLength);
+            FireTrail fireTrail = new FireTrail(timeMachine.Vehicle, is99, disappearTime, appearTime, useBlue, maxLength);
             fireTrails.Add(fireTrail);
 
             return fireTrail;

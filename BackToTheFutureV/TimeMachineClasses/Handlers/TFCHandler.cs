@@ -47,7 +47,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 Rotation = Utils.Lerp(Rotation, MaxRot, Game.LastFrameTime * 2f);
 
-                var diff = Math.Abs(Rotation - MaxRot);
+                float diff = Math.Abs(Rotation - MaxRot);
                 if (diff <= 0.01)
                     rotate = false;
             }
@@ -55,7 +55,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 Rotation = Utils.Lerp(Rotation, 0, Game.LastFrameTime * 4f);
 
-                var diff = Math.Abs(Rotation - 0);
+                float diff = Math.Abs(Rotation - 0);
                 if (diff <= 0.01)
                     rotate = false;
             }

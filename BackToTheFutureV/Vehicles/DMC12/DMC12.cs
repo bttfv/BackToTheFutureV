@@ -225,7 +225,14 @@ namespace BackToTheFutureV.Vehicles
             Disposed = true;
         }
 
-        public static implicit operator Vehicle(DMC12 dmc12) => dmc12.Vehicle;
-        public static implicit operator Entity(DMC12 dmc12) => dmc12.Vehicle;
+        public static implicit operator Vehicle(DMC12 dmc12)
+        {
+            return dmc12.Vehicle;
+        }
+
+        public static implicit operator Entity(DMC12 dmc12)
+        {
+            return dmc12.Vehicle;
+        }
     }
 }

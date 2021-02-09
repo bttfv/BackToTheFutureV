@@ -95,10 +95,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             //Hover Mode
             for (int i = 1; i < 6; i++)
             {
-                if (!ModelHandler.UnderbodyLights.TryGetValue(i, out var model))
+                if (!ModelHandler.UnderbodyLights.TryGetValue(i, out CustomModel model))
                     continue;
 
-                var prop = new AnimateProp(Vehicle, model, Vector3.Zero, Vector3.Zero);
+                AnimateProp prop = new AnimateProp(Vehicle, model, Vector3.Zero, Vector3.Zero);
                 HoverModeUnderbodyLights.Add(prop);
             }
 
@@ -163,7 +163,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             HoverModeWheelsGlow?.Dispose();
             HoverModeVentsGlow?.Dispose();
 
-            foreach (var prop in HoverModeUnderbodyLights)
+            foreach (AnimateProp prop in HoverModeUnderbodyLights)
                 prop?.Dispose();
 
             //Fuel

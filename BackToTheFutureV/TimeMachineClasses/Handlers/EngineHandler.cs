@@ -24,7 +24,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
     public delegate void OnGearChanged();
 
-    class EngineHandler : Handler
+    internal class EngineHandler : Handler
     {
         #region PUBLIC_FIELDS
 
@@ -152,7 +152,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             OnGearDown += OnGearDownEvent;
             OnGearChanged += OnGearChangedEvent;
 
-            var audioEngine = Sounds.AudioEngine;
+            AudioEngine audioEngine = Sounds.AudioEngine;
             _engineSounds = new List<AudioPlayer>
             {
                 (_engineIdleSound = audioEngine.Create($"{SoundsFolder}idle.wav", Presets.ExteriorLoop)),
@@ -169,7 +169,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             };
 
             // Configure audio properties
-            foreach (var sound in _engineSounds)
+            foreach (AudioPlayer sound in _engineSounds)
             {
                 sound.SourceBone = "engine";
                 sound.Volume = 0.65f;
@@ -194,7 +194,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _engineIdleSound.MinimumDistance = 1f;
             _engineIdleSound.Volume = 0.35f;
 
-            foreach (var sound in _accellSounds)
+            foreach (AudioPlayer sound in _accellSounds)
             {
                 sound.FadeOutMultiplier = 0.9f;
             }
@@ -623,9 +623,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _carAngle = Vehicle.Rotation.X;
 
             // Check if any wheel is not on allowed surface
-            foreach (var wheelPos in _wheelPos)
+            foreach (Vector3 wheelPos in _wheelPos)
             {
-                var surface = World.Raycast(wheelPos, wheelPos + new Vector3(0, 0, -10),
+                RaycastResult surface = World.Raycast(wheelPos, wheelPos + new Vector3(0, 0, -10),
                     IntersectFlags.Everything, Vehicle);
 
                 if (!_allowedSurfaces.Contains(surface.MaterialHash))
@@ -653,7 +653,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 if (_wheelPosPrev != null)
                 {
-                    foreach (var pos in _wheelPos)
+                    foreach (Vector3 pos in _wheelPos)
                     {
                         if (pos.Round(1) != _wheelPosPrev[
                             _wheelPos.IndexOf(pos)].Round(1))

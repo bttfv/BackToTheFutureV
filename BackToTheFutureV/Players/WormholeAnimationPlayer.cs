@@ -182,7 +182,7 @@ namespace BackToTheFutureV.Players
         }
 
         private RenderTarget _wormholeRT;
-        int wormholeScaleformIndex;
+        private int wormholeScaleformIndex;
         private bool _hasStartedWormhole;
 
         private int _startSparksAt;
@@ -218,7 +218,7 @@ namespace BackToTheFutureV.Players
         {
             _separatedCoils = new List<AnimateProp>();
 
-            foreach (var coilModel in ModelHandler.CoilSeparated.Values)
+            foreach (CustomModel coilModel in ModelHandler.CoilSeparated.Values)
             {
                 _separatedCoils.Add(new AnimateProp(TimeMachine.Vehicle, coilModel, Vector3.Zero, Vector3.Zero));
                 _separatedCoils.Last().SpawnProp();
@@ -229,7 +229,7 @@ namespace BackToTheFutureV.Players
 
         private void HandleSparks()
         {
-            foreach (var spark in _sparks)
+            foreach (SparkPlayer spark in _sparks)
                 spark.Process();
 
             if (Game.GameTime < _nextSpark || Game.GameTime < _startSparksAt) return;
@@ -277,7 +277,7 @@ namespace BackToTheFutureV.Players
             {
                 List<int> propsToBeSpawned = Enumerable.Range(0, 11).OrderBy(x => Utils.Random.Next()).Take(numOfProps).ToList();
 
-                foreach (var propindex in propsToBeSpawned)
+                foreach (int propindex in propsToBeSpawned)
                     _separatedCoils[propindex].Visible = true;
 
                 // Set next flicker 
@@ -287,14 +287,14 @@ namespace BackToTheFutureV.Players
 
         private void SetupWheelPTFXs(string particleAssetName, string particleName, Vector3 wheelOffset, Vector3 wheelRot, float size = 3f, bool doLoopHandling = false)
         {
-            foreach (var wheelName in Utils.WheelNames)
+            foreach (string wheelName in Utils.WheelNames)
             {
-                var worldPos = TimeMachine.Vehicle.Bones[wheelName].Position;
-                var offset = TimeMachine.Vehicle.GetPositionOffset(worldPos);
+                Vector3 worldPos = TimeMachine.Vehicle.Bones[wheelName].Position;
+                Vector3 offset = TimeMachine.Vehicle.GetPositionOffset(worldPos);
 
                 offset += wheelOffset;
 
-                var ptfx = new PtfxEntityPlayer(particleAssetName, particleName, TimeMachine.Vehicle, offset, wheelRot, size, true, doLoopHandling);
+                PtfxEntityPlayer ptfx = new PtfxEntityPlayer(particleAssetName, particleName, TimeMachine.Vehicle, offset, wheelRot, size, true, doLoopHandling);
 
                 _wheelPtfxes.Add(ptfx);
             }
@@ -363,7 +363,7 @@ namespace BackToTheFutureV.Players
 
             if (_wheelPtfxes != null && !Properties.IsFlying)
             {
-                foreach (var wheelPTFX in _wheelPtfxes)
+                foreach (PtfxEntityPlayer wheelPTFX in _wheelPtfxes)
                 {
                     if (!wheelPTFX.IsPlaying)
                         wheelPTFX.Play();

@@ -27,10 +27,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public new MissionType MissionType
         {
-            get
-            {
-                return base.MissionType;
-            }
+            get => base.MissionType;
             set
             {
                 base.MissionType = value;

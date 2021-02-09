@@ -157,7 +157,7 @@ namespace BackToTheFutureV.Utility
             float timeRatio = 0;
 
             if (Timestamp != nextReplica.Timestamp)
-                timeRatio = (float)(Game.GameTime - startPlayGameTime - Timestamp) / (float)(nextReplica.Timestamp - Timestamp);
+                timeRatio = (Game.GameTime - startPlayGameTime - Timestamp) / (float)(nextReplica.Timestamp - Timestamp);
 
             timeMachine.Vehicle.PositionNoOffset = Vector3.Lerp(Position, nextReplica.Position, timeRatio);
             timeMachine.Vehicle.Rotation = Vector3.Lerp(Rotation, nextReplica.Rotation, timeRatio);

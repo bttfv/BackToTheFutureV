@@ -387,9 +387,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             KeyValuePair<int, double> selectedProb = new KeyValuePair<int, double>(0, 0);
             int lastDiff = 1000;
 
-            foreach (var prob in _probabilities)
+            foreach (KeyValuePair<int, double> prob in _probabilities)
             {
-                var diff = Math.Abs(prob.Key - damage);
+                int diff = Math.Abs(prob.Key - damage);
                 if (diff < lastDiff)
                 {
                     selectedProb = prob;
@@ -404,7 +404,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Utils.PlayerPed.IsInVehicle() && !Properties.FullDamaged)
             {
-                var dist = Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position);
+                float dist = Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position);
 
                 if (!(dist <= 2f * 2f))
                     return;
@@ -477,7 +477,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (Game.GameTime > nextCheck)
             {
-                var time = Utils.GetWorldTime();
+                DateTime time = Utils.GetWorldTime();
 
                 if (Math.Abs((time - lastTime).TotalMilliseconds) > 600 && !presentSlot.IsDoingTimedVisible)
                 {
