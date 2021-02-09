@@ -18,7 +18,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private float _smokeIndex;
 
         private float _iceDisappearVal;
-        private float _timeToDisappear = 360f; // 6 minutes
+        private float _timeToDisappear = 180f; // 360 = 6 minutes
 
         private bool _resuming;
 

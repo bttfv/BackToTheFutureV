@@ -187,6 +187,9 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (vehicle != default)
                 veh = vehicle;
 
+            if (timeMachineClone != default && timeMachineClone.Properties.TimeTravelType == TimeTravelType.RC)
+                spawnFlags |= SpawnFlags.NoOccupants;
+
             if (veh == null)
             {
                 if (timeMachineClone != default)

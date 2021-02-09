@@ -41,6 +41,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void StartNormalFluxing()
         {
             ScaleformsHandler.FluxCapacitor.CallFunction("START_ANIMATION");
+            Props.FluxBlue?.Delete();
             Properties.IsFluxDoingBlueAnim = false;
         }
 
@@ -52,7 +53,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void OnTimeCircuitsToggle()
         {
             if (Properties.IsGivenScaleformPriority)
-                Update();
+                Update();            
         }
 
         public override void Process()
@@ -92,6 +93,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.AreTimeCircuitsOn)
             {
                 ScaleformsHandler.FluxCapacitor.CallFunction("STOP_ANIMATION");
+                Props.FluxBlue?.Delete();
 
                 if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
                     Sounds.FluxCapacitor?.Stop();
@@ -101,7 +103,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (ModSettings.PlayFluxCapacitorSound && !Sounds.FluxCapacitor.IsAnyInstancePlaying)
                     Sounds.FluxCapacitor?.Play();
 
-                ScaleformsHandler.FluxCapacitor.CallFunction("START_ANIMATION");
+                StartNormalFluxing();
             }
 
             Properties.IsFluxDoingBlueAnim = false;

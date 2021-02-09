@@ -79,12 +79,12 @@ namespace BackToTheFutureV.Menu
             if (sender == FluxCapacitor)
                 TimeMachine.Properties.PhotoFluxCapacitorActive = Checked;
 
-            if (sender == EngineStall) 
+            if (sender == EngineStall)
             {
                 TimeMachine.Events.SetEngineStall?.Invoke(Checked);
 
                 TimeMachine.Properties.PhotoEngineStallActive = Checked;
-            }                
+            }
 
             if (sender == HideHUD)
                 Utils.HideGUI = Checked;

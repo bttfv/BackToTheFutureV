@@ -89,11 +89,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     Sounds.WormholeInterrupted?.Play();
                     Events.OnTimeTravelInterrupted?.Invoke();
-
-                    Properties.TimeTravelPhase = TimeTravelPhase.Completed;
-
-                    Stop();
                 }
+
+                Properties.TimeTravelPhase = TimeTravelPhase.Completed;
+
+                Stop();
 
                 return;
             }
