@@ -33,13 +33,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void LicensePlate_OnAnimCompleted(AnimationStep animationStep)
         {
-            if (animationStep == AnimationStep.First)
-            {
-                Props.LicensePlate.Play(AnimationStep.Second);
+            Props.LicensePlate?.ScatterProp(0.1f);
 
-                if (Properties.TimeTravelType == TimeTravelType.Cutscene)
-                    gameTimer += 1500;
-            }
+            if (Properties.TimeTravelType == TimeTravelType.Cutscene)
+                gameTimer += 1500;
         }
 
         public static void TimeChanged(DateTime time)
