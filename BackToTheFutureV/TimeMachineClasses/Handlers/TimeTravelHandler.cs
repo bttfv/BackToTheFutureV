@@ -164,8 +164,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     {
                         if (!Properties.IsFlying && Mods.Plate == PlateType.Outatime)
                         {
-                            Sounds.Plate.Play();
-                            Props.LicensePlate.Play(false, true);
+                            Sounds.Plate?.Play();
+                            Props.LicensePlate?.Play(false, true);
                         }
 
                         Vehicle.SetMPHSpeed(0);
@@ -210,8 +210,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (Properties.TimeTravelType == TimeTravelType.Cutscene)
                             TimeMachine.CustomCamera = TimeMachineCamera.LicensePlate;
 
-                        Sounds.Plate.Play();
-                        Props.LicensePlate.Play(false, true);
+                        Sounds.Plate?.Play();
+                        Props.LicensePlate?.Play(false, true);
                     }
 
                     gameTimer = Game.GameTime + 300;

@@ -60,6 +60,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         //License plate
         public AnimateProp LicensePlate;
 
+        //Bucket
+        public AnimateProp Bucket;
+        
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             //Wheels
@@ -148,11 +151,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //License plate
             LicensePlate = new AnimateProp(Vehicle, ModelHandler.LicensePlate, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
-
-            LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(false, true, true, 90, 360 * 2 + 90, 1, 1440, 1);
-            //LicensePlate[AnimationType.Rotation][AnimationStep.Second][Coordinate.X].Setup(false, true, false, -90, 0, 1, 180, 1);
-            //LicensePlate[AnimationType.Offset][AnimationStep.Second][Coordinate.Z].Setup(false, true, true, -0.1f, -0.07f, 1, 0.06f, 1);
-
+            LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(false, true, true, 90, 360 * 2 + 90, 1, 1440, 1);           
             LicensePlate.SaveAnimation();
         }
 
@@ -204,19 +203,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             FluxBlue?.Dispose();
 
             //License plate
-            LicensePlate?.Dispose(LicensePlate.IsSpawned);
+            LicensePlate?.Dispose(LicensePlate != null && LicensePlate.IsSpawned);
         }
 
         public override void KeyDown(Keys key)
         {
-            if (key == Keys.L)
-            {
-                Sounds.Plate.Play();                
-                LicensePlate.Play(false, true);
-            }
+            //if (key == Keys.L)
+            //{
+            //    Sounds.Plate.Play();                
+            //    LicensePlate.Play(false, true);
+            //}
 
-            if (key == Keys.O)
-                LicensePlate.Delete();
+            //if (key == Keys.O)
+            //    LicensePlate.Delete();
         }
 
         public override void Process()

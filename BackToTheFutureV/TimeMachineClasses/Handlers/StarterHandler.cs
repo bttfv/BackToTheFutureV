@@ -123,7 +123,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled)
             {
-                if (Utils.Random.NextDouble() < 0.9)
+                if (Utils.Random.NextDouble() < 0.25)
                 {
                     Properties.PhotoEngineStallActive = true;
                 }
@@ -201,7 +201,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Properties.IsEngineStalling = false;
             Properties.PhotoEngineStallActive = false;
             _isRestarting = false;
-            _firstTimeTravel = false;
+
+            if (!Properties.IsFreezed)
+                _firstTimeTravel = false;
 
             Vehicle.FuelLevel = _deloreanMaxFuelLevel;
             Sounds.EngineRestarter?.Stop();
