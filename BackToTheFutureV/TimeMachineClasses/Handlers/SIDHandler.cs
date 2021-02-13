@@ -146,7 +146,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.AreTimeCircuitsOn || Properties.HasBeenStruckByLightning || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                 return;
 
-            if (Vehicle.GetMPHSpeed() >= Mods.WormholeProperties.PlayDiodeSoundAt)
+            if (Constants.OverDiodeSoundAtSpeed)
             {
                 Random(20, 20);
 

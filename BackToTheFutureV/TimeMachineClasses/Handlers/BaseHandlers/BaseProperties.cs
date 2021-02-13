@@ -77,6 +77,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             foreach (PropertyInfo property in properties)
                 property.SetValue(ret, property.GetValue(this));
 
+            ret.IsFluxDoingBlueAnim = false;
+
             ret.IsGivenScaleformPriority = false;
 
             ret.IsEngineStalling = false;

@@ -7,9 +7,9 @@ namespace BackToTheFutureV.Players
     {
         private static List<FireTrail> fireTrails = new List<FireTrail>();
 
-        public static FireTrail SpawnForTimeMachine(TimeMachine timeMachine, bool is99 = false, float disappearTime = 45, int appearTime = 15, bool useBlue = true, int maxLength = 50)
+        public static FireTrail SpawnForTimeMachine(TimeMachine timeMachine)
         {
-            FireTrail fireTrail = new FireTrail(timeMachine.Vehicle, is99, disappearTime, appearTime, useBlue, maxLength);
+            FireTrail fireTrail = new FireTrail(timeMachine.Vehicle, timeMachine.Constants.FireTrailsIs99, timeMachine.Constants.FireTrailsDisappearTime, timeMachine.Constants.FireTrailsAppearTime, timeMachine.Constants.FireTrailsUseBlue, timeMachine.Constants.FireTrailsLength);
             fireTrails.Add(fireTrail);
 
             return fireTrail;

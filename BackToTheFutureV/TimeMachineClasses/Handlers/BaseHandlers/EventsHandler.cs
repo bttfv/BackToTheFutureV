@@ -25,6 +25,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void OnMissionChange();
     public delegate void OnSimulateSpeedReached();
 
+    public delegate void OnStartTimeTravelSequenceAtSpeed(bool over);
+    public delegate void On88MphSpeed(bool over);
+    public delegate void OnPlayDiodeSoundAtSpeed(bool over);
+
     public delegate void SetRCMode(bool state, bool instant = false);
     public delegate void SetTimeCircuits(bool state);
     public delegate void SetTimeCircuitsBroken();
@@ -65,6 +69,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public OnHoodboxReady OnHoodboxReady;
         public OnMissionChange OnMissionChange;
         public OnSimulateSpeedReached OnSimulateSpeedReached;
+
+        public OnStartTimeTravelSequenceAtSpeed OnStartTimeTravelSequenceAtSpeed;
+        public On88MphSpeed On88MphSpeed;
+        public OnPlayDiodeSoundAtSpeed OnPlayDiodeSoundAtSpeed;
 
         public SetRCMode SetRCMode;
         public SetTimeCircuits SetTimeCircuits;

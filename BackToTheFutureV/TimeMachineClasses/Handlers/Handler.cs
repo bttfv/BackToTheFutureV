@@ -19,6 +19,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public PlayersHandler Players => TimeMachine.Players;
         public ScaleformsHandler Scaleforms => TimeMachine.Scaleforms;
         public ParticlesHandler Particles => TimeMachine.Particles;
+        public ConstantsHandler Constants => TimeMachine.Constants;
 
         public DMC12 DMC12 => TimeMachine.DMC12;
 

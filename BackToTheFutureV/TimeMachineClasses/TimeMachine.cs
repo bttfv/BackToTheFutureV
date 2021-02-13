@@ -28,6 +28,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         public PlayersHandler Players { get; private set; }
         public ScaleformsHandler Scaleforms { get; private set; }
         public ParticlesHandler Particles { get; private set; }
+        public ConstantsHandler Constants { get; private set; }
 
         public CustomCameraHandler CustomCameraManager { get; private set; }
 
@@ -89,6 +90,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             registeredHandlers.Add("PlayersHandler", Players = new PlayersHandler(this));
             registeredHandlers.Add("ScaleformsHandler", Scaleforms = new ScaleformsHandler(this));
             registeredHandlers.Add("ParticlesHandler", Particles = new ParticlesHandler(this));
+            registeredHandlers.Add("ConstantsHandler", Constants = new ConstantsHandler(this));
 
             registeredHandlers.Add("SpeedoHandler", new SpeedoHandler(this));
             registeredHandlers.Add("TimeTravelHandler", new TimeTravelHandler(this));

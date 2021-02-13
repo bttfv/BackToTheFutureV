@@ -343,25 +343,5 @@ namespace BackToTheFutureV.TimeMachineClasses
                 }
             }
         }
-
-        public WormholeProperties WormholeProperties
-        {
-            get
-            {
-                switch (WormholeType)
-                {
-                    case WormholeType.BTTF1:
-                    case WormholeType.BTTF2:
-                        return WormholeProperties.WormholePropertiesList[(int)WormholeType - 1];
-                    case WormholeType.BTTF3:
-                        if (Wheel == WheelType.RailroadInvisible)
-                            return WormholeProperties.WormholePropertiesList[3];
-                        else
-                            return WormholeProperties.WormholePropertiesList[2];
-                    default:
-                        return default;
-                }
-            }
-        }
     }
 }

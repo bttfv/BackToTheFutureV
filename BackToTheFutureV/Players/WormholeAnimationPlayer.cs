@@ -405,7 +405,7 @@ namespace BackToTheFutureV.Players
             if (!_hasStartedWormhole && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.PhotoWormholeActive))
             {
                 _startWormholeAt = Game.GameTime + 1000;
-                _endAt = _startWormholeAt + Mods.WormholeProperties.WormholeLengthTime;
+                _endAt = _startWormholeAt + Constants.WormholeLengthTime;
                 _hasStartedWormhole = true;
             }
         }

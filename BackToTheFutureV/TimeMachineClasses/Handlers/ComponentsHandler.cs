@@ -5,7 +5,6 @@ using FusionLibrary;
 using GTA;
 using GTA.Math;
 using System.Windows.Forms;
-using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -45,8 +44,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Properties.PhotoGlowingCoilsActive = true;
                 _fluxBandsCooldown = 0;
             }
-
-            Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
             if (Mods.Hoodbox == ModState.Off || Properties.AreHoodboxCircuitsReady)
                 return;

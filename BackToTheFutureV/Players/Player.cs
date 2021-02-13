@@ -17,6 +17,7 @@ namespace BackToTheFutureV.Players
         public PropsHandler Props => TimeMachine.Props;
         public PlayersHandler Players => TimeMachine.Players;
         public ScaleformsHandler Scaleforms => TimeMachine.Scaleforms;
+        public ConstantsHandler Constants => TimeMachine.Constants;
 
         public Vehicle Vehicle { get; }
 

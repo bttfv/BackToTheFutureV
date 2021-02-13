@@ -62,7 +62,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         //Bucket
         public AnimateProp Bucket;
-        
+
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             //Wheels
@@ -151,7 +151,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //License plate
             LicensePlate = new AnimateProp(Vehicle, ModelHandler.LicensePlate, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
-            LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(false, true, true, 90, 360 * 2 + 90, 1, 1440, 1);           
+            LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(false, true, true, 90, 360 * 2 + 90, 1, 1440, 1);
             LicensePlate.SaveAnimation();
         }
 
@@ -224,7 +224,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             {
                 if (LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].StepRatio > 0.1f)
                     LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].StepRatio -= Game.LastFrameTime;
-            }                
+            }
         }
 
         public override void Stop()

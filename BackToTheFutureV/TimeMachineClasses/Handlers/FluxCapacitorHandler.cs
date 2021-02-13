@@ -53,15 +53,26 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void OnTimeCircuitsToggle()
         {
             if (Properties.IsGivenScaleformPriority)
-                Update();            
+                Update();
         }
 
         public override void Process()
         {
-            if (!Vehicle.IsVisible)
+            if (!Properties.AreTimeCircuitsOn)
                 return;
 
-            if (!Properties.AreTimeCircuitsOn)
+            if (ModSettings.PlayFluxCapacitorSound)
+            {
+                if (!Vehicle.IsVisible && Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                    Sounds.FluxCapacitor?.Stop();
+
+                if (!Sounds.FluxCapacitor.IsAnyInstancePlaying && Vehicle.IsVisible)
+                    Sounds.FluxCapacitor?.Play();
+            }
+            else if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                Sounds.FluxCapacitor?.Stop();
+
+            if (!Vehicle.IsVisible)
                 return;
 
             if (Properties.IsGivenScaleformPriority)
@@ -75,17 +86,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (!Properties.IsFluxDoingBlueAnim && Props.FluxBlue.IsSpawned)
                 Props.FluxBlue?.Delete();
-
-            if (ModSettings.PlayFluxCapacitorSound)
-            {
-                if (!Vehicle.IsVisible && Sounds.FluxCapacitor.IsAnyInstancePlaying)
-                    Sounds.FluxCapacitor?.Stop();
-
-                if (!Sounds.FluxCapacitor.IsAnyInstancePlaying && Vehicle.IsVisible)
-                    Sounds.FluxCapacitor?.Play();
-            }
-            else if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
-                Sounds.FluxCapacitor?.Stop();
         }
 
         public void Update()

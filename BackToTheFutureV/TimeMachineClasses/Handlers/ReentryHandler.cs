@@ -120,6 +120,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnReenterCompleted()
         {
+            Properties.TimeTravelPhase = TimeTravelPhase.Completed;
+
             Vehicle.SetVisible(true);
 
             Utils.HideGUI = false;
@@ -132,7 +134,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 Vehicle.Velocity = Properties.LastVelocity;
 
-                if (Vehicle.GetMPHSpeed() == 0)
+                if (Vehicle.GetMPHSpeed() < Constants.PlayDiodeSoundAtSpeed)
                     Vehicle.SetMPHSpeed(88);
             }
 
@@ -157,7 +159,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 Vehicle.SteeringAngle = Utils.Random.NextDouble() >= 0.5f ? 35 : -35;
                 Vehicle.IsHandbrakeForcedOn = true;
-                Vehicle.Speed = Vehicle.Speed / 2;
+                Vehicle.Speed /= 2;
 
                 VehicleControl.SetBrake(Vehicle, 1f);
             }

@@ -68,7 +68,7 @@ namespace BackToTheFutureV.Players
         private bool _hasSpawned;
         private bool _useBlueFadein;
 
-        public FireTrail(Vehicle vehicle, bool is99, float disappearTime = 45, int appearTime = 15, bool useBlueFadein = true, int maxLength = 50)
+        public FireTrail(Vehicle vehicle, bool is99, float disappearTime, int appearTime, bool useBlueFadein, int maxLength)
         {
             _is99 = is99;
             _disappearTime = disappearTime;
