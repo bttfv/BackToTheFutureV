@@ -376,8 +376,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if (Utils.PlayerVehicle != Vehicle) return;
-
             if (key == ModControls.TCToggle && !Properties.IsRemoteControlled)
                 SetTimeCircuitsOn(!Properties.AreTimeCircuitsOn);
         }

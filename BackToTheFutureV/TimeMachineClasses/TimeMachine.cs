@@ -202,6 +202,9 @@ namespace BackToTheFutureV.TimeMachineClasses
                 return;
             }
 
+            if (!Vehicle.IsVisible)
+                Vehicle.IsEngineRunning = false;
+
             Function.Call(Hash._SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER, Vehicle, Properties.TorqueMultiplier);
 
             if (Mods.HoverUnderbody == ModState.Off && Mods.IsDMC12)
@@ -459,6 +462,9 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void KeyDown(Keys key)
         {
+            if (Utils.PlayerVehicle != Vehicle)
+                return;
+
             foreach (KeyValuePair<string, Handler> entry in registeredHandlers)
                 entry.Value.KeyDown(key);
         }

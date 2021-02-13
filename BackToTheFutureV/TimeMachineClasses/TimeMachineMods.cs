@@ -209,17 +209,6 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
         }
 
-        public new PlateType Plate
-        {
-            get => base.Plate;
-            set
-            {
-                base.Plate = value;
-
-                TimeMachine?.Events?.OnWormholeTypeChanged?.Invoke();
-            }
-        }
-
         public new SuspensionsType SuspensionsType
         {
             get => base.SuspensionsType;

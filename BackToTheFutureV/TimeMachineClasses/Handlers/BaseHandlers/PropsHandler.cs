@@ -211,9 +211,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         {
             if (key == Keys.L)
             {
-                LicensePlate.SpawnProp();
-                LicensePlate.Play();
+                Sounds.Plate.Play();                
+                LicensePlate.Play(false, true);
             }
+
+            if (key == Keys.O)
+                LicensePlate.Delete();
         }
 
         public override void Process()

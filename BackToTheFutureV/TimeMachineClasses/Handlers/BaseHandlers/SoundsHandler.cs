@@ -105,6 +105,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public AudioPlayer TCDBeep;
         public AudioPlayer TCDGlitch;
 
+        //Plate
+        public AudioPlayer Plate;
+
         public SoundsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             AudioEngine = new AudioEngine
@@ -235,15 +238,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             FluxCapacitor.Volume = 0.1f;
             FluxCapacitor.MinimumDistance = 0.5f;
             FluxCapacitor.SourceBone = "flux_capacitor";
+
+            //Plate
+            Plate = AudioEngine.Create("general/plate.wav", Presets.ExteriorLoud);
         }
 
         public void OnWormholeTypeChanged()
         {
             TimeTravelCutscene?.Dispose();
-            TimeTravelCutscene = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/cutscene{(Mods.WormholeType == WormholeType.BTTF1 && Mods.Plate == PlateType.Outatime ? "_plate" : "")}.wav", Presets.ExteriorLoud);
-
-            if (Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
-                return;
+            TimeTravelCutscene = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/cutscene.wav", Presets.ExteriorLoud);
 
             TimeTravelInstant?.Dispose();
             TimeTravelInstant = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/instant.wav", Presets.ExteriorLoud);
@@ -312,6 +315,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TimeTravelCutscene?.Dispose();
             TimeTravelInstant?.Dispose();
             Reenter?.Dispose();
+
+            //Plate
+            Plate?.Dispose();
         }
 
         public override void KeyDown(Keys key)

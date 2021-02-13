@@ -35,7 +35,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Props.LicensePlate?.ScatterProp(0.1f);
 
-            if (Properties.TimeTravelType == TimeTravelType.Cutscene)
+            if (Properties.TimeTravelPhase == TimeTravelPhase.InTime && Properties.TimeTravelType == TimeTravelType.Cutscene)
                 gameTimer += 1500;
         }
 
@@ -64,16 +64,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (Properties.TimeTravelPhase != TimeTravelPhase.InTime)
-                return;
-
-            if (!Vehicle.IsVisible)
-                Vehicle.IsEngineRunning = false;
-
-            if (Vehicle == null)
-                return;
-
-            if (Game.GameTime < gameTimer)
+            if (Properties.TimeTravelPhase != TimeTravelPhase.InTime || Game.GameTime < gameTimer)
                 return;
 
             switch (_currentStep)
@@ -173,8 +164,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     {
                         if (!Properties.IsFlying && Mods.Plate == PlateType.Outatime)
                         {
-                            Props.LicensePlate.SpawnProp();
-                            Props.LicensePlate.Play();
+                            Sounds.Plate.Play();
+                            Props.LicensePlate.Play(false, true);
                         }
 
                         Vehicle.SetMPHSpeed(0);
@@ -219,8 +210,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         if (Properties.TimeTravelType == TimeTravelType.Cutscene)
                             TimeMachine.CustomCamera = TimeMachineCamera.LicensePlate;
 
-                        Props.LicensePlate.SpawnProp();
-                        Props.LicensePlate.Play();
+                        Sounds.Plate.Play();
+                        Props.LicensePlate.Play(false, true);
                     }
 
                     gameTimer = Game.GameTime + 300;
@@ -257,12 +248,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 3:
-                    if (Mods.Plate == PlateType.Outatime)
-                    {
-                        TimeMachine.CustomCameraManager.Stop();
-                        Props.LicensePlate?.Delete();
-                        Props.LicensePlate?.RestoreAnimation();
-                    }
+                    Props.LicensePlate?.Delete();
 
                     TimeMachine.CustomCameraManager.Stop();
                     FireTrailsHandler.RemoveTrail(trails);
@@ -318,9 +304,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if (Utils.PlayerVehicle != Vehicle)
-                return;
-
             if (key == ModControls.CutsceneToggle)
                 SetCutsceneMode(!Properties.CutsceneMode);
         }
