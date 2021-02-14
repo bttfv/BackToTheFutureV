@@ -27,8 +27,6 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         {
             TimeMachineClone = timeMachineClone;
 
-            TimeMachineClone.Properties.TimeTravelType = TimeTravelType.RC;
-
             TimeMachineClone.Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
             _timer = Game.GameTime + 3000;

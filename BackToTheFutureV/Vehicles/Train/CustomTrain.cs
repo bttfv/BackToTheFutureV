@@ -29,7 +29,7 @@ namespace BackToTheFutureV.Utility
         public RogersSierra RogersSierra { get; private set; }
 
         private float _wheelieRotX;
-        private float _wheeliePosZ = -0.275f;
+        private float _wheeliePosZ = -0.35f;
 
         public bool DoWheelie { get; set; }
         public bool WheelieUp { get; set; }
@@ -241,10 +241,10 @@ namespace BackToTheFutureV.Utility
                             _wheelieRotX -= 15 * Game.LastFrameTime;
                             _wheeliePosZ -= 0.35f * Game.LastFrameTime;
 
-                            if (_wheelieRotX <= 0 && _wheeliePosZ <= -0.23f)
+                            if (_wheelieRotX <= 0 && _wheeliePosZ <= -0.35f)
                             {
                                 _wheelieRotX = 0;
-                                _wheeliePosZ = -0.23f;
+                                _wheeliePosZ = -0.35f;
                                 DoWheelie = false;
                             }
 

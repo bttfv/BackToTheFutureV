@@ -77,7 +77,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public bool FireTrailsIs99 => Properties.IsFlying && Properties.HasBeenStruckByLightning;
 
-        public int FireTrailsLength => Properties.IsOnTracks ? 75 : 50;
+        public int FireTrailsLength => Properties.IsOnTracks ? 100 : 50;
 
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {

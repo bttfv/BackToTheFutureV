@@ -17,10 +17,10 @@ namespace BackToTheFutureV.Vehicles
 
             IsDMC12 = Vehicle.Model == ModelHandler.DMC12;
 
+            Vehicle.Mods.InstallModKit();
+
             if (IsDMC12)
             {
-                Vehicle.Mods.InstallModKit();
-
                 Vehicle.ToggleExtra(10, true);
 
                 Vehicle.Mods.PrimaryColor = VehicleColor.BrushedAluminium;

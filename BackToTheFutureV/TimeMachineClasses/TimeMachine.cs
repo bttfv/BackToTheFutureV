@@ -424,6 +424,14 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         private void PhotoMode()
         {
+            if (Properties.IsPhotoModeOn && !Vehicle.IsVisible)
+            {
+                Properties.PhotoWormholeActive = false;
+                Properties.PhotoGlowingCoilsActive = false;
+                Properties.PhotoFluxCapacitorActive = false;
+                Properties.PhotoEngineStallActive = false;
+            }
+
             if (Properties.PhotoWormholeActive && Players.Wormhole != null && !Players.Wormhole.IsPlaying)
                 Players.Wormhole.Play(true);
 

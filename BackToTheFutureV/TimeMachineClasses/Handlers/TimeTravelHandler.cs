@@ -154,17 +154,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     trails = FireTrailsHandler.SpawnForTimeMachine(TimeMachine);
 
-                    //trails = FireTrailsHandler.SpawnForTimeMachine(
-                    //    TimeMachine,
-                    //    is99,
-                    //    (is99 || Properties.IsFlying) ? 1f : 45,
-                    //    is99 ? -1 : 15,
-                    //    Mods.WormholeType == WormholeType.BTTF1, Mods.Wheel == WheelType.RailroadInvisible ? 75 : 50);
-
                     // If the Vehicle is remote controlled or the player is not the one in the driver seat
                     if (Properties.TimeTravelType == TimeTravelType.RC || Properties.TimeTravelType == TimeTravelType.Wayback)
                     {
-                        if (!Properties.IsFlying && Mods.Plate == PlateType.Outatime)
+                        if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime)
                         {
                             Sounds.Plate?.Play();
                             Props.LicensePlate?.Play(false, true);
@@ -207,10 +200,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Vehicle.SetVisible(false);
 
-                    if (!Properties.IsFlying && Mods.Plate == PlateType.Outatime)
+                    if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime)
                     {
-                        if (Properties.TimeTravelType == TimeTravelType.Cutscene)
-                            TimeMachine.CustomCamera = TimeMachineCamera.LicensePlate;
+                        //if (Properties.TimeTravelType == TimeTravelType.Cutscene)
+                        //    TimeMachine.CustomCamera = TimeMachineCamera.LicensePlate;
 
                         Sounds.Plate?.Play();
                         Props.LicensePlate?.Play(false, true);
