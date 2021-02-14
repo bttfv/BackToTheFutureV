@@ -50,7 +50,9 @@ namespace BackToTheFutureV.Utility
         public static CustomModel CoilsIndicatorLeft = new CustomModel("indicator_left");
         public static CustomModel CoilsIndicatorRight = new CustomModel("indicator_right");
         public static CustomModel InvisibleProp = new CustomModel("prop_dummy");
-        public static List<CustomModel> Lightnings = new List<CustomModel>() { new CustomModel("ls_1"), new CustomModel("ls_2"), new CustomModel("ls_3"), new CustomModel("ls_4") };
+        //public static List<CustomModel> Lightnings = new List<CustomModel>() { new CustomModel("ls_1"), new CustomModel("ls_2"), new CustomModel("ls_3"), new CustomModel("ls_4") };
+        public static List<CustomModel> Lightnings = new List<CustomModel>() { new CustomModel("bolt_m0"), new CustomModel("bolt_m1"), new CustomModel("bolt_m2") };
+        public static List<CustomModel> LightningsOnCar = new List<CustomModel>();
         public static CustomModel SID = new CustomModel("bttf_sid");
         public static CustomModel BucketWithAlmanac = new CustomModel("bttf_bucket_book");
 
@@ -110,6 +112,16 @@ namespace BackToTheFutureV.Utility
 
             foreach (CustomModel x in Lightnings)
                 PreloadModel(x);
+
+            for (int i = 0; i <= 10; i++)
+            {
+                string str = "bolt_s_" + i.ToString();
+
+                CustomModel model = new CustomModel(str);
+
+                PreloadModel(model);
+                LightningsOnCar.Add(model);
+            }
 
             for (int i = 1; i < 6; i++)
             {

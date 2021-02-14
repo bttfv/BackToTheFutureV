@@ -24,6 +24,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         //Reenter
         public PtfxEntityPlayer Flash;
 
+        //Sparks
+        public PtfxEntityBonePlayer LightningSparks;
+
         public ParticlesHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             //Hover Mode
@@ -55,6 +58,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                     c++;
                 }
             }
+
+            //Sparks
+            LightningSparks = new PtfxEntityBonePlayer("core", "ent_ray_finale_vault_sparks", Vehicle, "bttf_reactorcap", new Vector3(0, 0, 0.1f), Vector3.Zero, 3, true);
         }
 
         public override void Dispose()

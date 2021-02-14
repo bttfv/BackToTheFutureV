@@ -62,7 +62,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                     case WormholeType.BTTF2:
                         return 82;
                     case WormholeType.BTTF3:
-                        return Properties.IsOnTracks ? 80 : 60;
+                        return Properties.IsOnTracks ? 82 : 59;
                     default:
                         return 82;
                 }
@@ -82,6 +82,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnReenter += StartTimeTravelCooldown;
+            Events.OnReenterCompleted += StartTimeTravelCooldown;
         }
 
         public void StartTimeTravelCooldown()

@@ -65,6 +65,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         //Lightnings
         public AnimatePropsHandler Lightnings;
+        public AnimatePropsHandler LightningsOnCar;
 
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -93,6 +94,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             InvisibleProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.InvisibleProp, new Vector3(0, 3.4f, -0.6f), new Vector3(0, 0, 180));
             InvisibleProp.SpawnProp();
+
+            //Lightnings
+            Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100 };
+            foreach (CustomModel x in ModelHandler.Lightnings)
+                Lightnings.Add(new AnimateProp(Vehicle, x, Vector3.Zero, Vector3.Zero));
+
+            LightningsOnCar = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100 };
+            foreach (CustomModel x in ModelHandler.LightningsOnCar)
+                LightningsOnCar.Add(new AnimateProp(Vehicle, x, Vector3.Zero, Vector3.Zero));
 
             if (!Mods.IsDMC12)
                 return;
@@ -156,11 +166,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             LicensePlate = new AnimateProp(Vehicle, ModelHandler.LicensePlate, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
             LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(false, true, true, 90, 360 * 2 + 90, 1, 1440, 1);
             LicensePlate.SaveAnimation();
-
-            //Lightnings
-            Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceLooped = true };
-            foreach (CustomModel x in ModelHandler.Lightnings)
-                Lightnings.Add(new AnimateProp(Vehicle, x, Vector3.Zero, Vector3.Zero));
         }
 
         public override void Dispose()
@@ -215,6 +220,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Lightnings
             Lightnings?.Dispose();
+            LightningsOnCar?.Dispose();
         }
 
         public override void KeyDown(Keys key)

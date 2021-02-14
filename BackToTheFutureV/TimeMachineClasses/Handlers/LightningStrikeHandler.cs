@@ -29,6 +29,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Props.Lightnings.IsSequencePlaying && !Vehicle.IsVisible)
                 Props.Lightnings.Delete();
 
+            if (Props.LightningsOnCar.IsSequencePlaying && !Vehicle.IsVisible)
+                Props.LightningsOnCar.Delete();
+
+            if (Mods.IsDMC12 && Particles.LightningSparks.IsPlaying && !Vehicle.IsVisible)
+                Particles.LightningSparks?.StopNaturally();
+
             if (_delay > -1 && Game.GameTime > _delay)
                 Strike();
 
@@ -49,11 +55,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Properties.HasBeenStruckByLightning = true;
 
             Props.Lightnings.IsSequenceLooped = Properties.AreTimeCircuitsOn;
+            Props.LightningsOnCar.IsSequenceLooped = Properties.AreTimeCircuitsOn;
 
             Props.Lightnings.Play();
+            Props.LightningsOnCar.Play();
 
             if (Properties.AreTimeCircuitsOn)
             {
+                Particles.LightningSparks?.Play();
+
                 Events.SetSIDLedsState?.Invoke(true, true);
 
                 Properties.PhotoFluxCapacitorActive = true;
@@ -89,8 +99,23 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            //if (key == Keys.L)
-            //    Props.Lightnings.Play();
+            if (key == Keys.L)
+            {
+                Props.Lightnings.IsSequenceLooped = true;
+                Props.Lightnings.Play();
+                Props.LightningsOnCar.IsSequenceLooped = true;
+                Props.LightningsOnCar.Play();
+
+                Particles.LightningSparks.Play();
+            }
+
+            if (key == Keys.O)
+            {
+                Props.Lightnings.Delete();
+                Props.LightningsOnCar.Delete();
+
+                Particles.LightningSparks.StopNaturally();
+            }
         }
 
         public override void Stop()

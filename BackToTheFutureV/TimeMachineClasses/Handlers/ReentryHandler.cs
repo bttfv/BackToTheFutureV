@@ -11,7 +11,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class ReentryHandler : Handler
     {
-        private float _reentryTimer;
+        private float _handbrakeTimer = -1;
         private int _currentStep;
         private int _gameTimer;
 
@@ -28,14 +28,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            _reentryTimer += Game.LastFrameTime;
-
-            if (_reentryTimer > 2)
+            if (_handbrakeTimer > -1)
             {
-                if (Vehicle.Driver == null)
+                _handbrakeTimer += Game.LastFrameTime;
+
+                if (_handbrakeTimer >= 2)
                 {
                     Vehicle.IsHandbrakeForcedOn = false;
-                    Vehicle.SteeringAngle = 0;
+
+                    _handbrakeTimer = -1;
                 }
             }
 
@@ -162,6 +163,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Vehicle.Speed /= 2;
 
                 VehicleControl.SetBrake(Vehicle, 1f);
+
+                _handbrakeTimer = 0;
             }
 
             //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, CommonSettings.PlayerPed.Model);
@@ -175,7 +178,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             _currentStep = 0;
             _gameTimer = 0;
-            _reentryTimer = 0;
         }
 
         public override void Dispose()

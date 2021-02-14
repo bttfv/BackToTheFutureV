@@ -64,7 +64,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (Properties.TimeTravelPhase != TimeTravelPhase.InTime || Game.GameTime < gameTimer)
+            if (Properties.TimeTravelPhase != TimeTravelPhase.InTime)
+                return;
+
+            if (Utils.PlayerVehicle == Vehicle && !Utils.HideGUI)
+                Utils.HideGUI = true;
+
+            if (Game.GameTime < gameTimer)
                 return;
 
             switch (_currentStep)
@@ -191,8 +197,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Properties.CanConvert = false;
 
                     Game.Player.IgnoredByPolice = true;
-
-                    Utils.HideGUI = true;
 
                     ExternalHUD.SetOff();
 
