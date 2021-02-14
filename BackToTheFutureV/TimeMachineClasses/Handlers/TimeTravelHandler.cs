@@ -67,7 +67,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.TimeTravelPhase != TimeTravelPhase.InTime)
                 return;
 
-            if (Utils.PlayerVehicle == Vehicle && !Utils.HideGUI)
+            if (Utils.PlayerVehicle == Vehicle && !Properties.IsRemoteControlled && !Utils.HideGUI)
                 Utils.HideGUI = true;
 
             if (Game.GameTime < gameTimer)

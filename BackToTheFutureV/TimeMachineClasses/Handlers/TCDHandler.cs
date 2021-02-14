@@ -416,6 +416,20 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsGivenScaleformPriority || Game.Player.Character.Position.DistanceToSquared(Vehicle.Position) > 8f * 8f)
                 return;
 
+            if (Mods.IsDMC12)
+            {
+                if (Properties.AreTimeCircuitsOn)
+                {
+                    if (!IsDoingTimedVisible && Props.DiodesOff.IsSpawned)
+                        Props.DiodesOff?.Delete();
+                }
+                else
+                {
+                    if (!IsDoingTimedVisible && !Props.DiodesOff.IsSpawned)
+                        Props.DiodesOff?.SpawnProp();
+                }
+            }
+                
             destinationSlot.Update();
             previousSlot.Update();
             presentSlot.Update();
