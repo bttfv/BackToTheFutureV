@@ -149,7 +149,6 @@
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PropsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\SoundsHandler.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineMods.cs" />
-    <Compile Include="Secondary.cs" />
     <Compile Include="Utility\ModelHandler.cs" />
     <Compile Include="Players\MrFusionRefillPlayer.cs" />
     <Compile Include="Players\Player.cs" />

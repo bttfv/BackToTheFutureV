@@ -29,7 +29,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
 
             if (over)
-                Secondary.LoadWaypointPosition(true);
+                WaypointScript.LoadWaypointPosition(true);
         }
 
         public void OnStartTimeTravelSequenceAtSpeed(bool over)

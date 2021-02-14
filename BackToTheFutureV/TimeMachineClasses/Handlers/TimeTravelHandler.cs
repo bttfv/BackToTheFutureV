@@ -105,7 +105,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     // Invoke delegate
                     Events.OnTimeTravelStarted?.Invoke();
 
-                    Properties.TimeTravelDestPos = Secondary.WaypointPosition;
+                    Properties.TimeTravelDestPos = WaypointScript.WaypointPosition;
 
                     Properties.TimeTravelsCount++;
 
