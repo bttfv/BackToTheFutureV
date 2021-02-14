@@ -219,7 +219,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 1:
-                    Particles?.TimeTravelEffect.Stop();
+                    Particles.TimeTravelEffect?.Stop();
 
                     if (Properties.TimeTravelType == TimeTravelType.RC || Properties.TimeTravelType == TimeTravelType.Wayback)
                     {

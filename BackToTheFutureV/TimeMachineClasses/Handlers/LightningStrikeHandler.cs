@@ -99,23 +99,23 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if (key == Keys.L)
-            {
-                Props.Lightnings.IsSequenceLooped = true;
-                Props.Lightnings.Play();
-                Props.LightningsOnCar.IsSequenceLooped = true;
-                Props.LightningsOnCar.Play();
+            //if (key == Keys.L)
+            //{
+            //    Props.Lightnings.IsSequenceLooped = true;
+            //    Props.Lightnings.Play();
+            //    Props.LightningsOnCar.IsSequenceLooped = true;
+            //    Props.LightningsOnCar.Play();
 
-                Particles.LightningSparks.Play();
-            }
+            //    Particles.LightningSparks.Play();
+            //}
 
-            if (key == Keys.O)
-            {
-                Props.Lightnings.Delete();
-                Props.LightningsOnCar.Delete();
+            //if (key == Keys.O)
+            //{
+            //    Props.Lightnings.Delete();
+            //    Props.LightningsOnCar.Delete();
 
-                Particles.LightningSparks.StopNaturally();
-            }
+            //    Particles.LightningSparks.StopNaturally();
+            //}
         }
 
         public override void Stop()
