@@ -25,8 +25,8 @@ namespace BackToTheFutureV
         public static Version Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
         public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
-        private bool _firstTick = true;
-        private int _saveDelay;
+        public static bool FirstTick { get; private set; } = true;
+
         private readonly UdpClient udp = new UdpClient(1955);
 
         private void Receive(IAsyncResult ar)
@@ -102,7 +102,7 @@ namespace BackToTheFutureV
             if (Game.IsLoading)
                 return;
 
-            if (_firstTick)
+            if (FirstTick)
             {
                 if (ModSettings.ExternalTCDToggle)
                     ExternalHUD.Toggle(true);
@@ -126,7 +126,7 @@ namespace BackToTheFutureV
 
                 ExternalHUD.SetOff();
 
-                _firstTick = false;
+                FirstTick = false;
             }
 
             if (ModSettings.ExternalTCDToggle && !ExternalHUD.IsActive)
@@ -145,13 +145,6 @@ namespace BackToTheFutureV
             MissionHandler.Process();
             StoryTimeMachine.ProcessAll();
             MenuHandler.Process();
-
-            if (ModSettings.PersistenceSystem && _saveDelay < Game.GameTime)
-            {
-                TimeMachineHandler.SaveAllTimeMachines();
-
-                _saveDelay = Game.GameTime + 2000;
-            }
         }
     }
 }

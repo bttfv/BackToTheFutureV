@@ -14,6 +14,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
             Events.OnWormholeTypeChanged += OnWormholeTypeChanged;
+            Events.OnSparksEnded += SparksEnded;
             TimeHandler.OnDayNightChange += OnWormholeTypeChanged;
 
             Events.On88MphSpeed += On88MphSpeed;
@@ -25,7 +26,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void On88MphSpeed(bool over)
         {
-            if (!Properties.AreTimeCircuitsOn && !Properties.IsPhotoModeOn)
+            if (!Properties.AreTimeCircuitsOn)
                 return;
 
             if (over)
@@ -34,7 +35,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void OnStartTimeTravelSequenceAtSpeed(bool over)
         {
-            if (!Properties.AreTimeCircuitsOn && !Properties.IsPhotoModeOn)
+            if (!Properties.AreTimeCircuitsOn)
                 return;
 
             if (over)
@@ -51,7 +52,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void OnPlayDiodeSoundAtSpeed(bool over)
         {
-            if (!Properties.AreTimeCircuitsOn && !Properties.IsPhotoModeOn)
+            if (!Properties.AreTimeCircuitsOn)
                 return;
 
             if (over)
@@ -179,7 +180,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         }
 
-        private void SparksEnded()
+        private void SparksEnded(int delay = 0)
         {
             Stop();
 
@@ -191,7 +192,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Function.Call(Hash.DETACH_VEHICLE_FROM_ANY_TOW_TRUCK, Vehicle.Handle);
 
-            Events.StartTimeTravel?.Invoke();
+            Events.StartTimeTravel?.Invoke(delay);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         //Lighting strike
         public AudioPlayer LightningStrike;
+        public AudioPlayer Thunder;
 
         //Plutonium gauge
         public AudioPlayer PlutoniumGauge;
@@ -188,7 +189,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TCDGlitch.SourceBone = "bttf_tcd_green";
 
             //Ligtning strike
-            LightningStrike = AudioEngine.Create("bttf2/timeTravel/lightingStrike.wav", Presets.Exterior);
+            LightningStrike = AudioEngine.Create("bttf2/timeTravel/lightingStrike.wav", Presets.ExteriorLoud);
+            Thunder = AudioEngine.Create("general/thunder.wav", Presets.ExteriorLoud);
 
             if (!Mods.IsDMC12)
                 return;

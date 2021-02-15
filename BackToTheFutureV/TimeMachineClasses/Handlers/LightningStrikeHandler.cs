@@ -17,6 +17,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public LightningStrikeHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.StartLightningStrike += PrepareStrike;
+            Events.OnStopLightningEffects += Stop;
         }
 
         private void PrepareStrike(int delay)
@@ -26,15 +27,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
-            if (Props.Lightnings.IsSequencePlaying && !Vehicle.IsVisible)
-                Props.Lightnings.Delete();
-
-            if (Props.LightningsOnCar.IsSequencePlaying && !Vehicle.IsVisible)
-                Props.LightningsOnCar.Delete();
-
-            if (Mods.IsDMC12 && Particles.LightningSparks.IsPlaying && !Vehicle.IsVisible)
-                Particles.LightningSparks?.StopNaturally();
-
             if (_delay > -1 && Game.GameTime > _delay)
                 Strike();
 
@@ -43,7 +35,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
             {
-                if (Utils.Random.NextDouble() < 0.2)
+                if (Utils.Random.NextDouble() < 0.3)
                     Strike();
                 else
                     _nextCheck = Game.GameTime + 10000;
@@ -54,6 +46,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Properties.HasBeenStruckByLightning = true;
 
+            Sounds.Thunder?.Play();
+
             Props.Lightnings.IsSequenceLooped = Properties.AreTimeCircuitsOn;
             Props.LightningsOnCar.IsSequenceLooped = Properties.AreTimeCircuitsOn;
 
@@ -62,20 +56,21 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Properties.AreTimeCircuitsOn)
             {
+                IsPlaying = true;
+
                 Particles.LightningSparks?.Play();
+
+                Sounds.LightningStrike?.Play();
 
                 Events.SetSIDLedsState?.Invoke(true, true);
 
                 Properties.PhotoFluxCapacitorActive = true;
                 Properties.PhotoGlowingCoilsActive = true;
 
-                // Time travel by lightning strike
-                Sounds.LightningStrike?.Play();
-
                 if (Mods.Hook == HookState.On && !Properties.IsFlying)
-                    Events.StartTimeTravel?.Invoke(500);
+                    Events.OnSparksEnded?.Invoke(500);
                 else
-                    Events.StartTimeTravel?.Invoke(2000);
+                    Events.OnSparksEnded?.Invoke(2000);
 
                 TimeMachineClone timeMachineClone = TimeMachine.Clone;
                 timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
@@ -120,7 +115,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Stop()
         {
+            if (!IsPlaying)
+                return;
 
+            Sounds.LightningStrike?.Stop();
+            Sounds.Thunder?.Stop();
+
+            Props.Lightnings?.Delete();
+            Props.LightningsOnCar?.Delete();
+
+            if (Mods.IsDMC12)
+                Particles.LightningSparks?.Stop();
+
+            IsPlaying = false;
         }
 
         public override void Dispose()

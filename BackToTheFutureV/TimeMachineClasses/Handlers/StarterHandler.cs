@@ -121,6 +121,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Game.GameTime < _nextCheck || !_firstTimeTravel || !Vehicle.IsVisible)
                 return;
 
+            if (!Vehicle.IsEngineRunning && !Properties.IsEngineStalling && !Properties.IsFueled)
+                Properties.IsEngineStalling = true;
+
             if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled)
             {
                 if (Utils.Random.NextDouble() < 0.25)

@@ -9,6 +9,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void OnTimeCircuitsToggle();
     public delegate void OnDestinationDateChange();
     public delegate void OnWormholeStarted();
+    public delegate void OnSparksEnded(int delay = 0);
+    public delegate void OnStopLightningEffects();
     public delegate void OnTimeTravelStarted();
     public delegate void OnTimeTravelCompleted();
     public delegate void OnReenter();
@@ -54,6 +56,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public OnTimeCircuitsToggle OnTimeCircuitsToggle;
         public OnDestinationDateChange OnDestinationDateChange;
         public OnWormholeStarted OnWormholeStarted;
+        public OnSparksEnded OnSparksEnded;
+        public OnStopLightningEffects OnStopLightningEffects;
         public OnTimeTravelStarted OnTimeTravelStarted;
         public OnTimeTravelCompleted OnTimeTravelCompleted;
         public OnReenter OnReenter;

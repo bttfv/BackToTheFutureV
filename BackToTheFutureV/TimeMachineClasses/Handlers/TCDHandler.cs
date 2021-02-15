@@ -429,7 +429,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Props.DiodesOff?.SpawnProp();
                 }
             }
-                
+
             destinationSlot.Update();
             previousSlot.Update();
             presentSlot.Update();

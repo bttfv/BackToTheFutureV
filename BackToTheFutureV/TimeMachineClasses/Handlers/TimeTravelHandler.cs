@@ -76,7 +76,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             switch (_currentStep)
             {
                 case 0:
-
                     if (Properties.IsRemoteControlled)
                         Properties.TimeTravelType = TimeTravelType.RC;
                     else
@@ -96,6 +95,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                                 Properties.TimeTravelType = TimeTravelType.Cutscene;
                         }
                     }
+
+                    if (Properties.HasBeenStruckByLightning)
+                        Events.OnStopLightningEffects?.Invoke();
 
                     Properties.LastVelocity = Vehicle.Velocity;
 

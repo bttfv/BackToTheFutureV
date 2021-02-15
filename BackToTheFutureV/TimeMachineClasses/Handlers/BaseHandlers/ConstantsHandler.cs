@@ -81,8 +81,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
+            Events.OnSparksEnded += StartTimeTravelCooldown;
             Events.OnReenter += StartTimeTravelCooldown;
             Events.OnReenterCompleted += StartTimeTravelCooldown;
+        }
+
+        public void StartTimeTravelCooldown(int delay = 0)
+        {
+            StartTimeTravelCooldown();
         }
 
         public void StartTimeTravelCooldown()
@@ -123,6 +129,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                     return;
             }
 
+            if (Properties.BlockSparks || Properties.HasBeenStruckByLightning)
+                return;
+
             if (Vehicle.GetMPHSpeed() >= PlayDiodeSoundAtSpeed && !OverDiodeSoundAtSpeed)
             {
                 OverDiodeSoundAtSpeed = true;
@@ -138,7 +147,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 Events.OnPlayDiodeSoundAtSpeed?.Invoke(false);
             }
 
-            if (Vehicle.GetMPHSpeed() >= StartTimeTravelSequenceAtSpeed && !OverStartTimeTravelSequenceAtSpeed && !Properties.BlockSparks)
+            if (Vehicle.GetMPHSpeed() >= StartTimeTravelSequenceAtSpeed && !OverStartTimeTravelSequenceAtSpeed)
             {
                 OverStartTimeTravelSequenceAtSpeed = true;
                 Events.OnStartTimeTravelSequenceAtSpeed?.Invoke(true);
