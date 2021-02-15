@@ -97,7 +97,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2);
 
-                    Properties.HUDProperties.Speed = mphSpeed;
+                    Constants.HUDProperties.Speed = mphSpeed;
 
                     if (!TcdEditer.IsEditing)
                         UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2);

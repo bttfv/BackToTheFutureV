@@ -9,7 +9,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class SIDHandler : Handler
     {
-        private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Properties.HUDProperties;
+        private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Constants.HUDProperties;
 
         private bool _waitTurnOn;
 
@@ -42,8 +42,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (height < 0)
                 height = 0;
 
-            Properties.NewHeight[column] = height;
-            Properties.LedDelay[column] = 0;
+            Constants.NewHeight[column] = height;
+            Constants.LedDelay[column] = 0;
         }
 
         private void Random(int min = 0, int max = 20)
@@ -59,7 +59,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             for (int column = 0; column < 10; column++)
             {
-                if (Properties.LedDelay[column] > Game.GameTime)
+                if (Constants.LedDelay[column] > Game.GameTime)
                     continue;
 
                 SetColumnHeight(column, Utils.Random.Next(min, max + 1));
@@ -79,7 +79,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     for (int row = 0; row < max; row++)
                         HUDProperties.LedState[column][row] = on;
 
-                    Properties.CurrentHeight[column] = max;
+                    Constants.CurrentHeight[column] = max;
                 }
             }
 
@@ -93,7 +93,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private bool AreColumnProcessing()
         {
             for (int column = 0; column < 10; column++)
-                if (Properties.NewHeight[column] != Properties.CurrentHeight[column])
+                if (Constants.NewHeight[column] != Constants.CurrentHeight[column])
                     return true;
 
             return false;
@@ -121,20 +121,20 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             //SID leds processing
             for (int column = 0; column < 10; column++)
             {
-                if (Properties.LedDelay[column] < Game.GameTime && Properties.NewHeight[column] != Properties.CurrentHeight[column])
+                if (Constants.LedDelay[column] < Game.GameTime && Constants.NewHeight[column] != Constants.CurrentHeight[column])
                 {
-                    if (Properties.NewHeight[column] > Properties.CurrentHeight[column])
+                    if (Constants.NewHeight[column] > Constants.CurrentHeight[column])
                     {
-                        HUDProperties.LedState[column][Properties.CurrentHeight[column]] = true;
-                        Properties.CurrentHeight[column]++;
+                        HUDProperties.LedState[column][Constants.CurrentHeight[column]] = true;
+                        Constants.CurrentHeight[column]++;
                     }
-                    else if (Properties.NewHeight[column] < Properties.CurrentHeight[column])
+                    else if (Constants.NewHeight[column] < Constants.CurrentHeight[column])
                     {
-                        Properties.CurrentHeight[column]--;
-                        HUDProperties.LedState[column][Properties.CurrentHeight[column]] = false;
+                        Constants.CurrentHeight[column]--;
+                        HUDProperties.LedState[column][Constants.CurrentHeight[column]] = false;
                     }
 
-                    Properties.LedDelay[column] = Game.GameTime + _minDelay + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
+                    Constants.LedDelay[column] = Game.GameTime + _minDelay + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
                 }
             }
 
@@ -146,7 +146,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.AreTimeCircuitsOn || Properties.HasBeenStruckByLightning || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                 return;
 
-            if (Constants.OverDiodeSoundAtSpeed)
+            if (Constants.OverSIDMaxAtSpeed)
             {
                 Random(20, 20);
 

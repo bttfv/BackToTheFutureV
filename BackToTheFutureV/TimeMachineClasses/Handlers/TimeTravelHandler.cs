@@ -76,6 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             switch (_currentStep)
             {
                 case 0:
+
                     if (Properties.IsRemoteControlled)
                         Properties.TimeTravelType = TimeTravelType.RC;
                     else
@@ -96,9 +97,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         }
                     }
 
-                    if (Properties.HasBeenStruckByLightning)
-                        Events.OnStopLightningEffects?.Invoke();
-
                     Properties.LastVelocity = Vehicle.Velocity;
 
                     // Set previous time
@@ -114,7 +112,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (Properties.TimeTravelType == TimeTravelType.Instant)
                     {
                         // Create a copy of the current status of the time machine
-                        TimeMachine.LastDisplacementClone = TimeMachine.Clone;
+                        TimeMachine.LastDisplacementClone = TimeMachine.Clone();
 
                         Sounds.TimeTravelInstant?.Play();
 
@@ -141,8 +139,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         TimeHandler.TimeTravelTo(Properties.DestinationTime);
 
                         // Invoke delegate
-                        Events.OnTimeTravelCompleted?.Invoke();
-                        Events.OnReenterCompleted?.Invoke();
+                        Events.OnTimeTravelEnded?.Invoke();
+                        Events.OnReenterEnded?.Invoke();
 
                         //Add LastDisplacementCopy to remote time machines list
                         RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
@@ -157,8 +155,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     // Play the light explosion
                     Particles?.LightExplosion?.Play();
-
-                    bool is99 = Properties.HasBeenStruckByLightning && Properties.IsFlying;
 
                     trails = FireTrailsHandler.SpawnForTimeMachine(TimeMachine);
 
@@ -179,12 +175,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                         // Add to time travelled list
                         if (Properties.TimeTravelType == TimeTravelType.RC)
-                            RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone);
+                            RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone());
 
                         Vehicle.SetVisible(false);
 
                         // Invoke delegate
-                        Events.OnTimeTravelCompleted?.Invoke();
+                        Events.OnTimeTravelEnded?.Invoke();
 
                         gameTimer = Game.GameTime + 300;
 
@@ -193,7 +189,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     }
 
                     // Create a copy of the current status of the time machine
-                    TimeMachine.LastDisplacementClone = TimeMachine.Clone;
+                    TimeMachine.LastDisplacementClone = TimeMachine.Clone();
 
                     if (Mods.HoverUnderbody == ModState.On)
                         Properties.CanConvert = false;
@@ -221,6 +217,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 1:
+
                     Particles.TimeTravelEffect?.Stop();
 
                     if (Properties.TimeTravelType == TimeTravelType.RC || Properties.TimeTravelType == TimeTravelType.Wayback)
@@ -249,6 +246,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 3:
+
+                    Events.OnTimeTravelCutscene?.Invoke();
+
                     Props.LicensePlate?.Delete();
 
                     TimeMachine.CustomCameraManager.Stop();
@@ -276,8 +276,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 4:
-                    Events.OnTimeTravelCompleted?.Invoke();
-
                     gameTimer = Game.GameTime + 2000;
                     Screen.FadeIn(1000);
 
@@ -285,10 +283,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
 
                 case 5:
+
                     //Add LastDisplacementCopy to remote time machines list
                     RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
 
-                    Events.OnReenter?.Invoke();
+                    Events.OnTimeTravelEnded?.Invoke();
+                    Events.OnReenterStarted?.Invoke();
+
                     break;
             }
         }

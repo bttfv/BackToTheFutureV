@@ -20,15 +20,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public ComponentsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            Events.OnReenterCompleted += OnReenterCompleted;
-            Events.OnVehicleSpawned += OnReenterCompleted;
+            Events.OnReenterEnded += OnReenterEnded;
+            Events.OnVehicleSpawned += OnReenterEnded;
             Events.OnHoodboxReady += Instant;
             TimeHandler.OnDayNightChange += OnDayNightChange;
 
             OnDayNightChange();
         }
 
-        public void OnReenterCompleted()
+        public void OnReenterEnded()
         {
             if (Mods.HoverUnderbody == ModState.On)
                 Properties.CanConvert = true;

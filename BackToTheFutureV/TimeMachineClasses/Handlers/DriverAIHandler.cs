@@ -27,7 +27,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public DriverAIHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            Events.OnTimeTravelCompleted += OnTimeTravelCompleted;
+            Events.OnTimeTravelEnded += OnTimeTravelEnded;
             Events.StartDriverAI += StartAI;
         }
 
@@ -53,7 +53,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Stop();
         }
 
-        private void OnTimeTravelCompleted()
+        private void OnTimeTravelEnded()
         {
             if (IsPlaying)
                 Stop();

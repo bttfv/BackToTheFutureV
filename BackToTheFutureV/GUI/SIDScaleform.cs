@@ -9,7 +9,7 @@ namespace BackToTheFutureV.GUI
 {
     public class SIDScaleform : ScaleformGui
     {
-        private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Properties.HUDProperties;
+        private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Constants.HUDProperties;
 
         private static PointF SID3DLocation = new PointF() { X = 0.626f, Y = 0.626f };
         private static float SID3DScale = 1.284f;

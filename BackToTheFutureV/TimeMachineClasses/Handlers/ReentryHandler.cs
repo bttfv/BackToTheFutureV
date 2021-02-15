@@ -17,11 +17,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public ReentryHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            Events.OnReenter += OnReenter;
-            Events.OnReenterCompleted += OnReenterCompleted;
+            Events.OnReenterStarted += OnReenterStarted;
+            Events.OnReenterEnded += OnReenterEnded;
         }
 
-        public void OnReenter()
+        public void OnReenterStarted()
         {
             Properties.TimeTravelPhase = TimeTravelPhase.Reentering;
         }
@@ -113,13 +113,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 case 3:
                     Stop();
 
-                    Events.OnReenterCompleted?.Invoke();
+                    Events.OnReenterEnded?.Invoke();
 
                     break;
             }
         }
 
-        private void OnReenterCompleted()
+        private void OnReenterEnded()
         {
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
@@ -135,7 +135,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 Vehicle.Velocity = Properties.LastVelocity;
 
-                if (Vehicle.GetMPHSpeed() < Constants.PlayDiodeSoundAtSpeed)
+                if (Vehicle.GetMPHSpeed() < Constants.SIDMaxAtSpeed)
                     Vehicle.SetMPHSpeed(88);
             }
 

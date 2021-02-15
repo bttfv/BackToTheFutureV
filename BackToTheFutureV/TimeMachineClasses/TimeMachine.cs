@@ -38,7 +38,6 @@ namespace BackToTheFutureV.TimeMachineClasses
             set => CustomCameraManager.Show((int)value);
         }
 
-        public TimeMachineClone Clone => new TimeMachineClone(this);
         public TimeMachineClone LastDisplacementClone { get; set; }
         public Ped OriginalPed;
 
@@ -123,7 +122,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.03f, 0, 0.005f));
             }
 
-            LastDisplacementClone = Clone;
+            LastDisplacementClone = this.Clone();
             LastDisplacementClone.Properties.DestinationTime = Utils.CurrentTime;
 
             Events.OnWormholeTypeChanged += UpdateBlip;
@@ -356,7 +355,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                     if (CreateCloneSpawn)
                     {
-                        RemoteTimeMachineHandler.AddRemote(Clone, WaybackMachine);
+                        RemoteTimeMachineHandler.AddRemote(this.Clone(), WaybackMachine);
                         CreateCloneSpawn = false;
                     }
                 }
@@ -459,7 +458,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 Events.OnWormholeStarted?.Invoke();
 
             if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
-                Events.OnTimeTravelInterrupted?.Invoke();
+                Events.OnSparksInterrupted?.Invoke();
 
             if (Properties.PhotoEngineStallActive && !Properties.IsEngineStalling)
                 Events.SetEngineStall?.Invoke(true);

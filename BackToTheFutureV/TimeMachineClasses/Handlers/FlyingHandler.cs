@@ -334,7 +334,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (!Vehicle.IsUpsideDown)
                     force.Z = -force.Z;
 
-                force *= 12 * Game.LastFrameTime;
+                force *= 18 * Game.LastFrameTime;
 
                 Vehicle.ApplyForce(force, Vector3.Zero);
 

@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.Vehicles;
+﻿using BackToTheFutureV.HUD.Core;
+using BackToTheFutureV.Vehicles;
 using FusionLibrary.Extensions;
 using GTA;
 using System.Windows.Forms;
@@ -9,8 +10,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     {
         public bool Over88MphSpeed { get; private set; }
 
-        public bool OverStartTimeTravelSequenceAtSpeed { get; private set; }
-        public int StartTimeTravelSequenceAtSpeed
+        public bool OverTimeTravelAtSpeed { get; private set; }
+        public int TimeTravelAtSpeed
         {
             get
             {
@@ -50,8 +51,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             }
         }
 
-        public bool OverDiodeSoundAtSpeed { get; private set; }
-        public int PlayDiodeSoundAtSpeed
+        public bool OverSIDMaxAtSpeed { get; private set; }
+        public int SIDMaxAtSpeed
         {
             get
             {
@@ -79,16 +80,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public int FireTrailsLength => Properties.IsOnTracks ? 100 : 50;
 
+        public HUDProperties HUDProperties { get; set; } = new HUDProperties();
+        public int[] CurrentHeight { get; set; } = new int[10];
+        public int[] NewHeight { get; set; } = new int[10];
+        public int[] LedDelay { get; set; } = new int[10];
+
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            Events.OnSparksEnded += StartTimeTravelCooldown;
-            Events.OnReenter += StartTimeTravelCooldown;
-            Events.OnReenterCompleted += StartTimeTravelCooldown;
-        }
-
-        public void StartTimeTravelCooldown(int delay = 0)
-        {
-            StartTimeTravelCooldown();
+            Events.OnLightningStrike += StartTimeTravelCooldown;
+            Events.OnTimeTravelStarted += StartTimeTravelCooldown;
+            Events.OnReenterEnded += StartTimeTravelCooldown;
         }
 
         public void StartTimeTravelCooldown()
@@ -103,8 +104,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             StabilizationSoundAtTime = 0;
 
             Over88MphSpeed = false;
-            OverDiodeSoundAtSpeed = false;
-            OverStartTimeTravelSequenceAtSpeed = false;
+            OverSIDMaxAtSpeed = false;
+            OverTimeTravelAtSpeed = false;
         }
 
         public override void Dispose()
@@ -132,31 +133,31 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             if (Properties.BlockSparks || Properties.HasBeenStruckByLightning)
                 return;
 
-            if (Vehicle.GetMPHSpeed() >= PlayDiodeSoundAtSpeed && !OverDiodeSoundAtSpeed)
+            if (Vehicle.GetMPHSpeed() >= SIDMaxAtSpeed && !OverSIDMaxAtSpeed)
             {
-                OverDiodeSoundAtSpeed = true;
-                Events.OnPlayDiodeSoundAtSpeed?.Invoke(true);
+                OverSIDMaxAtSpeed = true;
+                Events.OnSIDMaxSpeedReached?.Invoke(true);
             }
 
-            if (Vehicle.GetMPHSpeed() < PlayDiodeSoundAtSpeed && OverDiodeSoundAtSpeed)
+            if (Vehicle.GetMPHSpeed() < SIDMaxAtSpeed && OverSIDMaxAtSpeed)
             {
                 TimeTravelAtTime = 0;
                 StabilizationSoundAtTime = 0;
 
-                OverDiodeSoundAtSpeed = false;
-                Events.OnPlayDiodeSoundAtSpeed?.Invoke(false);
+                OverSIDMaxAtSpeed = false;
+                Events.OnSIDMaxSpeedReached?.Invoke(false);
             }
 
-            if (Vehicle.GetMPHSpeed() >= StartTimeTravelSequenceAtSpeed && !OverStartTimeTravelSequenceAtSpeed)
+            if (Vehicle.GetMPHSpeed() >= TimeTravelAtSpeed && !OverTimeTravelAtSpeed)
             {
-                OverStartTimeTravelSequenceAtSpeed = true;
-                Events.OnStartTimeTravelSequenceAtSpeed?.Invoke(true);
+                OverTimeTravelAtSpeed = true;
+                Events.OnTimeTravelSpeedReached?.Invoke(true);
             }
 
-            if (Vehicle.GetMPHSpeed() < StartTimeTravelSequenceAtSpeed && OverStartTimeTravelSequenceAtSpeed)
+            if (Vehicle.GetMPHSpeed() < TimeTravelAtSpeed && OverTimeTravelAtSpeed)
             {
-                OverStartTimeTravelSequenceAtSpeed = false;
-                Events.OnStartTimeTravelSequenceAtSpeed?.Invoke(false);
+                OverTimeTravelAtSpeed = false;
+                Events.OnTimeTravelSpeedReached?.Invoke(false);
             }
 
             if (Vehicle.GetMPHSpeed() >= 88 && !Over88MphSpeed)
@@ -165,13 +166,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 StabilizationSoundAtTime = Game.GameTime + 1000;
 
                 Over88MphSpeed = true;
-                Events.On88MphSpeed?.Invoke(true);
+                Events.On88MphSpeedReached?.Invoke(true);
             }
 
             if (Vehicle.GetMPHSpeed() < 88 && Over88MphSpeed)
             {
                 Over88MphSpeed = false;
-                Events.On88MphSpeed?.Invoke(false);
+                Events.On88MphSpeedReached?.Invoke(false);
             }
         }
 

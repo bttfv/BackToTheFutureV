@@ -30,7 +30,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Events.SetWheelie += SetWheelie;
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
-            Events.OnReenterCompleted += OnReenterCompleted;
+            Events.OnReenterEnded += OnReenterEnded;
             Events.SetStopTracks += Stop;
         }
 
@@ -70,7 +70,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
         }
 
-        public void OnReenterCompleted()
+        public void OnReenterEnded()
         {
             if (!Properties.WasOnTracks)
                 return;

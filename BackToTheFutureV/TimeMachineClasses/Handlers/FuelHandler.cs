@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Players;
-using BackToTheFutureV.Settings;
+﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
@@ -31,22 +30,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Events.StartFuelBlink += StartFuelBlink;
             Events.SetRefuel += Refuel;
-
-            if (Mods.IsDMC12)
-            {
-                OnReactorTypeChanged();
-                Events.OnReactorTypeChanged += OnReactorTypeChanged;
-            }
-        }
-
-        public void OnReactorTypeChanged()
-        {
-            Players.Refuel?.Dispose();
-
-            if (Mods.Reactor == ReactorType.Nuclear)
-                Players.Refuel = new PlutoniumRefillPlayer(TimeMachine);
-            else
-                Players.Refuel = new MrFusionRefillPlayer(TimeMachine);
         }
 
         public void StartFuelBlink()
@@ -270,7 +253,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Properties.IsFueled)
                     return;
 
-                Properties.HUDProperties.Empty = isOn ? HUD.Core.EmptyType.On : HUD.Core.EmptyType.Off;
+                Constants.HUDProperties.Empty = isOn ? HUD.Core.EmptyType.On : HUD.Core.EmptyType.Off;
             }
 
             if (Vehicle.IsVisible == false)
@@ -295,7 +278,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             ScaleformsHandler.GUI.CallFunction("HIDE_EMPTY");
 
-            Properties.HUDProperties.Empty = HUD.Core.EmptyType.Hide;
+            Constants.HUDProperties.Empty = HUD.Core.EmptyType.Hide;
         }
     }
 }

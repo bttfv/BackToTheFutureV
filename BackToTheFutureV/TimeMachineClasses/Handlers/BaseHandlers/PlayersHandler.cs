@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.Players;
+using BackToTheFutureV.Vehicles;
 using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
@@ -16,7 +17,31 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public PlayersHandler(TimeMachine timeMachine) : base(timeMachine)
         {
+            Events.OnWormholeTypeChanged += OnWormholeTypeChanged;
+            FusionLibrary.TimeHandler.OnDayNightChange += OnWormholeTypeChanged;
+            OnWormholeTypeChanged();
 
+            if (Mods.IsDMC12)
+            {
+                Events.OnReactorTypeChanged += OnReactorTypeChanged;
+                OnReactorTypeChanged();
+            }
+        }
+
+        public void OnWormholeTypeChanged()
+        {
+            Wormhole?.Dispose();
+            Wormhole = new WormholeAnimationPlayer(TimeMachine);
+        }
+
+        public void OnReactorTypeChanged()
+        {
+            Refuel?.Dispose();
+
+            if (Mods.Reactor == ReactorType.Nuclear)
+                Refuel = new PlutoniumRefillPlayer(TimeMachine);
+            else
+                Refuel = new MrFusionRefillPlayer(TimeMachine);
         }
 
         public override void Dispose()

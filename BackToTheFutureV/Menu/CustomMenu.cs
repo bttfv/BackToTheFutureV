@@ -234,7 +234,7 @@ namespace BackToTheFutureV.Menu
                 if (_name == null || _name == "")
                     return;
 
-                _tempTimeMachine.Clone.Save(_name);
+                _tempTimeMachine.Clone().Save(_name);
             }
         }
 

@@ -61,11 +61,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _timeEnd = _timeStart + 99;
             }
 
-            Events.OnReenterCompleted += OnReenterCompleted;
+            Events.OnReenterEnded += OnReenterEnded;
             Events.SetEngineStall += SetEngineStall;
         }
 
-        private void OnReenterCompleted()
+        private void OnReenterEnded()
         {
             if (ModSettings.EngineStallEvent && Mods.Reactor == ReactorType.Nuclear)
                 _firstTimeTravel = true;

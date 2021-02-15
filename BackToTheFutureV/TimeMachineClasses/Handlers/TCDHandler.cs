@@ -69,7 +69,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!TcdEditer.IsEditing)
             {
                 ScaleformsHandler.GUI.SetDate(SlotType, dateToSet);
-                TimeMachine.Properties.HUDProperties.SetDate(SlotType, dateToSet);
+                TimeMachine.Constants.HUDProperties.SetDate(SlotType, dateToSet);
             }
 
             TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
@@ -87,9 +87,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 ScaleformsHandler.GUI.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
 
                 if (toggleTo)
-                    TimeMachine.Properties.HUDProperties.SetDate(SlotType, date);
+                    TimeMachine.Constants.HUDProperties.SetDate(SlotType, date);
 
-                TimeMachine.Properties.HUDProperties.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
+                TimeMachine.Constants.HUDProperties.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
             }
 
             TCDRowsScaleforms[SlotType]?.SetVisible(toggleTo, month, day, year, hour, minute);
@@ -219,7 +219,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.OnScaleformPriority += OnScaleformPriority;
 
             Events.OnTimeTravelStarted += OnTimeTravel;
-            Events.OnTimeTravelCompleted += OnTimeTravelComplete;
+            Events.OnTimeTravelEnded += OnTimeTravelEnded;
 
             Events.SetTimeCircuits += SetTimeCircuitsOn;
             Events.SetTimeCircuitsBroken += SetTimeCircuitsBroken;
@@ -322,7 +322,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Sounds.TCDBeep?.Stop();
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", false);
 
-                Properties.HUDProperties.IsTickVisible = false;
+                Constants.HUDProperties.IsTickVisible = false;
 
                 Props.TickingDiodes?.Delete();
                 Props.TickingDiodesOff?.SpawnProp();
@@ -331,7 +331,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
         }
 
-        private void OnTimeTravelComplete()
+        private void OnTimeTravelEnded()
         {
             lastTime = Utils.GetWorldTime();
         }
@@ -438,7 +438,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 DrawGUI();
 
             if (Utils.PlayerVehicle == Vehicle && Properties.TimeTravelPhase < TimeTravelPhase.InTime)
-                ExternalHUD.Update(Properties.HUDProperties);
+                ExternalHUD.Update(Constants.HUDProperties);
 
             if (!Properties.AreTimeCircuitsOn)
                 return;
@@ -555,7 +555,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", currentState);
 
-                Properties.HUDProperties.IsTickVisible = currentState;
+                Constants.HUDProperties.IsTickVisible = currentState;
 
                 if (ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
                     Sounds.TCDBeep?.Play(true);

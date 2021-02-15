@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.HUD.Core;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.Utility;
 using GTA.Math;
 using System;
 using System.Reflection;
@@ -12,7 +11,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     {
         public Guid GUID { get; set; }
         public bool IsGivenScaleformPriority { get; set; }
-        public bool AreWheelsStock { get; set; }
         public bool AreTimeCircuitsOn { get; set; }
         public DateTime DestinationTime { get; set; } = BTTFImportantDates.GetRandom();
         public DateTime PreviousTime { get; set; } = new DateTime(1985, 10, 26, 1, 20, 00);
@@ -50,12 +48,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
         public MissionType MissionType { get; set; } = MissionType.None;
         public bool Story { get; set; }
-        public int TimeTravelsCount { get; set; } = 0;
-        public bool BlockSparks { get; set; } = false;
-        public HUDProperties HUDProperties { get; set; } = new HUDProperties();
-        public int[] CurrentHeight { get; set; } = new int[10];
-        public int[] NewHeight { get; set; } = new int[10];
-        public int[] LedDelay { get; set; } = new int[10];
+        public int TimeTravelsCount { get; set; }
+        public bool BlockSparks { get; set; }
 
         public BaseProperties Clone(bool waybackClone = false)
         {
@@ -73,9 +67,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 return ret;
             }
 
-            PropertyInfo[] properties = ret.GetType().GetProperties();
-            foreach (PropertyInfo property in properties)
+            foreach (PropertyInfo property in InternalExtensions.Properties)
                 property.SetValue(ret, property.GetValue(this));
+
+            ret.IsRefueling = false;
 
             ret.IsFluxDoingBlueAnim = false;
 
@@ -111,22 +106,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             ret.BlockSparks = false;
 
-            ret.HUDProperties = new HUDProperties();
-
-            for (int i = 0; i < 10; i++)
-            {
-                ret.CurrentHeight[i] = 0;
-                ret.NewHeight[i] = 0;
-                ret.LedDelay[i] = 0;
-            }
+            ret.TorqueMultiplier = 1;
 
             return ret;
         }
 
         public void ApplyTo(TimeMachine timeMachine)
         {
-            PropertyInfo[] properties = GetType().GetProperties();
-            foreach (PropertyInfo property in properties)
+            foreach (PropertyInfo property in InternalExtensions.Properties)
                 property.SetValue(timeMachine.Properties, property.GetValue(this));
 
             if (IsFlying)

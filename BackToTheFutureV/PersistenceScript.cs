@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.RC;
 using GTA;
 using System;
 
@@ -8,16 +9,17 @@ namespace BackToTheFutureV
     {
         public PersistenceScript()
         {
+            Interval = 100;
             Tick += PersistenceScript_Tick;
         }
 
         private void PersistenceScript_Tick(object sender, EventArgs e)
         {
-            if (Game.IsLoading || Main.FirstTick)
+            if (Game.IsLoading || Main.FirstTick || !ModSettings.PersistenceSystem)
                 return;
 
-            if (ModSettings.PersistenceSystem)
-                TimeMachineHandler.SaveAllTimeMachines();
+            TimeMachineHandler.SaveAllTimeMachines();
+            RemoteTimeMachineHandler.Save();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
@@ -14,7 +15,6 @@ namespace BackToTheFutureV.Utility
     public delegate void OnVehicleAttached(bool toRogersSierra = false);
     public delegate void OnVehicleDetached(bool fromRogersSierra = false);
     public delegate void OnTrainDeleted();
-    public delegate void SetWheelie(bool goUp);
 
     public class CustomTrain
     {

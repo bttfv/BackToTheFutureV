@@ -1,10 +1,12 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Utility
@@ -19,8 +21,10 @@ namespace BackToTheFutureV.Utility
         }
     }
 
-    public static class VehicleExtensions
+    public static class InternalExtensions
     {
+        public static PropertyInfo[] Properties = new BaseProperties().GetType().GetProperties();
+
         public static bool NotNullAndExists(this TimeMachine timeMachine)
         {
             return timeMachine != null && timeMachine.Vehicle.NotNullAndExists();
@@ -34,6 +38,11 @@ namespace BackToTheFutureV.Utility
         public static bool IsTimeMachine(this Vehicle vehicle)
         {
             return TimeMachineHandler.IsVehicleATimeMachine(vehicle);
+        }
+
+        public static TimeMachineClone Clone(this TimeMachine timeMachine)
+        {
+            return new TimeMachineClone(timeMachine);
         }
 
         public static TimeMachine TransformIntoTimeMachine(this Vehicle vehicle, WormholeType wormholeType = WormholeType.BTTF1)

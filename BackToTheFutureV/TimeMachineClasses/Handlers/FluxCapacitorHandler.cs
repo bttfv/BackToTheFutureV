@@ -28,8 +28,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Events.OnWormholeStarted += StartTimeTravelEffect;
 
-            Events.OnTimeTravelCompleted += StartNormalFluxing;
-            Events.OnTimeTravelInterrupted += StartNormalFluxing;
+            Events.OnTimeTravelStarted += StartNormalFluxing;
+            Events.OnSparksInterrupted += StartNormalFluxing;
         }
 
         public void StartTimeTravelEffect()

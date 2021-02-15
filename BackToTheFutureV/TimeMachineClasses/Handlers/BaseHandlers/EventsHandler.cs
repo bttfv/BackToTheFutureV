@@ -1,21 +1,27 @@
-﻿using BackToTheFutureV.Utility;
-using GTA;
+﻿using GTA;
 using System;
 using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
     public delegate void OnScaleformPriority();
+
     public delegate void OnTimeCircuitsToggle();
     public delegate void OnDestinationDateChange();
+
+    public delegate void OnSIDMaxSpeedReached(bool over);
+    public delegate void OnTimeTravelSpeedReached(bool over);
+    public delegate void On88MphSpeedReached(bool over);
+    public delegate void OnSparksStarted();
+    public delegate void OnSparksInterrupted();
     public delegate void OnWormholeStarted();
     public delegate void OnSparksEnded(int delay = 0);
-    public delegate void OnStopLightningEffects();
     public delegate void OnTimeTravelStarted();
-    public delegate void OnTimeTravelCompleted();
-    public delegate void OnReenter();
-    public delegate void OnReenterCompleted();
-    public delegate void OnTimeTravelInterrupted();
+    public delegate void OnTimeTravelCutscene();
+    public delegate void OnTimeTravelEnded();
+    public delegate void OnReenterStarted();
+    public delegate void OnReenterEnded();
+
     public delegate void OnLightningStrike();
     public delegate void OnHoverTransformation();
     public delegate void OnRCToggle();
@@ -26,10 +32,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void OnHoodboxReady();
     public delegate void OnMissionChange();
     public delegate void OnSimulateSpeedReached();
-
-    public delegate void OnStartTimeTravelSequenceAtSpeed(bool over);
-    public delegate void On88MphSpeed(bool over);
-    public delegate void OnPlayDiodeSoundAtSpeed(bool over);
 
     public delegate void SetRCMode(bool state, bool instant = false);
     public delegate void SetTimeCircuits(bool state);
@@ -44,6 +46,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public delegate void SetStopTracks(int delay = 0);
     public delegate void SetRefuel(Ped ped);
     public delegate void SetPedAI(bool state);
+    public delegate void SetWheelie(bool goUp);
     public delegate void SetEngineStall(bool state);
     public delegate void StartLightningStrike(int delay);
     public delegate void SimulateInputDate(DateTime dateTime);
@@ -53,16 +56,23 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     public class EventsHandler : Handler
     {
         public OnScaleformPriority OnScaleformPriority;
+
         public OnTimeCircuitsToggle OnTimeCircuitsToggle;
         public OnDestinationDateChange OnDestinationDateChange;
+
+        public OnSIDMaxSpeedReached OnSIDMaxSpeedReached;
+        public OnTimeTravelSpeedReached OnTimeTravelSpeedReached;
+        public On88MphSpeedReached On88MphSpeedReached;
+        public OnSparksStarted OnSparksStarted;
+        public OnSparksInterrupted OnSparksInterrupted;
         public OnWormholeStarted OnWormholeStarted;
         public OnSparksEnded OnSparksEnded;
-        public OnStopLightningEffects OnStopLightningEffects;
         public OnTimeTravelStarted OnTimeTravelStarted;
-        public OnTimeTravelCompleted OnTimeTravelCompleted;
-        public OnReenter OnReenter;
-        public OnReenterCompleted OnReenterCompleted;
-        public OnTimeTravelInterrupted OnTimeTravelInterrupted;
+        public OnTimeTravelCutscene OnTimeTravelCutscene;
+        public OnTimeTravelEnded OnTimeTravelEnded;
+        public OnReenterStarted OnReenterStarted;
+        public OnReenterEnded OnReenterEnded;
+
         public OnLightningStrike OnLightningStrike;
         public OnHoverTransformation OnHoverTransformation;
         public OnRCToggle OnRCToggle;
@@ -73,10 +83,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public OnHoodboxReady OnHoodboxReady;
         public OnMissionChange OnMissionChange;
         public OnSimulateSpeedReached OnSimulateSpeedReached;
-
-        public OnStartTimeTravelSequenceAtSpeed OnStartTimeTravelSequenceAtSpeed;
-        public On88MphSpeed On88MphSpeed;
-        public OnPlayDiodeSoundAtSpeed OnPlayDiodeSoundAtSpeed;
 
         public SetRCMode SetRCMode;
         public SetTimeCircuits SetTimeCircuits;

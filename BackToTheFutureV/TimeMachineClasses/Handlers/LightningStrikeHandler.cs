@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.TimeMachineClasses.RC;
+using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
@@ -16,11 +17,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public LightningStrikeHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            Events.StartLightningStrike += PrepareStrike;
-            Events.OnStopLightningEffects += Stop;
+            Events.StartLightningStrike += StartLightningStrike;
+            Events.OnTimeTravelStarted += Stop;
         }
 
-        private void PrepareStrike(int delay)
+        private void StartLightningStrike(int delay)
         {
             _delay = Game.GameTime + delay * 1000;
         }
@@ -44,8 +45,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void Strike()
         {
-            Properties.HasBeenStruckByLightning = true;
-
             Sounds.Thunder?.Play();
 
             Props.Lightnings.IsSequenceLooped = Properties.AreTimeCircuitsOn;
@@ -57,6 +56,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.AreTimeCircuitsOn)
             {
                 IsPlaying = true;
+
+                Properties.HasBeenStruckByLightning = true;
 
                 Particles.LightningSparks?.Play();
 
@@ -72,9 +73,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 else
                     Events.OnSparksEnded?.Invoke(2000);
 
-                TimeMachineClone timeMachineClone = TimeMachine.Clone;
+                TimeMachineClone timeMachineClone = TimeMachine.Clone();
                 timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
                 RemoteTimeMachineHandler.AddRemote(timeMachineClone);
+
+                Events.OnLightningStrike?.Invoke();
             }
             else
             {
@@ -88,8 +91,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             _nextCheck = Game.GameTime + 60000;
             _delay = -1;
-
-            Events.OnLightningStrike?.Invoke();
         }
 
         public override void KeyDown(Keys key)

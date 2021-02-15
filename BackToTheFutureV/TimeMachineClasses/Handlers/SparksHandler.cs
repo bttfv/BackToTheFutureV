@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Players;
-using BackToTheFutureV.Vehicles;
+﻿using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
 using GTA.Native;
@@ -13,44 +12,29 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public SparksHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
-            Events.OnWormholeTypeChanged += OnWormholeTypeChanged;
-            Events.OnSparksEnded += SparksEnded;
-            TimeHandler.OnDayNightChange += OnWormholeTypeChanged;
 
-            Events.On88MphSpeed += On88MphSpeed;
-            Events.OnStartTimeTravelSequenceAtSpeed += OnStartTimeTravelSequenceAtSpeed;
-            Events.OnPlayDiodeSoundAtSpeed += OnPlayDiodeSoundAtSpeed;
-
-            OnWormholeTypeChanged();
+            Events.OnSIDMaxSpeedReached += OnSIDMaxSpeedReached;
+            Events.OnTimeTravelSpeedReached += OnTimeTravelSpeedReached;
+            Events.OnSparksEnded += OnSparksEnded;
         }
 
-        public void On88MphSpeed(bool over)
+        public void OnTimeTravelSpeedReached(bool over)
         {
-            if (!Properties.AreTimeCircuitsOn)
+            if (!Properties.AreTimeCircuitsOn || !over)
                 return;
 
-            if (over)
-                WaypointScript.LoadWaypointPosition(true);
+            PlayerSwitch.Disable = true;
+
+            Properties.TimeTravelPhase = TimeTravelPhase.OpeningWormhole;
+
+            //Function.Call(Hash.SPECIAL_ABILITY_LOCK, CommonSettings.PlayerPed.Model);
+            Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
+            Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
+
+            WaypointScript.LoadWaypointPosition(true);
         }
 
-        public void OnStartTimeTravelSequenceAtSpeed(bool over)
-        {
-            if (!Properties.AreTimeCircuitsOn)
-                return;
-
-            if (over)
-            {
-                PlayerSwitch.Disable = true;
-
-                Properties.TimeTravelPhase = TimeTravelPhase.OpeningWormhole;
-
-                //Function.Call(Hash.SPECIAL_ABILITY_LOCK, CommonSettings.PlayerPed.Model);
-                Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
-                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
-            }
-        }
-
-        public void OnPlayDiodeSoundAtSpeed(bool over)
+        public void OnSIDMaxSpeedReached(bool over)
         {
             if (!Properties.AreTimeCircuitsOn)
                 return;
@@ -59,25 +43,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Sounds.DiodesGlowing?.Play();
             else
             {
-                Sounds.DiodesGlowing?.Stop();
-
-                if (Properties.TimeTravelPhase == TimeTravelPhase.InTime)
-                    return;
-
                 if (Players.Wormhole.IsPlaying)
                 {
                     Sounds.WormholeInterrupted?.Play();
-                    Events.OnTimeTravelInterrupted?.Invoke();
+                    Events.OnSparksInterrupted?.Invoke();
                 }
 
                 Stop();
             }
-        }
-
-        public void OnWormholeTypeChanged()
-        {
-            Players.Wormhole?.Dispose();
-            Players.Wormhole = new WormholeAnimationPlayer(TimeMachine);
         }
 
         private void OnTimeCircuitsToggle()
@@ -91,17 +64,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.AreTimeCircuitsOn && !Properties.IsPhotoModeOn)
                 return;
 
-            if (!Vehicle.IsVisible)
-            {
-                if (Players.Wormhole.IsPlaying)
-                    Stop();
-
-                return;
-            }
-
             Players.Wormhole?.Process();
 
-            if (Constants.OverStartTimeTravelSequenceAtSpeed)
+            if (Constants.OverTimeTravelAtSpeed)
             {
                 if (!Utils.IsPadShaking)
                     Utils.SetPadShake(Constants.WormholeLengthTime, 100);
@@ -133,7 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     }
 
                     if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.Over88MphSpeed)
-                        SparksEnded();
+                        Events.OnSparksEnded?.Invoke();
                 }
                 else
                 {
@@ -149,6 +114,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public override void Stop()
         {
             Utils.StopPadShake();
+
+            Players.Wormhole?.Stop();
 
             Sounds.Sparks?.Stop(true);
 
@@ -180,7 +147,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         }
 
-        private void SparksEnded(int delay = 0)
+        private void OnSparksEnded(int delay = 0)
         {
             Stop();
 

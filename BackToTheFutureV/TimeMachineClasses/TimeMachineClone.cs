@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
@@ -22,7 +23,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         public TimeMachineCloneManager(List<TimeMachine> timeMachines)
         {
             foreach (TimeMachine x in timeMachines)
-                timeMachineClones.Add(x.Clone);
+                timeMachineClones.Add(x.Clone());
         }
 
         public void SpawnAll()
@@ -74,7 +75,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             Mods = timeMachine.Mods.Clone();
             Properties = timeMachine.Properties.Clone();
-            Vehicle = new VehicleReplica(timeMachine.Vehicle);
+            Vehicle = timeMachine.Vehicle.Clone();
 
             if (Properties.TimeTravelDestPos != Vector3.Zero)
             {

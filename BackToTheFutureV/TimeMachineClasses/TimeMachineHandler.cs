@@ -231,7 +231,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 timeMachine.Properties.AreTimeCircuitsOn = true;
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);
 
-                timeMachine.Events.OnReenter?.Invoke();
+                timeMachine.Events.OnReenterStarted?.Invoke();
             }
 
             if (spawnFlags.HasFlag(SpawnFlags.New) && WaybackMachineHandler.Enabled)
@@ -353,8 +353,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                     return;
 
-                if (!CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible)
-                    CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible = true;
+                if (!CurrentTimeMachine.Constants.HUDProperties.IsHUDVisible)
+                    CurrentTimeMachine.Constants.HUDProperties.IsHUDVisible = true;
 
                 if (CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
                     Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, false);
