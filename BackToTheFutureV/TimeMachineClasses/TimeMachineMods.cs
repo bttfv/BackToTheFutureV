@@ -75,8 +75,8 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (wheelType != Wheel)
                 Wheel = wheelType;
 
-            if (Wheel == WheelType.RailroadInvisible && TimeMachine.Props != null && !TimeMachine.Props.RRWheels[0].IsSpawned)
-                TimeMachine.Props?.RRWheels?.ForEach(x => x?.SpawnProp());
+            if (Wheel == WheelType.RailroadInvisible && TimeMachine.Props != null && !TimeMachine.Props.RRWheels.IsSpawned)
+                TimeMachine.Props?.RRWheels?.SpawnProp();
 
             ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
 
@@ -186,7 +186,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
                 if (value == WheelType.RailroadInvisible)
                 {
-                    TimeMachine.Props?.RRWheels?.ForEach(x => x?.SpawnProp());
+                    TimeMachine.Props?.RRWheels?.SpawnProp();
 
                     if (!IsDMC12)
                         return;
@@ -202,7 +202,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 }
                 else
                 {
-                    TimeMachine.Props?.RRWheels?.ForEach(x => x?.Delete());
+                    TimeMachine.Props?.RRWheels?.Delete();
 
                     Utils.SetTiresBurst(Vehicle, false);
                 }

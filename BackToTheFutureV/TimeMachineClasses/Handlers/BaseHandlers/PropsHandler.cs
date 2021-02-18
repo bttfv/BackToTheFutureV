@@ -3,7 +3,6 @@ using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
 
@@ -16,7 +15,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         //Hover Mode
         public AnimateProp HoverModeWheelsGlow;
         public AnimateProp HoverModeVentsGlow;
-        public AnimatePropsHandler HoverModeUnderbodyLights = new AnimatePropsHandler();
+        public AnimatePropsHandler HoverModeUnderbodyLights;
 
         //Fuel
         public AnimateProp EmptyGlowing;
@@ -50,7 +49,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public AnimateProp InvisibleProp;
 
         //Wheels
-        public List<AnimateProp> RRWheels = new List<AnimateProp>();
+        public AnimatePropsHandler RRWheels;
 
         //TCD
         public AnimateProp DiodesOff;
@@ -70,6 +69,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             //Wheels
+            RRWheels = new AnimatePropsHandler();
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_lf"));
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_lr"));
             RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rf"));
@@ -96,11 +96,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             InvisibleProp.SpawnProp();
 
             //Lightnings
-            Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100 };
+            Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true };
             foreach (CustomModel x in ModelHandler.Lightnings)
                 Lightnings.Add(new AnimateProp(Vehicle, x, Vector3.Zero, Vector3.Zero));
 
-            LightningsOnCar = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100 };
+            LightningsOnCar = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true };
             foreach (CustomModel x in ModelHandler.LightningsOnCar)
                 LightningsOnCar.Add(new AnimateProp(Vehicle, x, Vector3.Zero, Vector3.Zero));
 
@@ -111,11 +111,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             BTTFDecals.SpawnProp();
 
             //Hover Mode
-            HoverModeUnderbodyLights.SequenceSpawn = true;
-            HoverModeUnderbodyLights.SequenceInterval = 100;
-            HoverModeUnderbodyLights.IsSequenceLooped = true;
+            HoverModeUnderbodyLights = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 200, IsSequenceLooped = true };
             foreach (CustomModel model in ModelHandler.UnderbodyLights)
-                HoverModeUnderbodyLights.Add(new AnimateProp(model, Vehicle, Vector3.Zero, Vector3.Zero));
+                HoverModeUnderbodyLights.Add(new AnimateProp(Vehicle, model, Vector3.Zero, Vector3.Zero));
 
             HoverModeVentsGlow = new AnimateProp(Vehicle, ModelHandler.VentGlowing, Vector3.Zero, Vector3.Zero);
             HoverModeWheelsGlow = new AnimateProp(Vehicle, ModelHandler.HoverGlowing, Vector3.Zero, Vector3.Zero)
@@ -201,7 +199,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TFCHandle?.Dispose();
 
             //Wheels
-            RRWheels?.ForEach(x => x?.Dispose());
+            RRWheels?.Dispose();
 
             //TCD
             DiodesOff?.Dispose();
