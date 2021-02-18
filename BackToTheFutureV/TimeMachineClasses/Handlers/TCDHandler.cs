@@ -1,6 +1,7 @@
 ﻿using BackToTheFutureV.GUI;
 using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
@@ -52,11 +53,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (TimeMachine.Mods.IsDMC12)
             {
-                RenderTarget = new RenderTarget(new Model("bttf_3d_row_" + slotType), "bttf_tcd_row_" + slotType, TimeMachine.Vehicle, offsets[slotType], new Vector3(355.9951f, 0.04288517f, 352.7451f));
+                RenderTarget = new RenderTarget(ModelHandler.TCDRTModels[slotType], "bttf_tcd_row_" + slotType, TimeMachine.Vehicle, offsets[slotType], new Vector3(355.9951f, 0.04288517f, 352.7451f));
                 RenderTarget.CreateProp();
 
-                amProp = new AnimateProp(TimeMachine.Vehicle, new Model($"bttf_{slotType}_am"), Vector3.Zero, Vector3.Zero);
-                pmProp = new AnimateProp(TimeMachine.Vehicle, new Model($"bttf_{slotType}_pm"), Vector3.Zero, Vector3.Zero);
+                amProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TCDAMModels[slotType], Vector3.Zero, Vector3.Zero);
+                pmProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TCDPMModels[slotType], Vector3.Zero, Vector3.Zero);
 
                 RenderTarget.OnRenderTargetDraw += OnRenderTargetDraw;
             }

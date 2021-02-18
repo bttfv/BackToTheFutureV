@@ -43,14 +43,15 @@ namespace BackToTheFutureV.Utility
         public static CustomModel FluxModel = new CustomModel("bttf_flux");
         public static CustomModel FluxBlueModel = new CustomModel("bttf_flux_blue");
         public static CustomModel GaugeGlow = new CustomModel("bttf_gauges_glow");
-        public static Dictionary<int, CustomModel> GaugeModels = new Dictionary<int, CustomModel>();
+        public static List<CustomModel> GaugeModels = new List<CustomModel>();
         public static Dictionary<string, CustomModel> TCDRTModels = new Dictionary<string, CustomModel>();
+        public static Dictionary<string, CustomModel> TCDAMModels = new Dictionary<string, CustomModel>();
+        public static Dictionary<string, CustomModel> TCDPMModels = new Dictionary<string, CustomModel>();
         public static CustomModel WhiteSphere = new CustomModel("tm_flash");
         public static CustomModel Compass = new CustomModel("bttf_compass");
         public static CustomModel CoilsIndicatorLeft = new CustomModel("indicator_left");
         public static CustomModel CoilsIndicatorRight = new CustomModel("indicator_right");
         public static CustomModel InvisibleProp = new CustomModel("prop_dummy");
-        //public static List<CustomModel> Lightnings = new List<CustomModel>() { new CustomModel("ls_1"), new CustomModel("ls_2"), new CustomModel("ls_3"), new CustomModel("ls_4") };
         public static List<CustomModel> Lightnings = new List<CustomModel>() { new CustomModel("bolt_m0"), new CustomModel("bolt_m1"), new CustomModel("bolt_m2") };
         public static List<CustomModel> LightningsOnCar = new List<CustomModel>();
         public static CustomModel SID = new CustomModel("bttf_sid");
@@ -72,10 +73,10 @@ namespace BackToTheFutureV.Utility
         public static CustomModel RearWheelProp = new CustomModel("bttf_rearwheelprop");
         public static CustomModel WormholeBlue = new CustomModel("bttf_wormhole_blue");
         public static CustomModel WormholeBlueNight = new CustomModel("bttf_wormhole_blue_night");
-        public static Dictionary<int, CustomModel> UnderbodyLights = new Dictionary<int, CustomModel>();
+        public static List<CustomModel> UnderbodyLights = new List<CustomModel>();
 
         // BTTF3 Props
-        public static Dictionary<int, CustomModel> CoilSeparated = new Dictionary<int, CustomModel>();
+        public static List<CustomModel> CoilSeparated = new List<CustomModel>();
         public static CustomModel RedWheelProp = new CustomModel("bttf3_redwheel_prop");
         public static CustomModel RRWheelProp = new CustomModel("wheel_rr_prop");
         public static CustomModel GreenPrestoLogProp = new CustomModel("presto_log1");
@@ -108,66 +109,26 @@ namespace BackToTheFutureV.Utility
 
         public static void RequestModels()
         {
-            GetAllModels(typeof(ModelHandler)).ForEach(x => PreloadModel(x));
-
-            foreach (CustomModel x in Lightnings)
-                PreloadModel(x);
-
             for (int i = 0; i <= 10; i++)
-            {
-                string str = "bolt_s_" + i.ToString();
-
-                CustomModel model = new CustomModel(str);
-
-                PreloadModel(model);
-                LightningsOnCar.Add(model);
-            }
+                LightningsOnCar.Add(new CustomModel($"bolt_s_{i}"));
 
             for (int i = 1; i < 6; i++)
-            {
-                string str = "bttf_light_" + i.ToString();
-
-                CustomModel model = new CustomModel(str);
-
-                PreloadModel(model);
-                UnderbodyLights.Add(i, model);
-            }
+                UnderbodyLights.Add(new CustomModel($"bttf_light_{i}"));
 
             foreach (string strModel in tcdTypes)
             {
-                string str = "bttf_3d_row_" + strModel;
-
-                CustomModel slotModel = new CustomModel(str);
-
-                PreloadModel(slotModel);
-                TCDRTModels.Add(strModel, slotModel);
-
-                string amModelStr = $"bttf_{strModel}_am";
-                string pmModelStr = $"bttf_{strModel}_pm";
-                CustomModel amModel = new CustomModel(amModelStr);
-                CustomModel pmModel = new CustomModel(pmModelStr);
-
-                PreloadModel(amModel);
-                PreloadModel(pmModel);
+                TCDRTModels.Add(strModel, new CustomModel($"bttf_3d_row_{strModel}"));
+                TCDAMModels.Add(strModel, new CustomModel($"bttf_{strModel}_am"));
+                TCDPMModels.Add(strModel, new CustomModel($"bttf_{strModel}_pm"));
             }
 
             for (int i = 1; i <= 3; i++)
-            {
-                string modelString = $"bttf_needle{i}";
-                CustomModel model = new CustomModel(modelString);
-                PreloadModel(model);
-
-                GaugeModels.Add(i, model);
-            }
+                GaugeModels.Add(new CustomModel($"bttf_needle{i}"));
 
             for (int i = 1; i <= 11; i++)
-            {
-                string modelStr = $"bttf3_coils_glowing_{i}";
-                CustomModel model = new CustomModel(modelStr);
-                PreloadModel(model);
+                CoilSeparated.Add(new CustomModel($"bttf3_coils_glowing_{i}"));
 
-                CoilSeparated.Add(i, model);
-            }
+            GetAllModels(typeof(ModelHandler)).ForEach(x => PreloadModel(x));
         }
     }
 }

@@ -7,6 +7,7 @@ using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
+using GTA.Native;
 using System;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
@@ -69,6 +70,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Utils.PlayerVehicle == Vehicle && !Properties.IsRemoteControlled && !Utils.HideGUI)
                 Utils.HideGUI = true;
+
+            if (Utils.PlayerPed.IsInVehicle(Vehicle))
+            {
+                Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Utils.PlayerPed);
+                Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Utils.PlayerPed);
+            }
 
             if (Game.GameTime < gameTimer)
                 return;

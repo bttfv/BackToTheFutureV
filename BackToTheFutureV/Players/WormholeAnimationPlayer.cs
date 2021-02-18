@@ -218,7 +218,7 @@ namespace BackToTheFutureV.Players
         {
             _separatedCoils = new List<AnimateProp>();
 
-            foreach (CustomModel coilModel in ModelHandler.CoilSeparated.Values)
+            foreach (CustomModel coilModel in ModelHandler.CoilSeparated)
             {
                 _separatedCoils.Add(new AnimateProp(TimeMachine.Vehicle, coilModel, Vector3.Zero, Vector3.Zero));
                 _separatedCoils.Last().SpawnProp();

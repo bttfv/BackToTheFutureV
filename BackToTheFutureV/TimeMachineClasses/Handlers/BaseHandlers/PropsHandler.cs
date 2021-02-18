@@ -16,7 +16,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         //Hover Mode
         public AnimateProp HoverModeWheelsGlow;
         public AnimateProp HoverModeVentsGlow;
-        public List<AnimateProp> HoverModeUnderbodyLights = new List<AnimateProp>();
+        public AnimatePropsHandler HoverModeUnderbodyLights = new AnimatePropsHandler();
 
         //Fuel
         public AnimateProp EmptyGlowing;
@@ -106,18 +106,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             if (!Mods.IsDMC12)
                 return;
+
             BTTFDecals = new AnimateProp(Vehicle, ModelHandler.BTTFDecals, Vector3.Zero, Vector3.Zero);
             BTTFDecals.SpawnProp();
 
             //Hover Mode
-            for (int i = 1; i < 6; i++)
-            {
-                if (!ModelHandler.UnderbodyLights.TryGetValue(i, out CustomModel model))
-                    continue;
-
-                AnimateProp prop = new AnimateProp(Vehicle, model, Vector3.Zero, Vector3.Zero);
-                HoverModeUnderbodyLights.Add(prop);
-            }
+            HoverModeUnderbodyLights.SequenceSpawn = true;
+            HoverModeUnderbodyLights.SequenceInterval = 100;
+            HoverModeUnderbodyLights.IsSequenceLooped = true;
+            foreach (CustomModel model in ModelHandler.UnderbodyLights)
+                HoverModeUnderbodyLights.Add(new AnimateProp(model, Vehicle, Vector3.Zero, Vector3.Zero));
 
             HoverModeVentsGlow = new AnimateProp(Vehicle, ModelHandler.VentGlowing, Vector3.Zero, Vector3.Zero);
             HoverModeWheelsGlow = new AnimateProp(Vehicle, ModelHandler.HoverGlowing, Vector3.Zero, Vector3.Zero)
@@ -175,9 +173,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             //Hover Mode
             HoverModeWheelsGlow?.Dispose();
             HoverModeVentsGlow?.Dispose();
-
-            foreach (AnimateProp prop in HoverModeUnderbodyLights)
-                prop?.Dispose();
+            HoverModeUnderbodyLights?.Dispose();
 
             //Fuel
             EmptyGlowing?.Dispose();

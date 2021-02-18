@@ -10,7 +10,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
     public class StarterHandler : Handler
     {
         private bool _isRestarting;
-        private bool _firstTimeTravel;
 
         private int _restartAt;
         private int _nextCheck;
@@ -68,7 +67,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void OnReenterEnded()
         {
             if (ModSettings.EngineStallEvent && Mods.Reactor == ReactorType.Nuclear)
-                _firstTimeTravel = true;
+                IsPlaying = true;
         }
 
         private void SetEngineStall(bool state)
@@ -92,9 +91,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Properties.IsEngineStalling = true;
 
-            _firstTimeTravel = true;
             _isRestarting = false;
             _nextCheck = Game.GameTime + 100;
+            IsPlaying = true;
         }
 
         public override void Process()
@@ -110,19 +109,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (Mods.Reactor != ReactorType.Nuclear && _firstTimeTravel)
+            if (Mods.Reactor != ReactorType.Nuclear && IsPlaying)
             {
                 if (Properties.IsEngineStalling)
                     Stop();
 
-                _firstTimeTravel = false;
+                IsPlaying = false;
             }
 
-            if (Game.GameTime < _nextCheck || !_firstTimeTravel || !Vehicle.IsVisible)
-                return;
+            if (IsPlaying && !Vehicle.IsVisible && !Vehicle.IsEngineRunning && !Properties.IsEngineStalling)
+                Properties.PhotoEngineStallActive = true;
 
-            if (!Vehicle.IsEngineRunning && !Properties.IsEngineStalling && !Properties.IsFueled)
-                Properties.IsEngineStalling = true;
+            if (Game.GameTime < _nextCheck || !IsPlaying || !Vehicle.IsVisible)
+                return;
 
             if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled)
             {
@@ -205,8 +204,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Properties.PhotoEngineStallActive = false;
             _isRestarting = false;
 
-            if (!Properties.IsFreezed)
-                _firstTimeTravel = false;
+            if (!Properties.IsDefrosting)
+                IsPlaying = false;
 
             Vehicle.FuelLevel = _deloreanMaxFuelLevel;
             Sounds.EngineRestarter?.Stop();

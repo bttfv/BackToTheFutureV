@@ -27,9 +27,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private bool _landingSmoke;
 
-        private int _currentLightIndex;
-        private int _nextLightChange;
-
         private Vector3 _forceToBeApplied = Vector3.Zero;
 
         private bool _hoverGlowUp;
@@ -94,8 +91,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.IsFlying)
                 SetFlyMode(false, true);
 
-            foreach (AnimateProp x in Props.HoverModeUnderbodyLights)
-                x?.Delete();
+            Props.HoverModeUnderbodyLights?.Delete();
         }
 
         private void OnAnimCompleted()
@@ -261,7 +257,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
 
             // Process underbody lights
-            UnderbodyLights();
+            if (Mods.IsDMC12 && !Props.HoverModeUnderbodyLights.IsSequencePlaying)
+                Props.HoverModeUnderbodyLights.Play();
 
             if (Properties.IsLanding)
             {
@@ -473,30 +470,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _forceToBeApplied.Y = -Vehicle.Velocity.Y;
                 _forceToBeApplied.X = -Vehicle.Velocity.X;
             }
-        }
-
-        private void UnderbodyLights()
-        {
-            // Check if we're up to next light change
-            if (Game.GameTime < _nextLightChange) return;
-
-            // Update light index
-            _currentLightIndex--;
-
-            if (_currentLightIndex < 0)
-                _currentLightIndex = 4;
-
-            // Update the actual lights
-            for (int i = Props.HoverModeUnderbodyLights.Count - 1; i >= 0; i--)
-            {
-                if (_currentLightIndex != i)
-                    Props.HoverModeUnderbodyLights[i]?.Delete();
-                else
-                    Props.HoverModeUnderbodyLights[i]?.SpawnProp();
-            }
-
-            // Update next change time
-            _nextLightChange = Game.GameTime + 100;
         }
 
         public void Boost()

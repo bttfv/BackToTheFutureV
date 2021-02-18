@@ -75,6 +75,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 TimeMachineClone timeMachineClone = TimeMachine.Clone();
                 timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
+                timeMachineClone.Properties.PreviousTime = Utils.GetWorldTime();
                 RemoteTimeMachineHandler.AddRemote(timeMachineClone);
 
                 Events.OnLightningStrike?.Invoke();
@@ -86,8 +87,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Properties.IsFlying)
                     Properties.AreFlyingCircuitsBroken = true;
             }
-
-            Vehicle.EngineHealth -= 700;
 
             _nextCheck = Game.GameTime + 60000;
             _delay = -1;
