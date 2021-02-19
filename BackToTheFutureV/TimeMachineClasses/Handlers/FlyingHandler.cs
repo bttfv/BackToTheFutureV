@@ -254,7 +254,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Players.HoverModeWheels?.Process();
 
             if (!Vehicle.IsVisible)
+            {
+                if (Mods.IsDMC12 && Props.HoverModeUnderbodyLights.IsSequencePlaying)
+                    Props.HoverModeUnderbodyLights.Delete();
+
                 return;
+            }
 
             // Process underbody lights
             if (Mods.IsDMC12 && !Props.HoverModeUnderbodyLights.IsSequencePlaying)
