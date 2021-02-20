@@ -90,6 +90,7 @@
     <Compile Include="GUI\RCGUIScaleform.cs" />
     <Compile Include="GUI\SIDScaleform.cs" />
     <Compile Include="PersistenceScript.cs" />
+    <Compile Include="Settings\RCGUIEditer.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ConstantsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\SIDHandler.cs" />
     <Compile Include="Utility\ExternalHUD.cs" />

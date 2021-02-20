@@ -142,6 +142,7 @@ namespace BackToTheFutureV
             RemoteTimeMachineHandler.Process();
             FireTrailsHandler.Process();
             TcdEditer.Process();
+            RCGUIEditer.Process();
             MissionHandler.Process();
             StoryTimeMachine.ProcessAll();
             MenuHandler.Process();

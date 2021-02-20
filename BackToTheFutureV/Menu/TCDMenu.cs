@@ -15,6 +15,8 @@ namespace BackToTheFutureV.Menu
         private NativeItem changeTCD;
         private NativeItem resetToDefaultTCD;
 
+        private NativeItem changeRCGUI;
+
         private NativeCheckboxItem hideSID;
         private NativeCheckboxItem useExternalTCD;
         private NativeCheckboxItem useNetworkTCD;
@@ -32,13 +34,13 @@ namespace BackToTheFutureV.Menu
             tcdBackground.ItemChanged += TcdBackground_ItemChanged;
 
             Add(changeTCD = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TCDEditMode"), Game.GetLocalizedString("BTTFV_Menu_TCDEditMode_Description")));
+            Add(changeRCGUI = new NativeItem("Edit RC HUD", Game.GetLocalizedString("BTTFV_Menu_TCDEditMode_Description")));
+            Add(resetToDefaultTCD = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TCDReset"), Game.GetLocalizedString("BTTFV_Menu_TCDReset_Description")));
 
             Add(hideSID = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_HideSID"), Game.GetLocalizedString("BTTFV_TCD_Edit_HideSID_Description"), ModSettings.HideSID));
             Add(useExternalTCD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_External"), Game.GetLocalizedString("BTTFV_TCD_Edit_External_Description"), ModSettings.ExternalTCDToggle));
             Add(useNetworkTCD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_Remote"), Game.GetLocalizedString("BTTFV_TCD_Edit_Remote_Description"), ModSettings.RemoteTCDToggle));
             Add(hideIngameTCD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_HideHUD"), Game.GetLocalizedString("BTTFV_TCD_Edit_HideHUD_Description"), ModSettings.HideIngameTCDToggle));
-
-            Add(resetToDefaultTCD = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TCDReset"), Game.GetLocalizedString("BTTFV_Menu_TCDReset_Description")));
         }
 
         private void TCDMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -69,6 +71,7 @@ namespace BackToTheFutureV.Menu
 
             if (sender == resetToDefaultTCD)
             {
+                RCGUIEditer.ResetToDefault();
                 TcdEditer.ResetToDefault();
 
                 ModSettings.HideIngameTCDToggle = false;
@@ -76,6 +79,13 @@ namespace BackToTheFutureV.Menu
                 ModSettings.RemoteTCDToggle = false;
 
                 ModSettings.SaveSettings();
+            }
+
+            if (sender == changeRCGUI)
+            {
+                RCGUIEditer.SetEditMode(true);
+
+                Close();
             }
         }
 

@@ -1,8 +1,6 @@
 ﻿using FusionLibrary;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 
 namespace BackToTheFutureV.GUI
 {

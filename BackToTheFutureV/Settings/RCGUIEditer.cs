@@ -1,5 +1,5 @@
-﻿using BackToTheFutureV.GUI;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using BackToTheFutureV.TimeMachineClasses.RC;
 using FusionLibrary;
 using GTA;
 using GTA.UI;
@@ -7,15 +7,10 @@ using System.Drawing;
 
 namespace BackToTheFutureV.Settings
 {
-    public class TcdEditer
+    public class RCGUIEditer
     {
-        static TcdEditer()
+        static RCGUIEditer()
         {
-            Preview = new TimeCircuitsScaleform("bttf_2d_gui");
-            Preview.SetVisible("red", false);
-            Preview.SetVisible("green", false);
-            Preview.SetVisible("yellow", false);
-
             InstrumentalMenu = new InstrumentalMenu();
             AddButtons();
         }
@@ -23,19 +18,11 @@ namespace BackToTheFutureV.Settings
         public static bool IsEditing { get; private set; }
 
         private static readonly InstrumentalMenu InstrumentalMenu;
-        private static readonly TimeCircuitsScaleform Preview;
 
         private static int exitDelay = 500;
 
-        private static PointF origSIDPos;
-        private static float origSIDScale;
-
         private static PointF origPos;
         private static float origScale;
-
-        private static float posSIDX;
-        private static float posSIDY;
-        private static float scaleSID;
 
         private static float posX;
         private static float posY;
@@ -51,6 +38,8 @@ namespace BackToTheFutureV.Settings
         {
             IsEditing = false;
 
+            RCManager.TimerBarCollection.Visible = false;
+
             ModSettings.SaveSettings();
             ModSettings.OnGUIChange?.Invoke();
         }
@@ -59,44 +48,35 @@ namespace BackToTheFutureV.Settings
         {
             if (!toggle)
             {
-                ModSettings.SIDPosition = origSIDPos;
-                ModSettings.SIDScale = origSIDScale;
-
-                ModSettings.TCDPosition = origPos;
-                ModSettings.TCDScale = origScale;
+                ModSettings.RCGUIPosition = origPos;
+                ModSettings.RCGUIScale = origScale;
 
                 Notification.Show(Game.GetLocalizedString("BTTFV_MENU_TCDEditMode_Cancel"));
+
+                RCManager.TimerBarCollection.Visible = false;
 
                 Save();
                 return;
             }
 
-            origSIDPos = ModSettings.SIDPosition;
-            origSIDScale = ModSettings.SIDScale;
-
-            origPos = ModSettings.TCDPosition;
-            origScale = ModSettings.TCDScale;
+            origPos = ModSettings.RCGUIPosition;
+            origScale = ModSettings.RCGUIScale;
 
             exitDelay = Game.GameTime + 500;
 
-            posSIDX = origSIDPos.X;
-            posSIDY = origSIDPos.Y;
-            scaleSID = origSIDScale;
-
             posX = origPos.X;
             posY = origPos.Y;
-            scale = ModSettings.TCDScale;
+            scale = ModSettings.RCGUIScale;
+
+            RCManager.TimerBarCollection.Visible = true;
 
             IsEditing = true;
         }
 
         public static void ResetToDefault()
         {
-            ModSettings.SIDPosition = new PointF(0.947f, 0.437f);
-            ModSettings.SIDScale = 0.3f;
-
-            ModSettings.TCDPosition = new PointF(0.88f, 0.75f);
-            ModSettings.TCDScale = 0.3f;
+            ModSettings.RCGUIPosition = new PointF(0.901f, 0.879f);
+            ModSettings.RCGUIScale = 0.15f;
 
             ModSettings.SaveSettings();
         }
@@ -126,26 +106,15 @@ namespace BackToTheFutureV.Settings
 
             InstrumentalMenu.Render2DFullscreen();
 
-            Preview.Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / Screen.AspectRatio, ModSettings.TCDScale));
-
-            ScaleformsHandler.SID2D.Render2D(ModSettings.SIDPosition, new SizeF(ModSettings.SIDScale * (800f / 1414f) / Screen.AspectRatio, ModSettings.SIDScale));
+            ScaleformsHandler.RCGUI.Preview();
 
             Game.DisableAllControlsThisFrame();
 
             float _posX, _posY, _scale;
 
-            if (Game.IsControlPressed(Control.VehicleHandbrake))
-            {
-                _posX = posSIDX;
-                _posY = posSIDY;
-                _scale = scaleSID;
-            }
-            else
-            {
-                _posX = posX;
-                _posY = posY;
-                _scale = scale;
-            }
+            _posX = posX;
+            _posY = posY;
+            _scale = scale;
 
             // This is a long mess but i dont think there any other way to write it
             if (Game.IsControlPressed(Control.PhoneUp) && Game.IsControlPressed(Control.PhoneRight)) // Up Right
@@ -216,24 +185,12 @@ namespace BackToTheFutureV.Settings
             else if (_scale < 0.1f)
                 _scale = 0.1f;
 
-            if (Game.IsControlPressed(Control.VehicleHandbrake))
-            {
-                posSIDX = _posX;
-                posSIDY = _posY;
-                scaleSID = _scale;
+            posX = _posX;
+            posY = _posY;
+            scale = _scale;
 
-                ModSettings.SIDPosition = new PointF(posSIDX, posSIDY);
-                ModSettings.SIDScale = scaleSID;
-            }
-            else
-            {
-                posX = _posX;
-                posY = _posY;
-                scale = _scale;
-
-                ModSettings.TCDPosition = new PointF(posX, posY);
-                ModSettings.TCDScale = scale;
-            }
+            ModSettings.RCGUIPosition = new PointF(posX, posY);
+            ModSettings.RCGUIScale = scale;
 
             // Otherwise game instantly saves changes
             if (Game.GameTime < exitDelay)

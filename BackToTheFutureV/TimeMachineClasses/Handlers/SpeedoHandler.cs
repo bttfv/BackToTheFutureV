@@ -15,7 +15,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public SpeedoHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            
+
         }
 
         public override void Dispose()

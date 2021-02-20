@@ -7,7 +7,6 @@ using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
@@ -117,7 +116,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _handleBoost = true;
 
                 Events.SetSimulateSpeed?.Invoke(64, 8);
-            }         
+            }
         }
 
         private void OnSwitchingComplete()
@@ -258,7 +257,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (_handleBoost && !_boostStarted && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
                 _boostStarted = true;
 
-            if (_handleBoost &&  _boostStarted && !Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+            if (_handleBoost && _boostStarted && !Game.IsControlPressed(GTA.Control.VehicleAccelerate))
             {
                 StopForcedHandbrake();
 

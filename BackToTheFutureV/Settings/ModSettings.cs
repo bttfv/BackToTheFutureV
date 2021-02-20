@@ -17,10 +17,10 @@ namespace BackToTheFutureV
         private static Version LastCompatibleVersion = new Version(2, 0, 0, 0);
         public static OnGUIChange OnGUIChange { get; set; }
 
-        public static PointF RCGUIPosition { get; set; } = new PointF(0.88f, 0.75f);
+        public static PointF RCGUIPosition { get; set; } = new PointF(0.901f, 0.879f);
         public static float RCGUIScale { get; set; } = 0.15f;
 
-        public static PointF SIDPosition { get; set; } = new PointF(0.94f, 0.44f);
+        public static PointF SIDPosition { get; set; } = new PointF(0.947f, 0.437f);
         public static float SIDScale { get; set; } = 0.3f;
         public static bool HideSID { get; set; } = false;
         public static PointF TCDPosition { get; set; } = new PointF(0.88f, 0.75f);
@@ -80,6 +80,9 @@ namespace BackToTheFutureV
             else if (savedVersion != Main.Version)
                 settings.SetValue("General", "Version", Main.Version);
 
+            RCGUIPosition = new PointF(float.Parse(settings.GetValue("RCGUI", "PositionX", RCGUIPosition.X.ToString("G", info)), info), float.Parse(settings.GetValue("RCGUI", "PositionY", RCGUIPosition.Y.ToString("G", info)), info));
+            RCGUIScale = float.Parse(settings.GetValue("RCGUI", "Scale", RCGUIScale.ToString("G", info)), info);
+
             SIDPosition = new PointF(float.Parse(settings.GetValue("SID", "PositionX", SIDPosition.X.ToString("G", info)), info), float.Parse(settings.GetValue("SID", "PositionY", SIDPosition.Y.ToString("G", info)), info));
             SIDScale = float.Parse(settings.GetValue("SID", "Scale", SIDScale.ToString("G", info)), info);
             HideSID = settings.GetValue("SID", "HideSID", HideSID);
@@ -120,6 +123,10 @@ namespace BackToTheFutureV
 
         public static void SaveSettings()
         {
+            settings.SetValue("RCGUI", "PositionX", RCGUIPosition.X.ToString("G", info));
+            settings.SetValue("RCGUI", "PositionY", RCGUIPosition.Y.ToString("G", info));
+            settings.SetValue("RCGUI", "Scale", RCGUIScale.ToString("G", info));
+
             settings.SetValue("SID", "PositionX", SIDPosition.X.ToString("G", info));
             settings.SetValue("SID", "PositionY", SIDPosition.Y.ToString("G", info));
             settings.SetValue("SID", "Scale", SIDScale.ToString("G", info));
