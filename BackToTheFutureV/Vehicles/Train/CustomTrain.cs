@@ -25,8 +25,8 @@ namespace BackToTheFutureV.Utility
 
         public SetWheelie SetWheelie;
 
-        public bool IsRogersSierra { get; private set; }
-        public RogersSierra RogersSierra { get; private set; }
+        public bool IsRogersSierra => Train.IsRogersSierra();
+        public RogersSierra RogersSierra => TrainManager.GetRogersSierraFromVehicle(Train);
 
         private float _wheelieRotX;
         private float _wheeliePosZ = -0.35f;
@@ -386,13 +386,8 @@ namespace BackToTheFutureV.Utility
             if (IsRogersSierra)
                 return;
 
-            RogersSierra = TrainManager.ClosestRogersSierra;
-
-            if (RogersSierra is null || RogersSierra.IsExploded || RogersSierra.RejectAttach || !CheckForClosestRogersSierra())
-            {
-                RogersSierra = null;
+            if (TrainManager.ClosestRogersSierra is null || TrainManager.ClosestRogersSierra.IsExploded || TrainManager.ClosestRogersSierra.RejectAttach || !CheckForClosestRogersSierra())
                 return;
-            }
 
             Function.Call(Hash.DETACH_ENTITY, TargetVehicle, false, false);
 
@@ -407,11 +402,9 @@ namespace BackToTheFutureV.Utility
             AttachOffset.Y += 0.1f;
             AttachOffset.Z -= _wheeliePosZ;
 
-            IsRogersSierra = true;
+            Train = TrainManager.ClosestRogersSierra.ColDeLorean;
 
-            Train = RogersSierra.ColDeLorean;
-
-            RogersSierra.AttachedVehicle = TargetVehicle;
+            TrainManager.ClosestRogersSierra.AttachedVehicle = TargetVehicle;
 
             IsAccelerationOn = false;
 
@@ -423,7 +416,6 @@ namespace BackToTheFutureV.Utility
         {
             RogersSierra.SetRejectDelay(500);
             RogersSierra.AttachedVehicle = null;
-            RogersSierra = null;
 
             DeleteTrain();
         }
