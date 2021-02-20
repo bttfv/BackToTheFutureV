@@ -1,9 +1,13 @@
-﻿using BackToTheFutureV.TimeMachineClasses.RC;
+﻿using BackToTheFutureV.Settings;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
@@ -26,8 +30,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private NativeInput rcHandbrake;
 
         private bool _forcedHandbrake = false;
-
+        private bool _boostStarted = false;
         private bool _handleBoost = false;
+
+        private float _origTorque;
+
+        private bool simulateSpeed;
+        private int maxSpeed;
+        private int maxSeconds;
+        private float currentSimSpeed;
 
         public RcHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -38,6 +49,22 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Events.SetRCMode += SetRCMode;
             Events.OnSimulateSpeedReached += StopForcedHandbrake;
+
+            Events.SetSimulateSpeed += SetSimulateSpeed;
+        }
+
+        public void SetSimulateSpeed(int maxSpeed, int seconds)
+        {
+            if (maxSpeed == 0)
+            {
+                simulateSpeed = false;
+                return;
+            }
+
+            this.maxSpeed = maxSpeed;
+            maxSeconds = seconds;
+            currentSimSpeed = 0;
+            simulateSpeed = true;
         }
 
         public void SetRCMode(bool state, bool instant = false)
@@ -84,11 +111,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (_forcedHandbrake)
             {
+                _origTorque = Properties.TorqueMultiplier;
                 Properties.TorqueMultiplier *= 4;
+                _boostStarted = false;
                 _handleBoost = true;
 
                 Events.SetSimulateSpeed?.Invoke(64, 8);
-            }
+            }         
         }
 
         private void OnSwitchingComplete()
@@ -110,6 +139,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (_handleBoost)
             {
                 Events.SetSimulateSpeed?.Invoke(0, 0);
+                _boostStarted = false;
                 _handleBoost = false;
             }
 
@@ -176,22 +206,63 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
         }
 
+        public void DrawGUI()
+        {
+            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing)
+                return;
+
+            float mphSpeed = Vehicle.GetMPHSpeed();
+
+            if (simulateSpeed)
+            {
+                if (Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+                    currentSimSpeed += (maxSpeed / maxSeconds) * Game.LastFrameTime;
+                else
+                {
+                    currentSimSpeed -= (maxSpeed / (maxSeconds / 2)) * Game.LastFrameTime;
+
+                    if (currentSimSpeed < 0)
+                        currentSimSpeed = 0;
+                }
+
+                mphSpeed = currentSimSpeed;
+
+                if (mphSpeed >= maxSpeed)
+                {
+                    simulateSpeed = false;
+                    Events.OnSimulateSpeedReached?.Invoke();
+                }
+            }
+
+            ScaleformsHandler.RCGUI?.SetSpeed(mphSpeed);
+            ScaleformsHandler.RCGUI?.SetStop(_handleBoost && _forcedHandbrake);
+            ScaleformsHandler.RCGUI?.Draw2D();
+        }
+
         public override void Process()
         {
             if (!Properties.IsRemoteControlled)
             {
                 if (_handleBoost)
                 {
-                    Properties.TorqueMultiplier /= 4;
+                    Properties.TorqueMultiplier = _origTorque;
+                    _boostStarted = false;
                     _handleBoost = false;
                 }
 
                 return;
             }
 
-            if (_handleBoost && Game.IsControlPressed(GTA.Control.VehicleBrake))
+            DrawGUI();
+
+            if (_handleBoost && !_boostStarted && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+                _boostStarted = true;
+
+            if (_handleBoost &&  _boostStarted && !Game.IsControlPressed(GTA.Control.VehicleAccelerate))
             {
-                Properties.TorqueMultiplier /= 4;
+                StopForcedHandbrake();
+
+                Properties.TorqueMultiplier = _origTorque;
                 _handleBoost = false;
             }
 

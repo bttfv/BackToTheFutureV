@@ -23,6 +23,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public static SIDScaleform SID3D { get; private set; }
         public RenderTarget SIDRT { get; private set; }
 
+        //RC GUI
+        public static RCGUIScaleform RCGUI { get; private set; }
+
         static ScaleformsHandler()
         {
             GUI = new TimeCircuitsScaleform("bttf_2d_gui");
@@ -31,6 +34,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             SID2D = new SIDScaleform("bttf_2d_sid");
             SID3D = new SIDScaleform("bttf_3d_sid");
+
+            RCGUI = new RCGUIScaleform("bttf_2d_rc_gui");
         }
 
         public ScaleformsHandler(TimeMachine timeMachine) : base(timeMachine)

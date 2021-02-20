@@ -13,14 +13,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private int nextCheck;
         private int currentSpeed = -1;
 
-        private bool simulateSpeed;
-        private int maxSpeed;
-        private int maxSeconds;
-        private float currentSimSpeed;
-
         public SpeedoHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            Events.SetSimulateSpeed += SetSimulateSpeed;
+            
         }
 
         public override void Dispose()
@@ -30,20 +25,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-        }
-
-        public void SetSimulateSpeed(int maxSpeed, int seconds)
-        {
-            if (maxSpeed == 0)
-            {
-                simulateSpeed = false;
-                return;
-            }
-
-            this.maxSpeed = maxSpeed;
-            maxSeconds = seconds;
-            currentSimSpeed = 0;
-            simulateSpeed = true;
         }
 
         public override void Process()
@@ -58,27 +39,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.TimeTravelPhase < TimeTravelPhase.InTime)
             {
                 int mphSpeed = ((int)Vehicle.GetMPHSpeed());
-
-                if (simulateSpeed)
-                {
-                    if (Game.IsControlPressed(GTA.Control.VehicleAccelerate))
-                        currentSimSpeed += (maxSpeed / maxSeconds) * Game.LastFrameTime;
-                    else
-                    {
-                        currentSimSpeed -= (maxSpeed / (maxSeconds / 2)) * Game.LastFrameTime;
-
-                        if (currentSimSpeed < 0)
-                            currentSimSpeed = 0;
-                    }
-
-                    mphSpeed = (int)currentSimSpeed;
-
-                    if (mphSpeed >= maxSpeed)
-                    {
-                        simulateSpeed = false;
-                        Events.OnSimulateSpeedReached?.Invoke();
-                    }
-                }
 
                 if (mphSpeed > 88)
                     mphSpeed = 88;

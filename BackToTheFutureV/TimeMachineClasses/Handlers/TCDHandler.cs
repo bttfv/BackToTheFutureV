@@ -474,7 +474,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void DrawGUI()
         {
-            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing)
+            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing || Properties.IsRemoteControlled)
                 return;
 
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);

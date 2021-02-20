@@ -87,6 +87,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\RCGUIScaleform.cs" />
     <Compile Include="GUI\SIDScaleform.cs" />
     <Compile Include="PersistenceScript.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ConstantsHandler.cs" />

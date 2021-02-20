@@ -17,6 +17,9 @@ namespace BackToTheFutureV
         private static Version LastCompatibleVersion = new Version(2, 0, 0, 0);
         public static OnGUIChange OnGUIChange { get; set; }
 
+        public static PointF RCGUIPosition { get; set; } = new PointF(0.88f, 0.75f);
+        public static float RCGUIScale { get; set; } = 0.15f;
+
         public static PointF SIDPosition { get; set; } = new PointF(0.94f, 0.44f);
         public static float SIDScale { get; set; } = 0.3f;
         public static bool HideSID { get; set; } = false;
