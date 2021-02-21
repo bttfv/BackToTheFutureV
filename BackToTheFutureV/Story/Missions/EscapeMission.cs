@@ -1,10 +1,13 @@
-﻿using BackToTheFutureV.Memory;
-using BackToTheFutureV.TimeMachineClasses;
+﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
+using FusionLibrary;
+using FusionLibrary.Extensions;
+using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
 using System.Windows.Forms;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Story.Missions
 {
@@ -47,6 +50,9 @@ namespace BackToTheFutureV.Story.Missions
 
         public void StartOn(TimeMachine timeMachine)
         {
+            if (IsPlaying)
+                return;
+
             GTA.UI.Screen.ShowSubtitle(Game.GetLocalizedString("BTTFV_Mission_Escape_FoundMe"));
             TimeMachine = timeMachine;
             Start();
@@ -61,11 +67,12 @@ namespace BackToTheFutureV.Story.Missions
             Vehicle.Heading = TargetPed.Heading;
             Vehicle.AddBlip();
 
-            Vehicle.MaxSpeed = Utils.MphToMs(70);
+            Vehicle.MaxSpeed = (70f).ToMS();
 
             Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
 
             Function.Call(Hash.TASK_VEHICLE_CHASE, Driver, TargetPed);
+            Function.Call(Hash.SET_TASK_VEHICLE_CHASE_BEHAVIOR_FLAG, Driver, VehicleDrivingFlags.IgnorePathFinding | VehicleDrivingFlags.AvoidVehicles, true);
             Function.Call(Hash.SET_TASK_VEHICLE_CHASE_IDEAL_PURSUIT_DISTANCE, Driver, 0f);
             Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, Driver, 1.0f);
 
@@ -73,10 +80,11 @@ namespace BackToTheFutureV.Story.Missions
             Shooter.Weapons.Give(WeaponHash.Pistol, 999, true, true);
             Shooter.Task.VehicleShootAtPed(TargetPed);
 
-            Peds = new PedGroup();
-
-            Peds.Add(Driver, true);
-            Peds.Add(Shooter, false);
+            Peds = new PedGroup
+            {
+                { Driver, true },
+                { Shooter, false }
+            };
 
             TimeMachine.Events.OnTimeTravelStarted += OnTimeTravelStarted;
             TimeMachine.Properties.MissionType = MissionType.Escape;
@@ -140,7 +148,7 @@ namespace BackToTheFutureV.Story.Missions
 
         public override void KeyDown(KeyEventArgs key)
         {
-            
+
         }
     }
 }

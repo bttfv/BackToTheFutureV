@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BackToTheFutureV.Story.Missions;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace BackToTheFutureV.Story
@@ -8,6 +9,8 @@ namespace BackToTheFutureV.Story
         private static List<Mission> _missions = new List<Mission>();
 
         public static TrainMission TrainMission = new TrainMission();
+
+        public static EscapeMission EscapeMission = new EscapeMission();
 
         public static void Add(Mission mission)
         {

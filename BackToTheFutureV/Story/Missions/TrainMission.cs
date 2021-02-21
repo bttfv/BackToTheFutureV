@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.Story
+namespace BackToTheFutureV.Story.Missions
 {
     public delegate void OnVehicleAttachedToRogersSierra(TimeMachine timeMachine);
     public delegate void OnVehicleDetachedFromRogersSierra(TimeMachine timeMachine);
