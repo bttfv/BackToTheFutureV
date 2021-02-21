@@ -11,7 +11,8 @@ namespace BackToTheFutureV.Players
         public TimeMachine TimeMachine { get; }
 
         public TimeMachineMods Mods => TimeMachine.Mods;
-
+        public EventsHandler Events => TimeMachine.Events;
+        public ParticlesHandler Particles => TimeMachine.Particles;
         public PropertiesHandler Properties => TimeMachine.Properties;
         public SoundsHandler Sounds => TimeMachine.Sounds;
         public PropsHandler Props => TimeMachine.Props;

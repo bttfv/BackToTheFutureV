@@ -1,5 +1,7 @@
 ﻿using BackToTheFutureV.HUD.Core;
+using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
+using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using System.Windows.Forms;
@@ -66,6 +68,78 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                         return Properties.IsOnTracks ? 82 : 59;
                     default:
                         return 82;
+                }
+            }
+        }
+
+        public string WormholeRenderTargetName
+        {
+            get
+            {
+                switch (Mods.WormholeType)
+                {
+                    case WormholeType.BTTF1:
+                        return "bttf_wormhole";
+                    case WormholeType.BTTF2:
+                        return "bttf_wormhole_blue";
+                    case WormholeType.BTTF3:
+                        return "bttf_wormhole_red";
+                    default:
+                        return "bttf_wormhole";
+                }
+            }
+        }
+
+        public int WormholeScaleformIndex
+        {
+            get
+            {
+                switch (Mods.WormholeType)
+                {
+                    case WormholeType.BTTF1:
+                        return 0;
+                    case WormholeType.BTTF2:
+                        return 1;
+                    case WormholeType.BTTF3:
+                        return 2;
+                    default:
+                        return 0;
+                }
+            }
+        }
+
+        public CustomModel WormholeModel
+        {
+            get
+            {
+                switch (Mods.WormholeType)
+                {
+                    case WormholeType.BTTF1:
+                        return TimeHandler.IsNight ? ModelHandler.WormholeVioletNight : ModelHandler.WormholeViolet;
+                    case WormholeType.BTTF2:
+                        return TimeHandler.IsNight ? ModelHandler.WormholeBlueNight : ModelHandler.WormholeBlue;
+                    case WormholeType.BTTF3:
+                        return TimeHandler.IsNight ? ModelHandler.WormholeRedNight : ModelHandler.WormholeRed;
+                    default:
+                        return TimeHandler.IsNight ? ModelHandler.WormholeVioletNight : ModelHandler.WormholeViolet;
+                }
+            }
+        }
+
+        public CustomModel SparkModel
+        {
+            get
+            {
+                switch (Mods.WormholeType)
+                {
+                    case WormholeType.BTTF1:
+                        return TimeHandler.IsNight ? ModelHandler.SparkNightModel : ModelHandler.SparkModel;
+                    case WormholeType.BTTF2:
+                        return TimeHandler.IsNight ? ModelHandler.SparkNightModel : ModelHandler.SparkModel;
+                    case WormholeType.BTTF3:
+                        return TimeHandler.IsNight ? ModelHandler.SparkRedNightModel : ModelHandler.SparkRedModel;
+                    default:
+                        return TimeHandler.IsNight ? ModelHandler.SparkNightModel : ModelHandler.SparkModel;
                 }
             }
         }

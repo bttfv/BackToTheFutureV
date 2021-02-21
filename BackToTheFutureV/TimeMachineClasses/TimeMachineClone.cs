@@ -10,7 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.RegularExpressions;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses

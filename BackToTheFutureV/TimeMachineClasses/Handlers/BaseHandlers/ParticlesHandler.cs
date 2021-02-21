@@ -26,6 +26,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         //Sparks
         public PtfxEntityBonePlayer LightningSparks;
+        public PtfxEntityPlayer Sparks;
 
         public ParticlesHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -36,6 +37,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             LightExplosion = new PtfxEntityPlayer("scr_josh3", "scr_josh3_light_explosion", Vehicle, Vector3.Zero, Vector3.Zero, 4f);
             TimeTravelEffect = new PtfxEntityPlayer("core", "veh_exhaust_spacecraft", Vehicle, new Vector3(0, 4, 0), Vector3.Zero, 8f, true);
             Flash = new PtfxEntityPlayer("core", "ent_anim_paparazzi_flash", Vehicle, Vector3.Zero, Vector3.Zero, 50f);
+            Sparks = new PtfxEntityPlayer("scr_paletoscore", "scr_paleto_box_sparks", Props.InvisibleProp, Vector3.Zero, Vector3.Zero, 1.5f, true, true, 300);
 
             if (!Mods.IsDMC12)
                 return;

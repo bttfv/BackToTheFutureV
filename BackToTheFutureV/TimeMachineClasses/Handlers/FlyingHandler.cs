@@ -33,10 +33,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private bool _reload;
 
+        private Hash _defaultHorn;
+
         public FlyingHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             if (Mods.HoverUnderbody == ModState.On)
                 OnHoverUnderbodyToggle();
+
+            _defaultHorn = Function.Call<Hash>(Hash._GET_VEHICLE_HORN_HASH, Vehicle);
 
             _flyModeInput = new NativeInput(ModControls.Hover);
             _flyModeInput.OnControlLongPressed += OnFlyModeControlJustLongPressed;
@@ -212,6 +216,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Mods.IsDMC12)
                 Function.Call(Hash._FORCE_VEHICLE_ENGINE_AUDIO, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
 
+            if (Mods.IsDMC12)
+                Function.Call(Hash.OVERRIDE_VEH_HORN, Vehicle, true, _defaultHorn);
+
             if (!Properties.IsLanding && !Properties.IsFlying)
                 Properties.TorqueMultiplier = 1.4f;
 
@@ -385,7 +392,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             // If the Handbrake control is pressed
             // Using this so that controllers are also supported
-            if (Game.IsControlPressed(ModControls.HoverBoost) && Vehicle.IsEngineRunning)
+            if (Game.IsControlPressed(ModControls.HoverBoost) && Game.IsControlPressed(Control.VehicleAccelerate) && Vehicle.IsEngineRunning)
             {
                 if (Game.IsControlJustPressed(ModControls.HoverBoost))
                     Utils.SetPadShake(100, 200);

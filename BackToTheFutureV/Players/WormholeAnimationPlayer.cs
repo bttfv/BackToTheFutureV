@@ -113,67 +113,35 @@ namespace BackToTheFutureV.Players
         {
             _wheelPtfxes = new List<PtfxEntityPlayer>();
 
-            string wormholeRenderTargetName = "bttf_wormhole"; // default
-
-            switch (TimeMachine.Mods.WormholeType)
+            if (Mods.WormholeType == WormholeType.BTTF1 | Mods.WormholeType == WormholeType.BTTF3)
             {
-                case WormholeType.BTTF1:
+                SetupWheelPTFXs("veh_xs_vehicle_mods", "veh_nitrous", new Vector3(0, -0.25f, -0.15f), new Vector3(0, 0, 0), 1.3f);
 
-                    SetupWheelPTFXs("veh_xs_vehicle_mods", "veh_nitrous", new Vector3(0, -0.25f, -0.15f), new Vector3(0, 0, 0), 1.3f);
-
-                    _wormholeModel = ModelHandler.WormholeViolet;
-                    _wormholeNightModel = ModelHandler.WormholeVioletNight;
-                    _sparkModel = ModelHandler.SparkModel;
-                    _sparkNightModel = ModelHandler.SparkNightModel;
-                    wormholeScaleformIndex = 0;
-                    wormholeRenderTargetName = "bttf_wormhole";
-                    break;
-
-                case WormholeType.BTTF2:
-
-                    _wormholeModel = ModelHandler.WormholeBlue;
-                    _wormholeNightModel = ModelHandler.WormholeBlueNight;
-                    _sparkModel = ModelHandler.SparkModel;
-                    _sparkNightModel = ModelHandler.SparkNightModel;
-                    wormholeScaleformIndex = 1;
-                    wormholeRenderTargetName = "bttf_wormhole_blue";
-                    break;
-
-                case WormholeType.BTTF3:
-
-                    SetupWheelPTFXs("veh_xs_vehicle_mods", "veh_nitrous", new Vector3(0, -0.25f, -0.15f), new Vector3(0, 0, 0), 1.3f);
+                if (Mods.WormholeType == WormholeType.BTTF3)
                     SetupWheelPTFXs("des_bigjobdrill", "ent_ray_big_drill_start_sparks", new Vector3(0, 0, 0.18f), new Vector3(90f, 0, 0), 1f, true);
-
-                    _sparkPTFX = new PtfxEntityPlayer("scr_paletoscore", "scr_paleto_box_sparks", Props.InvisibleProp, Vector3.Zero, Vector3.Zero, 1.5f, true, true, 300);
-
-                    _wormholeModel = ModelHandler.WormholeRed;
-                    _wormholeNightModel = ModelHandler.WormholeRedNight;
-                    _sparkModel = ModelHandler.SparkRedModel;
-                    _sparkNightModel = ModelHandler.SparkRedNightModel;
-                    wormholeScaleformIndex = 2;
-                    wormholeRenderTargetName = "bttf_wormhole_red";
-                    break;
             }
 
             Scaleforms.WormholeRT?.Dispose();
 
             if (Mods.IsDMC12)
-                Scaleforms.WormholeRT = new RenderTarget(TimeHandler.IsNight ? _wormholeNightModel : _wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, "bttf_wormhole");
+                Scaleforms.WormholeRT = new RenderTarget(Constants.WormholeModel, Constants.WormholeRenderTargetName, Vehicle, "bttf_wormhole");
             else
-                Scaleforms.WormholeRT = new RenderTarget(TimeHandler.IsNight ? _wormholeNightModel : _wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 1, 0.4f));
+                Scaleforms.WormholeRT = new RenderTarget(Constants.WormholeModel, Constants.WormholeRenderTargetName, Vehicle, new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 1, 0.4f));
 
             Scaleforms.WormholeRT.OnRenderTargetDraw += OnRenderTargetDraw;
 
             _sparks = new List<SparkPlayer>();
 
             foreach (List<Vector3> sparks in SparkOffsets)
-                _sparks.Add(new SparkPlayer(TimeMachine, sparks, TimeHandler.IsNight ? _sparkNightModel : _sparkModel));
+                _sparks.Add(new SparkPlayer(TimeMachine, sparks, Constants.SparkModel));
 
             if (Mods.IsDMC12)
-                _coilsProp = new AnimateProp(TimeMachine.Vehicle, TimeHandler.IsNight ? ModelHandler.CoilsGlowingNight : ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
+            {
+                Props.Coils?.Dispose();
+                Props.Coils = new AnimateProp(Vehicle, TimeHandler.IsNight ? ModelHandler.CoilsGlowingNight : ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
+            }
         }
 
-        private int wormholeScaleformIndex;
         private bool _hasStartedWormhole;
 
         private int _startSparksAt;
@@ -183,9 +151,6 @@ namespace BackToTheFutureV.Players
 
         // Coil flickering (for BTTF3)
         private int _nextFlicker;
-        private List<AnimateProp> _separatedCoils;
-
-        private PtfxEntityPlayer _sparkPTFX;
 
         private int _nextSpark;
         private List<SparkPlayer> _sparks;
@@ -193,29 +158,10 @@ namespace BackToTheFutureV.Players
         private bool _playWormhole;
 
         private List<PtfxEntityPlayer> _wheelPtfxes = null;
-        private AnimateProp _coilsProp;
-
-        private Model _wormholeModel;
-        private Model _wormholeNightModel;
-        private Model _sparkModel;
-        private Model _sparkNightModel;
 
         private void OnRenderTargetDraw()
         {
-            ScaleformsHandler.WormholeScaleforms[wormholeScaleformIndex].Render2D(new PointF(0.5f, 0.5f), 0.9f);
-        }
-
-        private void SetupSeparatedCoils()
-        {
-            _separatedCoils = new List<AnimateProp>();
-
-            foreach (CustomModel coilModel in ModelHandler.CoilSeparated)
-            {
-                _separatedCoils.Add(new AnimateProp(TimeMachine.Vehicle, coilModel, Vector3.Zero, Vector3.Zero));
-                _separatedCoils.Last().SpawnProp();
-                _separatedCoils.Last().Visible = false;
-            }
-
+            ScaleformsHandler.WormholeScaleforms[Constants.WormholeScaleformIndex].Render2D(new PointF(0.5f, 0.5f), 0.9f);
         }
 
         private void HandleSparks()
@@ -243,33 +189,34 @@ namespace BackToTheFutureV.Players
 
         private void HandleCoilFlicker()
         {
-            if (numOfProps == 11 | Game.GameTime < _nextFlicker) return;
+            if (numOfProps == 11 | Game.GameTime < _nextFlicker)
+                return;
 
             //// Choose how many coil props can spawn at one time
             float by = (Vehicle.GetMPHSpeed() - 65f) / (88f - 65f);
 
-            if (TimeMachine.Properties.PhotoWormholeActive)
+            if (Properties.PhotoWormholeActive)
                 by = (70 - 65f) / (88f - 65f);
 
             numOfProps = Utils.Lerp(1, 11, by);
 
             // Delete all other props
-            _separatedCoils?.ForEach(x => { x.Visible = false; });
+            Props.SeparatedCoils?.Delete();
 
             if (numOfProps >= 11)
             {
                 numOfProps = 11;
 
-                TimeMachine.Mods.OffCoils = ModState.Off;
+                Mods.OffCoils = ModState.Off;
 
-                _coilsProp?.SpawnProp();
+                Props.Coils?.SpawnProp();
             }
             else
             {
                 List<int> propsToBeSpawned = Enumerable.Range(0, 11).OrderBy(x => Utils.Random.Next()).Take(numOfProps).ToList();
 
                 foreach (int propindex in propsToBeSpawned)
-                    _separatedCoils[propindex].Visible = true;
+                    Props.SeparatedCoils[propindex].SpawnProp();
 
                 // Set next flicker 
                 _nextFlicker = Game.GameTime + Utils.Random.Next(30, 60);
@@ -280,12 +227,12 @@ namespace BackToTheFutureV.Players
         {
             foreach (string wheelName in Utils.WheelNames)
             {
-                Vector3 worldPos = TimeMachine.Vehicle.Bones[wheelName].Position;
-                Vector3 offset = TimeMachine.Vehicle.GetPositionOffset(worldPos);
+                Vector3 worldPos = Vehicle.Bones[wheelName].Position;
+                Vector3 offset = Vehicle.GetPositionOffset(worldPos);
 
                 offset += wheelOffset;
 
-                PtfxEntityPlayer ptfx = new PtfxEntityPlayer(particleAssetName, particleName, TimeMachine.Vehicle, offset, wheelRot, size, true, doLoopHandling);
+                PtfxEntityPlayer ptfx = new PtfxEntityPlayer(particleAssetName, particleName, Vehicle, offset, wheelRot, size, true, doLoopHandling);
 
                 _wheelPtfxes.Add(ptfx);
             }
@@ -302,22 +249,19 @@ namespace BackToTheFutureV.Players
         {
             Stop();
 
-            if (TimeMachine.Mods.WormholeType == WormholeType.BTTF3)
-                SetupSeparatedCoils();
-
             IsPlaying = true;
             _hasStartedWormhole = false;
             _startSparksAt = Game.GameTime + 1000;
 
             // Spawn the coil model
-            if (TimeMachine.Mods.WormholeType != WormholeType.BTTF3)
+            if (Mods.WormholeType != WormholeType.BTTF3)
             {
-                TimeMachine.Mods.OffCoils = ModState.Off;
+                Mods.OffCoils = ModState.Off;
 
-                _coilsProp?.SpawnProp();
+                Props.Coils?.SpawnProp();
             }
 
-            TimeMachine.Events.OnWormholeStarted?.Invoke();
+            Events.OnWormholeStarted?.Invoke();
         }
 
         public override void Stop()
@@ -326,15 +270,13 @@ namespace BackToTheFutureV.Players
             _hasStartedWormhole = false;
             numOfProps = 0;
 
-            _coilsProp?.Delete();
+            Props.Coils?.Delete();
 
-            _separatedCoils?.ForEach(x => x?.Delete());
+            Props.SeparatedCoils?.Delete();
 
-            _separatedCoils?.Clear();
+            Mods.OffCoils = ModState.On;
 
-            TimeMachine.Mods.OffCoils = ModState.On;
-
-            _sparkPTFX?.StopNonLooped();
+            Particles.Sparks?.StopNonLooped();
 
             _sparks?.ForEach(x => x?.Stop());
 
@@ -349,7 +291,7 @@ namespace BackToTheFutureV.Players
                 return;
 
             // Handle coil flickering for BTTF3
-            if (Mods.IsDMC12 && TimeMachine.Mods.WormholeType == WormholeType.BTTF3)
+            if (Mods.IsDMC12 && Mods.WormholeType == WormholeType.BTTF3)
                 HandleCoilFlicker();
 
             if (_wheelPtfxes != null && !Properties.IsFlying)
@@ -363,13 +305,16 @@ namespace BackToTheFutureV.Players
                 }
             }
 
-            if (TimeMachine.Properties.IsFueled || TimeMachine.Properties.PhotoWormholeActive)
+            if (Properties.IsFueled || Properties.PhotoWormholeActive)
                 HandleSparks();
 
-            if (_sparkPTFX != null && !_sparkPTFX.IsPlaying)
-                _sparkPTFX.Play();
+            if (Mods.WormholeType == WormholeType.BTTF3)
+            {
+                if (!Particles.Sparks.IsPlaying)
+                    Particles.Sparks?.Play();
 
-            _sparkPTFX?.Process();
+                Particles.Sparks?.Process();
+            }
 
             // Some wormhole sparks logic.
             if (Game.GameTime >= _startWormholeAt && _hasStartedWormhole)
@@ -377,14 +322,14 @@ namespace BackToTheFutureV.Players
                 // Draw the wormhole RenderTarget, so that the animation appears on the prop
                 Scaleforms.WormholeRT.Draw();
 
-                if (!Scaleforms.WormholeRT.Prop.IsSpawned && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.PhotoWormholeActive))
+                if (!Scaleforms.WormholeRT.Prop.IsSpawned && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || Properties.PhotoWormholeActive))
                 {
                     Scaleforms.WormholeRT.CreateProp();
-                    ScaleformsHandler.WormholeScaleforms[wormholeScaleformIndex].CallFunction("START_ANIMATION");
+                    ScaleformsHandler.WormholeScaleforms[Constants.WormholeScaleformIndex].CallFunction("START_ANIMATION");
                     _hasStartedWormhole = true;
                 }
 
-                if (TimeMachine.Mods.WormholeType != WormholeType.BTTF3 && Game.GameTime >= _endAt && _playWormhole && !TimeMachine.Properties.PhotoWormholeActive)
+                if (Mods.WormholeType != WormholeType.BTTF3 && Game.GameTime >= _endAt && _playWormhole && !Properties.PhotoWormholeActive)
                 {
                     OnCompleted?.Invoke();
                     Stop();
@@ -393,7 +338,7 @@ namespace BackToTheFutureV.Players
                 }
             }
 
-            if (!_hasStartedWormhole && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.PhotoWormholeActive))
+            if (!_hasStartedWormhole && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || Properties.PhotoWormholeActive))
             {
                 _startWormholeAt = Game.GameTime + 1000;
                 _endAt = _startWormholeAt + Constants.WormholeLengthTime;
@@ -403,11 +348,9 @@ namespace BackToTheFutureV.Players
 
         public override void Dispose()
         {
-            _coilsProp?.Dispose();
             _wheelPtfxes?.ForEach(x => x?.Dispose());
-            _separatedCoils?.ForEach(x => x?.Dispose());
             _sparks?.ForEach(x => x?.Dispose());
-            _sparkPTFX?.StopNonLooped();
+            Particles.Sparks?.StopNonLooped();
         }
     }
 }

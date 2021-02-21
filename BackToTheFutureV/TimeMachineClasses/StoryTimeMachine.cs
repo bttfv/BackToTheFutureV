@@ -20,7 +20,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         public bool IsInvincible { get; }
         public DateTime DestinationTime { get; } = default;
         public DateTime PreviousTime { get; } = default;
-        public bool  IsOnTracks { get; }
+        public bool IsOnTracks { get; }
 
         public TimeMachine TimeMachine { get; private set; }
         public bool Spawned => TimeMachineHandler.Exists(TimeMachine);

@@ -26,6 +26,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         //Time travel
         public AnimateProp Coils;
+        public AnimatePropsHandler SeparatedCoils;
 
         //Flux capacitor
         public AnimateProp FluxBlue;
@@ -126,7 +127,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             EmptyOff = new AnimateProp(Vehicle, ModelHandler.EmptyOff, Vector3.Zero, Vector3.Zero);
 
             //Time travel
-            Coils = new AnimateProp(Vehicle, ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
+            //Coils = new AnimateProp(Vehicle, ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
+            SeparatedCoils = new AnimatePropsHandler();
+            foreach (CustomModel coilModel in ModelHandler.CoilSeparated)
+                SeparatedCoils.Add(new AnimateProp(TimeMachine.Vehicle, coilModel, Vector3.Zero, Vector3.Zero));
 
             //Plutonium gauge
             GaugeGlow = new AnimateProp(Vehicle, ModelHandler.GaugeGlow, Vector3.Zero, Vector3.Zero);

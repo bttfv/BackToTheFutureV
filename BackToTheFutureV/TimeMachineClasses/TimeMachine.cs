@@ -87,9 +87,9 @@ namespace BackToTheFutureV.TimeMachineClasses
             registeredHandlers.Add("SoundsHandler", Sounds = new SoundsHandler(this));
             registeredHandlers.Add("PropsHandler", Props = new PropsHandler(this));
             registeredHandlers.Add("ScaleformsHandler", Scaleforms = new ScaleformsHandler(this));
+            registeredHandlers.Add("ConstantsHandler", Constants = new ConstantsHandler(this));
             registeredHandlers.Add("PlayersHandler", Players = new PlayersHandler(this));
             registeredHandlers.Add("ParticlesHandler", Particles = new ParticlesHandler(this));
-            registeredHandlers.Add("ConstantsHandler", Constants = new ConstantsHandler(this));
 
             registeredHandlers.Add("SpeedoHandler", new SpeedoHandler(this));
             registeredHandlers.Add("TimeTravelHandler", new TimeTravelHandler(this));
@@ -439,16 +439,11 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Properties.PhotoGlowingCoilsActive && Props.Coils != null && !Props.Coils.IsSpawned)
             {
-                if (Utils.CurrentTime.Hour >= 20 || (Utils.CurrentTime.Hour >= 0 && Utils.CurrentTime.Hour <= 5))
-                    Props.Coils.SwapModel(ModelHandler.CoilsGlowingNight);
-                else
-                    Props.Coils.SwapModel(ModelHandler.CoilsGlowing);
-
                 Mods.OffCoils = ModState.Off;
                 Props.Coils.SpawnProp();
             }
 
-            if (!Properties.PhotoGlowingCoilsActive && Props.Coils != null && Props.Coils.IsSpawned)
+            if (!Properties.PhotoGlowingCoilsActive && Props.Coils != null && Props.Coils.IsSpawned && Properties.TimeTravelPhase != TimeTravelPhase.OpeningWormhole)
             {
                 Mods.OffCoils = ModState.On;
                 Props.Coils.Delete();
