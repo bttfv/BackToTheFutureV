@@ -3,7 +3,7 @@ using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
 using System;
-using static FusionLibrary.Enums;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {

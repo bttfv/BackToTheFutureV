@@ -2,7 +2,7 @@
 using GTA.Math;
 using System;
 using System.Reflection;
-using static FusionLibrary.Enums;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {

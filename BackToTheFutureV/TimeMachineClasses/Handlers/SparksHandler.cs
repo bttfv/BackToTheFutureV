@@ -3,7 +3,7 @@ using FusionLibrary;
 using GTA;
 using GTA.Native;
 using System.Windows.Forms;
-using static FusionLibrary.Enums;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

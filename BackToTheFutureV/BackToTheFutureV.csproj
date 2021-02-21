@@ -89,7 +89,8 @@
   <ItemGroup>
     <Compile Include="GUI\RCGUIScaleform.cs" />
     <Compile Include="GUI\SIDScaleform.cs" />
-    <Compile Include="PersistenceScript.cs" />
+    <Compile Include="Utility\InternalEnums.cs" />
+    <Compile Include="Utility\PersistenceScript.cs" />
     <Compile Include="Settings\RCGUIEditer.cs" />
     <Compile Include="Story\Missions\EscapeMission.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ConstantsHandler.cs" />

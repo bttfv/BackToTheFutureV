@@ -4,7 +4,7 @@ using BackToTheFutureV.TimeMachineClasses.RC;
 using FusionLibrary;
 using GTA;
 using System.Windows.Forms;
-using static FusionLibrary.Enums;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Menu
 {

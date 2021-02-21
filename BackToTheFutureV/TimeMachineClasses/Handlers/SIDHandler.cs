@@ -1,21 +1,16 @@
-﻿using BackToTheFutureV.HUD.Core;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using System.Windows.Forms;
-using static FusionLibrary.Enums;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class SIDHandler : Handler
     {
-        private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Constants.HUDProperties;
-
         private bool _waitTurnOn;
 
         private bool _randomDelay;
-
-        private const int _minDelay = 60;
 
         public SIDHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -77,7 +72,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (instant)
                 {
                     for (int row = 0; row < max; row++)
-                        HUDProperties.LedState[column][row] = on;
+                        Constants.HUDProperties.LedState[column][row] = on;
 
                     Constants.CurrentHeight[column] = max;
                 }
@@ -125,16 +120,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     if (Constants.NewHeight[column] > Constants.CurrentHeight[column])
                     {
-                        HUDProperties.LedState[column][Constants.CurrentHeight[column]] = true;
+                        Constants.HUDProperties.LedState[column][Constants.CurrentHeight[column]] = true;
                         Constants.CurrentHeight[column]++;
                     }
                     else if (Constants.NewHeight[column] < Constants.CurrentHeight[column])
                     {
                         Constants.CurrentHeight[column]--;
-                        HUDProperties.LedState[column][Constants.CurrentHeight[column]] = false;
+                        Constants.HUDProperties.LedState[column][Constants.CurrentHeight[column]] = false;
                     }
 
-                    Constants.LedDelay[column] = Game.GameTime + _minDelay + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
+                    Constants.LedDelay[column] = Game.GameTime + 60 + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
                 }
             }
 

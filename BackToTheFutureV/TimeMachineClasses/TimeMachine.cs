@@ -11,6 +11,7 @@ using GTA.Math;
 using GTA.Native;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses

@@ -10,7 +10,8 @@ using RogersSierraRailway;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using static FusionLibrary.Enums;
+using static BackToTheFutureV.Utility.InternalEnums;
+using static RogersSierraRailway.TrainExtensions;
 
 namespace BackToTheFutureV.Story.Missions
 {

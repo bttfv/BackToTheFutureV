@@ -3,6 +3,7 @@ using FusionLibrary;
 using GTA;
 using KlangRageAudioLibrary;
 using System;
+using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.RC

@@ -7,7 +7,7 @@ using GTA;
 using GTA.Math;
 using GTA.Native;
 using System.Windows.Forms;
-using static FusionLibrary.Enums;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Story.Missions
 {

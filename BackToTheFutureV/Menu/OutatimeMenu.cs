@@ -7,7 +7,7 @@ using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
 using System.Drawing;
-using static FusionLibrary.Enums;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Menu
 {
