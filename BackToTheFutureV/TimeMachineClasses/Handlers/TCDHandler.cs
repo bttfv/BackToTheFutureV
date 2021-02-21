@@ -112,7 +112,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void Update()
         {
-            if (toggle || IsDoingTimedVisible)
+            if (TimeMachine.Mods.IsDMC12 && (toggle || IsDoingTimedVisible))
                 Scaleforms.TCDRowsRT[SlotType]?.Draw();
 
             if (!IsDoingTimedVisible)
@@ -134,7 +134,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void Dispose()
         {
-            Scaleforms.TCDRowsRT[SlotType]?.Dispose();
+            if (TimeMachine.Mods.IsDMC12)
+                Scaleforms.TCDRowsRT[SlotType]?.Dispose();
+
             amProp?.Delete();
             pmProp?.Delete();
         }

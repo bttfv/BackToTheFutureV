@@ -106,7 +106,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (!name.ToLower().EndsWith(".dmc12"))
                 name = name + ".dmc12";
 
-            name = RemoveIllegalFileNameChars(name);
+            name = Utils.RemoveIllegalFileNameChars(name);
 
             IFormatter formatter = new BinaryFormatter();
 
@@ -162,13 +162,6 @@ namespace BackToTheFutureV.TimeMachineClasses
                 newName = newName + ".dmc12";
 
             File.Move($"{PresetsPath}/{name}", $"{PresetsPath}/{newName}");
-        }
-
-        private static string RemoveIllegalFileNameChars(string input, string replacement = "")
-        {
-            string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-            Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
-            return r.Replace(input, replacement);
         }
 
         public static TimeMachineClone Load(string name)
