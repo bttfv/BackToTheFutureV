@@ -496,7 +496,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public override string ToString()
         {
-            return TimeMachineHandler.TimeMachinesNoStory.IndexOf(this).ToString();
+            return TimeMachineHandler.TimeMachines.IndexOf(this).ToString();
         }
 
         public static implicit operator Vehicle(TimeMachine timeMachine)

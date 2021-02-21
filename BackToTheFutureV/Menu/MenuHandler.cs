@@ -27,7 +27,7 @@ namespace BackToTheFutureV.Menu
 
         public static void Process()
         {
-            if (!TcdEditer.IsEditing)
+            if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
             {
                 if ((ModControls.CombinationsForInteractionMenu && Game.IsEnabledControlPressed(ModControls.InteractionMenu1) && Game.IsControlPressed(ModControls.InteractionMenu2)) || (!ModControls.CombinationsForInteractionMenu && Game.IsControlPressed(ModControls.InteractionMenu1)))
                 {
@@ -58,7 +58,7 @@ namespace BackToTheFutureV.Menu
 
         public static void KeyDown(KeyEventArgs e)
         {
-            if (TcdEditer.IsEditing)
+            if (TcdEditer.IsEditing || RCGUIEditer.IsEditing)
                 return;
 
             if ((ModControls.UseControlForMainMenu && e.Control && e.KeyCode == ModControls.MainMenu) || (!ModControls.UseControlForMainMenu && !e.Control && e.KeyCode == ModControls.MainMenu))

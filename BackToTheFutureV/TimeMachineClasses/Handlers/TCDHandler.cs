@@ -474,7 +474,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void DrawGUI()
         {
-            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing || Properties.IsRemoteControlled)
+            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled)
                 return;
 
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
@@ -506,12 +506,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void SetTimeCircuitsOn(bool on)
         {
-            if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole | TcdEditer.IsEditing)
+            if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole | TcdEditer.IsEditing | RCGUIEditer.IsEditing)
                 return;
 
             if (!Properties.AreTimeCircuitsOn && Mods.Hoodbox == ModState.On && !Properties.AreHoodboxCircuitsReady)
             {
-                if (!TcdEditer.IsEditing)
+                if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
                     Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hoodbox_Warmup_TfcError"));
 
                 return;
@@ -519,7 +519,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (!Properties.AreTimeCircuitsOn && Properties.AreTimeCircuitsBroken)
             {
-                if (!TcdEditer.IsEditing)
+                if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
                     Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Chip_Damaged"));
 
                 return;

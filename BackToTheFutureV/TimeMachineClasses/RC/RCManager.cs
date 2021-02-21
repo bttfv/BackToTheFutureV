@@ -11,7 +11,7 @@ namespace BackToTheFutureV.TimeMachineClasses.RC
         public static TimeMachine RemoteControlling { get; private set; }
         public static bool IsRemoteOn => RemoteControlling != null;
 
-        public static TimerBarCollection TimerBarCollection { get; }
+        private static TimerBarCollection TimerBarCollection { get; }
         private static TimerBarProgress SignalBar;
 
         static RCManager()

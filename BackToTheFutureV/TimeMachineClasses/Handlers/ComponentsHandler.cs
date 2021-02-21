@@ -131,7 +131,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (Mods.Hoodbox == ModState.Off | Utils.PlayerPed.IsInVehicle() | TcdEditer.IsEditing | _warmUp > 0)
+            if (Mods.Hoodbox == ModState.Off | Utils.PlayerPed.IsInVehicle() | TcdEditer.IsEditing | RCGUIEditer.IsEditing | _warmUp > 0)
                 return;
 
             if (!(Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position) <= 2f * 2f))

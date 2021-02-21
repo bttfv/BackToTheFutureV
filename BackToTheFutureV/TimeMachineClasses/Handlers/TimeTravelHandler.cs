@@ -176,10 +176,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                         Vehicle.SetMPHSpeed(0);
 
-                        // Stop remote controlling
-                        if (Properties.IsRemoteControlled)
-                            RCManager.StopRemoteControl();
-
                         // Add to time travelled list
                         if (Properties.TimeTravelType == TimeTravelType.RC)
                             RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone());
@@ -229,6 +225,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     if (Properties.TimeTravelType == TimeTravelType.RC || Properties.TimeTravelType == TimeTravelType.Wayback)
                     {
+                        // Stop remote controlling
+                        if (Properties.IsRemoteControlled)
+                            RCManager.StopRemoteControl();
+
                         TimeMachineHandler.RemoveTimeMachine(TimeMachine, true, true);
 
                         Properties.TimeTravelPhase = TimeTravelPhase.Completed;

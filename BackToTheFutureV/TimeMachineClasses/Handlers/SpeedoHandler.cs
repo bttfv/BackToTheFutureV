@@ -32,7 +32,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f)
                 return;
 
-            Scaleforms.SpeedoRT.Draw();
+            Scaleforms.SpeedoRT?.Draw();
 
             if (Game.GameTime < nextCheck) return;
 
@@ -59,7 +59,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Constants.HUDProperties.Speed = mphSpeed;
 
-                    if (!TcdEditer.IsEditing)
+                    if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
                         UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2);
                 }
             }

@@ -76,10 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void RcHandbrake_OnControlJustPressed()
         {
-            if (!Properties.IsRemoteControlled || !Mods.IsDMC12)
-                return;
-
-            if (Mods.HoverUnderbody == ModState.On && Properties.IsFlying)
+            if (!Properties.IsRemoteControlled || Properties.IsFlying)
                 return;
 
             if (_forcedHandbrake || Game.IsControlPressed(GTA.Control.VehicleDuck))
@@ -87,7 +84,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Sounds.RCBrake?.Play();
                 SetForcedHandbrake();
 
-                if (_forcedHandbrake && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled)
+                if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled)
                     Sounds.RCSomeSerious?.Play();
             }
         }
@@ -100,9 +97,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void SetForcedHandbrake()
         {
-            if (!Mods.IsDMC12)
-                return;
-
             _forcedHandbrake = !_forcedHandbrake;
 
             Vehicle.IsBurnoutForced = _forcedHandbrake;
@@ -207,7 +201,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void DrawGUI()
         {
-            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing)
+            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
                 return;
 
             float mphSpeed = Vehicle.GetMPHSpeed();

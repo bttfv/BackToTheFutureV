@@ -45,7 +45,7 @@ namespace BackToTheFutureV.Menu
 
         private void RCMenu_Shown(object sender, EventArgs e)
         {
-            timeMachinesList.Items = TimeMachineHandler.TimeMachinesNoStory;
+            timeMachinesList.Items = TimeMachineHandler.TimeMachines;
 
             CanBeSelected = TrySelectCar();
         }

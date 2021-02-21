@@ -1,5 +1,4 @@
 ﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.TimeMachineClasses.RC;
 using FusionLibrary;
 using GTA;
 using GTA.UI;
@@ -38,8 +37,6 @@ namespace BackToTheFutureV.Settings
         {
             IsEditing = false;
 
-            RCManager.TimerBarCollection.Visible = false;
-
             ModSettings.SaveSettings();
             ModSettings.OnGUIChange?.Invoke();
         }
@@ -53,8 +50,6 @@ namespace BackToTheFutureV.Settings
 
                 Notification.Show(Game.GetLocalizedString("BTTFV_MENU_TCDEditMode_Cancel"));
 
-                RCManager.TimerBarCollection.Visible = false;
-
                 Save();
                 return;
             }
@@ -67,8 +62,6 @@ namespace BackToTheFutureV.Settings
             posX = origPos.X;
             posY = origPos.Y;
             scale = ModSettings.RCGUIScale;
-
-            RCManager.TimerBarCollection.Visible = true;
 
             IsEditing = true;
         }
@@ -110,66 +103,60 @@ namespace BackToTheFutureV.Settings
 
             Game.DisableAllControlsThisFrame();
 
-            float _posX, _posY, _scale;
-
-            _posX = posX;
-            _posY = posY;
-            _scale = scale;
-
             // This is a long mess but i dont think there any other way to write it
             if (Game.IsControlPressed(Control.PhoneUp) && Game.IsControlPressed(Control.PhoneRight)) // Up Right
             {
                 multiplier += MultiplierAdd;
-                _posY -= Offset * multiplier;
-                _posX += Offset * multiplier;
+                posY -= Offset * multiplier;
+                posX += Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneUp) && Game.IsControlPressed(Control.PhoneLeft)) // Up Left
             {
                 multiplier += MultiplierAdd;
-                _posY -= Offset * multiplier;
-                _posX -= Offset * multiplier;
+                posY -= Offset * multiplier;
+                posX -= Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneDown) && Game.IsControlPressed(Control.PhoneRight)) // Down Right
             {
                 multiplier += MultiplierAdd;
-                _posY += Offset * multiplier;
-                _posX += Offset * multiplier;
+                posY += Offset * multiplier;
+                posX += Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneDown) && Game.IsControlPressed(Control.PhoneLeft)) // Down Left
             {
                 multiplier += MultiplierAdd;
-                _posY += Offset * multiplier;
-                _posX -= Offset * multiplier;
+                posY += Offset * multiplier;
+                posX -= Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneUp)) // Up
             {
                 multiplier += MultiplierAdd;
-                _posY -= Offset * multiplier;
+                posY -= Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneDown)) // Down
             {
                 multiplier += MultiplierAdd;
-                _posY += Offset * multiplier;
+                posY += Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneLeft)) // Left
             {
                 multiplier += MultiplierAdd;
-                _posX -= Offset * multiplier;
+                posX -= Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.PhoneRight)) // Right
             {
                 multiplier += MultiplierAdd;
-                _posX += Offset * multiplier;
+                posX += Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.ReplayFOVDecrease)) // Scale down
             {
                 multiplier += MultiplierAdd;
-                _scale -= Offset * multiplier;
+                scale -= Offset * multiplier;
             }
             else if (Game.IsControlPressed(Control.ReplayFOVIncrease)) // Scale up
             {
                 multiplier += MultiplierAdd;
-                _scale += Offset * multiplier;
+                scale += Offset * multiplier;
             }
             else
             {
@@ -180,14 +167,10 @@ namespace BackToTheFutureV.Settings
                 multiplier = MultiplierMax;
 
             // Limit for scale
-            if (_scale > 1.0f)
-                _scale = 1.0f;
-            else if (_scale < 0.1f)
-                _scale = 0.1f;
-
-            posX = _posX;
-            posY = _posY;
-            scale = _scale;
+            if (scale > 1.0f)
+                scale = 1.0f;
+            else if (scale < 0.1f)
+                scale = 0.1f;
 
             ModSettings.RCGUIPosition = new PointF(posX, posY);
             ModSettings.RCGUIScale = scale;

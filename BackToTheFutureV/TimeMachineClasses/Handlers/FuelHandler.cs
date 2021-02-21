@@ -178,7 +178,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!CanRefuel(Vehicle, Utils.PlayerPed) || Properties.IsRefueling || Properties.IsFueled)
                 return;
 
-            if (!TcdEditer.IsEditing)
+            if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
                 Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Refuel_Hotkey"));
 
             if (Game.IsControlJustPressed(GTA.Control.Context))

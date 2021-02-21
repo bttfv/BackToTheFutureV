@@ -39,7 +39,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void KeyDown(Keys key)
         {
-            if (!Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible)
+            if (!Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible)
                 return;
 
             if (key == ModControls.InputToggle && ModSettings.UseInputToggle)

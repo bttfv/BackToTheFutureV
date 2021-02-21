@@ -19,15 +19,15 @@ namespace BackToTheFutureV.TimeMachineClasses
         public static TimeMachine ClosestTimeMachine { get; private set; }
         public static TimeMachine CurrentTimeMachine { get; private set; }
         public static float SquareDistToClosestTimeMachine { get; private set; } = -1;
-        public static List<TimeMachine> StoryTimeMachines { get; private set; } = new List<TimeMachine>();
-        public static List<TimeMachine> TimeMachines { get; private set; } = new List<TimeMachine>();
-        public static List<TimeMachine> TimeMachinesNoStory => TimeMachines.Except(StoryTimeMachines).ToList();
+        public static List<TimeMachine> StoryTimeMachines { get; } = new List<TimeMachine>();
+        private static List<TimeMachine> AllTimeMachines { get; } = new List<TimeMachine>();
+        public static List<TimeMachine> TimeMachines => AllTimeMachines.Except(StoryTimeMachines).ToList();
 
         private static List<TimeMachine> _timeMachinesToAdd = new List<TimeMachine>();
         private static Dictionary<TimeMachine, bool> _timeMachinesToRemove = new Dictionary<TimeMachine, bool>();
         private static Dictionary<TimeMachine, bool> _timeMachinesToRemoveWaitSounds = new Dictionary<TimeMachine, bool>();
 
-        public static int TimeMachineCount => TimeMachinesNoStory.Count();
+        public static int TimeMachineCount => TimeMachines.Count();
         public static int StoryTimeMachineCount => StoryTimeMachines.Count;
         private static bool _savedEmpty;
 
@@ -36,7 +36,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (TimeMachineCount == 0 && _savedEmpty)
                 return;
 
-            TimeMachineCloneManager.Save(TimeMachinesNoStory);
+            TimeMachineCloneManager.Save(TimeMachines);
 
             _savedEmpty = TimeMachineCount == 0;
         }
@@ -89,7 +89,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void AddTimeMachine(TimeMachine vehicle)
         {
-            if (_timeMachinesToAdd.Contains(vehicle) || TimeMachines.Contains(vehicle))
+            if (_timeMachinesToAdd.Contains(vehicle) || AllTimeMachines.Contains(vehicle))
                 return;
 
             _timeMachinesToAdd.Add(vehicle);
@@ -116,12 +116,12 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             vehicle?.Dispose(deleteVeh);
 
-            TimeMachines.Remove(vehicle);
+            AllTimeMachines.Remove(vehicle);
         }
 
         public static void RemoveAllTimeMachines(bool noCurrent = false)
         {
-            foreach (TimeMachine veh in TimeMachines.ToList())
+            foreach (TimeMachine veh in AllTimeMachines.ToList())
             {
                 if (noCurrent && veh.Vehicle == Utils.PlayerVehicle)
                     continue;
@@ -242,7 +242,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void KeyDown(Keys e)
         {
-            TimeMachines.ForEach(x => x.KeyDown(e));
+            AllTimeMachines.ForEach(x => x.KeyDown(e));
         }
 
         public static void Process()
@@ -264,19 +264,19 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (_timeMachinesToAdd.Count > 0)
             {
-                TimeMachines.AddRange(_timeMachinesToAdd);
+                AllTimeMachines.AddRange(_timeMachinesToAdd);
                 _timeMachinesToAdd.Clear();
             }
 
             UpdateClosestTimeMachine();
 
-            foreach (TimeMachine timeMachine in TimeMachines)
+            foreach (TimeMachine timeMachine in AllTimeMachines)
                 timeMachine.Process();
         }
 
         public static void Abort()
         {
-            TimeMachines.ForEach(x => x.Dispose(false));
+            AllTimeMachines.ForEach(x => x.Dispose(false));
         }
 
         public static TimeMachine GetTimeMachineFromIndex(int index)
@@ -284,7 +284,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (index > TimeMachineCount - 1)
                 return default;
 
-            return TimeMachines[index];
+            return AllTimeMachines[index];
         }
 
         public static TimeMachine GetTimeMachineFromVehicle(Vehicle vehicle)
@@ -292,7 +292,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (vehicle == null)
                 return null;
 
-            foreach (TimeMachine timeMachine in TimeMachines)
+            foreach (TimeMachine timeMachine in AllTimeMachines)
             {
                 if (timeMachine.Vehicle == vehicle)
                     return timeMachine;
@@ -309,12 +309,12 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static bool Exists(TimeMachine timeMachine)
         {
-            return TimeMachines.Contains(timeMachine) | _timeMachinesToAdd.Contains(timeMachine);
+            return AllTimeMachines.Contains(timeMachine) | _timeMachinesToAdd.Contains(timeMachine);
         }
 
         public static bool IsVehicleATimeMachine(Vehicle vehicle)
         {
-            foreach (TimeMachine timeMachine in TimeMachines)
+            foreach (TimeMachine timeMachine in AllTimeMachines)
                 if (timeMachine.Vehicle == vehicle)
                     return true;
 
@@ -327,7 +327,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void ExistenceCheck(DateTime time)
         {
-            TimeMachinesNoStory.ForEach(x =>
+            TimeMachines.ForEach(x =>
             {
                 if (x.LastDisplacementClone.Properties.DestinationTime > time && Utils.PlayerVehicle != x.Vehicle)
                     RemoveTimeMachine(x);
@@ -371,13 +371,13 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             CurrentTimeMachine = null;
 
-            if (TimeMachines.Count == 0 && SquareDistToClosestTimeMachine != -1)
+            if (AllTimeMachines.Count == 0 && SquareDistToClosestTimeMachine != -1)
             {
                 ClosestTimeMachine = null;
                 SquareDistToClosestTimeMachine = -1;
             }
 
-            foreach (TimeMachine timeMachine in TimeMachines)
+            foreach (TimeMachine timeMachine in AllTimeMachines)
             {
                 float dist = timeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position);
 

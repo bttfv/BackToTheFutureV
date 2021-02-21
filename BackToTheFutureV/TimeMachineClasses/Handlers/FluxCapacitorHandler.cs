@@ -76,7 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
 
             if (Properties.IsGivenScaleformPriority)
-                Scaleforms.FluxCapacitorRT.Draw();
+                Scaleforms.FluxCapacitorRT?.Draw();
 
             if (Properties.IsFluxDoingBlueAnim)
                 FluxBlueLight.Draw();
