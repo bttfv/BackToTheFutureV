@@ -1,6 +1,5 @@
 ﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.Settings;
-using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
@@ -228,7 +227,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     {
                         // Stop remote controlling
                         if (Properties.IsRemoteControlled)
-                            RCManager.StopRemoteControl();
+                            RemoteTimeMachineHandler.StopRemoteControl();
 
                         TimeMachineHandler.RemoveTimeMachine(TimeMachine, true, true);
 

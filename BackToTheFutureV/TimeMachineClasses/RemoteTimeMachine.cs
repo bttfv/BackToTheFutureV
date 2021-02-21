@@ -6,7 +6,7 @@ using System;
 using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.TimeMachineClasses.RC
+namespace BackToTheFutureV.TimeMachineClasses
 {
     public class RemoteTimeMachine
     {

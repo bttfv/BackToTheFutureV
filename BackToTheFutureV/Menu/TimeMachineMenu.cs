@@ -1,5 +1,4 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.RC;
 using FusionLibrary;
 using GTA;
 using LemonUI.Elements;
@@ -97,7 +96,7 @@ namespace BackToTheFutureV.Menu
             else if (sender == CutsceneMode)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetCutsceneMode?.Invoke(Checked);
             else if (sender == RemoteControl && !Checked && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
-                RCManager.StopRemoteControl();
+                RemoteTimeMachineHandler.StopRemoteControl();
             else if (sender == FlyMode)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
             else if (sender == AltitudeHold)

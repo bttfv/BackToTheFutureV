@@ -1,6 +1,5 @@
 ﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.RC;
 using FusionLibrary;
 using GTA;
 using System.Windows.Forms;
@@ -40,7 +39,7 @@ namespace BackToTheFutureV.Menu
                     if (Utils.PlayerPed.IsGoingIntoCover)
                         Utils.PlayerPed.Task.StandStill(1);
 
-                    if (RCManager.IsRemoteOn)
+                    if (RemoteTimeMachineHandler.IsRemoteOn)
                     {
                         TimeMachineMenu.Open();
                         return;

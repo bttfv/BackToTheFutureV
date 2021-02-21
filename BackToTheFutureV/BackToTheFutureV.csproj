@@ -143,9 +143,8 @@
     <Compile Include="TimeMachineClasses\Handlers\TCDHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TFCHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TimeTravelHandler.cs" />
-    <Compile Include="TimeMachineClasses\RC\RCManager.cs" />
-    <Compile Include="TimeMachineClasses\RC\RemoteTimeMachine.cs" />
-    <Compile Include="TimeMachineClasses\RC\RemoteTimeMachineHandler.cs" />
+    <Compile Include="TimeMachineClasses\RemoteTimeMachine.cs" />
+    <Compile Include="TimeMachineClasses\RemoteTimeMachineHandler.cs" />
     <Compile Include="TimeMachineClasses\StoryTimeMachine.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineClone.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineHandler.cs" />

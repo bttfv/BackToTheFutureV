@@ -1,6 +1,5 @@
 ﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
@@ -267,12 +266,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (TimeMachine.OriginalPed.HasCollided)
             {
-                RCManager.StopRemoteControl();
+                RemoteTimeMachineHandler.StopRemoteControl();
                 return;
             }
 
             if (Game.IsControlJustPressed(GTA.Control.VehicleExit))
-                RCManager.StopRemoteControl();
+                RemoteTimeMachineHandler.StopRemoteControl();
 
             //// When u go too far from clone ped, game removes collision under him and 
             ////  he falls through the ground, so if player is 50 we freeze clone
@@ -325,13 +324,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public override void Stop()
         {
             if (Properties.IsRemoteControlled)
-                RCManager.StopRemoteControl();
+                RemoteTimeMachineHandler.StopRemoteControl();
         }
 
         public override void Dispose()
         {
             if (Properties.IsRemoteControlled)
-                RCManager.StopRemoteControl(true);
+                RemoteTimeMachineHandler.StopRemoteControl(true);
         }
 
         public override void KeyDown(Keys key) { }

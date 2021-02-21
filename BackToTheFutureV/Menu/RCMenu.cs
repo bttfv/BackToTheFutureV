@@ -1,5 +1,4 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.RC;
 using FusionLibrary;
 using GTA;
 using GTA.Math;
@@ -58,7 +57,7 @@ namespace BackToTheFutureV.Menu
                 {
                     Close();
 
-                    RCManager.RemoteControl(CurrentTimeMachine);
+                    RemoteTimeMachineHandler.StartRemoteControl(CurrentTimeMachine);
                 }
             }
         }
@@ -81,7 +80,7 @@ namespace BackToTheFutureV.Menu
 
             float dist = CurrentTimeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position);
 
-            if (dist <= RCManager.MAX_DIST * RCManager.MAX_DIST && CurrentTimeMachine.Vehicle.Driver == null)
+            if (dist <= RemoteTimeMachineHandler.MAX_DIST * RemoteTimeMachineHandler.MAX_DIST && CurrentTimeMachine.Vehicle.Driver == null)
             {
                 PreviewCar();
 

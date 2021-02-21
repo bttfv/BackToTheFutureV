@@ -4,7 +4,6 @@ using BackToTheFutureV.Settings;
 using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.Handlers;
-using BackToTheFutureV.TimeMachineClasses.RC;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
@@ -72,8 +71,8 @@ namespace BackToTheFutureV
 
             Screen.FadeIn(1000);
 
-            if (RCManager.IsRemoteOn)
-                RCManager.StopRemoteControl(true);
+            if (RemoteTimeMachineHandler.IsRemoteOn)
+                RemoteTimeMachineHandler.StopRemoteControl(true);
 
             if (ModSettings.PersistenceSystem)
                 TimeMachineHandler.SaveAllTimeMachines();
@@ -138,7 +137,6 @@ namespace BackToTheFutureV
             CustomTrainHandler.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();
-            RCManager.Process();
             RemoteTimeMachineHandler.Process();
             FireTrailsHandler.Process();
             TcdEditer.Process();
