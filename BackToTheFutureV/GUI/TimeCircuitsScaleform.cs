@@ -1,6 +1,8 @@
 ﻿using FusionLibrary;
+using GTA.UI;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 
 namespace BackToTheFutureV.GUI
@@ -12,7 +14,7 @@ namespace BackToTheFutureV.GUI
 
     public class TimeCircuitsScaleform : ScaleformGui
     {
-        public TimeCircuitsScaleform(string scaleformID) : base(scaleformID)
+        public TimeCircuitsScaleform() : base("bttf_2d_gui")
         {
             dates["red"] = new DateTime();
             dates["green"] = new DateTime();
@@ -20,6 +22,11 @@ namespace BackToTheFutureV.GUI
         }
 
         private readonly Dictionary<string, DateTime> dates = new Dictionary<string, DateTime>();
+
+        public void Draw2D()
+        {
+            Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / Screen.AspectRatio, ModSettings.TCDScale));
+        }
 
         public void SetDate(string type, DateTime date)
         {

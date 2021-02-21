@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
@@ -108,17 +109,6 @@ namespace BackToTheFutureV.Players
             }
         };
 
-        public static List<ScaleformGui> WormholeScaleforms = new List<ScaleformGui>();
-
-        static WormholeAnimationPlayer()
-        {
-            WormholeScaleforms.Add(new ScaleformGui("bttf_wormhole_scaleform") { DrawInPauseMenu = true });
-            WormholeScaleforms.Add(new ScaleformGui("bttf_wormhole_scaleform_blue") { DrawInPauseMenu = true });
-            WormholeScaleforms.Add(new ScaleformGui("bttf_wormhole_scaleform_red") { DrawInPauseMenu = true });
-        }
-
-        public static readonly Vector3 wormholeOffset = new Vector3(0.02835939f, 2.822448f, 0.8090208f);
-
         public WormholeAnimationPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
             _wheelPtfxes = new List<PtfxEntityPlayer>();
@@ -165,12 +155,14 @@ namespace BackToTheFutureV.Players
                     break;
             }
 
-            if (Mods.IsDMC12)
-                _wormholeRT = new RenderTarget(TimeHandler.IsNight ? _wormholeNightModel : _wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, "bttf_wormhole");
-            else
-                _wormholeRT = new RenderTarget(TimeHandler.IsNight ? _wormholeNightModel : _wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 1, 0.4f));
+            Scaleforms.WormholeRT?.Dispose();
 
-            _wormholeRT.OnRenderTargetDraw += OnRenderTargetDraw;
+            if (Mods.IsDMC12)
+                Scaleforms.WormholeRT = new RenderTarget(TimeHandler.IsNight ? _wormholeNightModel : _wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, "bttf_wormhole");
+            else
+                Scaleforms.WormholeRT = new RenderTarget(TimeHandler.IsNight ? _wormholeNightModel : _wormholeModel, wormholeRenderTargetName, TimeMachine.Vehicle, new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 1, 0.4f));
+
+            Scaleforms.WormholeRT.OnRenderTargetDraw += OnRenderTargetDraw;
 
             _sparks = new List<SparkPlayer>();
 
@@ -181,7 +173,6 @@ namespace BackToTheFutureV.Players
                 _coilsProp = new AnimateProp(TimeMachine.Vehicle, TimeHandler.IsNight ? ModelHandler.CoilsGlowingNight : ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
         }
 
-        private RenderTarget _wormholeRT;
         private int wormholeScaleformIndex;
         private bool _hasStartedWormhole;
 
@@ -211,7 +202,7 @@ namespace BackToTheFutureV.Players
 
         private void OnRenderTargetDraw()
         {
-            WormholeScaleforms[wormholeScaleformIndex].Render2D(new PointF(0.5f, 0.5f), 0.9f);
+            ScaleformsHandler.WormholeScaleforms[wormholeScaleformIndex].Render2D(new PointF(0.5f, 0.5f), 0.9f);
         }
 
         private void SetupSeparatedCoils()
@@ -349,7 +340,7 @@ namespace BackToTheFutureV.Players
 
             _wheelPtfxes?.ForEach(x => x?.Stop());
 
-            _wormholeRT?.DeleteProp();
+            Scaleforms.WormholeRT?.DeleteProp();
         }
 
         public override void Process()
@@ -384,12 +375,12 @@ namespace BackToTheFutureV.Players
             if (Game.GameTime >= _startWormholeAt && _hasStartedWormhole)
             {
                 // Draw the wormhole RenderTarget, so that the animation appears on the prop
-                _wormholeRT.Draw();
+                Scaleforms.WormholeRT.Draw();
 
-                if (!_wormholeRT.Prop.IsSpawned && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.PhotoWormholeActive))
+                if (!Scaleforms.WormholeRT.Prop.IsSpawned && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || TimeMachine.Properties.PhotoWormholeActive))
                 {
-                    _wormholeRT.CreateProp();
-                    WormholeScaleforms[wormholeScaleformIndex].CallFunction("START_ANIMATION");
+                    Scaleforms.WormholeRT.CreateProp();
+                    ScaleformsHandler.WormholeScaleforms[wormholeScaleformIndex].CallFunction("START_ANIMATION");
                     _hasStartedWormhole = true;
                 }
 
@@ -412,7 +403,6 @@ namespace BackToTheFutureV.Players
 
         public override void Dispose()
         {
-            _wormholeRT?.Dispose();
             _coilsProp?.Dispose();
             _wheelPtfxes?.ForEach(x => x?.Dispose());
             _separatedCoils?.ForEach(x => x?.Dispose());

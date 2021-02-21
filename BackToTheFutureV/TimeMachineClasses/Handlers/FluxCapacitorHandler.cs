@@ -47,6 +47,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnScaleformPriority()
         {
+            if (!Properties.IsGivenScaleformPriority)
+                return;
+
             Update();
         }
 

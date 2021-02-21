@@ -387,7 +387,10 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (ClosestTimeMachine != timeMachine && (SquareDistToClosestTimeMachine == -1 || dist < SquareDistToClosestTimeMachine))
                 {
                     if (ClosestTimeMachine != null)
+                    {
                         ClosestTimeMachine.Properties.IsGivenScaleformPriority = false;
+                        ClosestTimeMachine.Events.OnScaleformPriority?.Invoke();
+                    }
 
                     ClosestTimeMachine = timeMachine;
 

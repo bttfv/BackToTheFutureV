@@ -86,8 +86,8 @@ namespace BackToTheFutureV.TimeMachineClasses
             registeredHandlers.Add("EventsHandler", Events = new EventsHandler(this));
             registeredHandlers.Add("SoundsHandler", Sounds = new SoundsHandler(this));
             registeredHandlers.Add("PropsHandler", Props = new PropsHandler(this));
-            registeredHandlers.Add("PlayersHandler", Players = new PlayersHandler(this));
             registeredHandlers.Add("ScaleformsHandler", Scaleforms = new ScaleformsHandler(this));
+            registeredHandlers.Add("PlayersHandler", Players = new PlayersHandler(this));
             registeredHandlers.Add("ParticlesHandler", Particles = new ParticlesHandler(this));
             registeredHandlers.Add("ConstantsHandler", Constants = new ConstantsHandler(this));
 

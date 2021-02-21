@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.GUI;
-using BackToTheFutureV.Settings;
+﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
@@ -17,6 +16,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class TCDSlot
     {
+        private ScaleformsHandler Scaleforms => TimeMachine.Scaleforms;
+
         private static Dictionary<string, Vector3> offsets = new Dictionary<string, Vector3>()
         {
             { "red", new Vector3(-0.01477456f, 0.3175744f, 0.6455771f) },
@@ -24,14 +25,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             { "green", new Vector3(-0.01737539f, 0.2979541f, 0.6045464f) }
         };
 
-        private static Dictionary<string, TCDRowScaleform> TCDRowsScaleforms = new Dictionary<string, TCDRowScaleform>()
-        {
-            { "red", new TCDRowScaleform("red") { DrawInPauseMenu = true } },
-            { "yellow", new TCDRowScaleform("yellow") { DrawInPauseMenu = true } },
-            { "green", new TCDRowScaleform("green") { DrawInPauseMenu = true } }
-        };
-
-        public RenderTarget RenderTarget { get; private set; }
         public TimeMachine TimeMachine { get; private set; }
 
         public string SlotType { get; private set; }
@@ -53,13 +46,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (TimeMachine.Mods.IsDMC12)
             {
-                RenderTarget = new RenderTarget(ModelHandler.TCDRTModels[slotType], "bttf_tcd_row_" + slotType, TimeMachine.Vehicle, offsets[slotType], new Vector3(355.9951f, 0.04288517f, 352.7451f));
-                RenderTarget.CreateProp();
+                Scaleforms.TCDRowsRT[slotType] = new RenderTarget(ModelHandler.TCDRTModels[slotType], "bttf_tcd_row_" + slotType, TimeMachine.Vehicle, offsets[slotType], new Vector3(355.9951f, 0.04288517f, 352.7451f));
+                Scaleforms.TCDRowsRT[slotType].CreateProp();
 
                 amProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TCDAMModels[slotType], Vector3.Zero, Vector3.Zero);
                 pmProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TCDPMModels[slotType], Vector3.Zero, Vector3.Zero);
 
-                RenderTarget.OnRenderTargetDraw += OnRenderTargetDraw;
+                Scaleforms.TCDRowsRT[slotType].OnRenderTargetDraw += OnRenderTargetDraw;
             }
 
             date = new DateTime();
@@ -73,7 +66,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 TimeMachine.Constants.HUDProperties.SetDate(SlotType, dateToSet);
             }
 
-            TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
+            ScaleformsHandler.TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
             amProp?.SetState(dateToSet.ToString("tt", CultureInfo.InvariantCulture) == "AM");
             pmProp?.SetState(dateToSet.ToString("tt", CultureInfo.InvariantCulture) != "AM");
 
@@ -93,7 +86,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 TimeMachine.Constants.HUDProperties.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
             }
 
-            TCDRowsScaleforms[SlotType]?.SetVisible(toggleTo, month, day, year, hour, minute);
+            ScaleformsHandler.TCDRowsScaleforms[SlotType]?.SetVisible(toggleTo, month, day, year, hour, minute);
 
             if ((!toggleTo && amPm) || (toggleTo && !amPm))
             {
@@ -120,7 +113,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void Update()
         {
             if (toggle || IsDoingTimedVisible)
-                RenderTarget?.Draw();
+                Scaleforms.TCDRowsRT[SlotType]?.Draw();
 
             if (!IsDoingTimedVisible)
             {
@@ -141,14 +134,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void Dispose()
         {
-            RenderTarget?.Dispose();
+            Scaleforms.TCDRowsRT[SlotType]?.Dispose();
             amProp?.Delete();
             pmProp?.Delete();
         }
 
         private void OnRenderTargetDraw()
         {
-            TCDRowsScaleforms[SlotType]?.Render2D(new PointF(0.379f, 0.12f), new SizeF(0.75f, 0.27f));
+            ScaleformsHandler.TCDRowsScaleforms[SlotType]?.Render2D(new PointF(0.379f, 0.12f), new SizeF(0.75f, 0.27f));
         }
     }
 
@@ -286,6 +279,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnScaleformPriority()
         {
+            if (!Properties.IsGivenScaleformPriority)
+                return;
+
             if (Properties.AreTimeCircuitsOn)
                 UpdateScaleformDates();
         }
@@ -478,7 +474,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
 
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
-            ScaleformsHandler.GUI.Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / GTA.UI.Screen.AspectRatio, ModSettings.TCDScale));
+            ScaleformsHandler.GUI.Draw2D();
 
             if (ModSettings.HideSID || !Mods.IsDMC12)
                 return;

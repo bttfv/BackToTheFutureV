@@ -6,7 +6,7 @@ namespace BackToTheFutureV.GUI
 {
     public class RCGUIScaleform : ScaleformGui
     {
-        public RCGUIScaleform(string scaleformID) : base(scaleformID)
+        public RCGUIScaleform() : base("bttf_2d_rc_gui")
         {
 
         }

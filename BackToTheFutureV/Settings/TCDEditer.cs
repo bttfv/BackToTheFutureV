@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.GUI;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary;
 using GTA;
 using GTA.UI;
@@ -11,11 +10,6 @@ namespace BackToTheFutureV.Settings
     {
         static TcdEditer()
         {
-            Preview = new TimeCircuitsScaleform("bttf_2d_gui");
-            Preview.SetVisible("red", false);
-            Preview.SetVisible("green", false);
-            Preview.SetVisible("yellow", false);
-
             InstrumentalMenu = new InstrumentalMenu();
             AddButtons();
         }
@@ -23,7 +17,6 @@ namespace BackToTheFutureV.Settings
         public static bool IsEditing { get; private set; }
 
         private static readonly InstrumentalMenu InstrumentalMenu;
-        private static readonly TimeCircuitsScaleform Preview;
 
         private static int exitDelay = 500;
 
@@ -126,9 +119,9 @@ namespace BackToTheFutureV.Settings
 
             InstrumentalMenu.Render2DFullscreen();
 
-            Preview.Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / Screen.AspectRatio, ModSettings.TCDScale));
+            ScaleformsHandler.GUI.Draw2D();
 
-            ScaleformsHandler.SID2D.Render2D(ModSettings.SIDPosition, new SizeF(ModSettings.SIDScale * (800f / 1414f) / Screen.AspectRatio, ModSettings.SIDScale));
+            ScaleformsHandler.SID2D.Draw2D();
 
             Game.DisableAllControlsThisFrame();
 
