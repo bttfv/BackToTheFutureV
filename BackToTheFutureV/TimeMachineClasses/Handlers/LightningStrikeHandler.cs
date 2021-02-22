@@ -56,6 +56,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 IsPlaying = true;
 
+                DMC12?.SetVoltValue?.Invoke(100);
+
                 Properties.HasBeenStruckByLightning = true;
 
                 Particles.LightningSparks?.Play();

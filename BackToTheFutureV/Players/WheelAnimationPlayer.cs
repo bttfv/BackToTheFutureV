@@ -72,17 +72,17 @@ namespace BackToTheFutureV.Players
 
                 AnimateProp strut = new AnimateProp(Vehicle, ModelHandler.Strut, strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
                 if (leftWheel)
-                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(false, true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.24f, 1);
+                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.24f, 1);
                 else
-                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(false, true, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.24f, 1);
+                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.24f, 1);
                 strut.SpawnProp();
 
                 AnimateProp disk = new AnimateProp(strut, ModelHandler.Disk, frontWheel ? diskOffsetFromStrut : diskOffsetFromRearStrut, new Vector3(0, MAX_ROTATION_OFFSET, 0));
-                disk[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(false, true, false, 0, MAX_ROTATION_OFFSET, 1, 120, 1);
+                disk[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, false, 0, MAX_ROTATION_OFFSET, 1, 120, 1);
                 disk.SpawnProp();
 
                 AnimateProp piston = new AnimateProp(disk, ModelHandler.Piston, frontWheel ? pistonOffsetFromDisk : pistonOffsetFromRearDisk, new Vector3(0, -MAX_ROTATION_OFFSET, 0));
-                piston[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(false, true, true, -MAX_ROTATION_OFFSET, 0, 1, 120, 1);
+                piston[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, true, -MAX_ROTATION_OFFSET, 0, 1, 120, 1);
                 piston.SpawnProp();
 
                 AnimateProp wheelAnimateProp = new AnimateProp(disk, wheelModel, Vector3.Zero, new Vector3(0, -90, 0));

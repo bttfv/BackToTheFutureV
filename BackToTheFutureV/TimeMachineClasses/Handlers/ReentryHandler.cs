@@ -125,6 +125,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Vehicle.SetVisible(true);
 
+            DMC12?.SetVoltValue?.Invoke(50);
+
             Utils.HideGUI = false;
 
             PlayerSwitch.Disable = false;

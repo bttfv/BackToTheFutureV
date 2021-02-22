@@ -2,6 +2,13 @@
 {
     public class InternalEnums
     {
+        public enum WaybackEventType
+        {
+            None,
+            Refuel,
+            Door
+        }
+
         public enum RcModes
         {
             FromCarCamera,

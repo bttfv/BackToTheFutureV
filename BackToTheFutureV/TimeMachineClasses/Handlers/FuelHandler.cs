@@ -6,6 +6,7 @@ using FusionLibrary;
 using GTA;
 using GTA.Math;
 using System.Windows.Forms;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {

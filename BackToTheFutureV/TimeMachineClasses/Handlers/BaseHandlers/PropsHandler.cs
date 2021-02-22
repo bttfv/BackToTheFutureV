@@ -146,7 +146,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TFCOn = new AnimateProp(Vehicle, ModelHandler.TFCOn, Vector3.Zero, Vector3.Zero);
             TFCOff = new AnimateProp(Vehicle, ModelHandler.TFCOff, Vector3.Zero, Vector3.Zero);
             TFCHandle = new AnimateProp(Vehicle, ModelHandler.TFCHandle, new Vector3(-0.03805999f, -0.0819466f, 0.5508024f), Vector3.Zero);
-            TFCHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, true, false, -45, 0, 1, 135, 1);
+            TFCHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, false, -45, 0, 1, 135, 1);
             TFCHandle.SpawnProp();
 
             //TCD
@@ -164,7 +164,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //License plate
             LicensePlate = new AnimateProp(Vehicle, ModelHandler.LicensePlate, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
-            LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(false, true, true, 90, 360 * 2 + 90, 1, 1440, 1);
+            LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(true, true, 90, 360 * 2 + 90, 1, 1440, 1);
             LicensePlate.SaveAnimation();
         }
 

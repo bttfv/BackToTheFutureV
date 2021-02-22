@@ -9,16 +9,10 @@ using GTA.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Utility
 {
-    public enum WaybackEventType
-    {
-        None,
-        Refuel,
-        Door
-    }
-
     public class WaybackEvent
     {
         public WaybackEventType Type { get; private set; }

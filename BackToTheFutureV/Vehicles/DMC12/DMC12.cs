@@ -9,6 +9,7 @@ using GTA.Native;
 namespace BackToTheFutureV.Vehicles
 {
     public delegate void SetStockSuspensions(bool state);
+    public delegate void SetVoltValue(float value);
 
     public class DMC12
     {
@@ -32,6 +33,8 @@ namespace BackToTheFutureV.Vehicles
         private AnimateProp suspensionRightFront;
         private AnimateProp suspensionRightRear;
 
+        private float voltLevel = 50f;
+
         private float rpmRotation;
         private float speedRotation;
         private float fuelRotation;
@@ -41,6 +44,7 @@ namespace BackToTheFutureV.Vehicles
         private float fanRotation;
 
         public SetStockSuspensions SetStockSuspensions;
+        public SetVoltValue SetVoltValue;
 
         private bool spawnSuspension;
 
@@ -85,14 +89,20 @@ namespace BackToTheFutureV.Vehicles
             suspensionRightFront.SpawnProp();
             suspensionRightRear.SpawnProp();
 
-            SetStockSuspensions += eSetStockSuspensions;
+            SetStockSuspensions += dSetStockSuspensions;
+            SetVoltValue += dSetVoltValue;
 
             spawnSuspension = true;
 
             DMC12Handler.AddDelorean(this);
         }
 
-        public void eSetStockSuspensions(bool state)
+        private void dSetVoltValue(float value)
+        {
+            voltLevel = value;
+        }
+
+        private void dSetStockSuspensions(bool state)
         {
             spawnSuspension = state;
         }
@@ -135,6 +145,10 @@ namespace BackToTheFutureV.Vehicles
             if (Game.Player.Character.Position.DistanceToSquared(Vehicle.Position) > 5f * 5f)
                 return;
 
+            float fuelLevel = Utils.Clamp(Vehicle.FuelLevel, Vehicle.HandlingData.PetrolTankVolume, 100);
+            float oilLevel = Utils.Clamp(Vehicle.OilLevel, Vehicle.OilVolume, 100);
+            float tempLevel = Utils.Clamp(Vehicle.EngineTemperature, 190, 100);
+
             if (Vehicle.IsEngineRunning)
             {
                 // --- RPM --
@@ -147,17 +161,17 @@ namespace BackToTheFutureV.Vehicles
                 if (speedRotation > 270)
                     speedRotation = 270;
 
-                fuelRotation = Utils.Lerp(fuelRotation, -50f, Game.LastFrameTime * 10f);
-                tempRotation = Utils.Lerp(tempRotation, 50f, Game.LastFrameTime * 10f);
-                oilRotation = Utils.Lerp(oilRotation, -50f, Game.LastFrameTime * 10f);
-                voltRotation = Utils.Lerp(voltRotation, 50f, Game.LastFrameTime * 10f);
+                fuelRotation = Utils.Lerp(fuelRotation, -fuelLevel, Game.LastFrameTime);
+                tempRotation = Utils.Lerp(tempRotation, tempLevel, Game.LastFrameTime);
+                oilRotation = Utils.Lerp(oilRotation, -oilLevel, Game.LastFrameTime);
+                voltRotation = Utils.Lerp(voltRotation, voltLevel, Game.LastFrameTime);
             }
             else
             {
-                fuelRotation = Utils.Lerp(fuelRotation, 0, Game.LastFrameTime * 15f);
-                tempRotation = Utils.Lerp(tempRotation, 0, Game.LastFrameTime * 15f);
-                oilRotation = Utils.Lerp(oilRotation, 0, Game.LastFrameTime * 15f);
-                voltRotation = Utils.Lerp(voltRotation, 0, Game.LastFrameTime * 15f);
+                fuelRotation = Utils.Lerp(fuelRotation, 10, Game.LastFrameTime);
+                tempRotation = Utils.Lerp(tempRotation, -10, Game.LastFrameTime);
+                oilRotation = Utils.Lerp(oilRotation, 10, Game.LastFrameTime);
+                voltRotation = Utils.Lerp(voltRotation, -10, Game.LastFrameTime);
             }
 
             if (Vehicle.EngineTemperature >= 50)
