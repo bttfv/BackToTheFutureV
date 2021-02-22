@@ -1,6 +1,5 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
@@ -111,16 +110,6 @@ namespace BackToTheFutureV.Players
 
         public WormholeAnimationPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
-            _wheelPtfxes = new List<PtfxEntityPlayer>();
-
-            if (Mods.WormholeType == WormholeType.BTTF1 | Mods.WormholeType == WormholeType.BTTF3)
-            {
-                SetupWheelPTFXs("veh_xs_vehicle_mods", "veh_nitrous", new Vector3(0, -0.25f, -0.15f), new Vector3(0, 0, 0), 1.3f);
-
-                if (Mods.WormholeType == WormholeType.BTTF3)
-                    SetupWheelPTFXs("des_bigjobdrill", "ent_ray_big_drill_start_sparks", new Vector3(0, 0, 0.18f), new Vector3(90f, 0, 0), 1f, true);
-            }
-
             Scaleforms.WormholeRT?.Dispose();
 
             if (Mods.IsDMC12)
@@ -138,7 +127,7 @@ namespace BackToTheFutureV.Players
             if (Mods.IsDMC12)
             {
                 Props.Coils?.Dispose();
-                Props.Coils = new AnimateProp(Vehicle, TimeHandler.IsNight ? ModelHandler.CoilsGlowingNight : ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
+                Props.Coils = new AnimateProp(Vehicle, Constants.CoilsModel, Vector3.Zero, Vector3.Zero);
             }
         }
 
@@ -156,8 +145,6 @@ namespace BackToTheFutureV.Players
         private List<SparkPlayer> _sparks;
 
         private bool _playWormhole;
-
-        private List<PtfxEntityPlayer> _wheelPtfxes = null;
 
         private void OnRenderTargetDraw()
         {
@@ -223,21 +210,6 @@ namespace BackToTheFutureV.Players
             }
         }
 
-        private void SetupWheelPTFXs(string particleAssetName, string particleName, Vector3 wheelOffset, Vector3 wheelRot, float size = 3f, bool doLoopHandling = false)
-        {
-            foreach (string wheelName in Utils.WheelNames)
-            {
-                Vector3 worldPos = Vehicle.Bones[wheelName].Position;
-                Vector3 offset = Vehicle.GetPositionOffset(worldPos);
-
-                offset += wheelOffset;
-
-                PtfxEntityPlayer ptfx = new PtfxEntityPlayer(particleAssetName, particleName, Vehicle, offset, wheelRot, size, true, doLoopHandling);
-
-                _wheelPtfxes.Add(ptfx);
-            }
-        }
-
         public void Play(bool playWormhole)
         {
             Play();
@@ -280,7 +252,9 @@ namespace BackToTheFutureV.Players
 
             _sparks?.ForEach(x => x?.Stop());
 
-            _wheelPtfxes?.ForEach(x => x?.Stop());
+            Particles.WheelsFire?.ForEach(x => x?.Stop());
+
+            Particles.WheelsSparks?.ForEach(x => x?.Stop());
 
             Scaleforms.WormholeRT?.DeleteProp();
         }
@@ -294,22 +268,29 @@ namespace BackToTheFutureV.Players
             if (Mods.IsDMC12 && Mods.WormholeType == WormholeType.BTTF3)
                 HandleCoilFlicker();
 
-            if (_wheelPtfxes != null && !Properties.IsFlying)
-            {
-                foreach (PtfxEntityPlayer wheelPTFX in _wheelPtfxes)
-                {
-                    if (!wheelPTFX.IsPlaying)
-                        wheelPTFX.Play();
-
-                    wheelPTFX.Process();
-                }
-            }
-
             if (Properties.IsFueled || Properties.PhotoWormholeActive)
                 HandleSparks();
 
+            if (Mods.WormholeType != WormholeType.BTTF2 && !Properties.IsFlying)
+                Particles.WheelsFire.ForEach(x =>
+                {
+                    if (!x.IsPlaying)
+                        x.Play();
+
+                    x.Process();
+                });
+
             if (Mods.WormholeType == WormholeType.BTTF3)
             {
+                if (!Properties.IsFlying)
+                    Particles.WheelsSparks.ForEach(x =>
+                    {
+                        if (!x.IsPlaying)
+                            x.Play();
+
+                        x.Process();
+                    });
+
                 if (!Particles.Sparks.IsPlaying)
                     Particles.Sparks?.Play();
 
@@ -348,9 +329,7 @@ namespace BackToTheFutureV.Players
 
         public override void Dispose()
         {
-            _wheelPtfxes?.ForEach(x => x?.Dispose());
-            _sparks?.ForEach(x => x?.Dispose());
-            Particles.Sparks?.StopNonLooped();
+            Stop();
         }
     }
 }

@@ -2,6 +2,12 @@
 {
     public class InternalEnums
     {
+        public enum RcModes
+        {
+            FromCarCamera,
+            FromPlayerCamera
+        }
+
         public enum TimeTravelPhase
         {
             Completed = 0,

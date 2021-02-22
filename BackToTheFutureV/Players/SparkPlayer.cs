@@ -21,9 +21,7 @@ namespace BackToTheFutureV.Players
 
         private AnimateProp _spark;
 
-        private readonly List<Vector3> _frames = new List<Vector3>()
-        {
-        };
+        private readonly List<Vector3> _frames = new List<Vector3>();
 
         private int _currentFrame;
 

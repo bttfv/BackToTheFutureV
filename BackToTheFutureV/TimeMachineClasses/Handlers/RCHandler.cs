@@ -7,15 +7,10 @@ using GTA;
 using GTA.Math;
 using GTA.Native;
 using System.Windows.Forms;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public enum RcModes
-    {
-        FromCarCamera,
-        FromPlayerCamera
-    }
-
     public class RcHandler : Handler
     {
         public Ped Clone { get; private set; }

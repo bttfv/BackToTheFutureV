@@ -20,6 +20,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         //Time travel
         public PtfxEntityPlayer LightExplosion;
         public PtfxEntityPlayer TimeTravelEffect;
+        public List<PtfxEntityPlayer> WheelsFire;
+        public List<PtfxEntityPlayer> WheelsSparks;
 
         //Reenter
         public PtfxEntityPlayer Flash;
@@ -38,6 +40,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             TimeTravelEffect = new PtfxEntityPlayer("core", "veh_exhaust_spacecraft", Vehicle, new Vector3(0, 4, 0), Vector3.Zero, 8f, true);
             Flash = new PtfxEntityPlayer("core", "ent_anim_paparazzi_flash", Vehicle, Vector3.Zero, Vector3.Zero, 50f);
             Sparks = new PtfxEntityPlayer("scr_paletoscore", "scr_paleto_box_sparks", Props.InvisibleProp, Vector3.Zero, Vector3.Zero, 1.5f, true, true, 300);
+            WheelsFire = SetupWheelPTFXs("veh_xs_vehicle_mods", "veh_nitrous", new Vector3(0, -0.25f, -0.15f), new Vector3(0, 0, 0), 1.3f);
+            WheelsSparks = SetupWheelPTFXs("des_bigjobdrill", "ent_ray_big_drill_start_sparks", new Vector3(0, 0, 0.18f), new Vector3(90f, 0, 0), 1f, true);
 
             if (!Mods.IsDMC12)
                 return;
@@ -65,10 +69,29 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             LightningSparks = new PtfxEntityBonePlayer("core", "ent_ray_finale_vault_sparks", Vehicle, "bttf_reactorcap", new Vector3(0, 0, 0.1f), Vector3.Zero, 3, true);
         }
 
+        private List<PtfxEntityPlayer> SetupWheelPTFXs(string particleAssetName, string particleName, Vector3 wheelOffset, Vector3 wheelRot, float size = 3f, bool doLoopHandling = false)
+        {
+            List<PtfxEntityPlayer> ret = new List<PtfxEntityPlayer>();
+
+            foreach (string wheelName in Utils.WheelNames)
+            {
+                Vector3 worldPos = Vehicle.Bones[wheelName].Position;
+                Vector3 offset = Vehicle.GetPositionOffset(worldPos);
+
+                offset += wheelOffset;
+
+                ret.Add(new PtfxEntityPlayer(particleAssetName, particleName, Vehicle, offset, wheelRot, size, true, doLoopHandling));
+            }
+
+            return ret;
+        }
+
         public override void Dispose()
         {
             LightExplosion?.Dispose();
             TimeTravelEffect?.Dispose();
+            WheelsFire?.ForEach(x => x?.Dispose());
+            WheelsSparks?.ForEach(x => x?.Dispose());
         }
 
         public override void KeyDown(Keys key)

@@ -15,7 +15,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
     public class RailroadHandler : Handler
     {
-        public CustomTrain customTrain;
+        private CustomTrain customTrain;
 
         private bool _direction = false;
 

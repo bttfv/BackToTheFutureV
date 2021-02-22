@@ -144,6 +144,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             }
         }
 
+        public CustomModel CoilsModel
+        {
+            get
+            {
+                if (TimeHandler.IsNight)
+                    return ModelHandler.CoilsGlowingNight;
+
+                return ModelHandler.CoilsGlowing;
+            }
+        }
+
         public int FireTrailsAppearTime => (FireTrailsIs99 || Properties.IsFlying) ? -1 : 0;
 
         public float FireTrailsDisappearTime => (FireTrailsIs99 || Properties.IsFlying) ? 1 : 15;
