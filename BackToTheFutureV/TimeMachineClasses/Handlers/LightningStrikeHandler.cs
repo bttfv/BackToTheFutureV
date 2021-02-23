@@ -75,7 +75,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 TimeMachineClone timeMachineClone = TimeMachine.Clone();
                 timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
-                timeMachineClone.Properties.PreviousTime = Utils.GetWorldTime();
+                timeMachineClone.Properties.PreviousTime = Utils.CurrentTime;
                 RemoteTimeMachineHandler.AddRemote(timeMachineClone);
 
                 Events.OnLightningStrike?.Invoke();

@@ -69,7 +69,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 return;
             }
 
-            if (!Spawned && Utils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 1, 0)))
+            if (!Spawned && Utils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 1, 0), true))
             {
                 if (!_hasPlayedWarningSound)
                 {
@@ -81,7 +81,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 }
             }
 
-            if (!Spawned && Utils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 0, 5)))
+            if (!Spawned && Utils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 0, 5), true))
             {
                 Spawn(ReenterType.Normal);
 

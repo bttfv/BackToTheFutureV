@@ -98,6 +98,8 @@ namespace BackToTheFutureV.Utility
         public static CustomModel SierraTenderModel = new CustomModel("sierratender");
         public static CustomModel SierraDebugModel = new CustomModel("sierra_debug");
 
+        public static CustomModel SabreGT = new CustomModel("sabregt");
+
         public static CustomModel DeluxoModel = new CustomModel("DELUXO");
 
         private static string[] tcdTypes = new string[3]

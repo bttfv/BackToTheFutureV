@@ -300,7 +300,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 previousSlot.SetVisible(false);
                 previousSlot.SetVisibleAt(true, 500, 600);
 
-                presentSlot.SetDate(Utils.GetWorldTime());
+                presentSlot.SetDate(Utils.CurrentTime);
                 presentSlot.SetVisible(false);
                 presentSlot.SetVisibleAt(true, 500, 600);
 
@@ -329,7 +329,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnTimeTravelEnded()
         {
-            lastTime = Utils.GetWorldTime();
+            lastTime = Utils.CurrentTime;
         }
 
         private void OnDestinationDateChange()
@@ -349,7 +349,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             destinationSlot.SetDate(Properties.DestinationTime);
             previousSlot.SetDate(Properties.PreviousTime);
-            presentSlot.SetDate(Utils.GetWorldTime());
+            presentSlot.SetDate(Utils.CurrentTime);
         }
 
         public void StartTimeCircuitsGlitch(bool softGlitch)
@@ -485,7 +485,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (Game.GameTime > nextCheck)
             {
-                DateTime time = Utils.GetWorldTime();
+                DateTime time = Utils.CurrentTime;
 
                 if (Math.Abs((time - lastTime).TotalMilliseconds) > 600 && !presentSlot.IsDoingTimedVisible)
                 {

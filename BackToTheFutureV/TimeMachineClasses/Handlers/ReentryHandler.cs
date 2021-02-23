@@ -45,9 +45,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Game.GameTime < _gameTimer)
                 return;
 
-            // Time will be fixed to your destination time until reentry is completed.
-            Utils.SetWorldTime(Properties.DestinationTime);
-
             switch (_currentStep)
             {
                 case 0:

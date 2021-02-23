@@ -106,7 +106,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Properties.LastVelocity = Vehicle.Velocity;
 
                     // Set previous time
-                    Properties.PreviousTime = Utils.GetWorldTime();
+                    Properties.PreviousTime = Utils.CurrentTime;
 
                     // Invoke delegate
                     Events.OnTimeTravelStarted?.Invoke();
@@ -257,7 +257,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     TimeMachine.CustomCameraManager.Stop();
                     FireTrailsHandler.RemoveTrail(trails);
-                    TimeHandler.TimeTravelTo(Properties.DestinationTime);
+
+                    if (Properties.TimeTravelType == TimeTravelType.Cutscene)
+                        TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-1));
+                    else
+                        TimeHandler.TimeTravelTo(Properties.DestinationTime);
 
                     if (Properties.TimeTravelDestPos != Vector3.Zero)
                     {
