@@ -220,8 +220,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.SetTimeCircuits += SetTimeCircuitsOn;
             Events.SetTimeCircuitsBroken += SetTimeCircuitsBroken;
 
-            Events.StartTimeCircuitsGlitch += StartTimeCircuitsGlitch;
-
             int _time = 0;
 
             for (int i = 0; i < 7; i++)

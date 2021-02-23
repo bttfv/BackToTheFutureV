@@ -29,7 +29,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private float _origTorque;
 
         private bool simulateSpeed;
-        private int maxSpeed;
+        private float maxSpeed;
         private int maxSeconds;
         private float currentSimSpeed;
 
@@ -41,12 +41,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             rcHandbrake.OnControlJustPressed += RcHandbrake_OnControlJustPressed;
 
             Events.SetRCMode += SetRCMode;
-            Events.OnSimulateSpeedReached += StopForcedHandbrake;
-
-            Events.SetSimulateSpeed += SetSimulateSpeed;
         }
 
-        public void SetSimulateSpeed(int maxSpeed, int seconds)
+        public void SetSimulateSpeed(float maxSpeed, int seconds)
         {
             if (maxSpeed == 0)
             {
@@ -103,7 +100,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _boostStarted = false;
                 _handleBoost = true;
 
-                Events.SetSimulateSpeed?.Invoke(64, 8);
+                SetSimulateSpeed(64.5f, 8);
             }
         }
 
@@ -125,7 +122,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (_handleBoost)
             {
-                Events.SetSimulateSpeed?.Invoke(0, 0);
+                SetSimulateSpeed(0, 0);
                 _boostStarted = false;
                 _handleBoost = false;
             }
@@ -217,7 +214,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (mphSpeed >= maxSpeed)
                 {
                     simulateSpeed = false;
-                    Events.OnSimulateSpeedReached?.Invoke();
+                    StopForcedHandbrake();
                 }
             }
 

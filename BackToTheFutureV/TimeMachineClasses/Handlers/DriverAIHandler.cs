@@ -103,7 +103,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Mods.Hoodbox = Vehicles.ModState.On;
 
                     if (Mods.Hoodbox == Vehicles.ModState.On && !Properties.AreHoodboxCircuitsReady)
-                        Events.OnHoodboxReady?.Invoke();
+                        Events.SetHoodboxWarmedUp?.Invoke();
 
                     if (!Properties.AreTimeCircuitsOn)
                         Events.SetTimeCircuits?.Invoke(true);

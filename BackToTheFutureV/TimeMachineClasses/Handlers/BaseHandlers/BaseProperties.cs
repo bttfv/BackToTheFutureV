@@ -44,6 +44,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool PhotoGlowingCoilsActive { get; set; }
         public bool PhotoFluxCapacitorActive { get; set; }
         public bool PhotoEngineStallActive { get; set; }
+        public bool PhotoSIDMaxActive { get; set; }
         public float TorqueMultiplier { get; set; } = 1;
         public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
         public MissionType MissionType { get; set; } = MissionType.None;
@@ -104,6 +105,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             ret.PhotoWormholeActive = false;
 
+            ret.PhotoSIDMaxActive = false;
+
             ret.BlockSparks = false;
 
             ret.TorqueMultiplier = 1;
@@ -123,7 +126,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 timeMachine.Events.SetFreeze?.Invoke(true, true);
 
             if (AreHoodboxCircuitsReady)
-                timeMachine.Events.OnHoodboxReady?.Invoke();
+                timeMachine.Events.SetHoodboxWarmedUp?.Invoke();
         }
 
         public void ApplyToWayback(TimeMachine timeMachine)

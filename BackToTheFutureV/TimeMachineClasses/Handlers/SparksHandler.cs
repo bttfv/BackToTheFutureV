@@ -31,6 +31,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
 
+            if (Properties.IsFueled)
+                DMC12?.SetVoltValue?.Invoke(100);
+
             WaypointScript.LoadWaypointPosition(true);
         }
 
@@ -45,6 +48,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (Players.Wormhole.IsPlaying)
                 {
+                    DMC12?.SetVoltValue?.Invoke(50);
+
                     Sounds.WormholeInterrupted?.Play();
                     Events.OnSparksInterrupted?.Invoke();
                 }
@@ -98,7 +103,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     }
 
                     if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.Over88MphSpeed)
-                        Events.OnSparksEnded?.Invoke();
+                        OnSparksEnded();
                 }
                 else
                 {

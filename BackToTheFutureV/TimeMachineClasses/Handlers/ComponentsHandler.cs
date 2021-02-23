@@ -22,7 +22,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Events.OnReenterEnded += OnReenterEnded;
             Events.OnVehicleSpawned += OnReenterEnded;
-            Events.OnHoodboxReady += Instant;
+            Events.SetHoodboxWarmedUp += Instant;
             TimeHandler.OnDayNightChange += OnDayNightChange;
 
             OnDayNightChange();

@@ -3,7 +3,6 @@ using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
 using System;
-using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
@@ -23,16 +22,6 @@ namespace BackToTheFutureV.TimeMachineClasses
             TimeMachine = timeMachine;
 
             GUID = Guid.NewGuid();
-        }
-
-        public new MissionType MissionType
-        {
-            get => base.MissionType;
-            set
-            {
-                base.MissionType = value;
-                TimeMachine?.Events?.OnMissionChange?.Invoke();
-            }
         }
     }
 }

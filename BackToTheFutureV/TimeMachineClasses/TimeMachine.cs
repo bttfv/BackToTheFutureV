@@ -429,6 +429,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 Properties.PhotoGlowingCoilsActive = false;
                 Properties.PhotoFluxCapacitorActive = false;
                 Properties.PhotoEngineStallActive = false;
+                Properties.PhotoSIDMaxActive = false;
             }
 
             if (Properties.PhotoWormholeActive && Players.Wormhole != null && !Players.Wormhole.IsPlaying)
@@ -461,7 +462,13 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (!Properties.PhotoEngineStallActive && Properties.IsEngineStalling && Properties.IsPhotoModeOn)
                 Events.SetEngineStall?.Invoke(false);
 
-            Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.IsEngineStalling;
+            if (Properties.PhotoSIDMaxActive && !Constants.ForceSIDMax)
+                Constants.ForceSIDMax = true;
+
+            if (!Properties.PhotoSIDMaxActive && Constants.ForceSIDMax)
+                Constants.ForceSIDMax = false;
+
+            Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.IsEngineStalling | Properties.PhotoSIDMaxActive;
         }
 
         public void KeyDown(Keys key)

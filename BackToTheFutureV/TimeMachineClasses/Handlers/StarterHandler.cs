@@ -109,7 +109,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (Mods.Reactor != ReactorType.Nuclear && IsPlaying)
+            if (Mods.Reactor != ReactorType.Nuclear && IsPlaying && !Properties.PhotoEngineStallActive)
             {
                 if (Properties.IsEngineStalling)
                     Stop();

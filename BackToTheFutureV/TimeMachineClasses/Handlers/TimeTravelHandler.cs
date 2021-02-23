@@ -254,8 +254,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 case 3:
 
-                    Events.OnTimeTravelCutscene?.Invoke();
-
                     Props.LicensePlate?.Delete();
 
                     TimeMachine.CustomCameraManager.Stop();

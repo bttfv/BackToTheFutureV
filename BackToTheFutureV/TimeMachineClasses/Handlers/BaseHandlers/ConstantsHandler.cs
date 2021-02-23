@@ -166,6 +166,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public int FireTrailsLength => Properties.IsOnTracks ? 100 : 50;
 
         public HUDProperties HUDProperties { get; set; } = new HUDProperties();
+        public bool ForceSIDMax { get; set; }
         public int[] CurrentHeight { get; set; } = new int[10];
         public int[] NewHeight { get; set; } = new int[10];
         public int[] LedDelay { get; set; } = new int[10];
@@ -215,7 +216,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                     return;
             }
 
-            if (Properties.BlockSparks || Properties.HasBeenStruckByLightning)
+            if (Properties.BlockSparks || Properties.HasBeenStruckByLightning || Properties.IsPhotoModeOn)
                 return;
 
             if (Vehicle.GetMPHSpeed() >= SIDMaxAtSpeed && !OverSIDMaxAtSpeed)
@@ -251,14 +252,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 StabilizationSoundAtTime = Game.GameTime + 1000;
 
                 Over88MphSpeed = true;
-                Events.On88MphSpeedReached?.Invoke(true);
             }
 
             if (Vehicle.GetMPHSpeed() < 88 && Over88MphSpeed)
-            {
                 Over88MphSpeed = false;
-                Events.On88MphSpeedReached?.Invoke(false);
-            }
         }
 
         public override void Stop()

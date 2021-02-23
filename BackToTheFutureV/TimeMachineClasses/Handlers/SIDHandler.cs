@@ -141,7 +141,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.AreTimeCircuitsOn || Properties.HasBeenStruckByLightning || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                 return;
 
-            if (Constants.OverSIDMaxAtSpeed)
+            if (Constants.OverSIDMaxAtSpeed || Constants.ForceSIDMax)
             {
                 Random(20, 20);
 

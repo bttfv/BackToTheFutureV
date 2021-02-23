@@ -15,6 +15,7 @@ namespace BackToTheFutureV.Menu
         private NativeCheckboxItem Ice;
         private NativeCheckboxItem FluxCapacitor;
         private NativeCheckboxItem EngineStall;
+        private NativeCheckboxItem SIDMax;
         private NativeItem LightningStrike;
         private NativeSliderItem StrikeDelay;
         private NativeCheckboxItem HideHUD;
@@ -33,7 +34,8 @@ namespace BackToTheFutureV.Menu
             Add(Wormhole = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole_Description")));
             Add(Coils = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils_Description")));
             Add(Ice = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice_Description")));
-            Add(FluxCapacitor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor_Description")));
+            Add(FluxCapacitor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor_Description")));            
+            Add(SIDMax = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_SIDMax"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_SIDMax_Description")));
             Add(EngineStall = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_EngineStall"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_EngineStall_Description")));
             Add(LightningStrike = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_LightningStrike"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_LightningStrike_Description")));
             Add(StrikeDelay = new NativeSliderItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_StrikeDelay"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_StrikeDelay_Description"), 60, 3));
@@ -61,6 +63,7 @@ namespace BackToTheFutureV.Menu
             Ice.Enabled = TimeMachine.Mods.IsDMC12;
             FluxCapacitor.Enabled = TimeMachine.Mods.IsDMC12;
             EngineStall.Enabled = TimeMachine.Mods.IsDMC12;
+            SIDMax.Enabled = TimeMachine.Mods.IsDMC12;
 
             StrikeDelay.Title = $"{Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_StrikeDelay")}: {StrikeDelay.Value}";
         }
@@ -86,6 +89,9 @@ namespace BackToTheFutureV.Menu
                 TimeMachine.Properties.PhotoEngineStallActive = Checked;
             }
 
+            if (sender == SIDMax)
+                TimeMachine.Properties.PhotoSIDMaxActive = Checked;
+
             if (sender == HideHUD)
                 Utils.HideGUI = Checked;
         }
@@ -104,6 +110,8 @@ namespace BackToTheFutureV.Menu
             Ice.Checked = TimeMachine.Properties.IsFreezed;
             FluxCapacitor.Checked = TimeMachine.Properties.PhotoFluxCapacitorActive;
             EngineStall.Checked = TimeMachine.Properties.IsEngineStalling;
+            SIDMax.Checked = TimeMachine.Properties.PhotoSIDMaxActive;
+
             LightningStrike.Enabled = !TimeMachine.Properties.IsPhotoModeOn;
 
             HideHUD.Checked = Utils.HideGUI;

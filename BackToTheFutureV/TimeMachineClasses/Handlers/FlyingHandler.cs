@@ -107,8 +107,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (!_startHoverGlowLater)
                     SpawnHoverGlow();
             }
-
-            Events.OnHoverTransformation?.Invoke();
         }
 
         private void SpawnHoverGlow()
@@ -227,8 +225,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Props.HoverModeVentsGlow?.Delete();
             Props.HoverModeWheelsGlow?.Delete();
-
-            Events.OnHoverTransformation?.Invoke();
         }
 
         public override void KeyDown(Keys key)
