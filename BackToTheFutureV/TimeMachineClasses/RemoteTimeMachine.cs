@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.Utility;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using KlangRageAudioLibrary;
 using System;
@@ -19,10 +20,15 @@ namespace BackToTheFutureV.TimeMachineClasses
         private int _timer;
         private bool _hasPlayedWarningSound;
 
-        private readonly AudioPlayer _warningSound;
+        private static AudioPlayer WarningSound;
 
         private bool blockSpawn = true;
         public WaybackMachine WaybackMachine { get; }
+
+        static RemoteTimeMachine()
+        {
+            WarningSound = Main.CommonAudioEngine.Create("general/rc/warning.wav", Presets.No3D);
+        }
 
         public RemoteTimeMachine(TimeMachineClone timeMachineClone)
         {
@@ -31,10 +37,6 @@ namespace BackToTheFutureV.TimeMachineClasses
             TimeMachineClone.Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
             _timer = Game.GameTime + 3000;
-
-            _warningSound = Main.CommonAudioEngine.Create("general/rc/warning.wav", Presets.Exterior);
-            _warningSound.MinimumDistance = 0.5f;
-            _warningSound.Volume = 0.5f;
 
             TimeHandler.OnTimeChanged += OnTimeChanged;
         }
@@ -67,19 +69,19 @@ namespace BackToTheFutureV.TimeMachineClasses
                 return;
             }
 
-            if (Utils.GetWorldTime() > (TimeMachineClone.Properties.DestinationTime - new TimeSpan(0, 0, 10)) && Utils.GetWorldTime() < TimeMachineClone.Properties.DestinationTime)
+            if (!Spawned && Utils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 1, 0)))
             {
-                if (TimeMachineClone.Properties.IsRemoteControlled && !_hasPlayedWarningSound)
+                if (!_hasPlayedWarningSound)
                 {
-                    _warningSound.SourceEntity = Utils.PlayerPed;
-                    _warningSound.Play();
+                    Utils.PlayerPed.Task.PlayAnimation("amb@code_human_wander_idles@male@idle_a", "idle_a_wristwatch", 8f, -1, AnimationFlags.UpperBodyOnly);
+                    WarningSound.SourceEntity = Utils.PlayerPed;
+                    WarningSound.Play();
+
                     _hasPlayedWarningSound = true;
                 }
-
-                ModelHandler.DMC12.Request();
             }
 
-            if (!Spawned && Utils.GetWorldTime() > TimeMachineClone.Properties.DestinationTime && Utils.GetWorldTime() < (TimeMachineClone.Properties.DestinationTime + new TimeSpan(0, 0, 10)))
+            if (!Spawned && Utils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 0, 5)))
             {
                 Spawn(ReenterType.Normal);
 
@@ -129,8 +131,6 @@ namespace BackToTheFutureV.TimeMachineClasses
         public void Dispose()
         {
             Blip?.Delete();
-
-            _warningSound?.Dispose();
         }
 
         public override string ToString()

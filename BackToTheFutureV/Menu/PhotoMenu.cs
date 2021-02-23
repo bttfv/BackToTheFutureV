@@ -34,7 +34,7 @@ namespace BackToTheFutureV.Menu
             Add(Wormhole = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole_Description")));
             Add(Coils = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils_Description")));
             Add(Ice = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice_Description")));
-            Add(FluxCapacitor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor_Description")));            
+            Add(FluxCapacitor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor_Description")));
             Add(SIDMax = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_SIDMax"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_SIDMax_Description")));
             Add(EngineStall = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_EngineStall"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_EngineStall_Description")));
             Add(LightningStrike = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_LightningStrike"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_LightningStrike_Description")));
