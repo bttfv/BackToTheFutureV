@@ -1,10 +1,10 @@
 ﻿using BackToTheFutureV.HUD.Core;
 using BackToTheFutureV.Utility;
-using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using System.Windows.Forms;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {

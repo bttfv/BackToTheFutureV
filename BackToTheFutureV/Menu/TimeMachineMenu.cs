@@ -5,6 +5,7 @@ using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
 using System.Drawing;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Menu
 {
@@ -70,7 +71,7 @@ namespace BackToTheFutureV.Menu
                 return;
             }
 
-            FlyMode.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == Vehicles.ModState.On;
+            FlyMode.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.On;
             AltitudeHold.Enabled = FlyMode.Enabled;
 
             RemoteControl.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;

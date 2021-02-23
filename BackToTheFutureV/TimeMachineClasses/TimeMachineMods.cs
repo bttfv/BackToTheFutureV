@@ -2,6 +2,7 @@
 using FusionLibrary;
 using GTA;
 using System;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {

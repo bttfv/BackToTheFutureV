@@ -1,10 +1,10 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
-using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
 using GTA.Math;
 using System;
+using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Players

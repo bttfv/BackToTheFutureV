@@ -5,6 +5,7 @@ using GTA;
 using GTA.Math;
 using GTA.Native;
 using System.Windows.Forms;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -99,10 +100,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (!Driver.IsInVehicle(Vehicle))
                         break;
 
-                    if (Properties.AreTimeCircuitsBroken && Mods.Hoodbox == Vehicles.ModState.Off)
-                        Mods.Hoodbox = Vehicles.ModState.On;
+                    if (Properties.AreTimeCircuitsBroken && Mods.Hoodbox == ModState.Off)
+                        Mods.Hoodbox = ModState.On;
 
-                    if (Mods.Hoodbox == Vehicles.ModState.On && !Properties.AreHoodboxCircuitsReady)
+                    if (Mods.Hoodbox == ModState.On && !Properties.AreHoodboxCircuitsReady)
                         Events.SetHoodboxWarmedUp?.Invoke();
 
                     if (!Properties.AreTimeCircuitsOn)

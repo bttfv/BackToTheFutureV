@@ -90,9 +90,6 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void ApplyTo(TimeMachine timeMachine, SpawnFlags spawnFlags)
         {
-            if (!Mods.IsDMC12)
-                timeMachine.Vehicle.Mods.InstallModKit();
-
             Vehicle.ApplyTo(timeMachine.Vehicle, spawnFlags);
             Mods.ApplyTo(timeMachine);
 

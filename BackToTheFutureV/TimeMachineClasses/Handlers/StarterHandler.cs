@@ -1,8 +1,8 @@
-﻿using BackToTheFutureV.Vehicles;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using System.Windows.Forms;
+using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers

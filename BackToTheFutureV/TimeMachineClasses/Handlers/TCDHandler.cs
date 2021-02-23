@@ -1,7 +1,6 @@
 ﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
-using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
 using GTA.Math;

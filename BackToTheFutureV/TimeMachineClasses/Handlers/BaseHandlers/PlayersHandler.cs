@@ -1,6 +1,6 @@
 ﻿using BackToTheFutureV.Players;
-using BackToTheFutureV.Vehicles;
 using System.Windows.Forms;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {

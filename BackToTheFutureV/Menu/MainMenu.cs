@@ -10,6 +10,7 @@ using LemonUI.Menus;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Menu

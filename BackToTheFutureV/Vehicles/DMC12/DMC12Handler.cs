@@ -5,6 +5,7 @@ using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System.Collections.Generic;
+using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Vehicles

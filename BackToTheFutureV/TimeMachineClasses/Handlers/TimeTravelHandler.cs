@@ -1,7 +1,6 @@
 ﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.Settings;
 using BackToTheFutureV.Utility;
-using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;

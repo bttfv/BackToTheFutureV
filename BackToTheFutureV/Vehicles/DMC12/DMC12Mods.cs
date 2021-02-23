@@ -3,6 +3,7 @@ using FusionLibrary;
 using GTA;
 using GTA.Native;
 using System;
+using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Vehicles

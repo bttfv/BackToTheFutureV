@@ -1,8 +1,8 @@
 ﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
 using System;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {

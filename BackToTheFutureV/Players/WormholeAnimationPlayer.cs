@@ -1,6 +1,5 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
@@ -8,6 +7,7 @@ using GTA.Math;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Players
 {
