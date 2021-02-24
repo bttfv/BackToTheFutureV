@@ -1,4 +1,5 @@
 ﻿using BackToTheFutureV.Utility;
+using FusionLibrary;
 using GTA.Math;
 using System;
 using static BackToTheFutureV.Utility.InternalEnums;
@@ -8,16 +9,31 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     [Serializable]
     public class BaseProperties
     {
+        //Persistent properties
         public Guid GUID { get; set; }
-        public bool IsGivenScaleformPriority { get; set; }
         public bool AreTimeCircuitsOn { get; set; }
+        public DateTime SpawnTime { get; set; } = Utils.CurrentTime;
         public DateTime DestinationTime { get; set; } = BTTFImportantDates.GetRandom();
         public DateTime PreviousTime { get; set; } = new DateTime(1985, 10, 26, 1, 20, 00);
         public Vector3 LastVelocity { get; set; }
-        public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
         public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;
         public bool AreTimeCircuitsBroken { get; set; }
         private int _reactorCharge;
+        public bool CutsceneMode { get; set; } = true;
+        public bool IsFreezed { get; set; }
+        public bool IsDefrosting { get; set; }
+        public float IceValue { get; set; }
+        public bool IsFlying { get; set; }
+        public bool AreWheelsInHoverMode { get; set; }
+        public bool CanConvert { get; set; } = true;
+        public bool AreFlyingCircuitsBroken { get; set; }
+        public bool AreHoodboxCircuitsReady { get; set; }
+        public bool WasOnTracks { get; set; }
+        public bool HasBeenStruckByLightning { get; set; }
+        public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
+        public int TimeTravelsCount { get; set; }
+        
+        //Temporary properties        
         public int ReactorCharge
         {
             get => _reactorCharge;
@@ -28,71 +44,63 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             }
         }
         public bool IsFueled => ReactorCharge > 0;
-        public bool IsRefueling { get; set; }
-        public bool CutsceneMode { get; set; } = true;
+        public bool IsGivenScaleformPriority { get; set; }
+        public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
+        public bool IsRefueling { get; set; }        
         public bool IsFluxDoingBlueAnim { get; set; }
-        public bool IsEngineStalling { get; set; }
-        public bool IsFreezed { get; set; }
-        public bool IsDefrosting { get; set; }
-        public float IceValue { get; set; }
-        public bool IsRemoteControlled { get; set; }
-        public bool IsFlying { get; set; }
-        public bool AreWheelsInHoverMode { get; set; }
-        public bool IsLanding { get; set; }
-        public bool CanConvert { get; set; } = true;
-        public bool IsAltitudeHolding { get; set; }
-        public bool AreFlyingCircuitsBroken { get; set; }
-        public bool IsHoverBoosting { get; set; }
-        public bool AreHoodboxCircuitsReady { get; set; }
+        public bool IsEngineStalling { get; set; }        
+        public bool IsRemoteControlled { get; set; }        
+        public bool IsLanding { get; set; }        
+        public bool IsAltitudeHolding { get; set; }        
+        public bool IsHoverBoosting { get; set; }        
         public bool IsPhotoModeOn { get; set; }
         public bool IsOnTracks { get; set; }
-        public bool WasOnTracks { get; set; }
-        public bool IsAttachedToRogersSierra { get; set; }
-        public bool HasBeenStruckByLightning { get; set; }
+        public bool IsAttachedToRogersSierra { get; set; }        
         public bool PhotoWormholeActive { get; set; }
         public bool PhotoGlowingCoilsActive { get; set; }
         public bool PhotoFluxCapacitorActive { get; set; }
         public bool PhotoEngineStallActive { get; set; }
         public bool PhotoSIDMaxActive { get; set; }
-        public float TorqueMultiplier { get; set; } = 1;
-        public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
+        public float TorqueMultiplier { get; set; } = 1;        
         public MissionType MissionType { get; set; } = MissionType.None;
-        public bool Story { get; set; }
-        public int TimeTravelsCount { get; set; }
+        public bool Story { get; set; }        
         public bool BlockSparks { get; set; }
 
         public BaseProperties Clone()
         {
-            BaseProperties ret = new BaseProperties
-            {
-                AreTimeCircuitsOn = AreTimeCircuitsOn,
-                DestinationTime = DestinationTime,
-                PreviousTime = PreviousTime,
-                LastVelocity = LastVelocity,
-                TimeTravelType = TimeTravelType,
-                AreTimeCircuitsBroken = AreTimeCircuitsBroken,
-                _reactorCharge = _reactorCharge,
-                CutsceneMode = CutsceneMode,
-                IsFreezed = IsFreezed,
-                IsDefrosting = IsDefrosting,
-                IceValue = IceValue,
-                IsFlying = IsFlying,
-                AreWheelsInHoverMode = AreWheelsInHoverMode,
-                CanConvert = CanConvert,
-                AreFlyingCircuitsBroken = AreFlyingCircuitsBroken,
-                AreHoodboxCircuitsReady = AreHoodboxCircuitsReady,
-                WasOnTracks = WasOnTracks,
-                HasBeenStruckByLightning = HasBeenStruckByLightning,
-                TimeTravelDestPos = TimeTravelDestPos,
-                TimeTravelsCount = TimeTravelsCount
-            };
+            BaseProperties ret = new BaseProperties();
+
+            ret.GUID = GUID;
+            ret.AreTimeCircuitsOn = AreTimeCircuitsOn;
+            ret.SpawnTime = SpawnTime;
+            ret.DestinationTime = DestinationTime;
+            ret.PreviousTime = PreviousTime;
+            ret.LastVelocity = LastVelocity;
+            ret.TimeTravelType = TimeTravelType;
+            ret.AreTimeCircuitsBroken = AreTimeCircuitsBroken;
+            ret._reactorCharge = _reactorCharge;
+            ret.CutsceneMode = CutsceneMode;
+            ret.IsFreezed = IsFreezed;
+            ret.IsDefrosting = IsDefrosting;
+            ret.IceValue = IceValue;
+            ret.IsFlying = IsFlying;
+            ret.AreWheelsInHoverMode = AreWheelsInHoverMode;
+            ret.CanConvert = CanConvert;
+            ret.AreFlyingCircuitsBroken = AreFlyingCircuitsBroken;
+            ret.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;
+            ret.WasOnTracks = WasOnTracks;
+            ret.HasBeenStruckByLightning = HasBeenStruckByLightning;
+            ret.TimeTravelDestPos = TimeTravelDestPos;
+            ret.TimeTravelsCount = TimeTravelsCount;
 
             return ret;
         }
 
         public void ApplyTo(TimeMachine timeMachine)
         {
+            timeMachine.Properties.GUID = GUID;
             timeMachine.Properties.AreTimeCircuitsOn = AreTimeCircuitsOn;
+            timeMachine.Properties.SpawnTime = SpawnTime;
             timeMachine.Properties.DestinationTime = DestinationTime;
             timeMachine.Properties.PreviousTime = PreviousTime;
             timeMachine.Properties.LastVelocity = LastVelocity;
