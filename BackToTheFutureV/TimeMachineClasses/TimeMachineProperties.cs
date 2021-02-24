@@ -22,6 +22,9 @@ namespace BackToTheFutureV.TimeMachineClasses
             TimeMachine = timeMachine;
 
             GUID = Guid.NewGuid();
+
+            if (!Mods.IsDMC12)
+                ReactorCharge = 1;
         }
     }
 }

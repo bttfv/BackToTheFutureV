@@ -32,7 +32,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool HasBeenStruckByLightning { get; set; }
         public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
         public int TimeTravelsCount { get; set; }
-        
+
         //Temporary properties        
         public int ReactorCharge
         {
@@ -46,52 +46,53 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool IsFueled => ReactorCharge > 0;
         public bool IsGivenScaleformPriority { get; set; }
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
-        public bool IsRefueling { get; set; }        
+        public bool IsRefueling { get; set; }
         public bool IsFluxDoingBlueAnim { get; set; }
-        public bool IsEngineStalling { get; set; }        
-        public bool IsRemoteControlled { get; set; }        
-        public bool IsLanding { get; set; }        
-        public bool IsAltitudeHolding { get; set; }        
-        public bool IsHoverBoosting { get; set; }        
+        public bool IsEngineStalling { get; set; }
+        public bool IsRemoteControlled { get; set; }
+        public bool IsLanding { get; set; }
+        public bool IsAltitudeHolding { get; set; }
+        public bool IsHoverBoosting { get; set; }
         public bool IsPhotoModeOn { get; set; }
         public bool IsOnTracks { get; set; }
-        public bool IsAttachedToRogersSierra { get; set; }        
+        public bool IsAttachedToRogersSierra { get; set; }
         public bool PhotoWormholeActive { get; set; }
         public bool PhotoGlowingCoilsActive { get; set; }
         public bool PhotoFluxCapacitorActive { get; set; }
         public bool PhotoEngineStallActive { get; set; }
         public bool PhotoSIDMaxActive { get; set; }
-        public float TorqueMultiplier { get; set; } = 1;        
+        public float TorqueMultiplier { get; set; } = 1;
         public MissionType MissionType { get; set; } = MissionType.None;
-        public bool Story { get; set; }        
+        public bool Story { get; set; }
         public bool BlockSparks { get; set; }
 
         public BaseProperties Clone()
         {
-            BaseProperties ret = new BaseProperties();
-
-            ret.GUID = GUID;
-            ret.AreTimeCircuitsOn = AreTimeCircuitsOn;
-            ret.SpawnTime = SpawnTime;
-            ret.DestinationTime = DestinationTime;
-            ret.PreviousTime = PreviousTime;
-            ret.LastVelocity = LastVelocity;
-            ret.TimeTravelType = TimeTravelType;
-            ret.AreTimeCircuitsBroken = AreTimeCircuitsBroken;
-            ret._reactorCharge = _reactorCharge;
-            ret.CutsceneMode = CutsceneMode;
-            ret.IsFreezed = IsFreezed;
-            ret.IsDefrosting = IsDefrosting;
-            ret.IceValue = IceValue;
-            ret.IsFlying = IsFlying;
-            ret.AreWheelsInHoverMode = AreWheelsInHoverMode;
-            ret.CanConvert = CanConvert;
-            ret.AreFlyingCircuitsBroken = AreFlyingCircuitsBroken;
-            ret.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;
-            ret.WasOnTracks = WasOnTracks;
-            ret.HasBeenStruckByLightning = HasBeenStruckByLightning;
-            ret.TimeTravelDestPos = TimeTravelDestPos;
-            ret.TimeTravelsCount = TimeTravelsCount;
+            BaseProperties ret = new BaseProperties
+            {
+                GUID = GUID,
+                AreTimeCircuitsOn = AreTimeCircuitsOn,
+                SpawnTime = SpawnTime,
+                DestinationTime = DestinationTime,
+                PreviousTime = PreviousTime,
+                LastVelocity = LastVelocity,
+                TimeTravelType = TimeTravelType,
+                AreTimeCircuitsBroken = AreTimeCircuitsBroken,
+                _reactorCharge = _reactorCharge,
+                CutsceneMode = CutsceneMode,
+                IsFreezed = IsFreezed,
+                IsDefrosting = IsDefrosting,
+                IceValue = IceValue,
+                IsFlying = IsFlying,
+                AreWheelsInHoverMode = AreWheelsInHoverMode,
+                CanConvert = CanConvert,
+                AreFlyingCircuitsBroken = AreFlyingCircuitsBroken,
+                AreHoodboxCircuitsReady = AreHoodboxCircuitsReady,
+                WasOnTracks = WasOnTracks,
+                HasBeenStruckByLightning = HasBeenStruckByLightning,
+                TimeTravelDestPos = TimeTravelDestPos,
+                TimeTravelsCount = TimeTravelsCount
+            };
 
             return ret;
         }

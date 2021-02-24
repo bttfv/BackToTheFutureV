@@ -73,9 +73,8 @@ namespace BackToTheFutureV.Menu
 
             FlyMode.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.On;
             AltitudeHold.Enabled = FlyMode.Enabled;
-
             RemoteControl.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
-
+            CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
             TimeCircuitsOn.Enabled = !RemoteControl.Enabled;
             CutsceneMode.Enabled = !RemoteControl.Enabled;
 
@@ -127,7 +126,7 @@ namespace BackToTheFutureV.Menu
             AltitudeHold.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
 
-            CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.FullDamaged;
+            CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
             PhotoMenu.Enabled = CustomMenu.Enabled;
 
             TrainMissionMenu.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsOnTracks;
