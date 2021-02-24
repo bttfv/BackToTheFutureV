@@ -124,7 +124,7 @@ namespace BackToTheFutureV.Utility
             Rotation = timeMachine.Vehicle.Rotation;
             Velocity = timeMachine.Vehicle.Velocity;
 
-            Properties = timeMachine.Properties.Clone(true);
+            Properties = timeMachine.Properties.Clone();
             Mods = timeMachine.Mods.Clone();
 
             WaybackEvent = waybackEvent.Clone();

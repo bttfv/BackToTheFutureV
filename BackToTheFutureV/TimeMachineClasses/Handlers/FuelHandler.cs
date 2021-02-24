@@ -1,5 +1,4 @@
 ﻿using BackToTheFutureV.Settings;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
 using GTA;
@@ -44,6 +43,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (!TimeMachine.IsWaybackPlaying && WaybackMachineHandler.Enabled)
                 TimeMachine.WaybackMachine.NextEvent = new WaybackEvent(WaybackEventType.Refuel);
+
+            if (refuelPed == Utils.PlayerPed)
+            {
+                if (Mods.Reactor == ReactorType.MrFusion)
+                    InternalInventory.Current.Trash--;
+                else
+                    InternalInventory.Current.Plutonium--;
+            }
 
             RefillAnimation(Vehicle, refuelPed);
             Properties.IsRefueling = true;
@@ -175,14 +182,27 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (!CanRefuel(Vehicle, Utils.PlayerPed) || Properties.IsRefueling || Properties.IsFueled)
+            if (Properties.ReactorCharge >= Constants.MaxReactorCharge || Properties.IsRefueling || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Utils.PlayerVehicle != null || TimeMachineHandler.ClosestTimeMachine != TimeMachine)
                 return;
 
-            if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
+            if (IsInPosition() && HasFuel())
                 Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Refuel_Hotkey"));
 
             if (Game.IsControlJustPressed(GTA.Control.Context))
-                Refuel(Utils.PlayerPed);
+            {
+                if (IsInPosition())
+                {
+                    if (HasFuel())
+                        Refuel(Utils.PlayerPed);
+                    else
+                    {
+                        if (Mods.Reactor == ReactorType.MrFusion)
+                            Utils.DisplayHelpText("You don't have enough trash.");
+                        else
+                            Utils.DisplayHelpText("You don't have enough plutonium.");
+                    }
+                }
+            }
         }
 
         public static void RefillAnimation(Vehicle Vehicle, Ped Ped)
@@ -196,42 +216,50 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Ped?.Task.PerformSequence(taskSequence);
         }
 
-        public static bool CanRefuel(Vehicle vehicle, Ped ped)
+        private bool HasFuel()
         {
-            if (ped.CurrentVehicle == null)
-            {
-                Vector3 bootPos = vehicle.Bones["mr_fusion"].Position;
+            if (Mods.Reactor == ReactorType.Nuclear && InternalInventory.Current.Plutonium > 0)
+                return true;
 
-                Vector3 dir;
-                float angle, dist;
-
-                if (ped == Utils.PlayerPed)
-                {
-                    dir = bootPos - GameplayCamera.Position;
-                    angle = Vector3.Angle(dir, GameplayCamera.Direction);
-                    dist = Vector3.Distance(bootPos, Utils.PlayerPed.Position);
-                }
-                else
-                {
-                    dir = bootPos - ped.Position;
-                    angle = Vector3.Angle(dir, ped.ForwardVector);
-                    dist = Vector3.Distance(bootPos, ped.Position) - 0.1f;
-                }
-
-                if (angle < 45 && dist < 1.5f)
-                {
-                    return true;
-                }
-            }
+            if (Mods.Reactor == ReactorType.MrFusion && InternalInventory.Current.Trash > 0)
+                return true;
 
             return false;
+        }
+
+        private bool IsInPosition()
+        {
+            return IsPedInPosition(Vehicle, Utils.PlayerPed);
+        }
+
+        public static bool IsPedInPosition(Vehicle vehicle, Ped ped)
+        {
+            Vector3 bootPos = vehicle.Bones["mr_fusion"].Position;
+
+            Vector3 dir;
+            float angle, dist;
+
+            if (ped == Utils.PlayerPed)
+            {
+                dir = bootPos - GameplayCamera.Position;
+                angle = Vector3.Angle(dir, GameplayCamera.Direction);
+                dist = Vector3.Distance(bootPos, Utils.PlayerPed.Position);
+            }
+            else
+            {
+                dir = bootPos - ped.Position;
+                angle = Vector3.Angle(dir, ped.ForwardVector);
+                dist = Vector3.Distance(bootPos, ped.Position) - 0.1f;
+            }
+
+            return angle < 45 && dist < 1.5f;
         }
 
         public override void KeyDown(Keys key) { }
 
         public override void Stop()
         {
-            Properties.IsFueled = true;
+            Properties.ReactorCharge++;
             Properties.IsRefueling = false;
             _currentRefuelStep = 0;
             _refuelTimer = 0;
@@ -247,14 +275,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void SetEmpty(bool isOn)
         {
             if (Utils.PlayerVehicle == Vehicle)
-            {
-                ScaleformsHandler.GUI.CallFunction("SET_EMPTY_STATE", isOn);
-
-                if (Properties.IsFueled)
-                    return;
-
                 Constants.HUDProperties.Empty = isOn ? HUD.Core.EmptyType.On : HUD.Core.EmptyType.Off;
-            }
 
             if (Vehicle.IsVisible == false)
                 return;
@@ -275,8 +296,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (Utils.PlayerVehicle != Vehicle)
                 return;
-
-            ScaleformsHandler.GUI.CallFunction("HIDE_EMPTY");
 
             Constants.HUDProperties.Empty = HUD.Core.EmptyType.Hide;
         }

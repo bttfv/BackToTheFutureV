@@ -81,7 +81,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Step++;
                     break;
                 case 2:
-                    if (!FuelHandler.CanRefuel(Vehicle, Driver))
+                    if (!FuelHandler.IsPedInPosition(Vehicle, Driver))
                         break;
 
                     Events.SetRefuel?.Invoke(Driver);

@@ -134,6 +134,7 @@ namespace BackToTheFutureV
             if (!ModSettings.ExternalTCDToggle && ExternalHUD.IsActive)
                 ExternalHUD.Toggle(false);
 
+            TrashHandler.Process();
             CustomTrainHandler.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();

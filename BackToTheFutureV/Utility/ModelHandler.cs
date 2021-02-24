@@ -1,4 +1,5 @@
 ﻿using FusionLibrary;
+using GTA.UI;
 using System.Collections.Generic;
 
 namespace BackToTheFutureV.Utility
@@ -100,7 +101,7 @@ namespace BackToTheFutureV.Utility
 
         public static CustomModel SabreGT = new CustomModel("sabregt");
 
-        public static CustomModel DeluxoModel = new CustomModel("DELUXO");
+        public static CustomModel DeluxoModel = new CustomModel("deluxo");
 
         private static string[] tcdTypes = new string[3]
         {
@@ -131,6 +132,8 @@ namespace BackToTheFutureV.Utility
                 CoilSeparated.Add(new CustomModel($"bttf3_coils_glowing_{i}"));
 
             GetAllModels(typeof(ModelHandler)).ForEach(x => PreloadModel(x));
+
+            LoadingPrompt.Hide();
         }
     }
 }

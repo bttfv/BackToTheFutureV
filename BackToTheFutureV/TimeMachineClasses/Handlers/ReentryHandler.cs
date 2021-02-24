@@ -152,7 +152,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
             else if (Mods.IsDMC12)
-                Properties.IsFueled = false;
+                Properties.ReactorCharge--;
 
             if (!Properties.IsOnTracks && !Properties.IsFlying && Vehicle.Driver == null)
             {

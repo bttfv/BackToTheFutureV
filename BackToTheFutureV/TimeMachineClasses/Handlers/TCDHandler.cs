@@ -473,6 +473,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
 
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
+            ScaleformsHandler.GUI.SetEmpty(Constants.HUDProperties.Empty);
             ScaleformsHandler.GUI.Draw2D();
 
             if (ModSettings.HideSID || !Mods.IsDMC12)

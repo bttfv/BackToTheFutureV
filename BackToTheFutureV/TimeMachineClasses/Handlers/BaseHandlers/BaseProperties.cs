@@ -1,7 +1,6 @@
 ﻿using BackToTheFutureV.Utility;
 using GTA.Math;
 using System;
-using System.Reflection;
 using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
@@ -18,7 +17,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
         public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;
         public bool AreTimeCircuitsBroken { get; set; }
-        public bool IsFueled { get; set; } = true;
+        private int _reactorCharge;
+        public int ReactorCharge
+        {
+            get => _reactorCharge;
+            set
+            {
+                if (value >= 0)
+                    _reactorCharge = value;
+            }
+        }
+        public bool IsFueled => ReactorCharge > 0;
         public bool IsRefueling { get; set; }
         public bool CutsceneMode { get; set; } = true;
         public bool IsFluxDoingBlueAnim { get; set; }
@@ -52,72 +61,57 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public int TimeTravelsCount { get; set; }
         public bool BlockSparks { get; set; }
 
-        public BaseProperties Clone(bool waybackClone = false)
+        public BaseProperties Clone()
         {
-            BaseProperties ret = new BaseProperties();
-
-            if (waybackClone)
+            BaseProperties ret = new BaseProperties
             {
-                ret.GUID = GUID;
-                ret.IsFueled = IsFueled;
-                ret.AreTimeCircuitsOn = AreTimeCircuitsOn;
-                ret.DestinationTime = DestinationTime;
-                ret.PreviousTime = PreviousTime;
-                ret.IsFlying = IsFlying;
-
-                return ret;
-            }
-
-            foreach (PropertyInfo property in InternalExtensions.Properties)
-                property.SetValue(ret, property.GetValue(this));
-
-            ret.IsRefueling = false;
-
-            ret.IsFluxDoingBlueAnim = false;
-
-            ret.IsGivenScaleformPriority = false;
-
-            ret.IsEngineStalling = false;
-
-            ret.IsOnTracks = false;
-
-            ret.IsAttachedToRogersSierra = false;
-
-            ret.TimeTravelPhase = TimeTravelPhase.Completed;
-
-            ret.IsLanding = false;
-
-            ret.IsHoverBoosting = false;
-
-            ret.IsAltitudeHolding = false;
-
-            ret.IsRemoteControlled = false;
-
-            ret.MissionType = MissionType.None;
-
-            ret.Story = false;
-
-            ret.PhotoEngineStallActive = false;
-
-            ret.PhotoFluxCapacitorActive = false;
-
-            ret.PhotoGlowingCoilsActive = false;
-
-            ret.PhotoWormholeActive = false;
-
-            ret.PhotoSIDMaxActive = false;
-
-            ret.BlockSparks = false;
-
-            ret.TorqueMultiplier = 1;
+                AreTimeCircuitsOn = AreTimeCircuitsOn,
+                DestinationTime = DestinationTime,
+                PreviousTime = PreviousTime,
+                LastVelocity = LastVelocity,
+                TimeTravelType = TimeTravelType,
+                AreTimeCircuitsBroken = AreTimeCircuitsBroken,
+                _reactorCharge = _reactorCharge,
+                CutsceneMode = CutsceneMode,
+                IsFreezed = IsFreezed,
+                IsDefrosting = IsDefrosting,
+                IceValue = IceValue,
+                IsFlying = IsFlying,
+                AreWheelsInHoverMode = AreWheelsInHoverMode,
+                CanConvert = CanConvert,
+                AreFlyingCircuitsBroken = AreFlyingCircuitsBroken,
+                AreHoodboxCircuitsReady = AreHoodboxCircuitsReady,
+                WasOnTracks = WasOnTracks,
+                HasBeenStruckByLightning = HasBeenStruckByLightning,
+                TimeTravelDestPos = TimeTravelDestPos,
+                TimeTravelsCount = TimeTravelsCount
+            };
 
             return ret;
         }
 
         public void ApplyTo(TimeMachine timeMachine)
         {
-            foreach (PropertyInfo property in InternalExtensions.Properties)
-                property.SetValue(timeMachine.Properties, property.GetValue(this));
+            timeMachine.Properties.AreTimeCircuitsOn = AreTimeCircuitsOn;
+            timeMachine.Properties.DestinationTime = DestinationTime;
+            timeMachine.Properties.PreviousTime = PreviousTime;
+            timeMachine.Properties.LastVelocity = LastVelocity;
+            timeMachine.Properties.TimeTravelType = TimeTravelType;
+            timeMachine.Properties.AreTimeCircuitsBroken = AreTimeCircuitsBroken;
+            timeMachine.Properties._reactorCharge = _reactorCharge;
+            timeMachine.Properties.CutsceneMode = CutsceneMode;
+            timeMachine.Properties.IsFreezed = IsFreezed;
+            timeMachine.Properties.IsDefrosting = IsDefrosting;
+            timeMachine.Properties.IceValue = IceValue;
+            timeMachine.Properties.IsFlying = IsFlying;
+            timeMachine.Properties.AreWheelsInHoverMode = AreWheelsInHoverMode;
+            timeMachine.Properties.CanConvert = CanConvert;
+            timeMachine.Properties.AreFlyingCircuitsBroken = AreFlyingCircuitsBroken;
+            timeMachine.Properties.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;
+            timeMachine.Properties.WasOnTracks = WasOnTracks;
+            timeMachine.Properties.HasBeenStruckByLightning = HasBeenStruckByLightning;
+            timeMachine.Properties.TimeTravelDestPos = TimeTravelDestPos;
+            timeMachine.Properties.TimeTravelsCount = TimeTravelsCount;
 
             if (IsFlying)
                 timeMachine.Events.SetFlyMode?.Invoke(true, true);
@@ -132,7 +126,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public void ApplyToWayback(TimeMachine timeMachine)
         {
             timeMachine.Properties.GUID = GUID;
-            timeMachine.Properties.IsFueled = IsFueled;
+            timeMachine.Properties.ReactorCharge = ReactorCharge;
             timeMachine.Properties.PreviousTime = PreviousTime;
 
             if (AreTimeCircuitsOn != timeMachine.Properties.AreTimeCircuitsOn)

@@ -1,4 +1,5 @@
-﻿using FusionLibrary;
+﻿using BackToTheFutureV.HUD.Core;
+using FusionLibrary;
 using GTA.UI;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,22 @@ namespace BackToTheFutureV.GUI
         public void Draw2D()
         {
             Render2D(ModSettings.TCDPosition, new SizeF(ModSettings.TCDScale * (1501f / 1100f) / Screen.AspectRatio, ModSettings.TCDScale));
+        }
+
+        public void SetEmpty(EmptyType emptyType)
+        {
+            switch (emptyType)
+            {
+                case EmptyType.Off:
+                    CallFunction("SET_EMPTY_STATE", 0);
+                    break;
+                case EmptyType.On:
+                    CallFunction("SET_EMPTY_STATE", 1);
+                    break;
+                default:
+                    CallFunction("HIDE_EMPTY");
+                    break;
+            }
         }
 
         public void SetDate(string type, DateTime date)

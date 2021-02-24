@@ -100,6 +100,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             switch (reenterType)
             {
+                case ReenterType.Forced:
                 case ReenterType.Normal:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
@@ -110,13 +111,10 @@ namespace BackToTheFutureV.TimeMachineClasses
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     if (!TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12)
-                        TimeMachine.Properties.IsFueled = false;
+                        TimeMachine.Properties.ReactorCharge--;
 
                     TimeMachine.Events.OnVehicleSpawned?.Invoke();
                     return TimeMachine;
-                case ReenterType.Forced:
-                    TimeMachineClone.Properties.DestinationTime = Utils.CurrentTime;
-                    break;
             }
 
             return null;

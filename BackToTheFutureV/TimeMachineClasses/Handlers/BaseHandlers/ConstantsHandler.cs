@@ -155,6 +155,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             }
         }
 
+        public int MaxReactorCharge
+        {
+            get
+            {
+                if (Mods.Reactor == ReactorType.Nuclear)
+                    return 1;
+
+                return 3;
+            }
+        }
+
         public int FireTrailsAppearTime => (FireTrailsIs99 || Properties.IsFlying) ? -1 : 0;
 
         public float FireTrailsDisappearTime => (FireTrailsIs99 || Properties.IsFlying) ? 1 : 15;

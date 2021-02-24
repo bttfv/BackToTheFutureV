@@ -147,8 +147,6 @@ namespace BackToTheFutureV.Menu
                 {
                     timeMachine.Mods.Hook = HookState.OnDoor;
                     timeMachine.Mods.Plate = PlateType.Empty;
-
-                    timeMachine.Properties.IsFueled = false;
                 }
 
                 if (spawnBTTF.SelectedIndex == 5)

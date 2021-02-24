@@ -400,7 +400,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             Mods.HoverUnderbody = ModState.Off;
 
-            Properties.IsFueled = false;
+            Properties.ReactorCharge = 0;
             Properties.AreTimeCircuitsBroken = true;
             Properties.AreFlyingCircuitsBroken = true;
             Utils.SetTiresBurst(Vehicle, true);
