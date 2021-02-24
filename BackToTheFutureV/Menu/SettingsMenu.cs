@@ -14,6 +14,7 @@ namespace BackToTheFutureV.Menu
         private NativeCheckboxItem useInputToggle;
         private NativeCheckboxItem forceFlyMode;
         private NativeCheckboxItem LandingSystem;
+        private NativeCheckboxItem InfiniteFuel;
         private NativeCheckboxItem PersistenceSystem;
         private NativeCheckboxItem WaybackSystem;
         private NativeCheckboxItem RandomTrains;
@@ -36,6 +37,7 @@ namespace BackToTheFutureV.Menu
             Add(useInputToggle = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_InputToggle"), Game.GetLocalizedString("BTTFV_Menu_InputToggle_Description"), ModSettings.UseInputToggle));
             Add(forceFlyMode = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode"), Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode_Description"), ModSettings.ForceFlyMode));
             Add(LandingSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_LandingSystem"), Game.GetLocalizedString("BTTFV_Menu_LandingSystem_Description"), ModSettings.LandingSystem));
+            Add(InfiniteFuel = new NativeCheckboxItem("Infinite fuel", "", ModSettings.InfiniteFuel));
             Add(PersistenceSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem"), Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem_Description"), ModSettings.PersistenceSystem));
             Add(WaybackSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_WaybackSystem"), Game.GetLocalizedString("BTTFV_Menu_WaybackSystem_Description"), WaybackMachineHandler.Enabled));
             Add(RandomTrains = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RandomTrains"), Game.GetLocalizedString("BTTFV_Menu_RandomTrains_Description"), ModSettings.RandomTrains));
@@ -99,6 +101,9 @@ namespace BackToTheFutureV.Menu
 
             if (sender == GlowingPlutoniumReactor)
                 ModSettings.GlowingPlutoniumReactor = Checked;
+
+            if (sender == InfiniteFuel)
+                ModSettings.InfiniteFuel = Checked;
 
             if (sender == WaybackSystem)
                 WaybackMachineHandler.SetState(Checked);

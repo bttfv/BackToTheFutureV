@@ -44,7 +44,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!TimeMachine.IsWaybackPlaying && WaybackMachineHandler.Enabled)
                 TimeMachine.WaybackMachine.NextEvent = new WaybackEvent(WaybackEventType.Refuel);
 
-            if (refuelPed == Utils.PlayerPed)
+            if (refuelPed == Utils.PlayerPed && !ModSettings.InfiniteFuel)
             {
                 if (Mods.Reactor == ReactorType.MrFusion)
                     InternalInventory.Current.Trash--;
@@ -218,6 +218,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private bool HasFuel()
         {
+            if (ModSettings.InfiniteFuel)
+                return true;
+
             if (Mods.Reactor == ReactorType.Nuclear && InternalInventory.Current.Plutonium > 0)
                 return true;
 

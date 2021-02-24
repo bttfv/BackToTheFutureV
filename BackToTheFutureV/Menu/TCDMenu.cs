@@ -34,7 +34,7 @@ namespace BackToTheFutureV.Menu
             tcdBackground.ItemChanged += TcdBackground_ItemChanged;
 
             Add(changeTCD = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TCDEditMode"), Game.GetLocalizedString("BTTFV_Menu_TCDEditMode_Description")));
-            Add(changeRCGUI = new NativeItem("Edit RC HUD", Game.GetLocalizedString("BTTFV_Menu_TCDEditMode_Description")));
+            Add(changeRCGUI = new NativeItem("Edit RC HUD", ""));
             Add(resetToDefaultTCD = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TCDReset"), Game.GetLocalizedString("BTTFV_Menu_TCDReset_Description")));
 
             Add(hideSID = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_TCD_Edit_HideSID"), Game.GetLocalizedString("BTTFV_TCD_Edit_HideSID_Description"), ModSettings.HideSID));

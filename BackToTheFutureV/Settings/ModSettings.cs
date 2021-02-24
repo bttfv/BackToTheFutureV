@@ -37,6 +37,7 @@ namespace BackToTheFutureV
         public static bool ForceFlyMode { get; set; } = true;
         public static bool GlowingWormholeEmitter { get; set; } = true;
         public static bool GlowingPlutoniumReactor { get; set; } = true;
+        public static bool InfiniteFuel { get; set; }
         public static bool LightningStrikeEvent { get; set; } = true;
         public static bool EngineStallEvent { get; set; } = true;
         public static bool TurbulenceEvent { get; set; } = true;
@@ -102,6 +103,7 @@ namespace BackToTheFutureV
             PlaySpeedoBeep = settings.GetValue("Sounds", "SpeedoBeep", PlaySpeedoBeep);
 
             CinematicSpawn = settings.GetValue("General", "CinematicSpawn", CinematicSpawn);
+            InfiniteFuel = settings.GetValue("General", "InfiniteFuel", InfiniteFuel);
             PersistenceSystem = settings.GetValue("General", "PersistenceSystem", PersistenceSystem);
             RandomTrains = settings.GetValue("General", "RandomTrains", RandomTrains);
 
@@ -148,6 +150,7 @@ namespace BackToTheFutureV
             settings.SetValue("Sounds", "SpeedoBeep", PlaySpeedoBeep);
 
             settings.SetValue("General", "PersistenceSystem", PersistenceSystem);
+            settings.SetValue("General", "InfiniteFuel", InfiniteFuel);
             settings.SetValue("General", "CinematicSpawn", CinematicSpawn);
             settings.SetValue("General", "RandomTrains", RandomTrains);
 
