@@ -13,6 +13,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private int _nextBlink;
         private int _nextId;
         private int _blinks;
+
+        private bool longPressed;
+
         private const int TotalBlinks = 16;
 
         private bool _isBlinking;
@@ -72,10 +75,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnControlLongPressed()
         {
-            if (!IsPedInPosition() || Players.Refuel.IsPlaying)
+            if (longPressed || !IsPedInPosition() || Players.Refuel.IsPlaying)
                 return;
 
             Players.Refuel?.Play();
+            longPressed = true;
         }
 
         private void StartFuelBlink()
@@ -124,6 +128,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public override void Process()
         {
             Players.Refuel?.Process();
+
+            if (longPressed && !Game.IsControlPressed(GTA.Control.Context))
+                longPressed = false;
 
             // Pulsing animation while refueling for plutonium (bttf1) delorean
             if (Mods.Reactor == ReactorType.Nuclear && ModSettings.GlowingPlutoniumReactor)
