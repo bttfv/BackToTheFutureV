@@ -97,7 +97,6 @@ namespace BackToTheFutureV.TimeMachineClasses
             registeredHandlers.Add("TCDHandler", new TCDHandler(this));
             registeredHandlers.Add("InputHandler", new InputHandler(this));
             registeredHandlers.Add("RcHandler", new RcHandler(this));
-            registeredHandlers.Add("FuelHandler", new FuelHandler(this));
             registeredHandlers.Add("ReentryHandler", new ReentryHandler(this));
             registeredHandlers.Add("SparksHandler", new SparksHandler(this));
 
@@ -107,6 +106,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Mods.IsDMC12)
             {
+                registeredHandlers.Add("FuelHandler", new FuelHandler(this));
                 registeredHandlers.Add("SIDHandler", new SIDHandler(this));
                 registeredHandlers.Add("FluxCapacitorHandler", new FluxCapacitorHandler(this));
                 registeredHandlers.Add("FreezeHandler", new FreezeHandler(this));

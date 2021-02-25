@@ -9,9 +9,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public TimeMachine TimeMachine { get; }
 
         public Vehicle Vehicle => TimeMachine.Vehicle;
+        public DMC12 DMC12 => TimeMachine.DMC12;
 
         public TimeMachineMods Mods => TimeMachine.Mods;
-
         public EventsHandler Events => TimeMachine.Events;
         public PropertiesHandler Properties => TimeMachine.Properties;
         public SoundsHandler Sounds => TimeMachine.Sounds;
@@ -20,8 +20,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public ScaleformsHandler Scaleforms => TimeMachine.Scaleforms;
         public ParticlesHandler Particles => TimeMachine.Particles;
         public ConstantsHandler Constants => TimeMachine.Constants;
-
-        public DMC12 DMC12 => TimeMachine.DMC12;
 
         public Handler(TimeMachine timeMachine)
         {

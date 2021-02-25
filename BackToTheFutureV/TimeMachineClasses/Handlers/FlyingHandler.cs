@@ -77,7 +77,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Players.HoverModeWheels != null)
             {
-                Players.HoverModeWheels.OnAnimCompleted -= OnAnimCompleted;
+                Players.HoverModeWheels.OnPlayerCompleted -= OnCompleted;
                 Players.HoverModeWheels?.Dispose();
                 Players.HoverModeWheels = null;
             }
@@ -85,7 +85,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Mods.HoverUnderbody == ModState.On && Mods.IsDMC12)
             {
                 Players.HoverModeWheels = new WheelAnimationPlayer(TimeMachine);
-                Players.HoverModeWheels.OnAnimCompleted += OnAnimCompleted;
+                Players.HoverModeWheels.OnPlayerCompleted += OnCompleted;
 
                 Properties.AreFlyingCircuitsBroken = false;
 
@@ -98,7 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Props.HoverModeUnderbodyLights?.Delete();
         }
 
-        private void OnAnimCompleted()
+        private void OnCompleted()
         {
             if (Properties.AreWheelsInHoverMode)
             {

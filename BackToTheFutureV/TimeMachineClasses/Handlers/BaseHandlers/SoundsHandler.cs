@@ -203,8 +203,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             //Fuel
             FuelEmpty = AudioEngine.Create("bttf1/timeCircuits/plutoniumEmpty.wav", Presets.Interior);
             FuelEmpty.SourceBone = "bttf_tcd_green";
-            Refuel = AudioEngine.Create("bttf1/refuel.wav", Presets.Exterior);
-            Refuel.SourceBone = "bttf_reactorcap";
 
             //Plutonium gauge
             PlutoniumGauge = AudioEngine.Create("bttf1/timeCircuits/plutoniumGauges.wav", Presets.Interior);

@@ -9,16 +9,12 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Players
 {
-    public delegate void OnAnimCompleted();
-
     public class WheelAnimationPlayer : Player
     {
         public const float MAX_POSITION_OFFSET = 0.20f;
         public const float MAX_ROTATION_OFFSET = 90f;
 
         public bool IsWheelsOpen { get; private set; }
-
-        public OnAnimCompleted OnAnimCompleted { get; set; }
 
         private WheelType _roadWheel;
 
@@ -184,7 +180,7 @@ namespace BackToTheFutureV.Players
                 }
             }
 
-            OnAnimCompleted?.Invoke();
+            OnPlayerCompleted?.Invoke();
         }
 
         public void SetInstant(bool open)

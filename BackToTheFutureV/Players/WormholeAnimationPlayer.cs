@@ -312,7 +312,7 @@ namespace BackToTheFutureV.Players
 
                 if (Mods.WormholeType != WormholeType.BTTF3 && Game.GameTime >= _endAt && _playWormhole && !Properties.PhotoWormholeActive)
                 {
-                    OnCompleted?.Invoke();
+                    OnPlayerCompleted?.Invoke();
                     Stop();
 
                     return;

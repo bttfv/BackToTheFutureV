@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BackToTheFutureV.Utility
 {
-    public static class TrashHandler
+    internal static class TrashHandler
     {
         private static List<Model> dumpsterModels { get; } = new List<Model>
         {
@@ -16,11 +16,14 @@ namespace BackToTheFutureV.Utility
             new Model("prop_dumpster_3a")
         };
 
-        public static void Process()
+        internal static void Process()
         {
-            Prop dumpster = World.GetClosestProp(Utils.PlayerPed.Position, 1.5f, dumpsterModels.ToArray());
+            if (Utils.PlayerPed.IsInVehicle())
+                return;
 
-            if (dumpster == null || Utils.PlayerVehicle != null || !Game.IsControlJustPressed(Control.Context))
+            Prop dumpster = World.GetClosestProp(Utils.PlayerPed.Position, 1.6f, dumpsterModels.ToArray());
+
+            if (dumpster == null || !Game.IsControlJustPressed(Control.Context))
                 return;
 
             InternalInventory.Current.Trash++;

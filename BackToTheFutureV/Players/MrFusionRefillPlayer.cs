@@ -14,8 +14,6 @@ namespace BackToTheFutureV.Players
         private readonly AudioPlayer _mrfusionOpen;
         private readonly AudioPlayer _mrfusionClosed;
 
-        private bool open;
-
         public MrFusionRefillPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
             _mrFusion = new AnimateProp(Vehicle, ModelHandler.BTTFMrFusion, "mr_fusion");
@@ -28,23 +26,30 @@ namespace BackToTheFutureV.Players
             _mrFusionHandle.OnAnimCompleted += _mrFusionHandle_OnAnimCompleted;
             _mrFusionHandle.SpawnProp();
 
-            _mrfusionOpen = TimeMachine.Sounds.AudioEngine.Create("general/mrfusionOpen.wav", Presets.Exterior);
-            _mrfusionClosed = TimeMachine.Sounds.AudioEngine.Create("general/mrfusionClose.wav", Presets.Exterior);
+            _mrfusionOpen = Sounds.AudioEngine.Create("general/mrfusionOpen.wav", Presets.Exterior);
+            _mrfusionClosed = Sounds.AudioEngine.Create("general/mrfusionClose.wav", Presets.Exterior);
 
             _mrfusionOpen.Volume = 0.4f;
             _mrfusionClosed.Volume = 0.4f;
+
+            _mrfusionOpen.SourceBone = "mr_fusion";
+            _mrfusionClosed.SourceBone = "mr_fusion";
         }
 
         private void _mrFusionHandle_OnAnimCompleted(AnimationStep animationStep)
         {
-            if (open)
+            if (!Properties.IsRefueling)
                 _mrFusion.Play();
+            else
+                OnPlayerCompleted?.Invoke();
         }
 
         private void _mrFusion_OnAnimCompleted(AnimationStep animationStep)
         {
-            if (!open)
+            if (Properties.IsRefueling)
                 _mrFusionHandle.Play();
+            else
+                OnPlayerCompleted?.Invoke();
         }
 
         public override void Play()
@@ -52,9 +57,7 @@ namespace BackToTheFutureV.Players
             _mrfusionClosed?.Stop();
             _mrfusionOpen?.Stop();
 
-            open = !open;
-
-            if (open)
+            if (!Properties.IsRefueling)
             {
                 _mrFusionHandle.Play();
                 _mrfusionOpen.Play();
