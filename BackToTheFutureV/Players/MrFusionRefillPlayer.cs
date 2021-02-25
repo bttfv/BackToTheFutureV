@@ -6,7 +6,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Players
 {
-    public class MrFusionRefillPlayer : Player
+    internal class MrFusionRefillPlayer : Player
     {
         private readonly AnimateProp _mrFusion;
         private readonly AnimateProp _mrFusionHandle;

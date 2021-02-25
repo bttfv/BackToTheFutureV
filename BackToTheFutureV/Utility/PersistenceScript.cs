@@ -4,7 +4,7 @@ using System;
 
 namespace BackToTheFutureV
 {
-    public class PersistenceScript : Script
+    internal class PersistenceScript : Script
     {
         public PersistenceScript()
         {

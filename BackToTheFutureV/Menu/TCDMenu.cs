@@ -6,10 +6,11 @@ using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
 using System.Drawing;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Menu
 {
-    public class TCDMenu : CustomNativeMenu
+    internal class TCDMenu : CustomNativeMenu
     {
         private NativeListItem<TCDBackground> tcdBackground;
         private NativeItem changeTCD;

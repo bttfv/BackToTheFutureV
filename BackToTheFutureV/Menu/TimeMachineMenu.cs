@@ -9,7 +9,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Menu
 {
-    public class TimeMachineMenu : CustomNativeMenu
+    internal class TimeMachineMenu : CustomNativeMenu
     {
         public NativeItem Repair { get; private set; }
         public NativeCheckboxItem TimeCircuitsOn { get; }

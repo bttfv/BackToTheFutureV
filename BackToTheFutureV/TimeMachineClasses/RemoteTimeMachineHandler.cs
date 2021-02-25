@@ -11,7 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
-    public class RemoteTimeMachineHandler
+    internal class RemoteTimeMachineHandler
     {
         public static readonly float MAX_DIST = 650f;
 

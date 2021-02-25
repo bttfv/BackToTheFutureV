@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class InputHandler : Handler
+    internal class InputHandler : Handler
     {
         public bool InputMode { get; private set; }
 

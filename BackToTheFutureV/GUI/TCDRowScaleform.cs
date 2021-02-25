@@ -3,7 +3,7 @@ using System;
 
 namespace BackToTheFutureV.GUI
 {
-    public class TCDRowScaleform : ScaleformGui
+    internal class TCDRowScaleform : ScaleformGui
     {
         public TCDRowScaleform(string type) : base("bttf_3d_gui_" + type)
         {

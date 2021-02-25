@@ -5,15 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.GUI
 {
-    public enum TCDBackground
-    {
-        Metal, Transparent
-    }
-
-    public class TimeCircuitsScaleform : ScaleformGui
+    internal class TimeCircuitsScaleform : ScaleformGui
     {
         public TimeCircuitsScaleform() : base("bttf_2d_gui")
         {

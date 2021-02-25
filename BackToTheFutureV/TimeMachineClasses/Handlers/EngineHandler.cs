@@ -18,11 +18,11 @@ using Screen = GTA.UI.Screen;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public delegate void OnGearUp();
+    internal delegate void OnGearUp();
 
-    public delegate void OnGearDown();
+    internal delegate void OnGearDown();
 
-    public delegate void OnGearChanged();
+    internal delegate void OnGearChanged();
 
     internal class EngineHandler : Handler
     {

@@ -7,7 +7,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 namespace BackToTheFutureV.TimeMachineClasses
 {
     [Serializable]
-    public class PropertiesHandler : BaseProperties
+    internal class PropertiesHandler : BaseProperties
     {
         private TimeMachine TimeMachine { get; }
         private Vehicle Vehicle => TimeMachine.Vehicle;

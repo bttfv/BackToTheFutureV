@@ -13,7 +13,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class TCDSlot
+    internal class TCDSlot
     {
         private ScaleformsHandler Scaleforms => TimeMachine.Scaleforms;
 
@@ -146,7 +146,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         }
     }
 
-    public class TCDHandler : Handler
+    internal class TCDHandler : Handler
     {
         private DateTime errorDate = new DateTime(1885, 1, 1, 0, 0, 0);
 

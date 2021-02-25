@@ -15,10 +15,10 @@ using static RogersSierraRailway.TrainExtensions;
 
 namespace BackToTheFutureV.Story.Missions
 {
-    public delegate void OnVehicleAttachedToRogersSierra(TimeMachine timeMachine);
-    public delegate void OnVehicleDetachedFromRogersSierra(TimeMachine timeMachine);
+    internal delegate void OnVehicleAttachedToRogersSierra(TimeMachine timeMachine);
+    internal delegate void OnVehicleDetachedFromRogersSierra(TimeMachine timeMachine);
 
-    public class TrainMission : Mission
+    internal class TrainMission : Mission
     {
         public OnVehicleAttachedToRogersSierra OnVehicleAttachedToRogersSierra;
         public OnVehicleDetachedFromRogersSierra OnVehicleDetachedFromRogersSierra;

@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
-    public class SettingsMenu : CustomNativeMenu
+    internal class SettingsMenu : CustomNativeMenu
     {
         private NativeCheckboxItem cinematicSpawn;
         private NativeCheckboxItem useInputToggle;

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.Story
 {
-    public static class MissionHandler
+    internal static class MissionHandler
     {
         private static List<Mission> _missions = new List<Mission>();
 

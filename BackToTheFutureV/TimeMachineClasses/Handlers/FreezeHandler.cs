@@ -6,7 +6,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class FreezeHandler : Handler
+    internal class FreezeHandler : Handler
     {
         private int _gameTimer;
         private int _currentStep;

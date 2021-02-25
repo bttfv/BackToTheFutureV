@@ -7,7 +7,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
     [Serializable]
-    public class BaseProperties
+    internal class BaseProperties
     {
         //Persistent properties
         public Guid GUID { get; set; }

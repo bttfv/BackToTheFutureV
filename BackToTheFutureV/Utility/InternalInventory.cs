@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BackToTheFutureV.Utility
 {
-    public class InternalInventory
+    internal class InternalInventory
     {
         private static List<InternalInventory> InternalInventories = new List<InternalInventory>();
         public static InternalInventory Current => InternalInventories.DefaultIfEmpty(new InternalInventory()).SingleOrDefault(x => x.Ped == Utils.PlayerPed.Model);

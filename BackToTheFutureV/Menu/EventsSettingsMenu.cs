@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
-    public class EventsSettingsMenu : CustomNativeMenu
+    internal class EventsSettingsMenu : CustomNativeMenu
     {
         private NativeCheckboxItem LightningStrikeEvent;
         private NativeCheckboxItem EngineStallEvent;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BackToTheFutureV.Utility
 {
-    public class ModelHandler : CustomModelHandler
+    internal class ModelHandler : CustomModelHandler
     {
         //Common DMC12 CustomModels
         public static CustomModel RPMNeedle = new CustomModel("dmc12_rpm_needle");

@@ -1,21 +1,36 @@
 ﻿namespace BackToTheFutureV.Utility
 {
-    public class InternalEnums
+    internal class InternalEnums
     {
-        public enum WaybackEventType
+        internal enum TCDBackground
+        {
+            Metal, Transparent
+        }
+
+        internal enum DriverTaskType
+        {
+            Off,
+            LeaveVehicle,
+            ParkAndLeave,
+            DriveAround,
+            DriveAroundAndTimeTravel,
+            TimeTravel
+        }
+
+        internal enum WaybackEventType
         {
             None,
             Refuel,
             Door
         }
 
-        public enum RcModes
+        internal enum RcModes
         {
             FromCarCamera,
             FromPlayerCamera
         }
 
-        public enum TimeTravelPhase
+        internal enum TimeTravelPhase
         {
             Completed = 0,
             OpeningWormhole = 1,
@@ -23,14 +38,14 @@
             Reentering = 3
         }
 
-        public enum ReenterType
+        internal enum ReenterType
         {
             Normal,
             Spawn,
             Forced
         }
 
-        public enum TimeTravelType
+        internal enum TimeTravelType
         {
             Cutscene,
             Instant,
@@ -38,14 +53,14 @@
             Wayback
         }
 
-        public enum MissionType
+        internal enum MissionType
         {
             None,
             Escape,
             Train
         }
 
-        public enum TimeMachineCamera
+        internal enum TimeMachineCamera
         {
             Default = -1,
             DestinationDate,
@@ -64,7 +79,7 @@
             RearCarTowardsFront
         }
 
-        public enum WormholeType
+        internal enum WormholeType
         {
             Unknown = -1,
             DMC12,
@@ -73,13 +88,13 @@
             BTTF3
         }
 
-        public enum ModState
+        internal enum ModState
         {
             Off = -1,
             On = 0
         }
 
-        public enum HookState
+        internal enum HookState
         {
             Off,
             OnDoor,
@@ -88,7 +103,7 @@
             Unknown
         }
 
-        public enum PlateType
+        internal enum PlateType
         {
             Empty = -1,
             Outatime = 0,
@@ -100,21 +115,21 @@
             DMCFACTORY2 = 6
         }
 
-        public enum ReactorType
+        internal enum ReactorType
         {
             None = -1,
             MrFusion = 0,
             Nuclear = 1
         }
 
-        public enum ExhaustType
+        internal enum ExhaustType
         {
             Stock = -1,
             BTTF = 0,
             None = 1
         }
 
-        public enum WheelType
+        internal enum WheelType
         {
             Stock = -1,
             StockInvisible = 0,
@@ -123,7 +138,7 @@
             Red = 3
         }
 
-        public enum SuspensionsType
+        internal enum SuspensionsType
         {
             Unknown = -1,
             Stock = 0,
@@ -137,7 +152,7 @@
             LowerFrontAndRear = 8
         }
 
-        public enum HoodType
+        internal enum HoodType
         {
             Stock = -1,
             H1983 = 0,

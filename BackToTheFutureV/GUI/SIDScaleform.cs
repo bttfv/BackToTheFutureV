@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace BackToTheFutureV.GUI
 {
-    public class SIDScaleform : ScaleformGui
+    internal class SIDScaleform : ScaleformGui
     {
         private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Constants.HUDProperties;
 

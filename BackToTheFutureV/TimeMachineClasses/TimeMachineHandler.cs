@@ -14,7 +14,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
-    public class TimeMachineHandler
+    internal class TimeMachineHandler
     {
         public static TimeMachine ClosestTimeMachine { get; private set; }
         public static TimeMachine CurrentTimeMachine { get; private set; }

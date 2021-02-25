@@ -4,7 +4,7 @@ using Control = GTA.Control;
 
 namespace BackToTheFutureV.Settings
 {
-    public static class ModControls
+    internal static class ModControls
     {
         public static bool UseControlForMainMenu { get; set; } = true;
         public static Keys MainMenu { get; set; } = Keys.F8;

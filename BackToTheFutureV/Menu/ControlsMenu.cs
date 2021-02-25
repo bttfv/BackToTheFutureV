@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.Menu
 {
-    public class ControlsMenu : CustomNativeMenu
+    internal class ControlsMenu : CustomNativeMenu
     {
         private NativeCheckboxItem UseControlForMainMenu;
         private NativeListItem<Keys> MainMenu;

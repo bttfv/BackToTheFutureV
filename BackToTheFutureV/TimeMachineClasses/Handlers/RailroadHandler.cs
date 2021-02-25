@@ -12,7 +12,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class RailroadHandler : Handler
+    internal class RailroadHandler : Handler
     {
         private CustomTrain customTrain;
 

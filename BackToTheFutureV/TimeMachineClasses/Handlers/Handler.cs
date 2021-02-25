@@ -4,7 +4,7 @@ using GTA;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public abstract class Handler
+    internal abstract class Handler
     {
         public TimeMachine TimeMachine { get; }
 

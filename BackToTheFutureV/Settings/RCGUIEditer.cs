@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace BackToTheFutureV.Settings
 {
-    public class RCGUIEditer
+    internal class RCGUIEditer
     {
         static RCGUIEditer()
         {

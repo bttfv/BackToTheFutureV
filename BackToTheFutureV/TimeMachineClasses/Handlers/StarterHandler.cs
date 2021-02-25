@@ -7,7 +7,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class StarterHandler : Handler
+    internal class StarterHandler : Handler
     {
         private bool _isRestarting;
 

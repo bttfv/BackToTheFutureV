@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.Story
 {
-    public abstract class Mission
+    internal abstract class Mission
     {
         public bool IsPlaying { get; protected set; }
 

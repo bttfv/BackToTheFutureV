@@ -6,12 +6,13 @@ using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV
 {
-    public delegate void OnGUIChange();
+    internal delegate void OnGUIChange();
 
-    public class ModSettings
+    internal class ModSettings
     {
         private static Version LastCompatibleVersion = new Version(2, 0, 0, 0);
         public static OnGUIChange OnGUIChange { get; set; }

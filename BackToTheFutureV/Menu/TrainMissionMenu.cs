@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
-    public class TrainMissionMenu : CustomNativeMenu
+    internal class TrainMissionMenu : CustomNativeMenu
     {
         private NativeCheckboxItem MissionToggle;
         private NativeSliderItem Speed;

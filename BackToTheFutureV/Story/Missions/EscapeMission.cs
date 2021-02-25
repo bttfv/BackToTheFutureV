@@ -11,7 +11,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Story.Missions
 {
-    public class EscapeMission : Mission
+    internal class EscapeMission : Mission
     {
         public Vehicle Vehicle { get; private set; }
         public Ped Driver { get; private set; }

@@ -4,46 +4,46 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
-    public delegate void OnScaleformPriority();
+    internal delegate void OnScaleformPriority();
 
-    public delegate void OnSIDMaxSpeedReached(bool over);
-    public delegate void OnTimeTravelSpeedReached(bool over);
-    public delegate void OnSparksInterrupted();
-    public delegate void OnWormholeStarted();
-    public delegate void OnSparksEnded(int delay = 0);
-    public delegate void OnTimeTravelStarted();
-    public delegate void OnTimeTravelEnded();
-    public delegate void OnReenterStarted();
-    public delegate void OnReenterEnded();
+    internal delegate void OnSIDMaxSpeedReached(bool over);
+    internal delegate void OnTimeTravelSpeedReached(bool over);
+    internal delegate void OnSparksInterrupted();
+    internal delegate void OnWormholeStarted();
+    internal delegate void OnSparksEnded(int delay = 0);
+    internal delegate void OnTimeTravelStarted();
+    internal delegate void OnTimeTravelEnded();
+    internal delegate void OnReenterStarted();
+    internal delegate void OnReenterEnded();
 
-    public delegate void OnTimeCircuitsToggle();
-    public delegate void OnDestinationDateChange();
-    public delegate void OnLightningStrike();
-    public delegate void OnHoverUnderbodyToggle(bool reload = false);
-    public delegate void OnWormholeTypeChanged();
-    public delegate void OnReactorTypeChanged();
-    public delegate void OnVehicleSpawned();
+    internal delegate void OnTimeCircuitsToggle();
+    internal delegate void OnDestinationDateChange();
+    internal delegate void OnLightningStrike();
+    internal delegate void OnHoverUnderbodyToggle(bool reload = false);
+    internal delegate void OnWormholeTypeChanged();
+    internal delegate void OnReactorTypeChanged();
+    internal delegate void OnVehicleSpawned();
 
-    public delegate void SetRCMode(bool state, bool instant = false);
-    public delegate void SetTimeCircuits(bool state);
-    public delegate void SetTimeCircuitsBroken();
-    public delegate void SetCutsceneMode(bool state);
-    public delegate void SetFlyMode(bool state, bool instant = false);
-    public delegate void SetAltitudeHold(bool state);
-    public delegate void SetHoodboxWarmedUp();
-    public delegate void SetFreeze(bool state, bool resume = false);
-    public delegate void StartTimeTravel(int delay = 0);
-    public delegate void StartFuelBlink();
-    public delegate void SetStopTracks(int delay = 0);
-    public delegate void SetRefuel(Ped ped);
-    public delegate void SetPedAI(bool state);
-    public delegate void SetWheelie(bool goUp);
-    public delegate void SetEngineStall(bool state);
-    public delegate void StartLightningStrike(int delay);
-    public delegate void SimulateInputDate(DateTime dateTime);
-    public delegate void SetSIDLedsState(bool on, bool instant = false);
+    internal delegate void SetRCMode(bool state, bool instant = false);
+    internal delegate void SetTimeCircuits(bool state);
+    internal delegate void SetTimeCircuitsBroken();
+    internal delegate void SetCutsceneMode(bool state);
+    internal delegate void SetFlyMode(bool state, bool instant = false);
+    internal delegate void SetAltitudeHold(bool state);
+    internal delegate void SetHoodboxWarmedUp();
+    internal delegate void SetFreeze(bool state, bool resume = false);
+    internal delegate void StartTimeTravel(int delay = 0);
+    internal delegate void StartFuelBlink();
+    internal delegate void SetStopTracks(int delay = 0);
+    internal delegate void SetRefuel(Ped ped);
+    internal delegate void SetPedAI(bool state);
+    internal delegate void SetWheelie(bool goUp);
+    internal delegate void SetEngineStall(bool state);
+    internal delegate void StartLightningStrike(int delay);
+    internal delegate void SimulateInputDate(DateTime dateTime);
+    internal delegate void SetSIDLedsState(bool on, bool instant = false);
 
-    public class EventsHandler : Handler
+    internal class EventsHandler : Handler
     {
         public OnScaleformPriority OnScaleformPriority;
 

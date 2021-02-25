@@ -13,7 +13,7 @@ using Control = GTA.Control;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class FlyingHandler : Handler
+    internal class FlyingHandler : Handler
     {
         private bool _hasPlayedBoostSound;
 

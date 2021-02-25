@@ -10,7 +10,7 @@ using Control = GTA.Control;
 
 namespace BackToTheFutureV.Menu
 {
-    public class PresetsMenu : CustomNativeMenu
+    internal class PresetsMenu : CustomNativeMenu
     {
         private InstrumentalMenu _instrumentalMenu;
 

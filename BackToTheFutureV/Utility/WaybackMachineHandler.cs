@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace BackToTheFutureV.Utility
 {
-    public static class WaybackMachineHandler
+    internal static class WaybackMachineHandler
     {
         public static List<WaybackMachine> WaybackMachines { get; } = new List<WaybackMachine>();
 

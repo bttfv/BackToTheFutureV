@@ -6,7 +6,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class SparksHandler : Handler
+    internal class SparksHandler : Handler
     {
         public SparksHandler(TimeMachine timeMachine) : base(timeMachine)
         {

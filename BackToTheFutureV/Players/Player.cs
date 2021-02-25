@@ -5,7 +5,7 @@ using GTA;
 
 namespace BackToTheFutureV.Players
 {
-    public abstract class Player : FusionLibrary.Player
+    internal abstract class Player : FusionLibrary.Player
     {
         public TimeMachine TimeMachine { get; }
 

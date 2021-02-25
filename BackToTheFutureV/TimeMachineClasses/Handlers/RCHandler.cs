@@ -10,7 +10,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class RcHandler : Handler
+    internal class RcHandler : Handler
     {
         public Ped Clone { get; private set; }
 

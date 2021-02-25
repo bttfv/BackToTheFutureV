@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
-    public class SoundsSettingsMenu : CustomNativeMenu
+    internal class SoundsSettingsMenu : CustomNativeMenu
     {
         private NativeCheckboxItem playFluxCapacitorSound;
         private NativeCheckboxItem playDiodeSound;

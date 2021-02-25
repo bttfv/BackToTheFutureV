@@ -11,7 +11,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Players
 {
-    public class WormholeAnimationPlayer : Player
+    internal class WormholeAnimationPlayer : Player
     {
         // Sparks that fly around of car, have blue color for bttf1/2 and red for bttf3
         public static readonly List<List<Vector3>> SparkOffsets = new List<List<Vector3>>()

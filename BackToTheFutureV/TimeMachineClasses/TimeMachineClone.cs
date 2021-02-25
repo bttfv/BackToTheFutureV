@@ -15,7 +15,7 @@ using static FusionLibrary.Enums;
 namespace BackToTheFutureV.TimeMachineClasses
 {
     [Serializable]
-    public class TimeMachineCloneManager
+    internal class TimeMachineCloneManager
     {
         public List<TimeMachineClone> timeMachineClones = new List<TimeMachineClone>();
 
@@ -64,7 +64,7 @@ namespace BackToTheFutureV.TimeMachineClasses
     }
 
     [Serializable]
-    public class TimeMachineClone
+    internal class TimeMachineClone
     {
         public BaseMods Mods { get; }
         public BaseProperties Properties { get; }

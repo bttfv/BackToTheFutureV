@@ -8,10 +8,10 @@ using GTA.Native;
 
 namespace BackToTheFutureV.Vehicles
 {
-    public delegate void SetStockSuspensions(bool state);
-    public delegate void SetVoltValue(float value);
+    internal delegate void SetStockSuspensions(bool state);
+    internal delegate void SetVoltValue(float value);
 
-    public class DMC12
+    internal class DMC12
     {
         public Vehicle Vehicle { get; }
         public DMC12Mods Mods { get; }

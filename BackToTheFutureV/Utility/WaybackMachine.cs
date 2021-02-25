@@ -13,7 +13,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Utility
 {
-    public class WaybackEvent
+    internal class WaybackEvent
     {
         public WaybackEventType Type { get; private set; }
         public VehicleDoorIndex DoorIndex { get; }
@@ -75,7 +75,7 @@ namespace BackToTheFutureV.Utility
         }
     }
 
-    public class WaybackReplica
+    internal class WaybackReplica
     {
         public DateTime Time { get; }
         public int Timestamp { get; }
@@ -165,7 +165,7 @@ namespace BackToTheFutureV.Utility
         }
     }
 
-    public class WaybackMachine : Script
+    internal class WaybackMachine : Script
     {
         public List<WaybackReplica> WaybackReplicas { get; } = new List<WaybackReplica>();
 

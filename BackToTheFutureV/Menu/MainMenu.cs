@@ -15,7 +15,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Menu
 {
-    public class MainMenu : CustomNativeMenu
+    internal class MainMenu : CustomNativeMenu
     {
         private NativeListItem<string> spawnBTTF;
 

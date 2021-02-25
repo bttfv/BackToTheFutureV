@@ -19,7 +19,7 @@ using Screen = GTA.UI.Screen;
 
 namespace BackToTheFutureV
 {
-    public class Main : Script
+    internal class Main : Script
     {
         public static Version Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
         public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };

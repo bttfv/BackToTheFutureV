@@ -8,7 +8,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class SpeedoHandler : Handler
+    internal class SpeedoHandler : Handler
     {
         private int nextCheck;
         private int currentSpeed = -1;

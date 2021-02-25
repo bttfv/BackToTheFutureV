@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace BackToTheFutureV.Players
 {
-    public class FireTrail
+    internal class FireTrail
     {
         // Fire trail in shape of "99" used when a time machine gets strike by lighting
         public static readonly Vector3[] FireTrails99Offsets = new Vector3[39]

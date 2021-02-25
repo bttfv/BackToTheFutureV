@@ -13,7 +13,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Menu
 {
-    public class CustomMenu : CustomNativeMenu
+    internal class CustomMenu : CustomNativeMenu
     {
         public bool ForceNew = false;
 

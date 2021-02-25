@@ -8,7 +8,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class Gauge
+    internal class Gauge
     {
         public AnimateProp Prop { get; }
         public float MaxRot { get; }
@@ -69,7 +69,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         }
     }
 
-    public class TFCHandler : Handler
+    internal class TFCHandler : Handler
     {
         private readonly Gauge _gaugeNeedle1;
         private readonly Gauge _gaugeNeedle2;

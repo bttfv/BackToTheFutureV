@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace BackToTheFutureV.GUI
 {
-    public class RCGUIScaleform : ScaleformGui
+    internal class RCGUIScaleform : ScaleformGui
     {
         public RCGUIScaleform() : base("bttf_2d_rc_gui")
         {

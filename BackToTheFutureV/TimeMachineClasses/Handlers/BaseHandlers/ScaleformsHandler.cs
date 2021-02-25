@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
-    public class ScaleformsHandler : Handler
+    internal class ScaleformsHandler : Handler
     {
         //TCD 2D
         public static TimeCircuitsScaleform GUI { get; private set; }

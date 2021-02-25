@@ -9,7 +9,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
-    public class RemoteTimeMachine
+    internal class RemoteTimeMachine
     {
         public TimeMachineClone TimeMachineClone { get; }
         public TimeMachine TimeMachine { get; private set; }

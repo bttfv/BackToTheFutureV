@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BackToTheFutureV.Utility
 {
-    public static class CustomTrainHandler
+    internal static class CustomTrainHandler
     {
         private static List<CustomTrain> trainHandlers = new List<CustomTrain>();
         private static List<CustomTrain> trainHandlersToRemove = new List<CustomTrain>();

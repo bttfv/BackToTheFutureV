@@ -10,7 +10,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Vehicles
 {
-    public class DMC12Handler
+    internal class DMC12Handler
     {
         private static List<DMC12> _deloreans = new List<DMC12>();
         private static List<DMC12> _deloreansToAdd = new List<DMC12>();

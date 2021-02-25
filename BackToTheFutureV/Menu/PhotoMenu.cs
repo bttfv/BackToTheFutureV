@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
-    public class PhotoMenu : CustomNativeMenu
+    internal class PhotoMenu : CustomNativeMenu
     {
         private NativeCheckboxItem Wormhole;
         private NativeCheckboxItem Coils;

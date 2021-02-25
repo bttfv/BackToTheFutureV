@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace BackToTheFutureV.Players
 {
-    public class SparkPlayer : Player
+    internal class SparkPlayer : Player
     {
         public float Speed { get; set; }
 

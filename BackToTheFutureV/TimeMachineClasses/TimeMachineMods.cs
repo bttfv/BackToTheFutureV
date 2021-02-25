@@ -7,7 +7,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 namespace BackToTheFutureV.TimeMachineClasses
 {
     [Serializable]
-    public class TimeMachineMods : DMC12Mods
+    internal class TimeMachineMods : DMC12Mods
     {
         protected TimeMachine TimeMachine { get; }
         public TimeMachineMods(TimeMachine timeMachine, WormholeType wormholeType) : base(timeMachine.Vehicle)

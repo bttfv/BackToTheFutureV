@@ -8,13 +8,13 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
-    public class DoorInfo
+    internal class DoorInfo
     {
         public bool IsDoorFullyOpen;
         public bool IsDoorOpen;
     }
 
-    public class SoundsHandler : Handler
+    internal class SoundsHandler : Handler
     {
         public AudioEngine AudioEngine { get; }
 
@@ -30,7 +30,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         //Fuel
         public AudioPlayer FuelEmpty;
-        public AudioPlayer Refuel;
 
         //Lighting strike
         public AudioPlayer LightningStrike;
@@ -266,8 +265,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Fuel
             FuelEmpty?.Dispose();
-            Refuel?.Dispose();
-
+            
             //Lightning strike
             LightningStrike?.Dispose();
 

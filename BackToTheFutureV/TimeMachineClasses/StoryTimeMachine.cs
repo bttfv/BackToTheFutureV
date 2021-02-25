@@ -9,7 +9,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
-    public class StoryTimeMachine
+    internal class StoryTimeMachine
     {
         public Vector3 Position { get; }
         public float Heading { get; }

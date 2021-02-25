@@ -11,12 +11,12 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Utility
 {
-    public delegate void OnVehicleDestroyed();
-    public delegate void OnVehicleAttached(bool toRogersSierra = false);
-    public delegate void OnVehicleDetached(bool fromRogersSierra = false);
-    public delegate void OnTrainDeleted();
+    internal delegate void OnVehicleDestroyed();
+    internal delegate void OnVehicleAttached(bool toRogersSierra = false);
+    internal delegate void OnVehicleDetached(bool fromRogersSierra = false);
+    internal delegate void OnTrainDeleted();
 
-    public class CustomTrain
+    internal class CustomTrain
     {
         public event OnVehicleDestroyed OnVehicleDestroyed;
         public event OnVehicleAttached OnVehicleAttached;

@@ -8,7 +8,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public class ReentryHandler : Handler
+    internal class ReentryHandler : Handler
     {
         private float _handbrakeTimer = -1;
         private int _currentStep;

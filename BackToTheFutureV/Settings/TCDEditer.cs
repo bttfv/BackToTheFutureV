@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace BackToTheFutureV.Settings
 {
-    public class TcdEditer
+    internal class TcdEditer
     {
         static TcdEditer()
         {

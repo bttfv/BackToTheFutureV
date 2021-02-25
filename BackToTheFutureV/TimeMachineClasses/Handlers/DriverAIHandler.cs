@@ -9,17 +9,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    public enum DriverTaskType
-    {
-        Off,
-        LeaveVehicle,
-        ParkAndLeave,
-        DriveAround,
-        DriveAroundAndTimeTravel,
-        TimeTravel
-    }
-
-    public class DriverAIHandler : Handler
+    internal class DriverAIHandler : Handler
     {
         public Ped Driver { get; private set; }
         public int Step { get; private set; } = 0;

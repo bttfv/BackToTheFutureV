@@ -8,7 +8,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
-    public class ConstantsHandler : Handler
+    internal class ConstantsHandler : Handler
     {
         public bool Over88MphSpeed { get; private set; }
 

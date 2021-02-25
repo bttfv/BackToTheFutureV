@@ -10,7 +10,7 @@ using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
-    public class RCMenu : CustomNativeMenu
+    internal class RCMenu : CustomNativeMenu
     {
         private NativeListItem<TimeMachine> timeMachinesList;
         private NativeCheckboxItem FuelChamberDescription;

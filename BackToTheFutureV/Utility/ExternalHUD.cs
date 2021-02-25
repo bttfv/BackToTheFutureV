@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace BackToTheFutureV
 {
-    public static class ExternalHUD
+    internal static class ExternalHUD
     {
         private static Thread _backgroundThread;
 

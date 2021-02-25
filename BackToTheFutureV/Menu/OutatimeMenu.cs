@@ -10,7 +10,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Menu
 {
-    public class OutatimeMenu : CustomNativeMenu
+    internal class OutatimeMenu : CustomNativeMenu
     {
         private NativeListItem<RemoteTimeMachine> TimeMachines { get; }
         private NativeItem TypeDescription { get; }

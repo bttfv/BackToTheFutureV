@@ -9,7 +9,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Players
 {
-    public class WheelAnimationPlayer : Player
+    internal class WheelAnimationPlayer : Player
     {
         public const float MAX_POSITION_OFFSET = 0.20f;
         public const float MAX_ROTATION_OFFSET = 90f;

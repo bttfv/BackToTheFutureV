@@ -9,7 +9,7 @@ using static FusionLibrary.Enums;
 namespace BackToTheFutureV.Vehicles
 {
     [Serializable]
-    public class DMC12Mods : BaseMods
+    internal class DMC12Mods : BaseMods
     {
         protected Vehicle Vehicle { get; }
         public DMC12Mods(Vehicle vehicle)

@@ -16,7 +16,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses
 {
-    public class TimeMachine
+    internal class TimeMachine
     {
         public Vehicle Vehicle { get; }
         public DMC12 DMC12 { get; }

@@ -5,7 +5,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 namespace BackToTheFutureV.Vehicles
 {
     [Serializable]
-    public class BaseMods
+    internal class BaseMods
     {
         public bool IsDMC12 { get; protected set; } = false;
         public WormholeType WormholeType { get; set; } = WormholeType.DMC12;

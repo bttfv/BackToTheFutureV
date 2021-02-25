@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BackToTheFutureV.Players
 {
-    public class FireTrailsHandler
+    internal class FireTrailsHandler
     {
         private static List<FireTrail> fireTrails = new List<FireTrail>();
 

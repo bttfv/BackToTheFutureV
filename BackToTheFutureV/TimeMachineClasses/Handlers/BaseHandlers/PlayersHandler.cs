@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
-    public class PlayersHandler : Handler
+    internal class PlayersHandler : Handler
     {
         //Hover Mode
         public WheelAnimationPlayer HoverModeWheels;

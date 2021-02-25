@@ -11,7 +11,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Utility
 {
-    public class BTTFImportantDates
+    internal class BTTFImportantDates
     {
         public static readonly List<DateTime> Dates = new List<DateTime>() { new DateTime(1985, 10, 26, 1, 21, 0), new DateTime(1885, 1, 1, 0, 0, 0), new DateTime(1955, 11, 5, 6, 15, 0), new DateTime(1985, 10, 26, 1, 24, 0), new DateTime(1985, 10, 26, 1, 24, 0), new DateTime(2015, 10, 21, 16, 29, 0), new DateTime(1955, 11, 12, 13, 40, 0), new DateTime(1985, 10, 26, 21, 0, 0), new DateTime(1955, 11, 12, 6, 0, 0), new DateTime(1885, 9, 2, 8, 0, 0), new DateTime(1985, 10, 27, 11, 0, 0) };
 
@@ -21,7 +21,7 @@ namespace BackToTheFutureV.Utility
         }
     }
 
-    public static class InternalExtensions
+    internal static class InternalExtensions
     {
         public static PropertyInfo[] Properties = new BaseProperties().GetType().GetProperties();
 
