@@ -214,8 +214,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.OnScaleformPriority += OnScaleformPriority;
 
             Events.OnSparksInterrupted += () => { Particles.LightningSparks?.Stop(); };
-            Events.OnTimeTravelStarted += OnTimeTravel;            
-            Events.OnTimeTravelEnded += OnTimeTravelEnded;
+            Events.OnTimeTravelStarted += OnTimeTravel;
 
             Events.SetTimeCircuits += SetTimeCircuitsOn;
             Events.SetTimeCircuitsBroken += SetTimeCircuitsBroken;
@@ -328,13 +327,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
         }
 
-        private void OnTimeTravelEnded()
-        {
-            lastTime = Utils.CurrentTime;
-            StopGlitch();
-            Particles.LightningSparks?.Stop();
-        }
-
         private void OnDestinationDateChange()
         {
             destinationSlot.SetDate(Properties.DestinationTime);
@@ -346,6 +338,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (!Properties.AreTimeCircuitsBroken)
                 previousSlot.SetDate(Properties.PreviousTime);
+
+            lastTime = Utils.CurrentTime;
+            StopGlitch();
+            Particles.LightningSparks?.Stop();
         }
 
         public void UpdateScaleformDates()
@@ -467,7 +463,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (!Particles.LightningSparks.IsPlaying)
                     Particles.LightningSparks?.Play();
             }
-                
+
             HandleGlitching();
 
             if (Game.GameTime > nextCheckGlitch)

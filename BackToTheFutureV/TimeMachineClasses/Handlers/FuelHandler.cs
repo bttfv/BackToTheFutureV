@@ -207,7 +207,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     SetEmpty(true);
             }
 
-            if (Properties.IsRefueling && IsPedInPosition() && HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
+            if (!Properties.IsRefueling)
+                return;
+
+            if (Mods.Reactor == ReactorType.MrFusion)
+            {
+                if (Vehicle.IsVisible && !Particles.MrFusionSmoke.IsPlaying)
+                    Particles.MrFusionSmoke.Play();
+
+                if (!Vehicle.IsVisible && Particles.MrFusionSmoke.IsPlaying)
+                    Particles.MrFusionSmoke.Stop();
+            }
+
+            if (IsPedInPosition() && HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
                 Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Refuel_Hotkey"));
         }
 

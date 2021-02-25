@@ -1,6 +1,5 @@
 ﻿using FusionLibrary;
 using GTA;
-using System.Collections.Generic;
 
 namespace BackToTheFutureV.Utility
 {
