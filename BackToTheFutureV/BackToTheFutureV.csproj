@@ -194,6 +194,7 @@
     <Compile Include="Vehicles\DMC12\DMC12.cs" />
     <Compile Include="Vehicles\DMC12\DMC12Handler.cs" />
     <Compile Include="Vehicles\DMC12\DMC12Mods.cs" />
+    <Compile Include="Vehicles\DMC12\DMC12Spawner.cs" />
     <Compile Include="Vehicles\Train\CustomTrain.cs" />
     <Compile Include="Vehicles\Train\CustomTrainHandler.cs" />
     <Compile Include="Utility\InternalExtensions.cs" />

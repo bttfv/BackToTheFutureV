@@ -136,6 +136,7 @@ namespace BackToTheFutureV
 
             TrashHandler.Process();
             CustomTrainHandler.Process();
+            //DMC12Spawner.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();
             RemoteTimeMachineHandler.Process();
