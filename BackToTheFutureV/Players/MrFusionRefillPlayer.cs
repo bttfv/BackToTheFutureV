@@ -42,6 +42,8 @@ namespace BackToTheFutureV.Players
                 _mrFusion.Play();
             else
             {
+                Particles.MrFusionSmoke?.StopNaturally();
+
                 IsPlaying = false;
                 OnPlayerCompleted?.Invoke();
             }
@@ -68,6 +70,7 @@ namespace BackToTheFutureV.Players
             {
                 _mrFusionHandle.Play();
                 _mrfusionOpen.Play();
+                Particles.MrFusionSmoke?.Play();
             }
             else
             {
@@ -88,6 +91,7 @@ namespace BackToTheFutureV.Players
 
         public override void Dispose()
         {
+            Particles.MrFusionSmoke?.Stop();
             _mrFusion.Dispose();
             _mrFusionHandle.Dispose();
             _mrfusionOpen?.Dispose();

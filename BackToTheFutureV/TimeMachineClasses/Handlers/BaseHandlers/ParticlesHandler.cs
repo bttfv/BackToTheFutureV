@@ -16,6 +16,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public PtfxEntityPlayer IceVentRightSmoke;
         public PtfxEntityPlayer IceSmoke;
         public PtfxEntityBonePlayer[] IceWaterDrops;
+        public PtfxEntityBonePlayer MrFusionSmoke;
 
         //Time travel
         public PtfxEntityPlayer LightExplosion;
@@ -50,6 +51,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             IceVentLeftSmoke = new PtfxEntityPlayer("scr_familyscenem", "scr_meth_pipe_smoke", Vehicle, new Vector3(0.5f, -2f, 0.7f), new Vector3(10f, 0, 180f), 10f, false, false);
             IceVentRightSmoke = new PtfxEntityPlayer("scr_familyscenem", "scr_meth_pipe_smoke", Vehicle, new Vector3(-0.5f, -2f, 0.7f), new Vector3(10f, 0, 180f), 10f, false, false);
             IceSmoke = new PtfxEntityPlayer("core", "ent_amb_dry_ice_area", Vehicle, new Vector3(0, 0, 0.5f), Vector3.Zero, 3f, true);
+            MrFusionSmoke = new PtfxEntityBonePlayer("core", "ent_amb_dry_ice_area", Vehicle, "mr_fusion", Vector3.Zero, Vector3.Zero, 0.5f, true);
 
             IceWaterDrops = new PtfxEntityBonePlayer[3 * 2];
 

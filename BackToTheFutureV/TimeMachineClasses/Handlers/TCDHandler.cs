@@ -213,7 +213,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.OnDestinationDateChange += OnDestinationDateChange;
             Events.OnScaleformPriority += OnScaleformPriority;
 
-            Events.OnTimeTravelStarted += OnTimeTravel;
+            Events.OnSparksInterrupted += () => { Particles.LightningSparks?.Stop(); };
+            Events.OnTimeTravelStarted += OnTimeTravel;            
             Events.OnTimeTravelEnded += OnTimeTravelEnded;
 
             Events.SetTimeCircuits += SetTimeCircuitsOn;
@@ -331,6 +332,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             lastTime = Utils.CurrentTime;
             StopGlitch();
+            Particles.LightningSparks?.Stop();
         }
 
         private void OnDestinationDateChange()
@@ -457,9 +459,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Vehicle.IsVisible)
                 return;
 
-            if (Properties.IsRefueling && Properties.TimeTravelPhase == TimeTravelPhase.OpeningWormhole && !doGlitch)
-                StartTimeCircuitsGlitch(true);
+            if (Mods.IsDMC12 && Properties.IsRefueling && Properties.TimeTravelPhase == TimeTravelPhase.OpeningWormhole)
+            {
+                if (!doGlitch)
+                    StartTimeCircuitsGlitch(true);
 
+                if (!Particles.LightningSparks.IsPlaying)
+                    Particles.LightningSparks?.Play();
+            }
+                
             HandleGlitching();
 
             if (Game.GameTime > nextCheckGlitch)
