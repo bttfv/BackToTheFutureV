@@ -63,7 +63,11 @@ namespace BackToTheFutureV.Story.Missions
             if (TimeMachine == null)
                 TimeMachine = TimeMachineHandler.CurrentTimeMachine;
 
-            Vehicle = World.CreateVehicle(ModelHandler.SabreGT, TargetPed.GetOffsetPosition(new Vector3(0, -10, 0)));
+            Model model = new Model("sabregt");
+
+            Utils.LoadAndRequestModel(model);
+
+            Vehicle = World.CreateVehicle(model, TargetPed.GetOffsetPosition(new Vector3(0, -10, 0)));
             Vehicle.Heading = TargetPed.Heading;
             Vehicle.AddBlip();
 

@@ -56,7 +56,6 @@ namespace BackToTheFutureV.Utility
         public static List<CustomModel> Lightnings = new List<CustomModel>() { new CustomModel("bolt_m0"), new CustomModel("bolt_m1"), new CustomModel("bolt_m2") };
         public static List<CustomModel> LightningsOnCar = new List<CustomModel>();
         public static CustomModel SID = new CustomModel("bttf_sid");
-        public static CustomModel BucketWithAlmanac = new CustomModel("bttf_bucket_book");
 
         // BTTF1 CustomModels
         public static CustomModel BTTFReactorCap = new CustomModel("bttf_reactorcap");
@@ -99,8 +98,6 @@ namespace BackToTheFutureV.Utility
         public static CustomModel SierraTenderModel = new CustomModel("sierratender");
         public static CustomModel SierraDebugModel = new CustomModel("sierra_debug");
 
-        public static CustomModel SabreGT = new CustomModel("sabregt");
-
         public static CustomModel DeluxoModel = new CustomModel("deluxo");
 
         private static string[] tcdTypes = new string[3]
@@ -132,8 +129,6 @@ namespace BackToTheFutureV.Utility
                 CoilSeparated.Add(new CustomModel($"bttf3_coils_glowing_{i}"));
 
             GetAllModels(typeof(ModelHandler)).ForEach(x => PreloadModel(x));
-
-            LoadingPrompt.Hide();
         }
     }
 }

@@ -228,8 +228,6 @@ namespace BackToTheFutureV.Players
             _hasStartedWormhole = false;
             _startSparksAt = Game.GameTime + 1000;
 
-            GTA.UI.Screen.ShowSubtitle($"{Properties.IsRefueling}");
-
             // Spawn the coil model
             if (Mods.WormholeType != WormholeType.BTTF3 && !Properties.IsRefueling)
             {
