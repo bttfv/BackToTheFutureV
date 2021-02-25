@@ -24,7 +24,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public FuelHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             InteractPressed = new NativeInput(GTA.Control.Context);
-            InteractPressed.OnControlJustPressed += OnControlJustPressed;
+            InteractPressed.OnControlJustReleased += OnControlJustReleased;
             InteractPressed.OnControlLongPressed += OnControlLongPressed;
 
             SetEmpty(false);
@@ -54,9 +54,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Properties.IsRefueling = !Properties.IsRefueling;
         }
 
-        private void OnControlJustPressed()
+        private void OnControlJustReleased()
         {
-            if (!IsPedInPosition() || !Properties.IsRefueling)
+            if (!IsPedInPosition() || !Properties.IsRefueling || Players.Refuel.IsPlaying)
                 return;
 
             if (HasFuel())
@@ -72,7 +72,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnControlLongPressed()
         {
-            if (!IsPedInPosition())
+            if (!IsPedInPosition() || Players.Refuel.IsPlaying)
                 return;
 
             Players.Refuel?.Play();
@@ -88,8 +88,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void Refuel(Ped refuelPed)
         {
+            if (Properties.ReactorCharge >= Constants.MaxReactorCharge)
+            {
+                Utils.DisplayHelpText("Reactor is full.");
+                return;
+            }
+
             if (!TimeMachine.IsWaybackPlaying && WaybackMachineHandler.Enabled)
                 TimeMachine.WaybackMachine.NextEvent = new WaybackEvent(WaybackEventType.Refuel);
+
+            if (Mods.Reactor == ReactorType.Nuclear)
+                Sounds.PlutoniumRefuel?.Play();
 
             if (refuelPed == Utils.PlayerPed && !ModSettings.InfiniteFuel)
             {
@@ -198,7 +207,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     SetEmpty(true);
             }
 
-            if (Properties.IsRefueling && IsPedInPosition() && HasFuel())
+            if (Properties.IsRefueling && IsPedInPosition() && HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
                 Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Refuel_Hotkey"));
         }
 

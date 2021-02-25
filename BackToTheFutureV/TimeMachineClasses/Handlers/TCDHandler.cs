@@ -330,6 +330,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void OnTimeTravelEnded()
         {
             lastTime = Utils.CurrentTime;
+            StopGlitch();
         }
 
         private void OnDestinationDateChange()
@@ -361,6 +362,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             this.softGlitch = softGlitch;
             doGlitch = true;
+
+            nextCheckGlitch = Game.GameTime + 120000;
+        }
+
+        public void StopGlitch()
+        {
+            Sounds.TCDGlitch?.Stop();
+
+            destinationSlot.SetVisible(true);
+            glitchEvents.ResetExecution();
+            doGlitch = false;
 
             nextCheckGlitch = Game.GameTime + 120000;
         }
@@ -445,6 +457,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Vehicle.IsVisible)
                 return;
 
+            if (Properties.IsRefueling && Properties.TimeTravelPhase == TimeTravelPhase.OpeningWormhole && !doGlitch)
+                StartTimeCircuitsGlitch(true);
+
             HandleGlitching();
 
             if (Game.GameTime > nextCheckGlitch)
@@ -457,7 +472,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Vehicle.Health < 300)
                 {
                     if (Utils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 100 ? 100 : Vehicle.Health)))
-                        StartTimeCircuitsGlitch(true);
+                        StartTimeCircuitsGlitch(false);
                 }
                 else if (Properties.TimeTravelsCount > 4)
                 {

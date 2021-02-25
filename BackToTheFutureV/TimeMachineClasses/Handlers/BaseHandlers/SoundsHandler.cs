@@ -30,6 +30,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         //Fuel
         public AudioPlayer FuelEmpty;
+        public AudioPlayer PlutoniumRefuel;
 
         //Lighting strike
         public AudioPlayer LightningStrike;
@@ -202,6 +203,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             //Fuel
             FuelEmpty = AudioEngine.Create("bttf1/timeCircuits/plutoniumEmpty.wav", Presets.Interior);
             FuelEmpty.SourceBone = "bttf_tcd_green";
+            PlutoniumRefuel = AudioEngine.Create("bttf1/plutonium_refuel.wav", Presets.Exterior);
+            PlutoniumRefuel.SourceBone = "bttf_reactorcap";
 
             //Plutonium gauge
             PlutoniumGauge = AudioEngine.Create("bttf1/timeCircuits/plutoniumGauges.wav", Presets.Interior);
@@ -265,7 +268,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Fuel
             FuelEmpty?.Dispose();
-            
+            PlutoniumRefuel?.Dispose();
+
             //Lightning strike
             LightningStrike?.Dispose();
 

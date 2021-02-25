@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.GUI;
-using BackToTheFutureV.Settings;
+﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses;
 using GTA;
 using System;

@@ -190,7 +190,10 @@ namespace BackToTheFutureV.Players
             // Delete all other props
             Props.SeparatedCoils?.Delete();
 
-            if (numOfProps >= 11)
+            if (Properties.IsRefueling)
+                numOfProps = 6;
+
+            if (numOfProps >= 11 && !Properties.IsRefueling)
             {
                 numOfProps = 11;
 
@@ -225,8 +228,10 @@ namespace BackToTheFutureV.Players
             _hasStartedWormhole = false;
             _startSparksAt = Game.GameTime + 1000;
 
+            GTA.UI.Screen.ShowSubtitle($"{Properties.IsRefueling}");
+
             // Spawn the coil model
-            if (Mods.WormholeType != WormholeType.BTTF3)
+            if (Mods.WormholeType != WormholeType.BTTF3 && !Properties.IsRefueling)
             {
                 Mods.OffCoils = ModState.Off;
 
@@ -265,7 +270,7 @@ namespace BackToTheFutureV.Players
                 return;
 
             // Handle coil flickering for BTTF3
-            if (Mods.IsDMC12 && Mods.WormholeType == WormholeType.BTTF3)
+            if (Mods.IsDMC12 && (Mods.WormholeType == WormholeType.BTTF3 || Properties.IsRefueling))
                 HandleCoilFlicker();
 
             if (Properties.IsFueled || Properties.PhotoWormholeActive)

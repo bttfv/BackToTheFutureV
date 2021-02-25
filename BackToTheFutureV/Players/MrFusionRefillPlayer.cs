@@ -41,7 +41,10 @@ namespace BackToTheFutureV.Players
             if (!Properties.IsRefueling)
                 _mrFusion.Play();
             else
+            {
+                IsPlaying = false;
                 OnPlayerCompleted?.Invoke();
+            }
         }
 
         private void _mrFusion_OnAnimCompleted(AnimationStep animationStep)
@@ -49,11 +52,15 @@ namespace BackToTheFutureV.Players
             if (Properties.IsRefueling)
                 _mrFusionHandle.Play();
             else
+            {
+                IsPlaying = false;
                 OnPlayerCompleted?.Invoke();
+            }
         }
 
         public override void Play()
         {
+            IsPlaying = true;
             _mrfusionClosed?.Stop();
             _mrfusionOpen?.Stop();
 
