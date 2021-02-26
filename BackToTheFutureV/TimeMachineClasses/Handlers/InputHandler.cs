@@ -15,6 +15,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public static string InputBuffer;
         public static bool EnterInputBuffer;
 
+        public Keys lastInput = Keys.None;
+
         private string _destinationTimeRaw;
         private int _nextReset;
 
@@ -59,10 +61,22 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 string keyCode = key.ToString();
 
                 if (keyCode.Contains("NumPad") || (keyCode.Contains("D") && keyCode.Where(char.IsDigit).Count() > 0))
+                {
+                    if (lastInput == key)
+                        return;
+
+                    lastInput = key;
                     ProcessInputNumber(new string(keyCode.Where(char.IsDigit).ToArray()));
+                }                    
 
                 if (key == Keys.Enter)
+                {
+                    if (lastInput == key)
+                        return;
+
+                    lastInput = key;
                     ProcessInputEnter();
+                }                    
             }
         }
 
@@ -124,6 +138,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Process()
         {
+            if (lastInput != Keys.None && !Game.IsKeyPressed(lastInput))
+                lastInput = Keys.None;
+
             if (Properties.AreTimeCircuitsOn && Utils.PlayerVehicle != null && Utils.PlayerVehicle == Vehicle)
             {
                 if (_simulateDatePos > -1)
