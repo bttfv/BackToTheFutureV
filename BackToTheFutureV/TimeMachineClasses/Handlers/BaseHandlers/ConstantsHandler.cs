@@ -187,6 +187,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             Events.OnLightningStrike += StartTimeTravelCooldown;
             Events.OnTimeTravelStarted += StartTimeTravelCooldown;
             Events.OnReenterEnded += StartTimeTravelCooldown;
+            Events.OnTimeCircuitsToggle += () =>
+            {
+                ResetAll();
+            };
         }
 
         public void StartTimeTravelCooldown()
@@ -227,7 +231,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                     return;
             }
 
-            if (Properties.BlockSparks || Properties.HasBeenStruckByLightning || Properties.IsPhotoModeOn)
+            if (Properties.BlockSparks || Properties.HasBeenStruckByLightning || Properties.IsPhotoModeOn || !Properties.AreTimeCircuitsOn)
                 return;
 
             if (Vehicle.GetMPHSpeed() >= SIDMaxAtSpeed && !OverSIDMaxAtSpeed)

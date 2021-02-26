@@ -19,30 +19,24 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void OnTimeTravelSpeedReached(bool over)
         {
-            if (!Properties.AreTimeCircuitsOn || !over)
-                return;
-
-            PlayerSwitch.Disable = true;
-
-            Properties.TimeTravelPhase = TimeTravelPhase.OpeningWormhole;
-
-            //Function.Call(Hash.SPECIAL_ABILITY_LOCK, CommonSettings.PlayerPed.Model);
-            Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
-            Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
-
-            if (Properties.IsFueled)
-                DMC12?.SetVoltValue?.Invoke(100);
-
-            WaypointScript.LoadWaypointPosition(true);
-        }
-
-        public void OnSIDMaxSpeedReached(bool over)
-        {
             if (!Properties.AreTimeCircuitsOn)
                 return;
 
             if (over)
-                Sounds.DiodesGlowing?.Play();
+            {
+                PlayerSwitch.Disable = true;
+
+                Properties.TimeTravelPhase = TimeTravelPhase.OpeningWormhole;
+
+                //Function.Call(Hash.SPECIAL_ABILITY_LOCK, CommonSettings.PlayerPed.Model);
+                Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
+                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
+
+                if (Properties.IsFueled)
+                    DMC12?.SetVoltValue?.Invoke(100);
+
+                WaypointScript.LoadWaypointPosition(true);
+            }
             else
             {
                 if (Players.Wormhole.IsPlaying)
@@ -55,6 +49,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 Stop();
             }
+        }
+
+        public void OnSIDMaxSpeedReached(bool over)
+        {
+            if (!Properties.AreTimeCircuitsOn || !over)
+                return;
+
+            Sounds.DiodesGlowing?.Play();
         }
 
         private void OnTimeCircuitsToggle()

@@ -214,20 +214,30 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     SetEmpty(true);
             }
 
-            if (!Properties.IsRefueling)
-                return;
-
-            if (Mods.Reactor == ReactorType.MrFusion)
+            if (Properties.IsRefueling)
             {
-                if (Vehicle.IsVisible && !Particles.MrFusionSmoke.IsPlaying)
-                    Particles.MrFusionSmoke.Play();
+                if (Mods.Reactor == ReactorType.MrFusion)
+                {
+                    if (Vehicle.IsVisible && !Particles.MrFusionSmoke.IsPlaying)
+                        Particles.MrFusionSmoke.Play();
 
-                if (!Vehicle.IsVisible && Particles.MrFusionSmoke.IsPlaying)
-                    Particles.MrFusionSmoke.Stop();
+                    if (!Vehicle.IsVisible && Particles.MrFusionSmoke.IsPlaying)
+                        Particles.MrFusionSmoke.Stop();
+                }
             }
 
-            if (IsPedInPosition() && HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
-                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Refuel_Hotkey"));
+            if (!IsPedInPosition())
+                return;
+
+            if (Properties.IsRefueling)
+            {
+                if (HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
+                    Utils.DisplayHelpText("Press ~INPUT_CONTEXT~ to refuel or hold ~INPUT_CONTEXT~ to close reactor.");
+                else
+                    Utils.DisplayHelpText("Hold ~INPUT_CONTEXT~ to close reactor.");
+            }
+            else
+                Utils.DisplayHelpText("Hold ~INPUT_CONTEXT~ to open reactor.");
         }
 
         private bool HasFuel()

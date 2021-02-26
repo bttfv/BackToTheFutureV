@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.Math;
-using GTA.Native;
+using System;
+using System.Collections.Generic;
 
 namespace BackToTheFutureV.Vehicles
 {
@@ -23,12 +21,12 @@ namespace BackToTheFutureV.Vehicles
 
         static DMC12Spawner()
         {
-            TimeHandler.OnTimeChanged += (DateTime dateTime) => 
+            TimeHandler.OnTimeChanged += (DateTime dateTime) =>
             {
                 spawnedDMC12s.ForEach(x => x?.Dispose());
                 spawnedDMC12s.Clear();
 
-                pause = true; 
+                pause = true;
             };
         }
 
