@@ -143,9 +143,18 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (!Props.BulovaClockRing.IsPlaying)
                     Props.BulovaClockRing.Play();
+
+                if (!Sounds.Alarm.IsAnyInstancePlaying)
+                    Sounds.Alarm.Play();
             }
-            else if (Props.BulovaClockRing.IsPlaying)
-                Props.BulovaClockRing.Stop();
+            else
+            {
+                if (Props.BulovaClockRing.IsPlaying)
+                    Props.BulovaClockRing.Stop();
+
+                if (Sounds.Alarm.IsAnyInstancePlaying)
+                    Sounds.Alarm.Stop();
+            }
 
             Props.BulovaClockMinute.setRotation(Coordinate.Y, Properties.SpawnTime.Minute * 6);
             Props.BulovaClockHour.setRotation(Coordinate.Y, Properties.SpawnTime.Hour * 30 + Properties.SpawnTime.Minute * 0.5f);

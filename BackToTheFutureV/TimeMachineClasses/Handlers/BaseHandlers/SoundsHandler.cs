@@ -56,6 +56,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         private readonly AudioPlayer _engineOffsound;
         private readonly List<AudioPlayer> _doorSounds;
 
+        //Clock
+        public AudioPlayer Alarm;
+
         private bool _engineOn;
 
         private int _gameTimer;
@@ -241,6 +244,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Plate
             Plate = AudioEngine.Create("general/plate.wav", Presets.ExteriorLoud);
+
+            //Alarm
+            Alarm = AudioEngine.Create("general/alarm.wav", Presets.InteriorLoop);
+            Alarm.SourceBone = "bulova_clock";
+            Alarm.Volume = 1.2f;
+            Alarm.StartFadeIn = false;
+            Alarm.StopFadeOut = false;
         }
 
         public void OnWormholeTypeChanged()
