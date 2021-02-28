@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using BackToTheFutureV.Utility;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
@@ -31,6 +32,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private float maxSpeed;
         private int maxSeconds;
         private float currentSimSpeed;
+
+        private static AnimateProp RCProp;
 
         public RcHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -145,11 +148,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Sounds.RCOn?.Play();
 
-            TimeMachine.OriginalPed.Task.TurnTo(Vehicle);
+            RCProp = new AnimateProp(TimeMachine.OriginalPed, ModelHandler.BTTFMrFusion, TimeMachine.OriginalPed.Bones[Bone.MHLeftHandSide]);
+            RCProp.SpawnProp();
 
-            if (CurrentMode == RcModes.FromPlayerCamera)
+            TimeMachine.OriginalPed.AlwaysKeepTask = true;
+            TimeMachine.OriginalPed.Task.PlayAnimation("amb@world_human_seat_wall_eating@male@both_hands@idle_a", "idle_a", 8f, -1, AnimationFlags.UpperBodyOnly | AnimationFlags.Loop);
+            //TimeMachine.OriginalPed.Task.TurnTo(Vehicle);
+
+            if (CurrentMode == RcModes.FromPlayerCamera || Utils.IsPlayerUseFirstPerson())
             {
+                CurrentMode = RcModes.FromPlayerCamera;
+
                 _camera = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
+                Function.Call(Hash.ATTACH_CAM_TO_PED_BONE, _camera, TimeMachine.OriginalPed, Bone.SkelHead, 0, 0, 0, true);
                 _camera.PointAt(Vehicle);
                 World.RenderingCamera = _camera;
             }
@@ -186,6 +197,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _camera?.Delete();
                 _camera = null;
                 World.RenderingCamera = null;
+
+                if (CurrentMode == RcModes.FromPlayerCamera)
+                    Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
+
+                RCProp?.Dispose();
             }
         }
 
@@ -303,13 +319,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Function.Call(Hash.SET_FOCUS_ENTITY, TimeMachine.OriginalPed);
 
                     _camera = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
+                    Function.Call(Hash.ATTACH_CAM_TO_PED_BONE, _camera, TimeMachine.OriginalPed, Bone.SkelHead, 0, 0, 0, true);
                     _camera.PointAt(Vehicle);
                     World.RenderingCamera = _camera;
                 }
             }
 
             if (CurrentMode == RcModes.FromPlayerCamera && _camera != null && _camera.Exists())
-                _camera.Position = TimeMachine.OriginalPed.Bones[Bone.SkelHead].GetOffsetPosition(new Vector3(0, 0.1f, 0));
+                TimeMachine.OriginalPed.Rotation = _camera.Rotation;
         }
 
         public override void Stop()

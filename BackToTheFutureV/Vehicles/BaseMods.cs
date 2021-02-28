@@ -27,6 +27,7 @@ namespace BackToTheFutureV.Vehicles
         public ModState Hoodbox { get; set; } = ModState.Off;
         public HookState Hook { get; set; } = HookState.Off;
         public HoodType Hood { get; set; } = HoodType.Stock;
+        public ModState BulovaClock { get; set; } = ModState.Off;
 
         public BaseMods()
         {
@@ -56,7 +57,8 @@ namespace BackToTheFutureV.Vehicles
                 Exhaust = Exhaust,
                 Hoodbox = Hoodbox,
                 Hook = Hook,
-                Hood = Hood
+                Hood = Hood,
+                BulovaClock = BulovaClock
             };
 
             return ret;
@@ -88,6 +90,7 @@ namespace BackToTheFutureV.Vehicles
             ret.Hoodbox = Hoodbox;
             ret.Hook = Hook;
             ret.Hood = Hood;
+            ret.BulovaClock = BulovaClock;
         }
 
         public void ApplyToWayback(TimeMachine timeMachine)
@@ -155,6 +158,9 @@ namespace BackToTheFutureV.Vehicles
 
             if (ret.Hood != Hood)
                 ret.Hood = Hood;
+
+            if (ret.BulovaClock != BulovaClock)
+                ret.BulovaClock = BulovaClock;
         }
     }
 }

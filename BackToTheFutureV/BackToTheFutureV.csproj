@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="GUI\RCGUIScaleform.cs" />
     <Compile Include="GUI\SIDScaleform.cs" />
+    <Compile Include="TimeMachineClasses\Handlers\ClockHandler.cs" />
     <Compile Include="Utility\InternalEnums.cs" />
     <Compile Include="Utility\InternalInventory.cs" />
     <Compile Include="Utility\PersistenceScript.cs" />

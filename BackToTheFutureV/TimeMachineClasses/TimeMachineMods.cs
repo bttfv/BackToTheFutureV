@@ -35,6 +35,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             OffCoils = ModState.On;
             Hook = HookState.Off;
             Hood = HoodType.Stock;
+            BulovaClock = ModState.On;
 
             switch (WormholeType)
             {
@@ -153,6 +154,11 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (modState != Hoodbox)
                 Hoodbox = modState;
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.RightFender].Index;
+
+            if (modState != BulovaClock)
+                BulovaClock = modState;
 
             HookState hookState = HookState.Unknown;
 

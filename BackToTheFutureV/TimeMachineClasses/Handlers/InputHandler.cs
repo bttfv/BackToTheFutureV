@@ -67,7 +67,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     lastInput = key;
                     ProcessInputNumber(new string(keyCode.Where(char.IsDigit).ToArray()));
-                }                    
+                }
 
                 if (key == Keys.Enter)
                 {
@@ -76,7 +76,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     lastInput = key;
                     ProcessInputEnter();
-                }                    
+                }
             }
         }
 

@@ -351,5 +351,17 @@ namespace BackToTheFutureV.Vehicles
                     Vehicle.Mods[VehicleModType.Hood].Index = (int)value;
             }
         }
+
+        public new ModState BulovaClock
+        {
+            get => base.BulovaClock;
+            set
+            {
+                base.BulovaClock = value;
+
+                if (IsDMC12)
+                    Vehicle.Mods[VehicleModType.RightFender].Index = (int)value;
+            }
+        }
     }
 }

@@ -64,6 +64,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public AnimatePropsHandler Lightnings;
         public AnimatePropsHandler LightningsOnCar;
 
+        //Bulova clock
+        public AnimateProp BulovaClockHour;
+        public AnimateProp BulovaClockMinute;
+        public AnimateProp BulovaClockRing;
+
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             //Wheels
@@ -163,6 +168,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             LicensePlate = new AnimateProp(Vehicle, ModelHandler.LicensePlate, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
             LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(true, true, 90, 360 * 2 + 90, 1, 1440, 1);
             LicensePlate.SaveAnimation();
+
+            //Bulova clock
+            BulovaClockHour = new AnimateProp(Vehicle, ModelHandler.BulovaClockHour, "bulova_clock_ring_hands");
+            BulovaClockHour.setOffset(new Vector3(0, 0.001f, 0));
+            BulovaClockHour.SpawnProp();
+            BulovaClockMinute = new AnimateProp(Vehicle, ModelHandler.BulovaClockMinute, "bulova_clock_ring_hands");
+            BulovaClockMinute.SpawnProp();
+            BulovaClockRing = new AnimateProp(Vehicle, ModelHandler.BulovaClockRing, "bulova_clock");
+            BulovaClockRing[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(false, true, -10, 10, 1, 360, 1);
+            BulovaClockRing.SpawnProp();
         }
 
         public override void Dispose()
@@ -216,6 +231,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             //Lightnings
             Lightnings?.Dispose();
             LightningsOnCar?.Dispose();
+
+            //Bulova clock
+            BulovaClockHour?.Dispose();
+            BulovaClockMinute?.Dispose();
+            BulovaClockRing?.Dispose();
         }
 
         public override void KeyDown(Keys key)

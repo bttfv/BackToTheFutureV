@@ -8,7 +8,6 @@ using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
-using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static BackToTheFutureV.Utility.InternalEnums;
@@ -115,6 +114,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 registeredHandlers.Add("EngineHandler", new EngineHandler(this));
                 registeredHandlers.Add("StarterHandler", new StarterHandler(this));
                 registeredHandlers.Add("DriverAIHandler", new DriverAIHandler(this));
+                registeredHandlers.Add("ClockHandler", new ClockHandler(this));
 
                 VehicleBone.TryGetForVehicle(Vehicle, "suspension_lf", out boneLf);
                 VehicleBone.TryGetForVehicle(Vehicle, "suspension_rf", out boneRf);
@@ -206,8 +206,6 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (!Vehicle.IsVisible)
                 Vehicle.IsEngineRunning = false;
-            else
-                Properties.SpawnTime = Properties.SpawnTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * 30 * Game.TimeScale));
 
             Function.Call(Hash._SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER, Vehicle, Properties.TorqueMultiplier);
 
