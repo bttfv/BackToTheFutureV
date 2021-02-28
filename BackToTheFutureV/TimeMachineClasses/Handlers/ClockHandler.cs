@@ -17,9 +17,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private DateTime oldTime;
 
-        private bool alarmSet;
-        private DateTime alarmTime;
-
         private static readonly InstrumentalMenu InstrumentalMenu;
 
         static ClockHandler()
@@ -29,7 +26,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             InstrumentalMenu.ClearPanel();
 
             InstrumentalMenu.AddControl(Control.PhoneCancel, "Cancel");
-            InstrumentalMenu.AddControl(Control.PhoneSelect, "Save");                       
+            InstrumentalMenu.AddControl(Control.PhoneSelect, "Save");            
+            InstrumentalMenu.AddControl(Control.PhoneOption, "Disable alarm");
             InstrumentalMenu.AddControl(Control.PhoneExtraOption, "Set alarm time");
             InstrumentalMenu.AddControl(Control.PhoneDown, "Substract minutes");
             InstrumentalMenu.AddControl(Control.PhoneUp, "Add minutes");
@@ -82,8 +80,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 InstrumentalMenu.Render2DFullscreen();
 
-                if (alarmSet)
-                    Screen.ShowHelpTextThisFrame($"Alarm set to {alarmTime.ToShortTimeString()}");
+                if (Properties.AlarmSet)
+                    Screen.ShowHelpTextThisFrame($"Alarm set to {Properties.AlarmTime.ToShortTimeString()}");
 
                 ProcessButton(Keys.None);
 
@@ -118,10 +116,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     if (Game.IsControlJustPressed(Control.PhoneExtraOption))
                     {
-                        alarmTime = Properties.SpawnTime;
+                        Properties.AlarmTime = Properties.SpawnTime;
                         Properties.SpawnTime = oldTime;
-                        alarmSet = true;
-                        GTA.UI.Notification.Show("Alarm time set!");
+                        Properties.AlarmSet = true;
+                        GTA.UI.Notification.Show("Alarm set!");
+                    }
+
+                    if (Game.IsControlJustPressed(Control.PhoneOption))
+                    {
+                        Properties.AlarmSet = false;
+                        GTA.UI.Notification.Show("Alarm disabled!");
                     }
                 }
             }
@@ -135,7 +139,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             else
                 checkTime = Properties.SpawnTime;
 
-            if (alarmTime.Hour == checkTime.Hour && checkTime.Minute >= alarmTime.Minute && checkTime.Minute <= alarmTime.Minute + 2)
+            if (Properties.AlarmSet && Properties.AlarmTime.Hour == checkTime.Hour && checkTime.Minute >= Properties.AlarmTime.Minute && checkTime.Minute <= Properties.AlarmTime.Minute + 2)
             {
                 if (!Props.BulovaClockRing.IsPlaying)
                     Props.BulovaClockRing.Play();

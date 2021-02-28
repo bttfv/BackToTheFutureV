@@ -12,6 +12,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         //Persistent properties
         public Guid GUID { get; set; }
         public bool AreTimeCircuitsOn { get; set; }
+        public DateTime AlarmTime { get; set; }
+        public bool AlarmSet { get; set; }
         public DateTime SpawnTime { get; set; } = Utils.CurrentTime;
         public DateTime DestinationTime { get; set; } = BTTFImportantDates.GetRandom();
         public DateTime PreviousTime { get; set; } = new DateTime(1985, 10, 26, 1, 20, 00);
@@ -72,6 +74,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             {
                 GUID = GUID,
                 AreTimeCircuitsOn = AreTimeCircuitsOn,
+                AlarmSet = AlarmSet,
+                AlarmTime = AlarmTime,
                 SpawnTime = SpawnTime,
                 DestinationTime = DestinationTime,
                 PreviousTime = PreviousTime,
@@ -101,6 +105,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         {
             timeMachine.Properties.GUID = GUID;
             timeMachine.Properties.AreTimeCircuitsOn = AreTimeCircuitsOn;
+            timeMachine.Properties.AlarmTime = AlarmTime;
+            timeMachine.Properties.AlarmSet = AlarmSet;
             timeMachine.Properties.SpawnTime = SpawnTime;
             timeMachine.Properties.DestinationTime = DestinationTime;
             timeMachine.Properties.PreviousTime = PreviousTime;
