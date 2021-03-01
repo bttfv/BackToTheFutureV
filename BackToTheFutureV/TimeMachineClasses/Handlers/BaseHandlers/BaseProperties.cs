@@ -34,6 +34,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool HasBeenStruckByLightning { get; set; }
         public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
         public int TimeTravelsCount { get; set; }
+        public bool ThreeDigitsSpeedo { get; set; }
 
         //Temporary properties        
         public int ReactorCharge
@@ -95,7 +96,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 WasOnTracks = WasOnTracks,
                 HasBeenStruckByLightning = HasBeenStruckByLightning,
                 TimeTravelDestPos = TimeTravelDestPos,
-                TimeTravelsCount = TimeTravelsCount
+                TimeTravelsCount = TimeTravelsCount,
+                ThreeDigitsSpeedo = ThreeDigitsSpeedo
             };
 
             return ret;
@@ -127,6 +129,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             timeMachine.Properties.HasBeenStruckByLightning = HasBeenStruckByLightning;
             timeMachine.Properties.TimeTravelDestPos = TimeTravelDestPos;
             timeMachine.Properties.TimeTravelsCount = TimeTravelsCount;
+            timeMachine.Properties.ThreeDigitsSpeedo = ThreeDigitsSpeedo;
 
             if (IsFlying)
                 timeMachine.Events.SetFlyMode?.Invoke(true, true);

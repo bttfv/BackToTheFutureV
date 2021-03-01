@@ -328,6 +328,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Plate
             Plate?.Dispose();
+
+            //Alarm
+            Alarm?.Dispose();
         }
 
         public override void KeyDown(Keys key)

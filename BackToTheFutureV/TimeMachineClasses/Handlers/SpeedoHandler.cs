@@ -11,7 +11,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
     internal class SpeedoHandler : Handler
     {
         private int nextCheck;
-        private int currentSpeed = -1;
+        private float currentSpeed = -1;
 
         public SpeedoHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -32,49 +32,64 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f)
                 return;
 
+            if (!Properties.ThreeDigitsSpeedo && !Props.SpeedoCover.IsSpawned)
+            {
+                Props.SpeedoCover.SpawnProp();
+                currentSpeed = -1;
+            }
+
+            if (Properties.ThreeDigitsSpeedo && Props.SpeedoCover.IsSpawned)
+            {
+                Props.SpeedoCover.Delete();
+                currentSpeed = -1;
+            }
+
             Scaleforms.SpeedoRT?.Draw();
 
-            if (Game.GameTime < nextCheck) return;
+            if (Game.GameTime < nextCheck)
+                return;
 
             if (Properties.TimeTravelPhase < TimeTravelPhase.InTime)
             {
-                int mphSpeed = ((int)Vehicle.GetMPHSpeed());
+                float mphSpeed = Vehicle.GetMPHSpeed();
 
                 if (mphSpeed > 88)
                     mphSpeed = 88;
 
-                string mphSpeedStr = mphSpeed.ToString("00");
+                string mphSpeedStr = mphSpeed.ToString("00.0");
 
-                string speedDigit1 = mphSpeedStr.Substring(0, 1);
-                string speedDigit2 = mphSpeedStr.Substring(1, 1);
+                int speedDigit1 = int.Parse(mphSpeedStr.Substring(0, 1));
+                int speedDigit2 = int.Parse(mphSpeedStr.Substring(1, 1));
+                int speedDigit3 = int.Parse(mphSpeedStr.Substring(3, 1));
 
                 if (mphSpeed > currentSpeed || mphSpeed < currentSpeed)
                 {
-                    currentSpeed = mphSpeed;
-
-                    if (ModSettings.PlaySpeedoBeep && Vehicle.IsVisible)
+                    if ((int)mphSpeed != (int)currentSpeed && ModSettings.PlaySpeedoBeep && Vehicle.IsVisible)
                         Sounds.Speedo?.Play();
 
-                    UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2);
+                    currentSpeed = mphSpeed;
 
-                    Constants.HUDProperties.Speed = mphSpeed;
+                    UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2, speedDigit3);
+
+                    Constants.HUDProperties.Speed = (int)mphSpeed;
 
                     if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
-                        UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2);
+                        UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2, speedDigit3);
                 }
             }
 
             nextCheck = Game.GameTime + 20;
         }
 
-        private void UpdateGUI(ScaleformGui scaleform, string digit1, string digit2)
+        private void UpdateGUI(ScaleformGui scaleform, int digit1, int digit2, int digit3)
         {
-            if (digit1 != "0")
-                scaleform.CallFunction("SET_DIGIT_1", int.Parse(digit1));
-            else
-                scaleform.CallFunction("SET_DIGIT_1", 15);
+            scaleform.CallFunction("SET_DIGIT_1", digit1 == 0 ? 10 : digit1);
+            scaleform.CallFunction("SET_DIGIT_2", digit2);
 
-            scaleform.CallFunction("SET_DIGIT_2", int.Parse(digit2));
+            if (Properties.ThreeDigitsSpeedo)
+                scaleform.CallFunction("SET_DIGIT_3", digit3);
+            else
+                scaleform.CallFunction("SET_DIGIT_3", 10);
         }
 
         public override void Stop()

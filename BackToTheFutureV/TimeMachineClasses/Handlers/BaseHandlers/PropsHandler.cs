@@ -36,6 +36,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         //Speedo
         public AnimateProp Speedo;
+        public AnimateProp SpeedoCover;
 
         //Compass
         public AnimateProp Compass;
@@ -140,6 +141,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             //Speedo
             Speedo = new AnimateProp(Vehicle, ModelHandler.BTTFSpeedo, "bttf_speedo");
             Speedo.SpawnProp();
+            SpeedoCover = new AnimateProp(Vehicle, ModelHandler.SpeedoCover, Vector3.Zero, Vector3.Zero);
 
             //Compass
             Compass = new AnimateProp(Vehicle, ModelHandler.Compass, "bttf_compass");
@@ -205,6 +207,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Speedo
             Speedo?.Dispose();
+            SpeedoCover?.Dispose();
 
             //Compass
             Compass?.Dispose();

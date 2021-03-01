@@ -26,7 +26,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             InstrumentalMenu.ClearPanel();
 
             InstrumentalMenu.AddControl(Control.PhoneCancel, "Cancel");
-            InstrumentalMenu.AddControl(Control.PhoneSelect, "Save");            
+            InstrumentalMenu.AddControl(Control.PhoneSelect, "Save");
             InstrumentalMenu.AddControl(Control.PhoneOption, "Disable alarm");
             InstrumentalMenu.AddControl(Control.PhoneExtraOption, "Set alarm time");
             InstrumentalMenu.AddControl(Control.PhoneDown, "Substract minutes");

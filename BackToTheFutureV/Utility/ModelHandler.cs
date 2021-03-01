@@ -58,6 +58,7 @@ namespace BackToTheFutureV.Utility
         public static CustomModel BulovaClockHour = new CustomModel("clock_hour");
         public static CustomModel BulovaClockMinute = new CustomModel("clock_minute");
         public static CustomModel BulovaClockRing = new CustomModel("clock_ring");
+        public static CustomModel SpeedoCover = new CustomModel("bttf_interior_speedo_cover");
 
         // BTTF1 CustomModels
         public static CustomModel BTTFReactorCap = new CustomModel("bttf_reactorcap");

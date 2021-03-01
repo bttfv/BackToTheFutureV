@@ -23,6 +23,7 @@ namespace BackToTheFutureV.Menu
         private NativeCheckboxItem _canFly;
         private NativeCheckboxItem _hoodBox;
         private NativeCheckboxItem _hook;
+        private NativeCheckboxItem _speedoCover;
         private NativeListItem<string> _plate;
         private NativeListItem<string> _exhaust;
         private NativeListItem<string> _suspensions;
@@ -61,6 +62,8 @@ namespace BackToTheFutureV.Menu
             Add(_hoodBox = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_ControlTubes"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_ControlTubes_Description")));
 
             Add(_hook = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hook"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hook_Description")));
+
+            Add(_speedoCover = new NativeCheckboxItem("Third digit speedo cover", ""));
 
             Add(_plate = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_LicPlate"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_LicPlate_Description"), _listPlateTypes.ToArray()));
             _plate.ItemChanged += ModList_ItemChanged;
@@ -142,6 +145,7 @@ namespace BackToTheFutureV.Menu
                 _exhaust.SelectedIndex = (int)(_tempTimeMachine.Mods.Exhaust) + 1;
                 _suspensions.SelectedIndex = (int)_tempTimeMachine.Mods.SuspensionsType;
                 _hood.SelectedIndex = (int)_tempTimeMachine.Mods.Hood + 1;
+                _speedoCover.Checked = !_tempTimeMachine.Properties.ThreeDigitsSpeedo;
 
                 _canFly.Enabled = !_tempTimeMachine.Properties.IsFlying;// && _tempTimeMachine.Mods.SuspensionsType == SuspensionsType.Stock;
                 _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
@@ -215,6 +219,7 @@ namespace BackToTheFutureV.Menu
                 _exhaust.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _suspensions.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _hood.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _speedoCover.Enabled = _tempTimeMachine.Mods.IsDMC12;
             }
 
             LoadVehicleType();
@@ -254,6 +259,10 @@ namespace BackToTheFutureV.Menu
                     _tempTimeMachine.Mods.Hook = HookState.OnDoor;
                 else
                     _tempTimeMachine.Mods.Hook = HookState.Off;
+            }
+            else if (sender == _speedoCover)
+            {
+                _tempTimeMachine.Properties.ThreeDigitsSpeedo = !Checked;
             }
         }
 

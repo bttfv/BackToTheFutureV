@@ -177,6 +177,11 @@ class BttfGui extends MovieClip
 		speedoGui.setDigit2(digit);
 	}
 	
+	function SET_DIGIT_3(digit)
+	{
+		speedoGui.setDigit3(digit);
+	}
+	
 	function SET_AM_PM(type, amPmToggle)
 	{
 		switch(type)

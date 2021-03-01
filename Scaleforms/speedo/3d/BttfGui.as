@@ -4,6 +4,7 @@
 	
 	var digit1MC : MovieClip
 	var digit2MC : MovieClip
+	var digit3MC : MovieClip
 	
 	// Constructor
 	function BttfGui(globalMovieClip)
@@ -19,40 +20,33 @@
 		
 		this.digit1MC = this.globalMC.attachMovie("digit", "digit1", this.globalMC.getNextHighestDepth());
 		this.digit2MC = this.globalMC.attachMovie("digit", "digit2", this.globalMC.getNextHighestDepth());
+		this.digit3MC = this.globalMC.attachMovie("digit", "digit3", this.globalMC.getNextHighestDepth());
 		
 		this.digit1MC._x = 201;
 		this.digit1MC._y = 42;
 		this.digit2MC._x = 394;
-		this.digit2MC._y = 42;
+		this.digit2MC._y = 42;		
+		this.digit3MC._x = 582;
+		this.digit3MC._y = 42;
 		
-		this.digit1MC.stop();
-		this.digit2MC.stop();
-		
-		// Will not be visible anywhere in game itself!
-		// But will be visible inside Flash Pro when running
-		trace("Hello from Boilerplate class!");
+		this.digit1MC.gotoAndStop(11);
+		this.digit2MC.gotoAndStop(1);
+		this.digit3MC.gotoAndStop(1);
 	}
 	
 	// It's a common thing to name publicly available methods this way
 	function SET_DIGIT_1(digit)
 	{
-		if(digit == -1)
-		{
-			this.digit1MC.gotoAndStop(15);
-			return;
-		}
-		
 		this.digit1MC.gotoAndStop(digit + 1);
 	}
 	
 	function SET_DIGIT_2(digit)
 	{
-		if(digit == -1)
-		{
-			this.digit2MC.gotoAndStop(15);
-			return;
-		}
-		
 		this.digit2MC.gotoAndStop(digit + 1);
+	}
+	
+	function SET_DIGIT_3(digit)
+	{
+		this.digit3MC.gotoAndStop(digit + 1);
 	}
 }
