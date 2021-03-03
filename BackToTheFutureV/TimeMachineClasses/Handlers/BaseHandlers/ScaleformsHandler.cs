@@ -81,7 +81,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             SpeedoRT.OnRenderTargetDraw += () =>
             {
-                Speedo.Render2D(new PointF(0.5f, 0.5f), new SizeF(0.9f, 0.9f));
+                Speedo.Render2D(new PointF(0.5f, 0.54f), new SizeF(0.9f, 0.9f));
             };
 
             //SID

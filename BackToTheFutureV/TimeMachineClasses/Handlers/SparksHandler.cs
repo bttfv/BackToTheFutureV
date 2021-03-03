@@ -61,15 +61,26 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnTimeCircuitsToggle()
         {
-            if (!Properties.AreTimeCircuitsOn && Players.Wormhole != null && Players.Wormhole.IsPlaying)
+            if (!Properties.AreTimeCircuitsOn && Players.Wormhole.IsPlaying)
                 Stop();
         }
 
         public override void Process()
         {
             if (!Properties.AreTimeCircuitsOn && !Properties.IsPhotoModeOn)
-                return;
+            {
+                if (Sounds.SparkStabilized.IsAnyInstancePlaying)
+                    Sounds.SparkStabilized?.Stop(true);
 
+                if (Sounds.SparksEmpty.IsAnyInstancePlaying)
+                    Sounds.SparksEmpty?.Stop(true);
+
+                if (Sounds.Sparks.IsAnyInstancePlaying)
+                    Sounds.Sparks?.Stop(true);
+
+                return;
+            }
+            
             Players.Wormhole?.Process();
 
             if (Constants.OverTimeTravelAtSpeed)
@@ -114,6 +125,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (!Sounds.SparksEmpty.IsAnyInstancePlaying)
                         Sounds.SparksEmpty?.Play();
                 }
+            } 
+            else
+            {
+                if (Sounds.SparkStabilized.IsAnyInstancePlaying)
+                    Sounds.SparkStabilized?.Stop(true);
+
+                if (Sounds.SparksEmpty.IsAnyInstancePlaying)
+                    Sounds.SparksEmpty?.Stop(true);
+
+                if (Sounds.Sparks.IsAnyInstancePlaying)
+                    Sounds.Sparks?.Stop(true);
             }
         }
 

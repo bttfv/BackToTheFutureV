@@ -32,16 +32,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f)
                 return;
 
-            if (!Properties.ThreeDigitsSpeedo && !Props.SpeedoCover.IsSpawned)
+            if (Mods.IsDMC12)
             {
-                Props.SpeedoCover.SpawnProp();
-                currentSpeed = -1;
-            }
+                if (!Properties.ThreeDigitsSpeedo && !Props.SpeedoCover.IsSpawned)
+                {
+                    Props.SpeedoCover.SpawnProp();
+                    currentSpeed = -1;
+                }
 
-            if (Properties.ThreeDigitsSpeedo && Props.SpeedoCover.IsSpawned)
-            {
-                Props.SpeedoCover.Delete();
-                currentSpeed = -1;
+                if (Properties.ThreeDigitsSpeedo && Props.SpeedoCover.IsSpawned)
+                {
+                    Props.SpeedoCover.Delete();
+                    currentSpeed = -1;
+                }
             }
 
             Scaleforms.SpeedoRT?.Draw();
@@ -69,7 +72,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     currentSpeed = mphSpeed;
 
-                    UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2, speedDigit3);
+                    if (Mods.IsDMC12)
+                        UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2, speedDigit3);
 
                     Constants.HUDProperties.Speed = (int)mphSpeed;
 
