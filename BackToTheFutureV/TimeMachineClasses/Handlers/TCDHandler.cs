@@ -491,6 +491,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled)
                 return;
 
+            ScaleformsHandler.GUI.SetSpeedoBackground(Properties.ThreeDigitsSpeedo);
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
             ScaleformsHandler.GUI.SetEmpty(Constants.HUDProperties.Empty);
             ScaleformsHandler.GUI.Draw2D();

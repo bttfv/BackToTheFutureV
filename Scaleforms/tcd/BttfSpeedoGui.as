@@ -1,5 +1,7 @@
 ﻿class BttfSpeedoGui
 {	
+	var speedoBkg : MovieClip
+
 	var digit1MC : MovieClip
 	var digit2MC : MovieClip
 	var digit3MC : MovieClip
@@ -7,6 +9,9 @@
 	// Constructor
 	function BttfSpeedoGui(globalMovieClip)
 	{		
+		this.speedoBkg = globalMovieClip.attachMovie("speedoBackground", "speedoBkg1", globalMovieClip.getNextHighestDepth());
+		this.speedoBkg.gotoAndStop(2);
+		
 		this.digit1MC = globalMovieClip.attachMovie("digit", "digit1", globalMovieClip.getNextHighestDepth());
 		this.digit2MC = globalMovieClip.attachMovie("digit", "digit2", globalMovieClip.getNextHighestDepth());
 		this.digit3MC = globalMovieClip.attachMovie("digit", "digit3", globalMovieClip.getNextHighestDepth());
@@ -37,5 +42,10 @@
 	function setDigit3(digit)
 	{
 		this.digit3MC.gotoAndStop(digit + 1);
+	}
+	
+	function setBackground(_state) 
+	{
+		this.speedoBkg.gotoAndStop(_state);
 	}
 }

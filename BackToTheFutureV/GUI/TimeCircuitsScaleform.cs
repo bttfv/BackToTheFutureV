@@ -54,6 +54,11 @@ namespace BackToTheFutureV.GUI
             CallFunction("SET_AM_PM", type.ToLower(), date.ToString("tt", CultureInfo.InvariantCulture) == "AM" ? 1 : 2);
         }
 
+        public void SetSpeedoBackground(bool state)
+        {
+            CallFunction("SET_SPEEDO_BACKGROUND", Convert.ToInt32(state) + 1);
+        }
+
         public void SetBackground(TCDBackground background)
         {
             CallFunction("SET_TCD_BACKGROUND", GetStringFromBackgroundType(background));

@@ -167,6 +167,11 @@ class BttfGui extends MovieClip
 		}
 	}
 	
+	function SET_SPEEDO_BACKGROUND(_state) 
+	{
+		speedoGui.setBackground(_state);
+	}
+	
 	function SET_DIGIT_1(digit)
 	{
 		speedoGui.setDigit1(digit);
