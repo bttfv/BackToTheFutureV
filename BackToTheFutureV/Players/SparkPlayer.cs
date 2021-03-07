@@ -14,7 +14,7 @@ namespace BackToTheFutureV.Players
         public SparkPlayer(TimeMachine timeMachine, IEnumerable<Vector3> frames, Model model, float speed = 20f) : base(timeMachine)
         {
             _frames = frames.ToList();
-            _spark = new AnimateProp(Vehicle, model, _frames[0], Vector3.Zero);
+            _spark = new AnimateProp(model, Vehicle, _frames[0], Vector3.Zero);
 
             Speed = speed;
         }

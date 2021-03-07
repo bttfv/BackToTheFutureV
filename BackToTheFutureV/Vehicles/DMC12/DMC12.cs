@@ -59,20 +59,20 @@ namespace BackToTheFutureV.Vehicles
 
             Mods = new DMC12Mods(Vehicle);
 
-            rpmNeedle = new AnimateProp(Vehicle, ModelHandler.RPMNeedle, "rpm_needle");
-            speedNeedle = new AnimateProp(Vehicle, ModelHandler.SpeedNeedle, "speed_needle");
-            fuelNeedle = new AnimateProp(Vehicle, ModelHandler.FuelNeedle, "fuel_needle");
-            tempNeedle = new AnimateProp(Vehicle, ModelHandler.TemperatureNeedle, "temperature_needle");
-            oilNeedle = new AnimateProp(Vehicle, ModelHandler.OilNeedle, "oil_needle");
-            voltNeedle = new AnimateProp(Vehicle, ModelHandler.VoltageNeedle, "voltage_needle");
-            doorIndicator = new AnimateProp(Vehicle, ModelHandler.DoorIndicator, Vector3.Zero, Vector3.Zero);
-            leftFan = new AnimateProp(Vehicle, ModelHandler.RadiatorFan, "radiator_fan_l");
-            rightFan = new AnimateProp(Vehicle, ModelHandler.RadiatorFan, "radiator_fan_r");
+            rpmNeedle = new AnimateProp(ModelHandler.RPMNeedle, Vehicle, "rpm_needle");
+            speedNeedle = new AnimateProp(ModelHandler.SpeedNeedle, Vehicle, "speed_needle");
+            fuelNeedle = new AnimateProp(ModelHandler.FuelNeedle, Vehicle, "fuel_needle");
+            tempNeedle = new AnimateProp(ModelHandler.TemperatureNeedle, Vehicle, "temperature_needle");
+            oilNeedle = new AnimateProp(ModelHandler.OilNeedle, Vehicle, "oil_needle");
+            voltNeedle = new AnimateProp(ModelHandler.VoltageNeedle, Vehicle, "voltage_needle");
+            doorIndicator = new AnimateProp(ModelHandler.DoorIndicator, Vehicle, Vector3.Zero, Vector3.Zero);
+            leftFan = new AnimateProp(ModelHandler.RadiatorFan, Vehicle, "radiator_fan_l");
+            rightFan = new AnimateProp(ModelHandler.RadiatorFan, Vehicle, "radiator_fan_r");
 
-            suspensionLeftFront = new AnimateProp(Vehicle, ModelHandler.SuspensionFront, "suspension_lf");
-            suspensionLeftRear = new AnimateProp(Vehicle, ModelHandler.SuspensionRear, "suspension_lr");
-            suspensionRightFront = new AnimateProp(Vehicle, ModelHandler.SuspensionRightFront, "suspension_rf");
-            suspensionRightRear = new AnimateProp(Vehicle, ModelHandler.SuspensionRightRear, "suspension_rr");
+            suspensionLeftFront = new AnimateProp(ModelHandler.SuspensionFront, Vehicle, "suspension_lf");
+            suspensionLeftRear = new AnimateProp(ModelHandler.SuspensionRear, Vehicle, "suspension_lr");
+            suspensionRightFront = new AnimateProp(ModelHandler.SuspensionRightFront, Vehicle, "suspension_rf");
+            suspensionRightRear = new AnimateProp(ModelHandler.SuspensionRightRear, Vehicle, "suspension_rr");
 
             rpmNeedle.SpawnProp();
             speedNeedle.SpawnProp();

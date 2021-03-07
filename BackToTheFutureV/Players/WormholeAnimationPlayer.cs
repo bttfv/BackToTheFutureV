@@ -127,7 +127,7 @@ namespace BackToTheFutureV.Players
             if (Mods.IsDMC12)
             {
                 Props.Coils?.Dispose();
-                Props.Coils = new AnimateProp(Vehicle, Constants.CoilsModel, Vector3.Zero, Vector3.Zero);
+                Props.Coils = new AnimateProp(Constants.CoilsModel, Vehicle, Vector3.Zero, Vector3.Zero);
             }
         }
 

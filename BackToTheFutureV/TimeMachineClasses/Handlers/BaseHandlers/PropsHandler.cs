@@ -74,110 +74,110 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         {
             //Wheels
             RRWheels = new AnimatePropsHandler();
-            RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_lf"));
-            RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_lr"));
-            RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rf"));
-            RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rr"));
+            RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_lf"));
+            RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_lr"));
+            RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_rf"));
+            RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_rr"));
 
             if (Vehicle.Bones["wheel_lm1"].Index > 0)
-                RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_lm1"));
+                RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_lm1"));
 
             if (Vehicle.Bones["wheel_rm1"].Index > 0)
-                RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rm1"));
+                RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_rm1"));
 
             if (Vehicle.Bones["wheel_lm2"].Index > 0)
-                RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_lm2"));
+                RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_lm2"));
 
             if (Vehicle.Bones["wheel_rm2"].Index > 0)
-                RRWheels.Add(new AnimateProp(Vehicle, ModelHandler.RRWheelProp, "wheel_rm2"));
+                RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_rm2"));
 
-            WhiteSphere = new AnimateProp(Vehicle, ModelHandler.WhiteSphere, Vector3.Zero, Vector3.Zero)
+            WhiteSphere = new AnimateProp(ModelHandler.WhiteSphere, Vehicle)
             {
                 Duration = 0.25f
             };
 
-            InvisibleProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.InvisibleProp, new Vector3(0, 3.4f, -0.6f), new Vector3(0, 0, 180));
+            InvisibleProp = new AnimateProp(ModelHandler.InvisibleProp, TimeMachine.Vehicle, new Vector3(0, 3.4f, -0.6f), new Vector3(0, 0, 180));
             InvisibleProp.SpawnProp();
 
             //Lightnings
             Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true };
             foreach (CustomModel x in ModelHandler.Lightnings)
-                Lightnings.Add(new AnimateProp(Vehicle, x, Vector3.Zero, Vector3.Zero));
+                Lightnings.Add(new AnimateProp(x, Vehicle));
 
             LightningsOnCar = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true };
             foreach (CustomModel x in ModelHandler.LightningsOnCar)
-                LightningsOnCar.Add(new AnimateProp(Vehicle, x, Vector3.Zero, Vector3.Zero));
+                LightningsOnCar.Add(new AnimateProp(x, Vehicle));
 
             if (!Mods.IsDMC12)
                 return;
 
-            BTTFDecals = new AnimateProp(Vehicle, ModelHandler.BTTFDecals, Vector3.Zero, Vector3.Zero);
+            BTTFDecals = new AnimateProp(ModelHandler.BTTFDecals, Vehicle);
             BTTFDecals.SpawnProp();
 
             //Hover Mode
             HoverModeUnderbodyLights = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 200, IsSequenceLooped = true };
             foreach (CustomModel model in ModelHandler.UnderbodyLights)
-                HoverModeUnderbodyLights.Add(new AnimateProp(Vehicle, model, Vector3.Zero, Vector3.Zero));
+                HoverModeUnderbodyLights.Add(new AnimateProp(model, Vehicle));
 
-            HoverModeVentsGlow = new AnimateProp(Vehicle, ModelHandler.VentGlowing, Vector3.Zero, Vector3.Zero);
-            HoverModeWheelsGlow = new AnimateProp(Vehicle, ModelHandler.HoverGlowing, Vector3.Zero, Vector3.Zero)
+            HoverModeVentsGlow = new AnimateProp(ModelHandler.VentGlowing, Vehicle);
+            HoverModeWheelsGlow = new AnimateProp(ModelHandler.HoverGlowing, Vehicle)
             {
                 Duration = 1.8f
             };
 
             //Fuel
-            EmptyGlowing = new AnimateProp(Vehicle, ModelHandler.Empty, Vector3.Zero, Vector3.Zero);
-            EmptyOff = new AnimateProp(Vehicle, ModelHandler.EmptyOff, Vector3.Zero, Vector3.Zero);
+            EmptyGlowing = new AnimateProp(ModelHandler.Empty, Vehicle);
+            EmptyOff = new AnimateProp(ModelHandler.EmptyOff, Vehicle);
 
             //Time travel
-            //Coils = new AnimateProp(Vehicle, ModelHandler.CoilsGlowing, Vector3.Zero, Vector3.Zero);
+            //Coils = new AnimateProp(Vehicle, ModelHandler.CoilsGlowing);
             SeparatedCoils = new AnimatePropsHandler();
             foreach (CustomModel coilModel in ModelHandler.CoilSeparated)
-                SeparatedCoils.Add(new AnimateProp(TimeMachine.Vehicle, coilModel, Vector3.Zero, Vector3.Zero));
+                SeparatedCoils.Add(new AnimateProp(coilModel, TimeMachine.Vehicle));
 
             //Plutonium gauge
-            GaugeGlow = new AnimateProp(Vehicle, ModelHandler.GaugeGlow, Vector3.Zero, Vector3.Zero);
+            GaugeGlow = new AnimateProp(ModelHandler.GaugeGlow, Vehicle);
 
             //Speedo
-            Speedo = new AnimateProp(Vehicle, ModelHandler.BTTFSpeedo, "bttf_speedo");
+            Speedo = new AnimateProp(ModelHandler.BTTFSpeedo, Vehicle, "bttf_speedo");
             Speedo.SpawnProp();
-            SpeedoCover = new AnimateProp(Vehicle, ModelHandler.SpeedoCover, Vector3.Zero, Vector3.Zero);
+            SpeedoCover = new AnimateProp(ModelHandler.SpeedoCover, Vehicle);
 
             //Compass
-            Compass = new AnimateProp(Vehicle, ModelHandler.Compass, "bttf_compass");
+            Compass = new AnimateProp(ModelHandler.Compass, Vehicle, "bttf_compass");
 
             //TFC
-            TFCOn = new AnimateProp(Vehicle, ModelHandler.TFCOn, Vector3.Zero, Vector3.Zero);
-            TFCOff = new AnimateProp(Vehicle, ModelHandler.TFCOff, Vector3.Zero, Vector3.Zero);
-            TFCHandle = new AnimateProp(Vehicle, ModelHandler.TFCHandle, new Vector3(-0.03805999f, -0.0819466f, 0.5508024f), Vector3.Zero);
+            TFCOn = new AnimateProp(ModelHandler.TFCOn, Vehicle);
+            TFCOff = new AnimateProp(ModelHandler.TFCOff, Vehicle);
+            TFCHandle = new AnimateProp(ModelHandler.TFCHandle, Vehicle, new Vector3(-0.03805999f, -0.0819466f, 0.5508024f), Vector3.Zero);
             TFCHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, false, -45, 0, 1, 135, 1);
             TFCHandle.SpawnProp();
 
             //TCD
-            DiodesOff = new AnimateProp(Vehicle, ModelHandler.DiodesOff, Vector3.Zero, Vector3.Zero);
+            DiodesOff = new AnimateProp(ModelHandler.DiodesOff, Vehicle);
             DiodesOff.SpawnProp();
-            TickingDiodes = new AnimateProp(Vehicle, ModelHandler.TickingDiodes, Vector3.Zero, Vector3.Zero);
-            TickingDiodesOff = new AnimateProp(Vehicle, ModelHandler.TickingDiodesOff, Vector3.Zero, Vector3.Zero);
+            TickingDiodes = new AnimateProp(ModelHandler.TickingDiodes, Vehicle);
+            TickingDiodesOff = new AnimateProp(ModelHandler.TickingDiodesOff, Vehicle);
             TickingDiodesOff.SpawnProp();
 
             //Hoodbox lights
-            HoodboxLights = new AnimateProp(Vehicle, ModelHandler.HoodboxLights, "bonnet");
+            HoodboxLights = new AnimateProp(ModelHandler.HoodboxLights, Vehicle, "bonnet");
 
             //Flux capacitor
-            FluxBlue = new AnimateProp(Vehicle, ModelHandler.FluxBlueModel, "flux_capacitor");
+            FluxBlue = new AnimateProp(ModelHandler.FluxBlueModel, Vehicle, "flux_capacitor");
 
             //License plate
-            LicensePlate = new AnimateProp(Vehicle, ModelHandler.LicensePlate, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
+            LicensePlate = new AnimateProp(ModelHandler.LicensePlate, Vehicle, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
             LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(true, true, 90, 360 * 2 + 90, 1, 1440, 1);
             LicensePlate.SaveAnimation();
 
             //Bulova clock
-            BulovaClockHour = new AnimateProp(Vehicle, ModelHandler.BulovaClockHour, "bulova_clock_ring_hands");
+            BulovaClockHour = new AnimateProp(ModelHandler.BulovaClockHour, Vehicle, "bulova_clock_ring_hands");
             BulovaClockHour.setOffset(new Vector3(0, 0.001f, 0));
             BulovaClockHour.SpawnProp();
-            BulovaClockMinute = new AnimateProp(Vehicle, ModelHandler.BulovaClockMinute, "bulova_clock_ring_hands");
+            BulovaClockMinute = new AnimateProp(ModelHandler.BulovaClockMinute, Vehicle, "bulova_clock_ring_hands");
             BulovaClockMinute.SpawnProp();
-            BulovaClockRing = new AnimateProp(Vehicle, ModelHandler.BulovaClockRing, "bulova_clock");
+            BulovaClockRing = new AnimateProp(ModelHandler.BulovaClockRing, Vehicle, "bulova_clock");
             BulovaClockRing[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(false, true, -10, 10, 1, 360, 1);
             BulovaClockRing.SpawnProp();
         }

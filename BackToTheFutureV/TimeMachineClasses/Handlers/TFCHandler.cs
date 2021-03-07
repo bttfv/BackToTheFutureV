@@ -35,7 +35,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Vehicle = vehicle;
             Offset = offset;
 
-            Prop = new AnimateProp(Vehicle, modelName, Offset, Vector3.Zero);
+            Prop = new AnimateProp(modelName, Vehicle, Offset, Vector3.Zero);
             Prop.SpawnProp();
         }
 

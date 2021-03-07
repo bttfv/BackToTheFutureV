@@ -21,7 +21,7 @@ namespace BackToTheFutureV.Players
             close = Sounds.AudioEngine.Create("bttf1/plutonium_close.wav", Presets.Exterior);
             close.SourceBone = "bttf_reactorcap";
 
-            plutoniumCap = new AnimateProp(Vehicle, ModelHandler.BTTFReactorCap, "bttf_reactorcap");
+            plutoniumCap = new AnimateProp(ModelHandler.BTTFReactorCap, Vehicle, "bttf_reactorcap");
             plutoniumCap[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(true, false, -90, 0, 1, 240, 1);
             plutoniumCap[AnimationType.Offset][AnimationStep.Second][Coordinate.Z].Setup(true, true, 0, 0.05f, 1, 0.16f, 1);
             plutoniumCap[AnimationType.Offset][AnimationStep.Third][Coordinate.Y].Setup(true, true, 0, 0.08f, 1, 0.16f, 1);

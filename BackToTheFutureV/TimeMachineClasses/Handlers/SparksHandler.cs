@@ -80,7 +80,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 return;
             }
-            
+
             Players.Wormhole?.Process();
 
             if (Constants.OverTimeTravelAtSpeed)
@@ -125,7 +125,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (!Sounds.SparksEmpty.IsAnyInstancePlaying)
                         Sounds.SparksEmpty?.Play();
                 }
-            } 
+            }
             else
             {
                 if (Sounds.SparkStabilized.IsAnyInstancePlaying)

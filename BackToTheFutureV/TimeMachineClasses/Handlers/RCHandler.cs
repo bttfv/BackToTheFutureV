@@ -148,7 +148,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Sounds.RCOn?.Play();
 
-            RCProp = new AnimateProp(TimeMachine.OriginalPed, ModelHandler.BTTFMrFusion, TimeMachine.OriginalPed.Bones[Bone.MHLeftHandSide]);
+            RCProp = new AnimateProp(ModelHandler.BTTFMrFusion, TimeMachine.OriginalPed, TimeMachine.OriginalPed.Bones[Bone.MHLeftHandSide]);
             RCProp.SpawnProp();
 
             TimeMachine.OriginalPed.AlwaysKeepTask = true;

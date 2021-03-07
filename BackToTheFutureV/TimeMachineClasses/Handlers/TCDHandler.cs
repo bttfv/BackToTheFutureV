@@ -48,8 +48,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Scaleforms.TCDRowsRT[slotType] = new RenderTarget(ModelHandler.TCDRTModels[slotType], "bttf_tcd_row_" + slotType, TimeMachine.Vehicle, offsets[slotType], new Vector3(355.9951f, 0.04288517f, 352.7451f));
                 Scaleforms.TCDRowsRT[slotType].CreateProp();
 
-                amProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TCDAMModels[slotType], Vector3.Zero, Vector3.Zero);
-                pmProp = new AnimateProp(TimeMachine.Vehicle, ModelHandler.TCDPMModels[slotType], Vector3.Zero, Vector3.Zero);
+                amProp = new AnimateProp(ModelHandler.TCDAMModels[slotType], TimeMachine.Vehicle, Vector3.Zero, Vector3.Zero);
+                pmProp = new AnimateProp(ModelHandler.TCDPMModels[slotType], TimeMachine.Vehicle, Vector3.Zero, Vector3.Zero);
 
                 Scaleforms.TCDRowsRT[slotType].OnRenderTargetDraw += OnRenderTargetDraw;
             }
