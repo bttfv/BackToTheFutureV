@@ -26,7 +26,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool IsDefrosting { get; set; }
         public float IceValue { get; set; }
         public bool IsFlying { get; set; }
-        public bool AreWheelsInHoverMode { get; set; }
         public bool CanConvert { get; set; } = true;
         public bool AreFlyingCircuitsBroken { get; set; }
         public bool AreHoodboxCircuitsReady { get; set; }
@@ -89,7 +88,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 IsDefrosting = IsDefrosting,
                 IceValue = IceValue,
                 IsFlying = IsFlying,
-                AreWheelsInHoverMode = AreWheelsInHoverMode,
                 CanConvert = CanConvert,
                 AreFlyingCircuitsBroken = AreFlyingCircuitsBroken,
                 AreHoodboxCircuitsReady = AreHoodboxCircuitsReady,
@@ -121,7 +119,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             timeMachine.Properties.IsDefrosting = IsDefrosting;
             timeMachine.Properties.IceValue = IceValue;
             timeMachine.Properties.IsFlying = IsFlying;
-            timeMachine.Properties.AreWheelsInHoverMode = AreWheelsInHoverMode;
             timeMachine.Properties.CanConvert = CanConvert;
             timeMachine.Properties.AreFlyingCircuitsBroken = AreFlyingCircuitsBroken;
             timeMachine.Properties.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;

@@ -176,6 +176,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public int FireTrailsLength => Properties.IsOnTracks ? 100 : 50;
 
+        public WheelType RoadWheel => Properties.IsStockWheel ? WheelType.Stock : WheelType.Red;
+        public CustomModel WheelModel => Constants.RoadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
+        public CustomModel WheelRearModel => Constants.RoadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
+
         public HUDProperties HUDProperties { get; set; } = new HUDProperties();
         public bool ForceSIDMax { get; set; }
         public int[] CurrentHeight { get; set; } = new int[10];

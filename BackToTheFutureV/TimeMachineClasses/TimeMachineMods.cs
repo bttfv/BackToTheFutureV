@@ -10,9 +10,14 @@ namespace BackToTheFutureV.TimeMachineClasses
     internal class TimeMachineMods : DMC12Mods
     {
         protected TimeMachine TimeMachine { get; }
+
+        public CVehicleWheels Wheels { get; }
+
         public TimeMachineMods(TimeMachine timeMachine, WormholeType wormholeType) : base(timeMachine.Vehicle)
         {
             TimeMachine = timeMachine;
+
+            Wheels = new CVehicleWheels(timeMachine);
 
             if (IsDMC12)
             {
@@ -278,7 +283,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                         Exhaust = ExhaustType.None;
                     }
 
-                    TimeMachine.DMC12.SetStockSuspensions?.Invoke(value == ModState.Off);
+                    TimeMachine.DMC12?.SetStockSuspensions?.Invoke(value == ModState.Off);
 
                     TimeMachine.Events?.OnHoverUnderbodyToggle?.Invoke(reload);
                 }

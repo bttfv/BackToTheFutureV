@@ -1,9 +1,9 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using System;
 using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
@@ -11,77 +11,72 @@ namespace BackToTheFutureV.Players
 {
     internal class WheelAnimationPlayer : Player
     {
-        public const float MAX_POSITION_OFFSET = 0.20f;
-        public const float MAX_ROTATION_OFFSET = 90f;
+        private const float MAX_POSITION_OFFSET = 0.255f;
+        private const float MAX_ROTATION_OFFSET = 90f;
 
-        public bool IsWheelsOpen { get; private set; }
-
-        private WheelType _roadWheel;
+        private bool AreWheelsOpen;
 
         private AnimatePropsHandler AllProps = new AnimatePropsHandler();
 
         private AnimatePropsHandler GlowWheels = new AnimatePropsHandler();
         private AnimatePropsHandler Wheels = new AnimatePropsHandler();
 
-        public Vector3 strutFrontOffset = new Vector3(-0.5455205f, 1.267366f, 0.2580211f);
-        public Vector3 diskOffsetFromStrut = new Vector3(-0.23691f, 0.002096051f, -0.1387549f);
-        public Vector3 pistonOffsetFromDisk = new Vector3(-0.05293572f, -0.002848367f, 0.0005371129f);
+        private static readonly Vector3 strutFrontOffset = new Vector3(0.2247245f, -0.004109263f, 0.09079965f);
+        private static readonly Vector3 strutRearOffset = new Vector3(0.2312317f, -0.004109263f, 0.11079965f);
 
-        public Vector3 strutRearOffset = new Vector3(-0.5455205f, -1.200989f, 0.2580211f);
-        public Vector3 diskOffsetFromRearStrut = new Vector3(-0.2380092f, 0.002005455f, -0.1414804f);
-        public Vector3 pistonOffsetFromRearDisk = new Vector3(-0.05293572f, -0.002848367f, 0.0005371129f);
+        private static readonly Vector3 diskOffsetFromStrut = new Vector3(-0.23691f, 0.002096051f, -0.1387549f);
+        private static readonly Vector3 pistonOffsetFromDisk = new Vector3(-0.05293572f, -0.002848367f, 0.0005371129f);
 
         public WheelAnimationPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
             AllProps.OnAnimCompleted += OnAnimationCompleted;
 
-            _roadWheel = Properties.IsStockWheel ? WheelType.Stock : WheelType.Red;
-
-            Model modelWheel = _roadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
-            Model modelWheelRear = _roadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
-
-            foreach (WheelId wheel in Enum.GetValues(typeof(WheelId)))
+            foreach (CVehicleWheel wheel in Mods.Wheels)
             {
-                bool leftWheel = wheel == WheelId.FrontLeft | wheel == WheelId.RearLeft;
-                bool frontWheel = wheel == WheelId.FrontLeft | wheel == WheelId.FrontRight;
-
-                Model wheelModel = frontWheel ? modelWheel : modelWheelRear;
-                Model wheelGlowModel = frontWheel ? ModelHandler.WheelGlowing : ModelHandler.RearWheelGlowing;
+                Model wheelModel = wheel.Front ? Constants.WheelModel : Constants.WheelRearModel;
+                Model wheelGlowModel = wheel.Front ? ModelHandler.WheelGlowing : ModelHandler.RearWheelGlowing;
 
                 Vector3 strutOffset = Vector3.Zero;
 
-                switch (wheel)
+                switch (wheel.WheelID)
                 {
                     case WheelId.FrontLeft:
                         strutOffset = strutFrontOffset;
                         break;
                     case WheelId.FrontRight:
-                        strutOffset = new Vector3(-strutFrontOffset.X, strutFrontOffset.Y, strutFrontOffset.Z);
+                        strutOffset = strutFrontOffset.InvertCoordinate(Coordinate.X);
                         break;
                     case WheelId.RearLeft:
                         strutOffset = strutRearOffset;
                         break;
                     case WheelId.RearRight:
-                        strutOffset = new Vector3(-strutRearOffset.X, strutRearOffset.Y, strutRearOffset.Z);
+                        strutOffset = strutRearOffset.InvertCoordinate(Coordinate.X);
                         break;
                 }
 
-                AnimateProp strut = new AnimateProp(ModelHandler.Strut, Vehicle, strutOffset, leftWheel ? Vector3.Zero : new Vector3(0, 0, 180));
-                if (leftWheel)
-                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.24f, 1);
+                strutOffset = wheel.GetRelativeOffsetPosition(strutOffset);
+
+                AnimateProp strut = new AnimateProp(ModelHandler.Strut, Vehicle, strutOffset, wheel.Left ? Vector3.Zero : new Vector3(0, 0, 180));
+                if (wheel.Left)
+                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.30f, 1);
                 else
-                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.24f, 1);
+                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.30f, 1);
                 strut.SpawnProp();
 
-                AnimateProp disk = new AnimateProp(ModelHandler.Disk, strut, frontWheel ? diskOffsetFromStrut : diskOffsetFromRearStrut, new Vector3(0, MAX_ROTATION_OFFSET, 0));
+                AnimateProp disk = new AnimateProp(ModelHandler.Disk, strut, diskOffsetFromStrut, new Vector3(0, MAX_ROTATION_OFFSET, 0));
                 disk[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, false, 0, MAX_ROTATION_OFFSET, 1, 120, 1);
                 disk.SpawnProp();
 
-                AnimateProp piston = new AnimateProp(ModelHandler.Piston, disk, frontWheel ? pistonOffsetFromDisk : pistonOffsetFromRearDisk, new Vector3(0, -MAX_ROTATION_OFFSET, 0));
+                AnimateProp piston = new AnimateProp(ModelHandler.Piston, disk, pistonOffsetFromDisk, new Vector3(0, -MAX_ROTATION_OFFSET, 0));
                 piston[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, true, -MAX_ROTATION_OFFSET, 0, 1, 120, 1);
                 piston.SpawnProp();
 
-                AnimateProp wheelAnimateProp = new AnimateProp(wheelModel, disk, Vector3.Zero, new Vector3(0, -90, 0));
+                AnimateProp wheelAnimateProp;
+
+                if (wheel.Front)
+                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.035f), new Vector3(0, -90, 0));
+                else
+                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.035f), new Vector3(0, -90, 0));
 
                 AnimateProp wheelGlowAnimateProp = new AnimateProp(wheelGlowModel, null, Vector3.Zero, Vector3.Zero);
 
@@ -102,7 +97,7 @@ namespace BackToTheFutureV.Players
             if (!IsPlaying)
                 return;
 
-            if (IsWheelsOpen)
+            if (AreWheelsOpen)
             {
                 switch (animationStep)
                 {
@@ -130,18 +125,10 @@ namespace BackToTheFutureV.Players
 
         private void ReloadWheelModels()
         {
-            if (_roadWheel == Mods.Wheel)
-                return;
-
-            _roadWheel = Properties.IsStockWheel ? WheelType.Stock : WheelType.Red;
-
-            Model modelWheel = _roadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
-            Model modelWheelRear = _roadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
-
-            Wheels[0].SwapModel(modelWheel);
-            Wheels[1].SwapModel(modelWheel);
-            Wheels[2].SwapModel(modelWheelRear);
-            Wheels[3].SwapModel(modelWheelRear);
+            Wheels[0].SwapModel(Constants.WheelModel);
+            Wheels[1].SwapModel(Constants.WheelModel);
+            Wheels[2].SwapModel(Constants.WheelRearModel);
+            Wheels[3].SwapModel(Constants.WheelRearModel);
         }
 
         public override void Play()
@@ -158,11 +145,11 @@ namespace BackToTheFutureV.Players
 
             AllProps.RestoreAnimation();
 
-            if (IsWheelsOpen)
+            if (AreWheelsOpen)
             {
                 AllProps.Play(AnimationStep.Second, true, true);
 
-                if (_roadWheel == WheelType.Stock)
+                if (Constants.RoadWheel == WheelType.Stock)
                 {
                     for (int i = 0; i < 4; i++)
                         GlowWheels[i].TransferTo(Wheels[i]);
@@ -176,7 +163,7 @@ namespace BackToTheFutureV.Players
                 {
                     Wheels.Delete();
 
-                    Mods.Wheel = _roadWheel;
+                    Mods.Wheel = Constants.RoadWheel;
                 }
             }
 
@@ -185,13 +172,13 @@ namespace BackToTheFutureV.Players
 
         public void SetInstant(bool open)
         {
-            IsWheelsOpen = open;
+            AreWheelsOpen = open;
 
-            if (IsWheelsOpen)
+            if (AreWheelsOpen)
             {
                 ReloadWheelModels();
 
-                Mods.Wheel = _roadWheel.GetVariantWheelType();
+                Mods.Wheel = Constants.RoadWheel.GetVariantWheelType();
 
                 if (!Wheels.IsSpawned)
                     Wheels.SpawnProp();
@@ -202,21 +189,21 @@ namespace BackToTheFutureV.Players
 
         public void Play(bool open)
         {
-            if (IsWheelsOpen == open)
+            if (AreWheelsOpen == open)
                 return;
 
-            IsWheelsOpen = open;
+            AreWheelsOpen = open;
 
-            if (IsWheelsOpen)
+            if (AreWheelsOpen)
                 ReloadWheelModels();
             else
                 GlowWheels.Delete();
 
-            Mods.Wheel = _roadWheel.GetVariantWheelType();
+            Mods.Wheel = Constants.RoadWheel.GetVariantWheelType();
 
             IsPlaying = true;
 
-            if (IsWheelsOpen && !Wheels.IsSpawned)
+            if (AreWheelsOpen && !Wheels.IsSpawned)
                 Wheels.SpawnProp();
 
             if (open)

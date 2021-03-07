@@ -100,7 +100,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void OnCompleted()
         {
-            if (Properties.AreWheelsInHoverMode)
+            if (Properties.IsFlying)
             {
                 _startHoverGlowLater = !Vehicle.IsEngineRunning;
 
@@ -132,7 +132,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         return;
                     }
 
-                    SetFlyMode(!Properties.AreWheelsInHoverMode);
+                    SetFlyMode(!Properties.IsFlying);
 
                     _nextModeChangeAllowed = Game.GameTime + 3000;
                 }
@@ -152,7 +152,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         return;
                     }
 
-                    SetFlyMode(!Properties.AreWheelsInHoverMode);
+                    SetFlyMode(!Properties.IsFlying);
 
                     _nextModeChangeAllowed = Game.GameTime + 3000;
                 }
@@ -177,9 +177,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.IsOnTracks && !Mods.IsDMC12)
                 Events.SetStopTracks?.Invoke(3000);
 
-            Properties.AreWheelsInHoverMode = open;
+            Properties.IsFlying = open;
 
-            Properties.IsLanding = ModSettings.LandingSystem && Mods.IsDMC12 && !Properties.AreWheelsInHoverMode && !Properties.AreFlyingCircuitsBroken && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
+            Properties.IsLanding = ModSettings.LandingSystem && Mods.IsDMC12 && !Properties.IsFlying && !Properties.AreFlyingCircuitsBroken && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
 
             if (instant)
                 Players.HoverModeWheels?.SetInstant(open);
@@ -190,24 +190,22 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // from land to hover
             // (DOES NOT CHANGE FLY MODE!)
             if (!Properties.IsLanding)
-                Function.Call((Hash)0x438b3d7ca026fe91, Vehicle, Properties.AreWheelsInHoverMode ? 1f : 0f);
+                Function.Call((Hash)0x438b3d7ca026fe91, Vehicle, Properties.IsFlying ? 1f : 0f);
             else
                 Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Input_VTOL_Tip").Replace("~INPUT_VEH_AIM~", (new ControlInfo(ModControls.HoverVTOL)).Button));
 
-            if (Properties.AreWheelsInHoverMode && !instant)
+            if (Properties.IsFlying && !instant)
             {
                 Sounds.HoverModeOn?.Play();
                 Particles?.HoverModeSmoke?.ForEach(x => x?.Play());
             }
-            else if (!Properties.AreWheelsInHoverMode && !instant)
+            else if (!Properties.IsFlying && !instant)
             {
-                if (Properties.IsFlying)
+                if (!Properties.IsFlying)
                     Sounds.HoverModeOff?.Play();
 
                 Props.HoverModeWheelsGlow?.Delete();
             }
-
-            Properties.IsFlying = Properties.AreWheelsInHoverMode;
 
             _landingSmoke = false;
 
