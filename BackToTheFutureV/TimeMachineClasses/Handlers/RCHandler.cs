@@ -1,6 +1,5 @@
 ﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.Utility;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
@@ -26,14 +25,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private bool _boostStarted = false;
         private bool _handleBoost = false;
 
-        private float _origTorque;
-
         private bool simulateSpeed;
         private float maxSpeed;
         private int maxSeconds;
         private float currentSimSpeed;
 
-        private static AnimateProp RCProp;
+        //private static AnimateProp RCProp;
 
         public RcHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -97,8 +94,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (_forcedHandbrake)
             {
-                _origTorque = Properties.TorqueMultiplier;
-                Properties.TorqueMultiplier *= 4;
                 _boostStarted = false;
                 _handleBoost = true;
 
@@ -148,12 +143,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Sounds.RCOn?.Play();
 
-            RCProp = new AnimateProp(ModelHandler.BTTFMrFusion, TimeMachine.OriginalPed, TimeMachine.OriginalPed.Bones[Bone.MHLeftHandSide]);
-            RCProp.SpawnProp();
+            //RCProp = new AnimateProp(ModelHandler.BTTFMrFusion, TimeMachine.OriginalPed, TimeMachine.OriginalPed.Bones[Bone.MHLeftHandSide]);
+            //RCProp.SpawnProp();
 
-            TimeMachine.OriginalPed.AlwaysKeepTask = true;
-            TimeMachine.OriginalPed.Task.PlayAnimation("amb@world_human_seat_wall_eating@male@both_hands@idle_a", "idle_a", 8f, -1, AnimationFlags.UpperBodyOnly | AnimationFlags.Loop);
-            //TimeMachine.OriginalPed.Task.TurnTo(Vehicle);
+            if (!TimeMachine.OriginalPed.IsInVehicle())
+            {
+                TimeMachine.OriginalPed.AlwaysKeepTask = true;
+                //TimeMachine.OriginalPed.Task.PlayAnimation("amb@world_human_seat_wall_eating@male@both_hands@idle_a", "idle_a", 8f, -1, AnimationFlags.UpperBodyOnly | AnimationFlags.Loop);
+                TimeMachine.OriginalPed.Task.TurnTo(Vehicle);
+            }
 
             if (CurrentMode == RcModes.FromPlayerCamera || Utils.IsPlayerUseFirstPerson())
             {
@@ -201,7 +199,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (CurrentMode == RcModes.FromPlayerCamera)
                     Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
 
-                RCProp?.Dispose();
+                //RCProp?.Dispose();
             }
         }
 
@@ -244,7 +242,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 if (_handleBoost)
                 {
-                    Properties.TorqueMultiplier = _origTorque;
                     _boostStarted = false;
                     _handleBoost = false;
                 }
@@ -260,10 +257,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (_handleBoost && _boostStarted && !Game.IsControlPressed(GTA.Control.VehicleAccelerate))
             {
                 StopForcedHandbrake();
-
-                Properties.TorqueMultiplier = _origTorque;
                 _handleBoost = false;
             }
+
+            if (_handleBoost && _boostStarted && !_forcedHandbrake && Game.IsControlPressed(GTA.Control.VehicleAccelerate) && Vehicle.GetMPHSpeed() <= 90)
+                Properties.Boost = 0.3f;
 
             if (PlayerSwitch.IsManualInProgress)
                 return;
@@ -325,8 +323,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            if (CurrentMode == RcModes.FromPlayerCamera && _camera != null && _camera.Exists())
-                TimeMachine.OriginalPed.Rotation = _camera.Rotation;
+            //if (CurrentMode == RcModes.FromPlayerCamera && _camera != null && _camera.Exists())
+            //    TimeMachine.OriginalPed.Rotation = _camera.Rotation;
         }
 
         public override void Stop()

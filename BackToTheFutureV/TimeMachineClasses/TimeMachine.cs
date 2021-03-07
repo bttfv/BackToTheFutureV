@@ -339,6 +339,12 @@ namespace BackToTheFutureV.TimeMachineClasses
             foreach (KeyValuePair<string, Handler> entry in registeredHandlers)
                 entry.Value.Process();
 
+            if (Properties.Boost > 0)
+            {
+                Vehicle.ApplyForce(Vehicle.ForwardVector * Properties.Boost, Vector3.Zero);
+                Properties.Boost = 0;
+            }
+
             PhotoMode();
 
             CustomCameraManager.Process();

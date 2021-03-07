@@ -67,6 +67,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public MissionType MissionType { get; set; } = MissionType.None;
         public bool Story { get; set; }
         public bool BlockSparks { get; set; }
+        public float Boost { get; set; }
 
         public BaseProperties Clone()
         {

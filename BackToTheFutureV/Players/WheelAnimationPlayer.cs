@@ -21,9 +21,7 @@ namespace BackToTheFutureV.Players
         private AnimatePropsHandler GlowWheels = new AnimatePropsHandler();
         private AnimatePropsHandler Wheels = new AnimatePropsHandler();
 
-        private static readonly Vector3 strutFrontOffset = new Vector3(0.2247245f, -0.004109263f, 0.09079965f);
-        private static readonly Vector3 strutRearOffset = new Vector3(0.2312317f, -0.004109263f, 0.11079965f);
-
+        private static readonly Vector3 strutOffsetFromWheel = new Vector3(0.2247245f, -0.004109263f, 0.09079965f);
         private static readonly Vector3 diskOffsetFromStrut = new Vector3(-0.23691f, 0.002096051f, -0.1387549f);
         private static readonly Vector3 pistonOffsetFromDisk = new Vector3(-0.05293572f, -0.002848367f, 0.0005371129f);
 
@@ -33,6 +31,9 @@ namespace BackToTheFutureV.Players
 
             foreach (CVehicleWheel wheel in Mods.Wheels)
             {
+                wheel.BoneMemory.ResetRotation();
+                wheel.BoneMemory.ResetTranslation();
+
                 Model wheelModel = wheel.Front ? Constants.WheelModel : Constants.WheelRearModel;
                 Model wheelGlowModel = wheel.Front ? ModelHandler.WheelGlowing : ModelHandler.RearWheelGlowing;
 
@@ -41,16 +42,16 @@ namespace BackToTheFutureV.Players
                 switch (wheel.WheelID)
                 {
                     case WheelId.FrontLeft:
-                        strutOffset = strutFrontOffset;
+                        strutOffset = strutOffsetFromWheel;
                         break;
                     case WheelId.FrontRight:
-                        strutOffset = strutFrontOffset.InvertCoordinate(Coordinate.X);
+                        strutOffset = strutOffsetFromWheel.InvertCoordinate(Coordinate.X);
                         break;
                     case WheelId.RearLeft:
-                        strutOffset = strutRearOffset;
+                        strutOffset = strutOffsetFromWheel.GetSingleOffset(Coordinate.Z, 0.02f);
                         break;
                     case WheelId.RearRight:
-                        strutOffset = strutRearOffset.InvertCoordinate(Coordinate.X);
+                        strutOffset = strutOffsetFromWheel.GetSingleOffset(Coordinate.Z, 0.02f).InvertCoordinate(Coordinate.X);
                         break;
                 }
 
@@ -74,7 +75,7 @@ namespace BackToTheFutureV.Players
                 AnimateProp wheelAnimateProp;
 
                 if (wheel.Front)
-                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.035f), new Vector3(0, -90, 0));
+                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.03f), new Vector3(0, -90, 0));
                 else
                     wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.035f), new Vector3(0, -90, 0));
 
