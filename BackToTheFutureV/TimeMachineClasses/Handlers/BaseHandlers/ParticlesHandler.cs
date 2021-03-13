@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
-    internal class ParticlesHandler : Handler
+    internal class ParticlesHandler : HandlerPrimitive
     {
         //Hover Mode
         public List<PtfxEntityPlayer> HoverModeSmoke = new List<PtfxEntityPlayer>();

@@ -43,7 +43,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     internal delegate void SimulateInputDate(DateTime dateTime);
     internal delegate void SetSIDLedsState(bool on, bool instant = false);
 
-    internal class EventsHandler : Handler
+    internal class EventsHandler : HandlerPrimitive
     {
         public OnScaleformPriority OnScaleformPriority;
 

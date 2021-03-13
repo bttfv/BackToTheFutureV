@@ -13,7 +13,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool IsDoorOpen;
     }
 
-    internal class SoundsHandler : Handler
+    internal class SoundsHandler : HandlerPrimitive
     {
         public AudioEngine AudioEngine { get; }
 

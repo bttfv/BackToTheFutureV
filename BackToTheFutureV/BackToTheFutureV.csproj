@@ -157,7 +157,7 @@
     <Compile Include="TimeMachineClasses\Handlers\FlyingHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\FreezeHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\FuelHandler.cs" />
-    <Compile Include="TimeMachineClasses\Handlers\Handler.cs" />
+    <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\HandlerPrimitive.cs" />
     <Compile Include="TimeMachineClasses\Handlers\ComponentsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\InputHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\LightningStrikeHandler.cs" />
@@ -201,15 +201,15 @@
     <Compile Include="Utility\InternalExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <MonoGameContentReference Include="..\BackToTheFutureV.HUD\BackToTheFutureV.HUD.Core\Content\Content.mgcb">
+      <Link>Content\Content.mgcb</Link>
+    </MonoGameContentReference>
+  </ItemGroup>  
+  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <MonoGameContentReference Include="..\TimeCircuits\TimeCircuits.Core\Content\Content.mgcb">
-      <Link>Content\Content.mgcb</Link>
-    </MonoGameContentReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FusionLibrary\FusionLibrary.csproj">

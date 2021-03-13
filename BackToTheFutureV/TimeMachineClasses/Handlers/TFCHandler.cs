@@ -69,7 +69,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         }
     }
 
-    internal class TFCHandler : Handler
+    internal class TFCHandler : HandlerPrimitive
     {
         private readonly Gauge _gaugeNeedle1;
         private readonly Gauge _gaugeNeedle2;

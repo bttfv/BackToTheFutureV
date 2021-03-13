@@ -14,7 +14,7 @@ using Screen = GTA.UI.Screen;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal class TimeTravelHandler : Handler
+    internal class TimeTravelHandler : HandlerPrimitive
     {
         private int _currentStep;
         private float gameTimer;

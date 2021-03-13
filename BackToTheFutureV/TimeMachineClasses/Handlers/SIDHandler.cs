@@ -7,7 +7,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal class SIDHandler : Handler
+    internal class SIDHandler : HandlerPrimitive
     {
         private bool _waitTurnOn;
 

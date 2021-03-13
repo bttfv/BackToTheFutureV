@@ -9,7 +9,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal class DriverAIHandler : Handler
+    internal class DriverAIHandler : HandlerPrimitive
     {
         public Ped Driver { get; private set; }
         public int Step { get; private set; } = 0;

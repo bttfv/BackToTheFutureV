@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal class FluxCapacitorHandler : Handler
+    internal class FluxCapacitorHandler : HandlerPrimitive
     {
         private LightHandler FluxBlueLight;
 

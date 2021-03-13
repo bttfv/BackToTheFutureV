@@ -9,7 +9,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal class FuelHandler : Handler
+    internal class FuelHandler : HandlerPrimitive
     {
         private int _nextBlink;
         private int _nextId;

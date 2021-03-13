@@ -8,7 +8,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
-    internal class PropsHandler : Handler
+    internal class PropsHandler : HandlerPrimitive
     {
         private AnimateProp BTTFDecals;
 

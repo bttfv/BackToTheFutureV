@@ -8,7 +8,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal class LightningStrikeHandler : Handler
+    internal class LightningStrikeHandler : HandlerPrimitive
     {
         private int _nextCheck;
         private int _delay = -1;

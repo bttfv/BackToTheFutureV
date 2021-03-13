@@ -146,7 +146,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         }
     }
 
-    internal class TCDHandler : Handler
+    internal class TCDHandler : HandlerPrimitive
     {
         private DateTime errorDate = new DateTime(1885, 1, 1, 0, 0, 0);
 

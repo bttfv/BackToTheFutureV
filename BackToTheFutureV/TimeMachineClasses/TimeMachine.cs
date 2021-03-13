@@ -42,7 +42,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         public TimeMachineClone LastDisplacementClone { get; set; }
         public Ped OriginalPed;
 
-        private readonly Dictionary<string, Handler> registeredHandlers = new Dictionary<string, Handler>();
+        private readonly Dictionary<string, HandlerPrimitive> registeredHandlers = new Dictionary<string, HandlerPrimitive>();
 
         private VehicleBone boneLf;
         private VehicleBone boneRf;
@@ -181,7 +181,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public T GetHandler<T>()
         {
-            if (registeredHandlers.TryGetValue(typeof(T).Name, out Handler handler))
+            if (registeredHandlers.TryGetValue(typeof(T).Name, out HandlerPrimitive handler))
                 return (T)(object)handler;
 
             return default;
@@ -189,7 +189,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         private void DisposeAllHandlers()
         {
-            foreach (Handler handler in registeredHandlers.Values)
+            foreach (HandlerPrimitive handler in registeredHandlers.Values)
                 handler.Dispose();
         }
 
@@ -343,7 +343,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             else if (Blip != null && Blip.Exists())
                 Blip.Delete();
 
-            foreach (KeyValuePair<string, Handler> entry in registeredHandlers)
+            foreach (KeyValuePair<string, HandlerPrimitive> entry in registeredHandlers)
                 entry.Value.Tick();
 
             if (Properties.Boost != 0)
@@ -487,7 +487,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public void KeyDown(KeyEventArgs e)
         {
-            foreach (KeyValuePair<string, Handler> entry in registeredHandlers)
+            foreach (KeyValuePair<string, HandlerPrimitive> entry in registeredHandlers)
                 entry.Value.KeyDown(e);
         }
 

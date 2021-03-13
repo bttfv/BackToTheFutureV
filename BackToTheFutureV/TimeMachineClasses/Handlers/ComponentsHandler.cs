@@ -8,7 +8,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal class ComponentsHandler : Handler
+    internal class ComponentsHandler : HandlerPrimitive
     {
         //Hook
         private Vector3 hookPosition = new Vector3(0.75f, 0f, 0f);

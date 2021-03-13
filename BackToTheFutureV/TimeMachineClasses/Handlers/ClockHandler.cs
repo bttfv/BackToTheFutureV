@@ -9,7 +9,7 @@ using Screen = GTA.UI.Screen;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal class ClockHandler : Handler
+    internal class ClockHandler : HandlerPrimitive
     {
         private float gameTimer;
         private int pressedTime;

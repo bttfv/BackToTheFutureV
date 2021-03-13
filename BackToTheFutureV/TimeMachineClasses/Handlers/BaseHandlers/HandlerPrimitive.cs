@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal abstract class Handler
+    internal abstract class HandlerPrimitive
     {
         public TimeMachine TimeMachine { get; }
 
@@ -22,7 +22,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public ParticlesHandler Particles => TimeMachine.Particles;
         public ConstantsHandler Constants => TimeMachine.Constants;
 
-        public Handler(TimeMachine timeMachine)
+        public HandlerPrimitive(TimeMachine timeMachine)
         {
             TimeMachine = timeMachine;
         }

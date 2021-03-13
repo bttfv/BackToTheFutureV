@@ -24,7 +24,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
     internal delegate void OnGearChanged();
 
-    internal class EngineHandler : Handler
+    internal class EngineHandler : HandlerPrimitive
     {
         #region PUBLIC_FIELDS
 

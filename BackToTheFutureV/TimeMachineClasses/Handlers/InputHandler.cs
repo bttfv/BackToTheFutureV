@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal class InputHandler : Handler
+    internal class InputHandler : HandlerPrimitive
     {
         public bool InputMode { get; private set; }
 
