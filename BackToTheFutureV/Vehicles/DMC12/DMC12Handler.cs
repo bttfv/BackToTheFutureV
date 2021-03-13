@@ -90,9 +90,6 @@ namespace BackToTheFutureV.Vehicles
                 if (delo.Mods.WormholeType > WormholeType.DMC12 && !delo.Vehicle.IsTimeMachine())
                     TimeMachineHandler.Create(delo, SpawnFlags.Default, delo.Mods.WormholeType);
 
-                if (!delo.Vehicle.IsTimeMachine() && delo.Vehicle.Position.DistanceToSquared2D(Utils.PlayerPed.Position) > 300 * 300)
-                    RemoveDelorean(delo);
-
                 delo.Process();
             }
         }
