@@ -277,7 +277,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 dist = ped.Position.DistanceToSquared2D(bootPos) - 0.1f;
             }
 
-            return angle < 45 && dist < 1.5f;
+            return angle < 45 && dist < 1.6f;
         }
 
         public override void KeyDown(KeyEventArgs e)
