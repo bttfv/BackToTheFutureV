@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
@@ -33,6 +34,11 @@ namespace BackToTheFutureV.Utility
         public static bool IsFunctioning(this TimeMachine timeMachine)
         {
             return timeMachine != null && timeMachine.Vehicle.IsFunctioning();
+        }
+
+        public static bool IsFunctioning(this DMC12 dmc12)
+        {
+            return dmc12 != null && dmc12.Vehicle.IsFunctioning();
         }
 
         public static bool IsTimeMachine(this Vehicle vehicle)

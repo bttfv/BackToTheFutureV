@@ -1,6 +1,7 @@
 ﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Vehicles;
 using GTA;
+using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -28,7 +29,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public bool IsPlaying { get; protected set; }
 
-        public abstract void KeyDown(System.Windows.Forms.Keys key);
+        public abstract void KeyDown(KeyEventArgs e);
         public abstract void Process();
         public abstract void Stop();
         public abstract void Dispose();

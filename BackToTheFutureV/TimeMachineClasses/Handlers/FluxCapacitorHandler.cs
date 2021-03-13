@@ -123,7 +123,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
 
         }

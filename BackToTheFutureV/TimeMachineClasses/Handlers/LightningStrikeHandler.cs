@@ -92,7 +92,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _delay = -1;
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
             //if (key == Keys.L)
             //{

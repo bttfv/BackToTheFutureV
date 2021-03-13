@@ -115,7 +115,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             hasPlayed = false;
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
         }
 

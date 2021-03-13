@@ -134,7 +134,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     SetFlyMode(!Properties.IsFlying);
 
-                    _nextModeChangeAllowed = Game.GameTime + 3000;
+                    _nextModeChangeAllowed = Game.GameTime + 2000;
                 }
             }
         }
@@ -154,7 +154,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     SetFlyMode(!Properties.IsFlying);
 
-                    _nextModeChangeAllowed = Game.GameTime + 3000;
+                    _nextModeChangeAllowed = Game.GameTime + 2000;
                 }
             }
         }
@@ -225,9 +225,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Props.HoverModeWheelsGlow?.Delete();
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
-            if (key == ModControls.HoverAltitudeHold && Utils.PlayerVehicle == Vehicle && Properties.IsFlying)
+            if (e.KeyCode == ModControls.HoverAltitudeHold && Utils.PlayerVehicle == Vehicle && Properties.IsFlying)
                 SetHoverMode(!Properties.IsAltitudeHolding);
         }
 

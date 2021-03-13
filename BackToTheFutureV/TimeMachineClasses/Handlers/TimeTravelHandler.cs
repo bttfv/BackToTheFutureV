@@ -312,9 +312,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
-            if (key == ModControls.CutsceneToggle)
+            if (e.KeyCode == ModControls.CutsceneToggle)
                 SetCutsceneMode(!Properties.CutsceneMode);
         }
     }

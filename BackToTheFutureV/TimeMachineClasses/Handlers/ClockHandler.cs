@@ -65,9 +65,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
-            ProcessButton(key);
+            ProcessButton(e.KeyCode);
         }
 
         public override void Process()

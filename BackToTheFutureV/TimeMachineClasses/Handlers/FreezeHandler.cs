@@ -185,7 +185,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             waterDrop.Play();
         }
 
-        public override void KeyDown(Keys key) { }
+        public override void KeyDown(KeyEventArgs e) { }
 
         public override void Stop()
         {

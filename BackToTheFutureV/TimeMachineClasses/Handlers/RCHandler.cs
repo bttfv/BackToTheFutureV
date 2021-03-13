@@ -339,6 +339,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 RemoteTimeMachineHandler.StopRemoteControl(true);
         }
 
-        public override void KeyDown(Keys key) { }
+        public override void KeyDown(KeyEventArgs e) { }
     }
 }

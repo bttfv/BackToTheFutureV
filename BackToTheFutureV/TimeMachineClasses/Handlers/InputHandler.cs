@@ -4,6 +4,9 @@ using FusionLibrary;
 using GTA;
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using System.Windows.Forms;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
@@ -12,8 +15,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
     {
         public bool InputMode { get; private set; }
 
-        public static string InputBuffer;
-        public static bool EnterInputBuffer;
+        private static string InputBuffer;
+        private static bool EnterInputBuffer;
 
         public Keys lastInput = Keys.None;
 
@@ -23,6 +26,37 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private DateTime _simulateDate;
         private int _simulateDatePos = -1;
         private int _simulateDateCheck;
+
+        private static readonly UdpClient udp = new UdpClient(1955);
+
+        private static void Receive(IAsyncResult ar)
+        {
+            IPEndPoint ip = new IPEndPoint(IPAddress.Any, 1955);
+
+            string message = Encoding.ASCII.GetString(udp.EndReceive(ar, ref ip));
+
+            if (message.StartsWith("BTTFV="))
+            {
+                message = message.Replace("BTTFV=", "");
+
+                if (message == "enter")
+                    EnterInputBuffer = true;
+                else
+                    InputBuffer = message;
+            }
+
+            StartListening();
+        }
+
+        private static void StartListening()
+        {
+            udp.BeginReceive(Receive, new object());
+        }
+
+        static InputHandler()
+        {
+            StartListening();
+        }
 
         public InputHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -39,12 +73,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.OnDestinationDateChange?.Invoke();
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
             if (!Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible)
                 return;
 
-            if (key == ModControls.InputToggle && ModSettings.UseInputToggle)
+            if (e.KeyCode == ModControls.InputToggle && ModSettings.UseInputToggle)
             {
                 InputMode = !InputMode;
                 _nextReset = 0;
@@ -58,23 +92,23 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if ((InputMode && ModSettings.UseInputToggle) || !ModSettings.UseInputToggle && !CustomNativeMenu.ObjectPool.AreAnyVisible)
             {
-                string keyCode = key.ToString();
+                string keyCode = e.KeyCode.ToString();
 
                 if (keyCode.Contains("NumPad") || (keyCode.Contains("D") && keyCode.Where(char.IsDigit).Count() > 0))
                 {
-                    if (lastInput == key)
+                    if (lastInput == e.KeyCode)
                         return;
 
-                    lastInput = key;
+                    lastInput = e.KeyCode;
                     ProcessInputNumber(new string(keyCode.Where(char.IsDigit).ToArray()));
                 }
 
-                if (key == Keys.Enter)
+                if (e.KeyCode == Keys.Enter)
                 {
-                    if (lastInput == key)
+                    if (lastInput == e.KeyCode)
                         return;
 
-                    lastInput = key;
+                    lastInput = e.KeyCode;
                     ProcessInputEnter();
                 }
             }

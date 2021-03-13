@@ -3,6 +3,7 @@ using BackToTheFutureV.Utility;
 using FusionLibrary;
 using GTA;
 using GTA.Math;
+using GTA.UI;
 using System.Windows.Forms;
 using static BackToTheFutureV.Utility.InternalEnums;
 
@@ -67,9 +68,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             else
             {
                 if (Mods.Reactor == ReactorType.MrFusion)
-                    Utils.DisplayHelpText("You don't have enough trash.");
+                    Notification.Show("You don't have enough trash.");
                 else
-                    Utils.DisplayHelpText("You don't have enough plutonium.");
+                    Notification.Show("You don't have enough plutonium.");
             }
         }
 
@@ -92,11 +93,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void Refuel(Ped refuelPed)
         {
-            if (Properties.ReactorCharge >= Constants.MaxReactorCharge)
-            {
-                Utils.DisplayHelpText("Reactor is full.");
+            if (Properties.ReactorCharge >= Constants.MaxReactorCharge && refuelPed == Utils.PlayerPed)
                 return;
-            }
 
             if (!TimeMachine.IsWaybackPlaying && WaybackMachineHandler.Enabled)
                 TimeMachine.WaybackMachine.NextEvent = new WaybackEvent(WaybackEventType.Refuel);
@@ -285,7 +283,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             return angle < 45 && dist < 1.5f;
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
 
         }

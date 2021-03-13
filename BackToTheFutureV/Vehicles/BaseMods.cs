@@ -97,9 +97,6 @@ namespace BackToTheFutureV.Vehicles
         {
             TimeMachineMods ret = timeMachine.Mods;
 
-            if (ret.IsDMC12 != IsDMC12)
-                ret.IsDMC12 = IsDMC12;
-
             if (ret.WormholeType != WormholeType)
                 ret.WormholeType = WormholeType;
 
@@ -110,12 +107,6 @@ namespace BackToTheFutureV.Vehicles
             if (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible)
                 if (ret.Wheel != Wheel)
                     ret.Wheel = Wheel;
-
-            if (ret.Exterior != Exterior)
-                ret.Exterior = Exterior;
-
-            if (ret.Interior != Interior)
-                ret.Interior = Interior;
 
             if (ret.OffCoils != OffCoils)
                 ret.OffCoils = OffCoils;
@@ -131,15 +122,6 @@ namespace BackToTheFutureV.Vehicles
 
             if (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible)
                 ret.HoverUnderbody = HoverUnderbody;
-
-            if (ret.SteeringWheelsButtons != SteeringWheelsButtons)
-                ret.SteeringWheelsButtons = SteeringWheelsButtons;
-
-            if (ret.Vents != Vents)
-                ret.Vents = Vents;
-
-            if (ret.Seats != Seats)
-                ret.Seats = Seats;
 
             if (ret.Reactor != Reactor)
                 ret.Reactor = Reactor;
@@ -158,9 +140,6 @@ namespace BackToTheFutureV.Vehicles
 
             if (ret.Hood != Hood)
                 ret.Hood = Hood;
-
-            if (ret.BulovaClock != BulovaClock)
-                ret.BulovaClock = BulovaClock;
         }
     }
 }

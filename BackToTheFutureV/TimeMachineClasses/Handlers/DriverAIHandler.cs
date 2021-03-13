@@ -27,7 +27,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Stop();
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
 
         }

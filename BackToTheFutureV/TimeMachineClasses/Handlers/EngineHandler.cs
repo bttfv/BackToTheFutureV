@@ -216,7 +216,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         #region PUBLIC_METHODS
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
 
         }

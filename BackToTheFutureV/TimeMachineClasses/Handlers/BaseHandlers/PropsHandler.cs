@@ -241,7 +241,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             BulovaClockRing?.Dispose();
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
             //if (key == Keys.L)
             //{

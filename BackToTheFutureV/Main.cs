@@ -3,7 +3,6 @@ using BackToTheFutureV.Players;
 using BackToTheFutureV.Settings;
 using BackToTheFutureV.Story;
 using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
@@ -11,9 +10,6 @@ using GTA;
 using GTA.Native;
 using KlangRageAudioLibrary;
 using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
 using System.Windows.Forms;
 using Screen = GTA.UI.Screen;
 
@@ -25,32 +21,6 @@ namespace BackToTheFutureV
         public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
         public static bool FirstTick { get; private set; } = true;
-
-        private readonly UdpClient udp = new UdpClient(1955);
-
-        private void Receive(IAsyncResult ar)
-        {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Any, 1955);
-
-            string message = Encoding.ASCII.GetString(udp.EndReceive(ar, ref ip));
-
-            if (message.StartsWith("BTTFV="))
-            {
-                message = message.Replace("BTTFV=", "");
-
-                if (message == "enter")
-                    InputHandler.EnterInputBuffer = true;
-                else
-                    InputHandler.InputBuffer = message;
-            }
-
-            StartListening();
-        }
-
-        private void StartListening()
-        {
-            udp.BeginReceive(Receive, new object());
-        }
 
         public Main()
         {
@@ -91,7 +61,7 @@ namespace BackToTheFutureV
 
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
         {
-            TimeMachineHandler.KeyDown(e.KeyCode);
+            TimeMachineHandler.KeyDown(e);
             MissionHandler.KeyDown(e);
             MenuHandler.KeyDown(e);
         }
@@ -103,13 +73,10 @@ namespace BackToTheFutureV
 
             if (FirstTick)
             {
-                if (ModSettings.ExternalTCDToggle)
-                    ExternalHUD.Toggle(true);
+                ModelHandler.RequestModels();
 
                 //Disable fake shake of the cars.
-                Function.Call((Hash)0x84FD40F56075E816, 0);
-
-                ModelHandler.RequestModels();
+                Function.Call((Hash)0x84FD40F56075E816, 0);                
 
                 if (ModSettings.PersistenceSystem)
                 {
@@ -119,24 +86,19 @@ namespace BackToTheFutureV
 
                 Utils.RandomTrains = ModSettings.RandomTrains;
 
-                //TimeHandler.TrafficVolumeYearBased = true;
-
-                StartListening();
+                if (ModSettings.ExternalTCDToggle)
+                    ExternalHUD.Toggle(true);
 
                 ExternalHUD.SetOff();
 
                 FirstTick = false;
             }
 
-            if (ModSettings.ExternalTCDToggle && !ExternalHUD.IsActive)
-                ExternalHUD.Toggle(true);
-
-            if (!ModSettings.ExternalTCDToggle && ExternalHUD.IsActive)
-                ExternalHUD.Toggle(false);
+            if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
+                ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
 
             TrashHandler.Process();
             CustomTrainHandler.Process();
-            //DMC12Spawner.Process();
             DMC12Handler.Process();
             TimeMachineHandler.Process();
             RemoteTimeMachineHandler.Process();

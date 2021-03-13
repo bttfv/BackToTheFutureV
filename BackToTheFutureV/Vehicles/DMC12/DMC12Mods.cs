@@ -38,7 +38,7 @@ namespace BackToTheFutureV.Vehicles
                     SuspensionsType = SuspensionsType.Stock;
 
                 if ((WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index <= WormholeType.DMC12)
-                    Hood = (HoodType)Utils.Random.Next(-1, 1);
+                    Hood = (HoodType)Utils.Random.Next(-1, 2);
             }
         }
 

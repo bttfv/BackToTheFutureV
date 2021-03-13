@@ -240,7 +240,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             return timeMachine;
         }
 
-        public static void KeyDown(Keys e)
+        public static void KeyDown(KeyEventArgs e)
         {
             AllTimeMachines.ForEach(x => x.KeyDown(e));
         }

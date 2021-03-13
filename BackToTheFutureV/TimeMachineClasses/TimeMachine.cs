@@ -478,13 +478,13 @@ namespace BackToTheFutureV.TimeMachineClasses
             Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.IsEngineStalling | Properties.PhotoSIDMaxActive;
         }
 
-        public void KeyDown(Keys key)
+        public void KeyDown(KeyEventArgs e)
         {
             if (Utils.PlayerVehicle != Vehicle)
                 return;
 
             foreach (KeyValuePair<string, Handler> entry in registeredHandlers)
-                entry.Value.KeyDown(key);
+                entry.Value.KeyDown(e);
         }
 
         public void Dispose(bool deleteVeh = true)

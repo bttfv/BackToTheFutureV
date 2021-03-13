@@ -167,12 +167,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Stop();
         }
 
-        public override void KeyDown(Keys key)
+        public override void KeyDown(KeyEventArgs e)
         {
             if (!Properties.IsOnTracks || !customTrain.IsRogersSierra)
                 return;
 
-            customTrain.RogersSierra.KeyDown(key);
+            customTrain.RogersSierra.KeyDown(e.KeyCode);
         }
 
         public override void Process()
