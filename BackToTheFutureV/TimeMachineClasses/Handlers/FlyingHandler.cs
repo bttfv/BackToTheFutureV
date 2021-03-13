@@ -391,7 +391,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Utils.SetPadShake(100, 200);
 
                 // Boost!
-                Boost();
+                if (Vehicle.GetMPHSpeed() <= 95)
+                    Boost();
 
                 Properties.IsHoverBoosting = true;
             }

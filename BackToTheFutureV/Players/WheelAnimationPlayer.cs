@@ -31,8 +31,7 @@ namespace BackToTheFutureV.Players
 
             foreach (CVehicleWheel wheel in Mods.Wheels)
             {
-                wheel.BoneMemory.ResetRotation();
-                wheel.BoneMemory.ResetTranslation();
+                wheel.Reset();
 
                 Model wheelModel = wheel.Front ? Constants.WheelModel : Constants.WheelRearModel;
                 Model wheelGlowModel = wheel.Front ? ModelHandler.WheelGlowing : ModelHandler.RearWheelGlowing;

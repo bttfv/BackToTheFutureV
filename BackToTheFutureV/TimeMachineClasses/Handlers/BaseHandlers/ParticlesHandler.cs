@@ -75,7 +75,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             List<PtfxEntityPlayer> ret = new List<PtfxEntityPlayer>();
 
             foreach (CVehicleWheel wheel in Mods.Wheels)
+            {
+                wheel.Reset();
                 ret.Add(new PtfxEntityPlayer(particleAssetName, particleName, Vehicle, wheel.GetRelativeOffsetPosition(wheelOffset), wheelRot, size, true, doLoopHandling));
+            }                
 
             return ret;
         }

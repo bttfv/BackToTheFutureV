@@ -100,9 +100,13 @@ namespace BackToTheFutureV.TimeMachineClasses
             registeredHandlers.Add("ReentryHandler", new ReentryHandler(this));
             registeredHandlers.Add("SparksHandler", new SparksHandler(this));
 
-            registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
             registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));
-            registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
+
+            if (Mods.IsDMC12 || Vehicle.CanHoverTransform())
+            {
+                registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
+                registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
+            }
 
             if (Mods.IsDMC12)
             {
