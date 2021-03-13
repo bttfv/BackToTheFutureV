@@ -96,9 +96,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.ReactorCharge >= Constants.MaxReactorCharge && refuelPed == Utils.PlayerPed)
                 return;
 
-            if (!TimeMachine.IsWaybackPlaying && WaybackMachineHandler.Enabled)
-                TimeMachine.WaybackMachine.NextEvent = new WaybackEvent(WaybackEventType.Refuel);
-
             if (Mods.Reactor == ReactorType.Nuclear)
                 Sounds.PlutoniumRefuel?.Play();
 
@@ -123,9 +120,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             SetEmpty(false);
         }
 
-        public override void Process()
+        public override void Tick()
         {
-            Players.Refuel?.Process();
+            Players.Refuel?.Tick();
 
             if (longPressed && !Game.IsControlPressed(GTA.Control.Context))
                 longPressed = false;
@@ -271,13 +268,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 dir = bootPos - GameplayCamera.Position;
                 angle = Vector3.Angle(dir, GameplayCamera.Direction);
-                dist = Vector3.Distance(bootPos, Utils.PlayerPed.Position);
+                dist = Utils.PlayerPed.Position.DistanceToSquared2D(bootPos);
             }
             else
             {
                 dir = bootPos - ped.Position;
                 angle = Vector3.Angle(dir, ped.ForwardVector);
-                dist = Vector3.Distance(bootPos, ped.Position) - 0.1f;
+                dist = ped.Position.DistanceToSquared2D(bootPos) - 0.1f;
             }
 
             return angle < 45 && dist < 1.5f;
@@ -301,7 +298,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         private void SetEmpty(bool isOn)
         {
             if (Utils.PlayerVehicle == Vehicle)
-                Constants.HUDProperties.Empty = isOn ? HUD.Core.EmptyType.On : HUD.Core.EmptyType.Off;
+                Properties.HUDProperties.Empty = isOn ? HUD.Core.EmptyType.On : HUD.Core.EmptyType.Off;
 
             if (Vehicle.IsVisible == false)
                 return;
@@ -323,7 +320,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Utils.PlayerVehicle != Vehicle)
                 return;
 
-            Constants.HUDProperties.Empty = HUD.Core.EmptyType.Hide;
+            Properties.HUDProperties.Empty = HUD.Core.EmptyType.Hide;
         }
     }
 }

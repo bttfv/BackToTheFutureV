@@ -112,7 +112,9 @@
   <ItemGroup>
     <Compile Include="GUI\RCGUIScaleform.cs" />
     <Compile Include="GUI\SIDScaleform.cs" />
+    <Compile Include="TimeMachineClasses\Clone\TimeMachineCloneHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\ClockHandler.cs" />
+    <Compile Include="TimeMachineClasses\Story\StoryTimeMachineHandler.cs" />
     <Compile Include="Utility\InternalEnums.cs" />
     <Compile Include="Utility\InternalInventory.cs" />
     <Compile Include="Utility\PersistenceScript.cs" />
@@ -144,7 +146,7 @@
     <Compile Include="Story\Mission.cs" />
     <Compile Include="Story\MissionHandler.cs" />
     <Compile Include="Story\Missions\TrainMission.cs" />
-    <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\BaseProperties.cs" />
+    <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PropertiesHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\EventsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PlayersHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ParticlesHandler.cs" />
@@ -168,16 +170,15 @@
     <Compile Include="TimeMachineClasses\Handlers\TCDHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TFCHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TimeTravelHandler.cs" />
-    <Compile Include="TimeMachineClasses\RemoteTimeMachine.cs" />
-    <Compile Include="TimeMachineClasses\RemoteTimeMachineHandler.cs" />
-    <Compile Include="TimeMachineClasses\StoryTimeMachine.cs" />
-    <Compile Include="TimeMachineClasses\TimeMachineClone.cs" />
+    <Compile Include="TimeMachineClasses\RC\RemoteTimeMachine.cs" />
+    <Compile Include="TimeMachineClasses\RC\RemoteTimeMachineHandler.cs" />
+    <Compile Include="TimeMachineClasses\Story\StoryTimeMachine.cs" />
+    <Compile Include="TimeMachineClasses\Clone\TimeMachineClone.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineHandler.cs" />
     <Compile Include="TimeMachineClasses\TimeMachine.cs" />
-    <Compile Include="TimeMachineClasses\TimeMachineProperties.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PropsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\SoundsHandler.cs" />
-    <Compile Include="TimeMachineClasses\TimeMachineMods.cs" />
+    <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ModsHandler.cs" />
     <Compile Include="Utility\ModelHandler.cs" />
     <Compile Include="Players\MrFusionRefillPlayer.cs" />
     <Compile Include="Players\Player.cs" />
@@ -191,7 +192,7 @@
     <Compile Include="Utility\TrashHandler.cs" />
     <Compile Include="Utility\WaybackMachine.cs" />
     <Compile Include="Utility\WaybackMachineHandler.cs" />
-    <Compile Include="Vehicles\BaseMods.cs" />
+    <Compile Include="Vehicles\DMC12\ModsPrimitive.cs" />
     <Compile Include="Vehicles\DMC12\DMC12.cs" />
     <Compile Include="Vehicles\DMC12\DMC12Handler.cs" />
     <Compile Include="Vehicles\DMC12\DMC12Mods.cs" />

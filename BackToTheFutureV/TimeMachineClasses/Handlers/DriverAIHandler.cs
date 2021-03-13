@@ -116,7 +116,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (!IsPlaying)
                 return;

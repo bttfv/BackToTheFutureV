@@ -160,7 +160,7 @@ namespace BackToTheFutureV.Players
             }
         }
 
-        public void Process()
+        public void Tick()
         {
             if (_fireTrailPtfxs.Count > 0)
             {

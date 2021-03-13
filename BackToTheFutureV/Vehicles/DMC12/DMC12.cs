@@ -107,7 +107,7 @@ namespace BackToTheFutureV.Vehicles
             spawnSuspension = state;
         }
 
-        public void Process()
+        public void Tick()
         {
             if (!Vehicle.IsFunctioning())
             {
@@ -141,9 +141,6 @@ namespace BackToTheFutureV.Vehicles
 
                 return;
             }
-
-            if (Game.Player.Character.Position.DistanceToSquared(Vehicle.Position) > 5f * 5f)
-                return;
 
             float fuelLevel = Utils.Clamp(Vehicle.FuelLevel, Vehicle.HandlingData.PetrolTankVolume, 100);
             float oilLevel = Utils.Clamp(Vehicle.OilLevel, Vehicle.OilVolume, 100);

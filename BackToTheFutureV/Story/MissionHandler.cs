@@ -17,9 +17,9 @@ namespace BackToTheFutureV.Story
             _missions.Add(mission);
         }
 
-        public static void Process()
+        public static void Tick()
         {
-            _missions.ForEach(x => x.Process());
+            _missions.ForEach(x => x.Tick());
         }
 
         public static void KeyDown(KeyEventArgs key)

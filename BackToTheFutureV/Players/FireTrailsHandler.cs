@@ -28,17 +28,17 @@ namespace BackToTheFutureV.Players
             fireTrails.Remove(trail);
         }
 
-        public static void Process()
+        public static void Tick()
         {
-            fireTrails.ForEach(x => x.Process());
+            fireTrails.ForEach(x => x.Tick());
         }
 
         public static void OnTimeChanged(DateTime time)
         {
-            Stop();
+            Abort();
         }
 
-        public static void Stop()
+        public static void Abort()
         {
             fireTrails.ForEach(x => x.Stop());
             fireTrails.Clear();

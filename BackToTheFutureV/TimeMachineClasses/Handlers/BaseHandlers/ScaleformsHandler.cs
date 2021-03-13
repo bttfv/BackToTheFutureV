@@ -77,12 +77,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             FluxCapacitorRT.CreateProp();
 
             //Speedo
-            SpeedoRT = new RenderTarget(ModelHandler.BTTFSpeedo, "bttf_speedo");
+            SpeedoRT = new RenderTarget(ModelHandler.BTTFSpeedo, "bttf_speedo", Vehicle, "bttf_speedo");
 
             SpeedoRT.OnRenderTargetDraw += () =>
             {
                 Speedo.Render2D(new PointF(0.5f, 0.54f), new SizeF(0.9f, 0.9f));
             };
+
+            SpeedoRT.CreateProp();
 
             //SID
             SIDRT = new RenderTarget(ModelHandler.SID, "bttf_sid", Vehicle, "bttf_sid");
@@ -96,7 +98,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         private void OnScaleformPriority()
         {
             if (Properties.IsGivenScaleformPriority)
-                SIDRT.CreateProp();
+                SIDRT?.CreateProp();
             else
                 SIDRT?.Dispose();
         }
@@ -115,7 +117,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         }
 
-        public override void Process()
+        public override void Tick()
         {
 
         }

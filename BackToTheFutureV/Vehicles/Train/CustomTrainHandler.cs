@@ -31,7 +31,7 @@ namespace BackToTheFutureV.Utility
             return trainHandlers.Last();
         }
 
-        public static void Process()
+        public static void Tick()
         {
             if (trainHandlersToRemove.Count > 0)
             {
@@ -47,7 +47,7 @@ namespace BackToTheFutureV.Utility
                     return;
                 }
 
-                x.Process();
+                x.Tick();
             });
         }
 

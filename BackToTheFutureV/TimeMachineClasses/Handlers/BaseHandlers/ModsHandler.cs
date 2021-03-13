@@ -1,19 +1,17 @@
 ﻿using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using GTA;
-using System;
 using static BackToTheFutureV.Utility.InternalEnums;
 
-namespace BackToTheFutureV.TimeMachineClasses
+namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
-    [Serializable]
-    internal class TimeMachineMods : DMC12Mods
+    internal class ModsHandler : DMC12Mods
     {
         protected TimeMachine TimeMachine { get; }
 
         public CVehicleWheels Wheels { get; }
 
-        public TimeMachineMods(TimeMachine timeMachine, WormholeType wormholeType) : base(timeMachine.Vehicle)
+        public ModsHandler(TimeMachine timeMachine, WormholeType wormholeType) : base(timeMachine.Vehicle)
         {
             TimeMachine = timeMachine;
 
@@ -33,14 +31,10 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             WormholeType = wormholeType;
 
-            Exterior = ModState.On;
-            Interior = ModState.On;
-            SteeringWheelsButtons = ModState.On;
-            Vents = ModState.On;
+            Components = ModState.On;
             OffCoils = ModState.On;
             Hook = HookState.Off;
             Hood = HoodType.Stock;
-            BulovaClock = ModState.On;
 
             switch (WormholeType)
             {
@@ -107,13 +101,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             ModState modState = (ModState)Vehicle.Mods[VehicleModType.Spoilers].Index;
 
-            if (modState != Exterior)
-                Exterior = modState;
-
-            modState = (ModState)Vehicle.Mods[VehicleModType.SideSkirt].Index;
-
-            if (modState != Interior)
-                Interior = modState;
+            if (modState != Components)
+                Components = modState;
 
             modState = (ModState)Vehicle.Mods[VehicleModType.FrontBumper].Index;
 
@@ -130,40 +119,15 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (modState != GlowingReactor)
                 GlowingReactor = modState;
 
-            modState = (ModState)Vehicle.Mods[VehicleModType.Aerials].Index;
-
-            if (modState != DamagedBumper)
-                DamagedBumper = modState;
-
             modState = (ModState)Vehicle.Mods[VehicleModType.DialDesign].Index;
 
             if (modState != HoverUnderbody)
                 HoverUnderbody = modState;
 
-            modState = (ModState)Vehicle.Mods[VehicleModType.SteeringWheels].Index;
-
-            if (modState != SteeringWheelsButtons)
-                SteeringWheelsButtons = modState;
-
-            modState = (ModState)Vehicle.Mods[VehicleModType.ColumnShifterLevers].Index;
-
-            if (modState != Vents)
-                Vents = modState;
-
-            modState = (ModState)Vehicle.Mods[VehicleModType.VanityPlates].Index;
-
-            if (modState != Seats)
-                Seats = modState;
-
             modState = (ModState)Vehicle.Mods[VehicleModType.Livery].Index;
 
             if (modState != Hoodbox)
                 Hoodbox = modState;
-
-            modState = (ModState)Vehicle.Mods[VehicleModType.RightFender].Index;
-
-            if (modState != BulovaClock)
-                BulovaClock = modState;
 
             HookState hookState = HookState.Unknown;
 
@@ -336,8 +300,6 @@ namespace BackToTheFutureV.TimeMachineClasses
             set
             {
                 base.Hoodbox = value;
-
-                DamagedBumper = value;
 
                 if (value == ModState.On)
                 {

@@ -55,7 +55,7 @@ namespace BackToTheFutureV.Utility
             new Model("prop_skip_04")
         };
 
-        internal static void Process()
+        internal static void Tick()
         {
             if (Utils.PlayerPed.IsInVehicle())
                 return;

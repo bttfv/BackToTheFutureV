@@ -12,7 +12,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public Vehicle Vehicle => TimeMachine.Vehicle;
         public DMC12 DMC12 => TimeMachine.DMC12;
 
-        public TimeMachineMods Mods => TimeMachine.Mods;
+        public ModsHandler Mods => TimeMachine.Mods;
         public EventsHandler Events => TimeMachine.Events;
         public PropertiesHandler Properties => TimeMachine.Properties;
         public SoundsHandler Sounds => TimeMachine.Sounds;
@@ -30,7 +30,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public bool IsPlaying { get; protected set; }
 
         public abstract void KeyDown(KeyEventArgs e);
-        public abstract void Process();
+        public abstract void Tick();
         public abstract void Stop();
         public abstract void Dispose();
     }

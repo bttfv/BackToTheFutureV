@@ -39,7 +39,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Prop.SpawnProp();
         }
 
-        public void Process()
+        public void Tick()
         {
             if (!rotate) return;
 
@@ -119,7 +119,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (!hasPlayed && Properties.AreTimeCircuitsOn && Game.GameTime > playAt)
             {
@@ -135,9 +135,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 hasPlayed = true;
             }
 
-            _gaugeNeedle1.Process();
-            _gaugeNeedle2.Process();
-            _gaugeNeedle3.Process();
+            _gaugeNeedle1.Tick();
+            _gaugeNeedle2.Tick();
+            _gaugeNeedle3.Tick();
         }
 
         public override void Stop()

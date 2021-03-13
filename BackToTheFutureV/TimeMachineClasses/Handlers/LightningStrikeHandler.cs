@@ -24,7 +24,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _delay = Game.GameTime + delay * 1000;
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (_delay > -1 && Game.GameTime > _delay)
                 Strike();

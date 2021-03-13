@@ -154,7 +154,7 @@ namespace BackToTheFutureV.Players
         private void HandleSparks()
         {
             foreach (SparkPlayer spark in _sparks)
-                spark.Process();
+                spark.Tick();
 
             if (Game.GameTime < _nextSpark || Game.GameTime < _startSparksAt) return;
 
@@ -262,7 +262,7 @@ namespace BackToTheFutureV.Players
             Scaleforms.WormholeRT?.DeleteProp();
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (!IsPlaying)
                 return;
@@ -280,7 +280,7 @@ namespace BackToTheFutureV.Players
                     if (!x.IsPlaying)
                         x.Play();
 
-                    x.Process();
+                    x.Tick();
                 });
 
             if (Mods.WormholeType == WormholeType.BTTF3)
@@ -291,13 +291,13 @@ namespace BackToTheFutureV.Players
                         if (!x.IsPlaying)
                             x.Play();
 
-                        x.Process();
+                        x.Tick();
                     });
 
                 if (!Particles.Sparks.IsPlaying)
                     Particles.Sparks?.Play();
 
-                Particles.Sparks?.Process();
+                Particles.Sparks?.Tick();
             }
 
             // Some wormhole sparks logic.

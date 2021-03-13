@@ -35,7 +35,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public AnimateProp GaugeGlow;
 
         //Speedo
-        public AnimateProp Speedo;
         public AnimateProp SpeedoCover;
 
         //Compass
@@ -139,8 +138,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             GaugeGlow = new AnimateProp(ModelHandler.GaugeGlow, Vehicle);
 
             //Speedo
-            Speedo = new AnimateProp(ModelHandler.BTTFSpeedo, Vehicle, "bttf_speedo");
-            Speedo.SpawnProp();
             SpeedoCover = new AnimateProp(ModelHandler.SpeedoCover, Vehicle);
 
             //Compass
@@ -206,7 +203,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             GaugeGlow?.Dispose();
 
             //Speedo
-            Speedo?.Dispose();
             SpeedoCover?.Dispose();
 
             //Compass
@@ -253,13 +249,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             //    LicensePlate.Delete();
         }
 
-        public override void Process()
+        public override void Tick()
         {
-            if (Mods.IsDMC12 && Props.LicensePlate.IsPlaying)
-            {
-                if (LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].StepRatio > 0.1f)
-                    LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].StepRatio -= Game.LastFrameTime;
-            }
+
         }
 
         public override void Stop()

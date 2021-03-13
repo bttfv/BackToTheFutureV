@@ -17,13 +17,6 @@
             TimeTravel
         }
 
-        internal enum WaybackEventType
-        {
-            None,
-            Refuel,
-            Door
-        }
-
         internal enum RcModes
         {
             FromCarCamera,

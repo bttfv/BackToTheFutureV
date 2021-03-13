@@ -27,9 +27,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
         }
 
-        public override void Process()
+        public override void Tick()
         {
-            if (!Properties.IsGivenScaleformPriority || Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Position) > 6f * 6f)
+            if (!Properties.IsGivenScaleformPriority)
                 return;
 
             if (Mods.IsDMC12)
@@ -75,7 +75,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     if (Mods.IsDMC12)
                         UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2, speedDigit3);
 
-                    Constants.HUDProperties.Speed = (int)mphSpeed;
+                    Properties.HUDProperties.Speed = (int)mphSpeed;
 
                     if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
                         UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2, speedDigit3);

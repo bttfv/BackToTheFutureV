@@ -8,6 +8,7 @@ using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static BackToTheFutureV.Utility.InternalEnums;
@@ -22,7 +23,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public EventsHandler Events { get; private set; }
         public PropertiesHandler Properties { get; private set; }
-        public TimeMachineMods Mods { get; private set; }
+        public ModsHandler Mods { get; private set; }
         public SoundsHandler Sounds { get; private set; }
         public PropsHandler Props { get; private set; }
         public PlayersHandler Players { get; private set; }
@@ -79,17 +80,17 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             TimeMachineHandler.AddTimeMachine(this);
 
-            Mods = new TimeMachineMods(this, wormholeType);
+            Events = new EventsHandler(this);
+            Mods = new ModsHandler(this, wormholeType);
+            Properties = new PropertiesHandler(Guid.NewGuid());
 
-            Properties = new PropertiesHandler(this);
-
-            registeredHandlers.Add("EventsHandler", Events = new EventsHandler(this));
-            registeredHandlers.Add("SoundsHandler", Sounds = new SoundsHandler(this));
-            registeredHandlers.Add("PropsHandler", Props = new PropsHandler(this));
-            registeredHandlers.Add("ScaleformsHandler", Scaleforms = new ScaleformsHandler(this));
             registeredHandlers.Add("ConstantsHandler", Constants = new ConstantsHandler(this));
-            registeredHandlers.Add("PlayersHandler", Players = new PlayersHandler(this));
-            registeredHandlers.Add("ParticlesHandler", Particles = new ParticlesHandler(this));
+            registeredHandlers.Add("SoundsHandler", Sounds = new SoundsHandler(this));
+
+            Props = new PropsHandler(this);
+            Scaleforms = new ScaleformsHandler(this);
+            Players = new PlayersHandler(this);
+            Particles = new ParticlesHandler(this);
 
             registeredHandlers.Add("SpeedoHandler", new SpeedoHandler(this));
             registeredHandlers.Add("TimeTravelHandler", new TimeTravelHandler(this));
@@ -192,7 +193,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 handler.Dispose();
         }
 
-        public void Process()
+        public void Tick()
         {
             if (!IsReady)
                 return;
@@ -321,6 +322,12 @@ namespace BackToTheFutureV.TimeMachineClasses
                 }
 
                 Mods.SyncMods();
+
+                if (Props.LicensePlate.IsPlaying)
+                {
+                    if (Props.LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].StepRatio > 0.1f)
+                        Props.LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].StepRatio -= Game.LastFrameTime;
+                }
             }
 
             if (Utils.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)
@@ -337,9 +344,9 @@ namespace BackToTheFutureV.TimeMachineClasses
                 Blip.Delete();
 
             foreach (KeyValuePair<string, Handler> entry in registeredHandlers)
-                entry.Value.Process();
+                entry.Value.Tick();
 
-            if (Properties.Boost > 0)
+            if (Properties.Boost != 0)
             {
                 Vehicle.ApplyForce(Vehicle.ForwardVector * Properties.Boost, Vector3.Zero);
                 Properties.Boost = 0;
@@ -347,7 +354,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             PhotoMode();
 
-            CustomCameraManager.Process();
+            CustomCameraManager.Tick();
 
             if (Properties.Story || !WaybackMachineHandler.Enabled)
                 return;
@@ -469,20 +476,17 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (!Properties.PhotoEngineStallActive && Properties.IsEngineStalling && Properties.IsPhotoModeOn)
                 Events.SetEngineStall?.Invoke(false);
 
-            if (Properties.PhotoSIDMaxActive && !Constants.ForceSIDMax)
-                Constants.ForceSIDMax = true;
+            if (Properties.PhotoSIDMaxActive && !Properties.ForceSIDMax)
+                Properties.ForceSIDMax = true;
 
-            if (!Properties.PhotoSIDMaxActive && Constants.ForceSIDMax)
-                Constants.ForceSIDMax = false;
+            if (!Properties.PhotoSIDMaxActive && Properties.ForceSIDMax)
+                Properties.ForceSIDMax = false;
 
             Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.IsEngineStalling | Properties.PhotoSIDMaxActive;
         }
 
         public void KeyDown(KeyEventArgs e)
         {
-            if (Utils.PlayerVehicle != Vehicle)
-                return;
-
             foreach (KeyValuePair<string, Handler> entry in registeredHandlers)
                 entry.Value.KeyDown(e);
         }
@@ -490,6 +494,11 @@ namespace BackToTheFutureV.TimeMachineClasses
         public void Dispose(bool deleteVeh = true)
         {
             DisposeAllHandlers();
+
+            Props.Dispose();
+            Scaleforms.Dispose();
+            Players.Dispose();
+            Particles.Dispose();
 
             CustomCameraManager.Abort();
 
@@ -514,6 +523,11 @@ namespace BackToTheFutureV.TimeMachineClasses
         }
 
         public static implicit operator Entity(TimeMachine timeMachine)
+        {
+            return timeMachine.Vehicle;
+        }
+
+        public static implicit operator InputArgument(TimeMachine timeMachine)
         {
             return timeMachine.Vehicle;
         }

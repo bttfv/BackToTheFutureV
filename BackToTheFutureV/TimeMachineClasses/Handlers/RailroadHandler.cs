@@ -175,7 +175,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             customTrain.RogersSierra.KeyDown(e.KeyCode);
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (Mods.Wheel != WheelType.RailroadInvisible)
             {

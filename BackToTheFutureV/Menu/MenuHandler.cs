@@ -24,7 +24,7 @@ namespace BackToTheFutureV.Menu
         public static TrainMissionMenu TrainMissionMenu { get; } = new TrainMissionMenu();
         public static TimeMachineMenu TimeMachineMenu { get; } = new TimeMachineMenu();
 
-        public static void Process()
+        public static void Tick()
         {
             if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
             {

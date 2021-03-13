@@ -12,7 +12,7 @@ namespace BackToTheFutureV.Players
         public Vehicle Vehicle => TimeMachine.Vehicle;
         public DMC12 DMC12 => TimeMachine.DMC12;
 
-        public TimeMachineMods Mods => TimeMachine.Mods;
+        public ModsHandler Mods => TimeMachine.Mods;
         public EventsHandler Events => TimeMachine.Events;
         public PropertiesHandler Properties => TimeMachine.Properties;
         public SoundsHandler Sounds => TimeMachine.Sounds;

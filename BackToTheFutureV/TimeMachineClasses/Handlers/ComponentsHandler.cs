@@ -82,7 +82,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             Vector3 worldPos = Vehicle.GetOffsetPosition(hookPosition);
 
-            float dist = Utils.PlayerPed.Position.DistanceToSquared(worldPos);
+            float dist = Utils.PlayerPed.Position.DistanceToSquared2D(worldPos);
 
             if (dist <= 2f * 2f)
             {
@@ -134,7 +134,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Mods.Hoodbox == ModState.Off | Utils.PlayerPed.IsInVehicle() | TcdEditer.IsEditing | RCGUIEditer.IsEditing | _warmUp > 0)
                 return;
 
-            if (!(Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position) <= 2f * 2f))
+            if (!(Utils.PlayerPed.Position.DistanceToSquared2D(Vehicle.Bones["bonnet"].Position) <= 2f * 2f))
                 return;
 
             Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hoodbox_Warmup_Start"));
@@ -143,7 +143,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _warmUp = Game.GameTime + 8000;
         }
 
-        public override void Process()
+        public override void Tick()
         {
             HookProcess();
 

@@ -25,7 +25,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Properties.TimeTravelPhase = TimeTravelPhase.Reentering;
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (_handbrakeTimer > -1)
             {

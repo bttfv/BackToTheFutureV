@@ -215,7 +215,7 @@ namespace BackToTheFutureV.Players
             PlayerSwitch.Disable = true;
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (IsPlaying && !Utils.IsPadShaking)
                 Utils.SetPadShake(100, 80);

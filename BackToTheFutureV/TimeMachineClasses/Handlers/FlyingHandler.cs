@@ -237,7 +237,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Utils.DisplayHelpText($"{Game.GetLocalizedString("BTTFV_AltitudeHoldingModeChange")} {(Properties.IsAltitudeHolding ? Game.GetLocalizedString("BTTFV_On") : Game.GetLocalizedString("BTTFV_Off"))}");
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (Mods.HoverUnderbody == ModState.Off)
                 return;
@@ -252,7 +252,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 SetFlyMode(true);
 
             // Process the wheel animations
-            Players.HoverModeWheels?.Process();
+            Players.HoverModeWheels?.Tick();
 
             if (!Vehicle.IsVisible)
             {
@@ -273,10 +273,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 // Process up/down movement
                 UpDown();
-
-                // Altitude holder
-                //if (!Game.IsControlPressed(GTA.Control.VehicleFlyThrottleUp) && !Game.IsControlPressed(GTA.Control.VehicleFlyThrottleDown))
-                //    HandleAltitudeHolding();
 
                 // Apply force
                 Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
@@ -361,6 +357,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 // Altitude holder
                 if (Properties.IsAltitudeHolding)
                     HandleAltitudeHolding();
+
+                if (Game.IsControlPressed(Control.VehicleHandbrake) && !Game.IsControlPressed(Control.VehicleAccelerate) && Vehicle.GetMPHSpeed() > 1 && Vehicle.IsGoingForward())
+                    Properties.Boost = -0.4f;
             }
 
             // Apply force

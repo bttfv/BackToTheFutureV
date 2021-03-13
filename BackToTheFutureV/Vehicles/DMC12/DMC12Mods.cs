@@ -2,16 +2,15 @@
 using FusionLibrary;
 using GTA;
 using GTA.Native;
-using System;
 using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Vehicles
 {
-    [Serializable]
-    internal class DMC12Mods : BaseMods
+    internal class DMC12Mods : ModsPrimitive
     {
         protected Vehicle Vehicle { get; }
+
         public DMC12Mods(Vehicle vehicle)
         {
             Vehicle = vehicle;
@@ -29,7 +28,8 @@ namespace BackToTheFutureV.Vehicles
 
                 Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, 0f);
 
-                Seats = ModState.On;
+                //Seats
+                Vehicle.Mods[VehicleModType.VanityPlates].Index = 0;
 
                 if (!(WormholeType > WormholeType.DMC12))
                     WormholeType = WormholeType.DMC12;
@@ -116,27 +116,26 @@ namespace BackToTheFutureV.Vehicles
             }
         }
 
-        public new ModState Exterior
+        public new ModState Components
         {
-            get => base.Exterior;
+            get => base.Components;
             set
             {
-                base.Exterior = value;
+                base.Components = value;
 
                 if (IsDMC12)
+                {
+                    //Exteriors
                     Vehicle.Mods[VehicleModType.Spoilers].Index = (int)value;
-            }
-        }
-
-        public new ModState Interior
-        {
-            get => base.Interior;
-            set
-            {
-                base.Interior = value;
-
-                if (IsDMC12)
+                    //Vents
+                    Vehicle.Mods[VehicleModType.ColumnShifterLevers].Index = (int)value;
+                    //Interiors
                     Vehicle.Mods[VehicleModType.SideSkirt].Index = (int)value;
+                    //Steering wheel buttons
+                    Vehicle.Mods[VehicleModType.SteeringWheels].Index = (int)value;
+                    //Bulova clock
+                    Vehicle.Mods[VehicleModType.RightFender].Index = (int)value;
+                }
             }
         }
 
@@ -176,18 +175,6 @@ namespace BackToTheFutureV.Vehicles
             }
         }
 
-        public new ModState DamagedBumper
-        {
-            get => base.DamagedBumper;
-            set
-            {
-                base.DamagedBumper = value;
-
-                if (IsDMC12)
-                    Vehicle.Mods[VehicleModType.Aerials].Index = (int)value;
-            }
-        }
-
         public new ModState HoverUnderbody
         {
             get => base.HoverUnderbody;
@@ -197,42 +184,6 @@ namespace BackToTheFutureV.Vehicles
 
                 if (IsDMC12)
                     Vehicle.Mods[VehicleModType.DialDesign].Index = (int)value;
-            }
-        }
-
-        public new ModState SteeringWheelsButtons
-        {
-            get => base.SteeringWheelsButtons;
-            set
-            {
-                base.SteeringWheelsButtons = value;
-
-                if (IsDMC12)
-                    Vehicle.Mods[VehicleModType.SteeringWheels].Index = (int)value;
-            }
-        }
-
-        public new ModState Vents
-        {
-            get => base.Vents;
-            set
-            {
-                base.Vents = value;
-
-                if (IsDMC12)
-                    Vehicle.Mods[VehicleModType.ColumnShifterLevers].Index = (int)value;
-            }
-        }
-
-        public new ModState Seats
-        {
-            get => base.Seats;
-            set
-            {
-                base.Seats = value;
-
-                if (IsDMC12)
-                    Vehicle.Mods[VehicleModType.VanityPlates].Index = (int)value;
             }
         }
 
@@ -280,7 +231,10 @@ namespace BackToTheFutureV.Vehicles
                 base.Hoodbox = value;
 
                 if (IsDMC12)
+                {
                     Vehicle.Mods[VehicleModType.Livery].Index = (int)value;
+                    Vehicle.Mods[VehicleModType.Aerials].Index = (int)value;
+                }
             }
         }
 
@@ -349,18 +303,6 @@ namespace BackToTheFutureV.Vehicles
 
                 if (IsDMC12)
                     Vehicle.Mods[VehicleModType.Hood].Index = (int)value;
-            }
-        }
-
-        public new ModState BulovaClock
-        {
-            get => base.BulovaClock;
-            set
-            {
-                base.BulovaClock = value;
-
-                if (IsDMC12)
-                    Vehicle.Mods[VehicleModType.RightFender].Index = (int)value;
             }
         }
     }

@@ -242,10 +242,11 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void KeyDown(KeyEventArgs e)
         {
-            AllTimeMachines.ForEach(x => x.KeyDown(e));
+            if (CurrentTimeMachine.IsFunctioning() && CurrentTimeMachine == Utils.PlayerVehicle)
+                CurrentTimeMachine.KeyDown(e);
         }
 
-        public static void Process()
+        public static void Tick()
         {
             if (_timeMachinesToRemoveWaitSounds.Count > 0)
             {
@@ -270,21 +271,13 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             UpdateClosestTimeMachine();
 
-            foreach (TimeMachine timeMachine in AllTimeMachines)
-                timeMachine.Process();
+            foreach (TimeMachine timeMachine in TimeMachines)
+                timeMachine.Tick();
         }
 
         public static void Abort()
         {
             AllTimeMachines.ForEach(x => x.Dispose(false));
-        }
-
-        public static TimeMachine GetTimeMachineFromIndex(int index)
-        {
-            if (index > TimeMachineCount - 1)
-                return default;
-
-            return AllTimeMachines[index];
         }
 
         public static TimeMachine GetTimeMachineFromVehicle(Vehicle vehicle)
@@ -353,8 +346,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 if (CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                     return;
 
-                if (!CurrentTimeMachine.Constants.HUDProperties.IsHUDVisible)
-                    CurrentTimeMachine.Constants.HUDProperties.IsHUDVisible = true;
+                if (!CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible)
+                    CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible = true;
 
                 if (CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
                     Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, false);
@@ -377,9 +370,9 @@ namespace BackToTheFutureV.TimeMachineClasses
                 SquareDistToClosestTimeMachine = -1;
             }
 
-            foreach (TimeMachine timeMachine in AllTimeMachines)
+            foreach (TimeMachine timeMachine in TimeMachines)
             {
-                float dist = timeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position);
+                float dist = timeMachine.Vehicle.Position.DistanceToSquared2D(Utils.PlayerPed.Position);
 
                 if (ClosestTimeMachine == timeMachine)
                     SquareDistToClosestTimeMachine = dist;
@@ -412,7 +405,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             {
                 CurrentTimeMachine = ClosestTimeMachine;
 
-                if (CurrentTimeMachine.Properties.FullDamaged)
+                if (CurrentTimeMachine.Constants.FullDamaged)
                     GTA.UI.Screen.ShowHelpTextThisFrame(string.Format(Game.GetLocalizedString("BTTFV_Restore_Damanged_Delorean"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_Restore"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu")));
             }
         }

@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using static BackToTheFutureV.Utility.InternalEnums;
 
@@ -37,13 +38,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (height < 0)
                 height = 0;
 
-            Constants.NewHeight[column] = height;
-            Constants.LedDelay[column] = 0;
+            Properties.NewHeight[column] = height;
+            Properties.LedDelay[column] = 0;
         }
 
         private void Random(int min = 0, int max = 20)
         {
-            if (_waitTurnOn && AreColumnProcessing())
+            if (_waitTurnOn && AreColumnProcessing().Count > 0)
                 return;
 
             if (_waitTurnOn)
@@ -54,7 +55,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             for (int column = 0; column < 10; column++)
             {
-                if (Constants.LedDelay[column] > Game.GameTime)
+                if (Properties.LedDelay[column] > Game.GameTime)
                     continue;
 
                 SetColumnHeight(column, Utils.Random.Next(min, max + 1));
@@ -72,9 +73,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (instant)
                 {
                     for (int row = 0; row < max; row++)
-                        Constants.HUDProperties.LedState[column][row] = on;
+                        Properties.HUDProperties.LedState[column][row] = on;
 
-                    Constants.CurrentHeight[column] = max;
+                    Properties.CurrentHeight[column] = max;
                 }
             }
 
@@ -85,13 +86,15 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _waitTurnOn = on;
         }
 
-        private bool AreColumnProcessing()
+        private List<int> AreColumnProcessing()
         {
-            for (int column = 0; column < 10; column++)
-                if (Constants.NewHeight[column] != Constants.CurrentHeight[column])
-                    return true;
+            List<int> ret = new List<int>();
 
-            return false;
+            for (int column = 0; column < 10; column++)
+                if (Properties.NewHeight[column] != Properties.CurrentHeight[column] && Properties.LedDelay[column] < Game.GameTime)
+                    ret.Add(column);
+
+            return ret;
         }
 
         private int GetMaxHeight(int column)
@@ -111,26 +114,22 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
         }
 
-        public override void Process()
+        public override void Tick()
         {
-            //SID leds processing
-            for (int column = 0; column < 10; column++)
+            foreach (int column in AreColumnProcessing())
             {
-                if (Constants.LedDelay[column] < Game.GameTime && Constants.NewHeight[column] != Constants.CurrentHeight[column])
+                if (Properties.NewHeight[column] > Properties.CurrentHeight[column])
                 {
-                    if (Constants.NewHeight[column] > Constants.CurrentHeight[column])
-                    {
-                        Constants.HUDProperties.LedState[column][Constants.CurrentHeight[column]] = true;
-                        Constants.CurrentHeight[column]++;
-                    }
-                    else if (Constants.NewHeight[column] < Constants.CurrentHeight[column])
-                    {
-                        Constants.CurrentHeight[column]--;
-                        Constants.HUDProperties.LedState[column][Constants.CurrentHeight[column]] = false;
-                    }
-
-                    Constants.LedDelay[column] = Game.GameTime + 60 + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
+                    Properties.HUDProperties.LedState[column][Properties.CurrentHeight[column]] = true;
+                    Properties.CurrentHeight[column]++;
                 }
+                else if (Properties.NewHeight[column] < Properties.CurrentHeight[column])
+                {
+                    Properties.CurrentHeight[column]--;
+                    Properties.HUDProperties.LedState[column][Properties.CurrentHeight[column]] = false;
+                }
+
+                Properties.LedDelay[column] = Game.GameTime + 60 + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
             }
 
             if (Properties.IsGivenScaleformPriority && Vehicle.IsVisible)
@@ -141,7 +140,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.AreTimeCircuitsOn || Properties.HasBeenStruckByLightning || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                 return;
 
-            if (Constants.OverSIDMaxAtSpeed || Constants.ForceSIDMax)
+            if (Constants.OverSIDMaxAtSpeed || Properties.ForceSIDMax)
             {
                 Random(20, 20);
 

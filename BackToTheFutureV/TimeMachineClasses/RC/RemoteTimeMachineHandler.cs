@@ -23,7 +23,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
         public static List<RemoteTimeMachine> RemoteTimeMachinesOnlyReentry => RemoteTimeMachines.Where(x => x.Reentry).ToList();
-        public static int TimeMachineCount => RemoteTimeMachines.Count;
+        public static int TimeMachineCount => RemoteTimeMachinesOnlyReentry.Count;
 
         private static IFormatter formatter = new BinaryFormatter();
         private const int MAX_REMOTE_TIMEMACHINES = 10;
@@ -114,9 +114,9 @@ namespace BackToTheFutureV.TimeMachineClasses
             RemoteTimeMachines.ForEach(x => x.ExistenceCheck(time));
         }
 
-        public static void Process()
+        public static void Tick()
         {
-            RemoteTimeMachines.ForEach(x => x.Process());
+            RemoteTimeMachines.ForEach(x => x.Tick());
 
             if (!IsRemoteOn)
                 return;
@@ -179,7 +179,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             }
         }
 
-        public static void Dispose()
+        public static void Abort()
         {
             foreach (RemoteTimeMachine x in RemoteTimeMachines)
                 x?.Dispose();

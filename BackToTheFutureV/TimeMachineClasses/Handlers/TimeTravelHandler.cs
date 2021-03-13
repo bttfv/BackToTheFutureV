@@ -62,7 +62,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _currentStep = 0;
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (Properties.TimeTravelPhase != TimeTravelPhase.InTime)
                 return;

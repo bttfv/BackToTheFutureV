@@ -10,7 +10,7 @@ namespace BackToTheFutureV.Story
         protected abstract void OnStart();
         protected abstract void OnEnd();
         public abstract void KeyDown(KeyEventArgs key);
-        public abstract void Process();
+        public abstract void Tick();
 
         public TimedEventHandler TimedEventManager = new TimedEventHandler();
 

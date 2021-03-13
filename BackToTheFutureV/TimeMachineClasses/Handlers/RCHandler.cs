@@ -236,7 +236,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             ScaleformsHandler.RCGUI?.Draw2D();
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (!Properties.IsRemoteControlled)
             {

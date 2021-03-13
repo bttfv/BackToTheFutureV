@@ -32,7 +32,7 @@ namespace BackToTheFutureV
 
             HUD.Exiting += TimeCircuits_Exiting;
 
-            _backgroundThread = new Thread(Process)
+            _backgroundThread = new Thread(Tick)
             {
                 IsBackground = true
             };
@@ -64,7 +64,7 @@ namespace BackToTheFutureV
             _backgroundThread = null;
         }
 
-        private static void Process()
+        private static void Tick()
         {
             HUD?.Run();
         }

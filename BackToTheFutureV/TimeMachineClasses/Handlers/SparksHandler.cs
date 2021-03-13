@@ -65,7 +65,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Stop();
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (!Properties.AreTimeCircuitsOn && !Properties.IsPhotoModeOn)
             {
@@ -81,7 +81,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            Players.Wormhole?.Process();
+            Players.Wormhole?.Tick();
 
             if (Constants.OverTimeTravelAtSpeed)
             {

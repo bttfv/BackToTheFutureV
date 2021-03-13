@@ -22,6 +22,8 @@ namespace BackToTheFutureV
 
         public static bool FirstTick { get; private set; } = true;
 
+        public static CustomStopwatch CustomStopwatch { get; } = new CustomStopwatch();
+
         public Main()
         {
             DateTime buildDate = new DateTime(2000, 1, 1).AddDays(Version.Build).AddSeconds(Version.Revision * 2);
@@ -49,10 +51,10 @@ namespace BackToTheFutureV
 
             WaybackMachineHandler.Abort();
             MissionHandler.Abort();
-            StoryTimeMachine.Abort();
-            RemoteTimeMachineHandler.Dispose();
+            StoryTimeMachineHandler.Abort();
+            RemoteTimeMachineHandler.Abort();
             TimeMachineHandler.Abort();
-            FireTrailsHandler.Stop();
+            FireTrailsHandler.Abort();
             CustomTrainHandler.Abort();
             DMC12Handler.Abort();
 
@@ -76,7 +78,7 @@ namespace BackToTheFutureV
                 ModelHandler.RequestModels();
 
                 //Disable fake shake of the cars.
-                Function.Call((Hash)0x84FD40F56075E816, 0);                
+                Function.Call((Hash)0x84FD40F56075E816, 0);
 
                 if (ModSettings.PersistenceSystem)
                 {
@@ -97,17 +99,17 @@ namespace BackToTheFutureV
             if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
                 ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
 
-            TrashHandler.Process();
-            CustomTrainHandler.Process();
-            DMC12Handler.Process();
-            TimeMachineHandler.Process();
-            RemoteTimeMachineHandler.Process();
-            FireTrailsHandler.Process();
-            TcdEditer.Process();
-            RCGUIEditer.Process();
-            MissionHandler.Process();
-            StoryTimeMachine.ProcessAll();
-            MenuHandler.Process();
+            TrashHandler.Tick();
+            CustomTrainHandler.Tick();
+            DMC12Handler.Tick();
+            TimeMachineHandler.Tick();
+            RemoteTimeMachineHandler.Tick();
+            FireTrailsHandler.Tick();
+            TcdEditer.Tick();
+            RCGUIEditer.Tick();
+            MissionHandler.Tick();
+            StoryTimeMachineHandler.Tick();
+            MenuHandler.Tick();
         }
     }
 }

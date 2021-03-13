@@ -50,7 +50,7 @@ namespace BackToTheFutureV.Players
             IsPlaying = true;
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (!IsPlaying)
                 return;

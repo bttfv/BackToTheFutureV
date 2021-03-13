@@ -59,7 +59,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Update();
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (!Properties.AreTimeCircuitsOn)
                 return;

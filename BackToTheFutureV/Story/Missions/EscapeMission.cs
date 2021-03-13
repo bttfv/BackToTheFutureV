@@ -130,7 +130,7 @@ namespace BackToTheFutureV.Story.Missions
             End();
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (!IsPlaying)
                 return;

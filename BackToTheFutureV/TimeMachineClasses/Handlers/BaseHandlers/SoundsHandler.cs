@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Utility;
-using GTA;
+﻿using GTA;
 using GTA.Native;
 using KlangRageAudioLibrary;
 using System.Collections.Generic;
@@ -256,16 +255,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public void OnWormholeTypeChanged()
         {
             TimeTravelCutscene?.Dispose();
-            TimeTravelCutscene = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/cutscene.wav", Presets.ExteriorLoud);
+            TimeTravelCutscene = AudioEngine.Create($"{Constants.LowerWormholeType}/timeTravel/mode/cutscene.wav", Presets.ExteriorLoud);
 
             TimeTravelInstant?.Dispose();
-            TimeTravelInstant = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/mode/instant.wav", Presets.ExteriorLoud);
+            TimeTravelInstant = AudioEngine.Create($"{Constants.LowerWormholeType}/timeTravel/mode/instant.wav", Presets.ExteriorLoud);
 
             Reenter?.Dispose();
-            Reenter = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/reentry.wav", Presets.ExteriorLoud);
+            Reenter = AudioEngine.Create($"{Constants.LowerWormholeType}/timeTravel/reentry.wav", Presets.ExteriorLoud);
 
             Sparks?.Dispose();
-            Sparks = AudioEngine.Create($"{Properties.LowerWormholeType}/timeTravel/sparks.wav", Presets.ExteriorLoudLoop);
+            Sparks = AudioEngine.Create($"{Constants.LowerWormholeType}/timeTravel/sparks.wav", Presets.ExteriorLoudLoop);
             Sparks.FadeOutMultiplier = 2f;
             Sparks.StartFadeIn = false;
         }
@@ -338,7 +337,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (Game.GameTime < _gameTimer | !Vehicle.IsVisible | !Mods.IsDMC12)
                 return;
@@ -360,9 +359,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                         _doorOpenColdSound.Play();
 
                     _doorStatus[door.Key].IsDoorOpen = true;
-
-                    if (!TimeMachine.IsWaybackPlaying && WaybackMachineHandler.Enabled)
-                        TimeMachine.WaybackMachine.NextEvent = new WaybackEvent(door.Key, true);
                 }
                 else if (doorAngle == 0)
                 {
@@ -381,9 +377,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                         _doorCloseColdsound.Play();
 
                     _doorStatus[door.Key].IsDoorFullyOpen = false;
-
-                    if (!TimeMachine.IsWaybackPlaying && WaybackMachineHandler.Enabled)
-                        TimeMachine.WaybackMachine.NextEvent = new WaybackEvent(door.Key, false);
                 }
             }
 

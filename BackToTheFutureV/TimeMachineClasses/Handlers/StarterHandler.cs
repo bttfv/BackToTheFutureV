@@ -96,7 +96,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             IsPlaying = true;
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (Properties.IsEngineStalling)
             {

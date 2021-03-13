@@ -104,7 +104,7 @@ namespace BackToTheFutureV.Story.Missions
             TimeMachine.Properties.BlockSparks = false;
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (!IsPlaying)
                 return;
@@ -128,7 +128,7 @@ namespace BackToTheFutureV.Story.Missions
 
             if (_wheelPtfxes != null)
                 foreach (PtfxEntityBonePlayer wheelPTFX in _wheelPtfxes)
-                    wheelPTFX.Process();
+                    wheelPTFX.Tick();
         }
 
         private void StartExplodingScene()

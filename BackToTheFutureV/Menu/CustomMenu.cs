@@ -205,7 +205,7 @@ namespace BackToTheFutureV.Menu
                 _tempTimeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Utils.PlayerVehicle);
                 _save = true;
 
-                if (_tempTimeMachine.Properties.FullDamaged)
+                if (_tempTimeMachine.Constants.FullDamaged)
                 {
                     Close();
                     return;

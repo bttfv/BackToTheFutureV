@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.HUD.Core;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.Utility;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
@@ -176,15 +175,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public int FireTrailsLength => Properties.IsOnTracks ? 100 : 50;
 
-        public WheelType RoadWheel => Properties.IsStockWheel ? WheelType.Stock : WheelType.Red;
+        public string LowerWormholeType => Mods.WormholeType.ToString().ToLower();
+        public bool IsStockWheel => Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible;
+        public bool FullDamaged => Mods.Wheel == WheelType.Stock && Utils.IsAllTiresBurst(Vehicle) && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
+
+        public WheelType RoadWheel => IsStockWheel ? WheelType.Stock : WheelType.Red;
         public CustomModel WheelModel => Constants.RoadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
         public CustomModel WheelRearModel => Constants.RoadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
-
-        public HUDProperties HUDProperties { get; set; } = new HUDProperties();
-        public bool ForceSIDMax { get; set; }
-        public int[] CurrentHeight { get; set; } = new int[10];
-        public int[] NewHeight { get; set; } = new int[10];
-        public int[] LedDelay { get; set; } = new int[10];
 
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -223,7 +220,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (TimeTravelCooldown > -1)
             {

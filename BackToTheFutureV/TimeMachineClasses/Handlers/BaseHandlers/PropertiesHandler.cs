@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.HUD.Core;
+using BackToTheFutureV.Utility;
 using FusionLibrary;
 using GTA.Math;
 using System;
@@ -7,7 +8,7 @@ using static BackToTheFutureV.Utility.InternalEnums;
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
     [Serializable]
-    internal class BaseProperties
+    internal class PropertiesHandler
     {
         //Persistent properties
         public Guid GUID { get; set; }
@@ -69,11 +70,21 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public bool BlockSparks { get; set; }
         public float Boost { get; set; }
 
-        public BaseProperties Clone()
+        public HUDProperties HUDProperties { get; set; } = new HUDProperties();
+        public bool ForceSIDMax { get; set; }
+        public int[] CurrentHeight { get; set; } = new int[10];
+        public int[] NewHeight { get; set; } = new int[10];
+        public int[] LedDelay { get; set; } = new int[10];
+
+        public PropertiesHandler(Guid guid)
         {
-            BaseProperties ret = new BaseProperties
+            GUID = guid;
+        }
+
+        public PropertiesHandler Clone()
+        {
+            PropertiesHandler ret = new PropertiesHandler(GUID)
             {
-                GUID = GUID,
                 AreTimeCircuitsOn = AreTimeCircuitsOn,
                 AlarmSet = AlarmSet,
                 AlarmTime = AlarmTime,
@@ -141,9 +152,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public void ApplyToWayback(TimeMachine timeMachine)
         {
-            timeMachine.Properties.GUID = GUID;
-            timeMachine.Properties.ReactorCharge = ReactorCharge;
-            timeMachine.Properties.PreviousTime = PreviousTime;
+            if (ReactorCharge != timeMachine.Properties.ReactorCharge)
+                timeMachine.Properties.ReactorCharge = ReactorCharge;
+
+            if (ThreeDigitsSpeedo != timeMachine.Properties.ThreeDigitsSpeedo)
+                timeMachine.Properties.ThreeDigitsSpeedo = ThreeDigitsSpeedo;
+
+            if (PreviousTime != timeMachine.Properties.PreviousTime)
+                timeMachine.Properties.PreviousTime = PreviousTime;
+
+            if (AreHoodboxCircuitsReady != timeMachine.Properties.AreHoodboxCircuitsReady)
+                timeMachine.Properties.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;
 
             if (AreTimeCircuitsOn != timeMachine.Properties.AreTimeCircuitsOn)
                 timeMachine.Events.SetTimeCircuits?.Invoke(AreTimeCircuitsOn);

@@ -62,7 +62,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!TcdEditer.IsEditing)
             {
                 ScaleformsHandler.GUI.SetDate(SlotType, dateToSet);
-                TimeMachine.Constants.HUDProperties.SetDate(SlotType, dateToSet);
+                TimeMachine.Properties.HUDProperties.SetDate(SlotType, dateToSet);
             }
 
             ScaleformsHandler.TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
@@ -80,9 +80,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 ScaleformsHandler.GUI.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
 
                 if (toggleTo)
-                    TimeMachine.Constants.HUDProperties.SetDate(SlotType, date);
+                    TimeMachine.Properties.HUDProperties.SetDate(SlotType, date);
 
-                TimeMachine.Constants.HUDProperties.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
+                TimeMachine.Properties.HUDProperties.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
             }
 
             ScaleformsHandler.TCDRowsScaleforms[SlotType]?.SetVisible(toggleTo, month, day, year, hour, minute);
@@ -318,7 +318,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Sounds.TCDBeep?.Stop();
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", false);
 
-                Constants.HUDProperties.IsTickVisible = false;
+                Properties.HUDProperties.IsTickVisible = false;
 
                 Props.TickingDiodes?.Delete();
                 Props.TickingDiodesOff?.SpawnProp();
@@ -404,11 +404,11 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             return selectedProb.Value;
         }
 
-        public override void Process()
+        public override void Tick()
         {
-            if (Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Utils.PlayerPed.IsInVehicle() && !Properties.FullDamaged)
+            if (!Utils.PlayerPed.IsInVehicle() && Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Constants.FullDamaged)
             {
-                float dist = Utils.PlayerPed.Position.DistanceToSquared(Vehicle.Bones["bonnet"].Position);
+                float dist = Utils.PlayerPed.Position.DistanceToSquared2D(Vehicle.Bones["bonnet"].Position);
 
                 if (!(dist <= 2f * 2f))
                     return;
@@ -419,7 +419,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Mods.Hoodbox = ModState.On;
             }
 
-            if (!Properties.IsGivenScaleformPriority || Game.Player.Character.Position.DistanceToSquared(Vehicle.Position) > 8f * 8f)
+            if (!Properties.IsGivenScaleformPriority)
                 return;
 
             if (Mods.IsDMC12)
@@ -444,7 +444,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 DrawGUI();
 
             if (Utils.PlayerVehicle == Vehicle && Properties.TimeTravelPhase < TimeTravelPhase.InTime)
-                ExternalHUD.Update(Constants.HUDProperties);
+                ExternalHUD.Update(Properties.HUDProperties);
 
             if (!Properties.AreTimeCircuitsOn)
                 return;
@@ -488,12 +488,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void DrawGUI()
         {
-            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled)
+            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled)
                 return;
 
             ScaleformsHandler.GUI.SetSpeedoBackground(Properties.ThreeDigitsSpeedo);
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
-            ScaleformsHandler.GUI.SetEmpty(Constants.HUDProperties.Empty);
+            ScaleformsHandler.GUI.SetEmpty(Properties.HUDProperties.Empty);
             ScaleformsHandler.GUI.Draw2D();
 
             if (ModSettings.HideSID || !Mods.IsDMC12)
@@ -572,7 +572,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", currentState);
 
-                Constants.HUDProperties.IsTickVisible = currentState;
+                Properties.HUDProperties.IsTickVisible = currentState;
 
                 if (ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
                     Sounds.TCDBeep?.Play(true);

@@ -53,7 +53,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 blockSpawn = false;
         }
 
-        public void Process()
+        public void Tick()
         {
             if (!Spawned && TimeMachine != null)
                 TimeMachine = null;

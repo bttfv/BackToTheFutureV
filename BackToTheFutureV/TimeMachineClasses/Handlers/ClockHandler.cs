@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.UI;
 using System;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
@@ -70,7 +71,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             ProcessButton(e.KeyCode);
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (IsPlaying)
             {
@@ -119,13 +120,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         Properties.AlarmTime = Properties.SpawnTime;
                         Properties.SpawnTime = oldTime;
                         Properties.AlarmSet = true;
-                        GTA.UI.Notification.Show("Alarm set!");
+                        Notification.Show("Alarm set!");
                     }
 
                     if (Game.IsControlJustPressed(Control.PhoneOption))
                     {
                         Properties.AlarmSet = false;
-                        GTA.UI.Notification.Show("Alarm disabled!");
+                        Notification.Show("Alarm disabled!");
                     }
                 }
             }

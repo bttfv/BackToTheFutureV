@@ -3,78 +3,14 @@ using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
-using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Utility
 {
-    internal class WaybackEvent
-    {
-        public WaybackEventType Type { get; private set; }
-        public VehicleDoorIndex DoorIndex { get; }
-        public bool DoorIsOpen { get; }
-
-        public WaybackEvent()
-        {
-            Type = WaybackEventType.None;
-        }
-
-        public WaybackEvent(WaybackEventType type)
-        {
-            Type = type;
-        }
-
-        public WaybackEvent(VehicleDoorIndex doorIndex, bool isOpen)
-        {
-            Type = WaybackEventType.Door;
-            DoorIndex = doorIndex;
-            DoorIsOpen = isOpen;
-        }
-
-        public WaybackEvent Clone()
-        {
-            WaybackEvent waybackEvent;
-
-            switch (Type)
-            {
-                case WaybackEventType.Door:
-                    waybackEvent = new WaybackEvent(DoorIndex, DoorIsOpen);
-                    break;
-                default:
-                    waybackEvent = new WaybackEvent(Type);
-                    break;
-            }
-
-            return waybackEvent;
-        }
-
-        public void Apply(TimeMachine timeMachine)
-        {
-            switch (Type)
-            {
-                case WaybackEventType.Refuel:
-                    timeMachine.Events.SetRefuel?.Invoke(null);
-                    break;
-                case WaybackEventType.Door:
-                    if (DoorIsOpen)
-                        timeMachine.Vehicle.Doors[DoorIndex].Open(false, true);
-                    else
-                        timeMachine.Vehicle.Doors[DoorIndex].Close(true);
-                    break;
-            }
-        }
-
-        public void Reset()
-        {
-            Type = WaybackEventType.None;
-        }
-    }
-
     internal class WaybackReplica
     {
         public DateTime Time { get; }
@@ -82,39 +18,30 @@ namespace BackToTheFutureV.Utility
         public bool EngineRunning { get; }
         public float Throttle { get; }
         public float Brake { get; }
-        public int Gear { get; }
-        public float RPM { get; }
+        //public int Gear { get; }
+        //public float RPM { get; }
         public float SteeringAngle { get; }
         public Vector3 Position { get; }
         public Vector3 Rotation { get; }
         public Vector3 Velocity { get; }
-        public float[] Wheels { get; }
         public bool Lights { get; }
         public bool Headlights { get; }
         public bool IsVisible { get; }
 
-        public BaseProperties Properties { get; }
-        public BaseMods Mods { get; }
-        public WaybackEvent WaybackEvent { get; }
+        public PropertiesHandler Properties { get; }
+        public ModsPrimitive Mods { get; }
 
-
-        public WaybackReplica(TimeMachine timeMachine, int startGameTime, WaybackEvent waybackEvent)
+        public WaybackReplica(TimeMachine timeMachine, int startGameTime)
         {
             Time = Utils.CurrentTime;
             Timestamp = Game.GameTime - startGameTime;
 
             EngineRunning = timeMachine.Vehicle.IsEngineRunning;
+            Throttle = timeMachine.Vehicle.ThrottlePower;
+            Brake = timeMachine.Vehicle.BrakePower;
 
-            try
-            {
-                Throttle = VehicleControl.GetThrottle(timeMachine.Vehicle);
-                Brake = VehicleControl.GetBrake(timeMachine.Vehicle);
-                Wheels = VehicleControl.GetWheelRotations(timeMachine.Vehicle);
-            }
-            catch { }
-
-            Gear = timeMachine.Vehicle.CurrentGear;
-            RPM = timeMachine.Vehicle.CurrentRPM;
+            //Gear = timeMachine.Vehicle.CurrentGear;
+            //RPM = timeMachine.Vehicle.CurrentRPM;
             SteeringAngle = timeMachine.Vehicle.SteeringAngle;
             Lights = timeMachine.Vehicle.AreLightsOn;
             Headlights = timeMachine.Vehicle.AreHighBeamsOn;
@@ -126,8 +53,6 @@ namespace BackToTheFutureV.Utility
 
             Properties = timeMachine.Properties.Clone();
             Mods = timeMachine.Mods.Clone();
-
-            WaybackEvent = waybackEvent.Clone();
         }
 
         public void Apply(TimeMachine timeMachine, int startPlayGameTime, WaybackReplica nextReplica)
@@ -135,12 +60,11 @@ namespace BackToTheFutureV.Utility
             if (timeMachine.Vehicle.IsEngineRunning != EngineRunning)
                 timeMachine.Vehicle.IsEngineRunning = EngineRunning;
 
-            VehicleControl.SetThrottle(timeMachine, Throttle);
-            VehicleControl.SetBrake(timeMachine, Brake);
-            VehicleControl.SetWheelRotations(timeMachine, Wheels);
+            timeMachine.Vehicle.ThrottlePower = Throttle;
+            timeMachine.Vehicle.BrakePower = Brake;
 
-            timeMachine.Vehicle.CurrentGear = Gear;
-            timeMachine.Vehicle.CurrentRPM = RPM;
+            //timeMachine.Vehicle.CurrentGear = Gear;
+            //timeMachine.Vehicle.CurrentRPM = RPM;
             timeMachine.Vehicle.SteeringAngle = SteeringAngle;
             timeMachine.Vehicle.AreLightsOn = Lights;
             timeMachine.Vehicle.AreHighBeamsOn = Headlights;
@@ -159,9 +83,6 @@ namespace BackToTheFutureV.Utility
 
             Properties.ApplyToWayback(timeMachine);
             Mods.ApplyToWayback(timeMachine);
-
-            if (WaybackEvent.Type != WaybackEventType.None)
-                WaybackEvent.Apply(timeMachine);
         }
     }
 
@@ -194,8 +115,6 @@ namespace BackToTheFutureV.Utility
 
         public bool IsPlaying { get; private set; } = false;
 
-        public WaybackEvent NextEvent { get; set; } = new WaybackEvent();
-
         public WaybackMachine()
         {
             Tick += WaybackMachine_Tick;
@@ -203,10 +122,10 @@ namespace BackToTheFutureV.Utility
 
         private void WaybackMachine_Tick(object sender, EventArgs e)
         {
-            if (GUID == Guid.Empty)
+            if (GUID == Guid.Empty || !WaybackMachineHandler.Enabled)
                 Abort();
 
-            if (!WaybackMachineHandler.Enabled || Utils.CurrentTime < StartTime)
+            if (Utils.CurrentTime < StartTime)
             {
                 if (IsRecording)
                     Stop();
@@ -222,11 +141,14 @@ namespace BackToTheFutureV.Utility
 
         public void Create(TimeMachine timeMachine)
         {
+            if (GUID != Guid.Empty)
+                return;
+
             GUID = timeMachine.Properties.GUID;
             TimeMachine = timeMachine;
             StartGameTime = Game.GameTime;
 
-            WaybackReplicas.Add(new WaybackReplica(TimeMachine, StartGameTime, NextEvent));
+            WaybackReplicas.Add(new WaybackReplica(TimeMachine, StartGameTime));
 
             StartTime = WaybackReplicas.First().Time;
 
@@ -242,12 +164,7 @@ namespace BackToTheFutureV.Utility
                 return;
             }
 
-            //if (TimeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position) < 300f*300f)
-            //    return;
-
-            WaybackReplicas.Add(new WaybackReplica(TimeMachine, StartGameTime, NextEvent));
-
-            NextEvent.Reset();
+            WaybackReplicas.Add(new WaybackReplica(TimeMachine, StartGameTime));
         }
 
         private void Play()
@@ -270,9 +187,10 @@ namespace BackToTheFutureV.Utility
                 IsPlaying = true;
             }
 
-            WaybackReplica nextReplica = WaybackReplicas.SkipWhile(x => x != waybackReplica).Skip(1).DefaultIfEmpty(waybackReplica).FirstOrDefault();
-
-            waybackReplica.Apply(TimeMachine, StartPlayGameTime, nextReplica);
+            if (waybackReplica == WaybackReplicas.Last())
+                waybackReplica.Apply(TimeMachine, StartPlayGameTime, waybackReplica);
+            else
+                waybackReplica.Apply(TimeMachine, StartPlayGameTime, WaybackReplicas[WaybackReplicas.IndexOf(waybackReplica) + 1]);
         }
 
         public void Stop()

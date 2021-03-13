@@ -170,7 +170,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             return dateTime.ToString("MMddyyyyHHmm")[pos].ToString();
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (lastInput != Keys.None && !Game.IsKeyPressed(lastInput))
                 lastInput = Keys.None;

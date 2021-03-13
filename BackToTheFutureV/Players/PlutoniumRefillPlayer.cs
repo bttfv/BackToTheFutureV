@@ -73,7 +73,7 @@ namespace BackToTheFutureV.Players
             }
         }
 
-        public override void Process()
+        public override void Tick()
         {
 
         }

@@ -221,7 +221,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         }
 
-        public override void Process()
+        public override void Tick()
         {
             if (_engineSounds.Any(x => x == null))
             {

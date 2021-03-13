@@ -78,7 +78,7 @@ namespace BackToTheFutureV.Menu
             TimeCircuitsOn.Enabled = !RemoteControl.Enabled;
             CutsceneMode.Enabled = !RemoteControl.Enabled;
 
-            bool fullDamaged = TimeMachineHandler.CurrentTimeMachine.Properties.FullDamaged;
+            bool fullDamaged = TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged;
 
             if (Repair != null && !fullDamaged)
             {
@@ -126,7 +126,7 @@ namespace BackToTheFutureV.Menu
             AltitudeHold.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
 
-            CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+            CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
             PhotoMenu.Enabled = CustomMenu.Enabled;
 
             TrainMissionMenu.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsOnTracks;

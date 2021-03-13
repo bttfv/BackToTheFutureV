@@ -45,7 +45,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         }
 
-        public override void Process()
+        public override void Tick()
         {
 
         }
