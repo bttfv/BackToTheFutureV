@@ -180,7 +180,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
                 {
                     TimeMachine.Props?.RRWheels?.Delete();
 
-                    Utils.SetTiresBurst(Vehicle, false);
+                    Wheels.Burst = false;
                 }
             }
         }
@@ -230,27 +230,27 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
                 base.HoverUnderbody = value;
 
-                if (IsDMC12)
+                if (!IsDMC12)
+                    return;
+
+                bool reload = false;
+
+                if (value == ModState.On)
                 {
-                    bool reload = false;
+                    if (Wheel == WheelType.RailroadInvisible)
+                        Wheel = WheelType.Stock;
 
-                    if (value == ModState.On)
-                    {
-                        if (Wheel == WheelType.RailroadInvisible)
-                            Wheel = WheelType.Stock;
+                    reload = SuspensionsType != SuspensionsType.Stock;
 
-                        reload = SuspensionsType != SuspensionsType.Stock;
+                    if (SuspensionsType != SuspensionsType.Stock)
+                        SuspensionsType = SuspensionsType.Stock;
 
-                        if (SuspensionsType != SuspensionsType.Stock)
-                            SuspensionsType = SuspensionsType.Stock;
-
-                        Exhaust = ExhaustType.None;
-                    }
-
-                    TimeMachine.DMC12?.SetStockSuspensions?.Invoke(value == ModState.Off);
-
-                    TimeMachine.Events?.OnHoverUnderbodyToggle?.Invoke(reload);
+                    Exhaust = ExhaustType.None;
                 }
+
+                TimeMachine.DMC12?.SetStockSuspensions?.Invoke(value == ModState.Off);
+
+                TimeMachine.Events?.OnHoverUnderbodyToggle?.Invoke(reload);
             }
         }
 

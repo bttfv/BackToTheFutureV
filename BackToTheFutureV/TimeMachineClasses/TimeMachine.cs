@@ -118,7 +118,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 registeredHandlers.Add("ComponentsHandler", new ComponentsHandler(this));
                 registeredHandlers.Add("EngineHandler", new EngineHandler(this));
                 registeredHandlers.Add("StarterHandler", new StarterHandler(this));
-                registeredHandlers.Add("DriverAIHandler", new DriverAIHandler(this));
+                //registeredHandlers.Add("DriverAIHandler", new DriverAIHandler(this));
                 registeredHandlers.Add("ClockHandler", new ClockHandler(this));
 
                 VehicleBone.TryGetForVehicle(Vehicle, "suspension_lf", out boneLf);
@@ -228,13 +228,13 @@ namespace BackToTheFutureV.TimeMachineClasses
             {
                 if (Properties.IsOnTracks)
                 {
-                    if (Utils.IsAllTiresBurst(Vehicle))
-                        Utils.SetTiresBurst(Vehicle, false);
+                    if (Mods.Wheels.Burst)
+                        Mods.Wheels.Burst = false;
                 }
                 else
                 {
-                    if (!Utils.IsAllTiresBurst(Vehicle))
-                        Utils.SetTiresBurst(Vehicle, true);
+                    if (!Mods.Wheels.Burst)
+                        Mods.Wheels.Burst = true;
                 }
             }
 
@@ -246,7 +246,13 @@ namespace BackToTheFutureV.TimeMachineClasses
                     if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, Utils.PlayerPed) != Vehicle || Vehicle.Driver != null)
                     {
                         if (Vehicle.Driver != null)
-                            Vehicle.Driver.Task.LeaveVehicle(LeaveVehicleFlags.WarpOut);
+                        {
+                            TaskSequence taskSequence = new TaskSequence();
+                            taskSequence.AddTask.LeaveVehicle(LeaveVehicleFlags.WarpOut);
+                            taskSequence.AddTask.WanderAround();
+
+                            Vehicle.Driver.Task.PerformSequence(taskSequence);
+                        }
 
                         Utils.PlayerPed.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
                     }
@@ -421,7 +427,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             Properties.ReactorCharge = 0;
             Properties.AreTimeCircuitsBroken = true;
             Properties.AreFlyingCircuitsBroken = true;
-            Utils.SetTiresBurst(Vehicle, true);
+            Mods.Wheels.Burst = true;
 
             Vehicle.FuelLevel = 0;
         }
@@ -432,7 +438,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 return;
 
             Mods.Wheel = WheelType.Red;
-            Utils.SetTiresBurst(Vehicle, false);
+            Mods.Wheels.Burst = false;
             Mods.SuspensionsType = SuspensionsType.LiftFront;
             Mods.Hoodbox = ModState.On;
 
@@ -514,6 +520,8 @@ namespace BackToTheFutureV.TimeMachineClasses
                 Vehicle.DeleteCompletely();
 
             Disposed = true;
+
+            GC.SuppressFinalize(this);
         }
 
         public override string ToString()

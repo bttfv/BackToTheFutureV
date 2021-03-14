@@ -358,8 +358,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (Properties.IsAltitudeHolding)
                     HandleAltitudeHolding();
 
-                if (Game.IsControlPressed(Control.VehicleHandbrake) && !Game.IsControlPressed(Control.VehicleAccelerate) && Vehicle.GetMPHSpeed() > 1 && Vehicle.IsGoingForward())
-                    Properties.Boost = -0.4f;
+                if (Game.IsControlPressed(Control.VehicleHandbrake) && !Game.IsControlPressed(Control.VehicleAccelerate) && !Game.IsControlPressed(Control.VehicleBrake) && Vehicle.GetMPHSpeed() > 1)
+                    Properties.Boost = Vehicle.IsGoingForward() ? -0.4f : 0.4f;
             }
 
             // Apply force

@@ -5,6 +5,7 @@ using GTA;
 using GTA.Native;
 using System.Windows.Forms;
 using static BackToTheFutureV.Utility.InternalEnums;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -168,8 +169,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, CommonSettings.PlayerPed.Model);
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
 
-            //if (Vehicle.Driver != Utils.PlayerPed)
-            //    Events.StartDriverAI?.Invoke(true);
+            if (Vehicle.Driver != null && Vehicle.Driver != Utils.PlayerPed)
+                Vehicle.Driver.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 10000).Start();
+
+            //Vehicle.Driver.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 10000).Start();
+
+            //Events.StartDriverAI?.Invoke(true);
         }
 
         public override void Stop()

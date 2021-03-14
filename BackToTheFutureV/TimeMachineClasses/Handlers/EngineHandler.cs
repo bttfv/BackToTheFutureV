@@ -362,7 +362,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
 
             // Play deceleration sound
-            if (IsBreaking && Speed > 30 && !Utils.IsAnyTireBurst(Vehicle) && !Game.IsControlPressed(Control.VehicleAccelerate) &&
+            if (IsBreaking && Speed > 30 && !Mods.Wheels.AnyBurst && !Game.IsControlPressed(Control.VehicleAccelerate) &&
                 !Vehicle.IsInWater)
             {
                 if (!_engineDecellSound.IsAnyInstancePlaying || _engineDecellSound.Last?.PlayPosition > 1000)
@@ -376,7 +376,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
 
             // Play reverse sound
-            if (IsReversing && WheelSpeed < -3 && _possibleFastAccel && !Utils.IsAnyTireBurst(Vehicle) &&
+            if (IsReversing && WheelSpeed < -3 && _possibleFastAccel && !Mods.Wheels.AnyBurst &&
                 !Vehicle.IsInWater)
             {
                 if (!_engineReverseSound.IsAnyInstancePlaying)
@@ -434,7 +434,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             //Stop acceleration sounds if car is breaking / driving neutral
             if (Acceleration < -10f || !Game.IsControlPressed(Control.VehicleAccelerate) ||
-                Game.IsControlPressed(Control.VehicleBrake) || Utils.IsAnyTireBurst(Vehicle) || Vehicle.IsInWater)
+                Game.IsControlPressed(Control.VehicleBrake) || Mods.Wheels.AnyBurst || Vehicle.IsInWater)
             {
                 _accellSounds.ForEach(x => x.Stop());
                 return;
@@ -463,7 +463,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         #region EVENTS
         private void OnGearUpEvent()
         {
-            if (Utils.IsAnyTireBurst(Vehicle))
+            if (Mods.Wheels.AnyBurst)
                 return;
 
             if ((WheelSpeed < 12) || (Acceleration < 0.2f))
@@ -635,7 +635,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // Check if car angle is too high or not on all wheels
             if (_possibleFastAccel)
             {
-                if (_carAngle > 7 || !Vehicle.IsOnAllWheels || Utils.IsAnyTireBurst(Vehicle))
+                if (_carAngle > 7 || !Vehicle.IsOnAllWheels || Mods.Wheels.AnyBurst)
                 {
                     _possibleFastAccel = false;
                 }

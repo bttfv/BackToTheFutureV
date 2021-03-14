@@ -177,7 +177,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         public string LowerWormholeType => Mods.WormholeType.ToString().ToLower();
         public bool IsStockWheel => Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible;
-        public bool FullDamaged => Mods.Wheel == WheelType.Stock && Utils.IsAllTiresBurst(Vehicle) && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
+        public bool FullDamaged => Mods.Wheel == WheelType.Stock && Mods.Wheels.Burst && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
 
         public WheelType RoadWheel => IsStockWheel ? WheelType.Stock : WheelType.Red;
         public CustomModel WheelModel => Constants.RoadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;

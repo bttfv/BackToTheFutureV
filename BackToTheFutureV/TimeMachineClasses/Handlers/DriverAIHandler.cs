@@ -36,7 +36,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (state)
             {
-                DriverTask = (DriverTaskType)Utils.Random.Next(2, 2);
+                DriverTask = (DriverTaskType)Utils.Random.Next(5, 5);
+
+                Driver = Vehicle.GetPedOnSeat(VehicleSeat.Driver);
+
+                if (Driver == null)
+                    Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
 
                 IsPlaying = true;
             }
@@ -52,25 +57,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void TaskTimeTravel()
         {
+            GTA.UI.Screen.ShowSubtitle($"{Step}");
+
             switch (Step)
             {
                 case 0:
-                    Driver = Vehicle.GetPedOnSeat(VehicleSeat.Driver);
-
-                    if (Driver == null)
-                        Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
+                    if (!Properties.IsFueled)
+                        Driver.Task.GoStraightTo(Vehicle.GetOffsetPosition(new Vector3(0, -2.5f, 0f)), -1, Vehicle.Heading);
+                    else
+                        Step = 3;
 
                     Step++;
                     break;
                 case 1:
-                    if (!Properties.IsFueled)
-                        Driver.Task.GoStraightTo(Vehicle.GetOffsetPosition(new Vector3(0, -2.5f, 0f)), -1, Vehicle.Heading);
-                    else
-                        Step = 4;
-
-                    Step++;
-                    break;
-                case 2:
                     if (!FuelHandler.IsPedInPosition(Vehicle, Driver))
                         break;
 
@@ -78,7 +77,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Step++;
                     break;
-                case 3:
+                case 2:
                     if (!Properties.IsFueled)
                         break;
 
@@ -86,7 +85,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Step++;
                     break;
-                case 4:
+                case 3:
                     if (!Driver.IsInVehicle(Vehicle))
                         break;
 
@@ -101,12 +100,19 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                     Step++;
                     break;
-                case 5:
+                case 4:
                     Events.SimulateInputDate?.Invoke(BTTFImportantDates.GetRandom());
 
                     Step++;
                     break;
-                case 6:
+                case 5:
+
+                    //Vector3 position = Driver.Position.Around(500);
+
+                    //position = World.GetSafeCoordForPed(position, false);
+
+                    //Function.Call(Hash.TASK_VEHICLE_GOTO_NAVMESH, Driver, Vehicle, position.X, position.Y, position.Z, 30.0f, 156, 5.0f);
+
                     Driver.Task.CruiseWithVehicle(Vehicle, MathExtensions.ToMS(200), DrivingStyle.AvoidTrafficExtremely);
                     Function.Call(Hash.SET_DRIVER_ABILITY, Driver, 1.0f);
                     Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, Driver, 1.0f);
@@ -121,16 +127,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!IsPlaying)
                 return;
 
-            GTA.UI.Screen.ShowSubtitle($"{DriverTask}");
-
             switch (DriverTask)
             {
                 case DriverTaskType.LeaveVehicle:
-
-                    Driver = Vehicle.GetPedOnSeat(VehicleSeat.Driver);
-
-                    if (Driver == null)
-                        Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
 
                     Driver.Task.LeaveVehicle();
 
@@ -141,29 +140,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     break;
                 case DriverTaskType.ParkAndLeave:
 
-                    Ped ped = Vehicle.GetPedOnSeat(VehicleSeat.Driver);
-
-                    if (ped == null)
-                        ped = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
-
-                    ped.Task.ParkVehicle(Vehicle, World.GetNextPositionOnStreet(Vehicle.Position, true), Vehicle.Heading);
-
-                    //TaskSequence taskSequence = new TaskSequence();
-                    //taskSequence.AddTask.ParkVehicle(Vehicle, World.GetNextPositionOnStreet(Vehicle.Position, true), Vehicle.Heading);
-                    //taskSequence.AddTask.LeaveVehicle();
-
-                    //ped.Task.PerformSequence(taskSequence);
+                    Driver.Task.ParkVehicle(Vehicle, World.GetNextPositionOnStreet(Vehicle.Position, true), Vehicle.Heading);
 
                     Stop();
 
                     break;
                 case DriverTaskType.DriveAround:
-
-                    Driver = Vehicle.GetPedOnSeat(VehicleSeat.Driver);
-
-                    if (Driver == null)
-                        Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
-
                     Driver.Task.CruiseWithVehicle(Vehicle, MathExtensions.ToMS(50));
 
                     Driver = null;
@@ -184,9 +166,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Stop()
         {
-            Driver?.Delete();
-            Driver = null;
-
             IsPlaying = false;
             Step = 0;
             DriverTask = DriverTaskType.Off;
