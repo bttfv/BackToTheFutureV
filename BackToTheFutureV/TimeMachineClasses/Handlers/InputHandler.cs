@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
@@ -63,22 +64,22 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             Events.SimulateInputDate += SimulateDateInput;
         }
 
-        public void InputDate(DateTime date)
+        public void InputDate(DateTime date, InputType inputType)
         {
             Sounds.InputEnter?.Play();
             Properties.DestinationTime = date;
             InputMode = false;
             _destinationTimeRaw = string.Empty;
 
-            Events.OnDestinationDateChange?.Invoke();
+            Events.OnDestinationDateChange?.Invoke(inputType);
         }
 
         public override void KeyDown(KeyEventArgs e)
         {
-            if (!Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible)
+            if (!Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible || CustomNativeMenu.ObjectPool.AreAnyVisible)
                 return;
 
-            if (e.KeyCode == ModControls.InputToggle && ModSettings.UseInputToggle)
+            if (ModSettings.UseInputToggle && e.KeyCode == ModControls.InputToggle)
             {
                 InputMode = !InputMode;
                 _nextReset = 0;
@@ -90,7 +91,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Utils.DisplayHelpText($"{inputMode} {(InputMode ? on : off)}");
             }
 
-            if ((InputMode && ModSettings.UseInputToggle) || !ModSettings.UseInputToggle && !CustomNativeMenu.ObjectPool.AreAnyVisible)
+            if (!ModSettings.UseInputToggle || InputMode)
             {
                 string keyCode = e.KeyCode.ToString();
 
@@ -150,7 +151,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            DateTime? dateTime = Utils.ParseFromRawString(_destinationTimeRaw, Properties.DestinationTime);
+            DateTime? dateTime = Utils.ParseFromRawString(_destinationTimeRaw, Properties.DestinationTime, out InputType inputType);
 
             if (dateTime == null)
             {
@@ -161,7 +162,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
             else
             {
-                InputDate(dateTime.GetValueOrDefault());
+                InputDate(dateTime.GetValueOrDefault(), inputType);
             }
         }
 

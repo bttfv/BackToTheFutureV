@@ -9,9 +9,9 @@ using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.GUI
 {
-    internal class TimeCircuitsScaleform : ScaleformGui
+    internal class TCD2DScaleform : ScaleformGui
     {
-        public TimeCircuitsScaleform() : base("bttf_2d_gui")
+        public TCD2DScaleform() : base("bttf_2d_gui")
         {
             dates["red"] = new DateTime();
             dates["green"] = new DateTime();
@@ -62,6 +62,11 @@ namespace BackToTheFutureV.GUI
         public void SetBackground(TCDBackground background)
         {
             CallFunction("SET_TCD_BACKGROUND", GetStringFromBackgroundType(background));
+        }
+
+        public void SetDiodeState(bool state)
+        {
+            CallFunction("SET_DIODE_STATE", state);
         }
 
         public void SetVisible(string type, bool toggle, bool month = true, bool day = true, bool year = true, bool hour = true, bool minute = true, bool amPm = true)

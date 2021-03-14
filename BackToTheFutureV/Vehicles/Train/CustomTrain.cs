@@ -293,7 +293,7 @@ namespace BackToTheFutureV.Utility
 
             //return _distance <= 0.1f * 0.1f;
 
-            return TargetVehicle.Position.DistanceToSquared2D((CarriageIndexForAttach == 0 ? Train : Carriage(CarriageIndexForAttach)).GetOffsetPosition(AttachOffset)) <= 2.0f * 2.0f;
+            return TargetVehicle.DistanceToSquared2D((CarriageIndexForAttach == 0 ? Train : Carriage(CarriageIndexForAttach)).GetOffsetPosition(AttachOffset), 2);
         }
 
         public void SetToAttach(Vehicle targetVehicle, Vector3 attachOffset, int carriageIndexForAttach, int carriageIndexForRotation)

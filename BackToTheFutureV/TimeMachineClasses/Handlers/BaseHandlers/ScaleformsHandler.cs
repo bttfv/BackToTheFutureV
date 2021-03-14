@@ -11,14 +11,14 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     internal class ScaleformsHandler : HandlerPrimitive
     {
         //TCD 2D
-        public static TimeCircuitsScaleform GUI { get; private set; }
+        public static TCD2DScaleform GUI { get; private set; }
 
         //TCD 3D
-        public static Dictionary<string, TCDRowScaleform> TCDRowsScaleforms { get; private set; } = new Dictionary<string, TCDRowScaleform>()
+        public static Dictionary<string, TCD3DRowScaleform> TCDRowsScaleforms { get; private set; } = new Dictionary<string, TCD3DRowScaleform>()
         {
-            { "red", new TCDRowScaleform("red") { DrawInPauseMenu = true } },
-            { "yellow", new TCDRowScaleform("yellow") { DrawInPauseMenu = true } },
-            { "green", new TCDRowScaleform("green") { DrawInPauseMenu = true } }
+            { "red", new TCD3DRowScaleform("red") { DrawInPauseMenu = true } },
+            { "yellow", new TCD3DRowScaleform("yellow") { DrawInPauseMenu = true } },
+            { "green", new TCD3DRowScaleform("green") { DrawInPauseMenu = true } }
         };
         public Dictionary<string, RenderTarget> TCDRowsRT { get; private set; } = new Dictionary<string, RenderTarget>();
 
@@ -49,7 +49,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
         static ScaleformsHandler()
         {
-            GUI = new TimeCircuitsScaleform();
+            GUI = new TCD2DScaleform();
             FluxCapacitor = new ScaleformGui("bttf_flux_scaleform") { DrawInPauseMenu = true };
             Speedo = new ScaleformGui("bttf_3d_speedo") { DrawInPauseMenu = true };
 

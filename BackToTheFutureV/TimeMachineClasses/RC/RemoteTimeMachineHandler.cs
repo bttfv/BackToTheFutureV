@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.Utility;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using LemonUI.TimerBars;
 using System;
@@ -21,9 +22,9 @@ namespace BackToTheFutureV.TimeMachineClasses
         private static TimerBarCollection TimerBarCollection { get; }
         private static TimerBarProgress SignalBar;
 
-        public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
-        public static List<RemoteTimeMachine> RemoteTimeMachinesOnlyReentry => RemoteTimeMachines.Where(x => x.Reentry).ToList();
-        public static int TimeMachineCount => RemoteTimeMachinesOnlyReentry.Count;
+        public static List<RemoteTimeMachine> AllRemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
+        public static List<RemoteTimeMachine> RemoteTimeMachines => AllRemoteTimeMachines.Where(x => x.Reentry).ToList();
+        public static int RemoteTimeMachineCount => RemoteTimeMachines.Count;
 
         private static IFormatter formatter = new BinaryFormatter();
         private const int MAX_REMOTE_TIMEMACHINES = 10;
@@ -65,7 +66,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             try
             {
-                return RemoteTimeMachines[index];
+                return AllRemoteTimeMachines[index];
             }
             catch
             {
@@ -75,15 +76,15 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static RemoteTimeMachine AddRemote(TimeMachineClone timeMachineClone)
         {
-            if (RemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
+            if (AllRemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
             {
-                RemoteTimeMachines[0].Dispose();
-                RemoteTimeMachines.RemoveAt(0);
+                AllRemoteTimeMachines[0].Dispose();
+                AllRemoteTimeMachines.RemoveAt(0);
             }
 
             RemoteTimeMachine timeMachine;
 
-            RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
+            AllRemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
 
             if (ModSettings.PersistenceSystem)
                 Save();
@@ -93,15 +94,15 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static RemoteTimeMachine AddRemote(TimeMachineClone timeMachineClone, WaybackMachine waybackMachine)
         {
-            if (RemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
+            if (AllRemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
             {
-                RemoteTimeMachines[0].Dispose();
-                RemoteTimeMachines.RemoveAt(0);
+                AllRemoteTimeMachines[0].Dispose();
+                AllRemoteTimeMachines.RemoveAt(0);
             }
 
             RemoteTimeMachine timeMachine;
 
-            RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone, waybackMachine));
+            AllRemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone, waybackMachine));
 
             if (ModSettings.PersistenceSystem)
                 Save();
@@ -111,17 +112,17 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void ExistenceCheck(DateTime time)
         {
-            RemoteTimeMachines.ForEach(x => x.ExistenceCheck(time));
+            AllRemoteTimeMachines.ForEach(x => x.ExistenceCheck(time));
         }
 
         public static void Tick()
         {
-            RemoteTimeMachines.ForEach(x => x.Tick());
+            AllRemoteTimeMachines.ForEach(x => x.Tick());
 
             if (!IsRemoteOn)
                 return;
 
-            float squareDist = RemoteControlling.Vehicle.Position.DistanceToSquared(RemoteControlling.OriginalPed.Position);
+            float squareDist = RemoteControlling.OriginalPed.DistanceToSquared2D(RemoteControlling.Vehicle);
 
             if (squareDist > MAX_DIST * MAX_DIST)
             {
@@ -139,8 +140,8 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void DeleteAll()
         {
-            RemoteTimeMachines.ForEach(x => x.Dispose());
-            RemoteTimeMachines.Clear();
+            AllRemoteTimeMachines.ForEach(x => x.Dispose());
+            AllRemoteTimeMachines.Clear();
 
             if (File.Exists(_saveFile))
                 File.Delete(_saveFile);
@@ -153,6 +154,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
 
             formatter.Serialize(stream, RemoteTimeMachines.Select(x => x.TimeMachineClone).ToList());
+
             stream.Close();
         }
 
@@ -170,7 +172,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 stream.Close();
 
                 foreach (TimeMachineClone x in timeMachineClones)
-                    RemoteTimeMachines.Add(new RemoteTimeMachine(x));
+                    AllRemoteTimeMachines.Add(new RemoteTimeMachine(x));
             }
             catch
             {
@@ -181,7 +183,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public static void Abort()
         {
-            foreach (RemoteTimeMachine x in RemoteTimeMachines)
+            foreach (RemoteTimeMachine x in AllRemoteTimeMachines)
                 x?.Dispose();
         }
     }

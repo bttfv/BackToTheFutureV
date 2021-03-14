@@ -3,9 +3,9 @@ using System;
 
 namespace BackToTheFutureV.GUI
 {
-    internal class TCDRowScaleform : ScaleformGui
+    internal class TCD3DRowScaleform : ScaleformGui
     {
-        public TCDRowScaleform(string type) : base("bttf_3d_gui_" + type)
+        public TCD3DRowScaleform(string type) : base("bttf_3d_gui_" + type)
         {
             Type = type;
             date = new DateTime();

@@ -1,4 +1,5 @@
 ﻿using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.UI;
@@ -75,15 +76,18 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             if (Spawned && !IsUsed)
             {
-                VehicleWindowCollection windows = TimeMachine.Vehicle.Windows;
-                windows[VehicleWindowIndex.BackLeftWindow].Remove();
-                windows[VehicleWindowIndex.BackRightWindow].Remove();
-                windows[VehicleWindowIndex.ExtraWindow4].Remove();
+                if (TimeMachine.Mods.IsDMC12)
+                {
+                    VehicleWindowCollection windows = TimeMachine.Vehicle.Windows;
+                    windows[VehicleWindowIndex.BackLeftWindow].Remove();
+                    windows[VehicleWindowIndex.BackRightWindow].Remove();
+                    windows[VehicleWindowIndex.ExtraWindow4].Remove();
 
-                TimeMachine.Vehicle.Doors[VehicleDoorIndex.Trunk].Break(false);
-                TimeMachine.Vehicle.Doors[VehicleDoorIndex.BackRightDoor].Break(false);
+                    TimeMachine.Vehicle.Doors[VehicleDoorIndex.Trunk].Break(false);
+                    TimeMachine.Vehicle.Doors[VehicleDoorIndex.BackRightDoor].Break(false);
+                }
 
-                if (TimeMachine.Vehicle.Position.DistanceToSquared2D(Utils.PlayerPed.Position) < 20)
+                if (Utils.PlayerPed.DistanceToSquared2D(TimeMachine, 4.47f))
                 {
                     if (TimeMachine.Properties.Story)
                         TimeMachineHandler.RemoveStory(TimeMachine);

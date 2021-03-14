@@ -1,6 +1,7 @@
 ﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.UI;
@@ -268,13 +269,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             {
                 dir = bootPos - GameplayCamera.Position;
                 angle = Vector3.Angle(dir, GameplayCamera.Direction);
-                dist = Utils.PlayerPed.Position.DistanceToSquared2D(bootPos);
+                dist = Utils.PlayerPed.DistanceToSquared2D(vehicle, "mr_fusion");
             }
             else
             {
                 dir = bootPos - ped.Position;
                 angle = Vector3.Angle(dir, ped.ForwardVector);
-                dist = ped.Position.DistanceToSquared2D(bootPos) - 0.1f;
+                dist = ped.DistanceToSquared2D(vehicle, "mr_fusion") - 0.1f;
             }
 
             return angle < 45 && dist < 1.6f;

@@ -105,7 +105,7 @@ namespace BackToTheFutureV.Menu
 
         private void OutatimeMenu_Shown(object sender, EventArgs e)
         {
-            TimeMachines.Items = RemoteTimeMachineHandler.RemoteTimeMachinesOnlyReentry;
+            TimeMachines.Items = RemoteTimeMachineHandler.RemoteTimeMachines;
         }
 
         public override void Tick()

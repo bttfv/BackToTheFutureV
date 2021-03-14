@@ -28,7 +28,7 @@ namespace BackToTheFutureV.TimeMachineClasses
         private static Dictionary<TimeMachine, bool> _timeMachinesToRemoveWaitSounds = new Dictionary<TimeMachine, bool>();
 
         public static int TimeMachineCount => TimeMachines.Count();
-        public static int StoryTimeMachineCount => StoryTimeMachines.Count;
+
         private static bool _savedEmpty;
 
         public static void SaveAllTimeMachines()
@@ -36,7 +36,7 @@ namespace BackToTheFutureV.TimeMachineClasses
             if (TimeMachineCount == 0 && _savedEmpty)
                 return;
 
-            TimeMachineCloneManager.Save(TimeMachines);
+            TimeMachineCloneHandler.Save(TimeMachines);
 
             _savedEmpty = TimeMachineCount == 0;
         }
@@ -45,11 +45,11 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             try
             {
-                TimeMachineCloneManager.Load()?.SpawnAll();
+                TimeMachineCloneHandler.Load()?.SpawnAll();
             }
             catch
             {
-                TimeMachineCloneManager.Delete();
+                TimeMachineCloneHandler.Delete();
             }
         }
 
@@ -372,7 +372,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
             foreach (TimeMachine timeMachine in TimeMachines)
             {
-                float dist = timeMachine.Vehicle.Position.DistanceToSquared2D(Utils.PlayerPed.Position);
+                float dist = Utils.PlayerPed.DistanceToSquared2D(timeMachine);
 
                 if (ClosestTimeMachine == timeMachine)
                     SquareDistToClosestTimeMachine = dist;

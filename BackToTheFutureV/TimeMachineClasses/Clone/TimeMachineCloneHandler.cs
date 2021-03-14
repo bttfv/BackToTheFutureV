@@ -9,11 +9,11 @@ using static FusionLibrary.Enums;
 namespace BackToTheFutureV.TimeMachineClasses
 {
     [Serializable]
-    internal class TimeMachineCloneManager
+    internal class TimeMachineCloneHandler
     {
         public List<TimeMachineClone> timeMachineClones = new List<TimeMachineClone>();
 
-        public TimeMachineCloneManager(List<TimeMachine> timeMachines)
+        public TimeMachineCloneHandler(List<TimeMachine> timeMachines)
         {
             foreach (TimeMachine x in timeMachines)
                 timeMachineClones.Add(x.Clone());
@@ -38,18 +38,18 @@ namespace BackToTheFutureV.TimeMachineClasses
         {
             Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
 
-            formatter.Serialize(stream, new TimeMachineCloneManager(timeMachines));
+            formatter.Serialize(stream, new TimeMachineCloneHandler(timeMachines));
             stream.Close();
         }
 
-        public static TimeMachineCloneManager Load()
+        public static TimeMachineCloneHandler Load()
         {
             if (!File.Exists(_saveFile))
                 return null;
 
             Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
 
-            TimeMachineCloneManager timeMachineCloneManager = (TimeMachineCloneManager)formatter.Deserialize(stream);
+            TimeMachineCloneHandler timeMachineCloneManager = (TimeMachineCloneHandler)formatter.Deserialize(stream);
 
             stream.Close();
 

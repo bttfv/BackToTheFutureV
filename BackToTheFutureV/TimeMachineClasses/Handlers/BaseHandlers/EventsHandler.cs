@@ -1,6 +1,7 @@
 ﻿using GTA;
 using System;
 using System.Windows.Forms;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 {
@@ -17,7 +18,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
     internal delegate void OnReenterEnded();
 
     internal delegate void OnTimeCircuitsToggle();
-    internal delegate void OnDestinationDateChange();
+    internal delegate void OnDestinationDateChange(InputType inputType);
     internal delegate void OnLightningStrike();
     internal delegate void OnHoverUnderbodyToggle(bool reload = false);
     internal delegate void OnWormholeTypeChanged();

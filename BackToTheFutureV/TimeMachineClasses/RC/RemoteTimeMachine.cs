@@ -133,7 +133,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         public override string ToString()
         {
-            return RemoteTimeMachineHandler.RemoteTimeMachinesOnlyReentry.IndexOf(this).ToString();
+            return RemoteTimeMachineHandler.RemoteTimeMachines.IndexOf(this).ToString();
         }
     }
 }

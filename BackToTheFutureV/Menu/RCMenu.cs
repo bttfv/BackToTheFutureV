@@ -1,5 +1,6 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -78,9 +79,7 @@ namespace BackToTheFutureV.Menu
             TimeCircuitsOnDescription.Checked = CurrentTimeMachine.Properties.AreTimeCircuitsOn;
             DestinationTimeDescription.Title = $"{Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime")} {CurrentTimeMachine.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt")}";
 
-            float dist = CurrentTimeMachine.Vehicle.Position.DistanceToSquared(Utils.PlayerPed.Position);
-
-            if (dist <= RemoteTimeMachineHandler.MAX_DIST * RemoteTimeMachineHandler.MAX_DIST && CurrentTimeMachine.Vehicle.Driver == null)
+            if (Utils.PlayerPed.DistanceToSquared2D(CurrentTimeMachine, RemoteTimeMachineHandler.MAX_DIST) && CurrentTimeMachine.Vehicle.Driver == null)
             {
                 PreviewCar();
 

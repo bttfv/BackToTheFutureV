@@ -86,12 +86,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             _waitTurnOn = on;
         }
 
-        private List<int> AreColumnProcessing()
+        private List<int> AreColumnProcessing(bool checkDelay = false)
         {
             List<int> ret = new List<int>();
 
             for (int column = 0; column < 10; column++)
-                if (Properties.NewHeight[column] != Properties.CurrentHeight[column] && Properties.LedDelay[column] < Game.GameTime)
+                if (Properties.NewHeight[column] != Properties.CurrentHeight[column] && (!checkDelay || Properties.LedDelay[column] < Game.GameTime))
                     ret.Add(column);
 
             return ret;
@@ -116,7 +116,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public override void Tick()
         {
-            foreach (int column in AreColumnProcessing())
+            foreach (int column in AreColumnProcessing(true))
             {
                 if (Properties.NewHeight[column] > Properties.CurrentHeight[column])
                 {

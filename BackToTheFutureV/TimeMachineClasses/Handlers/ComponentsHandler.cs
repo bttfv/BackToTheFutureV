@@ -1,6 +1,7 @@
 ﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System.Windows.Forms;
@@ -74,17 +75,10 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void HookProcess()
         {
-            if (Utils.PlayerPed.IsInVehicle())
+            if (Mods.Hook != HookState.OnDoor || Utils.PlayerPed.IsInVehicle())
                 return;
 
-            if (Mods.Hook != HookState.OnDoor)
-                return;
-
-            Vector3 worldPos = Vehicle.GetOffsetPosition(hookPosition);
-
-            float dist = Utils.PlayerPed.Position.DistanceToSquared2D(worldPos);
-
-            if (dist <= 2f * 2f)
+            if (Utils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
             {
                 Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Apply_Hook"));
 
@@ -131,16 +125,16 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (Mods.Hoodbox == ModState.Off | Utils.PlayerPed.IsInVehicle() | TcdEditer.IsEditing | RCGUIEditer.IsEditing | _warmUp > 0)
+            if (Mods.Hoodbox == ModState.Off || Properties.AreHoodboxCircuitsReady || _warmUp > 0 || Utils.PlayerPed.IsInVehicle() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
                 return;
 
-            if (!(Utils.PlayerPed.Position.DistanceToSquared2D(Vehicle.Bones["bonnet"].Position) <= 2f * 2f))
-                return;
+            if (Utils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
+            {
+                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hoodbox_Warmup_Start"));
 
-            Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hoodbox_Warmup_Start"));
-
-            if (Game.IsControlJustPressed(GTA.Control.Context))
-                _warmUp = Game.GameTime + 8000;
+                if (Game.IsControlJustPressed(GTA.Control.Context))
+                    _warmUp = Game.GameTime + 8000;
+            }
         }
 
         public override void Tick()

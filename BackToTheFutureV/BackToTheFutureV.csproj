@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="GUI\RCGUIScaleform.cs" />
     <Compile Include="GUI\SIDScaleform.cs" />
+    <Compile Include="TimeMachineClasses\Handlers\TCD3DRowHandler.cs" />
     <Compile Include="TimeMachineClasses\Clone\TimeMachineCloneHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\ClockHandler.cs" />
     <Compile Include="TimeMachineClasses\Story\StoryTimeMachineHandler.cs" />
@@ -123,8 +124,8 @@
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ConstantsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\SIDHandler.cs" />
     <Compile Include="Utility\ExternalHUD.cs" />
-    <Compile Include="GUI\TCDRowScaleform.cs" />
-    <Compile Include="GUI\TimeCircuitsScaleform.cs" />
+    <Compile Include="GUI\TCD3DRowScaleform.cs" />
+    <Compile Include="GUI\TCD2DScaleform.cs" />
     <Compile Include="Menu\CustomMenu.cs" />
     <Compile Include="Menu\ControlsMenu.cs" />
     <Compile Include="Menu\OutatimeMenu.cs" />
@@ -204,7 +205,7 @@
     <MonoGameContentReference Include="..\BackToTheFutureV.HUD\BackToTheFutureV.HUD.Core\Content\Content.mgcb">
       <Link>Content\Content.mgcb</Link>
     </MonoGameContentReference>
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>

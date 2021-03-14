@@ -1,156 +1,21 @@
 ﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.Utility;
 using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
-using GTA.Math;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms;
 using static BackToTheFutureV.Utility.InternalEnums;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.TimeMachineClasses.Handlers
 {
-    internal class TCDSlot
-    {
-        private ScaleformsHandler Scaleforms => TimeMachine.Scaleforms;
-
-        private static Dictionary<string, Vector3> offsets = new Dictionary<string, Vector3>()
-        {
-            { "red", new Vector3(-0.01477456f, 0.3175744f, 0.6455771f) },
-            { "yellow", new Vector3(-0.01964803f, 0.2769623f, 0.565388f) },
-            { "green", new Vector3(-0.01737539f, 0.2979541f, 0.6045464f) }
-        };
-
-        public TimeMachine TimeMachine { get; private set; }
-
-        public string SlotType { get; private set; }
-
-        private DateTime date;
-
-        public bool IsDoingTimedVisible { get; private set; }
-        private bool toggle;
-        private int showPropsAt;
-        private int showMonthAt;
-
-        private AnimateProp amProp;
-        private AnimateProp pmProp;
-
-        public TCDSlot(string slotType, TimeMachine timeMachine)
-        {
-            SlotType = slotType;
-            TimeMachine = timeMachine;
-
-            if (TimeMachine.Mods.IsDMC12)
-            {
-                Scaleforms.TCDRowsRT[slotType] = new RenderTarget(ModelHandler.TCDRTModels[slotType], "bttf_tcd_row_" + slotType, TimeMachine.Vehicle, offsets[slotType], new Vector3(355.9951f, 0.04288517f, 352.7451f));
-                Scaleforms.TCDRowsRT[slotType].CreateProp();
-
-                amProp = new AnimateProp(ModelHandler.TCDAMModels[slotType], TimeMachine.Vehicle, Vector3.Zero, Vector3.Zero);
-                pmProp = new AnimateProp(ModelHandler.TCDPMModels[slotType], TimeMachine.Vehicle, Vector3.Zero, Vector3.Zero);
-
-                Scaleforms.TCDRowsRT[slotType].OnRenderTargetDraw += OnRenderTargetDraw;
-            }
-
-            date = new DateTime();
-        }
-
-        public void SetDate(DateTime dateToSet)
-        {
-            if (!TcdEditer.IsEditing)
-            {
-                ScaleformsHandler.GUI.SetDate(SlotType, dateToSet);
-                TimeMachine.Properties.HUDProperties.SetDate(SlotType, dateToSet);
-            }
-
-            ScaleformsHandler.TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
-            amProp?.SetState(dateToSet.ToString("tt", CultureInfo.InvariantCulture) == "AM");
-            pmProp?.SetState(dateToSet.ToString("tt", CultureInfo.InvariantCulture) != "AM");
-
-            date = dateToSet;
-            toggle = true;
-        }
-
-        public void SetVisible(bool toggleTo, bool month = true, bool day = true, bool year = true, bool hour = true, bool minute = true, bool amPm = true)
-        {
-            if (!TcdEditer.IsEditing)
-            {
-                ScaleformsHandler.GUI.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
-
-                if (toggleTo)
-                    TimeMachine.Properties.HUDProperties.SetDate(SlotType, date);
-
-                TimeMachine.Properties.HUDProperties.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
-            }
-
-            ScaleformsHandler.TCDRowsScaleforms[SlotType]?.SetVisible(toggleTo, month, day, year, hour, minute);
-
-            if ((!toggleTo && amPm) || (toggleTo && !amPm))
-            {
-                amProp?.Delete();
-                pmProp?.Delete();
-            }
-            else if ((!toggleTo && !amPm) || (toggleTo && amPm))
-            {
-                amProp?.SetState(date.ToString("tt", CultureInfo.InvariantCulture) == "AM");
-                pmProp?.SetState(date.ToString("tt", CultureInfo.InvariantCulture) != "AM");
-            }
-
-            toggle = toggleTo;
-        }
-
-        public void SetVisibleAt(bool toggle, int showPropsAt, int showMonthAt)
-        {
-            this.toggle = toggle;
-            this.showPropsAt = Game.GameTime + showPropsAt;
-            this.showMonthAt = Game.GameTime + showMonthAt;
-            IsDoingTimedVisible = true;
-        }
-
-        public void Update()
-        {
-            if (TimeMachine.Mods.IsDMC12 && (toggle || IsDoingTimedVisible))
-                Scaleforms.TCDRowsRT[SlotType]?.Draw();
-
-            if (!IsDoingTimedVisible)
-            {
-                SetVisible(toggle);
-
-                return;
-            }
-
-            if (Game.GameTime > showPropsAt)
-                SetVisible(toggle, false);
-
-            if (Game.GameTime > showMonthAt)
-                SetVisible(toggle);
-
-            if (Game.GameTime > showPropsAt && Game.GameTime > showMonthAt)
-                IsDoingTimedVisible = false;
-        }
-
-        public void Dispose()
-        {
-            if (TimeMachine.Mods.IsDMC12)
-                Scaleforms.TCDRowsRT[SlotType]?.Dispose();
-
-            amProp?.Delete();
-            pmProp?.Delete();
-        }
-
-        private void OnRenderTargetDraw()
-        {
-            ScaleformsHandler.TCDRowsScaleforms[SlotType]?.Render2D(new PointF(0.379f, 0.12f), new SizeF(0.75f, 0.27f));
-        }
-    }
-
     internal class TCDHandler : HandlerPrimitive
     {
-        private DateTime errorDate = new DateTime(1885, 1, 1, 0, 0, 0);
+        private static DateTime errorDate = new DateTime(1885, 1, 1, 0, 0, 0);
 
-        private readonly Dictionary<int, double> _probabilities = new Dictionary<int, double>()
+        private static readonly Dictionary<int, double> _probabilities = new Dictionary<int, double>()
         {
             {
                 300, 0.1
@@ -185,9 +50,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private bool doGlitch;
 
-        private TCDSlot destinationSlot;
-        private TCDSlot presentSlot;
-        private TCDSlot previousSlot;
+        private TCD3DRowHandler destinationSlot;
+        private TCD3DRowHandler presentSlot;
+        private TCD3DRowHandler previousSlot;
 
         private bool currentState;
 
@@ -200,13 +65,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public TCDHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            destinationSlot = new TCDSlot("red", timeMachine);
+            destinationSlot = new TCD3DRowHandler("red", timeMachine);
             destinationSlot.SetVisible(false);
 
-            presentSlot = new TCDSlot("green", timeMachine);
+            presentSlot = new TCD3DRowHandler("green", timeMachine);
             presentSlot.SetVisible(false);
 
-            previousSlot = new TCDSlot("yellow", timeMachine);
+            previousSlot = new TCD3DRowHandler("yellow", timeMachine);
             previousSlot.SetVisible(false);
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
@@ -263,7 +128,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 else
                     destinationSlot.SetDate(errorDate);
 
-                destinationSlot.Update();
+                destinationSlot.Tick();
             }
         }
 
@@ -273,16 +138,17 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
 
             destinationSlot.SetDate(Utils.RandomDate());
-            destinationSlot.Update();
+            destinationSlot.Tick();
         }
 
         private void OnScaleformPriority()
         {
-            if (!Properties.IsGivenScaleformPriority)
+            if (!Properties.IsGivenScaleformPriority || !Properties.AreTimeCircuitsOn)
                 return;
 
-            if (Properties.AreTimeCircuitsOn)
-                UpdateScaleformDates();
+            destinationSlot.SetDate(Properties.DestinationTime);
+            presentSlot.SetDate(Utils.CurrentTime);
+            previousSlot.SetDate(Properties.PreviousTime);
         }
 
         private void OnTimeCircuitsToggle()
@@ -316,7 +182,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                 currentState = false;
                 Sounds.TCDBeep?.Stop();
-                ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", false);
+                ScaleformsHandler.GUI.SetDiodeState(false);
 
                 Properties.HUDProperties.IsTickVisible = false;
 
@@ -327,9 +193,13 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             }
         }
 
-        private void OnDestinationDateChange()
+        private void OnDestinationDateChange(InputType inputType)
         {
             destinationSlot.SetDate(Properties.DestinationTime);
+
+            if (inputType == InputType.Time)
+                return;
+
             destinationSlot.SetVisible(false);
             destinationSlot.SetVisibleAt(true, 500, 600);
         }
@@ -342,13 +212,6 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             lastTime = Utils.CurrentTime;
             StopGlitch();
             Particles.LightningSparks?.Stop();
-        }
-
-        public void UpdateScaleformDates()
-        {
-            destinationSlot.SetDate(Properties.DestinationTime);
-            previousSlot.SetDate(Properties.PreviousTime);
-            presentSlot.SetDate(Utils.CurrentTime);
         }
 
         public void StartTimeCircuitsGlitch(bool softGlitch)
@@ -408,9 +271,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             if (!Utils.PlayerPed.IsInVehicle() && Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Constants.FullDamaged)
             {
-                float dist = Utils.PlayerPed.Position.DistanceToSquared2D(Vehicle.Bones["bonnet"].Position);
-
-                if (!(dist <= 2f * 2f))
+                if (!Utils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
                     return;
 
                 Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Repair_TimeCircuits"));
@@ -436,9 +297,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 }
             }
 
-            destinationSlot.Update();
-            previousSlot.Update();
-            presentSlot.Update();
+            destinationSlot.Tick();
+            previousSlot.Tick();
+            presentSlot.Tick();
 
             if (!ModSettings.HideIngameTCDToggle)
                 DrawGUI();
@@ -570,7 +431,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Props.TickingDiodesOff?.SetState(!currentState);
                 }
 
-                ScaleformsHandler.GUI.CallFunction("SET_DIODE_STATE", currentState);
+                ScaleformsHandler.GUI.SetDiodeState(currentState);
 
                 Properties.HUDProperties.IsTickVisible = currentState;
 

@@ -123,7 +123,7 @@ namespace BackToTheFutureV.Story.Missions
             else
                 TimedEventManager.RunEvents();
 
-            if (TimedEventManager.Pause && TrainApproachingSound.IsAnyInstancePlaying && Utils.Distance2DBetween(RogersSierra, TimeMachine) <= 8 && TimeMachine.CustomCamera != TimeMachineCamera.TrainApproaching)
+            if (TimedEventManager.Pause && TrainApproachingSound.IsAnyInstancePlaying && Utils.DistanceToSquared2D(RogersSierra, TimeMachine) <= 8 && TimeMachine.CustomCamera != TimeMachineCamera.TrainApproaching)
                 TimeMachine.CustomCamera = TimeMachineCamera.TrainApproaching;
 
             if (_wheelPtfxes != null)
@@ -189,7 +189,7 @@ namespace BackToTheFutureV.Story.Missions
             RogersSierra = TrainManager.ClosestRogersSierra;
             TimeMachine = TimeMachineHandler.ClosestTimeMachine;
 
-            if (RogersSierra is null || RogersSierra.IsExploded || !RogersSierra.WheelsOnPilot || TimeMachine == null || !TimeMachine.Properties.IsOnTracks || Utils.Distance2DBetween(RogersSierra, TimeMachine) > 15)
+            if (RogersSierra is null || RogersSierra.IsExploded || !RogersSierra.WheelsOnPilot || TimeMachine == null || !TimeMachine.Properties.IsOnTracks || Utils.DistanceToSquared2D(RogersSierra, TimeMachine) > 15)
             {
                 RogersSierra = null;
                 TimeMachine = null;

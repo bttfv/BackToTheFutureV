@@ -78,7 +78,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             {
                 wheel.Reset();
                 ret.Add(new PtfxEntityPlayer(particleAssetName, particleName, Vehicle, wheel.GetRelativeOffsetPosition(wheelOffset), wheelRot, size, true, doLoopHandling));
-            }                
+            }
 
             return ret;
         }

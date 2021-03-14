@@ -138,7 +138,7 @@ namespace BackToTheFutureV.Story.Missions
             switch (step)
             {
                 case 1:
-                    if (Vehicle.Position.DistanceToSquared2D(TargetPed.Position) <= 1 || gameTimer < Game.GameTime)
+                    if (Vehicle.DistanceToSquared2D(TargetPed, 2) || gameTimer < Game.GameTime)
                         StopVehicle();
 
                     break;

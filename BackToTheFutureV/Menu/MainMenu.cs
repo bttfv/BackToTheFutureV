@@ -107,7 +107,7 @@ namespace BackToTheFutureV.Menu
         {
             convertIntoTimeMachine.Enabled = Utils.PlayerVehicle.IsFunctioning() && !Utils.PlayerVehicle.IsTimeMachine();
 
-            outatimeMenu.Enabled = RemoteTimeMachineHandler.TimeMachineCount > 0;
+            outatimeMenu.Enabled = RemoteTimeMachineHandler.RemoteTimeMachineCount > 0;
 
             rcMenu.Enabled = Utils.PlayerVehicle == null && TimeMachineHandler.TimeMachineCount > 0;
         }
