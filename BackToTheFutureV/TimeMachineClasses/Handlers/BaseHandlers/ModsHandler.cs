@@ -230,12 +230,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
                 base.HoverUnderbody = value;
 
-                if (!IsDMC12)
-                    return;
-
                 bool reload = false;
 
-                if (value == ModState.On)
+                if (value == ModState.On && IsDMC12)
                 {
                     if (Wheel == WheelType.RailroadInvisible)
                         Wheel = WheelType.Stock;

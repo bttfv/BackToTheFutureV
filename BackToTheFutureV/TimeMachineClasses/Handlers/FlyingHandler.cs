@@ -72,7 +72,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             _reload = reload;
 
-            if (Mods.HoverUnderbody == ModState.Off && Properties.IsFlying && Mods.IsDMC12)
+            if (Mods.HoverUnderbody == ModState.Off && Properties.IsFlying)
                 SetFlyMode(false, true);
 
             if (Players.HoverModeWheels != null)
@@ -82,7 +82,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 Players.HoverModeWheels = null;
             }
 
-            if (Mods.HoverUnderbody == ModState.On && Mods.IsDMC12)
+            if (Mods.HoverUnderbody == ModState.On)
             {
                 Players.HoverModeWheels = new WheelAnimationPlayer(TimeMachine);
                 Players.HoverModeWheels.OnPlayerCompleted += OnCompleted;
@@ -111,10 +111,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void SpawnHoverGlow()
         {
-            if (Props.HoverModeWheelsGlow != null && Props.HoverModeWheelsGlow.IsSpawned)
+            if (Sounds.HoverModeUp.IsAnyInstancePlaying)
                 return;
 
-            Props.HoverModeWheelsGlow?.SpawnProp();
+            if (Mods.Wheel == WheelType.StockInvisible && !Props.HoverModeWheelsGlow.IsSpawned)
+                Props.HoverModeWheelsGlow?.SpawnProp();
+
             Sounds.HoverModeUp?.Play();
             _startHoverGlowLater = false;
         }
@@ -174,12 +176,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
             }
 
-            if (Properties.IsOnTracks && !Mods.IsDMC12)
+            if (Properties.IsOnTracks)
                 Events.SetStopTracks?.Invoke(3000);
 
             Properties.IsFlying = open;
 
-            Properties.IsLanding = ModSettings.LandingSystem && Mods.IsDMC12 && !Properties.IsFlying && !Properties.AreFlyingCircuitsBroken && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
+            Properties.IsLanding = ModSettings.LandingSystem && !Properties.IsFlying && !Properties.AreFlyingCircuitsBroken && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
 
             if (instant)
                 Players.HoverModeWheels?.SetInstant(open);
@@ -346,7 +348,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             // Reset force to be applied
             _forceToBeApplied = Vector3.Zero;
 
-            if (Vehicle.IsEngineRunning && (!Mods.IsDMC12 || !Players.HoverModeWheels.IsPlaying))
+            if (Vehicle.IsEngineRunning && !Players.HoverModeWheels.IsPlaying)
             {
                 // Process boost
                 HandleBoosting();
@@ -433,7 +435,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                     Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
                     Game.DisableControlThisFrame(Control.VehicleFlyThrottleUp);
 
-                    if (!Properties.IsLanding && Mods.IsDMC12 && !_hoverGlowUp)
+                    if (!Properties.IsLanding && !_hoverGlowUp)
                     {
                         SpawnHoverGlow();
                         _hoverGlowUp = true;

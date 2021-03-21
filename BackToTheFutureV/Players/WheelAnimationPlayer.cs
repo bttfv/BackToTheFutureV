@@ -33,9 +33,6 @@ namespace BackToTheFutureV.Players
             {
                 wheel.Reset();
 
-                Model wheelModel = wheel.Front ? Constants.WheelModel : Constants.WheelRearModel;
-                Model wheelGlowModel = wheel.Front ? ModelHandler.WheelGlowing : ModelHandler.RearWheelGlowing;
-
                 Vector3 strutOffset = Vector3.Zero;
 
                 switch (wheel.WheelID)
@@ -70,6 +67,9 @@ namespace BackToTheFutureV.Players
                 AnimateProp piston = new AnimateProp(ModelHandler.Piston, disk, pistonOffsetFromDisk, new Vector3(0, -MAX_ROTATION_OFFSET, 0));
                 piston[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, true, -MAX_ROTATION_OFFSET, 0, 1, 120, 1);
                 piston.SpawnProp();
+
+                Model wheelModel = wheel.Front ? Constants.WheelModel : Constants.WheelRearModel;
+                Model wheelGlowModel = wheel.Front ? ModelHandler.WheelGlowing : ModelHandler.RearWheelGlowing;
 
                 AnimateProp wheelAnimateProp;
 
@@ -125,10 +125,8 @@ namespace BackToTheFutureV.Players
 
         private void ReloadWheelModels()
         {
-            Wheels[0].SwapModel(Constants.WheelModel);
-            Wheels[1].SwapModel(Constants.WheelModel);
-            Wheels[2].SwapModel(Constants.WheelRearModel);
-            Wheels[3].SwapModel(Constants.WheelRearModel);
+            foreach (CVehicleWheel wheel in Mods.Wheels)
+                Wheels[Mods.Wheels.IndexOf(wheel)].SwapModel(wheel.Front ? Constants.WheelModel : Constants.WheelRearModel);
         }
 
         public override void Play()
@@ -151,9 +149,12 @@ namespace BackToTheFutureV.Players
 
                 if (Constants.RoadWheel == WheelType.Stock)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < Mods.Wheels.Count; i++)
+                    {
                         GlowWheels[i].TransferTo(Wheels[i]);
-
+                        Props.HoverModeWheelsGlow[i].TransferTo(Wheels[i]);
+                    }
+                        
                     GlowWheels.SpawnProp();
                 }
             }
@@ -165,6 +166,8 @@ namespace BackToTheFutureV.Players
 
                     Mods.Wheel = Constants.RoadWheel;
                 }
+
+                Props.HoverModeWheelsGlow?.Delete();
             }
 
             OnPlayerCompleted?.Invoke();
@@ -225,6 +228,7 @@ namespace BackToTheFutureV.Players
             AllProps.Dispose();
             Wheels.Dispose();
             GlowWheels.Dispose();
+            Props.HoverModeWheelsGlow?.Delete();
         }
     }
 }
