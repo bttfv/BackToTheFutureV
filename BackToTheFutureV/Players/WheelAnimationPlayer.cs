@@ -38,10 +38,10 @@ namespace BackToTheFutureV.Players
                 switch (wheel.WheelID)
                 {
                     case WheelId.FrontLeft:
-                        strutOffset = strutOffsetFromWheel;
+                        strutOffset = strutOffsetFromWheel.GetSingleOffset(Coordinate.Z, Mods.IsDMC12 ? 0 : 0.04f);
                         break;
                     case WheelId.FrontRight:
-                        strutOffset = strutOffsetFromWheel.InvertCoordinate(Coordinate.X);
+                        strutOffset = strutOffsetFromWheel.GetSingleOffset(Coordinate.Z, Mods.IsDMC12 ? 0 : 0.04f).InvertCoordinate(Coordinate.X);
                         break;
                     case WheelId.RearLeft:
                         strutOffset = strutOffsetFromWheel.GetSingleOffset(Coordinate.Z, 0.02f);
@@ -147,14 +147,14 @@ namespace BackToTheFutureV.Players
             {
                 AllProps.Play(AnimationStep.Second, true, true);
 
-                if (Constants.RoadWheel == WheelType.Stock)
+                if (Constants.RoadWheel == WheelType.Stock || Constants.RoadWheel == WheelType.DMC)
                 {
                     for (int i = 0; i < Mods.Wheels.Count; i++)
                     {
                         GlowWheels[i].TransferTo(Wheels[i]);
                         Props.HoverModeWheelsGlow[i].TransferTo(Wheels[i]);
                     }
-                        
+
                     GlowWheels.SpawnProp();
                 }
             }

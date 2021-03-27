@@ -114,7 +114,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Sounds.HoverModeUp.IsAnyInstancePlaying)
                 return;
 
-            if (Mods.Wheel == WheelType.StockInvisible && !Props.HoverModeWheelsGlow.IsSpawned)
+            if (Mods.Wheel != WheelType.RedInvisible && !Props.HoverModeWheelsGlow.IsSpawned)
                 Props.HoverModeWheelsGlow?.SpawnProp();
 
             Sounds.HoverModeUp?.Play();

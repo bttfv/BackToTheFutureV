@@ -176,12 +176,27 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
         public int FireTrailsLength => Properties.IsOnTracks ? 100 : 50;
 
         public string LowerWormholeType => Mods.WormholeType.ToString().ToLower();
-        public bool IsStockWheel => Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible;
+        public bool IsStockWheel => Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible || Mods.Wheel == WheelType.DMC || Mods.Wheel == WheelType.DMCInvisible;
         public bool FullDamaged => Mods.Wheel == WheelType.Stock && Mods.Wheels.Burst && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
 
-        public WheelType RoadWheel => IsStockWheel ? WheelType.Stock : WheelType.Red;
-        public CustomModel WheelModel => Constants.RoadWheel == WheelType.Stock ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
-        public CustomModel WheelRearModel => Constants.RoadWheel == WheelType.Stock ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
+        public WheelType RoadWheel
+        {
+            get
+            {
+                if (IsStockWheel)
+                {
+                    if (Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible)
+                        return WheelType.Stock;
+                    else
+                        return WheelType.DMC;
+                }
+                else
+                    return WheelType.Red;
+            }
+        }
+
+        public CustomModel WheelModel => IsStockWheel ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
+        public CustomModel WheelRearModel => IsStockWheel ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
 
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {

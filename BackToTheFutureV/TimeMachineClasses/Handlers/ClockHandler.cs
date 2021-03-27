@@ -46,7 +46,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void ProcessButton(Keys key)
         {
-            if (Utils.IsPlayerUseFirstPerson() && (key == Keys.O || (IsPlaying && (Game.IsControlJustPressed(Control.PhoneCancel) || Game.IsControlJustPressed(Control.PhoneSelect)))))
+            if (Utils.IsCameraInFirstPerson() && (key == Keys.O || (IsPlaying && (Game.IsControlJustPressed(Control.PhoneCancel) || Game.IsControlJustPressed(Control.PhoneSelect)))))
             {
                 IsPlaying = !IsPlaying;
 

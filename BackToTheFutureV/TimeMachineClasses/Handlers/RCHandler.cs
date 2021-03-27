@@ -153,7 +153,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 TimeMachine.OriginalPed.Task.TurnTo(Vehicle);
             }
 
-            if (CurrentMode == RcModes.FromPlayerCamera || Utils.IsPlayerUseFirstPerson())
+            if (CurrentMode == RcModes.FromPlayerCamera || Utils.IsCameraInFirstPerson())
             {
                 CurrentMode = RcModes.FromPlayerCamera;
 
@@ -205,7 +205,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void DrawGUI()
         {
-            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
+            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
                 return;
 
             float mphSpeed = Vehicle.GetMPHSpeed();

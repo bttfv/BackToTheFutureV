@@ -128,7 +128,9 @@
             StockInvisible = 0,
             RailroadInvisible = 1,
             RedInvisible = 2,
-            Red = 3
+            Red = 3,
+            DMC = 4,
+            DMCInvisible = 5
         }
 
         internal enum SuspensionsType

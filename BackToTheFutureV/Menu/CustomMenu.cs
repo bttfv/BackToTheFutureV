@@ -17,10 +17,10 @@ namespace BackToTheFutureV.Menu
     {
         public bool ForceNew = false;
 
-        private NativeListItem<string> _baseType;
-        private NativeListItem<string> _powerSource;
+        private NativeListItem<string> _wormholeType;
+        private NativeListItem<string> _reactorType;
         private NativeListItem<string> _wheelsType;
-        private NativeCheckboxItem _canFly;
+        private NativeCheckboxItem _hoverUnderbody;
         private NativeCheckboxItem _hoodBox;
         private NativeCheckboxItem _hook;
         private NativeCheckboxItem _speedoCover;
@@ -33,7 +33,7 @@ namespace BackToTheFutureV.Menu
 
         private readonly List<string> _listTypes = new List<string> { Game.GetLocalizedString("BTTFV_Menu_BTTF1"), Game.GetLocalizedString("BTTFV_Menu_BTTF2"), Game.GetLocalizedString("BTTFV_Menu_BTTF3") };
         private readonly List<string> _listPowerSources = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_MrFusion"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Nuclear") };
-        private readonly List<string> _listWheelTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_RedWhite"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Railroads") };
+        private readonly List<string> _listWheelTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_RedWhite"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Railroads"), "DMC" };
         private readonly List<string> _listPlateTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Empty"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Outatime"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Futuristic"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_NoTime"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Timeless"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Timeless2"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_DMCFactory"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_DMCFactory2") };
         private readonly List<string> _listExhaustTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_BTTF"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_None") };
         private readonly List<string> _listSuspensionsTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontLowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontAndRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontLiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontAndRear") };
@@ -51,13 +51,13 @@ namespace BackToTheFutureV.Menu
             OnItemCheckboxChanged += SettingsMenu_OnItemCheckboxChanged;
             OnItemActivated += CustomMenu_OnItemActivated;
 
-            Add(_baseType = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wormhole"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wormhole_Description"), _listTypes.ToArray()));
-            _baseType.ItemChanged += ModList_ItemChanged;
-            Add(_powerSource = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_PowerSource"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_PowerSource_Description"), _listPowerSources.ToArray()));
-            _powerSource.ItemChanged += ModList_ItemChanged;
+            Add(_wormholeType = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wormhole"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wormhole_Description"), _listTypes.ToArray()));
+            _wormholeType.ItemChanged += ModList_ItemChanged;
+            Add(_reactorType = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_PowerSource"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_PowerSource_Description"), _listPowerSources.ToArray()));
+            _reactorType.ItemChanged += ModList_ItemChanged;
             Add(_wheelsType = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Description"), _listWheelTypes.ToArray()));
             _wheelsType.ItemChanged += ModList_ItemChanged;
-            Add(_canFly = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hover"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hover_Description")));
+            Add(_hoverUnderbody = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hover"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hover_Description")));
 
             Add(_hoodBox = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_ControlTubes"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_ControlTubes_Description")));
 
@@ -90,11 +90,11 @@ namespace BackToTheFutureV.Menu
         {
             int newIndex = e.Index;
 
-            if (sender == _baseType)
+            if (sender == _wormholeType)
             {
                 _tempTimeMachine.Mods.WormholeType = (WormholeType)(newIndex + 1);
             }
-            else if (sender == _powerSource)
+            else if (sender == _reactorType)
             {
                 _tempTimeMachine.Mods.Reactor = (ReactorType)newIndex;
             }
@@ -110,6 +110,12 @@ namespace BackToTheFutureV.Menu
                         break;
                     case 2:
                         _tempTimeMachine.Mods.Wheel = WheelType.RailroadInvisible;
+                        break;
+                    case 3:
+                        if (_tempTimeMachine.Mods.IsDMC12)
+                            _tempTimeMachine.Mods.Wheel = WheelType.Stock;
+                        else
+                            _tempTimeMachine.Mods.Wheel = WheelType.DMC;
                         break;
                 }
             }
@@ -133,12 +139,14 @@ namespace BackToTheFutureV.Menu
 
         private void LoadVehicleType()
         {
-            _baseType.SelectedIndex = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
-            _canFly.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
+            _wormholeType.SelectedIndex = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
+            _hoverUnderbody.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
+
+            //_hoverUnderbody.Enabled = _tempTimeMachine.Vehicle.CanHoverTransform() && _tempTimeMachine.Vehicle.Model != ModelHandler.DeluxoModel && !_tempTimeMachine.Properties.IsFlying;
 
             if (_tempTimeMachine.Mods.IsDMC12)
             {
-                _powerSource.SelectedIndex = (int)_tempTimeMachine.Mods.Reactor;
+                _reactorType.SelectedIndex = (int)_tempTimeMachine.Mods.Reactor;
                 _hoodBox.Checked = ConvertFromModState(_tempTimeMachine.Mods.Hoodbox);
                 _hook.Checked = _tempTimeMachine.Mods.Hook != HookState.Off;
                 _plate.SelectedIndex = (int)(_tempTimeMachine.Mods.Plate) + 1;
@@ -147,7 +155,6 @@ namespace BackToTheFutureV.Menu
                 _hood.SelectedIndex = (int)_tempTimeMachine.Mods.Hood + 1;
                 _speedoCover.Checked = !_tempTimeMachine.Properties.ThreeDigitsSpeedo;
 
-                _canFly.Enabled = !_tempTimeMachine.Properties.IsFlying;// && _tempTimeMachine.Mods.SuspensionsType == SuspensionsType.Stock;
                 _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
                 _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying;
                 _suspensions.Enabled = !_tempTimeMachine.Properties.IsFlying;
@@ -165,6 +172,10 @@ namespace BackToTheFutureV.Menu
                     break;
                 case WheelType.RailroadInvisible:
                     _wheelsType.SelectedIndex = 2;
+                    break;
+                case WheelType.DMC:
+                case WheelType.DMCInvisible:
+                    _wheelsType.SelectedIndex = 3;
                     break;
             }
         }
@@ -211,8 +222,8 @@ namespace BackToTheFutureV.Menu
                     return;
                 }
 
-                _powerSource.Enabled = _tempTimeMachine.Mods.IsDMC12;
-                _canFly.Enabled = _tempTimeMachine.Vehicle.CanHoverTransform() && _tempTimeMachine.Vehicle.Model != ModelHandler.DeluxoModel;
+                _reactorType.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _hoverUnderbody.Enabled = _tempTimeMachine.Vehicle.CanHoverTransform() || _tempTimeMachine.Vehicle.Model == ModelHandler.DeluxoModel;
                 _hoodBox.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _hook.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _plate.Enabled = _tempTimeMachine.Mods.IsDMC12;
@@ -227,7 +238,7 @@ namespace BackToTheFutureV.Menu
 
         private void CustomMenu_OnItemActivated(NativeItem sender, EventArgs e)
         {
-            if (sender == _baseType | sender == _confirm)
+            if (sender == _wormholeType | sender == _confirm)
             {
                 _save = true;
                 Close();
@@ -245,7 +256,7 @@ namespace BackToTheFutureV.Menu
 
         private void SettingsMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
-            if (sender == _canFly)
+            if (sender == _hoverUnderbody)
             {
                 _tempTimeMachine.Mods.HoverUnderbody = ConvertFromBool(Checked);
             }

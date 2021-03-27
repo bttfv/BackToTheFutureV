@@ -109,7 +109,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
 
             //Hover Mode            
             HoverModeWheelsGlow = new AnimatePropsHandler();
-            foreach(CVehicleWheel wheel in Mods.Wheels)
+            foreach (CVehicleWheel wheel in Mods.Wheels)
                 HoverModeWheelsGlow.Add(new AnimateProp(ModelHandler.HoverGlowing, null, Vector3.Zero, new Vector3(0, 90, 0))
                 {
                     Duration = 1.8f

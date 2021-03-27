@@ -96,7 +96,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                         }
                         else
                         {
-                            if (!Properties.CutsceneMode || Utils.IsPlayerUseFirstPerson())
+                            if (!Properties.CutsceneMode || Utils.IsCameraInFirstPerson())
                                 Properties.TimeTravelType = TimeTravelType.Instant;
                             else
                                 Properties.TimeTravelType = TimeTravelType.Cutscene;
@@ -122,7 +122,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
                         Sounds.TimeTravelInstant?.Play();
 
-                        if (Utils.IsPlayerUseFirstPerson())
+                        if (Utils.IsCameraInFirstPerson())
                             Props.WhiteSphere.SpawnProp();
                         else
                             ScreenFlash.FlashScreen(0.25f);

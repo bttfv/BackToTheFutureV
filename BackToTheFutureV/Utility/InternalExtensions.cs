@@ -68,6 +68,10 @@ namespace BackToTheFutureV.Utility
                     return WheelType.RedInvisible;
                 case WheelType.RedInvisible:
                     return WheelType.Red;
+                case WheelType.DMC:
+                    return WheelType.DMCInvisible;
+                case WheelType.DMCInvisible:
+                    return WheelType.DMC;
                 default:
                     return WheelType.Stock;
             }

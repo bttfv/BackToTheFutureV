@@ -155,6 +155,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             get => base.Wheel;
             set
             {
+                if (!IsDMC12 && HoverUnderbody == ModState.On && value != WheelType.DMC && value != WheelType.Red && value != WheelType.DMCInvisible && value != WheelType.RedInvisible)
+                    HoverUnderbody = ModState.Off;
+
                 base.Wheel = value;
 
                 if (TimeMachine.Properties == null)
@@ -222,20 +225,20 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
             get => base.HoverUnderbody;
             set
             {
-                if (IsDMC12)
-                {
-                    if (TimeMachine.Properties != null && TimeMachine.Properties.IsFlying)
-                        return;
-                }
+                if (TimeMachine.Properties != null && TimeMachine.Properties.IsFlying)
+                    return;
 
                 base.HoverUnderbody = value;
 
                 bool reload = false;
 
-                if (value == ModState.On && IsDMC12)
+                if (value == ModState.On)
                 {
                     if (Wheel == WheelType.RailroadInvisible)
                         Wheel = WheelType.Stock;
+
+                    if (!IsDMC12 && Wheel != WheelType.DMC && Wheel != WheelType.Red)
+                        Wheel = WheelType.DMC;
 
                     reload = SuspensionsType != SuspensionsType.Stock;
 

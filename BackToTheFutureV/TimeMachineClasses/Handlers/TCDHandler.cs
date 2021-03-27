@@ -349,7 +349,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         private void DrawGUI()
         {
-            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || Utils.IsPlayerUseFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled)
+            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || Utils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled)
                 return;
 
             ScaleformsHandler.GUI.SetSpeedoBackground(Properties.ThreeDigitsSpeedo);
