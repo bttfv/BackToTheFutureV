@@ -1,23 +1,19 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using FusionLibrary;
 using GTA;
-using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
-using System.Drawing;
 using static FusionLibrary.Enums;
 using Control = GTA.Control;
 
 namespace BackToTheFutureV.Menu
 {
-    internal class PresetsMenu : CustomNativeMenu
+    internal class PresetsMenu : BTTFVMenu
     {
         private InstrumentalMenu _instrumentalMenu;
 
-        public PresetsMenu() : base("", Game.GetLocalizedString("BTTFV_Input_PresetsMenu"))
+        public PresetsMenu() : base("Presets")
         {
-            Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
-
             Shown += PresetsMenu_Shown;
             OnItemActivated += PresetsMenu_OnItemActivated;
 
@@ -25,9 +21,9 @@ namespace BackToTheFutureV.Menu
 
             _instrumentalMenu.AddControl(Control.PhoneCancel, Game.GetLocalizedString("HUD_INPUT3"));
             _instrumentalMenu.AddControl(Control.PhoneSelect, Game.GetLocalizedString("HUD_INPUT2"));
-            _instrumentalMenu.AddControl(Control.PhoneRight, Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Delete"));
-            _instrumentalMenu.AddControl(Control.PhoneLeft, Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Rename"));
-            _instrumentalMenu.AddControl(Control.PhoneExtraOption, Game.GetLocalizedString("BTTFV_Input_PresetsMenu_New"));
+            _instrumentalMenu.AddControl(Control.PhoneRight, GetLocalizedItemTitle("Delete"));
+            _instrumentalMenu.AddControl(Control.PhoneLeft, GetLocalizedItemTitle("Rename"));
+            _instrumentalMenu.AddControl(Control.PhoneExtraOption, GetLocalizedItemTitle("New"));
         }
 
         private void PresetsMenu_OnItemActivated(NativeItem sender, EventArgs e)

@@ -1,14 +1,11 @@
 ﻿using BackToTheFutureV.Utility;
 using FusionLibrary;
-using GTA;
-using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
-using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
-    internal class SettingsMenu : CustomNativeMenu
+    internal class SettingsMenu : BTTFVMenu
     {
         private NativeCheckboxItem cinematicSpawn;
         private NativeCheckboxItem useInputToggle;
@@ -26,39 +23,29 @@ namespace BackToTheFutureV.Menu
         private NativeSubmenuItem ControlsMenu;
         private NativeSubmenuItem TCDMenu;
 
-        public SettingsMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_Settings"))
+        public SettingsMenu() : base("Settings")
         {
-            Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
-
             Shown += SettingsMenu_Shown;
             OnItemCheckboxChanged += SettingsMenu_OnItemCheckboxChanged;
 
-            Add(cinematicSpawn = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn"), Game.GetLocalizedString("BTTFV_Menu_CinematicSpawn_Description"), ModSettings.CinematicSpawn));
-            Add(useInputToggle = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_InputToggle"), Game.GetLocalizedString("BTTFV_Menu_InputToggle_Description"), ModSettings.UseInputToggle));
-            Add(forceFlyMode = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode"), Game.GetLocalizedString("BTTFV_Menu_ForceFlyMode_Description"), ModSettings.ForceFlyMode));
-            Add(LandingSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_LandingSystem"), Game.GetLocalizedString("BTTFV_Menu_LandingSystem_Description"), ModSettings.LandingSystem));
-            Add(InfiniteFuel = new NativeCheckboxItem("Infinite fuel", "", ModSettings.InfiniteFuel));
-            Add(PersistenceSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem"), Game.GetLocalizedString("BTTFV_Menu_PersistenceSystem_Description"), ModSettings.PersistenceSystem));
-            Add(WaybackSystem = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_WaybackSystem"), Game.GetLocalizedString("BTTFV_Menu_WaybackSystem_Description"), WaybackMachineHandler.Enabled));
-            Add(RandomTrains = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RandomTrains"), Game.GetLocalizedString("BTTFV_Menu_RandomTrains_Description"), ModSettings.RandomTrains));
-            Add(GlowingWormholeEmitter = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingWormholeEmitter_Description"), ModSettings.GlowingWormholeEmitter));
-            Add(GlowingPlutoniumReactor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_GlowingPlutoniumReactor_Description"), ModSettings.GlowingPlutoniumReactor));
+            cinematicSpawn = NewCheckboxItem("CinematicSpawn", ModSettings.CinematicSpawn);
+            useInputToggle = NewCheckboxItem("InputToggle", ModSettings.UseInputToggle);
+            forceFlyMode = NewCheckboxItem("ForceFly", ModSettings.ForceFlyMode);
+            LandingSystem = NewCheckboxItem("LandingSystem", ModSettings.LandingSystem);
+            InfiniteFuel = NewCheckboxItem("InfinityReactor", ModSettings.InfiniteFuel);
+            PersistenceSystem = NewCheckboxItem("Persistence", ModSettings.PersistenceSystem);
+            WaybackSystem = NewCheckboxItem("Wayback", WaybackMachineHandler.Enabled);
+            RandomTrains = NewCheckboxItem("RandomTrains", ModSettings.RandomTrains);
+            GlowingWormholeEmitter = NewCheckboxItem("GlowingWormhole", ModSettings.GlowingWormholeEmitter);
+            GlowingPlutoniumReactor = NewCheckboxItem("GlowingReactor", ModSettings.GlowingPlutoniumReactor);
 
-            SoundsMenu = AddSubMenu(MenuHandler.SoundsSettingsMenu);
-            SoundsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_SoundsMenu");
-            SoundsMenu.Description = Game.GetLocalizedString("BTTFV_Menu_SoundsMenu_Description");
+            SoundsMenu = NewSubmenu(MenuHandler.SoundsSettingsMenu, "Sounds");
 
-            EventsMenu = AddSubMenu(MenuHandler.EventsSettingsMenu);
-            EventsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_EventsMenu");
-            EventsMenu.Description = Game.GetLocalizedString("BTTFV_Menu_EventsMenu_Description");
+            EventsMenu = NewSubmenu(MenuHandler.EventsSettingsMenu, "Events");
 
-            ControlsMenu = AddSubMenu(MenuHandler.ControlsMenu);
-            ControlsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_ControlsMenu");
-            ControlsMenu.Description = Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Description");
+            ControlsMenu = NewSubmenu(MenuHandler.ControlsMenu, "Controls");
 
-            TCDMenu = AddSubMenu(MenuHandler.TCDMenu);
-            TCDMenu.Title = Game.GetLocalizedString("BTTFV_Menu_TCDMenu");
-            TCDMenu.Description = Game.GetLocalizedString("BTTFV_Menu_TCDMenu_Description");
+            TCDMenu = NewSubmenu(MenuHandler.TCDMenu, "TCD");
         }
 
         private void SettingsMenu_Shown(object sender, EventArgs e)

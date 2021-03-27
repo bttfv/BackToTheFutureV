@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+﻿using BackToTheFutureV.Menu;
+using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary;
 using GTA;
 using GTA.UI;
@@ -58,7 +59,7 @@ namespace BackToTheFutureV.Settings
                 ModSettings.TCDPosition = origPos;
                 ModSettings.TCDScale = origScale;
 
-                Notification.Show(Game.GetLocalizedString("BTTFV_MENU_TCDEditMode_Cancel"));
+                Notification.Show(BTTFVMenu.GetLocalizedText("TCDEdit_Cancel"));
 
                 Save();
                 return;
@@ -98,16 +99,16 @@ namespace BackToTheFutureV.Settings
         {
             InstrumentalMenu.ClearPanel();
 
-            InstrumentalMenu.AddControl(Control.PhoneDown, Game.GetLocalizedString("BTTFV_TCD_Edit_MoveDown"));
-            InstrumentalMenu.AddControl(Control.PhoneUp, Game.GetLocalizedString("BTTFV_TCD_Edit_MoveUp"));
-            InstrumentalMenu.AddControl(Control.PhoneRight, Game.GetLocalizedString("BTTFV_TCD_Edit_MoveRight"));
-            InstrumentalMenu.AddControl(Control.PhoneLeft, Game.GetLocalizedString("BTTFV_TCD_Edit_MoveLeft"));
+            InstrumentalMenu.AddControl(Control.PhoneDown, BTTFVMenu.GetLocalizedText("TCDEdit_MoveDown"));
+            InstrumentalMenu.AddControl(Control.PhoneUp, BTTFVMenu.GetLocalizedText("TCDEdit_MoveUp"));
+            InstrumentalMenu.AddControl(Control.PhoneRight, BTTFVMenu.GetLocalizedText("TCDEdit_MoveRight"));
+            InstrumentalMenu.AddControl(Control.PhoneLeft, BTTFVMenu.GetLocalizedText("TCDEdit_MoveLeft"));
 
-            InstrumentalMenu.AddControl(Control.ReplayFOVIncrease, Game.GetLocalizedString("BTTFV_TCD_Edit_ScaleUp"));
-            InstrumentalMenu.AddControl(Control.ReplayFOVDecrease, Game.GetLocalizedString("BTTFV_TCD_Edit_ScaleDown"));
+            InstrumentalMenu.AddControl(Control.ReplayFOVIncrease, BTTFVMenu.GetLocalizedText("TCDEdit_ScaleUp"));
+            InstrumentalMenu.AddControl(Control.ReplayFOVDecrease, BTTFVMenu.GetLocalizedText("TCDEdit_ScaleDown"));
 
-            InstrumentalMenu.AddControl(Control.PhoneCancel, Game.GetLocalizedString("BTTFV_TCD_Edit_Cancel"));
-            InstrumentalMenu.AddControl(Control.PhoneSelect, Game.GetLocalizedString("BTTFV_TCD_Edit_Save"));
+            InstrumentalMenu.AddControl(Control.PhoneCancel, BTTFVMenu.GetLocalizedText("TCDEdit_CancelButton"));
+            InstrumentalMenu.AddControl(Control.PhoneSelect, BTTFVMenu.GetLocalizedText("TCDEdit_SaveButton"));
         }
 
         public static void Tick()
@@ -240,7 +241,7 @@ namespace BackToTheFutureV.Settings
             else if (Game.IsControlJustPressed(Control.PhoneSelect))
             {
                 Save();
-                Notification.Show(Game.GetLocalizedString("BTTFV_MENU_TCDEditMode_Save"));
+                Notification.Show(BTTFVMenu.GetLocalizedText("TCDEdit_Save"));
             }
         }
     }

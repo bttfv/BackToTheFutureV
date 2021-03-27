@@ -3,17 +3,14 @@ using BackToTheFutureV.Utility;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Menu
 {
-    internal class CustomMenu : CustomNativeMenu
+    internal class CustomMenu : BTTFVMenu
     {
         public bool ForceNew = false;
 
@@ -31,53 +28,47 @@ namespace BackToTheFutureV.Menu
         private NativeItem _saveConf;
         private NativeItem _confirm;
 
-        private readonly List<string> _listTypes = new List<string> { Game.GetLocalizedString("BTTFV_Menu_BTTF1"), Game.GetLocalizedString("BTTFV_Menu_BTTF2"), Game.GetLocalizedString("BTTFV_Menu_BTTF3") };
-        private readonly List<string> _listPowerSources = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_MrFusion"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Nuclear") };
-        private readonly List<string> _listWheelTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_RedWhite"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Railroads"), "DMC" };
-        private readonly List<string> _listPlateTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Empty"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Outatime"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Futuristic"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_NoTime"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Timeless"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_Timeless2"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_DMCFactory"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Plate_DMCFactory2") };
-        private readonly List<string> _listExhaustTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_BTTF"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_None") };
-        private readonly List<string> _listSuspensionsTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontLowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LiftFrontAndRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontLiftRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFront"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerRear"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_LowerFrontAndRear") };
-        private readonly List<string> _listHoodTypes = new List<string> { Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hood_Stock"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hood_1983"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hood_1981") };
-
         private bool _save = false;
         private TimeMachine _tempTimeMachine;
 
-        public CustomMenu() : base("", Game.GetLocalizedString("BTTFV_Input_SpawnMenu"))
+        public CustomMenu() : base("Custom")
         {
-            Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
-
             Shown += SettingsMenu_Shown;
             Closing += CustomMenu_Closing;
             OnItemCheckboxChanged += SettingsMenu_OnItemCheckboxChanged;
             OnItemActivated += CustomMenu_OnItemActivated;
 
-            Add(_wormholeType = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wormhole"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wormhole_Description"), _listTypes.ToArray()));
+            _wormholeType = NewListItem("Wormhole", GetLocalizedText("BTTF1"), GetLocalizedText("BTTF2"), GetLocalizedText("BTTF3"));
             _wormholeType.ItemChanged += ModList_ItemChanged;
-            Add(_reactorType = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_PowerSource"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_PowerSource_Description"), _listPowerSources.ToArray()));
+
+            _reactorType = NewListItem("Reactor", GetLocalizedItemValueTitle("Reactor", "MrFusion"), GetLocalizedItemValueTitle("Reactor", "Nuclear"));
             _reactorType.ItemChanged += ModList_ItemChanged;
-            Add(_wheelsType = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Wheel_Description"), _listWheelTypes.ToArray()));
+
+            _wheelsType = NewListItem("Wheel", GetLocalizedItemValueTitle("Wheel", "Stock"), GetLocalizedItemValueTitle("Wheel", "Red"), GetLocalizedItemValueTitle("Wheel", "Rail"), GetLocalizedItemValueTitle("Wheel", "DMC"));
             _wheelsType.ItemChanged += ModList_ItemChanged;
-            Add(_hoverUnderbody = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hover"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hover_Description")));
+            _hoverUnderbody = NewCheckboxItem("Hover");
 
-            Add(_hoodBox = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_ControlTubes"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_ControlTubes_Description")));
+            _hoodBox = NewCheckboxItem("ControlTubes");
 
-            Add(_hook = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hook"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hook_Description")));
+            _hook = NewCheckboxItem("Hook");
 
-            Add(_speedoCover = new NativeCheckboxItem("Third digit speedo cover", ""));
+            _speedoCover = NewCheckboxItem("Speedo");
 
-            Add(_plate = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_LicPlate"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_LicPlate_Description"), _listPlateTypes.ToArray()));
+            _plate = NewListItem("Plate", GetLocalizedItemValueTitle("Plate", "Empty"), GetLocalizedItemValueTitle("Plate", "Outatime"), GetLocalizedItemValueTitle("Plate", "Futuristic"), GetLocalizedItemValueTitle("Plate", "NoTime"), GetLocalizedItemValueTitle("Plate", "Timeless"), GetLocalizedItemValueTitle("Plate", "Timeless2"), GetLocalizedItemValueTitle("Plate", "DMCFactory"), GetLocalizedItemValueTitle("Plate", "DMCFactory2"));
             _plate.ItemChanged += ModList_ItemChanged;
-            Add(_exhaust = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Exhaust_Description"), _listExhaustTypes.ToArray()));
+
+            _exhaust = NewListItem("Exhaust", GetLocalizedItemValueTitle("Exhaust", "Stock"), GetLocalizedItemValueTitle("Exhaust", "BTTF"), GetLocalizedItemValueTitle("Exhaust", "None"));
             _exhaust.ItemChanged += ModList_ItemChanged;
-            Add(_suspensions = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Suspensions_Description"), _listSuspensionsTypes.ToArray()));
+
+            _suspensions = NewListItem("Suspensions", GetLocalizedItemValueTitle("Suspensions", "Stock"), GetLocalizedItemValueTitle("Suspensions", "LiftFrontLowerRear"), GetLocalizedItemValueTitle("Suspensions", "LiftFront"), GetLocalizedItemValueTitle("Suspensions", "LiftRear"), GetLocalizedItemValueTitle("Suspensions", "LiftFrontAndRear"), GetLocalizedItemValueTitle("Suspensions", "LowerFrontLiftRear"), GetLocalizedItemValueTitle("Suspensions", "LowerFront"), GetLocalizedItemValueTitle("Suspensions", "LowerRear"), GetLocalizedItemValueTitle("Suspensions", "LowerFrontAndRear"));
             _suspensions.ItemChanged += ModList_ItemChanged;
 
-            Add(_hood = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hood"), Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Hood_Description"), _listHoodTypes.ToArray()));
+            _hood = NewListItem("Hood", GetLocalizedItemValueTitle("Hood", "Stock"), GetLocalizedItemValueTitle("Hood", "1983"), GetLocalizedItemValueTitle("Hood", "1981"));
             _hood.ItemChanged += ModList_ItemChanged;
 
-            Add(_saveConf = new NativeItem(Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Save"), Game.GetLocalizedString("BTTFV_Input_PresetsMenu_Save_Description")));
+            _saveConf = NewItem("Save");
 
-            Add(_confirm = new NativeItem(Game.GetLocalizedString("BTTFV_Input_SpawnMenu_Confirm")));
+            _confirm = NewItem("Confirm");
         }
 
         private void CustomMenu_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -141,8 +132,6 @@ namespace BackToTheFutureV.Menu
         {
             _wormholeType.SelectedIndex = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
             _hoverUnderbody.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
-
-            //_hoverUnderbody.Enabled = _tempTimeMachine.Vehicle.CanHoverTransform() && _tempTimeMachine.Vehicle.Model != ModelHandler.DeluxoModel && !_tempTimeMachine.Properties.IsFlying;
 
             if (_tempTimeMachine.Mods.IsDMC12)
             {
@@ -223,7 +212,7 @@ namespace BackToTheFutureV.Menu
                 }
 
                 _reactorType.Enabled = _tempTimeMachine.Mods.IsDMC12;
-                _hoverUnderbody.Enabled = _tempTimeMachine.Vehicle.CanHoverTransform() || _tempTimeMachine.Vehicle.Model == ModelHandler.DeluxoModel;
+                _hoverUnderbody.Enabled = _tempTimeMachine.Vehicle.CanHoverTransform() || _tempTimeMachine.Vehicle.Model == ModelHandler.DeluxoModel || _tempTimeMachine.Vehicle.Model == ModelHandler.DMC12;
                 _hoodBox.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _hook.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _plate.Enabled = _tempTimeMachine.Mods.IsDMC12;

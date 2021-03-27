@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.Players;
+﻿using BackToTheFutureV.Menu;
+using BackToTheFutureV.Players;
 using BackToTheFutureV.Settings;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
@@ -52,7 +53,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         {
             Properties.CutsceneMode = cutsceneOn;
 
-            Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_TimeTravelModeChange") + " " + (Properties.CutsceneMode ? Game.GetLocalizedString("BTTFV_Cutscene") : Game.GetLocalizedString("BTTFV_Instant")));
+            Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("TimeTravelModeChange") + " " + (Properties.CutsceneMode ? BTTFVMenu.GetLocalizedText("Cutscene") : BTTFVMenu.GetLocalizedText("Instant")));
         }
 
         public void StartTimeTravel(int delay = 0)

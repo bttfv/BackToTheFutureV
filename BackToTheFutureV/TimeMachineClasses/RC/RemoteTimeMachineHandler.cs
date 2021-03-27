@@ -1,7 +1,7 @@
-﻿using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.Menu;
+using BackToTheFutureV.Utility;
 using FusionLibrary;
 using FusionLibrary.Extensions;
-using GTA;
 using LemonUI.TimerBars;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         static RemoteTimeMachineHandler()
         {
-            TimerBarCollection = new TimerBarCollection(SignalBar = new TimerBarProgress(Game.GetLocalizedString("BTTFV_RC_Signal")))
+            TimerBarCollection = new TimerBarCollection(SignalBar = new TimerBarProgress(BTTFVMenu.GetLocalizedText("SignalStrength")))
             {
                 Visible = false
             };

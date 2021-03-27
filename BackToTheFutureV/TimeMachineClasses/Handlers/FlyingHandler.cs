@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.Players;
+﻿using BackToTheFutureV.Menu;
+using BackToTheFutureV.Players;
 using BackToTheFutureV.Settings;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
@@ -129,7 +130,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
-                        Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hover_Damaged"));
+                        Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("HoverDamaged"));
 
                         return;
                     }
@@ -149,7 +150,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
-                        Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hover_Damaged"));
+                        Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("HoverDamaged"));
 
                         return;
                     }
@@ -171,7 +172,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (VehicleControl.GetDeluxoTransformation(Vehicle) > 0)
                     VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
 
-                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Hover_Damaged"));
+                Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("HoverDamaged"));
 
                 return;
             }
@@ -194,7 +195,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsLanding)
                 Function.Call((Hash)0x438b3d7ca026fe91, Vehicle, Properties.IsFlying ? 1f : 0f);
             else
-                Utils.DisplayHelpText(Game.GetLocalizedString("BTTFV_Input_VTOL_Tip").Replace("~INPUT_VEH_AIM~", (new ControlInfo(ModControls.HoverVTOL)).Button));
+                Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("VTOLTip").Replace("~INPUT_VEH_AIM~", (new ControlInfo(ModControls.HoverVTOL)).Button));
 
             if (Properties.IsFlying && !instant)
             {
@@ -236,7 +237,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void SetHoverMode(bool mode)
         {
             Properties.IsAltitudeHolding = mode;
-            Utils.DisplayHelpText($"{Game.GetLocalizedString("BTTFV_AltitudeHoldingModeChange")} {(Properties.IsAltitudeHolding ? Game.GetLocalizedString("BTTFV_On") : Game.GetLocalizedString("BTTFV_Off"))}");
+            Utils.DisplayHelpText($"{BTTFVMenu.GetLocalizedText("AltitudeHoldChange")} {(Properties.IsAltitudeHolding ? BTTFVMenu.GetLocalizedText("On") : BTTFVMenu.GetLocalizedText("Off"))}");
         }
 
         public override void Tick()

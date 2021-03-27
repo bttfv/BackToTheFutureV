@@ -5,25 +5,20 @@ using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.UI;
-using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV.Menu
 {
-    internal class MainMenu : CustomNativeMenu
+    internal class MainMenu : BTTFVMenu
     {
         private NativeListItem<string> spawnBTTF;
 
-        private NativeSubmenuItem presetsMenu;
-
         private NativeItem convertIntoTimeMachine;
 
-        private NativeSubmenuItem customMenu;
         private NativeSubmenuItem rcMenu;
         private NativeSubmenuItem outatimeMenu;
 
@@ -31,51 +26,32 @@ namespace BackToTheFutureV.Menu
         private NativeItem deleteOthers;
         private NativeItem deleteAll;
 
-        private NativeSubmenuItem settingsMenu;
+        private readonly List<string> _bttfTypes = new List<string> { GetLocalizedText("DMC12"), GetLocalizedText("BTTF1"), GetLocalizedText("BTTF1H"), GetLocalizedText("BTTF2"), GetLocalizedText("BTTF3"), GetLocalizedText("BTTF3RR") };
 
-        private readonly List<string> _bttfTypes = new List<string> { Game.GetLocalizedString("BTTFV_Menu_DMC12"), Game.GetLocalizedString("BTTFV_Menu_BTTF1"), Game.GetLocalizedString("BTTFV_Menu_BTTF1H"), Game.GetLocalizedString("BTTFV_Menu_BTTF2"), Game.GetLocalizedString("BTTFV_Menu_BTTF3"), Game.GetLocalizedString("BTTFV_Menu_BTTF3RR") };
-
-        public MainMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_Description"))
+        public MainMenu() : base("Main")
         {
-            Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
+            Subtitle = GetLocalizedText("SelectOption");
 
             OnItemActivated += MainMenu_OnItemActivated;
 
-            Add(spawnBTTF = new NativeListItem<string>(Game.GetLocalizedString("BTTFV_Menu_Spawn"), Game.GetLocalizedString("BTTFV_Menu_SpawnDMC12_Description"), _bttfTypes.ToArray()));
+            spawnBTTF = NewListItem("Spawn", _bttfTypes.ToArray());
             spawnBTTF.ItemChanged += SpawnBTTF_ItemChanged;
+            spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "DMC12");
 
-            presetsMenu = AddSubMenu(MenuHandler.PresetsMenu);
-            presetsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset");
-            presetsMenu.Description = Game.GetLocalizedString("BTTFV_Menu_Spawn_Preset_Description");
+            NewSubmenu(MenuHandler.PresetsMenu, "Presets");
 
-            //AddSeparator();
+            convertIntoTimeMachine = NewItem("Convert");
 
-            Add(convertIntoTimeMachine = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_ConvertToTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_ConvertToTimeMachine_Description")));
+            NewSubmenu(MenuHandler.CustomMenu, "Custom");
 
-            customMenu = AddSubMenu(MenuHandler.CustomMenu);
-            customMenu.Title = Game.GetLocalizedString("BTTFV_Menu_Build_Delorean");
-            customMenu.Description = Game.GetLocalizedString("BTTFV_Menu_Build_Delorean_Description");
+            rcMenu = NewSubmenu(MenuHandler.RCMenu, "RC");
+            outatimeMenu = NewSubmenu(MenuHandler.OutatimeMenu, "Outatime");
 
-            //AddSeparator();
+            deleteCurrent = NewItem("Remove");
+            deleteOthers = NewItem("RemoveOther");
+            deleteAll = NewItem("RemoveAll");
 
-            rcMenu = AddSubMenu(MenuHandler.RCMenu);
-            rcMenu.Title = Game.GetLocalizedString("BTTFV_Menu_RCMenu");
-            rcMenu.Description = Game.GetLocalizedString("BTTFV_Menu_RCMenu_Description");
-
-            outatimeMenu = AddSubMenu(MenuHandler.OutatimeMenu);
-            outatimeMenu.Title = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu");
-            outatimeMenu.Description = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Description");
-
-            //AddSeparator();
-
-            Add(deleteCurrent = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine"), Game.GetLocalizedString("BTTFV_Menu_RemoveTimeMachine_Description")));
-            Add(deleteOthers = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveOtherTimeMachines_Description")));
-            Add(deleteAll = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines"), Game.GetLocalizedString("BTTFV_Menu_RemoveAllTimeMachines_Description")));
-
-            //AddSeparator();
-
-            settingsMenu = AddSubMenu(MenuHandler.SettingsMenu);
-            settingsMenu.Title = Game.GetLocalizedString("BTTFV_Menu_Settings");
+            NewSubmenu(MenuHandler.SettingsMenu, "Settings");
         }
 
         private void SpawnBTTF_ItemChanged(object sender, ItemChangedEventArgs<string> e)
@@ -83,20 +59,20 @@ namespace BackToTheFutureV.Menu
             switch (e.Index)
             {
                 case 0:
-                    spawnBTTF.Description = Game.GetLocalizedString("BTTFV_Menu_SpawnDMC12_Description");
+                    spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "DMC12");
                     break;
                 case 1:
                 case 2:
-                    spawnBTTF.Description = Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF1_Description");
+                    spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "BTTF1");
                     break;
                 case 3:
-                    spawnBTTF.Description = Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF2_Description");
+                    spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "BTTF2");
                     break;
                 case 4:
-                    spawnBTTF.Description = Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF3_Description");
+                    spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "BTTF3");
                     break;
                 case 5:
-                    spawnBTTF.Description = Game.GetLocalizedString("BTTFV_Menu_SpawnBTTF3RR_Description");
+                    spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "BTTF3RR");
                     break;
             }
 
@@ -164,7 +140,7 @@ namespace BackToTheFutureV.Menu
 
                 if (timeMachine == null)
                 {
-                    Notification.Show(Game.GetLocalizedString("BTTFV_NotSeatedInTimeMachine"));
+                    Notification.Show(GetLocalizedText("NotSeated"));
                     return;
                 }
 
@@ -178,7 +154,7 @@ namespace BackToTheFutureV.Menu
                 TimeMachineHandler.RemoveAllTimeMachines(true);
                 RemoteTimeMachineHandler.DeleteAll();
                 WaybackMachineHandler.Abort();
-                Notification.Show(Game.GetLocalizedString("BTTFV_RemovedOtherTimeMachines"));
+                Notification.Show(GetLocalizedText("RemovedOtherTimeMachines"));
             }
 
             if (sender == deleteAll)
@@ -186,7 +162,7 @@ namespace BackToTheFutureV.Menu
                 TimeMachineHandler.RemoveAllTimeMachines();
                 RemoteTimeMachineHandler.DeleteAll();
                 WaybackMachineHandler.Abort();
-                Notification.Show(Game.GetLocalizedString("BTTFV_RemovedAllTimeMachines"));
+                Notification.Show(GetLocalizedText("RemovedAllTimeMachines"));
 
                 ExternalHUD.SetOff();
             }

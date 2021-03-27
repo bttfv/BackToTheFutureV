@@ -1,30 +1,24 @@
-﻿using FusionLibrary;
-using GTA;
-using LemonUI.Elements;
-using LemonUI.Menus;
+﻿using LemonUI.Menus;
 using System;
-using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
-    internal class SoundsSettingsMenu : CustomNativeMenu
+    internal class SoundsSettingsMenu : BTTFVMenu
     {
         private NativeCheckboxItem playFluxCapacitorSound;
         private NativeCheckboxItem playDiodeSound;
         private NativeCheckboxItem playSpeedoBeep;
         private NativeCheckboxItem playEngineSounds;
 
-        public SoundsSettingsMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_SoundsMenu"))
+        public SoundsSettingsMenu() : base("Sounds")
         {
-            Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
-
             Shown += SettingsMenu_Shown;
             OnItemCheckboxChanged += SettingsMenu_OnItemCheckboxChanged;
 
-            Add(playFluxCapacitorSound = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_FluxCapacitorSound"), Game.GetLocalizedString("BTTFV_Menu_FluxCapacitorSound_Description"), ModSettings.PlayFluxCapacitorSound));
-            Add(playDiodeSound = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep"), Game.GetLocalizedString("BTTFV_Menu_CircuitsBeep_Description"), ModSettings.PlayDiodeBeep));
-            Add(playSpeedoBeep = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep"), Game.GetLocalizedString("BTTFV_Menu_SpeedoBeep_Description"), ModSettings.PlaySpeedoBeep));
-            Add(playEngineSounds = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_EngineSounds"), Game.GetLocalizedString("BTTFV_Menu_EngineSounds_Description"), ModSettings.PlayEngineSounds));
+            playFluxCapacitorSound = NewCheckboxItem("FluxCapacitor", ModSettings.PlayFluxCapacitorSound);
+            playDiodeSound = NewCheckboxItem("CircuitsBeep", ModSettings.PlayDiodeBeep);
+            playSpeedoBeep = NewCheckboxItem("SpeedoBeep", ModSettings.PlaySpeedoBeep);
+            playEngineSounds = NewCheckboxItem("Engine", ModSettings.PlayEngineSounds);
         }
 
         private void SettingsMenu_Shown(object sender, EventArgs e)

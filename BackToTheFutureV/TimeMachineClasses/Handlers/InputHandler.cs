@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.Settings;
+﻿using BackToTheFutureV.Menu;
+using BackToTheFutureV.Settings;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
 using GTA;
@@ -85,10 +86,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _nextReset = 0;
                 _destinationTimeRaw = string.Empty;
 
-                string inputMode = Game.GetLocalizedString("BTTFV_Input_Mode");
-                string on = Game.GetLocalizedString("BTTFV_On");
-                string off = Game.GetLocalizedString("BTTFV_Off");
-                Utils.DisplayHelpText($"{inputMode} {(InputMode ? on : off)}");
+                Utils.DisplayHelpText($"{BTTFVMenu.GetLocalizedText("InputMode")} {(InputMode ? BTTFVMenu.GetLocalizedText("On") : BTTFVMenu.GetLocalizedText("Off"))}");
             }
 
             if (!ModSettings.UseInputToggle || InputMode)

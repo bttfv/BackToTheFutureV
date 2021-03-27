@@ -4,14 +4,12 @@ using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
-using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
-using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
-    internal class RCMenu : CustomNativeMenu
+    internal class RCMenu : BTTFVMenu
     {
         private NativeListItem<TimeMachine> timeMachinesList;
         private NativeCheckboxItem FuelChamberDescription;
@@ -22,21 +20,19 @@ namespace BackToTheFutureV.Menu
         private Camera CarCam { get; set; }
         private bool CanBeSelected { get; set; }
 
-        public RCMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_RCMenu"))
+        public RCMenu() : base("RC")
         {
-            Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
-
             Shown += RCMenu_Shown;
             Closing += RCMenu_Closing;
             OnItemActivated += RCMenu_OnItemActivated;
 
-            Add(timeMachinesList = new NativeListItem<TimeMachine>(Game.GetLocalizedString("BTTFV_Menu_RCMenu_Deloreans"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_Deloreans_Description")));
+            timeMachinesList = NewListItem<TimeMachine>("List");
 
             timeMachinesList.ItemChanged += TimeMachinesList_ItemChanged;
 
-            Add(FuelChamberDescription = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_FuelChamberFilled"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_FuelChamberFilled_Description")));
-            Add(TimeCircuitsOnDescription = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_TimeCircuitsOn"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_TimeCircuitsOn_Description")));
-            Add(DestinationTimeDescription = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime_Description")));
+            FuelChamberDescription = NewCheckboxItem("Fuel");
+            TimeCircuitsOnDescription = NewCheckboxItem("TC");
+            DestinationTimeDescription = NewCheckboxItem("Destination");
 
             FuelChamberDescription.Enabled = false;
             TimeCircuitsOnDescription.Enabled = false;
@@ -77,7 +73,7 @@ namespace BackToTheFutureV.Menu
         {
             FuelChamberDescription.Checked = CurrentTimeMachine.Properties.IsFueled;
             TimeCircuitsOnDescription.Checked = CurrentTimeMachine.Properties.AreTimeCircuitsOn;
-            DestinationTimeDescription.Title = $"{Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime")} {CurrentTimeMachine.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt")}";
+            DestinationTimeDescription.Title = $"{GetLocalizedItemTitle("Destination")} {CurrentTimeMachine.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt")}";
 
             if (Utils.PlayerPed.DistanceToSquared2D(CurrentTimeMachine, RemoteTimeMachineHandler.MAX_DIST) && CurrentTimeMachine.Vehicle.Driver == null)
             {
@@ -89,7 +85,7 @@ namespace BackToTheFutureV.Menu
             {
                 StopPreviewing();
 
-                GTA.UI.Notification.Show(Game.GetLocalizedString("BTTFV_OutOfRange"));
+                GTA.UI.Notification.Show(GetLocalizedText("UnableRC"));
                 return false;
             }
         }

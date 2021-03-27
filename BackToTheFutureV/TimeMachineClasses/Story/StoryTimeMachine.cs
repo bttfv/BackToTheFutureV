@@ -1,4 +1,5 @@
-﻿using FusionLibrary;
+﻿using BackToTheFutureV.Menu;
+using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
@@ -100,22 +101,22 @@ namespace BackToTheFutureV.TimeMachineClasses
                         int months = diff.Month - 1;
                         int days = diff.Day - 1;
 
-                        string ret = Game.GetLocalizedString("BTTFV_Buried_Delorean");
+                        string ret = BTTFVMenu.GetLocalizedText("Buried");
 
                         if (years != 0 && months != 0 && days != 0)
-                            ret = string.Format(ret, $"{years} {Game.GetLocalizedString("BTTFV_Years")}, {months} {Game.GetLocalizedString("BTTFV_Months")} {Game.GetLocalizedString("BTTFV_And_Conjunction")} {days} {Game.GetLocalizedString("BTTFV_Days")}");
+                            ret = string.Format(ret, $"{years} {BTTFVMenu.GetLocalizedText("Years")}, {months} {BTTFVMenu.GetLocalizedText("Months")} {BTTFVMenu.GetLocalizedText("And")} {days} {BTTFVMenu.GetLocalizedText("Days")}");
                         else
                         {
                             if (years != 0 && months != 0)
-                                ret = string.Format(ret, $"{years} {Game.GetLocalizedString("BTTFV_Years")} {Game.GetLocalizedString("BTTFV_And_Conjunction")} {months} {Game.GetLocalizedString("BTTFV_Months")}");
+                                ret = string.Format(ret, $"{years} {BTTFVMenu.GetLocalizedText("Years")} {BTTFVMenu.GetLocalizedText("And")} {months} {BTTFVMenu.GetLocalizedText("Months")}");
                             else
                             {
                                 if (years != 0 && days != 0)
-                                    ret = string.Format(ret, $"{years} {Game.GetLocalizedString("BTTFV_Years")} {Game.GetLocalizedString("BTTFV_And_Conjunction")} {days} {Game.GetLocalizedString("BTTFV_Days")}");
+                                    ret = string.Format(ret, $"{years} {BTTFVMenu.GetLocalizedText("Years")} {BTTFVMenu.GetLocalizedText("And")} {days} {BTTFVMenu.GetLocalizedText("Days")}");
                                 else
                                 {
                                     if (months != 0 && days != 0)
-                                        ret = string.Format(ret, $"{months} {Game.GetLocalizedString("BTTFV_Months")} {Game.GetLocalizedString("BTTFV_And_Conjunction")} {days} {Game.GetLocalizedString("BTTFV_Days")}");
+                                        ret = string.Format(ret, $"{months} {BTTFVMenu.GetLocalizedText("Months")} {BTTFVMenu.GetLocalizedText("And")} {days} {BTTFVMenu.GetLocalizedText("Days")}");
                                 }
                             }
                         }

@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.Players;
+﻿using BackToTheFutureV.Menu;
+using BackToTheFutureV.Players;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
 using FusionLibrary.Extensions;
@@ -69,9 +70,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             else
             {
                 if (Mods.Reactor == ReactorType.MrFusion)
-                    Notification.Show("You don't have enough trash.");
+                    Notification.Show(BTTFVMenu.GetLocalizedText("NotEnoughGarbage"));
                 else
-                    Notification.Show("You don't have enough plutonium.");
+                    Notification.Show(BTTFVMenu.GetLocalizedText("NotEnoughPlutonium"));
             }
         }
 
@@ -228,12 +229,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.IsRefueling)
             {
                 if (HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
-                    Utils.DisplayHelpText("Press ~INPUT_CONTEXT~ to refuel or hold ~INPUT_CONTEXT~ to close reactor.");
+                    Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("RefuelReactor"));
                 else
-                    Utils.DisplayHelpText("Hold ~INPUT_CONTEXT~ to close reactor.");
+                    Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("CloseReactor"));
             }
             else
-                Utils.DisplayHelpText("Hold ~INPUT_CONTEXT~ to open reactor.");
+                Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("OpenReactor"));
         }
 
         private bool HasFuel()

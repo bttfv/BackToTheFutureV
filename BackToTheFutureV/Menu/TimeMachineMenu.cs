@@ -1,15 +1,11 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
-using GTA;
-using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
-using System.Drawing;
 using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Menu
 {
-    internal class TimeMachineMenu : CustomNativeMenu
+    internal class TimeMachineMenu : BTTFVMenu
     {
         public NativeItem Repair { get; private set; }
         public NativeCheckboxItem TimeCircuitsOn { get; }
@@ -24,34 +20,27 @@ namespace BackToTheFutureV.Menu
         public NativeSubmenuItem TrainMissionMenu { get; }
         public NativeSubmenuItem BackToMain { get; }
 
-        public TimeMachineMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu"))
+        public TimeMachineMenu() : base("TimeMachine")
         {
-            Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
-
             Shown += TimeMachineMenu_Shown;
             OnItemCheckboxChanged += TimeMachineMenu_OnItemCheckboxChanged;
             OnItemActivated += TimeMachineMenu_OnItemActivated;
 
-            Add(TimeCircuitsOn = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_TimeCircuitsOn_Description")));
-            Add(CutsceneMode = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_CutsceneMode"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_CutsceneMode")));
-            Add(FlyMode = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_HoverMode"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_HoverMode_Description")));
-            Add(AltitudeHold = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_AltitudeControl"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_AltitudeControl_Description")));
-            Add(RemoteControl = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_RemoteControl"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_RemoteControl_Description")));
+            TimeCircuitsOn = NewCheckboxItem("TC");
+            CutsceneMode = NewCheckboxItem("Cutscene");
+            FlyMode = NewCheckboxItem("Hover");
+            AltitudeHold = NewCheckboxItem("Altitude");
+            RemoteControl = NewCheckboxItem("RC");
             //Add(EscapeMission = new NativeCheckboxItem("Escape Mission"));
 
-            CustomMenu = AddSubMenu(MenuHandler.CustomMenu);
-            CustomMenu.Title = Game.GetLocalizedString("BTTFV_Input_SpawnMenu");
+            CustomMenu = NewSubmenu(MenuHandler.CustomMenu, "Custom");
 
-            PhotoMenu = AddSubMenu(MenuHandler.PhotoMenu);
-            PhotoMenu.Title = Game.GetLocalizedString("BTTFV_Menu_PhotoMenu");
-            PhotoMenu.Description = Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Description");
+            PhotoMenu = NewSubmenu(MenuHandler.PhotoMenu, "Photo");
 
             TrainMissionMenu = AddSubMenu(MenuHandler.TrainMissionMenu);
             TrainMissionMenu.Title = "Train Mission";
 
-            BackToMain = AddSubMenu(MenuHandler.MainMenu);
-            BackToMain.Title = Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu");
-            BackToMain.Description = Game.GetLocalizedString("BTTFV_Menu_GoBackToMainMenu_Description");
+            BackToMain = NewSubmenu(MenuHandler.MainMenu, "GoToMain");
         }
 
         private void TimeMachineMenu_OnItemActivated(NativeItem sender, EventArgs e)
@@ -86,7 +75,7 @@ namespace BackToTheFutureV.Menu
                 Repair = null;
             }
             else if (Repair == null && fullDamaged)
-                Add(0, Repair = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_Restore"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_Restore_Description")));
+                Repair = NewItem(0, "Restore");
         }
 
         private void TimeMachineMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)

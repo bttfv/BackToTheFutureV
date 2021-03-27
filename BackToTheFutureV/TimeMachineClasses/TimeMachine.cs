@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.TimeMachineClasses.Handlers;
+﻿using BackToTheFutureV.Menu;
+using BackToTheFutureV.TimeMachineClasses.Handlers;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
@@ -392,24 +393,24 @@ namespace BackToTheFutureV.TimeMachineClasses
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
-                        Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF1")}";
+                        Blip.Name = $"{BTTFVMenu.GetLocalizedText("BTTF1")}";
                         Blip.Color = BlipColor.NetPlayer22;
                         break;
 
                     case WormholeType.BTTF2:
-                        Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF2")}";
+                        Blip.Name = $"{BTTFVMenu.GetLocalizedText("BTTF2")}";
                         Blip.Color = BlipColor.NetPlayer21;
                         break;
 
                     case WormholeType.BTTF3:
                         if (Mods.Wheel == WheelType.RailroadInvisible)
                         {
-                            Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3RR")}";
+                            Blip.Name = $"{BTTFVMenu.GetLocalizedText("BTTF3RR")}";
                             Blip.Color = BlipColor.Orange;
                         }
                         else
                         {
-                            Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3")}";
+                            Blip.Name = $"{BTTFVMenu.GetLocalizedText("BTTF3")}";
                             Blip.Color = BlipColor.Red;
                         }
                         break;

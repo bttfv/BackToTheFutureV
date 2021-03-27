@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
+﻿using BackToTheFutureV.Menu;
+using BackToTheFutureV.TimeMachineClasses;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
 using FusionLibrary.Extensions;
@@ -53,7 +54,7 @@ namespace BackToTheFutureV.Story.Missions
             if (IsPlaying)
                 return;
 
-            GTA.UI.Screen.ShowSubtitle(Game.GetLocalizedString("BTTFV_Mission_Escape_FoundMe"));
+            GTA.UI.Screen.ShowSubtitle(BTTFVMenu.GetLocalizedText("FoundMe"));
             TimeMachine = timeMachine;
             Start();
         }

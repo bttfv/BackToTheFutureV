@@ -1,16 +1,13 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
 using GTA;
 using GTA.Math;
-using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
-using System.Drawing;
 using static BackToTheFutureV.Utility.InternalEnums;
 
 namespace BackToTheFutureV.Menu
 {
-    internal class OutatimeMenu : CustomNativeMenu
+    internal class OutatimeMenu : BTTFVMenu
     {
         private NativeListItem<RemoteTimeMachine> TimeMachines { get; }
         private NativeItem TypeDescription { get; }
@@ -22,21 +19,19 @@ namespace BackToTheFutureV.Menu
 
         private RemoteTimeMachine CurrentRemoteTimeMachine => TimeMachines.SelectedItem;
 
-        public OutatimeMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu"))
+        public OutatimeMenu() : base("Outatime")
         {
-            Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
-
             Shown += OutatimeMenu_Shown;
             OnItemCheckboxChanged += OutatimeMenu_OnItemCheckboxChanged;
             OnItemActivated += OutatimeMenu_OnItemActivated;
 
-            Add(TimeMachines = new NativeListItem<RemoteTimeMachine>(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Deloreans_Description")));
-            Add(TypeDescription = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type_Description")));
-            Add(DestinationTimeDescription = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime"), Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime_Description")));
-            Add(LastTimeDescription = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime_Description")));
-            Add(Spawned = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Spawned"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Spawned_Description")));
-            Add(ShowBlip = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_ShowBlip"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_ShowBlip_Description")));
-            Add(ForceReenter = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_ForceReenter"), Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_ForceReenter_Description")));
+            TimeMachines = NewListItem<RemoteTimeMachine>("List");
+            TypeDescription = NewItem("Type");
+            DestinationTimeDescription = NewItem("Destination");
+            LastTimeDescription = NewItem("Last");
+            Spawned = NewCheckboxItem("Spawned");
+            ShowBlip = NewCheckboxItem("Blip");
+            ForceReenter = NewItem("Reenter");
 
             TypeDescription.Enabled = false;
             DestinationTimeDescription.Enabled = false;
@@ -46,9 +41,9 @@ namespace BackToTheFutureV.Menu
 
         private void UpdateInfos()
         {
-            TypeDescription.Title = $"{Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_Type")}: {CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType}";
-            DestinationTimeDescription.Title = Game.GetLocalizedString("BTTFV_Menu_RCMenu_DestinationTime") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt");
-            LastTimeDescription.Title = Game.GetLocalizedString("BTTFV_Menu_StatisticsMenu_LastTime") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy hh:mm tt");
+            TypeDescription.Title = $"{GetLocalizedItemTitle("Type")}: {CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType}";
+            DestinationTimeDescription.Title = GetLocalizedItemTitle("Destination") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt");
+            LastTimeDescription.Title = GetLocalizedItemTitle("Last") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy hh:mm tt");
 
             Spawned.Checked = CurrentRemoteTimeMachine.Spawned;
 
@@ -75,24 +70,24 @@ namespace BackToTheFutureV.Menu
                     switch (CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType)
                     {
                         case WormholeType.BTTF1:
-                            CurrentRemoteTimeMachine.Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF1")}";
+                            CurrentRemoteTimeMachine.Blip.Name = $"{GetLocalizedText("BTTF1")}";
                             CurrentRemoteTimeMachine.Blip.Color = BlipColor.NetPlayer22;
                             break;
 
                         case WormholeType.BTTF2:
-                            CurrentRemoteTimeMachine.Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF2")}";
+                            CurrentRemoteTimeMachine.Blip.Name = $"{GetLocalizedText("BTTF2")}";
                             CurrentRemoteTimeMachine.Blip.Color = BlipColor.NetPlayer21;
                             break;
 
                         case WormholeType.BTTF3:
                             if (CurrentRemoteTimeMachine.TimeMachineClone.Mods.Wheel == WheelType.RailroadInvisible)
                             {
-                                CurrentRemoteTimeMachine.Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3RR")}";
+                                CurrentRemoteTimeMachine.Blip.Name = $"{GetLocalizedText("BTTF3RR")}";
                                 CurrentRemoteTimeMachine.Blip.Color = BlipColor.Orange;
                             }
                             else
                             {
-                                CurrentRemoteTimeMachine.Blip.Name = $"{Game.GetLocalizedString("BTTFV_Menu_BTTF3")}";
+                                CurrentRemoteTimeMachine.Blip.Name = $"{GetLocalizedText("BTTF3")}";
                                 CurrentRemoteTimeMachine.Blip.Color = BlipColor.Red;
                             }
                             break;

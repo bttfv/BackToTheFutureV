@@ -1,6 +1,5 @@
 ﻿using BackToTheFutureV.Settings;
 using FusionLibrary;
-using GTA;
 using LemonUI.Menus;
 using System;
 using System.Drawing;
@@ -9,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BackToTheFutureV.Menu
 {
-    internal class ControlsMenu : CustomNativeMenu
+    internal class ControlsMenu : BTTFVMenu
     {
         private NativeCheckboxItem UseControlForMainMenu;
         private NativeListItem<Keys> MainMenu;
@@ -32,7 +31,7 @@ namespace BackToTheFutureV.Menu
 
         private bool _doNotUpdate;
 
-        public ControlsMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_ControlsMenu"))
+        public ControlsMenu() : base("Controls")
         {
             Banner = null;
 
@@ -45,56 +44,56 @@ namespace BackToTheFutureV.Menu
             OnItemCheckboxChanged += ControlsMenu_OnItemCheckboxChanged;
             OnItemActivated += ControlsMenu_OnItemActivated;
 
-            Add(MainMenu = new NativeListItem<Keys>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_MainMenu"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_MainMenu_Description")));
+            MainMenu = NewListItem<Keys>("GoToMainMenu");
             MainMenu.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
             MainMenu.ItemChanged += MainMenu_ItemChanged;
 
-            Add(UseControlForMainMenu = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_UseControlForMainMenu"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_UseControlForMainMenu_Description")));
+            UseControlForMainMenu = NewCheckboxItem("UseControlForMainMenu");
 
 
-            Add(InteractionMenu1 = new NativeListItem<ControlInfo>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_InteractionMenu1"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_InteractionMenu1_Description")));
+            InteractionMenu1 = NewListItem<ControlInfo>("InteractionMenu1");
             InteractionMenu1.Items = ControlInfo.CustomControls;
             InteractionMenu1.ItemChanged += InteractionMenu1_ItemChanged;
 
-            Add(InteractionMenu2 = new NativeListItem<ControlInfo>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_InteractionMenu2"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_InteractionMenu2_Description")));
+            InteractionMenu2 = NewListItem<ControlInfo>("InteractionMenu2");
             InteractionMenu2.Items = ControlInfo.CustomControls;
             InteractionMenu2.ItemChanged += InteractionMenu2_ItemChanged;
 
-            Add(CombinationsForInteractionMenu = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_CombinationsForInteractionMenu"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_CombinationsForInteractionMenu_Description")));
+            CombinationsForInteractionMenu = NewCheckboxItem("CombinationsForInteractionMenu");
 
 
-            Add(Hover = new NativeListItem<ControlInfo>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Hover"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Hover_Description")));
+            Hover = NewListItem<ControlInfo>("Hover");
             Hover.Items = ControlInfo.CustomControls;
             Hover.ItemChanged += Hover_ItemChanged;
 
-            Add(LongPressForHover = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_LongPressForHover"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_LongPressForHover_Description")));
+            LongPressForHover = NewCheckboxItem("LongPressForHover");
 
-            Add(HoverBoost = new NativeListItem<ControlInfo>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_HoverBoost"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_HoverBoost_Description")));
+            HoverBoost = NewListItem<ControlInfo>("HoverBoost");
             HoverBoost.Items = ControlInfo.CustomControls;
             HoverBoost.ItemChanged += HoverBoost_ItemChanged;
 
-            Add(HoverVTOL = new NativeListItem<ControlInfo>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_HoverVTOL"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_HoverVTOL_Description")));
+            HoverVTOL = NewListItem<ControlInfo>("HoverVTOL");
             HoverVTOL.Items = ControlInfo.CustomControls;
             HoverVTOL.ItemChanged += HoverVTOL_ItemChanged;
 
-            Add(HoverAltitudeHold = new NativeListItem<Keys>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_HoverAltitudeHold"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_HoverAltitudeHold_Description")));
+            HoverAltitudeHold = NewListItem<Keys>("HoverAltitudeHold");
             HoverAltitudeHold.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
             HoverAltitudeHold.ItemChanged += HoverAltitudeHold_ItemChanged;
 
 
-            Add(TCToggle = new NativeListItem<Keys>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_TCToggle"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_TCToggle_Description")));
+            TCToggle = NewListItem<Keys>("TCToggle");
             TCToggle.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
             TCToggle.ItemChanged += TCToggle_ItemChanged;
 
-            Add(CutsceneToggle = new NativeListItem<Keys>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_CutsceneToggle"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_CutsceneToggle_Description")));
+            CutsceneToggle = NewListItem<Keys>("CutsceneToggle");
             CutsceneToggle.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
             CutsceneToggle.ItemChanged += CutsceneToggle_ItemChanged;
 
-            Add(InputToggle = new NativeListItem<Keys>(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_InputToggle"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_InputToggle_Description")));
+            InputToggle = NewListItem<Keys>("InputToggle");
             InputToggle.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
             InputToggle.ItemChanged += InputToggle_ItemChanged;
 
-            Add(Reset = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Reset"), Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Reset_Description")));
+            Reset = NewItem("Reset");
         }
 
         private void ControlsMenu_OnItemActivated(NativeItem sender, EventArgs e)
@@ -137,7 +136,7 @@ namespace BackToTheFutureV.Menu
                 return;
 
             ModControls.HoverVTOL = e.Object.Control;
-            GTA.UI.Screen.ShowHelpTextThisFrame($"{Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Button")} {e.Object.Button}", false);
+            GTA.UI.Screen.ShowHelpTextThisFrame($"{GetLocalizedText("SelectButton")} {e.Object.Button}", false);
         }
 
         private void HoverBoost_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -146,7 +145,7 @@ namespace BackToTheFutureV.Menu
                 return;
 
             ModControls.HoverBoost = e.Object.Control;
-            GTA.UI.Screen.ShowHelpTextThisFrame($"{Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Button")} {e.Object.Button}", false);
+            GTA.UI.Screen.ShowHelpTextThisFrame($"{GetLocalizedText("SelectButton")} {e.Object.Button}", false);
         }
 
         private void Hover_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -155,7 +154,7 @@ namespace BackToTheFutureV.Menu
                 return;
 
             ModControls.Hover = e.Object.Control;
-            GTA.UI.Screen.ShowHelpTextThisFrame($"{Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Button")} {e.Object.Button}", false);
+            GTA.UI.Screen.ShowHelpTextThisFrame($"{GetLocalizedText("SelectButton")} {e.Object.Button}", false);
         }
 
         private void InteractionMenu2_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -164,7 +163,7 @@ namespace BackToTheFutureV.Menu
                 return;
 
             ModControls.InteractionMenu2 = e.Object.Control;
-            GTA.UI.Screen.ShowHelpTextThisFrame($"{Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Button")} {e.Object.Button}", false);
+            GTA.UI.Screen.ShowHelpTextThisFrame($"{GetLocalizedText("SelectButton")} {e.Object.Button}", false);
         }
 
         private void InteractionMenu1_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -173,7 +172,7 @@ namespace BackToTheFutureV.Menu
                 return;
 
             ModControls.InteractionMenu1 = e.Object.Control;
-            GTA.UI.Screen.ShowHelpTextThisFrame($"{Game.GetLocalizedString("BTTFV_Menu_ControlsMenu_Button")} {e.Object.Button}", false);
+            GTA.UI.Screen.ShowHelpTextThisFrame($"{GetLocalizedText("SelectButton")} {e.Object.Button}", false);
         }
 
         private void MainMenu_ItemChanged(object sender, ItemChangedEventArgs<Keys> e)

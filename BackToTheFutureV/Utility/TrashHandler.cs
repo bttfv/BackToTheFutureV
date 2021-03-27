@@ -1,4 +1,5 @@
-﻿using FusionLibrary;
+﻿using BackToTheFutureV.Menu;
+using FusionLibrary;
 using GTA;
 
 namespace BackToTheFutureV.Utility
@@ -67,7 +68,9 @@ namespace BackToTheFutureV.Utility
 
             InternalInventory.Current.Trash++;
 
-            Utils.DisplayHelpText($"Found only some useless trash... ({InternalInventory.Current.Trash})");
+            string ret = BTTFVMenu.GetLocalizedText("FoundTrash");
+
+            Utils.DisplayHelpText(string.Format(ret, InternalInventory.Current.Trash));
         }
     }
 }

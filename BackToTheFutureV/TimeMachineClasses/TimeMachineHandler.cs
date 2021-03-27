@@ -1,4 +1,5 @@
-﻿using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV.Menu;
+using BackToTheFutureV.Utility;
 using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
@@ -406,7 +407,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 CurrentTimeMachine = ClosestTimeMachine;
 
                 if (CurrentTimeMachine.Constants.FullDamaged)
-                    GTA.UI.Screen.ShowHelpTextThisFrame(string.Format(Game.GetLocalizedString("BTTFV_Restore_Damanged_Delorean"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu_Restore"), Game.GetLocalizedString("BTTFV_Menu_TimeMachineMenu")));
+                    GTA.UI.Screen.ShowHelpTextThisFrame(string.Format(BTTFVMenu.GetLocalizedText("RestoreDamaged"), MenuHandler.TimeMachineMenu.GetLocalizedItemTitle("Restore"), MenuHandler.TimeMachineMenu.Subtitle));
             }
         }
     }

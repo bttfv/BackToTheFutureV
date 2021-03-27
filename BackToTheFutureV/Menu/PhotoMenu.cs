@@ -1,14 +1,11 @@
 ﻿using BackToTheFutureV.TimeMachineClasses;
 using FusionLibrary;
-using GTA;
-using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
-using System.Drawing;
 
 namespace BackToTheFutureV.Menu
 {
-    internal class PhotoMenu : CustomNativeMenu
+    internal class PhotoMenu : BTTFVMenu
     {
         private NativeCheckboxItem Wormhole;
         private NativeCheckboxItem Coils;
@@ -22,30 +19,28 @@ namespace BackToTheFutureV.Menu
 
         private TimeMachine TimeMachine => TimeMachineHandler.CurrentTimeMachine;
 
-        public PhotoMenu() : base("", Game.GetLocalizedString("BTTFV_Menu_PhotoMenu"))
+        public PhotoMenu() : base("Photo")
         {
-            Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
-
             Shown += PhotoMenu_Shown;
             OnItemCheckboxChanged += PhotoMenu_OnItemCheckboxChanged;
             OnItemActivated += PhotoMenu_OnItemActivated;
             OnItemValueChanged += PhotoMenu_OnItemValueChanged;
 
-            Add(Wormhole = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Wormhole_Description")));
-            Add(Coils = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Coils_Description")));
-            Add(Ice = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_Ice_Description")));
-            Add(FluxCapacitor = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_FluxCapacitor_Description")));
-            Add(SIDMax = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_SIDMax"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_SIDMax_Description")));
-            Add(EngineStall = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_EngineStall"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_EngineStall_Description")));
-            Add(LightningStrike = new NativeItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_LightningStrike"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_LightningStrike_Description")));
-            Add(StrikeDelay = new NativeSliderItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_StrikeDelay"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_StrikeDelay_Description"), 60, 3));
-            Add(HideHUD = new NativeCheckboxItem(Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_HideHUD"), Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_HideHUD_Description")));
+            Wormhole = NewCheckboxItem("Wormhole");
+            Coils = NewCheckboxItem("Coils");
+            Ice = NewCheckboxItem("Ice");
+            FluxCapacitor = NewCheckboxItem("FluxCapacitor");
+            SIDMax = NewCheckboxItem("SIDMax");
+            EngineStall = NewCheckboxItem("Engine");
+            LightningStrike = NewItem("LightningStrike");
+            StrikeDelay = NewSliderItem("StrikeDelay", 60, 3);
+            HideHUD = NewCheckboxItem("HideHUD");
         }
 
         private void PhotoMenu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
         {
             if (sender == StrikeDelay)
-                StrikeDelay.Title = $"{Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_StrikeDelay")}: {StrikeDelay.Value}";
+                StrikeDelay.Title = $"{GetLocalizedItemTitle("StrikeDelay")}: {StrikeDelay.Value}";
         }
 
         private void PhotoMenu_OnItemActivated(NativeItem sender, EventArgs e)
@@ -65,7 +60,7 @@ namespace BackToTheFutureV.Menu
             EngineStall.Enabled = TimeMachine.Mods.IsDMC12;
             SIDMax.Enabled = TimeMachine.Mods.IsDMC12;
 
-            StrikeDelay.Title = $"{Game.GetLocalizedString("BTTFV_Menu_PhotoMenu_StrikeDelay")}: {StrikeDelay.Value}";
+            StrikeDelay.Title = $"{GetLocalizedItemTitle("StrikeDelay")}: {StrikeDelay.Value}";
         }
 
         private void PhotoMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
