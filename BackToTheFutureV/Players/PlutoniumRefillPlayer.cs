@@ -1,12 +1,10 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using KlangRageAudioLibrary;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.Players
+namespace BackToTheFutureV
 {
-    internal class PlutoniumRefillPlayer : Player
+    internal class PlutoniumRefillPlayer : Players.Player
     {
         private AnimateProp plutoniumCap;
 

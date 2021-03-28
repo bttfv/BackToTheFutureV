@@ -1,11 +1,10 @@
-﻿using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
+namespace BackToTheFutureV
 {
     internal class ConstantsHandler : HandlerPrimitive
     {

@@ -1,11 +1,9 @@
-﻿using BackToTheFutureV.Settings;
-using BackToTheFutureV.TimeMachineClasses;
-using GTA;
+﻿using GTA;
 using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {

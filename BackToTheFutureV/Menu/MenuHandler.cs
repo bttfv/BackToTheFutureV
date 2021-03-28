@@ -1,11 +1,9 @@
-﻿using BackToTheFutureV.Settings;
-using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class MenuHandler
     {

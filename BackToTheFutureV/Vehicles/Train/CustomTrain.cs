@@ -1,7 +1,4 @@
-﻿using BackToTheFutureV.Story;
-using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using FusionLibrary.Extensions;
+﻿using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -9,7 +6,7 @@ using RogersSierraRailway;
 using System;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.Utility
+namespace BackToTheFutureV
 {
     internal delegate void OnVehicleDestroyed();
     internal delegate void OnVehicleAttached(bool toRogersSierra = false);

@@ -1,12 +1,11 @@
-﻿using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
 using GTA.Math;
 using System;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal class Gauge
     {

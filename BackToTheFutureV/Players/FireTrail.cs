@@ -4,7 +4,7 @@ using GTA.Math;
 using System;
 using System.Collections.Generic;
 
-namespace BackToTheFutureV.Players
+namespace BackToTheFutureV
 {
     internal class FireTrail
     {

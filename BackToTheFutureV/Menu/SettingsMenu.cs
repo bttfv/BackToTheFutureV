@@ -1,9 +1,8 @@
-﻿using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using LemonUI.Menus;
 using System;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class SettingsMenu : BTTFVMenu
     {

@@ -1,13 +1,12 @@
-﻿using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using KlangRageAudioLibrary;
 using System;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.TimeMachineClasses
+namespace BackToTheFutureV
 {
     internal class RemoteTimeMachine
     {

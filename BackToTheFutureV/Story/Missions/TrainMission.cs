@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
@@ -10,10 +9,10 @@ using RogersSierraRailway;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static RogersSierraRailway.TrainExtensions;
 
-namespace BackToTheFutureV.Story.Missions
+namespace BackToTheFutureV
 {
     internal delegate void OnVehicleAttachedToRogersSierra(TimeMachine timeMachine);
     internal delegate void OnVehicleDetachedFromRogersSierra(TimeMachine timeMachine);

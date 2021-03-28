@@ -1,9 +1,8 @@
-﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
 using System.Drawing;
 
-namespace BackToTheFutureV.Settings
+namespace BackToTheFutureV
 {
     internal class RCGUIEditer
     {

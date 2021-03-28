@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
@@ -7,9 +6,9 @@ using GTA;
 using GTA.Math;
 using GTA.Native;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.Story.Missions
+namespace BackToTheFutureV
 {
     internal class EscapeMission : Mission
     {

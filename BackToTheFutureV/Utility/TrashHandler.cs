@@ -1,7 +1,7 @@
 ﻿using FusionLibrary;
 using GTA;
 
-namespace BackToTheFutureV.Utility
+namespace BackToTheFutureV
 {
     internal static class TrashHandler
     {

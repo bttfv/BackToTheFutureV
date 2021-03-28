@@ -1,9 +1,8 @@
-﻿using BackToTheFutureV.Vehicles;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
+namespace BackToTheFutureV
 {
     internal class ModsHandler : DMC12Mods
     {

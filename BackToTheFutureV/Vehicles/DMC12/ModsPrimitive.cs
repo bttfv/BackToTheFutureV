@@ -1,9 +1,7 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using System;
-using static BackToTheFutureV.Utility.InternalEnums;
+﻿using System;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.Vehicles
+namespace BackToTheFutureV
 {
     [Serializable]
     internal class ModsPrimitive

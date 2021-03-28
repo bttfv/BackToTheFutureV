@@ -1,12 +1,10 @@
-﻿using BackToTheFutureV.Settings;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal class SpeedoHandler : HandlerPrimitive
     {

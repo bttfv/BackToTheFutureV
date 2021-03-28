@@ -1,13 +1,11 @@
-﻿using BackToTheFutureV.Players;
-using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal class FuelHandler : HandlerPrimitive
     {

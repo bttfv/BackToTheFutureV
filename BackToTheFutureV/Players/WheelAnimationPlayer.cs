@@ -1,15 +1,13 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.Players
+namespace BackToTheFutureV
 {
-    internal class WheelAnimationPlayer : Player
+    internal class WheelAnimationPlayer : Players.Player
     {
         private const float MAX_POSITION_OFFSET = 0.255f;
         private const float MAX_ROTATION_OFFSET = 90f;

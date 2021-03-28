@@ -1,11 +1,10 @@
 ﻿using BackToTheFutureV.HUD.Core;
-using BackToTheFutureV.TimeMachineClasses;
 using FusionLibrary;
 using GTA.UI;
 using System;
 using System.Drawing;
 
-namespace BackToTheFutureV.GUI
+namespace BackToTheFutureV
 {
     internal class SIDScaleform : ScaleformGui
     {

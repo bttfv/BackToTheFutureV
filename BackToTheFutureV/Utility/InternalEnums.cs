@@ -1,4 +1,4 @@
-﻿namespace BackToTheFutureV.Utility
+﻿namespace BackToTheFutureV
 {
     internal class InternalEnums
     {

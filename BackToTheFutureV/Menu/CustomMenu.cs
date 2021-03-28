@@ -1,14 +1,12 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using LemonUI.Menus;
 using System;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class CustomMenu : BTTFVMenu
     {
@@ -20,7 +18,7 @@ namespace BackToTheFutureV.Menu
         private NativeCheckboxItem _hoverUnderbody;
         private NativeCheckboxItem _hoodBox;
         private NativeCheckboxItem _hook;
-        private NativeCheckboxItem _speedoCover;
+        private NativeCheckboxItem _threeDigits;
         private NativeListItem<string> _plate;
         private NativeListItem<string> _exhaust;
         private NativeListItem<string> _suspensions;
@@ -41,29 +39,30 @@ namespace BackToTheFutureV.Menu
             _wormholeType = NewListItem("Wormhole", TextHandler.GetLocalizedText("BTTF1", "BTTF2", "BTTF3"));
             _wormholeType.ItemChanged += ModList_ItemChanged;
 
-            _reactorType = NewListItem("Reactor", GetItemValueTitle("Reactor", "MrFusion"), GetItemValueTitle("Reactor", "Nuclear"));
+            _reactorType = NewListItem("Reactor", GetItemValueTitle("Reactor", "MrFusion", "Nuclear"));
             _reactorType.ItemChanged += ModList_ItemChanged;
 
-            _wheelsType = NewListItem("Wheel", GetItemValueTitle("Wheel", "Stock"), GetItemValueTitle("Wheel", "Red"), GetItemValueTitle("Wheel", "Rail"), GetItemValueTitle("Wheel", "DMC"));
+            _wheelsType = NewListItem("Wheel", GetItemValueTitle("Wheel", "Stock", "Red", "Rail", "DMC"));
             _wheelsType.ItemChanged += ModList_ItemChanged;
+
             _hoverUnderbody = NewCheckboxItem("Hover");
 
             _hoodBox = NewCheckboxItem("ControlTubes");
 
             _hook = NewCheckboxItem("Hook");
 
-            _speedoCover = NewCheckboxItem("Speedo");
+            _threeDigits = NewCheckboxItem("Speedo");
 
-            _plate = NewListItem("Plate", GetItemValueTitle("Plate", "Empty"), GetItemValueTitle("Plate", "Outatime"), GetItemValueTitle("Plate", "Futuristic"), GetItemValueTitle("Plate", "NoTime"), GetItemValueTitle("Plate", "Timeless"), GetItemValueTitle("Plate", "Timeless2"), GetItemValueTitle("Plate", "DMCFactory"), GetItemValueTitle("Plate", "DMCFactory2"));
+            _plate = NewListItem("Plate", GetItemValueTitle("Plate", "Empty", "Outatime", "Futuristic", "NoTime", "Timeless", "Timeless2", "DMCFactory", "DMCFactory2"));
             _plate.ItemChanged += ModList_ItemChanged;
 
-            _exhaust = NewListItem("Exhaust", GetItemValueTitle("Exhaust", "Stock"), GetItemValueTitle("Exhaust", "BTTF"), GetItemValueTitle("Exhaust", "None"));
+            _exhaust = NewListItem("Exhaust", GetItemValueTitle("Exhaust", "Stock", "BTTF", "None"));
             _exhaust.ItemChanged += ModList_ItemChanged;
 
-            _suspensions = NewListItem("Suspensions", GetItemValueTitle("Suspensions", "Stock"), GetItemValueTitle("Suspensions", "LiftFrontLowerRear"), GetItemValueTitle("Suspensions", "LiftFront"), GetItemValueTitle("Suspensions", "LiftRear"), GetItemValueTitle("Suspensions", "LiftFrontAndRear"), GetItemValueTitle("Suspensions", "LowerFrontLiftRear"), GetItemValueTitle("Suspensions", "LowerFront"), GetItemValueTitle("Suspensions", "LowerRear"), GetItemValueTitle("Suspensions", "LowerFrontAndRear"));
+            _suspensions = NewListItem("Suspensions", GetItemValueTitle("Suspensions", "Stock", "LiftFrontLowerRear", "LiftFront", "LiftRear", "LiftFrontAndRear", "LowerFrontLiftRear", "LowerFront", "LowerRear", "LowerFrontAndRear"));
             _suspensions.ItemChanged += ModList_ItemChanged;
 
-            _hood = NewListItem("Hood", GetItemValueTitle("Hood", "Stock"), GetItemValueTitle("Hood", "1983"), GetItemValueTitle("Hood", "1981"));
+            _hood = NewListItem("Hood", GetItemValueTitle("Hood", "Stock", "1983", "1981"));
             _hood.ItemChanged += ModList_ItemChanged;
 
             _saveConf = NewItem("Save");
@@ -142,7 +141,7 @@ namespace BackToTheFutureV.Menu
                 _exhaust.SelectedIndex = (int)(_tempTimeMachine.Mods.Exhaust) + 1;
                 _suspensions.SelectedIndex = (int)_tempTimeMachine.Mods.SuspensionsType;
                 _hood.SelectedIndex = (int)_tempTimeMachine.Mods.Hood + 1;
-                _speedoCover.Checked = !_tempTimeMachine.Properties.ThreeDigitsSpeedo;
+                _threeDigits.Checked = _tempTimeMachine.Properties.ThreeDigitsSpeedo;
 
                 _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
                 _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying;
@@ -219,7 +218,7 @@ namespace BackToTheFutureV.Menu
                 _exhaust.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _suspensions.Enabled = _tempTimeMachine.Mods.IsDMC12;
                 _hood.Enabled = _tempTimeMachine.Mods.IsDMC12;
-                _speedoCover.Enabled = _tempTimeMachine.Mods.IsDMC12;
+                _threeDigits.Enabled = _tempTimeMachine.Mods.IsDMC12;
             }
 
             LoadVehicleType();
@@ -260,7 +259,7 @@ namespace BackToTheFutureV.Menu
                 else
                     _tempTimeMachine.Mods.Hook = HookState.Off;
             }
-            else if (sender == _speedoCover)
+            else if (sender == _threeDigits)
             {
                 _tempTimeMachine.Properties.ThreeDigitsSpeedo = !Checked;
             }

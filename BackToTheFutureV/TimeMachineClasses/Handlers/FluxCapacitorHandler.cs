@@ -1,12 +1,11 @@
-﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal class FluxCapacitorHandler : HandlerPrimitive
     {

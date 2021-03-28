@@ -1,12 +1,10 @@
-﻿using BackToTheFutureV.GUI;
-using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
+namespace BackToTheFutureV
 {
     internal class ScaleformsHandler : HandlerPrimitive
     {

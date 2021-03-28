@@ -1,9 +1,8 @@
-﻿using BackToTheFutureV.Settings;
-using LemonUI.Menus;
+﻿using LemonUI.Menus;
 using System;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class TCDMenu : BTTFVMenu
     {

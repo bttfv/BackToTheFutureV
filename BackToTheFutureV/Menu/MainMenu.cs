@@ -1,15 +1,13 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
-using BackToTheFutureV.Vehicles;
+﻿using BackToTheFutureV;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using LemonUI.Menus;
 using System;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class MainMenu : BTTFVMenu
     {

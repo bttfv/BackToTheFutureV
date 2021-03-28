@@ -1,6 +1,4 @@
-﻿using BackToTheFutureV.Menu;
-using BackToTheFutureV.Utility;
-using BackToTheFutureV.Vehicles;
+﻿using BackToTheFutureV;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
@@ -10,10 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.TimeMachineClasses
+namespace BackToTheFutureV
 {
     internal class TimeMachineHandler
     {

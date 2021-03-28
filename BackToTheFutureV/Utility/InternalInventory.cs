@@ -3,7 +3,7 @@ using GTA;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BackToTheFutureV.Utility
+namespace BackToTheFutureV
 {
     internal class InternalInventory
     {

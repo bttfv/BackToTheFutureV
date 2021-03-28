@@ -1,7 +1,4 @@
-﻿using BackToTheFutureV.TimeMachineClasses.Handlers;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.Utility;
-using BackToTheFutureV.Vehicles;
+﻿using BackToTheFutureV;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
@@ -11,10 +8,10 @@ using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.TimeMachineClasses
+namespace BackToTheFutureV
 {
     internal class TimeMachine
     {

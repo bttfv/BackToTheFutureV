@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Control = GTA.Control;
 
-namespace BackToTheFutureV.Settings
+namespace BackToTheFutureV
 {
     internal static class ModControls
     {

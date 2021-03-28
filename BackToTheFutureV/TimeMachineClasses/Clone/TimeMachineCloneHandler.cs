@@ -1,12 +1,11 @@
-﻿using BackToTheFutureV.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.TimeMachineClasses
+namespace BackToTheFutureV
 {
     [Serializable]
     internal class TimeMachineCloneHandler

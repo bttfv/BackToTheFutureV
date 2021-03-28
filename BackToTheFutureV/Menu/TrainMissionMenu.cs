@@ -1,12 +1,11 @@
-﻿using BackToTheFutureV.Story;
-using FusionLibrary;
+﻿using FusionLibrary;
 using KlangRageAudioLibrary;
 using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
 using System.Drawing;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class TrainMissionMenu : CustomNativeMenu
     {

@@ -1,9 +1,8 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
+﻿using FusionLibrary;
 using LemonUI.Menus;
 using System;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class PhotoMenu : BTTFVMenu
     {

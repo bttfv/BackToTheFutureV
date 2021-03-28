@@ -1,7 +1,7 @@
 ﻿using FusionLibrary;
 using System;
 
-namespace BackToTheFutureV.GUI
+namespace BackToTheFutureV
 {
     internal class TCD3DRowScaleform : ScaleformGui
     {

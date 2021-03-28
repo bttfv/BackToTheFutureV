@@ -4,7 +4,7 @@ using LemonUI.Elements;
 using LemonUI.Menus;
 using System.Drawing;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class BTTFVMenu : CustomNativeMenu
     {
@@ -40,9 +40,29 @@ namespace BackToTheFutureV.Menu
             return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Value_{valueName}_Title");
         }
 
+        public string[] GetItemValueTitle(string itemName, params string[] valueNames)
+        {
+            string[] ret = new string[valueNames.Length];
+
+            for (int i = 0; i < valueNames.Length; i++)
+                ret[i] = Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Value_{valueNames[i]}_Title");
+
+            return ret;
+        }
+
         public string GetItemValueDescription(string itemName, string valueName)
         {
             return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Value_{valueName}_Description");
+        }
+
+        public string[] GetItemValueDescription(string itemName, params string[] valueNames)
+        {
+            string[] ret = new string[valueNames.Length];
+
+            for (int i = 0; i < valueNames.Length; i++)
+                ret[i] = Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Value_{valueNames[i]}_Description");
+
+            return ret;
         }
 
         public NativeSubmenuItem NewSubmenu(NativeMenu menu, string menuName)

@@ -16,7 +16,7 @@ using Screen = GTA.UI.Screen;
 // TODO: Fix reverse prediction
 // TODO: Reverse based on real acceleration
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal delegate void OnGearUp();
 

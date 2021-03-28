@@ -1,15 +1,13 @@
-﻿using BackToTheFutureV.Settings;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal class TCDHandler : HandlerPrimitive
     {

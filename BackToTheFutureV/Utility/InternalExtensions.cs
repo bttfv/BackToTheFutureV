@@ -1,16 +1,14 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.Vehicles;
+﻿using BackToTheFutureV;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.Utility
+namespace BackToTheFutureV
 {
     internal class BTTFImportantDates
     {

@@ -4,10 +4,10 @@ using GTA;
 using GTA.Math;
 using GTA.UI;
 using System;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.TimeMachineClasses
+namespace BackToTheFutureV
 {
     internal class StoryTimeMachine
     {

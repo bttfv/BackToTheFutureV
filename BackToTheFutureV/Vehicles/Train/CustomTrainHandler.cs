@@ -3,7 +3,7 @@ using GTA.Math;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BackToTheFutureV.Utility
+namespace BackToTheFutureV
 {
     internal static class CustomTrainHandler
     {

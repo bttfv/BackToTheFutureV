@@ -1,12 +1,11 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
 using LemonUI.Menus;
 using System;
 using static FusionLibrary.Enums;
 using Control = GTA.Control;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class PresetsMenu : BTTFVMenu
     {

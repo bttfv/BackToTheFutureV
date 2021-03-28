@@ -1,8 +1,7 @@
-﻿using BackToTheFutureV.Story.Missions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace BackToTheFutureV.Story
+namespace BackToTheFutureV
 {
     internal static class MissionHandler
     {

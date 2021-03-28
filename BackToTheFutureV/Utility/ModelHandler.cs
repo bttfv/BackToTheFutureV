@@ -1,7 +1,7 @@
 ﻿using FusionLibrary;
 using System.Collections.Generic;
 
-namespace BackToTheFutureV.Utility
+namespace BackToTheFutureV
 {
     internal class ModelHandler : CustomModelHandler
     {

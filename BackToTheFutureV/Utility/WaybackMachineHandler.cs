@@ -1,11 +1,10 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BackToTheFutureV.Utility
+namespace BackToTheFutureV
 {
     internal static class WaybackMachineHandler
     {

@@ -1,18 +1,15 @@
-﻿using BackToTheFutureV.Players;
-using BackToTheFutureV.Settings;
-using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
 using System;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 using Screen = GTA.UI.Screen;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal class TimeTravelHandler : HandlerPrimitive
     {

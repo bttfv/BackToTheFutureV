@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.GUI
+namespace BackToTheFutureV
 {
     internal class TCD2DScaleform : ScaleformGui
     {

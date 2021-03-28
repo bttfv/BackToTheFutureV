@@ -1,7 +1,4 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.Vehicles;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
@@ -9,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BackToTheFutureV.Utility
+namespace BackToTheFutureV
 {
     internal class WaybackReplica
     {

@@ -1,13 +1,12 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
 using GTA.Math;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BackToTheFutureV.Players
+namespace BackToTheFutureV
 {
-    internal class SparkPlayer : Player
+    internal class SparkPlayer : Players.Player
     {
         public float Speed { get; set; }
 

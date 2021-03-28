@@ -1,7 +1,7 @@
 ﻿using LemonUI.Menus;
 using System;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class SoundsSettingsMenu : BTTFVMenu
     {

@@ -1,14 +1,13 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
+﻿using BackToTheFutureV;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System.Collections.Generic;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.Vehicles
+namespace BackToTheFutureV
 {
     internal class DMC12Handler
     {

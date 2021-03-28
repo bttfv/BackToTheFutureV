@@ -1,9 +1,8 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
+﻿using FusionLibrary;
 using System;
 using System.Collections.Generic;
 
-namespace BackToTheFutureV.Players
+namespace BackToTheFutureV
 {
     internal class FireTrailsHandler
     {

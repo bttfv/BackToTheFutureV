@@ -1,9 +1,7 @@
-﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.Vehicles;
-using GTA;
+﻿using GTA;
 using System.Windows.Forms;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal abstract class HandlerPrimitive
     {

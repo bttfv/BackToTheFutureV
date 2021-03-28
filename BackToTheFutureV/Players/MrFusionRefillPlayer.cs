@@ -1,12 +1,10 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using KlangRageAudioLibrary;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.Players
+namespace BackToTheFutureV
 {
-    internal class MrFusionRefillPlayer : Player
+    internal class MrFusionRefillPlayer : Players.Player
     {
         private readonly AnimateProp _mrFusion;
         private readonly AnimateProp _mrFusionHandle;

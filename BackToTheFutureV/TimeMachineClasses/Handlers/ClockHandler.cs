@@ -7,7 +7,7 @@ using static FusionLibrary.Enums;
 using Control = GTA.Control;
 using Screen = GTA.UI.Screen;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal class ClockHandler : HandlerPrimitive
     {

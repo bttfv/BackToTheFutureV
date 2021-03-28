@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
+namespace BackToTheFutureV
 {
     internal class DoorInfo
     {

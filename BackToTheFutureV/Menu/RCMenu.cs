@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
@@ -7,7 +6,7 @@ using GTA.Native;
 using LemonUI.Menus;
 using System;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class RCMenu : BTTFVMenu
     {

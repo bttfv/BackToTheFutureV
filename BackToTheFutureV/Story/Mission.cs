@@ -1,7 +1,7 @@
 ﻿using FusionLibrary;
 using System.Windows.Forms;
 
-namespace BackToTheFutureV.Story
+namespace BackToTheFutureV
 {
     internal abstract class Mission
     {

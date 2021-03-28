@@ -3,7 +3,7 @@ using System;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
+namespace BackToTheFutureV
 {
     internal delegate void OnScaleformPriority();
 

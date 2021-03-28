@@ -1,11 +1,10 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using GTA;
+﻿using GTA;
 using GTA.Math;
 using LemonUI.Menus;
 using System;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class OutatimeMenu : BTTFVMenu
     {

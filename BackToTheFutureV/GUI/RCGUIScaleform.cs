@@ -2,7 +2,7 @@
 using System;
 using System.Drawing;
 
-namespace BackToTheFutureV.GUI
+namespace BackToTheFutureV
 {
     internal class RCGUIScaleform : ScaleformGui
     {

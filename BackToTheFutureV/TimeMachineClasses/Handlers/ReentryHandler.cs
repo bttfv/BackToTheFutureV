@@ -4,10 +4,10 @@ using FusionLibrary.Memory;
 using GTA;
 using GTA.Native;
 using System.Windows.Forms;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal class ReentryHandler : HandlerPrimitive
     {

@@ -1,11 +1,10 @@
-﻿using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
 using GTA.Native;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.Vehicles
+namespace BackToTheFutureV
 {
     internal class DMC12Mods : ModsPrimitive
     {

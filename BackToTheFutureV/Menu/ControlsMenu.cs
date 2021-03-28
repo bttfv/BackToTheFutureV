@@ -1,12 +1,11 @@
-﻿using BackToTheFutureV.Settings;
-using FusionLibrary;
+﻿using FusionLibrary;
 using LemonUI.Menus;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BackToTheFutureV.Menu
+namespace BackToTheFutureV
 {
     internal class ControlsMenu : BTTFVMenu
     {

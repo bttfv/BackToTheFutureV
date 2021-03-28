@@ -1,11 +1,10 @@
 ﻿using BackToTheFutureV.HUD.Core;
-using BackToTheFutureV.Utility;
 using FusionLibrary;
 using GTA.Math;
 using System;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers
+namespace BackToTheFutureV
 {
     [Serializable]
     internal class PropertiesHandler

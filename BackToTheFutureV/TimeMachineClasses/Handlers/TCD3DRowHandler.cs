@@ -1,7 +1,4 @@
-﻿using BackToTheFutureV.Settings;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
 using GTA.Math;
 using System;
@@ -10,7 +7,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal class TCD3DRowHandler : HandlerPrimitive
     {

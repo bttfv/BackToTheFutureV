@@ -1,17 +1,15 @@
-﻿using BackToTheFutureV.TimeMachineClasses;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using static BackToTheFutureV.Utility.InternalEnums;
+using static BackToTheFutureV.InternalEnums;
 
-namespace BackToTheFutureV.Players
+namespace BackToTheFutureV
 {
-    internal class WormholeAnimationPlayer : Player
+    internal class WormholeAnimationPlayer : Players.Player
     {
         // Sparks that fly around of car, have blue color for bttf1/2 and red for bttf3
         public static readonly List<List<Vector3>> SparkOffsets = new List<List<Vector3>>()

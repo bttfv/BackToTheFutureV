@@ -1,6 +1,4 @@
-﻿using BackToTheFutureV.Settings;
-using BackToTheFutureV.Utility;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
 using System;
 using System.Linq;
@@ -10,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
 
-namespace BackToTheFutureV.TimeMachineClasses.Handlers
+namespace BackToTheFutureV
 {
     internal class InputHandler : HandlerPrimitive
     {
