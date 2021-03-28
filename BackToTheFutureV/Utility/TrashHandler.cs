@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Menu;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA;
 
 namespace BackToTheFutureV.Utility

@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Menu;
-using BackToTheFutureV.Settings;
+﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
 using FusionLibrary.Extensions;
@@ -80,7 +79,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
 
             if (Utils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
-            {                
+            {
                 TextHandler.ShowHelp("ApplyHook");
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))

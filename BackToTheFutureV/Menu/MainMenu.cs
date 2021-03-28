@@ -4,10 +4,8 @@ using BackToTheFutureV.Vehicles;
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.UI;
 using LemonUI.Menus;
 using System;
-using System.Collections.Generic;
 using static BackToTheFutureV.Utility.InternalEnums;
 using static FusionLibrary.Enums;
 

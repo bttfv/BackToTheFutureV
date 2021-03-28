@@ -407,7 +407,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 CurrentTimeMachine = ClosestTimeMachine;
 
                 if (CurrentTimeMachine.Constants.FullDamaged)
-                    TextHandler.ShowHelp("RestoreDamaged", true, MenuHandler.TimeMachineMenu.GetItemTitle("Restore"), MenuHandler.TimeMachineMenu.Subtitle);                    
+                    TextHandler.ShowHelp("RestoreDamaged", true, MenuHandler.TimeMachineMenu.GetItemTitle("Restore"), MenuHandler.TimeMachineMenu.Subtitle);
             }
         }
     }

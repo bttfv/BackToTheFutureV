@@ -1,8 +1,6 @@
-﻿using BackToTheFutureV.Menu;
-using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
+﻿using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary;
 using GTA;
-using GTA.UI;
 using System.Drawing;
 
 namespace BackToTheFutureV.Settings

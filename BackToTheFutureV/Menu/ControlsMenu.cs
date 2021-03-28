@@ -135,7 +135,7 @@ namespace BackToTheFutureV.Menu
             if (_doNotUpdate)
                 return;
 
-            ModControls.HoverVTOL = e.Object.Control;            
+            ModControls.HoverVTOL = e.Object.Control;
             TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
         }
 

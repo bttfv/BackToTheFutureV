@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Menu;
-using BackToTheFutureV.Settings;
+﻿using BackToTheFutureV.Settings;
 using BackToTheFutureV.TimeMachineClasses.Handlers.BaseHandlers;
 using FusionLibrary;
 using FusionLibrary.Extensions;

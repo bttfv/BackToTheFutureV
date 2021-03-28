@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Menu;
-using BackToTheFutureV.Players;
+﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.Settings;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
@@ -236,7 +235,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void SetHoverMode(bool mode)
         {
-            Properties.IsAltitudeHolding = mode;            
+            Properties.IsAltitudeHolding = mode;
             TextHandler.ShowHelp("AltitudeHoldChange", true, Properties.IsAltitudeHolding ? TextHandler.GetLocalizedText("On") : TextHandler.GetLocalizedText("Off"));
         }
 

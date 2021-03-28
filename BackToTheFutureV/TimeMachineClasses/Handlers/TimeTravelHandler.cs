@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.Menu;
-using BackToTheFutureV.Players;
+﻿using BackToTheFutureV.Players;
 using BackToTheFutureV.Settings;
 using BackToTheFutureV.Utility;
 using FusionLibrary;
@@ -52,7 +51,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void SetCutsceneMode(bool cutsceneOn)
         {
             Properties.CutsceneMode = cutsceneOn;
-           
+
             TextHandler.ShowHelp("TimeTravelModeChange", true, Properties.CutsceneMode ? TextHandler.GetLocalizedText("Cutscene") : TextHandler.GetLocalizedText("Instant"));
         }
 
