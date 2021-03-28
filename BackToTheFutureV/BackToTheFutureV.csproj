@@ -88,8 +88,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\KlangRageAudioLibrary\irrKlang\irrKlang.NET4.dll</HintPath>
     </Reference>
-    <Reference Include="LemonUI.SHVDN3, Version=1.2.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\LemonUI.SHVDN3.1.2.0\lib\net48\LemonUI.SHVDN3.dll</HintPath>
+    <Reference Include="LemonUI.SHVDN3, Version=1.3.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\LemonUI.SHVDN3.1.3.0\lib\net48\LemonUI.SHVDN3.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework, Version=3.8.0.1641, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\lib\net452\MonoGame.Framework.dll</HintPath>
@@ -191,6 +191,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\ModSettings.cs" />
     <Compile Include="Settings\TCDEditer.cs" />
+    <Compile Include="Utility\TextHandler.cs" />
     <Compile Include="Utility\TrashHandler.cs" />
     <Compile Include="Utility\WaybackMachine.cs" />
     <Compile Include="Utility\WaybackMachineHandler.cs" />

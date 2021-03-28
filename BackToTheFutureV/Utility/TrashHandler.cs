@@ -66,11 +66,7 @@ namespace BackToTheFutureV.Utility
             if (dumpster == null || !Game.IsControlJustPressed(Control.Context))
                 return;
 
-            InternalInventory.Current.Trash++;
-
-            string ret = BTTFVMenu.GetLocalizedText("FoundTrash");
-
-            Utils.DisplayHelpText(string.Format(ret, InternalInventory.Current.Trash));
+            TextHandler.ShowHelp("FoundTrash", true, InternalInventory.Current.Trash);
         }
     }
 }

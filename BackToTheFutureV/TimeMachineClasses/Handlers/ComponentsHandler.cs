@@ -80,8 +80,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 return;
 
             if (Utils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
-            {
-                Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("ApplyHook"));
+            {                
+                TextHandler.ShowHelp("ApplyHook");
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))
                     Mods.Hook = HookState.On;
@@ -117,7 +117,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (_warmUp > 0 && _warmUp < Game.GameTime)
             {
-                Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("WarmupComplete"));
+                TextHandler.ShowHelp("WarmupComplete");
                 Props.HoodboxLights.SpawnProp();
 
                 _warmUp = 0;
@@ -131,7 +131,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
             if (Utils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
             {
-                Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("Warmup"));
+                TextHandler.ShowHelp("Warmup");
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))
                     _warmUp = Game.GameTime + 8000;

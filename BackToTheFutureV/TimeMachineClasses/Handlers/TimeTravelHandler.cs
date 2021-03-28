@@ -52,8 +52,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
         public void SetCutsceneMode(bool cutsceneOn)
         {
             Properties.CutsceneMode = cutsceneOn;
-
-            Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("TimeTravelModeChange") + " " + (Properties.CutsceneMode ? BTTFVMenu.GetLocalizedText("Cutscene") : BTTFVMenu.GetLocalizedText("Instant")));
+           
+            TextHandler.ShowHelp("TimeTravelModeChange", true, Properties.CutsceneMode ? TextHandler.GetLocalizedText("Cutscene") : TextHandler.GetLocalizedText("Instant"));
         }
 
         public void StartTimeTravel(int delay = 0)

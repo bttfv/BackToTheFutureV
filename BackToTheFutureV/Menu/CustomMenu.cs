@@ -38,13 +38,13 @@ namespace BackToTheFutureV.Menu
             OnItemCheckboxChanged += SettingsMenu_OnItemCheckboxChanged;
             OnItemActivated += CustomMenu_OnItemActivated;
 
-            _wormholeType = NewListItem("Wormhole", GetLocalizedText("BTTF1"), GetLocalizedText("BTTF2"), GetLocalizedText("BTTF3"));
+            _wormholeType = NewListItem("Wormhole", TextHandler.GetLocalizedText("BTTF1", "BTTF2", "BTTF3"));
             _wormholeType.ItemChanged += ModList_ItemChanged;
 
-            _reactorType = NewListItem("Reactor", GetLocalizedItemValueTitle("Reactor", "MrFusion"), GetLocalizedItemValueTitle("Reactor", "Nuclear"));
+            _reactorType = NewListItem("Reactor", GetItemValueTitle("Reactor", "MrFusion"), GetItemValueTitle("Reactor", "Nuclear"));
             _reactorType.ItemChanged += ModList_ItemChanged;
 
-            _wheelsType = NewListItem("Wheel", GetLocalizedItemValueTitle("Wheel", "Stock"), GetLocalizedItemValueTitle("Wheel", "Red"), GetLocalizedItemValueTitle("Wheel", "Rail"), GetLocalizedItemValueTitle("Wheel", "DMC"));
+            _wheelsType = NewListItem("Wheel", GetItemValueTitle("Wheel", "Stock"), GetItemValueTitle("Wheel", "Red"), GetItemValueTitle("Wheel", "Rail"), GetItemValueTitle("Wheel", "DMC"));
             _wheelsType.ItemChanged += ModList_ItemChanged;
             _hoverUnderbody = NewCheckboxItem("Hover");
 
@@ -54,16 +54,16 @@ namespace BackToTheFutureV.Menu
 
             _speedoCover = NewCheckboxItem("Speedo");
 
-            _plate = NewListItem("Plate", GetLocalizedItemValueTitle("Plate", "Empty"), GetLocalizedItemValueTitle("Plate", "Outatime"), GetLocalizedItemValueTitle("Plate", "Futuristic"), GetLocalizedItemValueTitle("Plate", "NoTime"), GetLocalizedItemValueTitle("Plate", "Timeless"), GetLocalizedItemValueTitle("Plate", "Timeless2"), GetLocalizedItemValueTitle("Plate", "DMCFactory"), GetLocalizedItemValueTitle("Plate", "DMCFactory2"));
+            _plate = NewListItem("Plate", GetItemValueTitle("Plate", "Empty"), GetItemValueTitle("Plate", "Outatime"), GetItemValueTitle("Plate", "Futuristic"), GetItemValueTitle("Plate", "NoTime"), GetItemValueTitle("Plate", "Timeless"), GetItemValueTitle("Plate", "Timeless2"), GetItemValueTitle("Plate", "DMCFactory"), GetItemValueTitle("Plate", "DMCFactory2"));
             _plate.ItemChanged += ModList_ItemChanged;
 
-            _exhaust = NewListItem("Exhaust", GetLocalizedItemValueTitle("Exhaust", "Stock"), GetLocalizedItemValueTitle("Exhaust", "BTTF"), GetLocalizedItemValueTitle("Exhaust", "None"));
+            _exhaust = NewListItem("Exhaust", GetItemValueTitle("Exhaust", "Stock"), GetItemValueTitle("Exhaust", "BTTF"), GetItemValueTitle("Exhaust", "None"));
             _exhaust.ItemChanged += ModList_ItemChanged;
 
-            _suspensions = NewListItem("Suspensions", GetLocalizedItemValueTitle("Suspensions", "Stock"), GetLocalizedItemValueTitle("Suspensions", "LiftFrontLowerRear"), GetLocalizedItemValueTitle("Suspensions", "LiftFront"), GetLocalizedItemValueTitle("Suspensions", "LiftRear"), GetLocalizedItemValueTitle("Suspensions", "LiftFrontAndRear"), GetLocalizedItemValueTitle("Suspensions", "LowerFrontLiftRear"), GetLocalizedItemValueTitle("Suspensions", "LowerFront"), GetLocalizedItemValueTitle("Suspensions", "LowerRear"), GetLocalizedItemValueTitle("Suspensions", "LowerFrontAndRear"));
+            _suspensions = NewListItem("Suspensions", GetItemValueTitle("Suspensions", "Stock"), GetItemValueTitle("Suspensions", "LiftFrontLowerRear"), GetItemValueTitle("Suspensions", "LiftFront"), GetItemValueTitle("Suspensions", "LiftRear"), GetItemValueTitle("Suspensions", "LiftFrontAndRear"), GetItemValueTitle("Suspensions", "LowerFrontLiftRear"), GetItemValueTitle("Suspensions", "LowerFront"), GetItemValueTitle("Suspensions", "LowerRear"), GetItemValueTitle("Suspensions", "LowerFrontAndRear"));
             _suspensions.ItemChanged += ModList_ItemChanged;
 
-            _hood = NewListItem("Hood", GetLocalizedItemValueTitle("Hood", "Stock"), GetLocalizedItemValueTitle("Hood", "1983"), GetLocalizedItemValueTitle("Hood", "1981"));
+            _hood = NewListItem("Hood", GetItemValueTitle("Hood", "Stock"), GetItemValueTitle("Hood", "1983"), GetItemValueTitle("Hood", "1981"));
             _hood.ItemChanged += ModList_ItemChanged;
 
             _saveConf = NewItem("Save");

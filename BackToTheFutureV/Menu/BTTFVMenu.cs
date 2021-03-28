@@ -8,43 +8,39 @@ namespace BackToTheFutureV.Menu
 {
     internal class BTTFVMenu : CustomNativeMenu
     {
-        public BTTFVMenu(string title) : base("", GetLocalizedMenuTitle(title))
+        public BTTFVMenu(string name) : base("")
         {
-            InternalName = title;
+            InternalName = name;
+            Subtitle = GetMenuTitle();
             Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
         }
 
-        public static string GetLocalizedText(string entry)
+        public string GetMenuTitle()
         {
-            return Game.GetLocalizedString($"BTTFV_Text_{entry}");
+            return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Title");
         }
 
-        public static string GetLocalizedMenuTitle(string entry)
+        public string GetMenuDescription()
         {
-            return Game.GetLocalizedString($"BTTFV_Menu_{entry}_Title");
+            return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Description");
         }
 
-        public static string GetLocalizedMenuDescription(string entry)
-        {
-            return Game.GetLocalizedString($"BTTFV_Menu_{entry}_Description");
-        }
-
-        public string GetLocalizedItemTitle(string itemName)
+        public string GetItemTitle(string itemName)
         {
             return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Title");
         }
 
-        public string GetLocalizedItemDescription(string itemName)
+        public string GetItemDescription(string itemName)
         {
             return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Description");
         }
 
-        public string GetLocalizedItemValueTitle(string itemName, string valueName)
+        public string GetItemValueTitle(string itemName, string valueName)
         {
             return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Value_{valueName}_Title");
         }
 
-        public string GetLocalizedItemValueDescription(string itemName, string valueName)
+        public string GetItemValueDescription(string itemName, string valueName)
         {
             return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Value_{valueName}_Description");
         }
@@ -52,8 +48,8 @@ namespace BackToTheFutureV.Menu
         public NativeSubmenuItem NewSubmenu(NativeMenu menu, string menuName)
         {
             NativeSubmenuItem item = AddSubMenu(menu);
-            item.Title = GetLocalizedItemTitle(menuName);
-            item.Description = GetLocalizedItemDescription(menuName);
+            item.Title = GetItemTitle(menuName);
+            item.Description = GetItemDescription(menuName);
 
             return item;
         }
@@ -62,7 +58,7 @@ namespace BackToTheFutureV.Menu
         {
             NativeCheckboxItem item;
 
-            Add(item = new NativeCheckboxItem(GetLocalizedItemTitle(itemName), GetLocalizedItemDescription(itemName)));
+            Add(item = new NativeCheckboxItem(GetItemTitle(itemName), GetItemDescription(itemName)));
 
             return item;
         }
@@ -71,7 +67,7 @@ namespace BackToTheFutureV.Menu
         {
             NativeCheckboxItem item;
 
-            Add(item = new NativeCheckboxItem(GetLocalizedItemTitle(itemName), GetLocalizedItemDescription(itemName), isChecked));
+            Add(item = new NativeCheckboxItem(GetItemTitle(itemName), GetItemDescription(itemName), isChecked));
 
             return item;
         }
@@ -80,7 +76,7 @@ namespace BackToTheFutureV.Menu
         {
             NativeListItem<T> item;
 
-            Add(item = new NativeListItem<T>(GetLocalizedItemTitle(itemName), GetLocalizedItemDescription(itemName), itemValues));
+            Add(item = new NativeListItem<T>(GetItemTitle(itemName), GetItemDescription(itemName), itemValues));
 
             return item;
         }
@@ -89,7 +85,7 @@ namespace BackToTheFutureV.Menu
         {
             NativeListItem<T> item;
 
-            Add(item = new NativeListItem<T>(GetLocalizedItemTitle(itemName), GetLocalizedItemDescription(itemName)));
+            Add(item = new NativeListItem<T>(GetItemTitle(itemName), GetItemDescription(itemName)));
 
             return item;
         }
@@ -98,7 +94,7 @@ namespace BackToTheFutureV.Menu
         {
             NativeSliderItem item;
 
-            Add(item = new NativeSliderItem(GetLocalizedItemTitle(itemName), GetLocalizedItemDescription(itemName), max, value));
+            Add(item = new NativeSliderItem(GetItemTitle(itemName), GetItemDescription(itemName), max, value));
 
             return item;
         }
@@ -107,7 +103,7 @@ namespace BackToTheFutureV.Menu
         {
             NativeItem item;
 
-            Add(item = new NativeItem(GetLocalizedItemTitle(itemName), GetLocalizedItemDescription(itemName)));
+            Add(item = new NativeItem(GetItemTitle(itemName), GetItemDescription(itemName)));
 
             return item;
         }
@@ -116,7 +112,7 @@ namespace BackToTheFutureV.Menu
         {
             NativeItem item;
 
-            Add(pos, item = new NativeItem(GetLocalizedItemTitle(itemName), GetLocalizedItemDescription(itemName)));
+            Add(pos, item = new NativeItem(GetItemTitle(itemName), GetItemDescription(itemName)));
 
             return item;
         }

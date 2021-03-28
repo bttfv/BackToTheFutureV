@@ -86,7 +86,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 _nextReset = 0;
                 _destinationTimeRaw = string.Empty;
 
-                Utils.DisplayHelpText($"{BTTFVMenu.GetLocalizedText("InputMode")} {(InputMode ? BTTFVMenu.GetLocalizedText("On") : BTTFVMenu.GetLocalizedText("Off"))}");
+                TextHandler.ShowHelp("InputMode", true, InputMode ? TextHandler.GetLocalizedText("On") : TextHandler.GetLocalizedText("Off"));
             }
 
             if (!ModSettings.UseInputToggle || InputMode)

@@ -26,17 +26,15 @@ namespace BackToTheFutureV.Menu
         private NativeItem deleteOthers;
         private NativeItem deleteAll;
 
-        private readonly List<string> _bttfTypes = new List<string> { GetLocalizedText("DMC12"), GetLocalizedText("BTTF1"), GetLocalizedText("BTTF1H"), GetLocalizedText("BTTF2"), GetLocalizedText("BTTF3"), GetLocalizedText("BTTF3RR") };
-
         public MainMenu() : base("Main")
         {
-            Subtitle = GetLocalizedText("SelectOption");
+            Subtitle = TextHandler.GetLocalizedText("SelectOption");
 
             OnItemActivated += MainMenu_OnItemActivated;
 
-            spawnBTTF = NewListItem("Spawn", _bttfTypes.ToArray());
+            spawnBTTF = NewListItem("Spawn", TextHandler.GetLocalizedText("DMC12", "BTTF1", "BTTF1H", "BTTF2", "BTTF3", "BTTF3RR"));
             spawnBTTF.ItemChanged += SpawnBTTF_ItemChanged;
-            spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "DMC12");
+            spawnBTTF.Description = GetItemValueDescription("Spawn", "DMC12");
 
             NewSubmenu(MenuHandler.PresetsMenu, "Presets");
 
@@ -59,20 +57,20 @@ namespace BackToTheFutureV.Menu
             switch (e.Index)
             {
                 case 0:
-                    spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "DMC12");
+                    spawnBTTF.Description = GetItemValueDescription("Spawn", "DMC12");
                     break;
                 case 1:
                 case 2:
-                    spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "BTTF1");
+                    spawnBTTF.Description = GetItemValueDescription("Spawn", "BTTF1");
                     break;
                 case 3:
-                    spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "BTTF2");
+                    spawnBTTF.Description = GetItemValueDescription("Spawn", "BTTF2");
                     break;
                 case 4:
-                    spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "BTTF3");
+                    spawnBTTF.Description = GetItemValueDescription("Spawn", "BTTF3");
                     break;
                 case 5:
-                    spawnBTTF.Description = GetLocalizedItemValueDescription("Spawn", "BTTF3RR");
+                    spawnBTTF.Description = GetItemValueDescription("Spawn", "BTTF3RR");
                     break;
             }
 
@@ -140,7 +138,7 @@ namespace BackToTheFutureV.Menu
 
                 if (timeMachine == null)
                 {
-                    Notification.Show(GetLocalizedText("NotSeated"));
+                    TextHandler.ShowNotification("NotSeated");
                     return;
                 }
 
@@ -154,7 +152,7 @@ namespace BackToTheFutureV.Menu
                 TimeMachineHandler.RemoveAllTimeMachines(true);
                 RemoteTimeMachineHandler.DeleteAll();
                 WaybackMachineHandler.Abort();
-                Notification.Show(GetLocalizedText("RemovedOtherTimeMachines"));
+                TextHandler.ShowNotification("RemovedOtherTimeMachines");
             }
 
             if (sender == deleteAll)
@@ -162,7 +160,7 @@ namespace BackToTheFutureV.Menu
                 TimeMachineHandler.RemoveAllTimeMachines();
                 RemoteTimeMachineHandler.DeleteAll();
                 WaybackMachineHandler.Abort();
-                Notification.Show(GetLocalizedText("RemovedAllTimeMachines"));
+                TextHandler.ShowNotification("RemovedAllTimeMachines");
 
                 ExternalHUD.SetOff();
             }

@@ -21,9 +21,9 @@ namespace BackToTheFutureV.Menu
 
             _instrumentalMenu.AddControl(Control.PhoneCancel, Game.GetLocalizedString("HUD_INPUT3"));
             _instrumentalMenu.AddControl(Control.PhoneSelect, Game.GetLocalizedString("HUD_INPUT2"));
-            _instrumentalMenu.AddControl(Control.PhoneRight, GetLocalizedItemTitle("Delete"));
-            _instrumentalMenu.AddControl(Control.PhoneLeft, GetLocalizedItemTitle("Rename"));
-            _instrumentalMenu.AddControl(Control.PhoneExtraOption, GetLocalizedItemTitle("New"));
+            _instrumentalMenu.AddControl(Control.PhoneRight, GetItemTitle("Delete"));
+            _instrumentalMenu.AddControl(Control.PhoneLeft, GetItemTitle("Rename"));
+            _instrumentalMenu.AddControl(Control.PhoneExtraOption, GetItemTitle("New"));
         }
 
         private void PresetsMenu_OnItemActivated(NativeItem sender, EventArgs e)

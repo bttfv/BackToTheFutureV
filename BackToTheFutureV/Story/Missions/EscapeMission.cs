@@ -54,7 +54,7 @@ namespace BackToTheFutureV.Story.Missions
             if (IsPlaying)
                 return;
 
-            GTA.UI.Screen.ShowSubtitle(BTTFVMenu.GetLocalizedText("FoundMe"));
+            TextHandler.ShowSubtitle("FoundMe");
             TimeMachine = timeMachine;
             Start();
         }

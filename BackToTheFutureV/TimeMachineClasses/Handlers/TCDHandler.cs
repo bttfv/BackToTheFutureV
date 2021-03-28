@@ -275,7 +275,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (!Utils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
                     return;
 
-                Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("RepairTC"));
+                TextHandler.ShowHelp("RepairTC");
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))
                     Mods.Hoodbox = ModState.On;
@@ -390,7 +390,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.AreTimeCircuitsOn && Mods.Hoodbox == ModState.On && !Properties.AreHoodboxCircuitsReady)
             {
                 if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
-                    Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("NotWarmed"));
+                    TextHandler.ShowHelp("NotWarmed");
 
                 return;
             }
@@ -398,7 +398,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.AreTimeCircuitsOn && Properties.AreTimeCircuitsBroken)
             {
                 if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
-                    Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("ChipDamaged"));
+                    TextHandler.ShowHelp("ChipDamaged");
 
                 return;
             }

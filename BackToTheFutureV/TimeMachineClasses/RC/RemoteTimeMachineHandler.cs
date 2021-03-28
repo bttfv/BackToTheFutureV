@@ -31,7 +31,7 @@ namespace BackToTheFutureV.TimeMachineClasses
 
         static RemoteTimeMachineHandler()
         {
-            TimerBarCollection = new TimerBarCollection(SignalBar = new TimerBarProgress(BTTFVMenu.GetLocalizedText("SignalStrength")))
+            TimerBarCollection = new TimerBarCollection(SignalBar = new TimerBarProgress(TextHandler.GetLocalizedText("SignalStrength")))
             {
                 Visible = false
             };

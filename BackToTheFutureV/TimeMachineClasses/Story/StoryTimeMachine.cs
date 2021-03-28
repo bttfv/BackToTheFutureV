@@ -101,22 +101,22 @@ namespace BackToTheFutureV.TimeMachineClasses
                         int months = diff.Month - 1;
                         int days = diff.Day - 1;
 
-                        string ret = BTTFVMenu.GetLocalizedText("Buried");
+                        string ret = TextHandler.GetLocalizedText("Buried");
 
                         if (years != 0 && months != 0 && days != 0)
-                            ret = string.Format(ret, $"{years} {BTTFVMenu.GetLocalizedText("Years")}, {months} {BTTFVMenu.GetLocalizedText("Months")} {BTTFVMenu.GetLocalizedText("And")} {days} {BTTFVMenu.GetLocalizedText("Days")}");
+                            ret = string.Format(ret, $"{years} {TextHandler.GetLocalizedText("Years")}, {months} {TextHandler.GetLocalizedText("Months")} {TextHandler.GetLocalizedText("And")} {days} {TextHandler.GetLocalizedText("Days")}");
                         else
                         {
                             if (years != 0 && months != 0)
-                                ret = string.Format(ret, $"{years} {BTTFVMenu.GetLocalizedText("Years")} {BTTFVMenu.GetLocalizedText("And")} {months} {BTTFVMenu.GetLocalizedText("Months")}");
+                                ret = string.Format(ret, $"{years} {TextHandler.GetLocalizedText("Years")} {TextHandler.GetLocalizedText("And")} {months} {TextHandler.GetLocalizedText("Months")}");
                             else
                             {
                                 if (years != 0 && days != 0)
-                                    ret = string.Format(ret, $"{years} {BTTFVMenu.GetLocalizedText("Years")} {BTTFVMenu.GetLocalizedText("And")} {days} {BTTFVMenu.GetLocalizedText("Days")}");
+                                    ret = string.Format(ret, $"{years} {TextHandler.GetLocalizedText("Years")} {TextHandler.GetLocalizedText("And")} {days} {TextHandler.GetLocalizedText("Days")}");
                                 else
                                 {
                                     if (months != 0 && days != 0)
-                                        ret = string.Format(ret, $"{months} {BTTFVMenu.GetLocalizedText("Months")} {BTTFVMenu.GetLocalizedText("And")} {days} {BTTFVMenu.GetLocalizedText("Days")}");
+                                        ret = string.Format(ret, $"{months} {TextHandler.GetLocalizedText("Months")} {TextHandler.GetLocalizedText("And")} {days} {TextHandler.GetLocalizedText("Days")}");
                                 }
                             }
                         }

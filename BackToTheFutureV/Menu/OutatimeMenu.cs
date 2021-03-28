@@ -41,9 +41,9 @@ namespace BackToTheFutureV.Menu
 
         private void UpdateInfos()
         {
-            TypeDescription.Title = $"{GetLocalizedItemTitle("Type")}: {CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType}";
-            DestinationTimeDescription.Title = GetLocalizedItemTitle("Destination") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt");
-            LastTimeDescription.Title = GetLocalizedItemTitle("Last") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy hh:mm tt");
+            TypeDescription.Title = $"{GetItemTitle("Type")}: {CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType}";
+            DestinationTimeDescription.Title = GetItemTitle("Destination") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt");
+            LastTimeDescription.Title = GetItemTitle("Last") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy hh:mm tt");
 
             Spawned.Checked = CurrentRemoteTimeMachine.Spawned;
 
@@ -70,24 +70,24 @@ namespace BackToTheFutureV.Menu
                     switch (CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType)
                     {
                         case WormholeType.BTTF1:
-                            CurrentRemoteTimeMachine.Blip.Name = $"{GetLocalizedText("BTTF1")}";
+                            CurrentRemoteTimeMachine.Blip.Name = TextHandler.GetLocalizedText("BTTF1");
                             CurrentRemoteTimeMachine.Blip.Color = BlipColor.NetPlayer22;
                             break;
 
                         case WormholeType.BTTF2:
-                            CurrentRemoteTimeMachine.Blip.Name = $"{GetLocalizedText("BTTF2")}";
+                            CurrentRemoteTimeMachine.Blip.Name = TextHandler.GetLocalizedText("BTTF2");
                             CurrentRemoteTimeMachine.Blip.Color = BlipColor.NetPlayer21;
                             break;
 
                         case WormholeType.BTTF3:
                             if (CurrentRemoteTimeMachine.TimeMachineClone.Mods.Wheel == WheelType.RailroadInvisible)
                             {
-                                CurrentRemoteTimeMachine.Blip.Name = $"{GetLocalizedText("BTTF3RR")}";
+                                CurrentRemoteTimeMachine.Blip.Name = TextHandler.GetLocalizedText("BTTF3RR");
                                 CurrentRemoteTimeMachine.Blip.Color = BlipColor.Orange;
                             }
                             else
                             {
-                                CurrentRemoteTimeMachine.Blip.Name = $"{GetLocalizedText("BTTF3")}";
+                                CurrentRemoteTimeMachine.Blip.Name = TextHandler.GetLocalizedText("BTTF3");
                                 CurrentRemoteTimeMachine.Blip.Color = BlipColor.Red;
                             }
                             break;

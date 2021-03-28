@@ -70,9 +70,9 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             else
             {
                 if (Mods.Reactor == ReactorType.MrFusion)
-                    Notification.Show(BTTFVMenu.GetLocalizedText("NotEnoughGarbage"));
+                    TextHandler.ShowNotification("NotEnoughGarbage");
                 else
-                    Notification.Show(BTTFVMenu.GetLocalizedText("NotEnoughPlutonium"));
+                    TextHandler.ShowNotification("NotEnoughPlutonium");
             }
         }
 
@@ -229,12 +229,12 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (Properties.IsRefueling)
             {
                 if (HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
-                    Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("RefuelReactor"));
+                    TextHandler.ShowHelp("RefuelReactor");
                 else
-                    Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("CloseReactor"));
+                    TextHandler.ShowHelp("CloseReactor");
             }
             else
-                Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("OpenReactor"));
+                TextHandler.ShowHelp("OpenReactor");
         }
 
         private bool HasFuel()

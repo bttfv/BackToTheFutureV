@@ -40,7 +40,7 @@ namespace BackToTheFutureV.Menu
         private void PhotoMenu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
         {
             if (sender == StrikeDelay)
-                StrikeDelay.Title = $"{GetLocalizedItemTitle("StrikeDelay")}: {StrikeDelay.Value}";
+                StrikeDelay.Title = $"{GetItemTitle("StrikeDelay")}: {StrikeDelay.Value}";
         }
 
         private void PhotoMenu_OnItemActivated(NativeItem sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace BackToTheFutureV.Menu
             EngineStall.Enabled = TimeMachine.Mods.IsDMC12;
             SIDMax.Enabled = TimeMachine.Mods.IsDMC12;
 
-            StrikeDelay.Title = $"{GetLocalizedItemTitle("StrikeDelay")}: {StrikeDelay.Value}";
+            StrikeDelay.Title = $"{GetItemTitle("StrikeDelay")}: {StrikeDelay.Value}";
         }
 
         private void PhotoMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)

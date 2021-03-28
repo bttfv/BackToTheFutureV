@@ -73,7 +73,7 @@ namespace BackToTheFutureV.Menu
         {
             FuelChamberDescription.Checked = CurrentTimeMachine.Properties.IsFueled;
             TimeCircuitsOnDescription.Checked = CurrentTimeMachine.Properties.AreTimeCircuitsOn;
-            DestinationTimeDescription.Title = $"{GetLocalizedItemTitle("Destination")} {CurrentTimeMachine.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt")}";
+            DestinationTimeDescription.Title = $"{GetItemTitle("Destination")} {CurrentTimeMachine.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt")}";
 
             if (Utils.PlayerPed.DistanceToSquared2D(CurrentTimeMachine, RemoteTimeMachineHandler.MAX_DIST) && CurrentTimeMachine.Vehicle.Driver == null)
             {
@@ -85,7 +85,7 @@ namespace BackToTheFutureV.Menu
             {
                 StopPreviewing();
 
-                GTA.UI.Notification.Show(GetLocalizedText("UnableRC"));
+                TextHandler.ShowNotification("UnableRC");
                 return false;
             }
         }

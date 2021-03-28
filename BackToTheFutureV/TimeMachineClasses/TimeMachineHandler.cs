@@ -407,7 +407,7 @@ namespace BackToTheFutureV.TimeMachineClasses
                 CurrentTimeMachine = ClosestTimeMachine;
 
                 if (CurrentTimeMachine.Constants.FullDamaged)
-                    GTA.UI.Screen.ShowHelpTextThisFrame(string.Format(BTTFVMenu.GetLocalizedText("RestoreDamaged"), MenuHandler.TimeMachineMenu.GetLocalizedItemTitle("Restore"), MenuHandler.TimeMachineMenu.Subtitle));
+                    TextHandler.ShowHelp("RestoreDamaged", true, MenuHandler.TimeMachineMenu.GetItemTitle("Restore"), MenuHandler.TimeMachineMenu.Subtitle);                    
             }
         }
     }

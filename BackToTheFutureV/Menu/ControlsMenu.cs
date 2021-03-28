@@ -135,8 +135,8 @@ namespace BackToTheFutureV.Menu
             if (_doNotUpdate)
                 return;
 
-            ModControls.HoverVTOL = e.Object.Control;
-            GTA.UI.Screen.ShowHelpTextThisFrame($"{GetLocalizedText("SelectButton")} {e.Object.Button}", false);
+            ModControls.HoverVTOL = e.Object.Control;            
+            TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
         }
 
         private void HoverBoost_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -145,7 +145,7 @@ namespace BackToTheFutureV.Menu
                 return;
 
             ModControls.HoverBoost = e.Object.Control;
-            GTA.UI.Screen.ShowHelpTextThisFrame($"{GetLocalizedText("SelectButton")} {e.Object.Button}", false);
+            TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
         }
 
         private void Hover_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -154,7 +154,7 @@ namespace BackToTheFutureV.Menu
                 return;
 
             ModControls.Hover = e.Object.Control;
-            GTA.UI.Screen.ShowHelpTextThisFrame($"{GetLocalizedText("SelectButton")} {e.Object.Button}", false);
+            TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
         }
 
         private void InteractionMenu2_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -163,7 +163,7 @@ namespace BackToTheFutureV.Menu
                 return;
 
             ModControls.InteractionMenu2 = e.Object.Control;
-            GTA.UI.Screen.ShowHelpTextThisFrame($"{GetLocalizedText("SelectButton")} {e.Object.Button}", false);
+            TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
         }
 
         private void InteractionMenu1_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -172,7 +172,7 @@ namespace BackToTheFutureV.Menu
                 return;
 
             ModControls.InteractionMenu1 = e.Object.Control;
-            GTA.UI.Screen.ShowHelpTextThisFrame($"{GetLocalizedText("SelectButton")} {e.Object.Button}", false);
+            TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
         }
 
         private void MainMenu_ItemChanged(object sender, ItemChangedEventArgs<Keys> e)

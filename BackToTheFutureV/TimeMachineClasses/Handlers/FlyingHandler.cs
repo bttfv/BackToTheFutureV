@@ -130,7 +130,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
-                        Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("HoverDamaged"));
+                        TextHandler.ShowHelp("HoverDamaged");
 
                         return;
                     }
@@ -150,7 +150,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
-                        Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("HoverDamaged"));
+                        TextHandler.ShowHelp("HoverDamaged");
 
                         return;
                     }
@@ -172,7 +172,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
                 if (VehicleControl.GetDeluxoTransformation(Vehicle) > 0)
                     VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
 
-                Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("HoverDamaged"));
+                TextHandler.ShowHelp("HoverDamaged");
 
                 return;
             }
@@ -195,7 +195,7 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
             if (!Properties.IsLanding)
                 Function.Call((Hash)0x438b3d7ca026fe91, Vehicle, Properties.IsFlying ? 1f : 0f);
             else
-                Utils.DisplayHelpText(BTTFVMenu.GetLocalizedText("VTOLTip").Replace("~INPUT_VEH_AIM~", (new ControlInfo(ModControls.HoverVTOL)).Button));
+                TextHandler.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
 
             if (Properties.IsFlying && !instant)
             {
@@ -236,8 +236,8 @@ namespace BackToTheFutureV.TimeMachineClasses.Handlers
 
         public void SetHoverMode(bool mode)
         {
-            Properties.IsAltitudeHolding = mode;
-            Utils.DisplayHelpText($"{BTTFVMenu.GetLocalizedText("AltitudeHoldChange")} {(Properties.IsAltitudeHolding ? BTTFVMenu.GetLocalizedText("On") : BTTFVMenu.GetLocalizedText("Off"))}");
+            Properties.IsAltitudeHolding = mode;            
+            TextHandler.ShowHelp("AltitudeHoldChange", true, Properties.IsAltitudeHolding ? TextHandler.GetLocalizedText("On") : TextHandler.GetLocalizedText("Off"));
         }
 
         public override void Tick()
