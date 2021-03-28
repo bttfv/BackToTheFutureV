@@ -3,9 +3,10 @@
 *Wait a minute, wait a minute, Doc, are you telling me that you built a time machine... out of a DeLorean?*
 
 ### Requirements:
-- Script Hook V
-- Community Script Hook V .NET 3.0.4
 - .NET Framework 4.8
+- Script Hook V => https://www.dev-c.com/gtav/scripthookv/
+- Community Script Hook V .NET v3.1.0 => https://github.com/crosire/scripthookvdotnet
+- LemonUI v1.3.0 => https://github.com/justalemon/LemonUI
 - (*Optional*)  limitless gameconfig
 - (*Optional*)  PackfileLimitAdjuster
 - (*Optional*)  HeapAdjuster
@@ -80,14 +81,7 @@
   - It is possible to time travel on rail tracks... just be aware for a possible incoming train at reentry...
 
 ### For developers:
-In order to open solution, you need Visual Studio 2017+ and create **ProjectReference.txt** file in solution root folder with this contents:
-```xml
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <PropertyGroup>
-        <GTAPath>PUT GTA5 PATH HERE</GTAPath>
-    </PropertyGroup>
-</Project>
-```
+In order to open solution, you need Visual Studio 2017+ with Xamarin components installed.
 
 ### Credits:
 - Artist: ranstar74
