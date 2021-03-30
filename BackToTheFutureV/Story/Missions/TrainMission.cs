@@ -380,9 +380,12 @@ namespace BackToTheFutureV
             TimedEventManager.Last.SetSpeed(87, 88);
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.DigitalSpeedoTowardsFront);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
-
+      
             TimedEventManager.Add(7, 6, 0, 7, 7, 200, TimeMultiplier); //show destination date            
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.DestinationDate);
+
+            TimedEventManager.Add(7, 8, 833, TimeMultiplier); //time travel
+            TimedEventManager.Last.OnExecute += TimeTravel_OnExecute;
 
             RogersSierra.IsOnTrainMission = true;
             RogersSierra.RandomTrain = false;
@@ -401,6 +404,12 @@ namespace BackToTheFutureV
 
                 TimeMachine.CustomCamera = TimeMachineCamera.FrontPassengerWheelLookAtRear;
             }
+        }
+
+        private void TimeTravel_OnExecute(TimedEvent timedEvent)
+        {
+            if (TimeMachine.Properties.IsFueled && TimeMachine.Properties.AreTimeCircuitsOn)
+                TimeMachine.Events.OnSparksEnded?.Invoke();
         }
 
         private void MovePlayer_OnExecute(TimedEvent timedEvent)
