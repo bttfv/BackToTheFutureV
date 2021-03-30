@@ -1,5 +1,6 @@
 ﻿using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 
 namespace BackToTheFutureV
 {
@@ -11,20 +12,22 @@ namespace BackToTheFutureV
 
         public EventsSettingsMenu() : base("Events")
         {
-            Shown += SettingsMenu_Shown;
-            OnItemCheckboxChanged += SettingsMenu_OnItemCheckboxChanged;
-
             LightningStrikeEvent = NewCheckboxItem("Lightning", ModSettings.LightningStrikeEvent);
             EngineStallEvent = NewCheckboxItem("Engine", ModSettings.EngineStallEvent);
             TurbulenceEvent = NewCheckboxItem("Turbulence", ModSettings.TurbulenceEvent);
         }
 
-        private void SettingsMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Closing(object sender, CancelEventArgs e)
         {
 
         }
 
-        private void SettingsMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == LightningStrikeEvent)
                 ModSettings.LightningStrikeEvent = Checked;
@@ -36,6 +39,21 @@ namespace BackToTheFutureV
                 ModSettings.TurbulenceEvent = Checked;
 
             ModSettings.SaveSettings();
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_Shown(object sender, EventArgs e)
+        {
+
         }
 
         public override void Tick()

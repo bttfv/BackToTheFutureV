@@ -1,5 +1,6 @@
 ﻿using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 
 namespace BackToTheFutureV
 {
@@ -12,21 +13,23 @@ namespace BackToTheFutureV
 
         public SoundsSettingsMenu() : base("Sounds")
         {
-            Shown += SettingsMenu_Shown;
-            OnItemCheckboxChanged += SettingsMenu_OnItemCheckboxChanged;
-
             playFluxCapacitorSound = NewCheckboxItem("FluxCapacitor", ModSettings.PlayFluxCapacitorSound);
             playDiodeSound = NewCheckboxItem("CircuitsBeep", ModSettings.PlayDiodeBeep);
             playSpeedoBeep = NewCheckboxItem("SpeedoBeep", ModSettings.PlaySpeedoBeep);
             playEngineSounds = NewCheckboxItem("Engine", ModSettings.PlayEngineSounds);
         }
 
-        private void SettingsMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Closing(object sender, CancelEventArgs e)
         {
 
         }
 
-        private void SettingsMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == playFluxCapacitorSound)
                 ModSettings.PlayFluxCapacitorSound = Checked;
@@ -41,6 +44,21 @@ namespace BackToTheFutureV
                 ModSettings.PlayEngineSounds = Checked;
 
             ModSettings.SaveSettings();
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_Shown(object sender, EventArgs e)
+        {
+
         }
 
         public override void Tick()

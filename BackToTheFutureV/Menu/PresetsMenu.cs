@@ -2,6 +2,7 @@
 using GTA;
 using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 using static FusionLibrary.Enums;
 using Control = GTA.Control;
 
@@ -13,9 +14,6 @@ namespace BackToTheFutureV
 
         public PresetsMenu() : base("Presets")
         {
-            Shown += PresetsMenu_Shown;
-            OnItemActivated += PresetsMenu_OnItemActivated;
-
             _instrumentalMenu = new InstrumentalMenu();
 
             _instrumentalMenu.AddControl(Control.PhoneCancel, Game.GetLocalizedString("HUD_INPUT3"));
@@ -25,7 +23,7 @@ namespace BackToTheFutureV
             _instrumentalMenu.AddControl(Control.PhoneExtraOption, GetItemTitle("New"));
         }
 
-        private void PresetsMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (ModSettings.CinematicSpawn)
                 TimeMachineHandler.Create(sender.Title, SpawnFlags.ForcePosition | SpawnFlags.NoOccupants | SpawnFlags.ResetValues | SpawnFlags.ForceReentry);
@@ -35,7 +33,7 @@ namespace BackToTheFutureV
             Close();
         }
 
-        private void PresetsMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Shown(object sender, EventArgs e)
         {
             ReloadList();
         }
@@ -76,6 +74,26 @@ namespace BackToTheFutureV
 
                 MenuHandler.CustomMenuForced.Open();
             }
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        {
+
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_Closing(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -19,10 +20,6 @@ namespace BackToTheFutureV
 
         public TCDMenu() : base("TCD")
         {
-            Shown += SettingsMenu_Shown;
-            OnItemActivated += TCDMenu_OnItemActivated;
-            OnItemCheckboxChanged += TCDMenu_OnItemCheckboxChanged;
-
             tcdBackground = NewListItem("Background", TCDBackground.Metal, TCDBackground.Transparent);
             tcdBackground.ItemChanged += TcdBackground_ItemChanged;
 
@@ -36,7 +33,7 @@ namespace BackToTheFutureV
             hideIngameTCD = NewCheckboxItem("HideHUD", ModSettings.HideIngameTCDToggle);
         }
 
-        private void TCDMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == useExternalTCD)
                 ModSettings.ExternalTCDToggle = Checked;
@@ -53,7 +50,7 @@ namespace BackToTheFutureV
             ModSettings.SaveSettings();
         }
 
-        private void TCDMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (sender == changeTCD)
             {
@@ -88,12 +85,27 @@ namespace BackToTheFutureV
             ModSettings.SaveSettings();
         }
 
-        private void SettingsMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Shown(object sender, EventArgs e)
         {
             useExternalTCD.Checked = ModSettings.ExternalTCDToggle;
         }
 
         public override void Tick()
+        {
+
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_Closing(object sender, CancelEventArgs e)
         {
 
         }

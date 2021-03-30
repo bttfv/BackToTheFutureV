@@ -2,6 +2,7 @@
 using GTA.Math;
 using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -20,10 +21,6 @@ namespace BackToTheFutureV
 
         public OutatimeMenu() : base("Outatime")
         {
-            Shown += OutatimeMenu_Shown;
-            OnItemCheckboxChanged += OutatimeMenu_OnItemCheckboxChanged;
-            OnItemActivated += OutatimeMenu_OnItemActivated;
-
             TimeMachines = NewListItem<RemoteTimeMachine>("List");
             TypeDescription = NewItem("Type");
             DestinationTimeDescription = NewItem("Destination");
@@ -49,13 +46,13 @@ namespace BackToTheFutureV
             ShowBlip.Checked = CurrentRemoteTimeMachine.Blip != null && CurrentRemoteTimeMachine.Blip.Exists();
         }
 
-        private void OutatimeMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (sender == ForceReenter && !CurrentRemoteTimeMachine.Spawned)
                 CurrentRemoteTimeMachine.Spawn(ReenterType.Forced);
         }
 
-        private void OutatimeMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == ShowBlip)
             {
@@ -97,7 +94,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void OutatimeMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Shown(object sender, EventArgs e)
         {
             TimeMachines.Items = RemoteTimeMachineHandler.RemoteTimeMachines;
         }
@@ -105,6 +102,21 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             UpdateInfos();
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_Closing(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
         }
     }
 }

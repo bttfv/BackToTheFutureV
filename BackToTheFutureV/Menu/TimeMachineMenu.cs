@@ -1,5 +1,6 @@
 ﻿using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -21,10 +22,6 @@ namespace BackToTheFutureV
 
         public TimeMachineMenu() : base("TimeMachine")
         {
-            Shown += TimeMachineMenu_Shown;
-            OnItemCheckboxChanged += TimeMachineMenu_OnItemCheckboxChanged;
-            OnItemActivated += TimeMachineMenu_OnItemActivated;
-
             TimeCircuitsOn = NewCheckboxItem("TC");
             CutsceneMode = NewCheckboxItem("Cutscene");
             FlyMode = NewCheckboxItem("Hover");
@@ -42,7 +39,7 @@ namespace BackToTheFutureV
             BackToMain = NewSubmenu(MenuHandler.MainMenu, "GoToMain");
         }
 
-        private void TimeMachineMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (sender == Repair)
             {
@@ -51,7 +48,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void TimeMachineMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Shown(object sender, EventArgs e)
         {
             if (TimeMachineHandler.CurrentTimeMachine == null)
             {
@@ -77,7 +74,7 @@ namespace BackToTheFutureV
                 Repair = NewItem(0, "Restore");
         }
 
-        private void TimeMachineMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == TimeCircuitsOn)
                 TimeMachineHandler.CurrentTimeMachine.Events.SetTimeCircuits?.Invoke(Checked);
@@ -121,6 +118,21 @@ namespace BackToTheFutureV
 
             //EscapeMission.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
             //EscapeMission.Checked = MissionHandler.Escape.IsPlaying;
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_Closing(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

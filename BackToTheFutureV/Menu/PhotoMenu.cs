@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 
 namespace BackToTheFutureV
 {
@@ -20,11 +21,6 @@ namespace BackToTheFutureV
 
         public PhotoMenu() : base("Photo")
         {
-            Shown += PhotoMenu_Shown;
-            OnItemCheckboxChanged += PhotoMenu_OnItemCheckboxChanged;
-            OnItemActivated += PhotoMenu_OnItemActivated;
-            OnItemValueChanged += PhotoMenu_OnItemValueChanged;
-
             Wormhole = NewCheckboxItem("Wormhole");
             Coils = NewCheckboxItem("Coils");
             Ice = NewCheckboxItem("Ice");
@@ -36,13 +32,13 @@ namespace BackToTheFutureV
             HideHUD = NewCheckboxItem("HideHUD");
         }
 
-        private void PhotoMenu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
         {
             if (sender == StrikeDelay)
                 StrikeDelay.Title = $"{GetItemTitle("StrikeDelay")}: {StrikeDelay.Value}";
         }
 
-        private void PhotoMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (sender == LightningStrike)
             {
@@ -51,7 +47,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void PhotoMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Shown(object sender, EventArgs e)
         {
             Coils.Enabled = TimeMachine.Mods.IsDMC12;
             Ice.Enabled = TimeMachine.Mods.IsDMC12;
@@ -62,7 +58,7 @@ namespace BackToTheFutureV
             StrikeDelay.Title = $"{GetItemTitle("StrikeDelay")}: {StrikeDelay.Value}";
         }
 
-        private void PhotoMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == Wormhole)
                 TimeMachine.Properties.PhotoWormholeActive = Checked;
@@ -109,6 +105,16 @@ namespace BackToTheFutureV
             LightningStrike.Enabled = !TimeMachine.Properties.IsPhotoModeOn;
 
             HideHUD.Checked = Utils.HideGUI;
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_Closing(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

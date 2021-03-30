@@ -1,11 +1,9 @@
 ﻿using FusionLibrary;
 using GTA;
-using GTA.UI;
 using System;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
 using Control = GTA.Control;
-using Screen = GTA.UI.Screen;
 
 namespace BackToTheFutureV
 {
@@ -26,12 +24,12 @@ namespace BackToTheFutureV
 
             InstrumentalMenu.ClearPanel();
 
-            InstrumentalMenu.AddControl(Control.PhoneCancel, "Cancel");
-            InstrumentalMenu.AddControl(Control.PhoneSelect, "Save");
-            InstrumentalMenu.AddControl(Control.PhoneOption, "Disable alarm");
-            InstrumentalMenu.AddControl(Control.PhoneExtraOption, "Set alarm time");
-            InstrumentalMenu.AddControl(Control.PhoneDown, "Substract minutes");
-            InstrumentalMenu.AddControl(Control.PhoneUp, "Add minutes");
+            InstrumentalMenu.AddControl(Control.PhoneCancel, TextHandler.GetLocalizedText("TCDEdit_CancelButton"));
+            InstrumentalMenu.AddControl(Control.PhoneSelect, TextHandler.GetLocalizedText("TCDEdit_SaveButton"));
+            InstrumentalMenu.AddControl(Control.PhoneOption, TextHandler.GetLocalizedText("Clock_DisableAlarm"));
+            InstrumentalMenu.AddControl(Control.PhoneExtraOption, TextHandler.GetLocalizedText("Clock_SetAlarm"));
+            InstrumentalMenu.AddControl(Control.PhoneDown, TextHandler.GetLocalizedText("Clock_SubMinutes"));
+            InstrumentalMenu.AddControl(Control.PhoneUp, TextHandler.GetLocalizedText("Clock_AddMinutes"));
         }
 
         public ClockHandler(TimeMachine timeMachine) : base(timeMachine)
@@ -82,7 +80,7 @@ namespace BackToTheFutureV
                 InstrumentalMenu.Render2DFullscreen();
 
                 if (Properties.AlarmSet)
-                    Screen.ShowHelpTextThisFrame($"Alarm set to {Properties.AlarmTime.ToShortTimeString()}");
+                    TextHandler.ShowHelp("Clock_AlarmSetTo", true, Properties.AlarmTime.ToShortTimeString());
 
                 ProcessButton(Keys.None);
 
@@ -120,13 +118,13 @@ namespace BackToTheFutureV
                         Properties.AlarmTime = Properties.SpawnTime;
                         Properties.SpawnTime = oldTime;
                         Properties.AlarmSet = true;
-                        Notification.Show("Alarm set!");
+                        TextHandler.ShowNotification("Clock_AlarmSet");
                     }
 
                     if (Game.IsControlJustPressed(Control.PhoneOption))
                     {
                         Properties.AlarmSet = false;
-                        Notification.Show("Alarm disabled!");
+                        TextHandler.ShowNotification("Clock_AlarmDisabled");
                     }
                 }
             }

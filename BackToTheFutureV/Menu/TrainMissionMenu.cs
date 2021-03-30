@@ -3,6 +3,7 @@ using KlangRageAudioLibrary;
 using LemonUI.Elements;
 using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace BackToTheFutureV
@@ -19,9 +20,6 @@ namespace BackToTheFutureV
         {
             Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
 
-            OnItemCheckboxChanged += TrainMissionMenu_OnItemCheckboxChanged;
-            Shown += TrainMissionMenu_Shown;
-
             Add(MissionToggle = new NativeCheckboxItem("Mission toggle"));
             Add(Speed = new NativeSliderItem("Speed"));
             Speed.ValueChanged += Speed_ValueChanged;
@@ -37,7 +35,7 @@ namespace BackToTheFutureV
             Volume.Title = "Music volume: " + Volume.Value.ToString();
         }
 
-        private void TrainMissionMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Shown(object sender, EventArgs e)
         {
             if (MissionHandler.TrainMission.MissionMusic == null)
             {
@@ -71,7 +69,7 @@ namespace BackToTheFutureV
             Speed.Title = "Speed: " + Speed.Value.ToString();
         }
 
-        private void TrainMissionMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == MissionToggle)
             {
@@ -110,6 +108,56 @@ namespace BackToTheFutureV
                 else
                     MissionHandler.TrainMission.MissionMusic = Main.CommonAudioEngine.Create($"story/trainMission/musicWithVoices.wav", Presets.No3D);
             }
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_Closing(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        public override string GetMenuTitle()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetMenuDescription()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetItemTitle(string itemName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetItemDescription(string itemName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetItemValueTitle(string itemName, string valueName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetItemValueDescription(string itemName, string valueName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

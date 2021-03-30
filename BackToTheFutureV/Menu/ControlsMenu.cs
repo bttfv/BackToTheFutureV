@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -38,69 +39,56 @@ namespace BackToTheFutureV
 
             Width = 600;
 
-            Shown += ControlsMenu_Shown;
-            Closing += ControlsMenu_Closing;
-            OnItemCheckboxChanged += ControlsMenu_OnItemCheckboxChanged;
-            OnItemActivated += ControlsMenu_OnItemActivated;
-
-            MainMenu = NewListItem<Keys>("GoToMainMenu");
-            MainMenu.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
+            MainMenu = NewListItem("GoToMainMenu", Enum.GetValues(typeof(Keys)).Cast<Keys>().ToArray());
             MainMenu.ItemChanged += MainMenu_ItemChanged;
 
             UseControlForMainMenu = NewCheckboxItem("UseControlForMainMenu");
 
-
-            InteractionMenu1 = NewListItem<ControlInfo>("InteractionMenu1");
-            InteractionMenu1.Items = ControlInfo.CustomControls;
+            InteractionMenu1 = NewListItem("InteractionMenu1", ControlInfo.CustomControls.ToArray());
             InteractionMenu1.ItemChanged += InteractionMenu1_ItemChanged;
 
-            InteractionMenu2 = NewListItem<ControlInfo>("InteractionMenu2");
-            InteractionMenu2.Items = ControlInfo.CustomControls;
+            InteractionMenu2 = NewListItem("InteractionMenu2", ControlInfo.CustomControls.ToArray());
             InteractionMenu2.ItemChanged += InteractionMenu2_ItemChanged;
 
             CombinationsForInteractionMenu = NewCheckboxItem("CombinationsForInteractionMenu");
 
-
-            Hover = NewListItem<ControlInfo>("Hover");
-            Hover.Items = ControlInfo.CustomControls;
+            Hover = NewListItem("Hover", ControlInfo.CustomControls.ToArray());
             Hover.ItemChanged += Hover_ItemChanged;
 
             LongPressForHover = NewCheckboxItem("LongPressForHover");
 
-            HoverBoost = NewListItem<ControlInfo>("HoverBoost");
-            HoverBoost.Items = ControlInfo.CustomControls;
+            HoverBoost = NewListItem("HoverBoost", ControlInfo.CustomControls.ToArray());
             HoverBoost.ItemChanged += HoverBoost_ItemChanged;
 
-            HoverVTOL = NewListItem<ControlInfo>("HoverVTOL");
-            HoverVTOL.Items = ControlInfo.CustomControls;
+            HoverVTOL = NewListItem("HoverVTOL", ControlInfo.CustomControls.ToArray());
             HoverVTOL.ItemChanged += HoverVTOL_ItemChanged;
 
-            HoverAltitudeHold = NewListItem<Keys>("HoverAltitudeHold");
-            HoverAltitudeHold.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
+            HoverAltitudeHold = NewListItem("HoverAltitudeHold", Enum.GetValues(typeof(Keys)).Cast<Keys>().ToArray());
             HoverAltitudeHold.ItemChanged += HoverAltitudeHold_ItemChanged;
 
-
-            TCToggle = NewListItem<Keys>("TCToggle");
-            TCToggle.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
+            TCToggle = NewListItem("TCToggle", Enum.GetValues(typeof(Keys)).Cast<Keys>().ToArray());
             TCToggle.ItemChanged += TCToggle_ItemChanged;
 
-            CutsceneToggle = NewListItem<Keys>("CutsceneToggle");
-            CutsceneToggle.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
+            CutsceneToggle = NewListItem("CutsceneToggle", Enum.GetValues(typeof(Keys)).Cast<Keys>().ToArray());
             CutsceneToggle.ItemChanged += CutsceneToggle_ItemChanged;
 
-            InputToggle = NewListItem<Keys>("InputToggle");
-            InputToggle.Items = Enum.GetValues(typeof(Keys)).Cast<Keys>().ToList();
+            InputToggle = NewListItem("InputToggle", Enum.GetValues(typeof(Keys)).Cast<Keys>().ToArray());
             InputToggle.ItemChanged += InputToggle_ItemChanged;
 
             Reset = NewItem("Reset");
         }
 
-        private void ControlsMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (sender == Reset)
             {
                 ModControls.Reset();
-                ControlsMenu_Shown(this, new EventArgs());
+                Menu_Shown(this, new EventArgs());
             }
         }
 
@@ -119,7 +107,7 @@ namespace BackToTheFutureV
             ModControls.TCToggle = e.Object;
         }
 
-        private void ControlsMenu_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        public override void Menu_Closing(object sender, CancelEventArgs e)
         {
             ModSettings.SaveSettings();
         }
@@ -179,7 +167,7 @@ namespace BackToTheFutureV
             ModControls.MainMenu = e.Object;
         }
 
-        private void ControlsMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == UseControlForMainMenu)
                 ModControls.UseControlForMainMenu = Checked;
@@ -189,7 +177,7 @@ namespace BackToTheFutureV
                 ModControls.LongPressForHover = Checked;
         }
 
-        private void ControlsMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Shown(object sender, EventArgs e)
         {
             _doNotUpdate = true;
 
@@ -214,6 +202,11 @@ namespace BackToTheFutureV
         }
 
         public override void Tick()
+        {
+
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
         {
 
         }

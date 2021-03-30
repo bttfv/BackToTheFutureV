@@ -3,6 +3,7 @@ using FusionLibrary.Extensions;
 using GTA;
 using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
@@ -31,18 +32,13 @@ namespace BackToTheFutureV
 
         public CustomMenu() : base("Custom")
         {
-            Shown += SettingsMenu_Shown;
-            Closing += CustomMenu_Closing;
-            OnItemCheckboxChanged += SettingsMenu_OnItemCheckboxChanged;
-            OnItemActivated += CustomMenu_OnItemActivated;
-
             _wormholeType = NewListItem("Wormhole", TextHandler.GetLocalizedText("BTTF1", "BTTF2", "BTTF3"));
             _wormholeType.ItemChanged += ModList_ItemChanged;
 
-            _reactorType = NewListItem("Reactor", GetItemValueTitle("Reactor", "MrFusion", "Nuclear"));
+            _reactorType = NewLocalizedListItem("Reactor", "MrFusion", "Nuclear");
             _reactorType.ItemChanged += ModList_ItemChanged;
 
-            _wheelsType = NewListItem("Wheel", GetItemValueTitle("Wheel", "Stock", "Red", "Rail", "DMC"));
+            _wheelsType = NewLocalizedListItem("Wheel", "Stock", "Red", "Rail", "DMC");
             _wheelsType.ItemChanged += ModList_ItemChanged;
 
             _hoverUnderbody = NewCheckboxItem("Hover");
@@ -53,16 +49,16 @@ namespace BackToTheFutureV
 
             _threeDigits = NewCheckboxItem("Speedo");
 
-            _plate = NewListItem("Plate", GetItemValueTitle("Plate", "Empty", "Outatime", "Futuristic", "NoTime", "Timeless", "Timeless2", "DMCFactory", "DMCFactory2"));
+            _plate = NewLocalizedListItem("Plate", "Empty", "Outatime", "Futuristic", "NoTime", "Timeless", "Timeless2", "DMCFactory", "DMCFactory2");
             _plate.ItemChanged += ModList_ItemChanged;
 
-            _exhaust = NewListItem("Exhaust", GetItemValueTitle("Exhaust", "Stock", "BTTF", "None"));
+            _exhaust = NewLocalizedListItem("Exhaust", "Stock", "BTTF", "None");
             _exhaust.ItemChanged += ModList_ItemChanged;
 
-            _suspensions = NewListItem("Suspensions", GetItemValueTitle("Suspensions", "Stock", "LiftFrontLowerRear", "LiftFront", "LiftRear", "LiftFrontAndRear", "LowerFrontLiftRear", "LowerFront", "LowerRear", "LowerFrontAndRear"));
+            _suspensions = NewLocalizedListItem("Suspensions", "Stock", "LiftFrontLowerRear", "LiftFront", "LiftRear", "LiftFrontAndRear", "LowerFrontLiftRear", "LowerFront", "LowerRear", "LowerFrontAndRear");
             _suspensions.ItemChanged += ModList_ItemChanged;
 
-            _hood = NewListItem("Hood", GetItemValueTitle("Hood", "Stock", "1983", "1981"));
+            _hood = NewLocalizedListItem("Hood", "Stock", "1983", "1981");
             _hood.ItemChanged += ModList_ItemChanged;
 
             _saveConf = NewItem("Save");
@@ -70,7 +66,7 @@ namespace BackToTheFutureV
             _confirm = NewItem("Confirm");
         }
 
-        private void CustomMenu_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        public override void Menu_Closing(object sender, CancelEventArgs e)
         {
             if (!_save)
                 _tempTimeMachine.Vehicle.Delete();
@@ -127,7 +123,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void LoadVehicleType()
+        private void LoadVehicleMods()
         {
             _wormholeType.SelectedIndex = (int)(_tempTimeMachine.Mods.WormholeType) - 1;
             _hoverUnderbody.Checked = ConvertFromModState(_tempTimeMachine.Mods.HoverUnderbody);
@@ -184,7 +180,7 @@ namespace BackToTheFutureV
             return false;
         }
 
-        private void SettingsMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Shown(object sender, EventArgs e)
         {
             if (MenuHandler.MainMenu.Visible)
                 MenuHandler.MainMenu.Close();
@@ -221,10 +217,10 @@ namespace BackToTheFutureV
                 _threeDigits.Enabled = _tempTimeMachine.Mods.IsDMC12;
             }
 
-            LoadVehicleType();
+            LoadVehicleMods();
         }
 
-        private void CustomMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (sender == _wormholeType | sender == _confirm)
             {
@@ -242,7 +238,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void SettingsMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == _hoverUnderbody)
             {
@@ -273,7 +269,17 @@ namespace BackToTheFutureV
                 return;
             }
 
-            LoadVehicleType();
+            LoadVehicleMods();
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
         }
     }
 }

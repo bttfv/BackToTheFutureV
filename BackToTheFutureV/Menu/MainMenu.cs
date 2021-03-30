@@ -4,6 +4,7 @@ using FusionLibrary.Extensions;
 using GTA;
 using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
@@ -25,8 +26,6 @@ namespace BackToTheFutureV
         public MainMenu() : base("Main")
         {
             Subtitle = TextHandler.GetLocalizedText("SelectOption");
-
-            OnItemActivated += MainMenu_OnItemActivated;
 
             spawnBTTF = NewListItem("Spawn", TextHandler.GetLocalizedText("DMC12", "BTTF1", "BTTF1H", "BTTF2", "BTTF3", "BTTF3RR"));
             spawnBTTF.ItemChanged += SpawnBTTF_ItemChanged;
@@ -53,20 +52,20 @@ namespace BackToTheFutureV
             switch (e.Index)
             {
                 case 0:
-                    spawnBTTF.Description = GetItemValueDescription("Spawn", "DMC12");
+                    spawnBTTF.Description = GetItemValueDescription(sender, "DMC12");
                     break;
                 case 1:
                 case 2:
-                    spawnBTTF.Description = GetItemValueDescription("Spawn", "BTTF1");
+                    spawnBTTF.Description = GetItemValueDescription(sender, "BTTF1");
                     break;
                 case 3:
-                    spawnBTTF.Description = GetItemValueDescription("Spawn", "BTTF2");
+                    spawnBTTF.Description = GetItemValueDescription(sender, "BTTF2");
                     break;
                 case 4:
-                    spawnBTTF.Description = GetItemValueDescription("Spawn", "BTTF3");
+                    spawnBTTF.Description = GetItemValueDescription(sender, "BTTF3");
                     break;
                 case 5:
-                    spawnBTTF.Description = GetItemValueDescription("Spawn", "BTTF3RR");
+                    spawnBTTF.Description = GetItemValueDescription(sender, "BTTF3RR");
                     break;
             }
 
@@ -82,7 +81,7 @@ namespace BackToTheFutureV
             rcMenu.Enabled = Utils.PlayerVehicle == null && TimeMachineHandler.TimeMachineCount > 0;
         }
 
-        private void MainMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             TimeMachine timeMachine;
 
@@ -162,6 +161,31 @@ namespace BackToTheFutureV
             }
 
             Close();
+        }
+
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        {
+
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_Closing(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        public override void Menu_Shown(object sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
         }
     }
 }

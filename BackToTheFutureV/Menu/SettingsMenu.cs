@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 
 namespace BackToTheFutureV
 {
@@ -17,16 +18,8 @@ namespace BackToTheFutureV
         private NativeCheckboxItem GlowingWormholeEmitter;
         private NativeCheckboxItem GlowingPlutoniumReactor;
 
-        private NativeSubmenuItem SoundsMenu;
-        private NativeSubmenuItem EventsMenu;
-        private NativeSubmenuItem ControlsMenu;
-        private NativeSubmenuItem TCDMenu;
-
         public SettingsMenu() : base("Settings")
         {
-            Shown += SettingsMenu_Shown;
-            OnItemCheckboxChanged += SettingsMenu_OnItemCheckboxChanged;
-
             cinematicSpawn = NewCheckboxItem("CinematicSpawn", ModSettings.CinematicSpawn);
             useInputToggle = NewCheckboxItem("InputToggle", ModSettings.UseInputToggle);
             forceFlyMode = NewCheckboxItem("ForceFly", ModSettings.ForceFlyMode);
@@ -38,16 +31,16 @@ namespace BackToTheFutureV
             GlowingWormholeEmitter = NewCheckboxItem("GlowingWormhole", ModSettings.GlowingWormholeEmitter);
             GlowingPlutoniumReactor = NewCheckboxItem("GlowingReactor", ModSettings.GlowingPlutoniumReactor);
 
-            SoundsMenu = NewSubmenu(MenuHandler.SoundsSettingsMenu, "Sounds");
+            NewSubmenu(MenuHandler.SoundsSettingsMenu, "Sounds");
 
-            EventsMenu = NewSubmenu(MenuHandler.EventsSettingsMenu, "Events");
+            NewSubmenu(MenuHandler.EventsSettingsMenu, "Events");
 
-            ControlsMenu = NewSubmenu(MenuHandler.ControlsMenu, "Controls");
+            NewSubmenu(MenuHandler.ControlsMenu, "Controls");
 
-            TCDMenu = NewSubmenu(MenuHandler.TCDMenu, "TCD");
+            NewSubmenu(MenuHandler.TCDMenu, "TCD");
         }
 
-        private void SettingsMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Shown(object sender, EventArgs e)
         {
             if (Utils.RandomTrains != ModSettings.RandomTrains)
             {
@@ -58,7 +51,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void SettingsMenu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == cinematicSpawn)
                 ModSettings.CinematicSpawn = Checked;
@@ -98,6 +91,26 @@ namespace BackToTheFutureV
         }
 
         public override void Tick()
+        {
+
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_Closing(object sender, CancelEventArgs e)
         {
 
         }

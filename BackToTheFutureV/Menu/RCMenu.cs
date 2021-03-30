@@ -5,6 +5,7 @@ using GTA.Math;
 using GTA.Native;
 using LemonUI.Menus;
 using System;
+using System.ComponentModel;
 
 namespace BackToTheFutureV
 {
@@ -21,10 +22,6 @@ namespace BackToTheFutureV
 
         public RCMenu() : base("RC")
         {
-            Shown += RCMenu_Shown;
-            Closing += RCMenu_Closing;
-            OnItemActivated += RCMenu_OnItemActivated;
-
             timeMachinesList = NewListItem<TimeMachine>("List");
 
             timeMachinesList.ItemChanged += TimeMachinesList_ItemChanged;
@@ -38,14 +35,14 @@ namespace BackToTheFutureV
             DestinationTimeDescription.Enabled = false;
         }
 
-        private void RCMenu_Shown(object sender, EventArgs e)
+        public override void Menu_Shown(object sender, EventArgs e)
         {
             timeMachinesList.Items = TimeMachineHandler.TimeMachines;
 
             CanBeSelected = TrySelectCar();
         }
 
-        private void RCMenu_OnItemActivated(NativeItem sender, EventArgs e)
+        public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (sender == timeMachinesList)
             {
@@ -58,7 +55,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void RCMenu_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        public override void Menu_Closing(object sender, CancelEventArgs e)
         {
             StopPreviewing();
         }
@@ -115,6 +112,21 @@ namespace BackToTheFutureV
         {
             if (Utils.PlayerVehicle != null)
                 Close();
+        }
+
+        public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
+        {
+
+        }
+
+        public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
+        {
+
+        }
+
+        public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
+        {
+
         }
     }
 }
