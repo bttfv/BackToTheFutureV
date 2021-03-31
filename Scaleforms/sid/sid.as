@@ -55,14 +55,16 @@
 		}
 	}
 	
-	function setLed(column, row, _state) 
+	function setLed(column, row) 
 	{
-		sidLeds[column][row].gotoAndStop(1);
-		
-		if (_state == 1) 
+		for (var index = 0;index < row;index++) 
 		{
-			sidLeds[column][row].gotoAndStop(2);
-		}			
+			sidLeds[column][index].gotoAndStop(2);
+		}
+		for (var index = row;index < 20;index++) 
+		{
+			sidLeds[column][index].gotoAndStop(1);
+		}
 	}
 	
 	function setBackground(_state) 

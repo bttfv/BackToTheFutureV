@@ -42,6 +42,7 @@ namespace BackToTheFutureV
             _wheelsType.ItemChanged += ModList_ItemChanged;
 
             _hoverUnderbody = NewCheckboxItem("Hover");
+            _hoverUnderbody.Selected += _hoverUnderbody_Selected;
 
             _hoodBox = NewCheckboxItem("ControlTubes");
 
@@ -64,6 +65,12 @@ namespace BackToTheFutureV
             _saveConf = NewItem("Save");
 
             _confirm = NewItem("Confirm");
+        }
+
+        private void _hoverUnderbody_Selected(object sender, SelectedEventArgs e)
+        {
+            if (!_hoverUnderbody.Enabled && _tempTimeMachine.Properties.AreFlyingCircuitsBroken)
+                TextHandler.ShowSubtitle("HoverDamaged");
         }
 
         public override void Menu_Closing(object sender, CancelEventArgs e)
@@ -130,6 +137,8 @@ namespace BackToTheFutureV
 
             if (_tempTimeMachine.Mods.IsDMC12)
             {
+                _hoverUnderbody.Enabled = !_tempTimeMachine.Properties.AreFlyingCircuitsBroken || _hoverUnderbody.Checked;
+
                 _reactorType.SelectedIndex = (int)_tempTimeMachine.Mods.Reactor;
                 _hoodBox.Checked = ConvertFromModState(_tempTimeMachine.Mods.Hoodbox);
                 _hook.Checked = _tempTimeMachine.Mods.Hook != HookState.Off;
@@ -258,6 +267,7 @@ namespace BackToTheFutureV
             else if (sender == _threeDigits)
             {
                 _tempTimeMachine.Properties.ThreeDigitsSpeedo = !Checked;
+                _tempTimeMachine.Properties.HUDProperties.ThreeDigitsSpeedo = !Checked;
             }
         }
 

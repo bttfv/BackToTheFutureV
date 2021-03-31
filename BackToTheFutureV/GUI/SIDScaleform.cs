@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.HUD.Core;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA.UI;
 using System;
 using System.Drawing;
@@ -8,12 +7,12 @@ namespace BackToTheFutureV
 {
     internal class SIDScaleform : ScaleformGui
     {
-        private HUDProperties HUDProperties => TimeMachineHandler.ClosestTimeMachine.Properties.HUDProperties;
+        private PropertiesHandler Properties => TimeMachineHandler.ClosestTimeMachine.Properties;
 
         private static PointF SID3DLocation = new PointF() { X = 0.626f, Y = 0.626f };
         private static float SID3DScale = 1.284f;
 
-        public SIDScaleform(string scaleformID) : base(scaleformID)
+        public SIDScaleform(bool is2D) : base(is2D ? "bttf_2d_sid" : "bttf_3d_sid")
         {
 
         }
@@ -21,13 +20,7 @@ namespace BackToTheFutureV
         private void SetLed()
         {
             for (int column = 0; column < 10; column++)
-                for (int row = 0; row < 20; row++)
-                {
-                    if (row > 0 && !HUDProperties.LedState[column][row - 1] && HUDProperties.LedState[column][row])
-                        HUDProperties.LedState[column][row] = false;
-
-                    CallFunction("setLed", column, row, Convert.ToInt32(HUDProperties.LedState[column][row]));
-                }
+                CallFunction("setLed", column, Convert.ToInt32(Properties.CurrentHeight[column]));
         }
 
         public void Draw2D()
@@ -40,8 +33,6 @@ namespace BackToTheFutureV
 
         public void Draw3D()
         {
-            CallFunction("setBackground", 1);
-
             SetLed();
             Render2D(SID3DLocation, new SizeF(SID3DScale * (800f / 1414f) / Screen.AspectRatio, SID3DScale));
         }

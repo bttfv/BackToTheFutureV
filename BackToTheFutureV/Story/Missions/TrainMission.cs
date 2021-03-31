@@ -380,7 +380,7 @@ namespace BackToTheFutureV
             TimedEventManager.Last.SetSpeed(87, 88);
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.DigitalSpeedoTowardsFront);
             TimedEventManager.Last.OnExecute += SetSpeed_OnExecute;
-      
+
             TimedEventManager.Add(7, 6, 0, 7, 7, 200, TimeMultiplier); //show destination date            
             TimedEventManager.Last.SetCamera(TimeMachine.CustomCameraManager, (int)TimeMachineCamera.DestinationDate);
 

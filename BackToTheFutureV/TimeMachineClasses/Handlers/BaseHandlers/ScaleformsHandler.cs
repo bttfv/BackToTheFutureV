@@ -51,8 +51,8 @@ namespace BackToTheFutureV
             FluxCapacitor = new ScaleformGui("bttf_flux_scaleform") { DrawInPauseMenu = true };
             Speedo = new ScaleformGui("bttf_3d_speedo") { DrawInPauseMenu = true };
 
-            SID2D = new SIDScaleform("bttf_2d_sid");
-            SID3D = new SIDScaleform("bttf_3d_sid");
+            SID2D = new SIDScaleform(true);
+            SID3D = new SIDScaleform(false);
 
             RCGUI = new RCGUIScaleform();
         }

@@ -267,7 +267,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (!Utils.PlayerPed.IsInVehicle() && Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Constants.FullDamaged)
+            if (!Utils.PlayerPed.IsInVehicle() && Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Constants.FullDamaged && Mods.Hoodbox == ModState.Off)
             {
                 if (!Utils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
                     return;
@@ -392,7 +392,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!Properties.AreTimeCircuitsOn && Properties.AreTimeCircuitsBroken)
+            if (!Properties.AreTimeCircuitsOn && Properties.AreTimeCircuitsBroken && Mods.Hoodbox == ModState.Off)
             {
                 if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
                     TextHandler.ShowHelp("ChipDamaged");

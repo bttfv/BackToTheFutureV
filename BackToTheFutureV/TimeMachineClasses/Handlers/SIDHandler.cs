@@ -13,6 +13,8 @@ namespace BackToTheFutureV
 
         private bool _randomDelay;
 
+        private bool _pause;
+
         public SIDHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.SetSIDLedsState += SetAllState;
@@ -37,6 +39,9 @@ namespace BackToTheFutureV
 
             if (height < 0)
                 height = 0;
+
+            if (_pause && height != Properties.CurrentHeight[column])
+                _pause = false;
 
             Properties.NewHeight[column] = height;
             Properties.LedDelay[column] = 0;
@@ -71,12 +76,7 @@ namespace BackToTheFutureV
                 SetColumnHeight(column, on ? max : 0);
 
                 if (instant)
-                {
-                    for (int row = 0; row < max; row++)
-                        Properties.HUDProperties.LedState[column][row] = on;
-
                     Properties.CurrentHeight[column] = max;
-                }
             }
 
             if (instant)
@@ -86,12 +86,12 @@ namespace BackToTheFutureV
             _waitTurnOn = on;
         }
 
-        private List<int> AreColumnProcessing(bool checkDelay = false)
+        private List<int> AreColumnProcessing()
         {
             List<int> ret = new List<int>();
 
             for (int column = 0; column < 10; column++)
-                if (Properties.NewHeight[column] != Properties.CurrentHeight[column] && (!checkDelay || Properties.LedDelay[column] < Game.GameTime))
+                if (Properties.NewHeight[column] != Properties.CurrentHeight[column])
                     ret.Add(column);
 
             return ret;
@@ -116,20 +116,25 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            foreach (int column in AreColumnProcessing(true))
+            if (!_pause)
             {
-                if (Properties.NewHeight[column] > Properties.CurrentHeight[column])
+                List<int> columns = AreColumnProcessing();
+
+                foreach (int column in columns)
                 {
-                    Properties.HUDProperties.LedState[column][Properties.CurrentHeight[column]] = true;
-                    Properties.CurrentHeight[column]++;
-                }
-                else if (Properties.NewHeight[column] < Properties.CurrentHeight[column])
-                {
-                    Properties.CurrentHeight[column]--;
-                    Properties.HUDProperties.LedState[column][Properties.CurrentHeight[column]] = false;
+                    if (Properties.LedDelay[column] > Game.GameTime)
+                        continue;
+
+                    if (Properties.NewHeight[column] > Properties.CurrentHeight[column])
+                        Properties.CurrentHeight[column]++;
+                    else if (Properties.NewHeight[column] < Properties.CurrentHeight[column])
+                        Properties.CurrentHeight[column]--;
+
+                    Properties.LedDelay[column] = Game.GameTime + 60 + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
+                    Properties.HUDProperties.CurrentHeight[column] = Properties.CurrentHeight[column];
                 }
 
-                Properties.LedDelay[column] = Game.GameTime + 60 + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
+                _pause = columns.Count == 0;
             }
 
             if (Properties.IsGivenScaleformPriority && Vehicle.IsVisible)

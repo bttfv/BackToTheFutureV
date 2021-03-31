@@ -311,8 +311,14 @@ namespace BackToTheFutureV
                     if (!TimeMachine.Properties.AreTimeCircuitsBroken)
                         return;
 
-                    TimeMachine.Properties.AreTimeCircuitsBroken = false;
                     WormholeType = WormholeType.BTTF3;
+                }
+                else
+                {
+                    if (TimeMachine.Properties.AreTimeCircuitsOn)
+                        TimeMachine.Events.SetTimeCircuits?.Invoke(false);
+
+                    TimeMachine.Properties.AreHoodboxCircuitsReady = false;
                 }
             }
         }

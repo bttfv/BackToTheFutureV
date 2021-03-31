@@ -382,11 +382,13 @@ namespace BackToTheFutureV
 
             if (Vehicle.IsEngineRunning && !_engineOn)
             {
+                _engineOffsound.Stop();
                 _engineOnSound.Play();
                 _engineOn = true;
             }
             else if (!Vehicle.IsEngineRunning && _engineOn)
             {
+                _engineOnSound.Stop();
                 _engineOffsound.Play();
                 _engineOn = false;
             }

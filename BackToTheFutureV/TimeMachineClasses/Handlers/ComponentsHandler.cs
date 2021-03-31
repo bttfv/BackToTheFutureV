@@ -9,9 +9,6 @@ namespace BackToTheFutureV
 {
     internal class ComponentsHandler : HandlerPrimitive
     {
-        //Hook
-        private Vector3 hookPosition = new Vector3(0.75f, 0f, 0f);
-
         //Hoodbox
         private int _warmUp = 0;
 
@@ -32,7 +29,7 @@ namespace BackToTheFutureV
             if (Mods.HoverUnderbody == ModState.On)
                 Properties.CanConvert = true;
 
-            if (Mods.Plate == PlateType.Outatime && Mods.Reactor == ReactorType.Nuclear && Mods.WormholeType == WormholeType.BTTF1)
+            if (Mods.Plate == PlateType.Outatime && !Properties.IsFlying)
                 Mods.Plate = PlateType.Empty;
 
             if (Mods.Hook == HookState.On)

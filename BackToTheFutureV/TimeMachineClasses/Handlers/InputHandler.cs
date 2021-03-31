@@ -2,9 +2,6 @@
 using GTA;
 using System;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
 using System.Windows.Forms;
 using static FusionLibrary.Enums;
 
@@ -14,9 +11,6 @@ namespace BackToTheFutureV
     {
         public bool InputMode { get; private set; }
 
-        private static string InputBuffer;
-        private static bool EnterInputBuffer;
-
         public Keys lastInput = Keys.None;
 
         private string _destinationTimeRaw;
@@ -25,37 +19,6 @@ namespace BackToTheFutureV
         private DateTime _simulateDate;
         private int _simulateDatePos = -1;
         private int _simulateDateCheck;
-
-        private static readonly UdpClient udp = new UdpClient(1955);
-
-        private static void Receive(IAsyncResult ar)
-        {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Any, 1955);
-
-            string message = Encoding.ASCII.GetString(udp.EndReceive(ar, ref ip));
-
-            if (message.StartsWith("BTTFV="))
-            {
-                message = message.Replace("BTTFV=", "");
-
-                if (message == "enter")
-                    EnterInputBuffer = true;
-                else
-                    InputBuffer = message;
-            }
-
-            StartListening();
-        }
-
-        private static void StartListening()
-        {
-            udp.BeginReceive(Receive, new object());
-        }
-
-        static InputHandler()
-        {
-            StartListening();
-        }
 
         public InputHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -171,7 +134,7 @@ namespace BackToTheFutureV
             if (lastInput != Keys.None && !Game.IsKeyPressed(lastInput))
                 lastInput = Keys.None;
 
-            if (Properties.AreTimeCircuitsOn && Utils.PlayerVehicle != null && Utils.PlayerVehicle == Vehicle)
+            if (Properties.AreTimeCircuitsOn)
             {
                 if (_simulateDatePos > -1)
                 {
@@ -192,32 +155,10 @@ namespace BackToTheFutureV
                         }
                     }
                 }
-
-                if (EnterInputBuffer)
-                {
-                    EnterInputBuffer = false;
-                    ProcessInputEnter();
-                }
-
-                if (InputBuffer != null)
-                {
-                    ProcessInputNumber(InputBuffer);
-                    InputBuffer = null;
-                }
-            }
-
-            if (Utils.PlayerVehicle == null || !Utils.PlayerVehicle.IsTimeMachine() || (Utils.PlayerVehicle == Vehicle && !Properties.AreTimeCircuitsOn))
-            {
-                if (EnterInputBuffer)
-                    EnterInputBuffer = false;
-
-                InputBuffer = null;
             }
 
             if (Game.GameTime > _nextReset)
-            {
                 _destinationTimeRaw = string.Empty;
-            }
         }
 
         public override void Stop()

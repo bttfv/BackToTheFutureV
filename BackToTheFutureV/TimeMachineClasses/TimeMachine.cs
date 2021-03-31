@@ -350,8 +350,19 @@ namespace BackToTheFutureV
             else if (Blip != null && Blip.Exists())
                 Blip.Delete();
 
+            //if (TimeMachineHandler.CurrentTimeMachine == this)
+            //    Main.CustomStopwatch.StartNewRecord();
+
             foreach (KeyValuePair<string, HandlerPrimitive> entry in registeredHandlers)
+            {
                 entry.Value.Tick();
+
+                //if (TimeMachineHandler.CurrentTimeMachine == this)
+                //    Main.CustomStopwatch.WriteAndReset(entry.Key);
+            }
+
+            //if (TimeMachineHandler.CurrentTimeMachine == this)
+            //    Main.CustomStopwatch.Stop();
 
             if (Properties.Boost != 0)
             {
