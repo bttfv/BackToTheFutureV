@@ -1,9 +1,7 @@
 ﻿using FusionLibrary;
-using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
-using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,7 +84,7 @@ namespace BackToTheFutureV
         }
     }
 
-    internal class WaybackMachine
+    internal class WaybackMachine : Script
     {
         public List<WaybackReplica> WaybackReplicas { get; } = new List<WaybackReplica>();
 
@@ -114,9 +112,31 @@ namespace BackToTheFutureV
         public bool IsRecording { get; private set; } = true;
 
         public bool IsPlaying { get; private set; } = false;
-        
-        public void Tick()
+
+        public WaybackMachine()
         {
+            Tick += WaybackMachine_Tick;
+            GUID = Guid.Empty;
+        }
+
+        public void Create(TimeMachine timeMachine)
+        {
+            GUID = timeMachine.Properties.GUID;
+            TimeMachine = timeMachine;
+            StartGameTime = Game.GameTime;
+
+            WaybackReplicas.Add(new WaybackReplica(TimeMachine, StartGameTime));
+
+            StartTime = WaybackReplicas.First().Time;
+
+            WaybackMachineHandler.WaybackMachines.Add(this);
+        }
+
+        private void WaybackMachine_Tick(object sender, EventArgs e)
+        {
+            if (GUID == Guid.Empty)
+                Abort();
+
             if (Utils.CurrentTime < StartTime)
             {
                 if (IsRecording)
@@ -129,22 +149,6 @@ namespace BackToTheFutureV
                 Record();
             else
                 Play();
-        }
-
-        public WaybackMachine(TimeMachine timeMachine)
-        {
-            if (GUID != Guid.Empty)
-                return;
-
-            GUID = timeMachine.Properties.GUID;
-            TimeMachine = timeMachine;
-            StartGameTime = Game.GameTime;
-
-            WaybackReplicas.Add(new WaybackReplica(TimeMachine, StartGameTime));
-
-            StartTime = WaybackReplicas.First().Time;
-
-            WaybackMachineHandler.WaybackMachines.Add(this);
         }
 
         private void Record()

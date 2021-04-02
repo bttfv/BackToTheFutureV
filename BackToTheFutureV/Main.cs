@@ -1,5 +1,4 @@
 ﻿using FusionLibrary;
-using FusionLibrary.Memory;
 using GTA;
 using GTA.Native;
 using KlangRageAudioLibrary;
@@ -104,8 +103,6 @@ namespace BackToTheFutureV
             MissionHandler.Tick();
             StoryTimeMachineHandler.Tick();
             MenuHandler.Tick();
-
-            WaybackMachineHandler.Tick();
         }
     }
 }

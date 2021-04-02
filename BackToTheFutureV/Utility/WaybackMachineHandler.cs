@@ -23,20 +23,14 @@ namespace BackToTheFutureV
             WaybackMachines.ForEach(x => x.Stop());
         }
 
-        public static void Tick()
-        {
-            if (!Enabled)
-                return;
-
-            WaybackMachines.ForEach(x => x.Tick());
-        }
-
         public static WaybackMachine Create(TimeMachine timeMachine)
         {
             if (!Enabled)
                 return null;
 
-            WaybackMachine waybackMachine = new WaybackMachine(timeMachine);
+            WaybackMachine waybackMachine = Script.InstantiateScript<WaybackMachine>();
+
+            waybackMachine.Create(timeMachine);
 
             return waybackMachine;
         }
@@ -46,7 +40,7 @@ namespace BackToTheFutureV
             if (!Enabled)
                 return null;
 
-            WaybackMachine waybackMachine = WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsRecording && !x.IsPlaying && (Utils.CurrentTime - x.StartTime).Duration() < TimeSpan.FromMinutes(1) && Utils.CurrentTime <= x.EndTime);
+            WaybackMachine waybackMachine = WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsPlaying && !x.IsRecording && (Utils.CurrentTime - x.StartTime).Duration() < TimeSpan.FromMinutes(1) && Utils.CurrentTime <= x.EndTime);
 
             if (waybackMachine == default)
                 return Create(timeMachine);
