@@ -68,6 +68,7 @@ namespace BackToTheFutureV
         public bool Story { get; set; }
         public bool BlockSparks { get; set; }
         public float Boost { get; set; }
+        public bool WaybackTimeTravel { get; set; }
 
         public HUDProperties HUDProperties { get; set; } = new HUDProperties();
         public bool ForceSIDMax { get; set; }

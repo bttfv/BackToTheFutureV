@@ -82,8 +82,9 @@ namespace BackToTheFutureV
 
                     if (Properties.IsRemoteControlled)
                         Properties.TimeTravelType = TimeTravelType.RC;
-                    else
-                    {
+                    else if (Properties.WaybackTimeTravel)
+                        Properties.TimeTravelType = TimeTravelType.Wayback;
+                    else {
                         if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Utils.PlayerPed)
                         {
                             if (TimeMachine.IsWaybackPlaying)

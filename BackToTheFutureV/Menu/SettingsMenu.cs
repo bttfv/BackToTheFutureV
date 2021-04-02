@@ -85,7 +85,7 @@ namespace BackToTheFutureV
                 ModSettings.InfiniteFuel = Checked;
 
             if (sender == WaybackSystem)
-                WaybackMachineHandler.SetState(Checked);
+                WaybackMachineHandler.Enabled = Checked;
 
             ModSettings.SaveSettings();
         }

@@ -1,7 +1,9 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
+using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +14,20 @@ namespace BackToTheFutureV
     {
         public DateTime Time { get; }
         public int Timestamp { get; }
+
         public bool EngineRunning { get; }
         public float Throttle { get; }
         public float Brake { get; }
-        //public int Gear { get; }
-        //public float RPM { get; }
         public float SteeringAngle { get; }
+        public bool Lights { get; }
+        public bool Headlights { get; }
+
+        public float[] WheelsRotations { get; }
+        public float[] WheelsCompressions { get; }
+
         public Vector3 Position { get; }
         public Vector3 Rotation { get; }
         public Vector3 Velocity { get; }
-        public bool Lights { get; }
-        public bool Headlights { get; }
-        public bool IsVisible { get; }
 
         public PropertiesHandler Properties { get; }
         public ModsPrimitive Mods { get; }
@@ -37,12 +41,12 @@ namespace BackToTheFutureV
             Throttle = timeMachine.Vehicle.ThrottlePower;
             Brake = timeMachine.Vehicle.BrakePower;
 
-            //Gear = timeMachine.Vehicle.CurrentGear;
-            //RPM = timeMachine.Vehicle.CurrentRPM;
             SteeringAngle = timeMachine.Vehicle.SteeringAngle;
             Lights = timeMachine.Vehicle.AreLightsOn;
             Headlights = timeMachine.Vehicle.AreHighBeamsOn;
-            IsVisible = timeMachine.Vehicle.IsVisible;
+
+            WheelsRotations = VehicleControl.GetWheelRotations(timeMachine);
+            WheelsCompressions = VehicleControl.GetWheelCompressions(timeMachine);
 
             Position = timeMachine.Vehicle.Position;
             Rotation = timeMachine.Vehicle.Rotation;
@@ -54,36 +58,35 @@ namespace BackToTheFutureV
 
         public void Apply(TimeMachine timeMachine, int startPlayGameTime, WaybackReplica nextReplica)
         {
-            if (timeMachine.Vehicle.IsEngineRunning != EngineRunning)
-                timeMachine.Vehicle.IsEngineRunning = EngineRunning;
-
+            timeMachine.Vehicle.IsEngineRunning = EngineRunning;
             timeMachine.Vehicle.ThrottlePower = Throttle;
             timeMachine.Vehicle.BrakePower = Brake;
 
-            //timeMachine.Vehicle.CurrentGear = Gear;
-            //timeMachine.Vehicle.CurrentRPM = RPM;
             timeMachine.Vehicle.SteeringAngle = SteeringAngle;
             timeMachine.Vehicle.AreLightsOn = Lights;
             timeMachine.Vehicle.AreHighBeamsOn = Headlights;
-
-            if (timeMachine.Vehicle.IsVisible != IsVisible)
-                timeMachine.Vehicle.SetVisible(IsVisible);
 
             float timeRatio = 0;
 
             if (Timestamp != nextReplica.Timestamp)
                 timeRatio = (Game.GameTime - startPlayGameTime - Timestamp) / (float)(nextReplica.Timestamp - Timestamp);
 
-            timeMachine.Vehicle.PositionNoOffset = Vector3.Lerp(Position, nextReplica.Position, timeRatio);
-            timeMachine.Vehicle.Rotation = Vector3.Lerp(Rotation, nextReplica.Rotation, timeRatio);
-            timeMachine.Vehicle.Velocity = Vector3.Lerp(Velocity, nextReplica.Velocity, timeRatio);
+            timeMachine.Vehicle.PositionNoOffset = Utils.Lerp(Position, nextReplica.Position, timeRatio);
+            timeMachine.Vehicle.Rotation = Utils.Lerp(Rotation, nextReplica.Rotation, timeRatio, -180, 180);
+            timeMachine.Vehicle.Velocity = Utils.Lerp(Velocity, nextReplica.Velocity, timeRatio);
+
+            for (int i = 0; i < WheelsRotations.Length; i++)
+            {
+                VehicleControl.SetWheelRotation(timeMachine, i, Utils.Lerp(WheelsRotations[i], nextReplica.WheelsRotations[i], timeRatio, -(float)Math.PI, (float)Math.PI));
+                VehicleControl.SetWheelCompression(timeMachine, i, Utils.Lerp(WheelsCompressions[i], nextReplica.WheelsCompressions[i], timeRatio));
+            }
 
             Properties.ApplyToWayback(timeMachine);
             Mods.ApplyToWayback(timeMachine);
         }
     }
 
-    internal class WaybackMachine : Script
+    internal class WaybackMachine
     {
         public List<WaybackReplica> WaybackReplicas { get; } = new List<WaybackReplica>();
 
@@ -111,17 +114,9 @@ namespace BackToTheFutureV
         public bool IsRecording { get; private set; } = true;
 
         public bool IsPlaying { get; private set; } = false;
-
-        public WaybackMachine()
+        
+        public void Tick()
         {
-            Tick += WaybackMachine_Tick;
-        }
-
-        private void WaybackMachine_Tick(object sender, EventArgs e)
-        {
-            if (GUID == Guid.Empty || !WaybackMachineHandler.Enabled)
-                Abort();
-
             if (Utils.CurrentTime < StartTime)
             {
                 if (IsRecording)
@@ -136,7 +131,7 @@ namespace BackToTheFutureV
                 Play();
         }
 
-        public void Create(TimeMachine timeMachine)
+        public WaybackMachine(TimeMachine timeMachine)
         {
             if (GUID != Guid.Empty)
                 return;

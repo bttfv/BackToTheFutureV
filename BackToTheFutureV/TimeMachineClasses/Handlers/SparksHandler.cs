@@ -36,6 +36,8 @@ namespace BackToTheFutureV
                     DMC12?.SetVoltValue?.Invoke(100);
 
                 WaypointScript.LoadWaypointPosition(true);
+
+                Properties.WaybackTimeTravel = TimeMachine.IsWaybackPlaying;
             }
             else
             {

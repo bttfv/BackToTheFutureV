@@ -12,17 +12,9 @@ namespace BackToTheFutureV
 
         public static bool Enabled { get; set; } = false;
 
-        public static void SetState(bool enabled)
-        {
-            if (!enabled)
-                Abort();
-
-            Enabled = enabled;
-        }
-
         public static void Abort()
         {
-            WaybackMachines.ForEach(x => x.Abort());
+            WaybackMachines.ForEach(x => x.Stop());
             WaybackMachines.Clear();
         }
 
@@ -31,16 +23,20 @@ namespace BackToTheFutureV
             WaybackMachines.ForEach(x => x.Stop());
         }
 
+        public static void Tick()
+        {
+            if (!Enabled)
+                return;
+
+            WaybackMachines.ForEach(x => x.Tick());
+        }
+
         public static WaybackMachine Create(TimeMachine timeMachine)
         {
             if (!Enabled)
                 return null;
 
-            WaybackMachine waybackMachine = Script.InstantiateScript<WaybackMachine>();
-
-            waybackMachine.Create(timeMachine);
-
-            //GTA.UI.Screen.ShowSubtitle($"New wayback machine {waybackMachine.StartTime}");
+            WaybackMachine waybackMachine = new WaybackMachine(timeMachine);
 
             return waybackMachine;
         }
@@ -56,8 +52,6 @@ namespace BackToTheFutureV
                 return Create(timeMachine);
             else
                 waybackMachine.TimeMachine = timeMachine;
-
-            //GTA.UI.Screen.ShowSubtitle($"Wayback machine found {waybackMachine.StartTime} {waybackMachine.EndTime}");
 
             return waybackMachine;
         }
