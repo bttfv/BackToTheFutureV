@@ -65,6 +65,8 @@ namespace BackToTheFutureV
             if (dumpster == null || !Game.IsControlJustPressed(Control.Context))
                 return;
 
+            InternalInventory.Current.Trash++;
+
             TextHandler.ShowHelp("FoundTrash", true, InternalInventory.Current.Trash);
         }
     }

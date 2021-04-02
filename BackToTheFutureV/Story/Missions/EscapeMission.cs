@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV;
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
 using GTA;
@@ -33,17 +32,9 @@ namespace BackToTheFutureV
 
             TimeMachine = null;
 
-            if (Vehicle.IsFunctioning())
-            {
-                Vehicle?.AttachedBlip?.Delete();
-                Driver?.Delete();
-                Shooter?.Delete();
-                Vehicle?.Delete();
-            }
+            Vehicle?.DeleteCompletely();
 
-            Peds?.Delete();
             Peds = null;
-
             step = -1;
         }
 

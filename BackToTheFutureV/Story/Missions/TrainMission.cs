@@ -158,6 +158,9 @@ namespace BackToTheFutureV
             if (TimedEventManager.IsCustomCameraActive)
                 TimedEventManager.ResetCamera();
 
+            if (TimeMachine.NotNullAndExists())
+                TimeMachine.CustomCamera = TimeMachineCamera.Default;
+
             if (MissionMusic.IsAnyInstancePlaying)
                 MissionMusic.Stop();
 

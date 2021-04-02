@@ -411,7 +411,7 @@ namespace BackToTheFutureV
 
         public void SwitchToRegular()
         {
-            RogersSierra.SetRejectDelay(500);
+            RogersSierra.SetRejectDelay(2000);
             RogersSierra.AttachedVehicle = null;
 
             DeleteTrain();

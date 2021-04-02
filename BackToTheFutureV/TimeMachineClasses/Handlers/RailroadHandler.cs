@@ -170,7 +170,7 @@ namespace BackToTheFutureV
             if (!Properties.IsOnTracks || !customTrain.IsRogersSierra)
                 return;
 
-            customTrain.RogersSierra.KeyDown(e.KeyCode);
+            customTrain.RogersSierra?.KeyDown(e.KeyCode);
         }
 
         public override void Tick()
