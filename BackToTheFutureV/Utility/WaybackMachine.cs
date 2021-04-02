@@ -101,13 +101,16 @@ namespace BackToTheFutureV
             }
         }
 
-        public WaybackReplica CurrentReplica => WaybackReplicas.FirstOrDefault(x => x.Time >= Utils.CurrentTime);
+        public WaybackReplica StartReplica => WaybackReplicas.FirstOrDefault(x => x.Time >= Utils.CurrentTime);
+
+        public int ReplicaIndex { get; private set; } = -1;
+        public WaybackReplica CurrentReplica => WaybackReplicas[ReplicaIndex];
 
         public int StartGameTime { get; private set; }
         public int StartPlayGameTime { get; private set; }
 
         public DateTime StartTime { get; private set; }
-        public DateTime EndTime => WaybackReplicas.LastOrDefault().Time;
+        public DateTime EndTime { get; private set; }
 
         public bool IsRecording { get; private set; } = true;
 
@@ -116,7 +119,6 @@ namespace BackToTheFutureV
         public WaybackMachine()
         {
             Tick += WaybackMachine_Tick;
-            GUID = Guid.Empty;
         }
 
         public void Create(TimeMachine timeMachine)
@@ -168,31 +170,37 @@ namespace BackToTheFutureV
             if (!TimeMachine.NotNullAndExists())
                 return;
 
-            WaybackReplica waybackReplica = CurrentReplica;
+            WaybackReplica waybackReplica;
 
-            if (waybackReplica == default)
+            if (!IsPlaying)
             {
-                if (IsPlaying)
-                    IsPlaying = false;
+                waybackReplica = StartReplica;
 
-                return;
-            }
-            else if (!IsPlaying)
-            {
+                if (waybackReplica == default)
+                    return;
+
+                ReplicaIndex = WaybackReplicas.IndexOf(waybackReplica);
                 StartPlayGameTime = Game.GameTime;
                 IsPlaying = true;
             }
 
-            if (waybackReplica == WaybackReplicas.Last())
-                waybackReplica.Apply(TimeMachine, StartPlayGameTime, waybackReplica);
+            if (ReplicaIndex >= WaybackReplicas.Count - 1)
+            {
+                CurrentReplica.Apply(TimeMachine, StartPlayGameTime, CurrentReplica);
+
+                IsPlaying = false;
+            }
             else
-                waybackReplica.Apply(TimeMachine, StartPlayGameTime, WaybackReplicas[WaybackReplicas.IndexOf(waybackReplica) + 1]);
+                CurrentReplica.Apply(TimeMachine, StartPlayGameTime, WaybackReplicas[ReplicaIndex++]);
         }
 
         public void Stop()
         {
             if (timeMachine != null)
                 timeMachine.WaybackMachine = null;
+
+            if (IsRecording)
+                EndTime = WaybackReplicas.Last().Time;
 
             timeMachine = null;
             IsRecording = false;

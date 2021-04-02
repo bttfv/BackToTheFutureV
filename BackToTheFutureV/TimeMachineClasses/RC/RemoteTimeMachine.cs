@@ -62,7 +62,7 @@ namespace BackToTheFutureV
 
             if (!Reentry)
             {
-                if (!blockSpawn && (Utils.CurrentTime - WaybackMachine.StartTime).Duration() < TimeSpan.FromMinutes(1))
+                if (!blockSpawn && Utils.CurrentTime >= WaybackMachine.StartTime && Utils.CurrentTime < WaybackMachine.EndTime)
                     WaybackMachine.TimeMachine = Spawn(ReenterType.Spawn);
 
                 return;

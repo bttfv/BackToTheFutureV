@@ -40,7 +40,7 @@ namespace BackToTheFutureV
             if (!Enabled)
                 return null;
 
-            WaybackMachine waybackMachine = WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsPlaying && !x.IsRecording && (Utils.CurrentTime - x.StartTime).Duration() < TimeSpan.FromMinutes(1) && Utils.CurrentTime <= x.EndTime);
+            WaybackMachine waybackMachine = WaybackMachines.FirstOrDefault(x => x.GUID == timeMachine.Properties.GUID && !x.IsPlaying && !x.IsRecording && Utils.CurrentTime >= x.StartTime && Utils.CurrentTime < x.EndTime);
 
             if (waybackMachine == default)
                 return Create(timeMachine);

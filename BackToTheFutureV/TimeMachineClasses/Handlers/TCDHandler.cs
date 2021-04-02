@@ -204,8 +204,7 @@ namespace BackToTheFutureV
 
         private void OnTimeTravel()
         {
-            if (!Properties.AreTimeCircuitsBroken)
-                previousSlot.SetDate(Properties.PreviousTime);
+            previousSlot.SetDate(Properties.PreviousTime);
 
             lastTime = Utils.CurrentTime;
             StopGlitch();

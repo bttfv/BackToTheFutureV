@@ -77,16 +77,14 @@ namespace BackToTheFutureV
             if (ret.WormholeType != WormholeType)
                 ret.WormholeType = WormholeType;
 
-            if (Wheel != WheelType.RailroadInvisible && Wheel != WheelType.RedInvisible && Wheel != WheelType.StockInvisible)
-            {
-                if (ret.SuspensionsType != SuspensionsType)
-                    ret.SuspensionsType = SuspensionsType;
+            if (ret.SuspensionsType != SuspensionsType)
+                ret.SuspensionsType = SuspensionsType;
 
-                if (ret.Wheel != Wheel)
-                    ret.Wheel = Wheel;
-
+            if (ret.HoverUnderbody != HoverUnderbody)
                 ret.HoverUnderbody = HoverUnderbody;
-            }
+
+            if (ret.Wheel != Wheel)
+                ret.Wheel = Wheel;
 
             if (ret.Reactor != Reactor)
                 ret.Reactor = Reactor;

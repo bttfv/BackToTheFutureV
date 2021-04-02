@@ -75,6 +75,9 @@ namespace BackToTheFutureV
 
         private void SimulateDateInput(DateTime dateTime)
         {
+            if (_simulateDatePos > -1)
+                return;
+
             _simulateDate = dateTime;
             _simulateDatePos = 0;
             _simulateDateCheck = 0;
