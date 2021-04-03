@@ -42,7 +42,7 @@ namespace BackToTheFutureV
             if (ModSettings.PersistenceSystem)
                 TimeMachineHandler.SaveAllTimeMachines();
 
-            WaybackMachineHandler.Abort();
+            WaybackHandler.Abort();
             MissionHandler.Abort();
             StoryTimeMachineHandler.Abort();
             RemoteTimeMachineHandler.Abort();

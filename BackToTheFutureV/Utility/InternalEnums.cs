@@ -2,6 +2,14 @@
 {
     internal class InternalEnums
     {
+        internal enum WaybackEvent
+        {
+            None,
+            OnSparksEnded,
+            OpenCloseReactor,
+            RefuelReactor
+        }
+
         internal enum TCDBackground
         {
             Metal, Transparent

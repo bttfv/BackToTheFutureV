@@ -4,6 +4,7 @@ using GTA;
 using GTA.Math;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV
 {
@@ -23,6 +24,8 @@ namespace BackToTheFutureV
 
         private NativeInput InteractPressed;
 
+        private TaskSequence refuelSequence;
+
         public FuelHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             InteractPressed = new NativeInput(GTA.Control.Context);
@@ -33,6 +36,7 @@ namespace BackToTheFutureV
 
             Events.StartFuelBlink += StartFuelBlink;
             Events.SetRefuel += Refuel;
+            Events.SetOpenCloseReactor += SetOpenCloseReactor;
 
             Events.OnReactorTypeChanged += OnReactorTypeChanged;
             OnReactorTypeChanged();
@@ -62,7 +66,12 @@ namespace BackToTheFutureV
                 return;
 
             if (HasFuel())
-                Refuel(Utils.PlayerPed);
+            {
+                if (Utils.PlayerPed.IsTaskActive(TaskType.ScriptedAnimation) || Utils.PlayerPed.IsTaskActive(TaskType.TurnToFaceEntityOrCoord))
+                    return;
+
+                Events.SetRefuel?.Invoke(Utils.PlayerPed);
+            }
             else
             {
                 if (Mods.Reactor == ReactorType.MrFusion)
@@ -77,6 +86,11 @@ namespace BackToTheFutureV
             if (longPressed || !IsPedInPosition() || Players.Refuel.IsPlaying)
                 return;
 
+            Events.SetOpenCloseReactor?.Invoke();
+        }
+
+        private void SetOpenCloseReactor()
+        {
             Players.Refuel?.Play();
             longPressed = true;
         }
@@ -105,13 +119,16 @@ namespace BackToTheFutureV
                     InternalInventory.Current.Plutonium--;
             }
 
-            TaskSequence taskSequence = new TaskSequence();
+            if (refuelPed != null)
+            {
+                refuelSequence = new TaskSequence();
 
-            taskSequence.AddTask.TurnTo(Vehicle.Bones["mr_fusion_handle"].Position, 1000);
-            taskSequence.AddTask.PlayAnimation("anim@narcotics@trash", "drop_front");
-            taskSequence.AddTask.ClearAnimation("anim@narcotics@trash", "drop_front");
+                refuelSequence.AddTask.TurnTo(Vehicle.Bones["mr_fusion_handle"].Position, 1000);
+                refuelSequence.AddTask.PlayAnimation("anim@narcotics@trash", "drop_front");
+                refuelSequence.AddTask.ClearAnimation("anim@narcotics@trash", "drop_front");
 
-            refuelPed?.Task.PerformSequence(taskSequence);
+                refuelPed?.Task.PerformSequence(refuelSequence);
+            }
 
             Properties.ReactorCharge++;
 

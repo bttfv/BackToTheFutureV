@@ -90,7 +90,7 @@ namespace BackToTheFutureV
             return timeMachine;
         }
 
-        public static RemoteTimeMachine AddRemote(TimeMachineClone timeMachineClone, WaybackMachine waybackMachine)
+        public static RemoteTimeMachine AddRemote(TimeMachineClone timeMachineClone, Wayback waybackMachine)
         {
             if (AllRemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
             {
@@ -110,7 +110,7 @@ namespace BackToTheFutureV
 
         public static void ExistenceCheck(DateTime time)
         {
-            AllRemoteTimeMachines.ForEach(x => x.ExistenceCheck(time));
+            RemoteTimeMachines.ForEach(x => x.ExistenceCheck(time));
         }
 
         public static void Tick()

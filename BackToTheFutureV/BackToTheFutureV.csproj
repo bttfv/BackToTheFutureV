@@ -193,8 +193,10 @@
     <Compile Include="Settings\TCDEditer.cs" />
     <Compile Include="Utility\TextHandler.cs" />
     <Compile Include="Utility\TrashHandler.cs" />
-    <Compile Include="Utility\WaybackMachine.cs" />
-    <Compile Include="Utility\WaybackMachineHandler.cs" />
+    <Compile Include="Utility\Wayback\Wayback.cs" />
+    <Compile Include="Utility\Wayback\WaybackHandler.cs" />
+    <Compile Include="Utility\Wayback\WaybackMachineReplica.cs" />
+    <Compile Include="Utility\Wayback\WaybackPedReplica.cs" />
     <Compile Include="Vehicles\DMC12\ModsPrimitive.cs" />
     <Compile Include="Vehicles\DMC12\DMC12.cs" />
     <Compile Include="Vehicles\DMC12\DMC12Handler.cs" />

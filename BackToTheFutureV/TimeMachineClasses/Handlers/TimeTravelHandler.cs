@@ -42,7 +42,7 @@ namespace BackToTheFutureV
             TimeMachineHandler.ExistenceCheck(time);
             RemoteTimeMachineHandler.ExistenceCheck(time);
 
-            WaybackMachineHandler.Stop();
+            WaybackHandler.Stop();
         }
 
         public void SetCutsceneMode(bool cutsceneOn)

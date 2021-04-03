@@ -116,8 +116,8 @@ namespace BackToTheFutureV
                             Sounds.SparkStabilized?.Play();
                     }
 
-                    if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.Over88MphSpeed)
-                        OnSparksEnded();
+                    if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.Over88MphSpeed && !TimeMachine.IsWaybackPlaying)
+                        Events.OnSparksEnded?.Invoke();
                 }
                 else
                 {

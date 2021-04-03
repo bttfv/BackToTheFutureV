@@ -22,7 +22,7 @@ namespace BackToTheFutureV
         private static AudioPlayer WarningSound;
 
         private bool blockSpawn = true;
-        public WaybackMachine WaybackMachine { get; }
+        public Wayback WaybackMachine { get; }
 
         static RemoteTimeMachine()
         {
@@ -40,7 +40,7 @@ namespace BackToTheFutureV
             TimeHandler.OnTimeChanged += OnTimeChanged;
         }
 
-        public RemoteTimeMachine(TimeMachineClone timeMachineClone, WaybackMachine waybackMachine) : this(timeMachineClone)
+        public RemoteTimeMachine(TimeMachineClone timeMachineClone, Wayback waybackMachine) : this(timeMachineClone)
         {
             WaybackMachine = waybackMachine;
             Reentry = false;

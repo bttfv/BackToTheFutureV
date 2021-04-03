@@ -55,7 +55,7 @@ namespace BackToTheFutureV
 
         public bool Disposed { get; private set; }
 
-        public WaybackMachine WaybackMachine { get; set; }
+        public Wayback WaybackMachine { get; set; }
 
         public bool IsWaybackPlaying => WaybackMachine != null && WaybackMachine.IsPlaying;
 
@@ -374,16 +374,16 @@ namespace BackToTheFutureV
 
             CustomCameraManager.Tick();
 
-            if (Properties.Story || !WaybackMachineHandler.Enabled)
+            if (Properties.Story || !WaybackHandler.Enabled)
                 return;
 
             if (WaybackMachine == null || !WaybackMachine.IsRecording && !WaybackMachine.IsPlaying)
                 if (Properties.TimeTravelPhase < TimeTravelPhase.InTime)
                 {
                     if (Utils.PlayerVehicle == Vehicle)
-                        WaybackMachineHandler.Create(this);
+                        WaybackHandler.Create(this);
                     else
-                        WaybackMachineHandler.TryFind(this);
+                        WaybackHandler.TryFind(this);
 
                     if (CreateCloneSpawn)
                     {

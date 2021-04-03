@@ -146,7 +146,7 @@ namespace BackToTheFutureV
             {
                 TimeMachineHandler.RemoveAllTimeMachines(true);
                 RemoteTimeMachineHandler.DeleteAll();
-                WaybackMachineHandler.Abort();
+                WaybackHandler.Abort();
                 TextHandler.ShowNotification("RemovedOtherTimeMachines");
             }
 
@@ -154,7 +154,7 @@ namespace BackToTheFutureV
             {
                 TimeMachineHandler.RemoveAllTimeMachines();
                 RemoteTimeMachineHandler.DeleteAll();
-                WaybackMachineHandler.Abort();
+                WaybackHandler.Abort();
                 TextHandler.ShowNotification("RemovedAllTimeMachines");
 
                 ExternalHUD.SetOff();

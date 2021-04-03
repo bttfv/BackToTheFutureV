@@ -36,6 +36,7 @@ namespace BackToTheFutureV
     internal delegate void StartTimeTravel(int delay = 0);
     internal delegate void StartFuelBlink();
     internal delegate void SetStopTracks(int delay = 0);
+    internal delegate void SetOpenCloseReactor();
     internal delegate void SetRefuel(Ped ped);
     internal delegate void SetPedAI(bool state);
     internal delegate void SetWheelie(bool goUp);
@@ -77,6 +78,7 @@ namespace BackToTheFutureV
         public StartTimeTravel StartTimeTravel;
         public StartFuelBlink StartFuelBlink;
         public SetStopTracks SetStopTracks;
+        public SetOpenCloseReactor SetOpenCloseReactor;
         public SetRefuel SetRefuel;
         public SetPedAI StartDriverAI;
         public SetWheelie SetWheelie;

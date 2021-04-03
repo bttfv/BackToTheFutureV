@@ -233,7 +233,7 @@ namespace BackToTheFutureV
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }
 
-            if (spawnFlags.HasFlag(SpawnFlags.New) && WaybackMachineHandler.Enabled)
+            if (spawnFlags.HasFlag(SpawnFlags.New) && WaybackHandler.Enabled)
                 timeMachine.CreateCloneSpawn = true;
 
             return timeMachine;
