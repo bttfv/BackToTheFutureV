@@ -26,7 +26,7 @@ namespace BackToTheFutureV
             LandingSystem = NewCheckboxItem("LandingSystem", ModSettings.LandingSystem);
             InfiniteFuel = NewCheckboxItem("InfinityReactor", ModSettings.InfiniteFuel);
             PersistenceSystem = NewCheckboxItem("Persistence", ModSettings.PersistenceSystem);
-            //WaybackSystem = NewCheckboxItem("Wayback", WaybackHandler.Enabled);
+            WaybackSystem = NewCheckboxItem("Wayback", ModSettings.WaybackSystem);
             RandomTrains = NewCheckboxItem("RandomTrains", ModSettings.RandomTrains);
             GlowingWormholeEmitter = NewCheckboxItem("GlowingWormhole", ModSettings.GlowingWormholeEmitter);
             GlowingPlutoniumReactor = NewCheckboxItem("GlowingReactor", ModSettings.GlowingPlutoniumReactor);
@@ -84,8 +84,13 @@ namespace BackToTheFutureV
             if (sender == InfiniteFuel)
                 ModSettings.InfiniteFuel = Checked;
 
-            //if (sender == WaybackSystem)
-            //    WaybackHandler.Enabled = Checked;
+            if (sender == WaybackSystem)
+            {
+                ModSettings.WaybackSystem = Checked;
+
+                if (Checked)
+                    WaybackHandler.Create(Utils.PlayerPed);
+            }
 
             ModSettings.SaveSettings();
         }

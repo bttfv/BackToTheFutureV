@@ -157,7 +157,7 @@ namespace BackToTheFutureV
 
             if (!Properties.IsOnTracks && !Properties.IsFlying && Vehicle.Driver == null)
             {
-                Vehicle.SteeringAngle = Utils.Random.NextDouble() >= 0.5f ? 35 : -35;
+                Vehicle.SteeringAngle = -35;
                 Vehicle.IsHandbrakeForcedOn = true;
                 Vehicle.Speed /= 2;
 
@@ -175,6 +175,9 @@ namespace BackToTheFutureV
             //Vehicle.Driver.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 10000).Start();
 
             //Events.StartDriverAI?.Invoke(true);
+
+            if (ModSettings.WaybackSystem && Utils.PlayerVehicle == Vehicle)
+                WaybackHandler.Create(Utils.PlayerPed);
         }
 
         public override void Stop()

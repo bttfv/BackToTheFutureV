@@ -156,7 +156,7 @@ namespace BackToTheFutureV
 
                     if (!_isRestarting)
                     {
-                        Utils.PlayerPed.Task.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop | AnimationFlags.CancelableWithMovement);
+                        Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop | AnimationFlags.CancelableWithMovement);
 
                         Sounds.EngineRestarter?.Play();
                         _restartAt = Game.GameTime + Utils.Random.Next(3000, 10000);
@@ -198,7 +198,7 @@ namespace BackToTheFutureV
 
         public override void Stop()
         {
-            Utils.PlayerPed.Task.ClearAnimation("veh@low@front_ds@base", "start_engine");
+            Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
 
             Properties.IsEngineStalling = false;
             Properties.PhotoEngineStallActive = false;

@@ -101,7 +101,7 @@ namespace BackToTheFutureV
         public void ProcessInputEnter()
         {
             if (Mods.IsDMC12)
-                Utils.PlayerPed.Task.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.CancelableWithMovement);
+                Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.CancelableWithMovement);
 
             // If its not a valid length/mode
             if (_destinationTimeRaw.Length != 12 && _destinationTimeRaw.Length != 4 && _destinationTimeRaw.Length != 8)

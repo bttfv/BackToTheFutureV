@@ -48,7 +48,9 @@ namespace BackToTheFutureV
             {
                 if (!_hasPlayedWarningSound)
                 {
-                    Utils.PlayerPed.Task.PlayAnimation("amb@code_human_wander_idles@male@idle_a", "idle_a_wristwatch", 8f, -1, AnimationFlags.UpperBodyOnly);
+                    if (!Utils.PlayerPed.IsInVehicle())
+                        Utils.PlayerPed.Task.PlayAnimation("amb@code_human_wander_idles@male@idle_a", "idle_a_wristwatch", 8f, -1, AnimationFlags.UpperBodyOnly);
+
                     WarningSound.SourceEntity = Utils.PlayerPed;
                     WarningSound.Play();
 
@@ -74,12 +76,22 @@ namespace BackToTheFutureV
             {
                 case ReenterType.Forced:
                 case ReenterType.Normal:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
+                    SpawnFlags spawnFlags = SpawnFlags.ForceReentry;
+
+                    if (ModSettings.WaybackSystem)
+                        spawnFlags |= SpawnFlags.NoOccupants;
+
+                    TimeMachine = TimeMachineClone.Spawn(spawnFlags);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     return TimeMachine;
                 case ReenterType.Spawn:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity);
+                    spawnFlags = SpawnFlags.NoVelocity;
+
+                    if (ModSettings.WaybackSystem)
+                        spawnFlags |= SpawnFlags.NoOccupants;
+
+                    TimeMachine = TimeMachineClone.Spawn(spawnFlags);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     if (!TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12)

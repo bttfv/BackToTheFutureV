@@ -8,7 +8,7 @@ using static FusionLibrary.Enums;
 using Control = GTA.Control;
 
 namespace BackToTheFutureV
-{    
+{
     internal class WaybackPedReplica
     {
         private static string[] MeleeAttacks = new string[] { "walking_punch", "running_punch", "long_0_punch", "heavy_punch_a", "heavy_punch_b", "heavy_punch_b_var_1", "short_0_punch" };
@@ -27,9 +27,12 @@ namespace BackToTheFutureV
 
         public WaybackMachineReplica WaybackMachineReplica { get; } = null;
 
+        public float FPS { get; }
+
         public WaybackPedReplica(Ped ped, int startGameTime)
         {
             Time = Utils.CurrentTime;
+            FPS = Game.FPS;
             Timestamp = Game.GameTime - startGameTime;
 
             Position = ped.Position;
@@ -80,7 +83,7 @@ namespace BackToTheFutureV
             }
         }
 
-        public void Apply(Ped ped, int startPlayGameTime, WaybackPedReplica nextReplica)
+        public void Apply(Ped ped, WaybackPedReplica nextReplica, float startPlayGameTime)
         {
             if (Weapon != ped.Weapons.Current)
                 ped.Weapons.Select(Weapon);
@@ -88,21 +91,23 @@ namespace BackToTheFutureV
             if (Visible != ped.IsVisible)
                 ped.IsVisible = Visible;
 
-            float timeRatio = 0;
-
-            if (Timestamp != nextReplica.Timestamp && (WaybackMachineReplica != null | Event == WaybackPedEvent.Walking))
-                timeRatio = (Game.GameTime - startPlayGameTime - Timestamp) / (float)(nextReplica.Timestamp - Timestamp);
-
             Vehicle vehicle = null;
+
+            float adjustedRatio = 0;
+
+            if (Timestamp != nextReplica.Timestamp)
+                adjustedRatio = (Game.GameTime - startPlayGameTime - Timestamp) / (nextReplica.Timestamp - Timestamp);
 
             if (WaybackMachineReplica != null)
             {
-                vehicle = World.GetClosestVehicle(WaybackMachineReplica.Vehicle.Position, 5, WaybackMachineReplica.Vehicle.Model);
+                if (ped.IsSittingInVehicle())
+                {
+                    vehicle = ped.CurrentVehicle;
 
-                if (vehicle == null)
-                    vehicle = WaybackMachineReplica.Spawn();
-
-                WaybackMachineReplica.Apply(vehicle, ped, timeRatio, nextReplica.WaybackMachineReplica);
+                    WaybackMachineReplica.Apply(vehicle, ped, adjustedRatio, nextReplica);
+                }                    
+                else
+                    vehicle = WaybackMachineReplica.TryFindOrSpawn(adjustedRatio, nextReplica);
             }
 
             switch (Event)
@@ -127,7 +132,7 @@ namespace BackToTheFutureV
                     if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.Melee) | ped.IsTaskActive(TaskType.ScriptedAnimation))
                         break;
 
-                    ped.TaskGoStraightTo(Utils.Lerp(Position, nextReplica.Position, timeRatio), Utils.Lerp(Speed, nextReplica.Speed, timeRatio), Utils.Lerp(Heading, nextReplica.Heading, timeRatio), -1, 0.1f);
+                    ped.TaskGoStraightTo(Utils.Lerp(Position, nextReplica.Position, adjustedRatio), Utils.Lerp(Speed, nextReplica.Speed, adjustedRatio), Utils.Lerp(Heading, nextReplica.Heading, adjustedRatio), -1, 0.1f);
                     break;
             }
         }

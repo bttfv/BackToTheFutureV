@@ -85,19 +85,25 @@ namespace BackToTheFutureV
 
                 ExternalHUD.SetOff();
 
+                if (ModSettings.WaybackSystem)
+                    WaybackHandler.Create(Utils.PlayerPed);
+
                 FirstTick = false;
             }
 
             if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
                 ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
 
-            //Screen.ShowSubtitle($"Using:{Utils.PlayerPed.LastVehicle.NotNullAndExists()} Entering:{Utils.PlayerPed.GetEnteringVehicle().NotNullAndExists()} FullyIn:{Utils.PlayerPed.IsFullyInVehicle()} IsEntering:{Utils.PlayerPed.IsEnteringVehicle()} FullyOut:{Utils.PlayerPed.IsFullyOutVehicle()} IsLeaving:{Utils.PlayerPed.IsLeavingVehicle()}");
-
             TrashHandler.Tick();
             CustomTrainHandler.Tick();
+
             DMC12Handler.Tick();
             TimeMachineHandler.Tick();
             RemoteTimeMachineHandler.Tick();
+
+            if (ModSettings.WaybackSystem)
+                WaybackHandler.Tick();
+
             FireTrailsHandler.Tick();
             TcdEditer.Tick();
             RCGUIEditer.Tick();

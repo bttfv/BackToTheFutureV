@@ -7,6 +7,8 @@ namespace BackToTheFutureV
     {
         public TimeMachine TimeMachine { get; }
 
+        public Ped Driver => Vehicle.Driver;
+
         public Vehicle Vehicle => TimeMachine.Vehicle;
         public DMC12 DMC12 => TimeMachine.DMC12;
 

@@ -8,10 +8,8 @@ using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
-    internal class Wayback : Script
+    internal class Wayback
     {
-        private static List<Wayback> Waybacks = new List<Wayback>();
-
         public List<WaybackPedReplica> WaybackPedReplicas { get; } = new List<WaybackPedReplica>();
 
         public Guid GUID { get; private set; } = Guid.Empty;
@@ -32,14 +30,10 @@ namespace BackToTheFutureV
 
         public WaybackStatus Status { get; private set; } = WaybackStatus.Idle;
 
-        public Wayback()
+        public Wayback(Ped ped)
         {
-            Tick += WaybackMachine_Tick;
             TimeHandler.OnTimeChanged += OnTimeChanged;
-        }
 
-        public void Create(Ped ped)
-        {
             GUID = Guid.NewGuid();
 
             PedReplica = new PedReplica(ped);
@@ -52,40 +46,18 @@ namespace BackToTheFutureV
             StartTime = WaybackPedReplicas.First().Time;
 
             Status = WaybackStatus.Recording;
-
-            Waybacks.Add(this);
         }
 
         private void OnTimeChanged(DateTime dateTime)
         {
-            if (GUID == Guid.Empty)
-            {
-                Wayback wayback = InstantiateScript<Wayback>();
-
-                wayback.Create(Utils.PlayerPed);
-
-                return;
-            }
-
             if (Status == WaybackStatus.Playing && dateTime.Between(StartTime, EndTime))
                 return;
 
             Stop();
         }
 
-        private void WaybackMachine_Tick(object sender, EventArgs e)
+        public void Tick()
         {
-            if (GUID == Guid.Empty)
-            {
-                Wayback wayback = InstantiateScript<Wayback>();
-
-                wayback.Create(Utils.PlayerPed);
-
-                Abort();
-
-                return;
-            }
-
             switch (Status)
             {
                 case WaybackStatus.Idle:
@@ -149,13 +121,12 @@ namespace BackToTheFutureV
 
             if (ReplicaIndex >= WaybackPedReplicas.Count - 1)
             {
-                CurrentReplica.Apply(Ped, StartPlayGameTime, CurrentReplica);
+                CurrentReplica.Apply(Ped, CurrentReplica, StartPlayGameTime);
                 Status = WaybackStatus.Idle;
             }
             else
             {
-                CurrentReplica.Apply(Ped, StartPlayGameTime, WaybackPedReplicas[ReplicaIndex]);
-
+                CurrentReplica.Apply(Ped, WaybackPedReplicas[ReplicaIndex + 1], StartPlayGameTime);
                 ReplicaIndex++;
             }
         }

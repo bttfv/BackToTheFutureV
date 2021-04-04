@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Math;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
@@ -38,7 +39,7 @@ namespace BackToTheFutureV
             timeMachine.Event = WaybackMachineEvent.None;
         }
 
-        public Vehicle Spawn()
+        private Vehicle Spawn()
         {
             Vehicle vehicle = Vehicle.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants | SpawnFlags.CheckExists);
 
@@ -53,15 +54,32 @@ namespace BackToTheFutureV
             return vehicle;
         }
 
-        public void Apply(Vehicle vehicle, Ped ped, float timeRatio, WaybackMachineReplica nextReplica)
+        public Vehicle TryFindOrSpawn(float adjustedRatio, WaybackPedReplica nextReplica)
         {
-            if (nextReplica == null)
-                nextReplica = this;
+            Vector3 position = Vehicle.Position;
+
+            if (nextReplica.WaybackMachineReplica != null)
+                position = Utils.Lerp(position, nextReplica.WaybackMachineReplica.Vehicle.Position, adjustedRatio);
+
+            Vehicle vehicle = World.GetClosestVehicle(position, 1, Vehicle.Model);
+
+            if (vehicle == null && !IsTimeMachine)
+                vehicle = Spawn();
+
+            return vehicle;
+        }
+
+        public void Apply(Vehicle vehicle, Ped ped, float adjusteRatio, WaybackPedReplica nextReplica)
+        {
+            VehicleReplica nextVehicleReplica = null;
+
+            if (nextReplica.WaybackMachineReplica != null)
+                nextVehicleReplica = nextReplica.WaybackMachineReplica.Vehicle;
 
             if (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, timeRatio, nextReplica.Vehicle);
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, adjusteRatio, nextVehicleReplica);
             else
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, timeRatio, nextReplica.Vehicle);
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, adjusteRatio, nextVehicleReplica);
 
             if (!IsTimeMachine)
                 return;

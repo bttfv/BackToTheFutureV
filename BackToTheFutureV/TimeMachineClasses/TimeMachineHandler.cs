@@ -230,6 +230,9 @@ namespace BackToTheFutureV
                 timeMachine.Properties.AreTimeCircuitsOn = true;
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);
 
+                if (ModSettings.WaybackSystem && spawnFlags.HasFlag(SpawnFlags.New))
+                    RemoteTimeMachineHandler.AddRemote(timeMachine.Clone());
+
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }
 

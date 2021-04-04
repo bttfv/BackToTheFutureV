@@ -43,6 +43,7 @@ namespace BackToTheFutureV
         public static bool LandingSystem { get; set; } = true;
         public static bool PersistenceSystem { get; set; } = false;
         public static bool RandomTrains { get; set; } = true;
+        public static bool WaybackSystem { get; set; } = true;
 
         private static ScriptSettings settings;
         private static CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
