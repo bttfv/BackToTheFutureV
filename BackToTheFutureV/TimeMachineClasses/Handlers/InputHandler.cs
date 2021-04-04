@@ -32,7 +32,8 @@ namespace BackToTheFutureV
             InputMode = false;
             _destinationTimeRaw = string.Empty;
 
-            Events.OnDestinationDateChange?.Invoke(inputType);
+            if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                Events.OnDestinationDateChange?.Invoke(inputType);
         }
 
         public override void KeyDown(KeyEventArgs e)

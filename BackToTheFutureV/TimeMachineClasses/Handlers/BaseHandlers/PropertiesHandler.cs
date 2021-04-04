@@ -68,7 +68,7 @@ namespace BackToTheFutureV
         public bool Story { get; set; }
         public bool BlockSparks { get; set; }
         public float Boost { get; set; }
-        public bool WaybackTimeTravel { get; set; }
+        public bool IsWayback { get; set; }
 
         public HUDProperties HUDProperties { get; set; } = new HUDProperties();
         public bool ForceSIDMax { get; set; }
@@ -152,6 +152,8 @@ namespace BackToTheFutureV
 
         public void ApplyToWayback(TimeMachine timeMachine)
         {
+            timeMachine.Properties.IsWayback = true;
+
             if (ReactorCharge != timeMachine.Properties.ReactorCharge)
                 timeMachine.Properties.ReactorCharge = ReactorCharge;
 

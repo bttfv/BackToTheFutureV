@@ -2,26 +2,30 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using GTA.Native;
 using System;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 using Control = GTA.Control;
 
 namespace BackToTheFutureV
-{
+{    
     internal class WaybackPedReplica
     {
+        private static string[] MeleeAttacks = new string[] { "walking_punch", "running_punch", "long_0_punch", "heavy_punch_a", "heavy_punch_b", "heavy_punch_b_var_1", "short_0_punch" };
+
         public DateTime Time { get; }
         public int Timestamp { get; }
 
         public Vector3 Position { get; }
         public float Heading { get; }
         public float Speed { get; }
-
-        public bool PressControl { get; }
-        public Control Control { get; }
+        public bool Visible { get; }
 
         public Weapon Weapon { get; }
+
+        public WaybackPedEvent Event { get; } = WaybackPedEvent.Walking;
+
+        public WaybackMachineReplica WaybackMachineReplica { get; } = null;
 
         public WaybackPedReplica(Ped ped, int startGameTime)
         {
@@ -31,73 +35,99 @@ namespace BackToTheFutureV
             Position = ped.Position;
             Heading = ped.Heading;
             Speed = ped.Speed;
+            Visible = ped.IsVisible;
 
             Weapon = ped.Weapons.Current;
 
-            if (Game.IsControlJustPressed(Control.Enter) && ped.IsEnteringVehicle().NotNullAndExists())
+            if (ped.IsFullyOutVehicle())
             {
-                PressControl = true;
-                Control = Control.Enter;
+                if (Game.IsControlJustPressed(Control.Jump))
+                {
+                    Event = WaybackPedEvent.Jump;
+                    return;
+                }
+
+                if (Game.IsControlJustPressed(Control.MeleeAttack1))
+                {
+                    Event = WaybackPedEvent.MeleeAttack;
+                    return;
+                }
             }
 
-            if (Game.IsControlJustPressed(Control.VehicleExit) && ped.IsInVehicle())
+            Vehicle vehicle = ped.GetClosestVehicle();
+
+            if (vehicle == null)
+                return;
+
+            WaybackMachineReplica = new WaybackMachineReplica(vehicle);
+
+            if (ped.IsEnteringVehicle() && ped.GetEnteringVehicle() == vehicle)
             {
-                PressControl = true;
-                Control = Control.VehicleExit;
+                Event = WaybackPedEvent.EnteringVehicle;
+                return;
             }
 
-            if (Game.IsControlJustPressed(Control.Context))
+            if (ped.IsLeavingVehicle() && ped.GetUsingVehicle() == vehicle)
             {
-                PressControl = true;
-                Control = Control.Context;
+                Event = WaybackPedEvent.LeavingVehicle;
+                return;
             }
 
-            if (Game.IsControlJustPressed(Control.Jump))
+            if (ped.IsSittingInVehicle(vehicle))
             {
-                PressControl = true;
-                Control = Control.Jump;
-            }
-
-            if (Game.IsControlJustPressed(Control.Attack))
-            {
-                PressControl = true;
-                Control = Control.Attack;
+                Event = WaybackPedEvent.DrivingVehicle;
+                return;
             }
         }
 
         public void Apply(Ped ped, int startPlayGameTime, WaybackPedReplica nextReplica)
         {
-            if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.EnterVehicle) || ped.IsTaskActive(TaskType.ExitVehicle))
-                return;
-
-            if (!PressControl && !ped.IsInVehicle() && !ped.IsEnteringVehicle().NotNullAndExists())
-            {
-                float timeRatio = 0;
-
-                if (Timestamp != nextReplica.Timestamp)
-                    timeRatio = (Game.GameTime - startPlayGameTime - Timestamp) / (float)(nextReplica.Timestamp - Timestamp);
-
-                Vector3 pos = Utils.Lerp(Position, nextReplica.Position, timeRatio);
-
-                Function.Call(Hash.TASK_GO_STRAIGHT_TO_COORD, ped, pos.X, pos.Y, pos.Z, Utils.Lerp(Speed, nextReplica.Speed, timeRatio), 1, Utils.Lerp(Heading, nextReplica.Heading, timeRatio), 0);
-            }
-
             if (Weapon != ped.Weapons.Current)
                 ped.Weapons.Select(Weapon);
 
-            if (!PressControl)
-                return;
+            if (Visible != ped.IsVisible)
+                ped.IsVisible = Visible;
 
-            switch (Control)
+            float timeRatio = 0;
+
+            if (Timestamp != nextReplica.Timestamp && (WaybackMachineReplica != null | Event == WaybackPedEvent.Walking))
+                timeRatio = (Game.GameTime - startPlayGameTime - Timestamp) / (float)(nextReplica.Timestamp - Timestamp);
+
+            Vehicle vehicle = null;
+
+            if (WaybackMachineReplica != null)
             {
-                case Control.Enter:
-                    ped.Task.EnterVehicle(ped.GetNearestVehicle());
+                vehicle = World.GetClosestVehicle(WaybackMachineReplica.Vehicle.Position, 5, WaybackMachineReplica.Vehicle.Model);
+
+                if (vehicle == null)
+                    vehicle = WaybackMachineReplica.Spawn();
+
+                WaybackMachineReplica.Apply(vehicle, ped, timeRatio, nextReplica.WaybackMachineReplica);
+            }
+
+            switch (Event)
+            {
+                case WaybackPedEvent.EnteringVehicle:
+                    ped.Task.EnterVehicle(vehicle, VehicleSeat.Driver);
                     break;
-                case Control.VehicleExit:
+                case WaybackPedEvent.LeavingVehicle:
                     ped.Task.LeaveVehicle();
                     break;
-                case Control.Jump:
+                case WaybackPedEvent.DrivingVehicle:
+                    if (!ped.IsSittingInVehicle(vehicle))
+                        ped.SetIntoVehicle(vehicle, VehicleSeat.Driver);
+                    break;
+                case WaybackPedEvent.Jump:
                     ped.Task.Jump();
+                    break;
+                case WaybackPedEvent.MeleeAttack:
+                    ped.Task.PlayAnimation("melee@unarmed@streamed_core_fps", MeleeAttacks.SelectRandomElement());
+                    break;
+                case WaybackPedEvent.Walking:
+                    if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.Melee) | ped.IsTaskActive(TaskType.ScriptedAnimation))
+                        break;
+
+                    ped.TaskGoStraightTo(Utils.Lerp(Position, nextReplica.Position, timeRatio), Utils.Lerp(Speed, nextReplica.Speed, timeRatio), Utils.Lerp(Heading, nextReplica.Heading, timeRatio), -1, 0.1f);
                     break;
             }
         }

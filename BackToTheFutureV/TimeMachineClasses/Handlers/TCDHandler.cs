@@ -193,6 +193,9 @@ namespace BackToTheFutureV
 
         private void OnDestinationDateChange(InputType inputType)
         {
+            if (TimeMachineHandler.CurrentTimeMachine != TimeMachine)
+                return;
+
             destinationSlot.SetDate(Properties.DestinationTime);
 
             if (inputType == InputType.Time)
@@ -204,7 +207,8 @@ namespace BackToTheFutureV
 
         private void OnTimeTravel()
         {
-            previousSlot.SetDate(Properties.PreviousTime);
+            if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                previousSlot.SetDate(Properties.PreviousTime);
 
             lastTime = Utils.CurrentTime;
             StopGlitch();

@@ -10,33 +10,19 @@ namespace BackToTheFutureV
 {
     internal class Wayback : Script
     {
-        public List<WaybackMachineReplica> WaybackMachineReplicas { get; } = new List<WaybackMachineReplica>();
+        private static List<Wayback> Waybacks = new List<Wayback>();
+
         public List<WaybackPedReplica> WaybackPedReplicas { get; } = new List<WaybackPedReplica>();
 
         public Guid GUID { get; private set; } = Guid.Empty;
-        public Guid ReplicaGUID { get; private set; } = Guid.Empty;
 
+        public PedReplica PedReplica { get; private set; }
         public Ped Ped { get; set; }
 
-        private TimeMachine timeMachine;
-        public TimeMachine TimeMachine
-        {
-            get => timeMachine;
-            set
-            {
-                timeMachine = value;
-                timeMachine.WaybackMachine = this;
-
-                Ped = timeMachine.Vehicle.Driver;
-            }
-        }
-
-        public WaybackMachineReplica StartMachineReplica => WaybackMachineReplicas.FirstOrDefault(x => x.Time >= Utils.CurrentTime);
+        public WaybackPedReplica StartReplica => WaybackPedReplicas.FirstOrDefault(x => x.Time >= Utils.CurrentTime);
 
         public int ReplicaIndex { get; private set; } = -1;
-
-        public WaybackMachineReplica CurrentMachineReplica => WaybackMachineReplicas[ReplicaIndex];
-        public WaybackPedReplica CurrentPedReplica => WaybackPedReplicas[ReplicaIndex];
+        public WaybackPedReplica CurrentReplica => WaybackPedReplicas[ReplicaIndex];
 
         public int StartGameTime { get; private set; }
         public int StartPlayGameTime { get; private set; }
@@ -44,142 +30,143 @@ namespace BackToTheFutureV
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; private set; }
 
-        public bool IsRecording { get; private set; } = true;
-
-        public bool IsPlaying { get; private set; } = false;
+        public WaybackStatus Status { get; private set; } = WaybackStatus.Idle;
 
         public Wayback()
         {
             Tick += WaybackMachine_Tick;
+            TimeHandler.OnTimeChanged += OnTimeChanged;
         }
 
-        public void Create(TimeMachine timeMachine)
+        public void Create(Ped ped)
         {
-            ReplicaGUID = Guid.NewGuid();
+            GUID = Guid.NewGuid();
 
-            GUID = timeMachine.Properties.GUID;
-            TimeMachine = timeMachine;
-            Ped = timeMachine.Vehicle.Driver;
+            PedReplica = new PedReplica(ped);
+
+            Ped = ped;
             StartGameTime = Game.GameTime;
 
-            WaybackMachineReplicas.Add(new WaybackMachineReplica(TimeMachine, StartGameTime));
+            WaybackPedReplicas.Add(new WaybackPedReplica(Ped, StartGameTime));
 
-            StartTime = WaybackMachineReplicas.First().Time;
+            StartTime = WaybackPedReplicas.First().Time;
 
-            TimeMachine.Events.OnSparksEnded += OnSparksEnded;
-            TimeMachine.Events.SetOpenCloseReactor += SetOpenCloseReactor;
-            TimeMachine.Events.SetRefuel += SetRefuel;
+            Status = WaybackStatus.Recording;
 
-            WaybackHandler.WaybackMachines.Add(this);
+            Waybacks.Add(this);
         }
 
-        private void OnSparksEnded(int delay = 0)
+        private void OnTimeChanged(DateTime dateTime)
         {
-            WaybackMachineReplica waybackMachineReplica = Record();
+            if (GUID == Guid.Empty)
+            {
+                Wayback wayback = InstantiateScript<Wayback>();
 
-            waybackMachineReplica.Event = WaybackEvent.OnSparksEnded;
-            waybackMachineReplica.TimeTravelDelay = delay;
-        }
+                wayback.Create(Utils.PlayerPed);
 
-        private void SetOpenCloseReactor()
-        {
-            WaybackMachineReplica waybackMachineReplica = Record();
+                return;
+            }
 
-            waybackMachineReplica.Event = WaybackEvent.OpenCloseReactor;
-        }
+            if (Status == WaybackStatus.Playing && dateTime.Between(StartTime, EndTime))
+                return;
 
-        private void SetRefuel(Ped ped)
-        {
-            WaybackMachineReplica waybackMachineReplica = Record();
-
-            waybackMachineReplica.Event = WaybackEvent.RefuelReactor;
+            Stop();
         }
 
         private void WaybackMachine_Tick(object sender, EventArgs e)
         {
             if (GUID == Guid.Empty)
-                Abort();
-
-            if (Utils.CurrentTime < StartTime)
             {
-                if (IsRecording)
-                    Stop();
+                Wayback wayback = InstantiateScript<Wayback>();
+
+                wayback.Create(Utils.PlayerPed);
+
+                Abort();
 
                 return;
             }
 
-            if (IsRecording)
-                Record();
-            else
-                Play();
+            switch (Status)
+            {
+                case WaybackStatus.Idle:
+                    if (Utils.CurrentTime.Between(StartTime, EndTime))
+                    {
+                        ReplicaIndex = WaybackPedReplicas.IndexOf(StartReplica);
+
+                        if (!Ped.NotNullAndExists())
+                            Spawn();
+
+                        StartPlayGameTime = Game.GameTime + CurrentReplica.Timestamp;
+                        Status = WaybackStatus.Playing;
+
+                        Play();
+                    }
+                    break;
+                case WaybackStatus.Recording:
+                    Record();
+                    break;
+                case WaybackStatus.Playing:
+                    Play();
+                    break;
+            }
         }
 
-        private WaybackMachineReplica Record()
+        private void Spawn()
         {
-            if (!TimeMachine.NotNullAndExists())
+            Ped = World.GetClosestPed(CurrentReplica.Position, 1, PedReplica.Model);
+
+            if (Ped.NotNullAndExists())
+                return;
+
+            Ped = PedReplica.Spawn(CurrentReplica.Position, CurrentReplica.Heading);
+        }
+
+        private WaybackPedReplica Record()
+        {
+            if (!Ped.NotNullAndExists() || Utils.CurrentTime < StartTime)
             {
                 Stop();
-
                 return null;
             }
 
-            WaybackMachineReplica waybackMachineReplica;
+            WaybackPedReplica recordedReplica = new WaybackPedReplica(Ped, StartGameTime);
 
-            WaybackMachineReplicas.Add(waybackMachineReplica = new WaybackMachineReplica(TimeMachine, StartGameTime));
+            if (recordedReplica.Event == WaybackPedReplicas.Last().Event && (recordedReplica.Event == WaybackPedEvent.EnteringVehicle || recordedReplica.Event == WaybackPedEvent.LeavingVehicle))
+                return null;
 
-            if (Ped.NotNullAndExists())
-                WaybackPedReplicas.Add(new WaybackPedReplica(Ped, StartGameTime));
+            WaybackPedReplicas.Add(recordedReplica);
 
-            return waybackMachineReplica;
+            return recordedReplica;
         }
 
         private void Play()
         {
-            if (!TimeMachine.NotNullAndExists())
+            if (!Ped.NotNullAndExists())
                 return;
 
-            if (!IsPlaying)
+            if (Game.GameTime <= (CurrentReplica.Timestamp + StartPlayGameTime))
+                return;
+
+            if (ReplicaIndex >= WaybackPedReplicas.Count - 1)
             {
-                WaybackMachineReplica waybackReplica = StartMachineReplica;
-
-                if (waybackReplica == default)
-                    return;
-
-                ReplicaIndex = WaybackMachineReplicas.IndexOf(waybackReplica);
-                StartPlayGameTime = Game.GameTime;
-                IsPlaying = true;
-            }
-
-            if (ReplicaIndex >= WaybackMachineReplicas.Count - 1)
-            {
-                CurrentMachineReplica.Apply(TimeMachine, StartPlayGameTime, CurrentMachineReplica);
-
-                if (Ped.NotNullAndExists() && ReplicaIndex < WaybackPedReplicas.Count)
-                    CurrentPedReplica.Apply(Ped, StartPlayGameTime, CurrentPedReplica);
-
-                IsPlaying = false;
+                CurrentReplica.Apply(Ped, StartPlayGameTime, CurrentReplica);
+                Status = WaybackStatus.Idle;
             }
             else
             {
+                CurrentReplica.Apply(Ped, StartPlayGameTime, WaybackPedReplicas[ReplicaIndex]);
+
                 ReplicaIndex++;
-
-                CurrentMachineReplica.Apply(TimeMachine, StartPlayGameTime, WaybackMachineReplicas[ReplicaIndex]);
-
-                if (Ped.NotNullAndExists() && ReplicaIndex < WaybackPedReplicas.Count)
-                    CurrentPedReplica.Apply(Ped, StartPlayGameTime, WaybackPedReplicas[ReplicaIndex]);
             }
         }
 
         public void Stop()
         {
-            if (timeMachine != null)
-                timeMachine.WaybackMachine = null;
+            if (Status == WaybackStatus.Recording)
+                EndTime = WaybackPedReplicas.Last().Time;
 
-            if (IsRecording)
-                EndTime = WaybackMachineReplicas.Last().Time;
-
-            timeMachine = null;
-            IsRecording = false;
+            Ped = null;
+            Status = WaybackStatus.Idle;
         }
     }
 }

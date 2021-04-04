@@ -55,11 +55,8 @@ namespace BackToTheFutureV
 
         public bool Disposed { get; private set; }
 
-        public Wayback WaybackMachine { get; set; }
-
-        public bool IsWaybackPlaying => WaybackMachine != null && WaybackMachine.IsPlaying;
-
-        public bool CreateCloneSpawn { get; set; } = false;
+        public WaybackMachineEvent Event { get; set; } = WaybackMachineEvent.None;
+        public int TimeTravelDelay { get; set; }
 
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
@@ -208,6 +205,9 @@ namespace BackToTheFutureV
 
             if (!Vehicle.IsVisible)
                 Vehicle.IsEngineRunning = false;
+
+            if (Properties.IsWayback && TimeMachineHandler.CurrentTimeMachine == this)
+                Properties.IsWayback = false;
 
             Function.Call(Hash._SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER, Vehicle, Properties.TorqueMultiplier);
 
@@ -373,24 +373,6 @@ namespace BackToTheFutureV
             PhotoMode();
 
             CustomCameraManager.Tick();
-
-            if (Properties.Story || !WaybackHandler.Enabled)
-                return;
-
-            if (WaybackMachine == null || !WaybackMachine.IsRecording && !WaybackMachine.IsPlaying)
-                if (Properties.TimeTravelPhase < TimeTravelPhase.InTime)
-                {
-                    if (Utils.PlayerVehicle == Vehicle)
-                        WaybackHandler.Create(this);
-                    else
-                        WaybackHandler.TryFind(this);
-
-                    if (CreateCloneSpawn)
-                    {
-                        RemoteTimeMachineHandler.AddRemote(this.Clone(), WaybackMachine);
-                        CreateCloneSpawn = false;
-                    }
-                }
         }
 
         private void UpdateBlip()

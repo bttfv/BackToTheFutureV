@@ -194,7 +194,6 @@
     <Compile Include="Utility\TextHandler.cs" />
     <Compile Include="Utility\TrashHandler.cs" />
     <Compile Include="Utility\Wayback\Wayback.cs" />
-    <Compile Include="Utility\Wayback\WaybackHandler.cs" />
     <Compile Include="Utility\Wayback\WaybackMachineReplica.cs" />
     <Compile Include="Utility\Wayback\WaybackPedReplica.cs" />
     <Compile Include="Vehicles\DMC12\ModsPrimitive.cs" />

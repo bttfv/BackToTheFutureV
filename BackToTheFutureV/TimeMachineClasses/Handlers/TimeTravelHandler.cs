@@ -41,8 +41,6 @@ namespace BackToTheFutureV
             RogersSierraRailway.TrainManager.RogersSierraList.ForEach(x => x.Delete());
             TimeMachineHandler.ExistenceCheck(time);
             RemoteTimeMachineHandler.ExistenceCheck(time);
-
-            WaybackHandler.Stop();
         }
 
         public void SetCutsceneMode(bool cutsceneOn)
@@ -82,17 +80,12 @@ namespace BackToTheFutureV
 
                     if (Properties.IsRemoteControlled)
                         Properties.TimeTravelType = TimeTravelType.RC;
-                    else if (Properties.WaybackTimeTravel)
+                    else if (Properties.IsWayback)
                         Properties.TimeTravelType = TimeTravelType.Wayback;
                     else
                     {
                         if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Utils.PlayerPed)
-                        {
-                            if (TimeMachine.IsWaybackPlaying)
-                                Properties.TimeTravelType = TimeTravelType.Wayback;
-                            else
-                                Properties.TimeTravelType = TimeTravelType.RC;
-                        }
+                            Properties.TimeTravelType = TimeTravelType.RC;
                         else
                         {
                             if (!Properties.CutsceneMode || Utils.IsCameraInFirstPerson())

@@ -12,7 +12,6 @@ namespace BackToTheFutureV
     {
         public TimeMachineClone TimeMachineClone { get; }
         public TimeMachine TimeMachine { get; private set; }
-        public bool Reentry { get; } = true;
         public Blip Blip { get; set; }
         public bool Spawned => TimeMachineHandler.Exists(TimeMachine);
 
@@ -21,7 +20,6 @@ namespace BackToTheFutureV
 
         private static AudioPlayer WarningSound;
 
-        private bool blockSpawn = true;
         public Wayback WaybackMachine { get; }
 
         static RemoteTimeMachine()
@@ -36,20 +34,6 @@ namespace BackToTheFutureV
             TimeMachineClone.Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
             _timer = Game.GameTime + 3000;
-
-            TimeHandler.OnTimeChanged += OnTimeChanged;
-        }
-
-        public RemoteTimeMachine(TimeMachineClone timeMachineClone, Wayback waybackMachine) : this(timeMachineClone)
-        {
-            WaybackMachine = waybackMachine;
-            Reentry = false;
-        }
-
-        public void OnTimeChanged(DateTime time)
-        {
-            if (!Reentry)
-                blockSpawn = false;
         }
 
         public void Tick()
@@ -59,14 +43,6 @@ namespace BackToTheFutureV
 
             if (Game.GameTime < _timer)
                 return;
-
-            if (!Reentry)
-            {
-                if (!blockSpawn && Utils.CurrentTime >= WaybackMachine.StartTime && Utils.CurrentTime < WaybackMachine.EndTime)
-                    WaybackMachine.TimeMachine = Spawn(ReenterType.Spawn);
-
-                return;
-            }
 
             if (!Spawned && Utils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 1, 0), true))
             {
@@ -93,9 +69,6 @@ namespace BackToTheFutureV
         {
             if (Blip != null && Blip.Exists())
                 Blip.Delete();
-
-            if (!Reentry)
-                blockSpawn = true;
 
             switch (reenterType)
             {

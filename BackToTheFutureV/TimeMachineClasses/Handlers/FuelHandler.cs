@@ -70,6 +70,7 @@ namespace BackToTheFutureV
                 if (Utils.PlayerPed.IsTaskActive(TaskType.ScriptedAnimation) || Utils.PlayerPed.IsTaskActive(TaskType.TurnToFaceEntityOrCoord))
                     return;
 
+                TimeMachine.Event = WaybackMachineEvent.RefuelReactor;
                 Events.SetRefuel?.Invoke(Utils.PlayerPed);
             }
             else
@@ -86,6 +87,7 @@ namespace BackToTheFutureV
             if (longPressed || !IsPedInPosition() || Players.Refuel.IsPlaying)
                 return;
 
+            TimeMachine.Event = WaybackMachineEvent.OpenCloseReactor;
             Events.SetOpenCloseReactor?.Invoke();
         }
 
@@ -123,6 +125,7 @@ namespace BackToTheFutureV
             {
                 refuelSequence = new TaskSequence();
 
+                refuelSequence.AddTask.ClearAllImmediately();
                 refuelSequence.AddTask.TurnTo(Vehicle.Bones["mr_fusion_handle"].Position, 1000);
                 refuelSequence.AddTask.PlayAnimation("anim@narcotics@trash", "drop_front");
                 refuelSequence.AddTask.ClearAnimation("anim@narcotics@trash", "drop_front");

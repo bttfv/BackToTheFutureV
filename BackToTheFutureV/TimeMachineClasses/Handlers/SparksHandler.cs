@@ -36,8 +36,6 @@ namespace BackToTheFutureV
                     DMC12?.SetVoltValue?.Invoke(100);
 
                 WaypointScript.LoadWaypointPosition(true);
-
-                Properties.WaybackTimeTravel = TimeMachine.IsWaybackPlaying;
             }
             else
             {
@@ -87,7 +85,7 @@ namespace BackToTheFutureV
 
             if (Constants.OverTimeTravelAtSpeed)
             {
-                if (!Utils.IsPadShaking)
+                if (!Utils.IsPadShaking && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
                     Utils.SetPadShake(Constants.WormholeLengthTime, 100);
 
                 if (Properties.IsFueled)
@@ -116,7 +114,7 @@ namespace BackToTheFutureV
                             Sounds.SparkStabilized?.Play();
                     }
 
-                    if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.Over88MphSpeed && !TimeMachine.IsWaybackPlaying)
+                    if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.Over88MphSpeed && !Properties.IsWayback)
                         Events.OnSparksEnded?.Invoke();
                 }
                 else
@@ -143,7 +141,8 @@ namespace BackToTheFutureV
 
         public override void Stop()
         {
-            Utils.StopPadShake();
+            if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                Utils.StopPadShake();
 
             Players.Wormhole?.Stop();
 
@@ -179,6 +178,9 @@ namespace BackToTheFutureV
 
         private void OnSparksEnded(int delay = 0)
         {
+            TimeMachine.Event = WaybackMachineEvent.OnSparksEnded;
+            TimeMachine.TimeTravelDelay = delay;
+
             Stop();
 
             Properties.TimeTravelPhase = TimeTravelPhase.InTime;

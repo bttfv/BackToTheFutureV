@@ -233,9 +233,6 @@ namespace BackToTheFutureV
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }
 
-            if (spawnFlags.HasFlag(SpawnFlags.New) && WaybackHandler.Enabled)
-                timeMachine.CreateCloneSpawn = true;
-
             return timeMachine;
         }
 
@@ -284,19 +281,17 @@ namespace BackToTheFutureV
             if (vehicle == null)
                 return null;
 
-            foreach (TimeMachine timeMachine in AllTimeMachines)
+            TimeMachine timeMachine = AllTimeMachines.SingleOrDefault(x => x.Vehicle == vehicle);
+
+            if (timeMachine == default)
             {
-                if (timeMachine.Vehicle == vehicle)
-                    return timeMachine;
+                timeMachine = _timeMachinesToAdd.SingleOrDefault(x => x.Vehicle == vehicle);
+
+                if (timeMachine == default)
+                    return null;
             }
 
-            foreach (TimeMachine timeMachine in _timeMachinesToAdd)
-            {
-                if (timeMachine.Vehicle == vehicle)
-                    return timeMachine;
-            }
-
-            return null;
+            return timeMachine;
         }
 
         public static bool Exists(TimeMachine timeMachine)

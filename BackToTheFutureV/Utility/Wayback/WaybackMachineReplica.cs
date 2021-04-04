@@ -1,103 +1,89 @@
 ﻿using FusionLibrary;
-using FusionLibrary.Memory;
+using FusionLibrary.Extensions;
 using GTA;
-using GTA.Math;
-using System;
 using static BackToTheFutureV.InternalEnums;
+using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV
 {
     internal class WaybackMachineReplica
     {
-        public DateTime Time { get; }
-        public int Timestamp { get; }
+        public VehicleReplica Vehicle { get; }
 
-        public bool EngineRunning { get; }
-        public float Throttle { get; }
-        public float Brake { get; }
-        public float SteeringAngle { get; }
-        public bool Lights { get; }
-        public bool Headlights { get; }
+        public bool IsTimeMachine { get; }
 
-        public float[] WheelsRotations { get; }
-        public float[] WheelsCompressions { get; }
-
-        public Vector3 Position { get; }
-        public Vector3 Rotation { get; }
-        public Vector3 Velocity { get; }
-
-        public PropertiesHandler Properties { get; }
         public ModsPrimitive Mods { get; }
+        public PropertiesHandler Properties { get; }
 
-        public WaybackEvent Event { get; set; } = WaybackEvent.None;
+        public WaybackMachineEvent Event { get; set; } = WaybackMachineEvent.None;
         public int TimeTravelDelay { get; set; }
 
-        public WaybackMachineReplica(TimeMachine timeMachine, int startGameTime)
+        public WaybackMachineReplica(Vehicle vehicle)
         {
-            Time = Utils.CurrentTime;
-            Timestamp = Game.GameTime - startGameTime;
+            Vehicle = new VehicleReplica(vehicle, SpawnFlags.NoOccupants);
 
-            EngineRunning = timeMachine.Vehicle.IsEngineRunning;
-            Throttle = timeMachine.Vehicle.ThrottlePower;
-            Brake = timeMachine.Vehicle.BrakePower;
+            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
-            SteeringAngle = timeMachine.Vehicle.SteeringAngle;
-            Lights = timeMachine.Vehicle.AreLightsOn;
-            Headlights = timeMachine.Vehicle.AreHighBeamsOn;
+            if (timeMachine == null)
+                return;
 
-            WheelsRotations = VehicleControl.GetWheelRotations(timeMachine);
-            WheelsCompressions = VehicleControl.GetWheelCompressions(timeMachine);
-
-            Position = timeMachine.Vehicle.Position;
-            Rotation = timeMachine.Vehicle.Rotation;
-            Velocity = timeMachine.Vehicle.Velocity;
+            IsTimeMachine = true;
 
             Properties = timeMachine.Properties.Clone();
             Mods = timeMachine.Mods.Clone();
+
+            Event = timeMachine.Event;
+            TimeTravelDelay = timeMachine.TimeTravelDelay;
+
+            timeMachine.Event = WaybackMachineEvent.None;
         }
 
-        public void Apply(TimeMachine timeMachine, int startPlayGameTime, WaybackMachineReplica nextReplica)
+        public Vehicle Spawn()
         {
-            timeMachine.Vehicle.IsEngineRunning = EngineRunning;
-            timeMachine.Vehicle.ThrottlePower = Throttle;
-            timeMachine.Vehicle.BrakePower = Brake;
+            Vehicle vehicle = Vehicle.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants | SpawnFlags.CheckExists);
 
-            timeMachine.Vehicle.SteeringAngle = SteeringAngle;
-            timeMachine.Vehicle.AreLightsOn = Lights;
-            timeMachine.Vehicle.AreHighBeamsOn = Headlights;
+            if (!IsTimeMachine || vehicle.IsTimeMachine())
+                return vehicle;
 
-            float timeRatio = 0;
+            TimeMachine timeMachine = TimeMachineHandler.Create(vehicle);
 
-            if (Timestamp != nextReplica.Timestamp)
-                timeRatio = (Game.GameTime - startPlayGameTime - Timestamp) / (float)(nextReplica.Timestamp - Timestamp);
+            Mods.ApplyTo(timeMachine);
+            Properties.ApplyTo(timeMachine);
 
-            Vector3 pos = Utils.Lerp(Position, nextReplica.Position, timeRatio);
+            return vehicle;
+        }
 
-            GTA.UI.Screen.ShowSubtitle($"{timeMachine.Vehicle.Position.DistanceToSquared(pos)}");
+        public void Apply(Vehicle vehicle, Ped ped, float timeRatio, WaybackMachineReplica nextReplica)
+        {
+            if (nextReplica == null)
+                nextReplica = this;
 
-            timeMachine.Vehicle.PositionNoOffset = pos;
-            timeMachine.Vehicle.Rotation = Utils.Lerp(Rotation, nextReplica.Rotation, timeRatio, -180, 180);
-            timeMachine.Vehicle.Velocity = Utils.Lerp(Velocity, nextReplica.Velocity, timeRatio);
+            if (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, timeRatio, nextReplica.Vehicle);
+            else
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, timeRatio, nextReplica.Vehicle);
 
-            for (int i = 0; i < WheelsRotations.Length; i++)
-            {
-                VehicleControl.SetWheelRotation(timeMachine, i, Utils.Lerp(WheelsRotations[i], nextReplica.WheelsRotations[i], timeRatio, -(float)Math.PI, (float)Math.PI));
-                VehicleControl.SetWheelCompression(timeMachine, i, Utils.Lerp(WheelsCompressions[i], nextReplica.WheelsCompressions[i], timeRatio));
-            }
+            if (!IsTimeMachine)
+                return;
 
-            Properties.ApplyToWayback(timeMachine);
+            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
+
             Mods.ApplyToWayback(timeMachine);
+            Properties.ApplyToWayback(timeMachine);
+
+            if (Event == WaybackMachineEvent.None)
+                return;
 
             switch (Event)
             {
-                case WaybackEvent.OnSparksEnded:
+                case WaybackMachineEvent.OnSparksEnded:
                     timeMachine.Events.OnSparksEnded?.Invoke(TimeTravelDelay);
                     break;
-                case WaybackEvent.OpenCloseReactor:
+                case WaybackMachineEvent.OpenCloseReactor:
                     timeMachine.Events.SetOpenCloseReactor?.Invoke();
                     break;
-                case WaybackEvent.RefuelReactor:
-                    timeMachine.Events.SetRefuel?.Invoke(null);
+                case WaybackMachineEvent.RefuelReactor:
+                    timeMachine.Events.SetRefuel?.Invoke(ped);
                     break;
             }
         }

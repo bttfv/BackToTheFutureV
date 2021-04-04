@@ -42,7 +42,6 @@ namespace BackToTheFutureV
             if (ModSettings.PersistenceSystem)
                 TimeMachineHandler.SaveAllTimeMachines();
 
-            WaybackHandler.Abort();
             MissionHandler.Abort();
             StoryTimeMachineHandler.Abort();
             RemoteTimeMachineHandler.Abort();
@@ -91,6 +90,8 @@ namespace BackToTheFutureV
 
             if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
                 ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
+
+            //Screen.ShowSubtitle($"Using:{Utils.PlayerPed.LastVehicle.NotNullAndExists()} Entering:{Utils.PlayerPed.GetEnteringVehicle().NotNullAndExists()} FullyIn:{Utils.PlayerPed.IsFullyInVehicle()} IsEntering:{Utils.PlayerPed.IsEnteringVehicle()} FullyOut:{Utils.PlayerPed.IsFullyOutVehicle()} IsLeaving:{Utils.PlayerPed.IsLeavingVehicle()}");
 
             TrashHandler.Tick();
             CustomTrainHandler.Tick();

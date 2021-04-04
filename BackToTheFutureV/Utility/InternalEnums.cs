@@ -2,7 +2,24 @@
 {
     internal class InternalEnums
     {
-        internal enum WaybackEvent
+        internal enum WaybackStatus
+        {
+            Idle,
+            Recording,
+            Playing
+        }
+
+        internal enum WaybackPedEvent
+        {
+            Walking,
+            EnteringVehicle,
+            LeavingVehicle,
+            DrivingVehicle,
+            Jump,
+            MeleeAttack
+        }
+
+        internal enum WaybackMachineEvent
         {
             None,
             OnSparksEnded,
