@@ -225,7 +225,7 @@ namespace BackToTheFutureV
             {
                 timeMachine.Vehicle.SetVisible(false);
 
-                timeMachine.Properties.DestinationTime = Utils.CurrentTime;
+                timeMachine.Properties.DestinationTime = Utils.CurrentTime.AddSeconds(-Utils.CurrentTime.Second);
 
                 timeMachine.Properties.AreTimeCircuitsOn = true;
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);

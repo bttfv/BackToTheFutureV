@@ -11,11 +11,26 @@ namespace BackToTheFutureV
     {
         private static List<WaybackMachine> Machines = new List<WaybackMachine>();
 
-        public static WaybackMachine CurrentRecording => Machines.Single(x => x.Status == WaybackStatus.Recording);
+        public static WaybackMachine CurrentRecording => Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording);
+
+        static WaybackSystem()
+        {
+            TimeHandler.OnTimeChanged += OnTimeChanged;
+        }
+
+        private static void OnTimeChanged(DateTime dateTime)
+        {
+            Stop();
+        }
+
+        public static void Stop()
+        {
+            Machines.ForEach(x => x.Stop());
+        }
 
         public static void Tick()
         {
-            if (Machines.Count == 0)
+            if (CurrentRecording == default)
                 Create(Utils.PlayerPed);
 
             Machines.ForEach(x => x.Tick());

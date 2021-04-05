@@ -15,7 +15,7 @@ namespace BackToTheFutureV
         public Guid GUID { get; private set; } = Guid.Empty;
 
         public PedReplica PedReplica { get; private set; }
-        public Ped Ped { get; set; }
+        public Ped Ped { get; private set; }
 
         public int ReplicaIndex { get; private set; } = 0;
         public WaybackPed CurrentReplica => Replicas[ReplicaIndex];
@@ -58,8 +58,6 @@ namespace BackToTheFutureV
 
         public WaybackMachine(Ped ped)
         {
-            TimeHandler.OnTimeChanged += OnTimeChanged;
-
             GUID = Guid.NewGuid();
 
             PedReplica = new PedReplica(ped);
@@ -72,11 +70,6 @@ namespace BackToTheFutureV
             StartTime = Replicas.First().Time;
 
             Status = WaybackStatus.Recording;
-        }
-
-        private void OnTimeChanged(DateTime dateTime)
-        {
-            Stop();
         }
 
         public void StartOn(Ped ped, bool waitForReentry = false)

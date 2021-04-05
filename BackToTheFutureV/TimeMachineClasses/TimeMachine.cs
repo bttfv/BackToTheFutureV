@@ -120,7 +120,7 @@ namespace BackToTheFutureV
             }
 
             LastDisplacementClone = this.Clone();
-            LastDisplacementClone.Properties.DestinationTime = Utils.CurrentTime;
+            LastDisplacementClone.Properties.DestinationTime = Utils.CurrentTime.AddSeconds(-Utils.CurrentTime.Second);
 
             Events.OnWormholeTypeChanged += UpdateBlip;
 

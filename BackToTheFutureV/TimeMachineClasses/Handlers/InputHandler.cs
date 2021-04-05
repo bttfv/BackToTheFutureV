@@ -123,9 +123,7 @@ namespace BackToTheFutureV
                 _destinationTimeRaw = string.Empty;
             }
             else
-            {
                 InputDate(dateTime.GetValueOrDefault(), inputType);
-            }
         }
 
         private string DateToInput(DateTime dateTime, int pos)
@@ -161,7 +159,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (Game.GameTime > _nextReset)
+            if (_simulateDatePos == -1 && Game.GameTime > _nextReset)
                 _destinationTimeRaw = string.Empty;
         }
 

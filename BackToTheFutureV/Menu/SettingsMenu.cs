@@ -88,9 +88,9 @@ namespace BackToTheFutureV
             {
                 ModSettings.WaybackSystem = Checked;
 
-                if (Checked)
-                    BackToTheFutureV.WaybackSystem.Create(Utils.PlayerPed);
-            }
+                if (!Checked)
+                    BackToTheFutureV.WaybackSystem.Stop();
+            }                
 
             ModSettings.SaveSettings();
         }

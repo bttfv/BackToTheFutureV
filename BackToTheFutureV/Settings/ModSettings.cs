@@ -149,7 +149,7 @@ namespace BackToTheFutureV
             settings.SetValue("Sounds", "CustomEngine", PlayEngineSounds);
             settings.SetValue("Sounds", "SpeedoBeep", PlaySpeedoBeep);
 
-            settings.SetValue("General", "PersistenceSystem", WaybackSystem);
+            settings.SetValue("General", "PersistenceSystem", PersistenceSystem);
             settings.SetValue("General", "WaybackSystem", WaybackSystem);
             settings.SetValue("General", "InfiniteFuel", InfiniteFuel);
             settings.SetValue("General", "CinematicSpawn", CinematicSpawn);
