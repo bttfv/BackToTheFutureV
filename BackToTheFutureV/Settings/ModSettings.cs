@@ -43,7 +43,7 @@ namespace BackToTheFutureV
         public static bool LandingSystem { get; set; } = true;
         public static bool PersistenceSystem { get; set; } = false;
         public static bool RandomTrains { get; set; } = true;
-        public static bool WaybackSystem { get; set; } = true;
+        public static bool WaybackSystem { get; set; } = false;
 
         private static ScriptSettings settings;
         private static CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
@@ -104,6 +104,7 @@ namespace BackToTheFutureV
             CinematicSpawn = settings.GetValue("General", "CinematicSpawn", CinematicSpawn);
             InfiniteFuel = settings.GetValue("General", "InfiniteFuel", InfiniteFuel);
             PersistenceSystem = settings.GetValue("General", "PersistenceSystem", PersistenceSystem);
+            WaybackSystem = settings.GetValue("General", "WaybackSystem", WaybackSystem);
             RandomTrains = settings.GetValue("General", "RandomTrains", RandomTrains);
 
             ForceFlyMode = settings.GetValue("Hover", "ForceFly", ForceFlyMode);
@@ -148,7 +149,8 @@ namespace BackToTheFutureV
             settings.SetValue("Sounds", "CustomEngine", PlayEngineSounds);
             settings.SetValue("Sounds", "SpeedoBeep", PlaySpeedoBeep);
 
-            settings.SetValue("General", "PersistenceSystem", PersistenceSystem);
+            settings.SetValue("General", "PersistenceSystem", WaybackSystem);
+            settings.SetValue("General", "WaybackSystem", WaybackSystem);
             settings.SetValue("General", "InfiniteFuel", InfiniteFuel);
             settings.SetValue("General", "CinematicSpawn", CinematicSpawn);
             settings.SetValue("General", "RandomTrains", RandomTrains);
