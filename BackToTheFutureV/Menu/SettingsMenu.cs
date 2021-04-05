@@ -90,7 +90,7 @@ namespace BackToTheFutureV
 
                 if (!Checked)
                     BackToTheFutureV.WaybackSystem.Stop();
-            }                
+            }
 
             ModSettings.SaveSettings();
         }

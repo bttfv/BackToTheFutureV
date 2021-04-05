@@ -1,7 +1,9 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
+using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
+using System;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
@@ -184,6 +186,8 @@ namespace BackToTheFutureV
 
                 if (!Wheels.IsSpawned)
                     Wheels.SpawnProp();
+
+                UpdateWheelsRotations();
             }
 
             Stop();
@@ -220,6 +224,20 @@ namespace BackToTheFutureV
         {
             if (IsPlaying && !Utils.IsPadShaking && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
                 Utils.SetPadShake(100, 80);
+
+            if (IsPlaying)
+                UpdateWheelsRotations();
+        }
+
+        private void UpdateWheelsRotations()
+        {
+            float[] WheelsRotations = VehicleControl.GetWheelRotations(Vehicle);
+
+            for (int i = 0; i < WheelsRotations.Length; i++)
+            {
+                WheelsRotations[i] = Utils.Wrap(WheelsRotations[i], -(float)Math.PI, (float)Math.PI).ToDeg();
+                Wheels[i].setRotation(Coordinate.X, i % 2 == 1 ? -WheelsRotations[i] : WheelsRotations[i], true);
+            }
         }
 
         public override void Dispose()
