@@ -99,7 +99,7 @@ namespace BackToTheFutureV
             RemoteTimeMachineHandler.Tick();
 
             if (ModSettings.WaybackSystem)
-                WaybackHandler.Tick();
+                WaybackSystem.Tick();
 
             FireTrailsHandler.Tick();
             TcdEditer.Tick();

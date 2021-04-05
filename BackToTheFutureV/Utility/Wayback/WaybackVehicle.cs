@@ -7,7 +7,7 @@ using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV
 {
-    internal class WaybackMachineReplica
+    internal class WaybackVehicle
     {
         public VehicleReplica Vehicle { get; }
 
@@ -16,10 +16,23 @@ namespace BackToTheFutureV
         public ModsPrimitive Mods { get; }
         public PropertiesHandler Properties { get; }
 
-        public WaybackMachineEvent Event { get; set; } = WaybackMachineEvent.None;
+        public WaybackVehicleEvent Event { get; set; } = WaybackVehicleEvent.None;
         public int TimeTravelDelay { get; set; }
 
-        public WaybackMachineReplica(Vehicle vehicle)
+        public WaybackVehicle(TimeMachine timeMachine, WaybackVehicleEvent wvEvent = WaybackVehicleEvent.None, int timeTravelDelay = 0)
+        {
+            Vehicle = new VehicleReplica(timeMachine, SpawnFlags.NoOccupants);
+
+            IsTimeMachine = true;
+
+            Properties = timeMachine.Properties.Clone();
+            Mods = timeMachine.Mods.Clone();
+
+            Event = wvEvent;
+            TimeTravelDelay = timeTravelDelay;
+        }
+
+        public WaybackVehicle(Vehicle vehicle)
         {
             Vehicle = new VehicleReplica(vehicle, SpawnFlags.NoOccupants);
 
@@ -32,16 +45,21 @@ namespace BackToTheFutureV
 
             Properties = timeMachine.Properties.Clone();
             Mods = timeMachine.Mods.Clone();
-
-            Event = timeMachine.Event;
-            TimeTravelDelay = timeMachine.TimeTravelDelay;
-
-            timeMachine.Event = WaybackMachineEvent.None;
         }
 
         private Vehicle Spawn()
         {
-            Vehicle vehicle = Vehicle.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants | SpawnFlags.CheckExists);
+            Vehicle vehicle;
+
+            if (IsTimeMachine)
+            {
+                vehicle = TimeMachineHandler.GetTimeMachineFromReplicaGUID(Properties.ReplicaGUID);
+
+                if (vehicle.NotNullAndExists())
+                    return vehicle;
+            }
+
+            vehicle = Vehicle.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants | SpawnFlags.CheckExists);
 
             if (!IsTimeMachine)
                 return vehicle;
@@ -54,12 +72,12 @@ namespace BackToTheFutureV
             return vehicle;
         }
 
-        public Vehicle TryFindOrSpawn(float adjustedRatio, WaybackPedReplica nextReplica)
+        public Vehicle TryFindOrSpawn(float adjustedRatio, WaybackPed nextReplica)
         {
             Vector3 position = Vehicle.Position;
 
-            if (nextReplica.WaybackMachineReplica != null)
-                position = Utils.Lerp(position, nextReplica.WaybackMachineReplica.Vehicle.Position, adjustedRatio);
+            if (nextReplica.WaybackVehicle != null)
+                position = Utils.Lerp(position, nextReplica.WaybackVehicle.Vehicle.Position, adjustedRatio);
 
             Vehicle vehicle = World.GetClosestVehicle(position, 1, Vehicle.Model);
 
@@ -69,12 +87,12 @@ namespace BackToTheFutureV
             return vehicle;
         }
 
-        public void Apply(Vehicle vehicle, Ped ped, float adjusteRatio, WaybackPedReplica nextReplica)
+        public void Apply(Vehicle vehicle, Ped ped, WaybackPed nextReplica, float adjusteRatio)
         {
             VehicleReplica nextVehicleReplica = null;
 
-            if (nextReplica.WaybackMachineReplica != null)
-                nextVehicleReplica = nextReplica.WaybackMachineReplica.Vehicle;
+            if (nextReplica.WaybackVehicle != null)
+                nextVehicleReplica = nextReplica.WaybackVehicle.Vehicle;
 
             TimeMachine timeMachine = null;
 
@@ -97,18 +115,18 @@ namespace BackToTheFutureV
             Mods.ApplyToWayback(timeMachine);
             Properties.ApplyToWayback(timeMachine);
 
-            if (Event == WaybackMachineEvent.None)
+            if (Event == WaybackVehicleEvent.None)
                 return;
 
             switch (Event)
             {
-                case WaybackMachineEvent.OnSparksEnded:
+                case WaybackVehicleEvent.OnSparksEnded:
                     timeMachine.Events.OnSparksEnded?.Invoke(TimeTravelDelay);
                     break;
-                case WaybackMachineEvent.OpenCloseReactor:
+                case WaybackVehicleEvent.OpenCloseReactor:
                     timeMachine.Events.SetOpenCloseReactor?.Invoke();
                     break;
-                case WaybackMachineEvent.RefuelReactor:
+                case WaybackVehicleEvent.RefuelReactor:
                     timeMachine.Events.SetRefuel?.Invoke(ped);
                     break;
             }

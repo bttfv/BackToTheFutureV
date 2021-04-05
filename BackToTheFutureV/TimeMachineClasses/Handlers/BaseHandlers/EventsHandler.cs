@@ -43,6 +43,8 @@ namespace BackToTheFutureV
     internal delegate void SetEngineStall(bool state);
     internal delegate void StartLightningStrike(int delay);
     internal delegate void SimulateInputDate(DateTime dateTime);
+    internal delegate void SimulateHoverBoost(bool state);
+    internal delegate void SimulateHoverGoingUpDown(bool state);
     internal delegate void SetSIDLedsState(bool on, bool instant = false);
 
     internal class EventsHandler : HandlerPrimitive
@@ -85,6 +87,8 @@ namespace BackToTheFutureV
         public SetEngineStall SetEngineStall;
         public StartLightningStrike StartLightningStrike;
         public SimulateInputDate SimulateInputDate;
+        public SimulateHoverBoost SimulateHoverBoost;
+        public SimulateHoverGoingUpDown SimulateHoverGoingUpDown;
         public SetSIDLedsState SetSIDLedsState;
 
         public EventsHandler(TimeMachine timeMachine) : base(timeMachine)

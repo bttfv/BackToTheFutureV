@@ -19,7 +19,7 @@
             MeleeAttack
         }
 
-        internal enum WaybackMachineEvent
+        internal enum WaybackVehicleEvent
         {
             None,
             OnSparksEnded,

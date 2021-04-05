@@ -178,8 +178,8 @@ namespace BackToTheFutureV
 
         private void OnSparksEnded(int delay = 0)
         {
-            TimeMachine.Event = WaybackMachineEvent.OnSparksEnded;
-            TimeMachine.TimeTravelDelay = delay;
+            if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                WaybackSystem.CurrentRecording.Record(new WaybackVehicle(TimeMachine, WaybackVehicleEvent.OnSparksEnded));
 
             Stop();
 

@@ -55,9 +55,6 @@ namespace BackToTheFutureV
 
         public bool Disposed { get; private set; }
 
-        public WaybackMachineEvent Event { get; set; } = WaybackMachineEvent.None;
-        public int TimeTravelDelay { get; set; }
-
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
             Vehicle = vehicle;
@@ -521,16 +518,25 @@ namespace BackToTheFutureV
 
         public static implicit operator Vehicle(TimeMachine timeMachine)
         {
+            if (!timeMachine.NotNullAndExists())
+                return null;
+
             return timeMachine.Vehicle;
         }
 
         public static implicit operator Entity(TimeMachine timeMachine)
         {
+            if (!timeMachine.NotNullAndExists())
+                return null;
+
             return timeMachine.Vehicle;
         }
 
         public static implicit operator InputArgument(TimeMachine timeMachine)
         {
+            if (!timeMachine.NotNullAndExists())
+                return null;
+
             return timeMachine.Vehicle;
         }
     }

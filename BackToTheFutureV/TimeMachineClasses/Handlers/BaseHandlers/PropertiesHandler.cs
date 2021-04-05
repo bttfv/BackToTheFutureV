@@ -56,6 +56,7 @@ namespace BackToTheFutureV
         public bool IsLanding { get; set; }
         public bool IsAltitudeHolding { get; set; }
         public bool IsHoverBoosting { get; set; }
+        public bool IsHoverGoingUpDown { get; set; }
         public bool IsPhotoModeOn { get; set; }
         public bool IsOnTracks { get; set; }
         public bool IsAttachedToRogersSierra { get; set; }
@@ -103,6 +104,8 @@ namespace BackToTheFutureV
                 IsDefrosting = IsDefrosting,
                 IceValue = IceValue,
                 IsFlying = IsFlying,
+                IsHoverBoosting = IsHoverBoosting,
+                IsHoverGoingUpDown = IsHoverGoingUpDown,
                 CanConvert = CanConvert,
                 AreFlyingCircuitsBroken = AreFlyingCircuitsBroken,
                 AreHoodboxCircuitsReady = AreHoodboxCircuitsReady,
@@ -178,6 +181,12 @@ namespace BackToTheFutureV
 
             if (IsFlying != timeMachine.Properties.IsFlying)
                 timeMachine.Events.SetFlyMode?.Invoke(IsFlying);
+
+            if (IsHoverBoosting != timeMachine.Properties.IsHoverBoosting)
+                timeMachine.Events.SimulateHoverBoost?.Invoke(IsHoverBoosting);
+
+            if (IsHoverGoingUpDown != timeMachine.Properties.IsHoverGoingUpDown)
+                timeMachine.Events.SimulateHoverGoingUpDown?.Invoke(IsHoverGoingUpDown);
         }
     }
 }

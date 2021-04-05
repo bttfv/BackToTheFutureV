@@ -26,8 +26,6 @@ namespace BackToTheFutureV
 
         private Vector3 _forceToBeApplied = Vector3.Zero;
 
-        private bool _hoverGlowUp;
-
         private bool _reload;
 
         private Hash _defaultHorn;
@@ -47,6 +45,9 @@ namespace BackToTheFutureV
             Events.SetAltitudeHold += SetHoverMode;
             Events.OnHoverUnderbodyToggle += OnHoverUnderbodyToggle;
 
+            Events.SimulateHoverBoost += SimulateHoverBoost;
+            Events.SimulateHoverGoingUpDown += SpawnHoverGlow;
+
             if (!Mods.IsDMC12)
                 return;
 
@@ -63,6 +64,20 @@ namespace BackToTheFutureV
                 Props.HoverModeVentsGlow.SwapModel(ModelHandler.VentGlowingNight);
             else
                 Props.HoverModeVentsGlow.SwapModel(ModelHandler.VentGlowing);
+        }
+
+        private void SimulateHoverBoost(bool state)
+        {
+            Properties.IsHoverBoosting = state;
+
+            if (state)
+                Boost();
+            else
+            {
+                _hasPlayedBoostSound = false;
+                Sounds.HoverModeBoost?.Stop();
+                Props.HoverModeVentsGlow?.Delete();
+            }
         }
 
         public void OnHoverUnderbodyToggle(bool reload = false)
@@ -106,8 +121,13 @@ namespace BackToTheFutureV
             }
         }
 
-        private void SpawnHoverGlow()
+        private void SpawnHoverGlow(bool state = true)
         {
+            Properties.IsHoverGoingUpDown = state;
+
+            if (!state)
+                return;
+
             if (Sounds.HoverModeUp.IsAnyInstancePlaying)
                 return;
 
@@ -432,11 +452,8 @@ namespace BackToTheFutureV
                     Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
                     Game.DisableControlThisFrame(Control.VehicleFlyThrottleUp);
 
-                    if (!Properties.IsLanding && !_hoverGlowUp)
-                    {
+                    if (!Properties.IsLanding && !Properties.IsHoverGoingUpDown)
                         SpawnHoverGlow();
-                        _hoverGlowUp = true;
-                    }
 
                     upNormal = 1;
                 }
@@ -456,8 +473,8 @@ namespace BackToTheFutureV
                     Utils.SetPadShake(100, 80);
             }
 
-            if (upNormal == 0 && _hoverGlowUp)
-                _hoverGlowUp = false;
+            if (upNormal == 0 && Properties.IsHoverGoingUpDown)
+                Properties.IsHoverGoingUpDown = false;
 
             // Apply force
             GoUpDown(upNormal);

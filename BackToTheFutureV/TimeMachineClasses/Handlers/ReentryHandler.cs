@@ -26,7 +26,7 @@ namespace BackToTheFutureV
             Properties.TimeTravelPhase = TimeTravelPhase.Reentering;
 
             if (ModSettings.WaybackSystem && Driver != null && Driver != Utils.PlayerPed)
-                WaybackHandler.GetFromGUID(Properties.ReplicaGUID).StartOn(Driver, true);
+                WaybackSystem.GetFromGUID(Properties.ReplicaGUID).StartOn(Driver, true);
         }
 
         public override void Tick()
@@ -59,7 +59,8 @@ namespace BackToTheFutureV
 
                     Function.Call(Hash.ADD_SHOCKING_EVENT_AT_POSITION, 88, Vehicle.Position.X, Vehicle.Position.Y, Vehicle.Position.Z, 1f);
 
-                    Utils.SetPadShake(500, 200);
+                    if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                        Utils.SetPadShake(500, 200);
 
                     int timeToAdd = 500;
 
@@ -82,7 +83,8 @@ namespace BackToTheFutureV
 
                     Particles?.Flash?.Play();
 
-                    Utils.SetPadShake(500, 200);
+                    if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                        Utils.SetPadShake(500, 200);
 
                     timeToAdd = 500;
 
@@ -105,7 +107,8 @@ namespace BackToTheFutureV
 
                     Particles?.Flash?.Play();
 
-                    Utils.SetPadShake(500, 200);
+                    if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                        Utils.SetPadShake(500, 200);
 
                     _currentStep++;
                     break;
@@ -176,7 +179,7 @@ namespace BackToTheFutureV
                 Driver.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 10000).Start();
 
             if (ModSettings.WaybackSystem && Utils.PlayerVehicle == Vehicle)
-                WaybackHandler.Create(Utils.PlayerPed, Properties.ReplicaGUID);
+                WaybackSystem.Create(Utils.PlayerPed, Properties.ReplicaGUID);
         }
 
         public override void Stop()

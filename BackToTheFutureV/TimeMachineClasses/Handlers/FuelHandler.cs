@@ -70,7 +70,9 @@ namespace BackToTheFutureV
                 if (Utils.PlayerPed.IsTaskActive(TaskType.ScriptedAnimation) || Utils.PlayerPed.IsTaskActive(TaskType.TurnToFaceEntityOrCoord))
                     return;
 
-                TimeMachine.Event = WaybackMachineEvent.RefuelReactor;
+                if (ModSettings.WaybackSystem)
+                    WaybackSystem.CurrentRecording.Record(new WaybackVehicle(TimeMachine, WaybackVehicleEvent.RefuelReactor));
+
                 Events.SetRefuel?.Invoke(Utils.PlayerPed);
             }
             else
@@ -87,7 +89,9 @@ namespace BackToTheFutureV
             if (longPressed || !IsPedInPosition() || Players.Refuel.IsPlaying)
                 return;
 
-            TimeMachine.Event = WaybackMachineEvent.OpenCloseReactor;
+            if (ModSettings.WaybackSystem)
+                WaybackSystem.CurrentRecording.Record(new WaybackVehicle(TimeMachine, WaybackVehicleEvent.OpenCloseReactor));
+
             Events.SetOpenCloseReactor?.Invoke();
         }
 
@@ -295,7 +299,7 @@ namespace BackToTheFutureV
                 dist = ped.DistanceToSquared2D(vehicle, "mr_fusion") - 0.1f;
             }
 
-            return angle < 45 && dist < 1.6f;
+            return angle < 45 && dist < 1.8f;
         }
 
         public override void KeyDown(KeyEventArgs e)

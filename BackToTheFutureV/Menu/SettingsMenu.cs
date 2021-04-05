@@ -89,7 +89,7 @@ namespace BackToTheFutureV
                 ModSettings.WaybackSystem = Checked;
 
                 if (Checked)
-                    WaybackHandler.Create(Utils.PlayerPed);
+                    BackToTheFutureV.WaybackSystem.Create(Utils.PlayerPed);
             }
 
             ModSettings.SaveSettings();

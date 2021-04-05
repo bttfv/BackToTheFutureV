@@ -134,7 +134,8 @@ namespace BackToTheFutureV
 
         public override void Stop()
         {
-            Utils.StopPadShake();
+            if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                Utils.StopPadShake();
 
             IsPlaying = false;
             PlayerSwitch.Disable = false;
@@ -217,7 +218,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (IsPlaying && !Utils.IsPadShaking)
+            if (IsPlaying && !Utils.IsPadShaking && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
                 Utils.SetPadShake(100, 80);
         }
 
