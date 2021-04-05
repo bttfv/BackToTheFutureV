@@ -15,7 +15,7 @@ namespace BackToTheFutureV
         public Guid Owner { get; }
 
         public DateTime Time { get; }
-        public int Timestamp { get; }
+        public float Timestamp { get; }
 
         public Vector3 Position { get; }
         public float Heading { get; }
@@ -28,7 +28,7 @@ namespace BackToTheFutureV
 
         public WaybackVehicle WaybackVehicle { get; set; } = null;
 
-        public WaybackPed(Guid owner, Ped ped, int startGameTime)
+        public WaybackPed(Guid owner, Ped ped, float startGameTime)
         {
             Owner = owner;
             Time = Utils.CurrentTime;

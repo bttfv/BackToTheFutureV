@@ -12,7 +12,7 @@ namespace BackToTheFutureV
 {
     internal static class WaybackSystem
     {
-        private static BinaryFormatter formatter = new BinaryFormatter();
+        public static BinaryFormatter Formatter { get; } = new BinaryFormatter();
 
         private static List<WaybackMachine> Machines = new List<WaybackMachine>();
 
@@ -87,7 +87,7 @@ namespace BackToTheFutureV
             {
                 try
                 {
-                    waybackPed = (WaybackPed)formatter.Deserialize(stream);
+                    waybackPed = (WaybackPed)Formatter.Deserialize(stream);
                 }
                 catch
                 {

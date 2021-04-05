@@ -13,8 +13,6 @@ namespace BackToTheFutureV
     [Serializable]
     internal class WaybackMachine
     {
-        private static BinaryFormatter formatter = new BinaryFormatter();
-
         public List<WaybackPed> Replicas { get; } = new List<WaybackPed>();
 
         public Guid GUID { get; private set; } = Guid.Empty;
@@ -26,7 +24,13 @@ namespace BackToTheFutureV
         public Ped Ped
         {
             get => (Ped)Entity.FromHandle(PedHandle);
-            private set => PedHandle = value.Handle;
+            private set
+            {
+                if (value.NotNullAndExists())
+                    PedHandle = value.Handle;
+                else
+                    PedHandle = 0;
+            }
         }
 
         public int ReplicaIndex { get; private set; } = 0;
@@ -53,8 +57,8 @@ namespace BackToTheFutureV
             }
         }
 
-        public int StartRecGameTime { get; private set; }
-        public int StartPlayGameTime { get; private set; }
+        public float StartRecGameTime { get; private set; }
+        public float StartPlayGameTime { get; private set; }
 
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; private set; }
@@ -207,7 +211,7 @@ namespace BackToTheFutureV
             {
                 try
                 {
-                    return (WaybackMachine)formatter.Deserialize(stream);
+                    return (WaybackMachine)WaybackSystem.Formatter.Deserialize(stream);
                 }
                 catch
                 {
@@ -220,7 +224,7 @@ namespace BackToTheFutureV
         {
             using (MemoryStream stream = new MemoryStream())
             {
-                formatter.Serialize(stream, command);
+                WaybackSystem.Formatter.Serialize(stream, command);
                 return stream.ToArray();
             }
         }
