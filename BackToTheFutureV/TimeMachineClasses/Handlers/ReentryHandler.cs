@@ -24,6 +24,9 @@ namespace BackToTheFutureV
         public void OnReenterStarted()
         {
             Properties.TimeTravelPhase = TimeTravelPhase.Reentering;
+
+            if (ModSettings.WaybackSystem && Driver != null && Driver != Utils.PlayerPed)
+                WaybackHandler.GetFromGUID(Properties.ReplicaGUID).StartOn(Driver, true);
         }
 
         public override void Tick()
@@ -169,15 +172,11 @@ namespace BackToTheFutureV
             //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, CommonSettings.PlayerPed.Model);
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
 
-            if (Vehicle.Driver != null && Vehicle.Driver != Utils.PlayerPed)
-                Vehicle.Driver.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 10000).Start();
-
-            //Vehicle.Driver.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 10000).Start();
-
-            //Events.StartDriverAI?.Invoke(true);
+            if (!ModSettings.WaybackSystem && Driver != null && Driver != Utils.PlayerPed)
+                Driver.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 10000).Start();
 
             if (ModSettings.WaybackSystem && Utils.PlayerVehicle == Vehicle)
-                WaybackHandler.Create(Utils.PlayerPed);
+                WaybackHandler.Create(Utils.PlayerPed, Properties.ReplicaGUID);
         }
 
         public override void Stop()

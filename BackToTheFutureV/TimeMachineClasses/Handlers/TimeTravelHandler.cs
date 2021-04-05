@@ -40,7 +40,9 @@ namespace BackToTheFutureV
         {
             RogersSierraRailway.TrainManager.RogersSierraList.ForEach(x => x.Delete());
             TimeMachineHandler.ExistenceCheck(time);
-            RemoteTimeMachineHandler.ExistenceCheck(time);
+
+            if (!ModSettings.WaybackSystem)
+                RemoteTimeMachineHandler.ExistenceCheck(time);
         }
 
         public void SetCutsceneMode(bool cutsceneOn)
@@ -106,6 +108,8 @@ namespace BackToTheFutureV
                     Properties.TimeTravelDestPos = WaypointScript.WaypointPosition;
 
                     Properties.TimeTravelsCount++;
+
+                    Properties.ReplicaGUID = Guid.NewGuid();
 
                     if (Properties.TimeTravelType == TimeTravelType.Instant)
                     {
@@ -251,7 +255,7 @@ namespace BackToTheFutureV
                     FireTrailsHandler.RemoveTrail(trails);
 
                     if (Properties.TimeTravelType == TimeTravelType.Cutscene)
-                        TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-1));
+                        TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-2));
                     else
                         TimeHandler.TimeTravelTo(Properties.DestinationTime);
 

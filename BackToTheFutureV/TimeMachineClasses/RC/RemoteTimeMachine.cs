@@ -20,8 +20,6 @@ namespace BackToTheFutureV
 
         private static AudioPlayer WarningSound;
 
-        public Wayback WaybackMachine { get; }
-
         static RemoteTimeMachine()
         {
             WarningSound = Main.CommonAudioEngine.Create("general/rc/warning.wav", Presets.No3D);
@@ -58,7 +56,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (!Spawned && Utils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 0, 5), true))
+            if (!Spawned && TimeMachineClone.Properties.DestinationTime.Between(Utils.CurrentTime, Utils.CurrentTime.AddMinutes(1)))
             {
                 Spawn(ReenterType.Normal);
 
@@ -76,22 +74,12 @@ namespace BackToTheFutureV
             {
                 case ReenterType.Forced:
                 case ReenterType.Normal:
-                    SpawnFlags spawnFlags = SpawnFlags.ForceReentry;
-
-                    if (ModSettings.WaybackSystem)
-                        spawnFlags |= SpawnFlags.NoOccupants;
-
-                    TimeMachine = TimeMachineClone.Spawn(spawnFlags);
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     return TimeMachine;
                 case ReenterType.Spawn:
-                    spawnFlags = SpawnFlags.NoVelocity;
-
-                    if (ModSettings.WaybackSystem)
-                        spawnFlags |= SpawnFlags.NoOccupants;
-
-                    TimeMachine = TimeMachineClone.Spawn(spawnFlags);
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     if (!TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12)

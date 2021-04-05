@@ -1,5 +1,8 @@
-﻿using GTA;
+﻿using FusionLibrary;
+using GTA;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BackToTheFutureV
 {
@@ -9,6 +12,9 @@ namespace BackToTheFutureV
 
         public static void Tick()
         {
+            if (Waybacks.Count == 0)
+                Create(Utils.PlayerPed);
+
             Waybacks.ForEach(x => x.Tick());
         }
 
@@ -19,6 +25,20 @@ namespace BackToTheFutureV
             Waybacks.Add(wayback);
 
             return wayback;
+        }
+
+        public static Wayback Create(Ped ped, Guid guid)
+        {
+            Wayback wayback = new Wayback(ped, guid);
+
+            Waybacks.Add(wayback);
+
+            return wayback;
+        }
+
+        public static Wayback GetFromGUID(Guid guid)
+        {
+            return Waybacks.FirstOrDefault(x => x.GUID == guid);
         }
     }
 }

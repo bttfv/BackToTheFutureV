@@ -11,6 +11,7 @@ namespace BackToTheFutureV
     {
         //Persistent properties
         public Guid GUID { get; set; }
+        public Guid ReplicaGUID { get; set; }
         public bool AreTimeCircuitsOn { get; set; }
         public DateTime AlarmTime { get; set; }
         public bool AlarmSet { get; set; }
@@ -79,12 +80,14 @@ namespace BackToTheFutureV
         public PropertiesHandler(Guid guid)
         {
             GUID = guid;
+            ReplicaGUID = Guid.NewGuid();
         }
 
         public PropertiesHandler Clone()
         {
             PropertiesHandler ret = new PropertiesHandler(GUID)
             {
+                ReplicaGUID = ReplicaGUID,
                 AreTimeCircuitsOn = AreTimeCircuitsOn,
                 AlarmSet = AlarmSet,
                 AlarmTime = AlarmTime,
@@ -116,6 +119,7 @@ namespace BackToTheFutureV
         public void ApplyTo(TimeMachine timeMachine)
         {
             timeMachine.Properties.GUID = GUID;
+            timeMachine.Properties.ReplicaGUID = ReplicaGUID;
             timeMachine.Properties.AreTimeCircuitsOn = AreTimeCircuitsOn;
             timeMachine.Properties.AlarmTime = AlarmTime;
             timeMachine.Properties.AlarmSet = AlarmSet;

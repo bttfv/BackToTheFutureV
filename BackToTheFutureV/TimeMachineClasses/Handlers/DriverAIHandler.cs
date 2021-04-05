@@ -10,7 +10,7 @@ namespace BackToTheFutureV
 {
     internal class DriverAIHandler : HandlerPrimitive
     {
-        public Ped Driver { get; private set; }
+        public Ped DriverAI { get; private set; }
         public int Step { get; private set; } = 0;
 
         public DriverTaskType DriverTask { get; private set; } = DriverTaskType.Off;
@@ -37,10 +37,10 @@ namespace BackToTheFutureV
             {
                 DriverTask = (DriverTaskType)Utils.Random.Next(5, 5);
 
-                Driver = Vehicle.GetPedOnSeat(VehicleSeat.Driver);
+                DriverAI = Vehicle.GetPedOnSeat(VehicleSeat.Driver);
 
-                if (Driver == null)
-                    Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
+                if (DriverAI == null)
+                    DriverAI = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
 
                 IsPlaying = true;
             }
@@ -62,17 +62,17 @@ namespace BackToTheFutureV
             {
                 case 0:
                     if (!Properties.IsFueled)
-                        Driver.Task.GoStraightTo(Vehicle.GetOffsetPosition(new Vector3(0, -2.5f, 0f)), -1, Vehicle.Heading);
+                        DriverAI.Task.GoStraightTo(Vehicle.GetOffsetPosition(new Vector3(0, -2.5f, 0f)), -1, Vehicle.Heading);
                     else
                         Step = 3;
 
                     Step++;
                     break;
                 case 1:
-                    if (!FuelHandler.IsPedInPosition(Vehicle, Driver))
+                    if (!FuelHandler.IsPedInPosition(Vehicle, DriverAI))
                         break;
 
-                    Events.SetRefuel?.Invoke(Driver);
+                    Events.SetRefuel?.Invoke(DriverAI);
 
                     Step++;
                     break;
@@ -80,12 +80,12 @@ namespace BackToTheFutureV
                     if (!Properties.IsFueled)
                         break;
 
-                    Driver.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
+                    DriverAI.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
 
                     Step++;
                     break;
                 case 3:
-                    if (!Driver.IsInVehicle(Vehicle))
+                    if (!DriverAI.IsInVehicle(Vehicle))
                         break;
 
                     if (Properties.AreTimeCircuitsBroken && Mods.Hoodbox == ModState.Off)
@@ -112,9 +112,9 @@ namespace BackToTheFutureV
 
                     //Function.Call(Hash.TASK_VEHICLE_GOTO_NAVMESH, Driver, Vehicle, position.X, position.Y, position.Z, 30.0f, 156, 5.0f);
 
-                    Driver.Task.CruiseWithVehicle(Vehicle, MathExtensions.ToMS(200), DrivingStyle.AvoidTrafficExtremely);
-                    Function.Call(Hash.SET_DRIVER_ABILITY, Driver, 1.0f);
-                    Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, Driver, 1.0f);
+                    DriverAI.Task.CruiseWithVehicle(Vehicle, MathExtensions.ToMS(200), DrivingStyle.AvoidTrafficExtremely);
+                    Function.Call(Hash.SET_DRIVER_ABILITY, DriverAI, 1.0f);
+                    Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, DriverAI, 1.0f);
 
                     Step++;
                     break;
@@ -130,24 +130,24 @@ namespace BackToTheFutureV
             {
                 case DriverTaskType.LeaveVehicle:
 
-                    Driver.Task.LeaveVehicle();
+                    DriverAI.Task.LeaveVehicle();
 
-                    Driver = null;
+                    DriverAI = null;
 
                     Stop();
 
                     break;
                 case DriverTaskType.ParkAndLeave:
 
-                    Driver.Task.ParkVehicle(Vehicle, World.GetNextPositionOnStreet(Vehicle.Position, true), Vehicle.Heading);
+                    DriverAI.Task.ParkVehicle(Vehicle, World.GetNextPositionOnStreet(Vehicle.Position, true), Vehicle.Heading);
 
                     Stop();
 
                     break;
                 case DriverTaskType.DriveAround:
-                    Driver.Task.CruiseWithVehicle(Vehicle, MathExtensions.ToMS(50));
+                    DriverAI.Task.CruiseWithVehicle(Vehicle, MathExtensions.ToMS(50));
 
-                    Driver = null;
+                    DriverAI = null;
 
                     Stop();
 

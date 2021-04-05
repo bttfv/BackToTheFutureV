@@ -43,7 +43,7 @@ namespace BackToTheFutureV
         {
             Vehicle vehicle = Vehicle.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants | SpawnFlags.CheckExists);
 
-            if (!IsTimeMachine || vehicle.IsTimeMachine())
+            if (!IsTimeMachine)
                 return vehicle;
 
             TimeMachine timeMachine = TimeMachineHandler.Create(vehicle);
@@ -63,7 +63,7 @@ namespace BackToTheFutureV
 
             Vehicle vehicle = World.GetClosestVehicle(position, 1, Vehicle.Model);
 
-            if (vehicle == null && !IsTimeMachine)
+            if (vehicle == null)
                 vehicle = Spawn();
 
             return vehicle;
@@ -76,15 +76,23 @@ namespace BackToTheFutureV
             if (nextReplica.WaybackMachineReplica != null)
                 nextVehicleReplica = nextReplica.WaybackMachineReplica.Vehicle;
 
+            TimeMachine timeMachine = null;
+
+            if (IsTimeMachine)
+            {
+                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
+
+                if (timeMachine.NotNullAndExists() && timeMachine.Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
+                    return;
+            }
+
             if (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, adjusteRatio, nextVehicleReplica);
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, nextVehicleReplica, adjusteRatio);
             else
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, adjusteRatio, nextVehicleReplica);
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, nextVehicleReplica, adjusteRatio);
 
-            if (!IsTimeMachine)
+            if (!timeMachine.NotNullAndExists())
                 return;
-
-            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
             Mods.ApplyToWayback(timeMachine);
             Properties.ApplyToWayback(timeMachine);

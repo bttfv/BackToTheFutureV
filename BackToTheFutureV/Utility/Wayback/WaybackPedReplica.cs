@@ -27,12 +27,9 @@ namespace BackToTheFutureV
 
         public WaybackMachineReplica WaybackMachineReplica { get; } = null;
 
-        public float FPS { get; }
-
         public WaybackPedReplica(Ped ped, int startGameTime)
         {
             Time = Utils.CurrentTime;
-            FPS = Game.FPS;
             Timestamp = Game.GameTime - startGameTime;
 
             Position = ped.Position;
@@ -57,33 +54,29 @@ namespace BackToTheFutureV
                 }
             }
 
-            Vehicle vehicle = ped.GetClosestVehicle();
-
-            if (vehicle == null)
-                return;
-
-            WaybackMachineReplica = new WaybackMachineReplica(vehicle);
-
-            if (ped.IsEnteringVehicle() && ped.GetEnteringVehicle() == vehicle)
+            if (ped.IsEnteringVehicle())
             {
                 Event = WaybackPedEvent.EnteringVehicle;
+                WaybackMachineReplica = new WaybackMachineReplica(ped.GetEnteringVehicle());
                 return;
             }
 
-            if (ped.IsLeavingVehicle() && ped.GetUsingVehicle() == vehicle)
+            if (ped.IsLeavingVehicle())
             {
                 Event = WaybackPedEvent.LeavingVehicle;
+                WaybackMachineReplica = new WaybackMachineReplica(ped.LastVehicle);
                 return;
             }
 
-            if (ped.IsSittingInVehicle(vehicle))
+            if (ped.IsSittingInVehicle())
             {
                 Event = WaybackPedEvent.DrivingVehicle;
+                WaybackMachineReplica = new WaybackMachineReplica(ped.GetUsingVehicle());
                 return;
             }
         }
 
-        public void Apply(Ped ped, WaybackPedReplica nextReplica, float startPlayGameTime)
+        public void Apply(Ped ped, WaybackPedReplica nextReplica, float adjustedRatio)
         {
             if (Weapon != ped.Weapons.Current)
                 ped.Weapons.Select(Weapon);
@@ -93,11 +86,6 @@ namespace BackToTheFutureV
 
             Vehicle vehicle = null;
 
-            float adjustedRatio = 0;
-
-            if (Timestamp != nextReplica.Timestamp)
-                adjustedRatio = (Game.GameTime - startPlayGameTime - Timestamp) / (nextReplica.Timestamp - Timestamp);
-
             if (WaybackMachineReplica != null)
             {
                 if (ped.IsSittingInVehicle())
@@ -105,7 +93,7 @@ namespace BackToTheFutureV
                     vehicle = ped.CurrentVehicle;
 
                     WaybackMachineReplica.Apply(vehicle, ped, adjustedRatio, nextReplica);
-                }                    
+                }
                 else
                     vehicle = WaybackMachineReplica.TryFindOrSpawn(adjustedRatio, nextReplica);
             }
@@ -113,13 +101,14 @@ namespace BackToTheFutureV
             switch (Event)
             {
                 case WaybackPedEvent.EnteringVehicle:
-                    ped.Task.EnterVehicle(vehicle, VehicleSeat.Driver);
+                    if (vehicle.NotNullAndExists())
+                        ped.Task.EnterVehicle(vehicle, VehicleSeat.Driver);
                     break;
                 case WaybackPedEvent.LeavingVehicle:
                     ped.Task.LeaveVehicle();
                     break;
                 case WaybackPedEvent.DrivingVehicle:
-                    if (!ped.IsSittingInVehicle(vehicle))
+                    if (ped.NotNullAndExists() && !ped.IsSittingInVehicle(vehicle))
                         ped.SetIntoVehicle(vehicle, VehicleSeat.Driver);
                     break;
                 case WaybackPedEvent.Jump:
@@ -131,7 +120,6 @@ namespace BackToTheFutureV
                 case WaybackPedEvent.Walking:
                     if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.Melee) | ped.IsTaskActive(TaskType.ScriptedAnimation))
                         break;
-
                     ped.TaskGoStraightTo(Utils.Lerp(Position, nextReplica.Position, adjustedRatio), Utils.Lerp(Speed, nextReplica.Speed, adjustedRatio), Utils.Lerp(Heading, nextReplica.Heading, adjustedRatio), -1, 0.1f);
                     break;
             }

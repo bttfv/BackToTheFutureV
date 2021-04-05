@@ -85,9 +85,6 @@ namespace BackToTheFutureV
 
                 ExternalHUD.SetOff();
 
-                if (ModSettings.WaybackSystem)
-                    WaybackHandler.Create(Utils.PlayerPed);
-
                 FirstTick = false;
             }
 

@@ -230,9 +230,6 @@ namespace BackToTheFutureV
                 timeMachine.Properties.AreTimeCircuitsOn = true;
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);
 
-                if (ModSettings.WaybackSystem && spawnFlags.HasFlag(SpawnFlags.New))
-                    RemoteTimeMachineHandler.AddRemote(timeMachine.Clone());
-
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }
 
@@ -289,6 +286,21 @@ namespace BackToTheFutureV
             if (timeMachine == default)
             {
                 timeMachine = _timeMachinesToAdd.SingleOrDefault(x => x.Vehicle == vehicle);
+
+                if (timeMachine == default)
+                    return null;
+            }
+
+            return timeMachine;
+        }
+
+        public static TimeMachine GetTimeMachineFromReplicaGUID(Guid guid)
+        {
+            TimeMachine timeMachine = AllTimeMachines.SingleOrDefault(x => x.Properties.ReplicaGUID == guid);
+
+            if (timeMachine == default)
+            {
+                timeMachine = _timeMachinesToAdd.SingleOrDefault(x => x.Properties.ReplicaGUID == guid);
 
                 if (timeMachine == default)
                     return null;
