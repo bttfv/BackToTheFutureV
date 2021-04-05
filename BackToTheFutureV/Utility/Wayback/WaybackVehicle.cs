@@ -2,11 +2,13 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
+using System;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV
 {
+    [Serializable]
     internal class WaybackVehicle
     {
         public VehicleReplica Vehicle { get; }

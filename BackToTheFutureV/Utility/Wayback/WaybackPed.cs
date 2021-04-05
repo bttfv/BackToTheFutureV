@@ -9,9 +9,10 @@ using Control = GTA.Control;
 
 namespace BackToTheFutureV
 {
+    [Serializable]
     internal class WaybackPed
     {
-        private static string[] MeleeAttacks = new string[] { "walking_punch", "running_punch", "long_0_punch", "heavy_punch_a", "heavy_punch_b", "heavy_punch_b_var_1", "short_0_punch" };
+        public Guid Owner { get; }
 
         public DateTime Time { get; }
         public int Timestamp { get; }
@@ -21,14 +22,15 @@ namespace BackToTheFutureV
         public float Speed { get; }
         public bool Visible { get; }
 
-        public Weapon Weapon { get; }
+        public WeaponHash Weapon { get; }
 
         public WaybackPedEvent Event { get; } = WaybackPedEvent.Walking;
 
         public WaybackVehicle WaybackVehicle { get; set; } = null;
 
-        public WaybackPed(Ped ped, int startGameTime)
+        public WaybackPed(Guid owner, Ped ped, int startGameTime)
         {
+            Owner = owner;
             Time = Utils.CurrentTime;
             Timestamp = Game.GameTime - startGameTime;
 

@@ -3,19 +3,31 @@ using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
+    [Serializable]
     internal class WaybackMachine
     {
+        private static BinaryFormatter formatter = new BinaryFormatter();
+
         public List<WaybackPed> Replicas { get; } = new List<WaybackPed>();
 
         public Guid GUID { get; private set; } = Guid.Empty;
 
         public PedReplica PedReplica { get; private set; }
-        public Ped Ped { get; private set; }
+
+        private int PedHandle { get; set; }
+
+        public Ped Ped
+        {
+            get => (Ped)Entity.FromHandle(PedHandle);
+            private set => PedHandle = value.Handle;
+        }
 
         public int ReplicaIndex { get; private set; } = 0;
         public WaybackPed CurrentReplica => Replicas[ReplicaIndex];
@@ -65,7 +77,7 @@ namespace BackToTheFutureV
             Ped = ped;
             StartRecGameTime = Game.GameTime;
 
-            Replicas.Add(new WaybackPed(Ped, StartRecGameTime));
+            Replicas.Add(new WaybackPed(GUID, Ped, StartRecGameTime));
 
             StartTime = Replicas.First().Time;
 
@@ -134,7 +146,7 @@ namespace BackToTheFutureV
                 return null;
             }
 
-            WaybackPed recordedReplica = new WaybackPed(Ped, StartRecGameTime);
+            WaybackPed recordedReplica = new WaybackPed(GUID, Ped, StartRecGameTime);
 
             if (recordedReplica.Event == Replicas.Last().Event && (recordedReplica.Event == WaybackPedEvent.EnteringVehicle || recordedReplica.Event == WaybackPedEvent.LeavingVehicle))
                 return null;
@@ -154,7 +166,7 @@ namespace BackToTheFutureV
                 return null;
             }
 
-            WaybackPed recordedReplica = new WaybackPed(Ped, StartRecGameTime);
+            WaybackPed recordedReplica = new WaybackPed(GUID, Ped, StartRecGameTime);
 
             if (recordedReplica.Event == Replicas.Last().Event && (recordedReplica.Event == WaybackPedEvent.EnteringVehicle || recordedReplica.Event == WaybackPedEvent.LeavingVehicle))
                 return null;
@@ -185,8 +197,32 @@ namespace BackToTheFutureV
             if (Status == WaybackStatus.Recording)
                 EndTime = Replicas.Last().Time;
 
-            Ped = null;
+            PedHandle = 0;
             Status = WaybackStatus.Idle;
+        }
+
+        public static WaybackMachine FromData(byte[] data)
+        {
+            using (MemoryStream stream = new MemoryStream(data))
+            {
+                try
+                {
+                    return (WaybackMachine)formatter.Deserialize(stream);
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static implicit operator byte[](WaybackMachine command)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                formatter.Serialize(stream, command);
+                return stream.ToArray();
+            }
         }
     }
 }
