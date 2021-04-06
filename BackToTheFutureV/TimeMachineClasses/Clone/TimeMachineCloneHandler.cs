@@ -1,8 +1,7 @@
-﻿using System;
+﻿using FusionLibrary;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV
@@ -25,7 +24,6 @@ namespace BackToTheFutureV
         }
 
         private static string _saveFile = "./scripts/BackToTheFutureV/TimeMachines.dmc12";
-        private static IFormatter formatter = new BinaryFormatter();
 
         public static void Delete()
         {
@@ -37,7 +35,7 @@ namespace BackToTheFutureV
         {
             Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
 
-            formatter.Serialize(stream, new TimeMachineCloneHandler(timeMachines));
+            Utils.BinaryFormatter.Serialize(stream, new TimeMachineCloneHandler(timeMachines));
             stream.Close();
         }
 
@@ -48,7 +46,7 @@ namespace BackToTheFutureV
 
             Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
 
-            TimeMachineCloneHandler timeMachineCloneManager = (TimeMachineCloneHandler)formatter.Deserialize(stream);
+            TimeMachineCloneHandler timeMachineCloneManager = (TimeMachineCloneHandler)Utils.BinaryFormatter.Deserialize(stream);
 
             stream.Close();
 

@@ -74,7 +74,7 @@ namespace BackToTheFutureV
             return vehicle;
         }
 
-        public Vehicle TryFindOrSpawn(float adjustedRatio, WaybackPed nextReplica)
+        public Vehicle TryFindOrSpawn(WaybackPed nextReplica, float adjustedRatio)
         {
             Vector3 position = Vehicle.Position;
 
@@ -89,7 +89,7 @@ namespace BackToTheFutureV
             return vehicle;
         }
 
-        public void Apply(Vehicle vehicle, Ped ped, WaybackPed nextReplica, float adjusteRatio)
+        public void Apply(Vehicle vehicle, Ped ped, WaybackPed nextReplica, float adjustedRatio)
         {
             VehicleReplica nextVehicleReplica = null;
 
@@ -107,9 +107,9 @@ namespace BackToTheFutureV
             }
 
             if (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, nextVehicleReplica, adjusteRatio);
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, nextVehicleReplica, adjustedRatio);
             else
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, nextVehicleReplica, adjusteRatio);
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, nextVehicleReplica, adjustedRatio);
 
             if (!timeMachine.NotNullAndExists())
                 return;

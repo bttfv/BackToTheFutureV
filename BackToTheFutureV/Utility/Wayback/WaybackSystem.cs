@@ -4,19 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
     internal static class WaybackSystem
     {
-        public static BinaryFormatter Formatter { get; } = new BinaryFormatter();
-
         private static List<WaybackMachine> Machines = new List<WaybackMachine>();
 
         public static WaybackMachine CurrentRecording => Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording);
+
+        private static bool FirstTick { get; set; } = true;
 
         static WaybackSystem()
         {
@@ -35,23 +33,20 @@ namespace BackToTheFutureV
 
         public static void Tick()
         {
-            if (CurrentRecording == default)
-                Create(Utils.PlayerPed);
+            if (FirstTick)
+            {
+                Create(Utils.PlayerPed, Guid.NewGuid());
+
+                FirstTick = false;
+            }
 
             Machines.ForEach(x => x.Tick());
         }
 
-        public static WaybackMachine Create(Ped ped)
-        {
-            WaybackMachine wayback = new WaybackMachine(ped);
-
-            Machines.Add(wayback);
-
-            return wayback;
-        }
-
         public static WaybackMachine Create(Ped ped, Guid guid)
         {
+            CurrentRecording?.Stop();
+
             WaybackMachine wayback = new WaybackMachine(ped, guid);
 
             Machines.Add(wayback);
@@ -87,7 +82,7 @@ namespace BackToTheFutureV
             {
                 try
                 {
-                    waybackPed = (WaybackPed)Formatter.Deserialize(stream);
+                    waybackPed = (WaybackPed)Utils.BinaryFormatter.Deserialize(stream);
                 }
                 catch
                 {

@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using static FusionLibrary.Enums;
 
 namespace BackToTheFutureV
@@ -53,14 +51,12 @@ namespace BackToTheFutureV
 
             name = Utils.RemoveIllegalFileNameChars(name);
 
-            IFormatter formatter = new BinaryFormatter();
-
             if (!Directory.Exists(PresetsPath))
                 Directory.CreateDirectory(PresetsPath);
 
             Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Create, FileAccess.Write);
 
-            formatter.Serialize(stream, this);
+            Utils.BinaryFormatter.Serialize(stream, this);
             stream.Close();
         }
 
@@ -114,10 +110,9 @@ namespace BackToTheFutureV
             if (!name.ToLower().EndsWith(".dmc12"))
                 name = name + ".dmc12";
 
-            IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Open, FileAccess.Read);
 
-            TimeMachineClone baseMods = (TimeMachineClone)formatter.Deserialize(stream);
+            TimeMachineClone baseMods = (TimeMachineClone)Utils.BinaryFormatter.Deserialize(stream);
 
             stream.Close();
 

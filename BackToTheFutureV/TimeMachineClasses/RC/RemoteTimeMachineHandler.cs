@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BackToTheFutureV
 {
@@ -23,7 +21,6 @@ namespace BackToTheFutureV
         public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
         public static int RemoteTimeMachineCount => RemoteTimeMachines.Count;
 
-        private static IFormatter formatter = new BinaryFormatter();
         private const int MAX_REMOTE_TIMEMACHINES = 10;
 
         static RemoteTimeMachineHandler()
@@ -132,7 +129,7 @@ namespace BackToTheFutureV
         {
             Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
 
-            formatter.Serialize(stream, RemoteTimeMachines.Select(x => x.TimeMachineClone).ToList());
+            Utils.BinaryFormatter.Serialize(stream, RemoteTimeMachines.Select(x => x.TimeMachineClone).ToList());
 
             stream.Close();
         }
@@ -146,7 +143,7 @@ namespace BackToTheFutureV
 
                 Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
 
-                List<TimeMachineClone> timeMachineClones = (List<TimeMachineClone>)formatter.Deserialize(stream);
+                List<TimeMachineClone> timeMachineClones = (List<TimeMachineClone>)Utils.BinaryFormatter.Deserialize(stream);
 
                 stream.Close();
 

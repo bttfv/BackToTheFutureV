@@ -97,7 +97,7 @@ namespace BackToTheFutureV
                     WaybackVehicle.Apply(vehicle, ped, nextReplica, adjustedRatio);
                 }
                 else
-                    vehicle = WaybackVehicle.TryFindOrSpawn(adjustedRatio, nextReplica);
+                    vehicle = WaybackVehicle.TryFindOrSpawn(nextReplica, adjustedRatio);
 
                 if (vehicle.NotNullAndExists())
                     WaybackVehicle.Apply(vehicle, ped, nextReplica, adjustedRatio);
@@ -109,11 +109,12 @@ namespace BackToTheFutureV
             switch (Event)
             {
                 case WaybackPedEvent.EnteringVehicle:
-                    if (vehicle.NotNullAndExists())
+                    if (!ped.IsEnteringVehicle() && vehicle.NotNullAndExists())
                         ped.Task.EnterVehicle(vehicle, VehicleSeat.Driver);
                     break;
                 case WaybackPedEvent.LeavingVehicle:
-                    ped.Task.LeaveVehicle();
+                    if (!ped.IsLeavingVehicle())
+                        ped.Task.LeaveVehicle();
                     break;
                 case WaybackPedEvent.DrivingVehicle:
                     if (ped.NotNullAndExists() && !ped.IsSittingInVehicle(vehicle))
