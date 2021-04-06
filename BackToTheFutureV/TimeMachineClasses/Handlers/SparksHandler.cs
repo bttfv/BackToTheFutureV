@@ -178,7 +178,7 @@ namespace BackToTheFutureV
 
         private void OnSparksEnded(int delay = 0)
         {
-            if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+            if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine && !Properties.HasBeenStruckByLightning)
                 WaybackSystem.CurrentRecording.Record(new WaybackVehicle(TimeMachine, WaybackVehicleEvent.OnSparksEnded, delay));
 
             Stop();

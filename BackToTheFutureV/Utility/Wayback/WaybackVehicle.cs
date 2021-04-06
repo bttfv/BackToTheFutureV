@@ -121,6 +121,9 @@ namespace BackToTheFutureV
                 case WaybackVehicleEvent.RefuelReactor:
                     timeMachine.Events.SetRefuel?.Invoke(ped);
                     break;
+                case WaybackVehicleEvent.LightningStrike:
+                    timeMachine.Events.StartLightningStrike?.Invoke(0);
+                    break;
             }
 
             return vehicle;

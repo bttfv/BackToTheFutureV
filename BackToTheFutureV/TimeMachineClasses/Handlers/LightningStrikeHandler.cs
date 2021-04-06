@@ -26,7 +26,12 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (_delay > -1 && Game.GameTime > _delay)
+            {
+                if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                    WaybackSystem.CurrentRecording.Record(new WaybackVehicle(TimeMachine, WaybackVehicleEvent.LightningStrike));
+
                 Strike();
+            }
 
             if (!ModSettings.LightningStrikeEvent || World.Weather != Weather.ThunderStorm || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole || Game.GameTime < _nextCheck)
                 return;
@@ -34,7 +39,12 @@ namespace BackToTheFutureV
             if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
             {
                 if (Utils.Random.NextDouble() < 0.3)
+                {
+                    if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                        WaybackSystem.CurrentRecording.Record(new WaybackVehicle(TimeMachine, WaybackVehicleEvent.LightningStrike));
+
                     Strike();
+                }
                 else
                     _nextCheck = Game.GameTime + 10000;
             }

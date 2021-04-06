@@ -26,7 +26,8 @@
             None,
             OnSparksEnded,
             OpenCloseReactor,
-            RefuelReactor
+            RefuelReactor,
+            LightningStrike
         }
 
         internal enum TCDBackground
