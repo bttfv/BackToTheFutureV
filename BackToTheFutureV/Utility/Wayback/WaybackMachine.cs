@@ -58,10 +58,6 @@ namespace BackToTheFutureV
             }
         }
 
-        public float AdjustedRatio => (NextReplica.Timestamp - CurrentReplica.Timestamp) / (Game.LastFrameTime * 1000);
-
-        public float StartRecGameTime { get; private set; }
-
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; private set; }
 
@@ -76,9 +72,7 @@ namespace BackToTheFutureV
 
             PedReplica = new PedReplica(Ped);
 
-            StartRecGameTime = Game.GameTime;
-
-            Replicas.Add(new WaybackPed(GUID, Ped, StartRecGameTime));
+            Replicas.Add(new WaybackPed(GUID, Ped));
 
             StartTime = LastRecReplica.Time;
 
@@ -130,12 +124,14 @@ namespace BackToTheFutureV
 
         private void Spawn()
         {
-            Ped = World.GetClosestPed(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, AdjustedRatio), 1, PedReplica.Model);
+            float adjustedRatio = ((CurrentReplica.FrameTime + NextReplica.FrameTime) / 2) / Game.LastFrameTime;
+
+            Ped = World.GetClosestPed(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), 1, PedReplica.Model);
 
             if (Ped.NotNullAndExists())
                 return;
             
-            Ped = PedReplica.Spawn(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, AdjustedRatio), Utils.Lerp(CurrentReplica.Heading, NextReplica.Heading, AdjustedRatio));
+            Ped = PedReplica.Spawn(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), Utils.Lerp(CurrentReplica.Heading, NextReplica.Heading, adjustedRatio));
         }
 
         public WaybackPed Record(WaybackVehicle waybackVehicle = default)
@@ -149,7 +145,7 @@ namespace BackToTheFutureV
                 return null;
             }
 
-            WaybackPed recordedReplica = new WaybackPed(GUID, Ped, StartRecGameTime);
+            WaybackPed recordedReplica = new WaybackPed(GUID, Ped);
 
             if (waybackVehicle != default)
                 recordedReplica.WaybackVehicle = waybackVehicle;
@@ -166,7 +162,7 @@ namespace BackToTheFutureV
             if (!Ped.NotNullAndExists())
                 return;
 
-            CurrentReplica.Apply(Ped, NextReplica, AdjustedRatio);
+            CurrentReplica.Apply(Ped, NextReplica);
 
             if (ReplicaIndex == Replicas.Count - 1)
                 Status = WaybackStatus.Idle;
@@ -177,7 +173,7 @@ namespace BackToTheFutureV
         public void Stop()
         {
             if (Status == WaybackStatus.Recording)
-                EndTime = LastRecReplica.Time;
+                EndTime = LastRecReplica.Time.AddMinutes(-1);
 
             ReplicaIndex = 0;
             PedHandle = 0;

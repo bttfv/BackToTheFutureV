@@ -51,17 +51,7 @@ namespace BackToTheFutureV
 
         private Vehicle Spawn()
         {
-            Vehicle vehicle;
-
-            if (IsTimeMachine)
-            {
-                vehicle = TimeMachineHandler.GetTimeMachineFromReplicaGUID(Properties.ReplicaGUID);
-
-                if (vehicle.NotNullAndExists())
-                    return vehicle;
-            }
-
-            vehicle = Vehicle.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants | SpawnFlags.CheckExists);
+            Vehicle vehicle = Vehicle.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants);
 
             if (!IsTimeMachine)
                 return vehicle;
@@ -74,27 +64,28 @@ namespace BackToTheFutureV
             return vehicle;
         }
 
-        public Vehicle TryFindOrSpawn(WaybackPed nextReplica, float adjustedRatio)
+        public Vehicle TryFindOrSpawn(VehicleReplica vehicleReplica, float adjustedRatio)
         {
-            Vector3 position = Vehicle.Position;
+            Vehicle vehicle = World.GetClosestVehicle(Utils.Lerp(Vehicle.Position, vehicleReplica.Position, adjustedRatio), 1, Vehicle.Model);
 
-            if (nextReplica.WaybackVehicle != null)
-                position = Utils.Lerp(position, nextReplica.WaybackVehicle.Vehicle.Position, adjustedRatio);
-
-            Vehicle vehicle = World.GetClosestVehicle(position, 1, Vehicle.Model);
-
-            if (vehicle == null)
+            if (!vehicle.NotNullAndExists())
                 vehicle = Spawn();
 
             return vehicle;
         }
 
-        public void Apply(Vehicle vehicle, Ped ped, WaybackPed nextReplica, float adjustedRatio)
+        public Vehicle Apply(Ped ped, WaybackVehicle nextReplica, float adjustedRatio)
         {
-            VehicleReplica nextVehicleReplica = null;
+            if (nextReplica == null)
+                nextReplica = this;
 
-            if (nextReplica.WaybackVehicle != null)
-                nextVehicleReplica = nextReplica.WaybackVehicle.Vehicle;
+            Vehicle vehicle = ped.GetUsingVehicle();
+
+            if (!vehicle.NotNullAndExists())
+                vehicle = TryFindOrSpawn(nextReplica.Vehicle, adjustedRatio);
+
+            if (!vehicle.NotNullAndExists())
+                return vehicle;
 
             TimeMachine timeMachine = null;
 
@@ -103,22 +94,22 @@ namespace BackToTheFutureV
                 timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
                 if (timeMachine.NotNullAndExists() && timeMachine.Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
-                    return;
+                    return vehicle;
             }
 
             if (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, nextVehicleReplica, adjustedRatio);
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, nextReplica.Vehicle, adjustedRatio);
             else
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, nextVehicleReplica, adjustedRatio);
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, nextReplica.Vehicle, adjustedRatio);
 
             if (!timeMachine.NotNullAndExists())
-                return;
+                return vehicle;
 
             Mods.ApplyToWayback(timeMachine);
             Properties.ApplyToWayback(timeMachine);
 
             if (Event == WaybackVehicleEvent.None)
-                return;
+                return vehicle;
 
             switch (Event)
             {
@@ -132,6 +123,8 @@ namespace BackToTheFutureV
                     timeMachine.Events.SetRefuel?.Invoke(ped);
                     break;
             }
+
+            return vehicle;
         }
     }
 

@@ -15,7 +15,7 @@ namespace BackToTheFutureV
         public Guid Owner { get; }
 
         public DateTime Time { get; }
-        public float Timestamp { get; }
+        public float FrameTime { get; }
 
         public Vector3 Position { get; }
         public float Heading { get; }
@@ -28,11 +28,11 @@ namespace BackToTheFutureV
 
         public WaybackVehicle WaybackVehicle { get; set; } = null;
 
-        public WaybackPed(Guid owner, Ped ped, float startGameTime)
+        public WaybackPed(Guid owner, Ped ped)
         {
             Owner = owner;
             Time = Utils.CurrentTime;
-            Timestamp = Game.GameTime - startGameTime;
+            FrameTime = Game.LastFrameTime;
 
             Position = ped.Position;
             Heading = ped.Heading;
@@ -78,33 +78,24 @@ namespace BackToTheFutureV
             }
         }
 
-        public void Apply(Ped ped, WaybackPed nextReplica, float adjustedRatio)
+        public void Apply(Ped ped, WaybackPed nextReplica)
         {
+            float adjustedRatio = ((FrameTime + nextReplica.FrameTime) / 2) / Game.LastFrameTime;
+
+            Vehicle vehicle = WaybackVehicle?.Apply(ped, nextReplica.WaybackVehicle, adjustedRatio);
+
             if (Weapon != ped.Weapons.Current)
                 ped.Weapons.Select(Weapon);
 
-            if (Visible != ped.IsVisible)
-                ped.IsVisible = Visible;
-
-            Vehicle vehicle = null;
-
-            if (WaybackVehicle != null)
-            {
-                if (ped.IsSittingInVehicle())
-                {
-                    vehicle = ped.CurrentVehicle;
-
-                    WaybackVehicle.Apply(vehicle, ped, nextReplica, adjustedRatio);
-                }
-                else
-                    vehicle = WaybackVehicle.TryFindOrSpawn(nextReplica, adjustedRatio);
-
-                if (vehicle.NotNullAndExists())
-                    WaybackVehicle.Apply(vehicle, ped, nextReplica, adjustedRatio);
-            }
+            bool visible;
 
             if (vehicle.NotNullAndExists())
-                ped.IsVisible = vehicle.IsVisible;
+                visible = vehicle.IsVisible;
+            else
+                visible = Visible;
+
+            if (visible != ped.IsVisible)
+                ped.IsVisible = visible;
 
             switch (Event)
             {
