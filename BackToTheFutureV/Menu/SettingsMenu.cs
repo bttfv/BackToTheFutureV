@@ -89,7 +89,7 @@ namespace BackToTheFutureV
                 ModSettings.WaybackSystem = Checked;
 
                 if (!Checked)
-                    BackToTheFutureV.WaybackSystem.Stop();
+                    BackToTheFutureV.WaybackSystem.Abort();
             }
 
             ModSettings.SaveSettings();

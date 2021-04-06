@@ -8,22 +8,26 @@ using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
-    internal static class WaybackSystem
+    internal class WaybackSystem
     {
         private static List<WaybackMachine> Machines = new List<WaybackMachine>();
 
         public static WaybackMachine CurrentRecording => Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording);
 
-        private static bool FirstTick { get; set; } = true;
-
         static WaybackSystem()
         {
-            TimeHandler.OnTimeChanged += OnTimeChanged;
+            TimeHandler.OnTimeChanged += (DateTime dateTime) => Stop();
         }
 
-        private static void OnTimeChanged(DateTime dateTime)
+        public static void Tick()
         {
-            Stop();
+            if (!ModSettings.WaybackSystem)
+                return;
+
+            if (CurrentRecording == default)
+                Create(Utils.PlayerPed, Guid.NewGuid());
+
+            Machines.ForEach(x => x.Tick());
         }
 
         public static void Stop()
@@ -31,16 +35,10 @@ namespace BackToTheFutureV
             Machines.ForEach(x => x.Stop());
         }
 
-        public static void Tick()
+        public static void Abort()
         {
-            if (FirstTick)
-            {
-                Create(Utils.PlayerPed, Guid.NewGuid());
-
-                FirstTick = false;
-            }
-
-            Machines.ForEach(x => x.Tick());
+            Stop();
+            Machines.Clear();
         }
 
         public static WaybackMachine Create(Ped ped, Guid guid)
@@ -66,10 +64,8 @@ namespace BackToTheFutureV
             if (waybackMachine == null)
                 return false;
 
-            if (Machines.Contains(waybackMachine))
-                return true;
-
-            Machines.Add(waybackMachine);
+            if (!Machines.Contains(waybackMachine))
+                Machines.Add(waybackMachine);
 
             return true;
         }

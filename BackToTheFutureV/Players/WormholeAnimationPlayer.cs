@@ -183,7 +183,7 @@ namespace BackToTheFutureV
             if (Properties.PhotoWormholeActive)
                 by = (70 - 65f) / (88f - 65f);
 
-            numOfProps = Utils.Lerp(1, 11, by);
+            numOfProps = (int)Utils.Lerp(1, 11, by);
 
             // Delete all other props
             Props.SeparatedCoils?.Delete();
@@ -191,7 +191,7 @@ namespace BackToTheFutureV
             if (Properties.IsRefueling)
                 numOfProps = 6;
 
-            if (numOfProps >= 11 && !Properties.IsRefueling)
+            if (numOfProps >= 11)
             {
                 numOfProps = 11;
 
