@@ -96,7 +96,10 @@ namespace BackToTheFutureV
                     return vehicle;
             }
 
-            Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition | SpawnFlags.SetRotation, nextReplica.Vehicle, adjustedRatio);
+            if (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, nextReplica.Vehicle, adjustedRatio);
+            else
+                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, nextReplica.Vehicle, adjustedRatio);
 
             if (!timeMachine.NotNullAndExists())
                 return vehicle;
