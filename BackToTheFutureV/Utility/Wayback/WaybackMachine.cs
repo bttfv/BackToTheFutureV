@@ -1,7 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.Math;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -130,7 +129,7 @@ namespace BackToTheFutureV
 
             if (Ped.NotNullAndExists())
                 return;
-            
+
             Ped = PedReplica.Spawn(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), Utils.Lerp(CurrentReplica.Heading, NextReplica.Heading, adjustedRatio));
         }
 

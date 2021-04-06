@@ -1,7 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.Math;
 using System;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.Enums;
@@ -97,10 +96,7 @@ namespace BackToTheFutureV
                     return vehicle;
             }
 
-            if (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, nextReplica.Vehicle, adjustedRatio);
-            else
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, nextReplica.Vehicle, adjustedRatio);
+            Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition | SpawnFlags.SetRotation, nextReplica.Vehicle, adjustedRatio);
 
             if (!timeMachine.NotNullAndExists())
                 return vehicle;

@@ -90,7 +90,7 @@ namespace BackToTheFutureV
 
             if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
                 ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
-            
+
             CustomTrainHandler.Tick();
             DMC12Handler.Tick();
             TimeMachineHandler.Tick();
