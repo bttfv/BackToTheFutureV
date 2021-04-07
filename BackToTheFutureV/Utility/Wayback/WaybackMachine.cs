@@ -146,7 +146,7 @@ namespace BackToTheFutureV
         }
 
         public void Clone(Ped ped)
-        {            
+        {
             UsePed1 = !UsePed1;
             Ped = ped;
 

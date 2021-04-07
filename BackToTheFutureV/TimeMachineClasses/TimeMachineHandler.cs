@@ -166,7 +166,7 @@ namespace BackToTheFutureV
             else
                 spawnPos = ped.Position;
 
-            if (spawnFlags.HasFlag(SpawnFlags.ForcePosition) && presetName == default)
+            if (spawnFlags.HasFlag(SpawnFlags.NoPosition) && presetName == default)
                 spawnPos = position;
             else
                 heading = ped.Heading;

@@ -26,9 +26,9 @@ namespace BackToTheFutureV
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (ModSettings.CinematicSpawn)
-                TimeMachineHandler.Create(sender.Title, SpawnFlags.ForcePosition | SpawnFlags.NoOccupants | SpawnFlags.ResetValues | SpawnFlags.ForceReentry);
+                TimeMachineHandler.Create(sender.Title, SpawnFlags.NoPosition | SpawnFlags.NoOccupants | SpawnFlags.NoProperties | SpawnFlags.ForceReentry);
             else
-                TimeMachineHandler.Create(sender.Title, SpawnFlags.ForcePosition | SpawnFlags.NoOccupants | SpawnFlags.ResetValues | SpawnFlags.NoVelocity | SpawnFlags.WarpPlayer);
+                TimeMachineHandler.Create(sender.Title, SpawnFlags.NoPosition | SpawnFlags.NoOccupants | SpawnFlags.NoProperties | SpawnFlags.NoVelocity | SpawnFlags.WarpPlayer);
 
             Close();
         }

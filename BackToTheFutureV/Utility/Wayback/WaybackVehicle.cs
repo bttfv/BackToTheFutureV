@@ -10,7 +10,7 @@ namespace BackToTheFutureV
     [Serializable]
     internal class WaybackVehicle
     {
-        public VehicleReplica Vehicle { get; }
+        public VehicleReplica VehicleReplica { get; }
 
         public bool IsTimeMachine { get; }
 
@@ -22,7 +22,7 @@ namespace BackToTheFutureV
 
         public WaybackVehicle(TimeMachine timeMachine, WaybackVehicleEvent wvEvent = WaybackVehicleEvent.None, int timeTravelDelay = 0)
         {
-            Vehicle = new VehicleReplica(timeMachine, SpawnFlags.NoOccupants);
+            VehicleReplica = new VehicleReplica(timeMachine, SpawnFlags.NoOccupants);
 
             IsTimeMachine = true;
 
@@ -35,7 +35,7 @@ namespace BackToTheFutureV
 
         public WaybackVehicle(Vehicle vehicle)
         {
-            Vehicle = new VehicleReplica(vehicle, SpawnFlags.NoOccupants);
+            VehicleReplica = new VehicleReplica(vehicle, SpawnFlags.NoOccupants);
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
@@ -50,7 +50,7 @@ namespace BackToTheFutureV
 
         private Vehicle Spawn()
         {
-            Vehicle vehicle = Vehicle.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants);
+            Vehicle vehicle = VehicleReplica.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants);
 
             if (!IsTimeMachine)
                 return vehicle;
@@ -63,9 +63,14 @@ namespace BackToTheFutureV
             return vehicle;
         }
 
-        public Vehicle TryFindOrSpawn(VehicleReplica vehicleReplica, float adjustedRatio)
+        public Vehicle TryFindOrSpawn(VehicleReplica nextReplica, float adjustedRatio)
         {
-            Vehicle vehicle = World.GetClosestVehicle(Utils.Lerp(Vehicle.Position, vehicleReplica.Position, adjustedRatio), 1, Vehicle.Model);
+            Vehicle vehicle;
+
+            if (nextReplica == null)
+                vehicle = World.GetClosestVehicle(VehicleReplica.Position, 1, VehicleReplica.Model);
+            else
+                vehicle = World.GetClosestVehicle(Utils.Lerp(VehicleReplica.Position, nextReplica.Position, adjustedRatio), 1, VehicleReplica.Model);
 
             if (!vehicle.NotNullAndExists())
                 vehicle = Spawn();
@@ -73,15 +78,12 @@ namespace BackToTheFutureV
             return vehicle;
         }
 
-        public Vehicle Apply(Ped ped, WaybackVehicle nextReplica, float adjustedRatio)
+        public Vehicle Apply(Ped ped, VehicleReplica nextReplica, float adjustedRatio)
         {
-            if (nextReplica == null)
-                nextReplica = this;
-
             Vehicle vehicle = ped.GetUsingVehicle();
 
             if (!vehicle.NotNullAndExists())
-                vehicle = TryFindOrSpawn(nextReplica.Vehicle, adjustedRatio);
+                vehicle = TryFindOrSpawn(nextReplica, adjustedRatio);
 
             if (!vehicle.NotNullAndExists())
                 return vehicle;
@@ -96,10 +98,20 @@ namespace BackToTheFutureV
                     return vehicle;
             }
 
-            if (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.ForcePosition, nextReplica.Vehicle, adjustedRatio);
+            if (nextReplica == null)
+            {
+                if (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())
+                    VehicleReplica.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.NoPosition);
+                else
+                    VehicleReplica.ApplyTo(vehicle, SpawnFlags.NoOccupants);
+            }
             else
-                Vehicle.ApplyTo(vehicle, SpawnFlags.NoOccupants, nextReplica.Vehicle, adjustedRatio);
+            {
+                if (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())
+                    VehicleReplica.ApplyTo(vehicle, SpawnFlags.NoOccupants | SpawnFlags.NoPosition, nextReplica, adjustedRatio);
+                else
+                    VehicleReplica.ApplyTo(vehicle, SpawnFlags.NoOccupants, nextReplica, adjustedRatio);
+            }
 
             if (!timeMachine.NotNullAndExists())
                 return vehicle;
