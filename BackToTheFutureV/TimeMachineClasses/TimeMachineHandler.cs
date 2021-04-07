@@ -384,6 +384,9 @@ namespace BackToTheFutureV
 
             foreach (TimeMachine timeMachine in TimeMachines)
             {
+                if (!timeMachine.IsFunctioning())
+                    continue;
+
                 float dist = Utils.PlayerPed.DistanceToSquared2D(timeMachine);
 
                 if (ClosestTimeMachine == timeMachine)

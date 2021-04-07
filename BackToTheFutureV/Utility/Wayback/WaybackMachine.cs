@@ -17,17 +17,29 @@ namespace BackToTheFutureV
 
         public PedReplica PedReplica { get; private set; }
 
-        private int PedHandle { get; set; }
+        private int Ped1Handle { get; set; }
+        private int Ped2Handle { get; set; }
+        private bool UsePed1 { get; set; } = true;
 
         public Ped Ped
         {
-            get => (Ped)Entity.FromHandle(PedHandle);
+            get => (Ped)Entity.FromHandle(UsePed1 ? Ped1Handle : Ped2Handle);
             private set
             {
-                if (value.NotNullAndExists())
-                    PedHandle = value.Handle;
+                if (UsePed1)
+                {
+                    if (value.NotNullAndExists())
+                        Ped1Handle = value.Handle;
+                    else
+                        Ped1Handle = 0;
+                }
                 else
-                    PedHandle = 0;
+                {
+                    if (value.NotNullAndExists())
+                        Ped2Handle = value.Handle;
+                    else
+                        Ped2Handle = 0;
+                }
             }
         }
 
@@ -133,6 +145,14 @@ namespace BackToTheFutureV
             Ped = PedReplica.Spawn(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), Utils.Lerp(CurrentReplica.Heading, NextReplica.Heading, adjustedRatio));
         }
 
+        public void Clone(Ped ped)
+        {            
+            UsePed1 = !UsePed1;
+            Ped = ped;
+
+            Record().Event = WaybackPedEvent.Clone;
+        }
+
         public WaybackPed Record(WaybackVehicle waybackVehicle = default)
         {
             if (Status != WaybackStatus.Recording)
@@ -161,6 +181,14 @@ namespace BackToTheFutureV
             if (!Ped.NotNullAndExists())
                 return;
 
+            if (CurrentReplica.Event == WaybackPedEvent.Clone)
+            {
+                Ped?.Task.ClearAllImmediately();
+
+                UsePed1 = !UsePed1;
+                Spawn();
+            }
+
             CurrentReplica.Apply(Ped, NextReplica);
 
             if (ReplicaIndex == Replicas.Count - 1)
@@ -175,7 +203,8 @@ namespace BackToTheFutureV
                 EndTime = LastRecReplica.Time.AddMinutes(-1);
 
             ReplicaIndex = 0;
-            PedHandle = 0;
+            Ped1Handle = 0;
+            Ped2Handle = 0;
             Status = WaybackStatus.Idle;
         }
 

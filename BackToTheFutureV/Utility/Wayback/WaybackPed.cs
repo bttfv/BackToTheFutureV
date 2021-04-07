@@ -24,7 +24,7 @@ namespace BackToTheFutureV
 
         public WeaponHash Weapon { get; }
 
-        public WaybackPedEvent Event { get; } = WaybackPedEvent.Walking;
+        public WaybackPedEvent Event { get; set; } = WaybackPedEvent.Walking;
 
         public WaybackVehicle WaybackVehicle { get; set; } = null;
 
@@ -34,48 +34,35 @@ namespace BackToTheFutureV
             Time = Utils.CurrentTime;
             FrameTime = Game.LastFrameTime;
 
+            Visible = ped.IsVisible;
+            Weapon = ped.Weapons.Current;
+
+            if (ped.IsJumping)
+                Event = WaybackPedEvent.Jump;
+
+            if (ped.IsInMeleeCombat)
+                Event = WaybackPedEvent.MeleeAttack;
+
+            if (ped.IsSittingInVehicle())
+                Event = WaybackPedEvent.DrivingVehicle;
+
+            if (ped.IsEnteringVehicle())
+                Event = WaybackPedEvent.EnteringVehicle;
+        
+            if (ped.IsLeavingVehicle() || ped.IsJumpingOutOfVehicle)
+                Event = WaybackPedEvent.LeavingVehicle;
+
+            Vehicle vehicle = ped.GetUsingVehicle();
+
+            if (vehicle.NotNullAndExists())
+                WaybackVehicle = new WaybackVehicle(vehicle);
+
+            if (Event != WaybackPedEvent.Walking)
+                return;
+
             Position = ped.Position;
             Heading = ped.Heading;
             Speed = ped.Speed;
-            Visible = ped.IsVisible;
-
-            Weapon = ped.Weapons.Current;
-
-            if (ped.IsFullyOutVehicle())
-            {
-                if (Game.IsControlJustPressed(Control.Jump))
-                {
-                    Event = WaybackPedEvent.Jump;
-                    return;
-                }
-
-                if (Game.IsControlJustPressed(Control.MeleeAttack1))
-                {
-                    Event = WaybackPedEvent.MeleeAttack;
-                    return;
-                }
-            }
-
-            if (ped.IsEnteringVehicle())
-            {
-                Event = WaybackPedEvent.EnteringVehicle;
-                WaybackVehicle = new WaybackVehicle(ped.GetEnteringVehicle());
-                return;
-            }
-
-            if (ped.IsLeavingVehicle())
-            {
-                Event = WaybackPedEvent.LeavingVehicle;
-                WaybackVehicle = new WaybackVehicle(ped.LastVehicle);
-                return;
-            }
-
-            if (ped.IsSittingInVehicle())
-            {
-                Event = WaybackPedEvent.DrivingVehicle;
-                WaybackVehicle = new WaybackVehicle(ped.GetUsingVehicle());
-                return;
-            }
         }
 
         public void Apply(Ped ped, WaybackPed nextReplica)
@@ -84,8 +71,8 @@ namespace BackToTheFutureV
 
             Vehicle vehicle = WaybackVehicle?.Apply(ped, nextReplica.WaybackVehicle, adjustedRatio);
 
-            if (Weapon != ped.Weapons.Current)
-                ped.Weapons.Select(Weapon);
+            if (Event == WaybackPedEvent.Clone)
+                return;
 
             bool visible;
 
@@ -112,14 +99,24 @@ namespace BackToTheFutureV
                         ped.SetIntoVehicle(vehicle, VehicleSeat.Driver);
                     break;
                 case WaybackPedEvent.Jump:
+                    if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.Melee) | ped.IsTaskActive(TaskType.ScriptedAnimation))
+                        break;
+
                     ped.Task.Jump();
                     break;
                 case WaybackPedEvent.MeleeAttack:
+                    if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.Melee) | ped.IsTaskActive(TaskType.ScriptedAnimation))
+                        break;
+
                     ped.Task.PlayAnimation("melee@unarmed@streamed_core_fps", MeleeAttacks.SelectRandomElement());
                     break;
                 case WaybackPedEvent.Walking:
                     if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.Melee) | ped.IsTaskActive(TaskType.ScriptedAnimation))
                         break;
+
+                    if (Weapon != ped.Weapons.Current)
+                        ped.Weapons.Select(Weapon);
+
                     ped.TaskGoStraightTo(Utils.Lerp(Position, nextReplica.Position, adjustedRatio), Utils.Lerp(Speed, nextReplica.Speed, adjustedRatio), Utils.Lerp(Heading, nextReplica.Heading, adjustedRatio), -1, 0.1f);
                     break;
             }

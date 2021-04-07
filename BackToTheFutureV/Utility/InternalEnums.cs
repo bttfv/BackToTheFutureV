@@ -18,7 +18,8 @@
             LeavingVehicle,
             DrivingVehicle,
             Jump,
-            MeleeAttack
+            MeleeAttack,
+            Clone
         }
 
         internal enum WaybackVehicleEvent
