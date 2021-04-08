@@ -76,6 +76,8 @@ namespace BackToTheFutureV
 
         public bool WaitForReentry { get; private set; }
 
+        private bool SkipNextRecord = false;
+
         public WaybackMachine(Ped ped, Guid guid)
         {
             Ped = ped;
@@ -125,7 +127,7 @@ namespace BackToTheFutureV
                     }
                     break;
                 case WaybackStatus.Recording:
-                    Record();
+                    InternalRecord();
                     break;
                 case WaybackStatus.Playing:
                     Play();
@@ -137,9 +139,9 @@ namespace BackToTheFutureV
         {
             float adjustedRatio = ((CurrentReplica.FrameTime + NextReplica.FrameTime) / 2) / Game.LastFrameTime;
 
-            Ped = World.GetClosestPed(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), 1, PedReplica.Model);
+            Ped = World.GetClosestPed(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), 3, PedReplica.Model);
 
-            if (Ped.NotNullAndExists())
+            if (Ped.NotNullAndExists() && Ped != Utils.PlayerPed)
                 return;
 
             Ped = PedReplica.Spawn(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), Utils.Lerp(CurrentReplica.Heading, NextReplica.Heading, adjustedRatio));
@@ -155,6 +157,24 @@ namespace BackToTheFutureV
 
         public WaybackPed Record(WaybackVehicle waybackVehicle = default)
         {
+            SkipNextRecord = false;
+
+            WaybackPed ped = InternalRecord(waybackVehicle);
+
+            if (ped != null)
+                SkipNextRecord = true;
+
+            return ped;
+        }
+
+        private WaybackPed InternalRecord(WaybackVehicle waybackVehicle = default)
+        {
+            if (SkipNextRecord)
+            {
+                SkipNextRecord = false;
+                return null;
+            }
+
             if (Status != WaybackStatus.Recording)
                 return null;
 

@@ -16,6 +16,8 @@ namespace BackToTheFutureV
         public DateTime Time { get; }
         public float FrameTime { get; }
 
+        public float AdjustedRatio => 1 - (FrameTime / Game.LastFrameTime);
+
         public Vector3 Position { get; }
         public float Heading { get; }
         public float Speed { get; }
@@ -66,14 +68,16 @@ namespace BackToTheFutureV
 
         public void Apply(Ped ped, WaybackPed nextReplica)
         {
-            float adjustedRatio = ((FrameTime + nextReplica.FrameTime) / 2) / Game.LastFrameTime;
+            float adjustedRatio = AdjustedRatio;
 
             Vehicle vehicle = WaybackVehicle?.Apply(ped, nextReplica.WaybackVehicle == null ? null : nextReplica.WaybackVehicle.VehicleReplica, adjustedRatio);
 
             if (Event == WaybackPedEvent.Clone)
                 return;
 
-            if (ped.IsVisible != Visible)
+            if (vehicle.NotNullAndExists() && !vehicle.IsVisible)
+                ped.IsVisible = false;
+            else if (ped.IsVisible != Visible)
                 ped.IsVisible = Visible;
 
             if (Weapon != ped.Weapons.Current)

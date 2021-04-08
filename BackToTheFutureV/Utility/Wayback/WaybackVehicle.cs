@@ -68,11 +68,11 @@ namespace BackToTheFutureV
             Vehicle vehicle;
 
             if (nextReplica == null)
-                vehicle = World.GetClosestVehicle(VehicleReplica.Position, 1, VehicleReplica.Model);
+                vehicle = World.GetClosestVehicle(VehicleReplica.Position, 3, VehicleReplica.Model);
             else
-                vehicle = World.GetClosestVehicle(Utils.Lerp(VehicleReplica.Position, nextReplica.Position, adjustedRatio), 1, VehicleReplica.Model);
+                vehicle = World.GetClosestVehicle(Utils.Lerp(VehicleReplica.Position, nextReplica.Position, adjustedRatio), 3, VehicleReplica.Model);
 
-            if (!vehicle.NotNullAndExists())
+            if (!vehicle.NotNullAndExists() || Utils.PlayerPed == vehicle)
                 vehicle = Spawn();
 
             return vehicle;
