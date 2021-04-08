@@ -129,7 +129,7 @@ namespace BackToTheFutureV
         {
             Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
 
-            Utils.BinaryFormatter.Serialize(stream, RemoteTimeMachines.Select(x => x.TimeMachineClone).ToList());
+            FusionUtils.BinaryFormatter.Serialize(stream, RemoteTimeMachines.Select(x => x.TimeMachineClone).ToList());
 
             stream.Close();
         }
@@ -143,7 +143,7 @@ namespace BackToTheFutureV
 
                 Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
 
-                List<TimeMachineClone> timeMachineClones = (List<TimeMachineClone>)Utils.BinaryFormatter.Deserialize(stream);
+                List<TimeMachineClone> timeMachineClones = (List<TimeMachineClone>)FusionUtils.BinaryFormatter.Deserialize(stream);
 
                 stream.Close();
 

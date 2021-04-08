@@ -85,8 +85,8 @@ namespace BackToTheFutureV
 
             if (Constants.OverTimeTravelAtSpeed)
             {
-                if (!Utils.IsPadShaking && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                    Utils.SetPadShake(Constants.WormholeLengthTime, 100);
+                if (!FusionUtils.IsPadShaking && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                    FusionUtils.SetPadShake(Constants.WormholeLengthTime, 100);
 
                 if (Properties.IsFueled)
                 {
@@ -142,7 +142,7 @@ namespace BackToTheFutureV
         public override void Stop()
         {
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                Utils.StopPadShake();
+                FusionUtils.StopPadShake();
 
             Players.Wormhole?.Stop();
 

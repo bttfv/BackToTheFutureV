@@ -83,7 +83,7 @@ namespace BackToTheFutureV
                 TimeMachine.Properties.PhotoSIDMaxActive = Checked;
 
             if (sender == HideHUD)
-                Utils.HideGUI = Checked;
+                FusionUtils.HideGUI = Checked;
         }
 
         public override void Tick()
@@ -104,7 +104,7 @@ namespace BackToTheFutureV
 
             LightningStrike.Enabled = !TimeMachine.Properties.IsPhotoModeOn;
 
-            HideHUD.Checked = Utils.HideGUI;
+            HideHUD.Checked = FusionUtils.HideGUI;
         }
 
         public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)

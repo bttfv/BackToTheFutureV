@@ -38,7 +38,7 @@ namespace BackToTheFutureV
 
             if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
             {
-                if (Utils.Random.NextDouble() < 0.3)
+                if (FusionUtils.Random.NextDouble() < 0.3)
                 {
                     if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
                         WaybackSystem.CurrentRecording.Record(new WaybackVehicle(TimeMachine, WaybackVehicleEvent.LightningStrike));
@@ -84,7 +84,7 @@ namespace BackToTheFutureV
 
                 TimeMachineClone timeMachineClone = TimeMachine.Clone();
                 timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
-                timeMachineClone.Properties.PreviousTime = Utils.CurrentTime;
+                timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
                 RemoteTimeMachineHandler.AddRemote(timeMachineClone);
 
                 Events.OnLightningStrike?.Invoke();

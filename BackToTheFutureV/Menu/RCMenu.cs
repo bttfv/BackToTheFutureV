@@ -71,7 +71,7 @@ namespace BackToTheFutureV
             TimeCircuitsOnDescription.Checked = CurrentTimeMachine.Properties.AreTimeCircuitsOn;
             DestinationTimeDescription.Title = $"{GetItemTitle("Destination")} {CurrentTimeMachine.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt")}";
 
-            if (Utils.PlayerPed.DistanceToSquared2D(CurrentTimeMachine, RemoteTimeMachineHandler.MAX_DIST) && CurrentTimeMachine.Vehicle.Driver == null)
+            if (FusionUtils.PlayerPed.DistanceToSquared2D(CurrentTimeMachine, RemoteTimeMachineHandler.MAX_DIST) && CurrentTimeMachine.Vehicle.Driver == null)
             {
                 PreviewCar();
 
@@ -110,7 +110,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (Utils.PlayerVehicle != null)
+            if (FusionUtils.PlayerVehicle != null)
                 Close();
         }
 

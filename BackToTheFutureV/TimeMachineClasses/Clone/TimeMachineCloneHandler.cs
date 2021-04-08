@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -35,7 +35,7 @@ namespace BackToTheFutureV
         {
             Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
 
-            Utils.BinaryFormatter.Serialize(stream, new TimeMachineCloneHandler(timeMachines));
+            FusionUtils.BinaryFormatter.Serialize(stream, new TimeMachineCloneHandler(timeMachines));
             stream.Close();
         }
 
@@ -46,7 +46,7 @@ namespace BackToTheFutureV
 
             Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
 
-            TimeMachineCloneHandler timeMachineCloneManager = (TimeMachineCloneHandler)Utils.BinaryFormatter.Deserialize(stream);
+            TimeMachineCloneHandler timeMachineCloneManager = (TimeMachineCloneHandler)FusionUtils.BinaryFormatter.Deserialize(stream);
 
             stream.Close();
 

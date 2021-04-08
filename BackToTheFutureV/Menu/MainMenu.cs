@@ -6,7 +6,7 @@ using LemonUI.Menus;
 using System;
 using System.ComponentModel;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -74,11 +74,11 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            convertIntoTimeMachine.Enabled = Utils.PlayerVehicle.IsFunctioning() && !Utils.PlayerVehicle.IsTimeMachine();
+            convertIntoTimeMachine.Enabled = FusionUtils.PlayerVehicle.IsFunctioning() && !FusionUtils.PlayerVehicle.IsTimeMachine();
 
             outatimeMenu.Enabled = RemoteTimeMachineHandler.RemoteTimeMachineCount > 0;
 
-            rcMenu.Enabled = Utils.PlayerVehicle == null && TimeMachineHandler.TimeMachineCount > 0;
+            rcMenu.Enabled = FusionUtils.PlayerVehicle == null && TimeMachineHandler.TimeMachineCount > 0;
         }
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
@@ -89,7 +89,7 @@ namespace BackToTheFutureV
             {
                 if (spawnBTTF.SelectedIndex == 0)
                 {
-                    Utils.PlayerPed.Task.WarpIntoVehicle(DMC12Handler.CreateDMC12(Utils.PlayerPed.Position, Utils.PlayerPed.Heading), VehicleSeat.Driver);
+                    FusionUtils.PlayerPed.Task.WarpIntoVehicle(DMC12Handler.CreateDMC12(FusionUtils.PlayerPed.Position, FusionUtils.PlayerPed.Heading), VehicleSeat.Driver);
                     Close();
                     return;
                 }
@@ -125,11 +125,11 @@ namespace BackToTheFutureV
             }
 
             if (sender == convertIntoTimeMachine)
-                Utils.PlayerVehicle.TransformIntoTimeMachine();
+                FusionUtils.PlayerVehicle.TransformIntoTimeMachine();
 
             if (sender == deleteCurrent)
             {
-                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Utils.PlayerVehicle);
+                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);
 
                 if (timeMachine == null)
                 {

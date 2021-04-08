@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -49,14 +49,14 @@ namespace BackToTheFutureV
             if (!name.ToLower().EndsWith(".dmc12"))
                 name = name + ".dmc12";
 
-            name = Utils.RemoveIllegalFileNameChars(name);
+            name = FusionUtils.RemoveIllegalFileNameChars(name);
 
             if (!Directory.Exists(PresetsPath))
                 Directory.CreateDirectory(PresetsPath);
 
             Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Create, FileAccess.Write);
 
-            Utils.BinaryFormatter.Serialize(stream, this);
+            FusionUtils.BinaryFormatter.Serialize(stream, this);
             stream.Close();
         }
 
@@ -112,7 +112,7 @@ namespace BackToTheFutureV
 
             Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Open, FileAccess.Read);
 
-            TimeMachineClone baseMods = (TimeMachineClone)Utils.BinaryFormatter.Deserialize(stream);
+            TimeMachineClone baseMods = (TimeMachineClone)FusionUtils.BinaryFormatter.Deserialize(stream);
 
             stream.Close();
 

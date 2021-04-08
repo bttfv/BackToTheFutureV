@@ -44,7 +44,7 @@ namespace BackToTheFutureV
 
             if (On && Rotation < MaxRot)
             {
-                Rotation = Utils.Lerp(Rotation, MaxRot, Game.LastFrameTime * 2f);
+                Rotation = FusionUtils.Lerp(Rotation, MaxRot, Game.LastFrameTime * 2f);
 
                 float diff = Math.Abs(Rotation - MaxRot);
                 if (diff <= 0.01)
@@ -52,7 +52,7 @@ namespace BackToTheFutureV
             }
             else if (!On && Rotation > 0)
             {
-                Rotation = Utils.Lerp(Rotation, 0, Game.LastFrameTime * 4f);
+                Rotation = FusionUtils.Lerp(Rotation, 0, Game.LastFrameTime * 4f);
 
                 float diff = Math.Abs(Rotation - 0);
                 if (diff <= 0.01)

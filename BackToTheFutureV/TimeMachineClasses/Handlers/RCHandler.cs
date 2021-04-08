@@ -104,7 +104,7 @@ namespace BackToTheFutureV
         private void OnSwitchingComplete()
         {
             if (ModSettings.WaybackSystem && switchCall)
-                WaybackSystem.CurrentRecording.Clone(Utils.PlayerPed);
+                WaybackSystem.CurrentRecording.Clone(FusionUtils.PlayerPed);
 
             if (switchCall)
                 switchCall = false;
@@ -131,7 +131,7 @@ namespace BackToTheFutureV
             }
 
             switchCall = true;
-            Clone = PlayerSwitch.CreatePedAndSwitch(out TimeMachine.OriginalPed, Utils.PlayerPed.Position, Utils.PlayerPed.Heading, true);
+            Clone = PlayerSwitch.CreatePedAndSwitch(out TimeMachine.OriginalPed, FusionUtils.PlayerPed.Position, FusionUtils.PlayerPed.Heading, true);
 
             Clone.SetIntoVehicle(Vehicle, VehicleSeat.Driver);
 
@@ -160,7 +160,7 @@ namespace BackToTheFutureV
                 TimeMachine.OriginalPed.Task.TurnTo(Vehicle);
             }
 
-            if (CurrentMode == RcModes.FromPlayerCamera || Utils.IsCameraInFirstPerson())
+            if (CurrentMode == RcModes.FromPlayerCamera || FusionUtils.IsCameraInFirstPerson())
             {
                 CurrentMode = RcModes.FromPlayerCamera;
 
@@ -213,7 +213,7 @@ namespace BackToTheFutureV
 
         public void DrawGUI()
         {
-            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || Utils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
+            if (FusionUtils.HideGUI || FusionUtils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || FusionUtils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
                 return;
 
             float mphSpeed = Vehicle.GetMPHSpeed();

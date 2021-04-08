@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -16,7 +16,7 @@ namespace BackToTheFutureV
 
         public static DateTime GetRandom()
         {
-            return Dates[Utils.Random.Next(0, Dates.Count - 1)];
+            return Dates[FusionUtils.Random.Next(0, Dates.Count - 1)];
         }
     }
 

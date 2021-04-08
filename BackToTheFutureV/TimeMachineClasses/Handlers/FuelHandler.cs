@@ -4,7 +4,7 @@ using GTA;
 using GTA.Math;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -67,13 +67,13 @@ namespace BackToTheFutureV
 
             if (HasFuel())
             {
-                if (Utils.PlayerPed.IsTaskActive(TaskType.ScriptedAnimation) || Utils.PlayerPed.IsTaskActive(TaskType.TurnToFaceEntityOrCoord))
+                if (FusionUtils.PlayerPed.IsTaskActive(TaskType.ScriptedAnimation) || FusionUtils.PlayerPed.IsTaskActive(TaskType.TurnToFaceEntityOrCoord))
                     return;
 
                 if (ModSettings.WaybackSystem)
                     WaybackSystem.CurrentRecording.Record(new WaybackVehicle(TimeMachine, WaybackVehicleEvent.RefuelReactor));
 
-                Events.SetRefuel?.Invoke(Utils.PlayerPed);
+                Events.SetRefuel?.Invoke(FusionUtils.PlayerPed);
             }
             else
             {
@@ -111,13 +111,13 @@ namespace BackToTheFutureV
 
         private void Refuel(Ped refuelPed)
         {
-            if (Properties.ReactorCharge >= Constants.MaxReactorCharge && refuelPed == Utils.PlayerPed)
+            if (Properties.ReactorCharge >= Constants.MaxReactorCharge && refuelPed == FusionUtils.PlayerPed)
                 return;
 
             if (Mods.Reactor == ReactorType.Nuclear)
                 Sounds.PlutoniumRefuel?.Play();
 
-            if (refuelPed == Utils.PlayerPed && !ModSettings.InfiniteFuel)
+            if (refuelPed == FusionUtils.PlayerPed && !ModSettings.InfiniteFuel)
             {
                 if (Mods.Reactor == ReactorType.MrFusion)
                     InternalInventory.Current.Trash--;
@@ -273,7 +273,7 @@ namespace BackToTheFutureV
 
         private bool IsPedInPosition()
         {
-            return IsPedInPosition(Vehicle, Utils.PlayerPed);
+            return IsPedInPosition(Vehicle, FusionUtils.PlayerPed);
         }
 
         internal static bool IsPedInPosition(Vehicle vehicle, Ped ped)
@@ -286,11 +286,11 @@ namespace BackToTheFutureV
             Vector3 dir;
             float angle, dist;
 
-            if (ped == Utils.PlayerPed)
+            if (ped == FusionUtils.PlayerPed)
             {
                 dir = bootPos - GameplayCamera.Position;
                 angle = Vector3.Angle(dir, GameplayCamera.Direction);
-                dist = Utils.PlayerPed.DistanceToSquared2D(vehicle, "mr_fusion");
+                dist = FusionUtils.PlayerPed.DistanceToSquared2D(vehicle, "mr_fusion");
             }
             else
             {
@@ -319,7 +319,7 @@ namespace BackToTheFutureV
 
         private void SetEmpty(bool isOn)
         {
-            if (Utils.PlayerVehicle == Vehicle)
+            if (FusionUtils.PlayerVehicle == Vehicle)
                 Properties.HUDProperties.Empty = isOn ? HUD.Core.EmptyType.On : HUD.Core.EmptyType.Off;
 
             if (Vehicle.IsVisible == false)
@@ -339,7 +339,7 @@ namespace BackToTheFutureV
 
         private void HideEmpty()
         {
-            if (Utils.PlayerVehicle != Vehicle)
+            if (FusionUtils.PlayerVehicle != Vehicle)
                 return;
 
             Properties.HUDProperties.Empty = HUD.Core.EmptyType.Hide;

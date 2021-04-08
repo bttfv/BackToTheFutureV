@@ -35,7 +35,7 @@ namespace BackToTheFutureV
         {
             if (state)
             {
-                DriverTask = (DriverTaskType)Utils.Random.Next(5, 5);
+                DriverTask = (DriverTaskType)FusionUtils.Random.Next(5, 5);
 
                 DriverAI = Vehicle.GetPedOnSeat(VehicleSeat.Driver);
 

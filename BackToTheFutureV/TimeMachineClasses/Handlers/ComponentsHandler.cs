@@ -70,10 +70,10 @@ namespace BackToTheFutureV
 
         private void HookProcess()
         {
-            if (Mods.Hook != HookState.OnDoor || Utils.PlayerPed.IsInVehicle())
+            if (Mods.Hook != HookState.OnDoor || FusionUtils.PlayerPed.IsInVehicle())
                 return;
 
-            if (Utils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
+            if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
             {
                 TextHandler.ShowHelp("ApplyHook");
 
@@ -120,10 +120,10 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Mods.Hoodbox == ModState.Off || Properties.AreHoodboxCircuitsReady || _warmUp > 0 || Utils.PlayerPed.IsInVehicle() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
+            if (Mods.Hoodbox == ModState.Off || Properties.AreHoodboxCircuitsReady || _warmUp > 0 || FusionUtils.PlayerPed.IsInVehicle() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
                 return;
 
-            if (Utils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
+            if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
             {
                 TextHandler.ShowHelp("Warmup");
 

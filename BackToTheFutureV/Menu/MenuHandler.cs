@@ -34,8 +34,8 @@ namespace BackToTheFutureV
                             return;
                     }
 
-                    if (Utils.PlayerPed.IsGoingIntoCover)
-                        Utils.PlayerPed.Task.StandStill(1);
+                    if (FusionUtils.PlayerPed.IsGoingIntoCover)
+                        FusionUtils.PlayerPed.Task.StandStill(1);
 
                     if (RemoteTimeMachineHandler.IsRemoteOn)
                     {

@@ -6,7 +6,7 @@ using GTA.Native;
 using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -192,7 +192,7 @@ namespace BackToTheFutureV
 
                 if (Properties.IsAttachedToRogersSierra)
                 {
-                    if (Game.IsControlPressed(GTA.Control.VehicleAccelerate) && Utils.PlayerVehicle == Vehicle && Vehicle.IsEngineRunning && !customTrain.RogersSierra.IsOnTrainMission)
+                    if (Game.IsControlPressed(GTA.Control.VehicleAccelerate) && FusionUtils.PlayerVehicle == Vehicle && Vehicle.IsEngineRunning && !customTrain.RogersSierra.IsOnTrainMission)
                     {
                         customTrain.SwitchToRegular();
                         return;
@@ -206,12 +206,12 @@ namespace BackToTheFutureV
                 else
                     customTrain.IsAccelerationOn = Vehicle.IsPlayerDriving() && Vehicle.IsVisible && Vehicle.IsEngineRunning;
 
-                if (Utils.PlayerVehicle == Vehicle)
+                if (FusionUtils.PlayerVehicle == Vehicle)
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
 
                 if (_isReentryOn && customTrain.AttachedToTarget && customTrain.SpeedMPH == 0)
                 {
-                    if (_forceFreightTrain || Utils.Random.NextDouble() <= 0.25f)
+                    if (_forceFreightTrain || FusionUtils.Random.NextDouble() <= 0.25f)
                         CustomTrainHandler.CreateFreightTrain(Vehicle, !_direction).SetToDestroy(Vehicle, 35);
 
                     _isReentryOn = false;
@@ -245,7 +245,7 @@ namespace BackToTheFutureV
 
             if (_attachDelay < Game.GameTime && Mods.Wheel == WheelType.RailroadInvisible && !Properties.IsFlying)
             {
-                if (Utils.GetWheelsPositions(Vehicle).TrueForAll(x => Utils.IsWheelOnTracks(x, Vehicle)))
+                if (FusionUtils.GetWheelsPositions(Vehicle).TrueForAll(x => FusionUtils.IsWheelOnTracks(x, Vehicle)))
                 {
                     customTrain?.DeleteTrain();
                     Start(TimeMachine.Properties.TimeTravelPhase == TimeTravelPhase.Reentering);

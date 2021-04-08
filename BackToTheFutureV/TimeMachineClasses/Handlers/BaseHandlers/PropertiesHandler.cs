@@ -15,7 +15,7 @@ namespace BackToTheFutureV
         public bool AreTimeCircuitsOn { get; set; }
         public DateTime AlarmTime { get; set; }
         public bool AlarmSet { get; set; }
-        public DateTime SpawnTime { get; set; } = Utils.CurrentTime;
+        public DateTime SpawnTime { get; set; } = FusionUtils.CurrentTime;
         public DateTime DestinationTime { get; set; } = BTTFImportantDates.GetRandom();
         public DateTime PreviousTime { get; set; } = new DateTime(1985, 10, 26, 1, 20, 00);
         public Vector3 LastVelocity { get; set; }

@@ -3,7 +3,7 @@ using GTA;
 using LemonUI.Menus;
 using System;
 using System.ComponentModel;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 using Control = GTA.Control;
 
 namespace BackToTheFutureV

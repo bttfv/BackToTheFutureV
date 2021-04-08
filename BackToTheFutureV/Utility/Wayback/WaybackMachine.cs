@@ -97,7 +97,7 @@ namespace BackToTheFutureV
             Ped = ped;
             WaitForReentry = waitForReentry;
 
-            StartTime = Utils.CurrentTime;
+            StartTime = FusionUtils.CurrentTime;
         }
 
         public void Tick()
@@ -105,7 +105,7 @@ namespace BackToTheFutureV
             switch (Status)
             {
                 case WaybackStatus.Idle:
-                    if (Utils.CurrentTime.Between(StartTime, EndTime))
+                    if (FusionUtils.CurrentTime.Between(StartTime, EndTime))
                     {
                         if (WaitForReentry)
                         {
@@ -116,7 +116,7 @@ namespace BackToTheFutureV
                             WaitForReentry = false;
                         }
                         else
-                            ReplicaIndex = Replicas.FindIndex(x => x.Time >= Utils.CurrentTime);
+                            ReplicaIndex = Replicas.FindIndex(x => x.Time >= FusionUtils.CurrentTime);
 
                         Status = WaybackStatus.Playing;
 
@@ -139,12 +139,12 @@ namespace BackToTheFutureV
         {
             float adjustedRatio = ((CurrentReplica.FrameTime + NextReplica.FrameTime) / 2) / Game.LastFrameTime;
 
-            Ped = World.GetClosestPed(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), 3, PedReplica.Model);
+            Ped = World.GetClosestPed(FusionUtils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), 3, PedReplica.Model);
 
-            if (Ped.NotNullAndExists() && Ped != Utils.PlayerPed)
+            if (Ped.NotNullAndExists() && Ped != FusionUtils.PlayerPed)
                 return;
 
-            Ped = PedReplica.Spawn(Utils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), Utils.Lerp(CurrentReplica.Heading, NextReplica.Heading, adjustedRatio));
+            Ped = PedReplica.Spawn(FusionUtils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), FusionUtils.Lerp(CurrentReplica.Heading, NextReplica.Heading, adjustedRatio));
         }
 
         public void Clone(Ped ped)
@@ -178,7 +178,7 @@ namespace BackToTheFutureV
             if (Status != WaybackStatus.Recording)
                 return null;
 
-            if (!Ped.NotNullAndExists() || Utils.CurrentTime < StartTime)
+            if (!Ped.NotNullAndExists() || FusionUtils.CurrentTime < StartTime)
             {
                 Stop();
                 return null;
@@ -234,7 +234,7 @@ namespace BackToTheFutureV
             {
                 try
                 {
-                    return (WaybackMachine)Utils.BinaryFormatter.Deserialize(stream);
+                    return (WaybackMachine)FusionUtils.BinaryFormatter.Deserialize(stream);
                 }
                 catch
                 {
@@ -247,7 +247,7 @@ namespace BackToTheFutureV
         {
             using (MemoryStream stream = new MemoryStream())
             {
-                Utils.BinaryFormatter.Serialize(stream, command);
+                FusionUtils.BinaryFormatter.Serialize(stream, command);
                 return stream.ToArray();
             }
         }

@@ -1,7 +1,7 @@
 ﻿using GTA;
 using System;
 using System.Windows.Forms;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {

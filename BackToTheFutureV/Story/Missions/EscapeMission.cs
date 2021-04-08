@@ -55,7 +55,7 @@ namespace BackToTheFutureV
 
             Model model = new Model("sabregt");
 
-            Utils.LoadAndRequestModel(model);
+            FusionUtils.LoadAndRequestModel(model);
 
             Vehicle = World.CreateVehicle(model, TargetPed.GetOffsetPosition(new Vector3(0, -10, 0)));
             Vehicle.Heading = TargetPed.Heading;
@@ -103,7 +103,7 @@ namespace BackToTheFutureV
             Shooter.Task.ClearAll();
             Driver.Task.ClearAll();
 
-            Vehicle.SteeringAngle = Utils.Random.NextDouble() >= 0.5f ? 35 : -35;
+            Vehicle.SteeringAngle = FusionUtils.Random.NextDouble() >= 0.5f ? 35 : -35;
             Vehicle.IsHandbrakeForcedOn = true;
             Vehicle.Speed = Vehicle.Speed / 2;
 

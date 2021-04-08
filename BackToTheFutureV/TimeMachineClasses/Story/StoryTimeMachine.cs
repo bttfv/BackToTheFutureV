@@ -5,7 +5,7 @@ using GTA.Math;
 using GTA.UI;
 using System;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -87,14 +87,14 @@ namespace BackToTheFutureV
                     TimeMachine.Vehicle.Doors[VehicleDoorIndex.BackRightDoor].Break(false);
                 }
 
-                if (Utils.PlayerPed.DistanceToSquared2D(TimeMachine, 4.47f))
+                if (FusionUtils.PlayerPed.DistanceToSquared2D(TimeMachine, 4.47f))
                 {
                     if (TimeMachine.Properties.Story)
                         TimeMachineHandler.RemoveStory(TimeMachine);
 
                     if (!WarningMessageShowed && TimeMachine.Constants.FullDamaged)
                     {
-                        DateTime diff = new DateTime((Utils.CurrentTime - SpawnDate).Ticks);
+                        DateTime diff = new DateTime((FusionUtils.CurrentTime - SpawnDate).Ticks);
 
                         int years = diff.Year - 1;
                         int months = diff.Month - 1;
@@ -128,7 +128,7 @@ namespace BackToTheFutureV
                     TimeMachineHandler.AddStory(TimeMachine);
             }
 
-            if (Spawned && !IsUsed && Utils.PlayerPed.IsInVehicle(TimeMachine))
+            if (Spawned && !IsUsed && FusionUtils.PlayerPed.IsInVehicle(TimeMachine))
             {
                 TimeMachine.Vehicle.IsInvincible = false;
 
@@ -136,13 +136,13 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!Exists(Utils.CurrentTime) && Spawned && !IsUsed)
+            if (!Exists(FusionUtils.CurrentTime) && Spawned && !IsUsed)
             {
                 TimeMachine.Dispose(true);
                 return;
             }
 
-            if (Exists(Utils.CurrentTime) && !Spawned)
+            if (Exists(FusionUtils.CurrentTime) && !Spawned)
                 Spawn();
         }
     }

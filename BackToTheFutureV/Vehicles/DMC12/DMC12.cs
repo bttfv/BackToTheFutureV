@@ -116,7 +116,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Utils.PlayerVehicle == Vehicle)
+            if (FusionUtils.PlayerVehicle == Vehicle)
                 Function.Call(Hash.DISABLE_CONTROL_ACTION, 31, 337, true);
 
             if (!Vehicle.IsTimeMachine())
@@ -142,9 +142,9 @@ namespace BackToTheFutureV
                 return;
             }
 
-            float fuelLevel = Utils.Clamp(Vehicle.FuelLevel, Vehicle.HandlingData.PetrolTankVolume, 100);
-            float oilLevel = Utils.Clamp(Vehicle.OilLevel, Vehicle.OilVolume, 100);
-            float tempLevel = Utils.Clamp(Vehicle.EngineTemperature, 190, 100);
+            float fuelLevel = FusionUtils.Clamp(Vehicle.FuelLevel, Vehicle.HandlingData.PetrolTankVolume, 100);
+            float oilLevel = FusionUtils.Clamp(Vehicle.OilLevel, Vehicle.OilVolume, 100);
+            float tempLevel = FusionUtils.Clamp(Vehicle.EngineTemperature, 190, 100);
 
             if (Vehicle.IsEngineRunning)
             {
@@ -158,17 +158,17 @@ namespace BackToTheFutureV
                 if (speedRotation > 270)
                     speedRotation = 270;
 
-                fuelRotation = Utils.Lerp(fuelRotation, -fuelLevel, Game.LastFrameTime);
-                tempRotation = Utils.Lerp(tempRotation, tempLevel, Game.LastFrameTime);
-                oilRotation = Utils.Lerp(oilRotation, -oilLevel, Game.LastFrameTime);
-                voltRotation = Utils.Lerp(voltRotation, voltLevel, Game.LastFrameTime);
+                fuelRotation = FusionUtils.Lerp(fuelRotation, -fuelLevel, Game.LastFrameTime);
+                tempRotation = FusionUtils.Lerp(tempRotation, tempLevel, Game.LastFrameTime);
+                oilRotation = FusionUtils.Lerp(oilRotation, -oilLevel, Game.LastFrameTime);
+                voltRotation = FusionUtils.Lerp(voltRotation, voltLevel, Game.LastFrameTime);
             }
             else
             {
-                fuelRotation = Utils.Lerp(fuelRotation, 10, Game.LastFrameTime);
-                tempRotation = Utils.Lerp(tempRotation, -10, Game.LastFrameTime);
-                oilRotation = Utils.Lerp(oilRotation, 10, Game.LastFrameTime);
-                voltRotation = Utils.Lerp(voltRotation, -10, Game.LastFrameTime);
+                fuelRotation = FusionUtils.Lerp(fuelRotation, 10, Game.LastFrameTime);
+                tempRotation = FusionUtils.Lerp(tempRotation, -10, Game.LastFrameTime);
+                oilRotation = FusionUtils.Lerp(oilRotation, 10, Game.LastFrameTime);
+                voltRotation = FusionUtils.Lerp(voltRotation, -10, Game.LastFrameTime);
             }
 
             if (Vehicle.EngineTemperature >= 50)
@@ -207,7 +207,7 @@ namespace BackToTheFutureV
                 suspensionRightRear?.Delete();
             }
 
-            if (Utils.IsAnyOfFrontDoorsOpen(Vehicle))
+            if (FusionUtils.IsAnyOfFrontDoorsOpen(Vehicle))
                 doorIndicator.SpawnProp();
             else
                 doorIndicator.Delete();

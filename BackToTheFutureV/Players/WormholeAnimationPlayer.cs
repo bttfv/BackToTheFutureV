@@ -160,11 +160,11 @@ namespace BackToTheFutureV
 
             if (validSparks.Count > 0)
             {
-                int randomSpark = Utils.Random.Next(validSparks.Count);
+                int randomSpark = FusionUtils.Random.Next(validSparks.Count);
 
                 if (!validSparks[randomSpark].IsPlaying)
                 {
-                    validSparks[randomSpark].Speed = (float)Utils.Random.NextDouble(15f, 21f);
+                    validSparks[randomSpark].Speed = (float)FusionUtils.Random.NextDouble(15f, 21f);
                     validSparks[randomSpark].Play();
                 }
             }
@@ -183,7 +183,7 @@ namespace BackToTheFutureV
             if (Properties.PhotoWormholeActive)
                 by = (70 - 65f) / (88f - 65f);
 
-            numOfProps = Utils.Lerp(1, 11, by);
+            numOfProps = FusionUtils.Lerp(1, 11, by);
 
             // Delete all other props
             Props.SeparatedCoils?.Delete();
@@ -201,13 +201,13 @@ namespace BackToTheFutureV
             }
             else
             {
-                List<int> propsToBeSpawned = Enumerable.Range(0, 11).OrderBy(x => Utils.Random.Next()).Take(numOfProps).ToList();
+                List<int> propsToBeSpawned = Enumerable.Range(0, 11).OrderBy(x => FusionUtils.Random.Next()).Take(numOfProps).ToList();
 
                 foreach (int propindex in propsToBeSpawned)
                     Props.SeparatedCoils[propindex].SpawnProp();
 
                 // Set next flicker 
-                _nextFlicker = Game.GameTime + Utils.Random.Next(30, 60);
+                _nextFlicker = Game.GameTime + FusionUtils.Random.Next(30, 60);
             }
         }
 

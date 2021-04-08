@@ -5,7 +5,7 @@ using GTA;
 using GTA.Native;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -25,7 +25,7 @@ namespace BackToTheFutureV
         {
             Properties.TimeTravelPhase = TimeTravelPhase.Reentering;
 
-            if (ModSettings.WaybackSystem && Driver != null && Driver != Utils.PlayerPed)
+            if (ModSettings.WaybackSystem && Driver != null && Driver != FusionUtils.PlayerPed)
                 WaybackSystem.GetFromGUID(Properties.ReplicaGUID).StartOn(Driver, true);
         }
 
@@ -60,7 +60,7 @@ namespace BackToTheFutureV
                     Function.Call(Hash.ADD_SHOCKING_EVENT_AT_POSITION, 88, Vehicle.Position.X, Vehicle.Position.Y, Vehicle.Position.Z, 1f);
 
                     if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                        Utils.SetPadShake(500, 200);
+                        FusionUtils.SetPadShake(500, 200);
 
                     int timeToAdd = 500;
 
@@ -84,7 +84,7 @@ namespace BackToTheFutureV
                     Particles?.Flash?.Play();
 
                     if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                        Utils.SetPadShake(500, 200);
+                        FusionUtils.SetPadShake(500, 200);
 
                     timeToAdd = 500;
 
@@ -108,7 +108,7 @@ namespace BackToTheFutureV
                     Particles?.Flash?.Play();
 
                     if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                        Utils.SetPadShake(500, 200);
+                        FusionUtils.SetPadShake(500, 200);
 
                     _currentStep++;
                     break;
@@ -130,7 +130,7 @@ namespace BackToTheFutureV
 
             DMC12?.SetVoltValue?.Invoke(50);
 
-            Utils.HideGUI = false;
+            FusionUtils.HideGUI = false;
 
             PlayerSwitch.Disable = false;
 
@@ -175,11 +175,11 @@ namespace BackToTheFutureV
             //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, CommonSettings.PlayerPed.Model);
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
 
-            if (!ModSettings.WaybackSystem && Driver != null && Driver != Utils.PlayerPed)
+            if (!ModSettings.WaybackSystem && Driver != null && Driver != FusionUtils.PlayerPed)
                 Driver.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 10000).Start();
 
-            if (ModSettings.WaybackSystem && Utils.PlayerVehicle == Vehicle)
-                WaybackSystem.Create(Utils.PlayerPed, Properties.ReplicaGUID);
+            if (ModSettings.WaybackSystem && FusionUtils.PlayerVehicle == Vehicle)
+                WaybackSystem.Create(FusionUtils.PlayerPed, Properties.ReplicaGUID);
         }
 
         public override void Stop()

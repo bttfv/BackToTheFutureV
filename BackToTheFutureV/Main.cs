@@ -78,7 +78,7 @@ namespace BackToTheFutureV
                     RemoteTimeMachineHandler.Load();
                 }
 
-                Utils.RandomTrains = ModSettings.RandomTrains;
+                FusionUtils.RandomTrains = ModSettings.RandomTrains;
 
                 if (ModSettings.ExternalTCDToggle)
                     ExternalHUD.Toggle(true);

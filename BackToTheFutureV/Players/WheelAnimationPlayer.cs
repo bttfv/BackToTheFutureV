@@ -5,7 +5,7 @@ using GTA;
 using GTA.Math;
 using System;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -137,7 +137,7 @@ namespace BackToTheFutureV
         public override void Stop()
         {
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                Utils.StopPadShake();
+                FusionUtils.StopPadShake();
 
             IsPlaying = false;
             PlayerSwitch.Disable = false;
@@ -222,8 +222,8 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (IsPlaying && !Utils.IsPadShaking && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                Utils.SetPadShake(100, 80);
+            if (IsPlaying && !FusionUtils.IsPadShaking && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                FusionUtils.SetPadShake(100, 80);
 
             if (IsPlaying)
                 UpdateWheelsRotations();
@@ -235,7 +235,7 @@ namespace BackToTheFutureV
 
             for (int i = 0; i < WheelsRotations.Length; i++)
             {
-                WheelsRotations[i] = Utils.Wrap(WheelsRotations[i], -(float)Math.PI, (float)Math.PI).ToDeg();
+                WheelsRotations[i] = FusionUtils.Wrap(WheelsRotations[i], -(float)Math.PI, (float)Math.PI).ToDeg();
                 Wheels[i].setRotation(Coordinate.X, i % 2 == 1 ? -WheelsRotations[i] : WheelsRotations[i], true);
             }
         }

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -122,7 +122,7 @@ namespace BackToTheFutureV
         {
             foreach (TimeMachine veh in AllTimeMachines.ToList())
             {
-                if (noCurrent && veh.Vehicle == Utils.PlayerVehicle)
+                if (noCurrent && veh.Vehicle == FusionUtils.PlayerVehicle)
                     continue;
 
                 RemoveTimeMachine(veh);
@@ -152,7 +152,7 @@ namespace BackToTheFutureV
                     return GetTimeMachineFromVehicle(vehicle);
             }
 
-            Ped ped = Utils.PlayerPed;
+            Ped ped = FusionUtils.PlayerPed;
 
             if (RemoteTimeMachineHandler.IsRemoteOn)
                 ped = RemoteTimeMachineHandler.RemoteControlling.OriginalPed;
@@ -161,7 +161,7 @@ namespace BackToTheFutureV
             Vector3 spawnPos;
             TimeMachine timeMachine = null;
 
-            if (Utils.PlayerVehicle != null && !RemoteTimeMachineHandler.IsRemoteOn)
+            if (FusionUtils.PlayerVehicle != null && !RemoteTimeMachineHandler.IsRemoteOn)
                 spawnPos = ped.Position.Around(5f);
             else
                 spawnPos = ped.Position;
@@ -215,7 +215,7 @@ namespace BackToTheFutureV
                 if (RemoteTimeMachineHandler.IsRemoteOn)
                     RemoteTimeMachineHandler.StopRemoteControl(true);
 
-                Utils.PlayerPed.SetIntoVehicle(timeMachine, VehicleSeat.Driver);
+                FusionUtils.PlayerPed.SetIntoVehicle(timeMachine, VehicleSeat.Driver);
             }
 
             if (spawnFlags.HasFlag(SpawnFlags.Broken))
@@ -225,7 +225,7 @@ namespace BackToTheFutureV
             {
                 timeMachine.Vehicle.SetVisible(false);
 
-                timeMachine.Properties.DestinationTime = Utils.CurrentTime.AddSeconds(-Utils.CurrentTime.Second);
+                timeMachine.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
 
                 timeMachine.Properties.AreTimeCircuitsOn = true;
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);
@@ -241,7 +241,7 @@ namespace BackToTheFutureV
 
         public static void KeyDown(KeyEventArgs e)
         {
-            if (CurrentTimeMachine.IsFunctioning() && CurrentTimeMachine == Utils.PlayerVehicle)
+            if (CurrentTimeMachine.IsFunctioning() && CurrentTimeMachine == FusionUtils.PlayerVehicle)
                 CurrentTimeMachine.KeyDown(e);
         }
 
@@ -334,14 +334,14 @@ namespace BackToTheFutureV
         {
             TimeMachines.ForEach(x =>
             {
-                if (x.LastDisplacementClone.Properties.DestinationTime > time && Utils.PlayerVehicle != x.Vehicle)
+                if (x.LastDisplacementClone.Properties.DestinationTime > time && FusionUtils.PlayerVehicle != x.Vehicle)
                     RemoveTimeMachine(x);
             });
         }
 
         public static void UpdateClosestTimeMachine()
         {
-            if (Utils.PlayerVehicle.IsFunctioning() && CurrentTimeMachine.IsFunctioning() && CurrentTimeMachine.Vehicle == Utils.PlayerVehicle)
+            if (FusionUtils.PlayerVehicle.IsFunctioning() && CurrentTimeMachine.IsFunctioning() && CurrentTimeMachine.Vehicle == FusionUtils.PlayerVehicle)
             {
                 if (ClosestTimeMachine != CurrentTimeMachine)
                 {
@@ -367,7 +367,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (CurrentTimeMachine.IsFunctioning() && !Utils.PlayerVehicle.IsFunctioning())
+            if (CurrentTimeMachine.IsFunctioning() && !FusionUtils.PlayerVehicle.IsFunctioning())
             {
                 ExternalHUD.SetOff();
 
@@ -387,7 +387,7 @@ namespace BackToTheFutureV
                 if (!timeMachine.IsFunctioning())
                     continue;
 
-                float dist = Utils.PlayerPed.DistanceToSquared2D(timeMachine);
+                float dist = FusionUtils.PlayerPed.DistanceToSquared2D(timeMachine);
 
                 if (ClosestTimeMachine == timeMachine)
                     SquareDistToClosestTimeMachine = dist;
@@ -416,7 +416,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (ClosestTimeMachine.IsFunctioning() && Utils.PlayerVehicle == ClosestTimeMachine.Vehicle)
+            if (ClosestTimeMachine.IsFunctioning() && FusionUtils.PlayerVehicle == ClosestTimeMachine.Vehicle)
             {
                 CurrentTimeMachine = ClosestTimeMachine;
 

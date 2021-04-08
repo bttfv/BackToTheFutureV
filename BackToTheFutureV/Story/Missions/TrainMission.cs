@@ -52,7 +52,7 @@ namespace BackToTheFutureV
             TimeMachine.Properties.BlockSparks = false;
 
             if (TimeMachine.Properties.TimeTravelPhase != TimeTravelPhase.InTime)
-                Utils.HideGUI = false;
+                FusionUtils.HideGUI = false;
         }
 
         private void OnVehicleAttached(TimeMachine timeMachine)
@@ -67,7 +67,7 @@ namespace BackToTheFutureV
 
             TimedEventManager.Pause = false;
 
-            MissionMusic.SourceEntity = Utils.PlayerPed;
+            MissionMusic.SourceEntity = FusionUtils.PlayerPed;
             MissionMusic.Play();
 
             if (Mute)
@@ -76,7 +76,7 @@ namespace BackToTheFutureV
                 MissionMusic.Volume = 0;
             }
 
-            Utils.HideGUI = true;
+            FusionUtils.HideGUI = true;
         }
 
         private void InsertDate_OnExecute(TimedEvent timedEvent)
@@ -114,8 +114,8 @@ namespace BackToTheFutureV
                 return;
             }
 
-            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Utils.PlayerPed);
-            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Utils.PlayerPed);
+            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, FusionUtils.PlayerPed);
+            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, FusionUtils.PlayerPed);
 
             if (MissionMusic.IsAnyInstancePlaying && !_useInternalTime)
                 TimedEventManager.RunEvents(MissionMusic.Last.PlayPosition);
@@ -402,7 +402,7 @@ namespace BackToTheFutureV
             {
                 TimedEventManager.Pause = true;
 
-                TrainApproachingSound.SourceEntity = Utils.PlayerPed;
+                TrainApproachingSound.SourceEntity = FusionUtils.PlayerPed;
                 TrainApproachingSound.Play();
 
                 TimeMachine.CustomCamera = TimeMachineCamera.FrontPassengerWheelLookAtRear;
@@ -417,10 +417,10 @@ namespace BackToTheFutureV
 
         private void MovePlayer_OnExecute(TimedEvent timedEvent)
         {
-            if (Utils.PlayerVehicle != TimeMachine)
+            if (FusionUtils.PlayerVehicle != TimeMachine)
                 return;
 
-            Utils.PlayerPed.Task.ShuffleToNextVehicleSeat();
+            FusionUtils.PlayerPed.Task.ShuffleToNextVehicleSeat();
         }
 
         private void CloseDoor_OnExecute(TimedEvent timedEvent)

@@ -305,7 +305,7 @@ namespace BackToTheFutureV
             if (Game.GameTime <= _check)
                 return;
 
-            _prevAccel = Utils.Magnitude(Vehicle.Velocity);
+            _prevAccel = FusionUtils.Magnitude(Vehicle.Velocity);
 
             // Next time check
             _check = Game.GameTime + _checkInterval;
@@ -591,7 +591,7 @@ namespace BackToTheFutureV
 
         private static bool IsPlayerBreaking(Vehicle vehicle, bool accountHandBrake = true)
         {
-            if (Utils.PlayerVehicle != vehicle)
+            if (FusionUtils.PlayerVehicle != vehicle)
                 return false;
 
             if (accountHandBrake)
@@ -604,7 +604,7 @@ namespace BackToTheFutureV
 
         private static bool IsPlayerRevving(Vehicle vehicle)
         {
-            if (Utils.PlayerVehicle != vehicle)
+            if (FusionUtils.PlayerVehicle != vehicle)
                 return false;
 
             return Game.IsControlPressed(Control.VehicleAccelerate) && Game.IsControlPressed(Control.VehicleHandbrake)
@@ -613,7 +613,7 @@ namespace BackToTheFutureV
 
         private float VehicleAcceleration()
         {
-            return (Utils.Magnitude(Vehicle.Velocity) - _prevAccel) / _checkInterval;
+            return (FusionUtils.Magnitude(Vehicle.Velocity) - _prevAccel) / _checkInterval;
         }
 
         private void PredictAccleration()

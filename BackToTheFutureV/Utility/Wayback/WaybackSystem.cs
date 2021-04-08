@@ -25,7 +25,7 @@ namespace BackToTheFutureV
                 return;
 
             if (CurrentRecording == default)
-                Create(Utils.PlayerPed, Guid.NewGuid());
+                Create(FusionUtils.PlayerPed, Guid.NewGuid());
 
             Machines.ForEach(x => x.Tick());
         }
@@ -78,7 +78,7 @@ namespace BackToTheFutureV
             {
                 try
                 {
-                    waybackPed = (WaybackPed)Utils.BinaryFormatter.Deserialize(stream);
+                    waybackPed = (WaybackPed)FusionUtils.BinaryFormatter.Deserialize(stream);
                 }
                 catch
                 {

@@ -8,7 +8,7 @@ namespace BackToTheFutureV
     internal class InternalInventory
     {
         private static List<InternalInventory> InternalInventories = new List<InternalInventory>();
-        public static InternalInventory Current => InternalInventories.DefaultIfEmpty(new InternalInventory()).SingleOrDefault(x => x.Ped == Utils.PlayerPed.Model);
+        public static InternalInventory Current => InternalInventories.DefaultIfEmpty(new InternalInventory()).SingleOrDefault(x => x.Ped == FusionUtils.PlayerPed.Model);
 
         public Model Ped { get; }
 
@@ -38,10 +38,10 @@ namespace BackToTheFutureV
 
         private InternalInventory()
         {
-            if (InternalInventories.SingleOrDefault(x => x.Ped == Utils.PlayerPed.Model) != default)
+            if (InternalInventories.SingleOrDefault(x => x.Ped == FusionUtils.PlayerPed.Model) != default)
                 return;
 
-            Ped = Utils.PlayerPed.Model;
+            Ped = FusionUtils.PlayerPed.Model;
             InternalInventories.Add(this);
         }
     }

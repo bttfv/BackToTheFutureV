@@ -63,7 +63,7 @@ namespace BackToTheFutureV
                 if (Properties.LedDelay[column] > Game.GameTime)
                     continue;
 
-                SetColumnHeight(column, Utils.Random.Next(min, max + 1));
+                SetColumnHeight(column, FusionUtils.Random.Next(min, max + 1));
             }
         }
 
@@ -130,7 +130,7 @@ namespace BackToTheFutureV
                     else if (Properties.NewHeight[column] < Properties.CurrentHeight[column])
                         Properties.CurrentHeight[column]--;
 
-                    Properties.LedDelay[column] = Game.GameTime + 60 + (_randomDelay ? Utils.Random.Next(-30, 31) : 0);
+                    Properties.LedDelay[column] = Game.GameTime + 60 + (_randomDelay ? FusionUtils.Random.Next(-30, 31) : 0);
                     Properties.HUDProperties.CurrentHeight[column] = Properties.CurrentHeight[column];
                 }
 

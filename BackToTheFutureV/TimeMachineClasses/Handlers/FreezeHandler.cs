@@ -81,7 +81,7 @@ namespace BackToTheFutureV
 
             if (iceScale > 0f)
             {
-                float newIce = Utils.Lerp(Properties.IceValue, 0f, _iceDisappearVal / _timeToDisappear);
+                float newIce = FusionUtils.Lerp(Properties.IceValue, 0f, _iceDisappearVal / _timeToDisappear);
 
                 if (newIce <= 0.15f)
                 {

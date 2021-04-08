@@ -6,7 +6,7 @@ using GTA.Native;
 using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 using Screen = GTA.UI.Screen;
 
 namespace BackToTheFutureV
@@ -64,13 +64,13 @@ namespace BackToTheFutureV
             if (Properties.TimeTravelPhase != TimeTravelPhase.InTime)
                 return;
 
-            if (Utils.PlayerVehicle == Vehicle && !Properties.IsRemoteControlled && !Utils.HideGUI)
-                Utils.HideGUI = true;
+            if (FusionUtils.PlayerVehicle == Vehicle && !Properties.IsRemoteControlled && !FusionUtils.HideGUI)
+                FusionUtils.HideGUI = true;
 
-            if (Utils.PlayerPed.IsInVehicle(Vehicle))
+            if (FusionUtils.PlayerPed.IsInVehicle(Vehicle))
             {
-                Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Utils.PlayerPed);
-                Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Utils.PlayerPed);
+                Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, FusionUtils.PlayerPed);
+                Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, FusionUtils.PlayerPed);
             }
 
             if (Game.GameTime < gameTimer)
@@ -86,11 +86,11 @@ namespace BackToTheFutureV
                         Properties.TimeTravelType = TimeTravelType.Wayback;
                     else
                     {
-                        if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != Utils.PlayerPed)
+                        if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != FusionUtils.PlayerPed)
                             Properties.TimeTravelType = TimeTravelType.RC;
                         else
                         {
-                            if (!Properties.CutsceneMode || Utils.IsCameraInFirstPerson())
+                            if (!Properties.CutsceneMode || FusionUtils.IsCameraInFirstPerson())
                                 Properties.TimeTravelType = TimeTravelType.Instant;
                             else
                                 Properties.TimeTravelType = TimeTravelType.Cutscene;
@@ -100,7 +100,7 @@ namespace BackToTheFutureV
                     Properties.LastVelocity = Vehicle.Velocity;
 
                     // Set previous time
-                    Properties.PreviousTime = Utils.CurrentTime;
+                    Properties.PreviousTime = FusionUtils.CurrentTime;
 
                     // Invoke delegate
                     Events.OnTimeTravelStarted?.Invoke();
@@ -118,7 +118,7 @@ namespace BackToTheFutureV
 
                         Sounds.TimeTravelInstant?.Play();
 
-                        if (Utils.IsCameraInFirstPerson())
+                        if (FusionUtils.IsCameraInFirstPerson())
                             Props.WhiteSphere.SpawnProp();
                         else
                             ScreenFlash.FlashScreen(0.25f);

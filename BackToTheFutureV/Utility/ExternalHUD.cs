@@ -77,7 +77,7 @@ namespace BackToTheFutureV
             if (!ModSettings.RemoteTCDToggle)
                 return;
 
-            Network.SendMsg(properties, port);
+            FusionNetwork.SendMsg(properties, port);
         }
 
         public static void SetOff()
@@ -88,7 +88,7 @@ namespace BackToTheFutureV
             if (!ModSettings.RemoteTCDToggle)
                 return;
 
-            Network.SendMsg(new HUDProperties(), port);
+            FusionNetwork.SendMsg(new HUDProperties(), port);
         }
     }
 }

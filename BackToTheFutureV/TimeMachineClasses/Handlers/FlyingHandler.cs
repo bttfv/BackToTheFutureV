@@ -142,7 +142,7 @@ namespace BackToTheFutureV
         {
             if (ModControls.LongPressForHover)
             {
-                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && Utils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && FusionUtils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
@@ -162,7 +162,7 @@ namespace BackToTheFutureV
         {
             if (!ModControls.LongPressForHover)
             {
-                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && Utils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && FusionUtils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed)
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
@@ -246,7 +246,7 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs e)
         {
-            if (e.KeyCode == ModControls.HoverAltitudeHold && Utils.PlayerVehicle == Vehicle && Properties.IsFlying)
+            if (e.KeyCode == ModControls.HoverAltitudeHold && FusionUtils.PlayerVehicle == Vehicle && Properties.IsFlying)
                 SetHoverMode(!Properties.IsAltitudeHolding);
         }
 
@@ -385,7 +385,7 @@ namespace BackToTheFutureV
             Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
 
             // Force fly mode
-            if (ModSettings.ForceFlyMode && Utils.PlayerVehicle == Vehicle)
+            if (ModSettings.ForceFlyMode && FusionUtils.PlayerVehicle == Vehicle)
                 VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
 
             // Force brake lights on if flying
@@ -399,7 +399,7 @@ namespace BackToTheFutureV
         public void HandleBoosting()
         {
             // First of all, check if vehicle is in fly mode, if its not just return
-            if (Utils.PlayerVehicle != Vehicle)
+            if (FusionUtils.PlayerVehicle != Vehicle)
                 return;
 
             // If the Handbrake control is pressed
@@ -407,7 +407,7 @@ namespace BackToTheFutureV
             if (Game.IsControlPressed(ModControls.HoverBoost) && Game.IsControlPressed(Control.VehicleAccelerate) && Vehicle.IsEngineRunning)
             {
                 if (Game.IsControlJustPressed(ModControls.HoverBoost))
-                    Utils.SetPadShake(100, 200);
+                    FusionUtils.SetPadShake(100, 200);
 
                 // Boost!
                 if (Vehicle.GetMPHSpeed() <= 95)
@@ -439,7 +439,7 @@ namespace BackToTheFutureV
         private void UpDown()
         {
             // What are you doing 
-            if (Utils.PlayerVehicle != Vehicle)
+            if (FusionUtils.PlayerVehicle != Vehicle)
                 return;
 
             // Get how much value is moved up/down
@@ -458,7 +458,7 @@ namespace BackToTheFutureV
                     upNormal = 1;
                 }
                 else
-                    Utils.SetPadShake(100, 80);
+                    FusionUtils.SetPadShake(100, 80);
             }
             else if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
             {
@@ -470,7 +470,7 @@ namespace BackToTheFutureV
                     upNormal = -1;
                 }
                 else
-                    Utils.SetPadShake(100, 80);
+                    FusionUtils.SetPadShake(100, 80);
             }
 
             if (upNormal == 0 && Properties.IsHoverGoingUpDown)

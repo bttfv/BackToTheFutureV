@@ -5,7 +5,7 @@ using GTA;
 using GTA.Math;
 using System.Collections.Generic;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -28,7 +28,7 @@ namespace BackToTheFutureV
             Vehicle vehicle = World.CreateVehicle(ModelHandler.DMC12, position, heading);
 
             if (warpInPlayer)
-                Utils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+                FusionUtils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
 
             return new DMC12(vehicle);
         }
@@ -36,7 +36,7 @@ namespace BackToTheFutureV
         public static DMC12 CreateDMC12(Vehicle vehicle, bool warpInPlayer = false)
         {
             if (warpInPlayer)
-                Utils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+                FusionUtils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
 
             return new DMC12(vehicle);
         }

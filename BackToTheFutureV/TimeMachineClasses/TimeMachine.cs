@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -120,7 +120,7 @@ namespace BackToTheFutureV
             }
 
             LastDisplacementClone = this.Clone();
-            LastDisplacementClone.Properties.DestinationTime = Utils.CurrentTime.AddSeconds(-Utils.CurrentTime.Second);
+            LastDisplacementClone.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
 
             Events.OnWormholeTypeChanged += UpdateBlip;
 
@@ -235,9 +235,9 @@ namespace BackToTheFutureV
             if (Mods.IsDMC12)
             {
                 //In certain situations car can't be entered after hover transformation, here is forced enter task.
-                if (Utils.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(Utils.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
+                if (FusionUtils.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(FusionUtils.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
                 {
-                    if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, Utils.PlayerPed) != Vehicle || Vehicle.Driver != null)
+                    if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, FusionUtils.PlayerPed) != Vehicle || Vehicle.Driver != null)
                     {
                         if (Vehicle.Driver != null)
                         {
@@ -248,7 +248,7 @@ namespace BackToTheFutureV
                             Vehicle.Driver.Task.PerformSequence(taskSequence);
                         }
 
-                        Utils.PlayerPed.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
+                        FusionUtils.PlayerPed.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
                     }
                 }
 
@@ -269,38 +269,38 @@ namespace BackToTheFutureV
                 switch (Mods.SuspensionsType)
                 {
                     case SuspensionsType.LiftFrontLowerRear:
-                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
                         break;
                     case SuspensionsType.LiftFront:
-                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
                         break;
                     case SuspensionsType.LiftRear:
-                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
                         break;
                     case SuspensionsType.LiftFrontAndRear:
-                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
                         break;
                     case SuspensionsType.LowerFront:
-                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
                         break;
                     case SuspensionsType.LowerRear:
-                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
                         break;
                     case SuspensionsType.LowerFrontAndRear:
-                        Utils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
-                        Utils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
+                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
                         break;
                 }
 
@@ -334,7 +334,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (Utils.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)
+            if (FusionUtils.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)
             {
                 if (Blip == null || !Blip.Exists())
                 {

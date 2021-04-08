@@ -3,7 +3,7 @@ using FusionLibrary.Extensions;
 using GTA;
 using System;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -70,9 +70,9 @@ namespace BackToTheFutureV
             if (nextReplica == null)
                 vehicle = World.GetClosestVehicle(VehicleReplica.Position, 3, VehicleReplica.Model);
             else
-                vehicle = World.GetClosestVehicle(Utils.Lerp(VehicleReplica.Position, nextReplica.Position, adjustedRatio), 3, VehicleReplica.Model);
+                vehicle = World.GetClosestVehicle(FusionUtils.Lerp(VehicleReplica.Position, nextReplica.Position, adjustedRatio), 3, VehicleReplica.Model);
 
-            if (!vehicle.NotNullAndExists() || Utils.PlayerPed == vehicle)
+            if (!vehicle.NotNullAndExists() || FusionUtils.PlayerPed == vehicle)
                 vehicle = Spawn();
 
             return vehicle;

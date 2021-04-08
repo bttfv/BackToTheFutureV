@@ -98,8 +98,8 @@ namespace BackToTheFutureV
                     }
                     else
                     {
-                        leftPosOffset = Utils.GetPositionOnGround(vehicle.GetOffsetPosition(leftPosOffset), 0.125f);
-                        rightPosOffset = Utils.GetPositionOnGround(vehicle.GetOffsetPosition(rightPosOffset), 0.125f);
+                        leftPosOffset = FusionUtils.GetPositionOnGround(vehicle.GetOffsetPosition(leftPosOffset), 0.125f);
+                        rightPosOffset = FusionUtils.GetPositionOnGround(vehicle.GetOffsetPosition(rightPosOffset), 0.125f);
                     }
 
                     // Create and configure fire particle

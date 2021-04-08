@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -135,7 +135,7 @@ namespace BackToTheFutureV
             if (!timedEvent.FirstExecution)
                 return;
 
-            destinationSlot.SetDate(Utils.RandomDate());
+            destinationSlot.SetDate(FusionUtils.RandomDate());
             destinationSlot.Tick();
         }
 
@@ -145,7 +145,7 @@ namespace BackToTheFutureV
                 return;
 
             destinationSlot.SetDate(Properties.DestinationTime);
-            presentSlot.SetDate(Utils.CurrentTime);
+            presentSlot.SetDate(FusionUtils.CurrentTime);
             previousSlot.SetDate(Properties.PreviousTime);
         }
 
@@ -164,7 +164,7 @@ namespace BackToTheFutureV
                 previousSlot.SetVisible(false);
                 previousSlot.SetVisibleAt(true, 500, 600);
 
-                presentSlot.SetDate(Utils.CurrentTime);
+                presentSlot.SetDate(FusionUtils.CurrentTime);
                 presentSlot.SetVisible(false);
                 presentSlot.SetVisibleAt(true, 500, 600);
 
@@ -210,7 +210,7 @@ namespace BackToTheFutureV
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
                 previousSlot.SetDate(Properties.PreviousTime);
 
-            lastTime = Utils.CurrentTime;
+            lastTime = FusionUtils.CurrentTime;
             StopGlitch();
             Particles.LightningSparks?.Stop();
         }
@@ -270,9 +270,9 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (!Utils.PlayerPed.IsInVehicle() && Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Constants.FullDamaged && Mods.Hoodbox == ModState.Off)
+            if (!FusionUtils.PlayerPed.IsInVehicle() && Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Constants.FullDamaged && Mods.Hoodbox == ModState.Off)
             {
-                if (!Utils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
+                if (!FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
                     return;
 
                 TextHandler.ShowHelp("RepairTC");
@@ -305,7 +305,7 @@ namespace BackToTheFutureV
             if (!ModSettings.HideIngameTCDToggle)
                 DrawGUI();
 
-            if (Utils.PlayerVehicle == Vehicle && Properties.TimeTravelPhase < TimeTravelPhase.InTime)
+            if (FusionUtils.PlayerVehicle == Vehicle && Properties.TimeTravelPhase < TimeTravelPhase.InTime)
                 ExternalHUD.Update(Properties.HUDProperties);
 
             if (!Properties.AreTimeCircuitsOn)
@@ -337,12 +337,12 @@ namespace BackToTheFutureV
 
                 if (Vehicle.Health < 300)
                 {
-                    if (Utils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 100 ? 100 : Vehicle.Health)))
+                    if (FusionUtils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 100 ? 100 : Vehicle.Health)))
                         StartTimeCircuitsGlitch(false);
                 }
                 else if (Properties.TimeTravelsCount > 4)
                 {
-                    if (Utils.Random.NextDouble() < 0.25f)
+                    if (FusionUtils.Random.NextDouble() < 0.25f)
                         StartTimeCircuitsGlitch(true);
                 }
             }
@@ -350,7 +350,7 @@ namespace BackToTheFutureV
 
         private void DrawGUI()
         {
-            if (Utils.HideGUI || Utils.PlayerVehicle != Vehicle || Utils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled)
+            if (FusionUtils.HideGUI || FusionUtils.PlayerVehicle != Vehicle || FusionUtils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled)
                 return;
 
             ScaleformsHandler.GUI.SetSpeedoBackground(Properties.ThreeDigitsSpeedo);
@@ -368,7 +368,7 @@ namespace BackToTheFutureV
         {
             if (Game.GameTime > nextCheck)
             {
-                DateTime time = Utils.CurrentTime;
+                DateTime time = FusionUtils.CurrentTime;
 
                 if (Math.Abs((time - lastTime).TotalMilliseconds) > 600 && !presentSlot.IsDoingTimedVisible)
                 {

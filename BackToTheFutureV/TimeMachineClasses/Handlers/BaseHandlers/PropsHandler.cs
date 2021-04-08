@@ -3,7 +3,7 @@ using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System.Windows.Forms;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {

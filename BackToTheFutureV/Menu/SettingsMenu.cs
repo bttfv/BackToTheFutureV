@@ -42,12 +42,12 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
-            if (Utils.RandomTrains != ModSettings.RandomTrains)
+            if (FusionUtils.RandomTrains != ModSettings.RandomTrains)
             {
-                ModSettings.RandomTrains = Utils.RandomTrains;
+                ModSettings.RandomTrains = FusionUtils.RandomTrains;
                 ModSettings.SaveSettings();
 
-                RandomTrains.Checked = Utils.RandomTrains;
+                RandomTrains.Checked = FusionUtils.RandomTrains;
             }
         }
 
@@ -72,7 +72,7 @@ namespace BackToTheFutureV
             {
                 ModSettings.RandomTrains = Checked;
 
-                Utils.RandomTrains = Checked;
+                FusionUtils.RandomTrains = Checked;
             }
 
             if (sender == GlowingWormholeEmitter)

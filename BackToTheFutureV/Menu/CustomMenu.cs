@@ -5,7 +5,7 @@ using LemonUI.Menus;
 using System;
 using System.ComponentModel;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -197,16 +197,16 @@ namespace BackToTheFutureV
             if (MenuHandler.TimeMachineMenu.Visible)
                 MenuHandler.TimeMachineMenu.Close();
 
-            if (ForceNew || (Utils.PlayerVehicle == null || !Utils.PlayerVehicle.IsTimeMachine()))
+            if (ForceNew || (FusionUtils.PlayerVehicle == null || !FusionUtils.PlayerVehicle.IsTimeMachine()))
             {
                 if (ForceNew)
                     ForceNew = false;
 
                 _tempTimeMachine = TimeMachineHandler.Create(SpawnFlags.WarpPlayer);
             }
-            else if (Utils.PlayerVehicle.IsTimeMachine())
+            else if (FusionUtils.PlayerVehicle.IsTimeMachine())
             {
-                _tempTimeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Utils.PlayerVehicle);
+                _tempTimeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);
                 _save = true;
 
                 if (_tempTimeMachine.Constants.FullDamaged)
@@ -273,7 +273,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (Utils.PlayerVehicle != _tempTimeMachine)
+            if (FusionUtils.PlayerVehicle != _tempTimeMachine)
             {
                 Close();
                 return;

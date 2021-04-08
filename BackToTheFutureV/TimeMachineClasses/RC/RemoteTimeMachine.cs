@@ -4,7 +4,7 @@ using GTA;
 using KlangRageAudioLibrary;
 using System;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -42,21 +42,21 @@ namespace BackToTheFutureV
             if (Game.GameTime < _timer)
                 return;
 
-            if (!Spawned && Utils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 1, 0), true))
+            if (!Spawned && FusionUtils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 1, 0), true))
             {
                 if (!_hasPlayedWarningSound)
                 {
-                    if (!Utils.PlayerPed.IsInVehicle())
-                        Utils.PlayerPed.Task.PlayAnimation("amb@code_human_wander_idles@male@idle_a", "idle_a_wristwatch", 8f, -1, AnimationFlags.UpperBodyOnly);
+                    if (!FusionUtils.PlayerPed.IsInVehicle())
+                        FusionUtils.PlayerPed.Task.PlayAnimation("amb@code_human_wander_idles@male@idle_a", "idle_a_wristwatch", 8f, -1, AnimationFlags.UpperBodyOnly);
 
-                    WarningSound.SourceEntity = Utils.PlayerPed;
+                    WarningSound.SourceEntity = FusionUtils.PlayerPed;
                     WarningSound.Play();
 
                     _hasPlayedWarningSound = true;
                 }
             }
 
-            if (!Spawned && TimeMachineClone.Properties.DestinationTime.Between(Utils.CurrentTime, Utils.CurrentTime.AddMinutes(1)))
+            if (!Spawned && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime, FusionUtils.CurrentTime.AddMinutes(1)))
             {
                 Spawn(ReenterType.Normal);
 

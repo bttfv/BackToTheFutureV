@@ -44,7 +44,7 @@ namespace BackToTheFutureV
         {
             _currentFrame = 1;
 
-            _spark.MoveProp(_frames[0], Utils.DirectionToRotation(_frames[_currentFrame], _spark.CurrentOffset, 0));
+            _spark.MoveProp(_frames[0], FusionUtils.DirectionToRotation(_frames[_currentFrame], _spark.CurrentOffset, 0));
 
             IsPlaying = true;
         }
@@ -74,7 +74,7 @@ namespace BackToTheFutureV
             }
 
             _lastDirection = (_frames[_currentFrame] - _spark.CurrentOffset).Normalized;
-            _lastRotation = Utils.DirectionToRotation(_frames[_currentFrame], _spark.CurrentOffset, 0);
+            _lastRotation = FusionUtils.DirectionToRotation(_frames[_currentFrame], _spark.CurrentOffset, 0);
 
             _spark.MoveProp(_spark.CurrentOffset + _lastDirection * Speed * Game.LastFrameTime, _spark.Rotation + Vector3.Lerp(_spark.CurrentRotation, _lastRotation, Game.LastFrameTime * Speed));
         }

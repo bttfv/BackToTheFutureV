@@ -3,7 +3,7 @@ using FusionLibrary.Extensions;
 using GTA;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -125,7 +125,7 @@ namespace BackToTheFutureV
 
             if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled)
             {
-                if (Utils.Random.NextDouble() < 0.25)
+                if (FusionUtils.Random.NextDouble() < 0.25)
                 {
                     Properties.PhotoEngineStallActive = true;
                 }
@@ -147,7 +147,7 @@ namespace BackToTheFutureV
                     return;
                 }
 
-                if ((Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && Utils.PlayerVehicle == Vehicle)
+                if ((Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && FusionUtils.PlayerVehicle == Vehicle)
                 {
                     if (timedEventManager.AllExecuted())
                         timedEventManager.ResetExecution();
@@ -159,7 +159,7 @@ namespace BackToTheFutureV
                         Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop | AnimationFlags.CancelableWithMovement);
 
                         Sounds.EngineRestarter?.Play();
-                        _restartAt = Game.GameTime + Utils.Random.Next(3000, 10000);
+                        _restartAt = Game.GameTime + FusionUtils.Random.Next(3000, 10000);
                         _isRestarting = true;
                     }
 

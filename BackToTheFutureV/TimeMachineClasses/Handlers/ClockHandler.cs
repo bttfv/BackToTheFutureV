@@ -2,7 +2,7 @@
 using GTA;
 using System;
 using System.Windows.Forms;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 using Control = GTA.Control;
 
 namespace BackToTheFutureV
@@ -44,7 +44,7 @@ namespace BackToTheFutureV
 
         private void ProcessButton(Keys key)
         {
-            if (Utils.IsCameraInFirstPerson() && (key == Keys.O || (IsPlaying && (Game.IsControlJustPressed(Control.PhoneCancel) || Game.IsControlJustPressed(Control.PhoneSelect)))))
+            if (FusionUtils.IsCameraInFirstPerson() && (key == Keys.O || (IsPlaying && (Game.IsControlJustPressed(Control.PhoneCancel) || Game.IsControlJustPressed(Control.PhoneSelect)))))
             {
                 IsPlaying = !IsPlaying;
 

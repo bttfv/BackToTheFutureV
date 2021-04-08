@@ -4,7 +4,7 @@ using GTA.Math;
 using GTA.Native;
 using RogersSierraRailway;
 using System;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {

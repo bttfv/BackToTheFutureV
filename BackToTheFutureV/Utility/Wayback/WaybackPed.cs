@@ -4,7 +4,7 @@ using GTA;
 using GTA.Math;
 using System;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -32,7 +32,7 @@ namespace BackToTheFutureV
         public WaybackPed(Guid owner, Ped ped)
         {
             Owner = owner;
-            Time = Utils.CurrentTime;
+            Time = FusionUtils.CurrentTime;
             FrameTime = Game.LastFrameTime;
 
             Visible = ped.IsVisible;
@@ -116,7 +116,7 @@ namespace BackToTheFutureV
                     if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.Melee) | ped.IsTaskActive(TaskType.ScriptedAnimation))
                         break;
 
-                    ped.TaskGoStraightTo(Utils.Lerp(Position, nextReplica.Position, adjustedRatio), Utils.Lerp(Speed, nextReplica.Speed, adjustedRatio), Utils.Lerp(Heading, nextReplica.Heading, adjustedRatio), -1, 0.1f);
+                    ped.TaskGoStraightTo(FusionUtils.Lerp(Position, nextReplica.Position, adjustedRatio), FusionUtils.Lerp(Speed, nextReplica.Speed, adjustedRatio), FusionUtils.Lerp(Heading, nextReplica.Heading, adjustedRatio), -1, 0.1f);
                     break;
             }
         }

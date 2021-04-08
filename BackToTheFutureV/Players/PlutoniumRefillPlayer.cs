@@ -1,6 +1,6 @@
 ﻿using FusionLibrary;
 using KlangRageAudioLibrary;
-using static FusionLibrary.Enums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
