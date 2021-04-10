@@ -1,7 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.Math;
 using System;
 using System.IO;
 using static BackToTheFutureV.InternalEnums;
@@ -12,30 +11,13 @@ namespace BackToTheFutureV
     [Serializable]
     internal class WaybackPed
     {
-        public Guid Owner { get; }
-
-        public DateTime Time { get; }
-        public float FrameTime { get; }
-
-        public Vector3 Position { get; }
-        public float Heading { get; }
-        public float Speed { get; }
-        public bool Visible { get; }
-
-        public WeaponHash Weapon { get; }
+        public PedReplica Replica { get; }
 
         public WaybackPedEvent Event { get; set; } = WaybackPedEvent.Walking;
 
-        public WaybackVehicle WaybackVehicle { get; set; } = null;
-
-        public WaybackPed(Guid owner, Ped ped)
+        public WaybackPed(Ped ped)
         {
-            Owner = owner;
-            Time = FusionUtils.CurrentTime;
-            FrameTime = Game.LastFrameTime;
-
-            Visible = ped.IsVisible;
-            Weapon = ped.Weapons.Current;
+            Replica = new PedReplica(ped);
 
             if (ped.IsJumping)
                 Event = WaybackPedEvent.Jump;
@@ -51,41 +33,17 @@ namespace BackToTheFutureV
 
             if (ped.IsLeavingVehicle() || ped.IsJumpingOutOfVehicle)
                 Event = WaybackPedEvent.LeavingVehicle;
-
-            Vehicle vehicle = ped.GetUsingVehicle();
-
-            if (vehicle.NotNullAndExists())
-                WaybackVehicle = new WaybackVehicle(vehicle);
-
-            if (Event != WaybackPedEvent.Walking)
-                return;
-
-            Position = ped.Position;
-            Heading = ped.Heading;
-            Speed = ped.Speed;
         }
 
-        public void Apply(Ped ped, WaybackPed nextReplica)
+        public void Apply(Ped ped, Vehicle vehicle, PedReplica nextReplica, float adjustedRatio)
         {
-            float adjustedRatio = 1 - (FrameTime / Game.LastFrameTime);
-
-            Vehicle vehicle = WaybackVehicle?.Apply(ped, nextReplica.WaybackVehicle == null ? null : nextReplica.WaybackVehicle.VehicleReplica, adjustedRatio);
-
             if (Event == WaybackPedEvent.Clone)
                 return;
-
-            if (vehicle.NotNullAndExists() && !vehicle.IsVisible)
-                ped.IsVisible = false;
-            else if (ped.IsVisible != Visible)
-                ped.IsVisible = Visible;
-
-            if (Weapon != ped.Weapons.Current)
-                ped.Weapons.Select(Weapon);
 
             switch (Event)
             {
                 case WaybackPedEvent.EnteringVehicle:
-                    if (!ped.IsEnteringVehicle() && vehicle.NotNullAndExists())
+                    if (vehicle.NotNullAndExists() && !ped.IsEnteringVehicle())
                         ped.Task.EnterVehicle(vehicle, VehicleSeat.Driver);
 
                     break;
@@ -95,7 +53,7 @@ namespace BackToTheFutureV
 
                     break;
                 case WaybackPedEvent.DrivingVehicle:
-                    if (ped.NotNullAndExists() && !ped.IsSittingInVehicle(vehicle))
+                    if (vehicle.NotNullAndExists() && !ped.IsSittingInVehicle(vehicle))
                         ped.SetIntoVehicle(vehicle, VehicleSeat.Driver);
 
                     break;
@@ -115,7 +73,7 @@ namespace BackToTheFutureV
                     if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.Melee) | ped.IsTaskActive(TaskType.ScriptedAnimation))
                         break;
 
-                    ped.TaskGoStraightTo(FusionUtils.Lerp(Position, nextReplica.Position, adjustedRatio), FusionUtils.Lerp(Speed, nextReplica.Speed, adjustedRatio), FusionUtils.Lerp(Heading, nextReplica.Heading, adjustedRatio), -1, 0.1f);
+                    ped.TaskGoStraightTo(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), FusionUtils.Lerp(Replica.Speed, nextReplica.Speed, adjustedRatio), FusionUtils.Lerp(Replica.Heading, nextReplica.Heading, adjustedRatio), -1, 0.1f);
                     break;
             }
         }

@@ -28,7 +28,7 @@ namespace BackToTheFutureV
             if (_delay > -1 && Game.GameTime > _delay)
             {
                 if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                    WaybackSystem.CurrentRecording.Record(new WaybackVehicle(TimeMachine, WaybackVehicleEvent.LightningStrike));
+                    WaybackSystem.CurrentRecording.Record(TimeMachine, WaybackVehicleEvent.LightningStrike);
 
                 Strike();
             }
@@ -41,7 +41,7 @@ namespace BackToTheFutureV
                 if (FusionUtils.Random.NextDouble() < 0.3)
                 {
                     if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                        WaybackSystem.CurrentRecording.Record(new WaybackVehicle(TimeMachine, WaybackVehicleEvent.LightningStrike));
+                        WaybackSystem.CurrentRecording.Record(TimeMachine, WaybackVehicleEvent.LightningStrike);
 
                     Strike();
                 }

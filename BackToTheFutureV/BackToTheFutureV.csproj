@@ -221,11 +221,12 @@
     <Compile Include="Utility\TextHandler.cs" />
     <Compile Include="Utility\TrashHandler.cs" />
     <Compile Include="Utility\Wayback\Network\WaybackClient.cs" />
+    <Compile Include="Utility\Wayback\WaybackRecord.cs" />
     <Compile Include="Utility\Wayback\Network\WaybackServer.cs" />
     <Compile Include="Utility\Wayback\WaybackMachine.cs" />
     <Compile Include="Utility\Wayback\WaybackSystem.cs" />
-    <Compile Include="Utility\Wayback\WaybackVehicle.cs" />
-    <Compile Include="Utility\Wayback\WaybackPed.cs" />
+    <Compile Include="Utility\Wayback\Entities\WaybackVehicle.cs" />
+    <Compile Include="Utility\Wayback\Entities\WaybackPed.cs" />
     <Compile Include="Vehicles\DMC12\ModsPrimitive.cs" />
     <Compile Include="Vehicles\DMC12\DMC12.cs" />
     <Compile Include="Vehicles\DMC12\DMC12Handler.cs" />

@@ -11,16 +11,13 @@ namespace BackToTheFutureV
     [Serializable]
     internal class WaybackMachine
     {
-        public List<WaybackPed> Replicas { get; } = new List<WaybackPed>();
+        public List<WaybackRecord> Records { get; } = new List<WaybackRecord>();
 
         public Guid GUID { get; private set; } = Guid.Empty;
-
-        public PedReplica PedReplica { get; private set; }
 
         private int Ped1Handle { get; set; }
         private int Ped2Handle { get; set; }
         private bool UsePed1 { get; set; } = true;
-
         public Ped Ped
         {
             get => (Ped)Entity.FromHandle(UsePed1 ? Ped1Handle : Ped2Handle);
@@ -43,29 +40,19 @@ namespace BackToTheFutureV
             }
         }
 
-        public int LastRecReplicaIndex { get; private set; } = 0;
-        public WaybackPed LastRecReplica => Replicas[LastRecReplicaIndex];
+        public int LastRecordedIndex { get; private set; } = -1;
+        public WaybackRecord LastRecord => Records[LastRecordedIndex];
 
-        public int ReplicaIndex { get; private set; } = 0;
-        public WaybackPed CurrentReplica => Replicas[ReplicaIndex];
-        public WaybackPed PreviousReplica
+        public int CurrentIndex { get; private set; } = 0;
+        public WaybackRecord CurrentRecord => Records[CurrentIndex];
+        public WaybackRecord NextRecord
         {
             get
             {
-                if (ReplicaIndex == 0)
-                    return CurrentReplica;
+                if (CurrentIndex >= LastRecordedIndex)
+                    return CurrentRecord;
 
-                return Replicas[ReplicaIndex - 1];
-            }
-        }
-        public WaybackPed NextReplica
-        {
-            get
-            {
-                if (ReplicaIndex >= Replicas.Count - 1)
-                    return CurrentReplica;
-
-                return Replicas[ReplicaIndex + 1];
+                return Records[CurrentIndex + 1];
             }
         }
 
@@ -85,13 +72,12 @@ namespace BackToTheFutureV
             Ped = ped;
             GUID = guid;
 
-            PedReplica = new PedReplica(Ped);
-
-            Replicas.Add(new WaybackPed(GUID, Ped));
-
-            StartTime = LastRecReplica.Time;
-
             Status = WaybackStatus.Recording;
+
+            Record();
+            StartTime = LastRecord.Time;
+
+            SkipNextRecord = true;
         }
 
         public void StartOn(Ped ped, bool waitForReentry = false)
@@ -105,7 +91,7 @@ namespace BackToTheFutureV
         public void Tick()
         {
             if (IsRemote)
-                GTA.UI.Screen.ShowSubtitle($"{Status} {StartTime} {EndTime} {ReplicaIndex} {Replicas.Count} {Ped.NotNullAndExists()}");
+                GTA.UI.Screen.ShowSubtitle($"{Status} {StartTime} {EndTime} {CurrentIndex} {Records.Count} {Ped.NotNullAndExists()}");
 
             switch (Status)
             {
@@ -117,22 +103,22 @@ namespace BackToTheFutureV
                             if (TimeMachineHandler.GetTimeMachineFromReplicaGUID(GUID).Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
                                 return;
 
-                            ReplicaIndex = 0;
+                            CurrentIndex = 0;
                             WaitForReentry = false;
                         }
                         else
-                            ReplicaIndex = Replicas.FindIndex(x => x.Time >= FusionUtils.CurrentTime);
+                            CurrentIndex = Records.FindIndex(x => x.Time >= FusionUtils.CurrentTime);
 
                         Status = WaybackStatus.Playing;
 
                         if (!Ped.NotNullAndExists())
-                            Spawn();
+                            Ped = CurrentRecord.Spawn(NextRecord);
 
                         Play();
                     }
                     break;
                 case WaybackStatus.Recording:
-                    InternalRecord();
+                    Record();
                     break;
                 case WaybackStatus.Playing:
                     Play();
@@ -140,39 +126,43 @@ namespace BackToTheFutureV
             }
         }
 
-        private void Spawn()
-        {
-            float adjustedRatio = 1 - (CurrentReplica.FrameTime / Game.LastFrameTime);
-
-            Ped = World.GetClosestPed(FusionUtils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), 3, PedReplica.Model);
-
-            if (Ped.NotNullAndExists() && Ped != FusionUtils.PlayerPed)
-                return;
-
-            Ped = PedReplica.Spawn(FusionUtils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), FusionUtils.Lerp(CurrentReplica.Heading, NextReplica.Heading, adjustedRatio));
-        }
-
         public void Clone(Ped ped)
         {
             UsePed1 = !UsePed1;
             Ped = ped;
 
-            Record().Event = WaybackPedEvent.Clone;
+            Record().Ped.Event = WaybackPedEvent.Clone;
         }
 
-        public WaybackPed Record(WaybackVehicle waybackVehicle = default)
+        public WaybackRecord Record(TimeMachine timeMachine, WaybackVehicleEvent wvEvent, int timeTravelDelay = 0)
         {
-            SkipNextRecord = false;
+            if (Status != WaybackStatus.Recording)
+                return null;
 
-            WaybackPed ped = InternalRecord(waybackVehicle);
+            if (!Ped.NotNullAndExists() || FusionUtils.CurrentTime < StartTime)
+            {
+                Stop();
+                return null;
+            }
 
-            if (ped != null)
-                SkipNextRecord = true;
+            WaybackRecord waybackRecord = new WaybackRecord(GUID, Ped, timeMachine, wvEvent, timeTravelDelay);
 
-            return ped;
+            Records.Add(waybackRecord);
+
+            LastRecordedIndex++;
+
+            SkipNextRecord = true;
+
+            if (WaybackServer.Connected)
+                WaybackServer.Send(waybackRecord);
+
+            if (WaybackClient.Connected)
+                WaybackClient.Send(waybackRecord);
+
+            return waybackRecord;
         }
 
-        private WaybackPed InternalRecord(WaybackVehicle waybackVehicle = default)
+        private WaybackRecord Record()
         {
             if (SkipNextRecord)
             {
@@ -189,52 +179,49 @@ namespace BackToTheFutureV
                 return null;
             }
 
-            WaybackPed recordedReplica = new WaybackPed(GUID, Ped);
+            WaybackRecord waybackRecord = new WaybackRecord(GUID, Ped);
 
-            if (waybackVehicle != default)
-                recordedReplica.WaybackVehicle = waybackVehicle;
+            Records.Add(waybackRecord);
 
-            Replicas.Add(recordedReplica);
-
-            LastRecReplicaIndex++;
+            LastRecordedIndex++;
 
             if (WaybackServer.Connected)
-                WaybackServer.Send(LastRecReplica);
+                WaybackServer.Send(waybackRecord);
 
             if (WaybackClient.Connected)
-                WaybackClient.Send(LastRecReplica);
+                WaybackClient.Send(waybackRecord);
 
-            return recordedReplica;
+            return waybackRecord;
         }
 
         private void Play()
         {
-            if (IsRemote && ReplicaIndex >= Replicas.Count - 1)
+            if (IsRemote && CurrentIndex > LastRecordedIndex)
                 return;
 
             if (!Ped.NotNullAndExists())
                 return;
 
-            if (CurrentReplica.Event == WaybackPedEvent.Clone)
+            if (CurrentRecord.Ped.Event == WaybackPedEvent.Clone)
             {
                 Ped?.Task.ClearAllImmediately();
 
                 UsePed1 = !UsePed1;
-                Spawn();
+                Ped = CurrentRecord.Spawn(NextRecord);
             }
 
-            CurrentReplica.Apply(Ped, NextReplica);
+            CurrentRecord.Apply(Ped, NextRecord);
 
-            if (!IsRemote && ReplicaIndex >= Replicas.Count - 1)
+            if (!IsRemote && CurrentIndex >= LastRecordedIndex)
                 Status = WaybackStatus.Idle;
             else
-                ReplicaIndex++;
+                CurrentIndex++;
         }
 
         public void Stop()
         {
             if (Status == WaybackStatus.Recording)
-                EndTime = LastRecReplica.Time.AddMinutes(-1);
+                EndTime = LastRecord.Time.AddMinutes(-1);
 
             Reset();
         }
@@ -242,19 +229,19 @@ namespace BackToTheFutureV
         public void Reset(bool isRemote = false)
         {
             IsRemote = isRemote;
-            ReplicaIndex = 0;
+            CurrentIndex = 0;
             Ped1Handle = 0;
             Ped2Handle = 0;
             UsePed1 = true;
             Status = WaybackStatus.Idle;
         }
 
-        public void Add(WaybackPed waybackPed)
+        public void Add(WaybackRecord waybackRecord)
         {
-            Replicas.Add(waybackPed);
-            EndTime = waybackPed.Time.AddMinutes(-1);
+            Records.Add(waybackRecord);
+            EndTime = waybackRecord.Time.AddMinutes(-1);
 
-            LastRecReplicaIndex++;
+            LastRecordedIndex++;
         }
 
         public static WaybackMachine FromData(byte[] data)

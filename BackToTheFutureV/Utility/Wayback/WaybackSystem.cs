@@ -83,17 +83,17 @@ namespace BackToTheFutureV
 
         public static bool RecordFromData(byte[] data)
         {
-            WaybackPed waybackPed = WaybackPed.FromData(data);
+            WaybackRecord waybackRecord = WaybackRecord.FromData(data);
 
-            if (waybackPed == null)
+            if (waybackRecord == null)
                 return false;
 
-            WaybackMachine waybackMachine = Machines.SingleOrDefault(x => x.GUID == waybackPed.Owner && x.IsRemote);
+            WaybackMachine waybackMachine = Machines.SingleOrDefault(x => x.GUID == waybackRecord.Owner && x.IsRemote);
 
             if (waybackMachine == default)
                 return false;
 
-            waybackMachine.Add(waybackPed);
+            waybackMachine.Add(waybackRecord);
 
             return true;
         }
