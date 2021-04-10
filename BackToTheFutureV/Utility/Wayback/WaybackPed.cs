@@ -3,6 +3,7 @@ using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System;
+using System.IO;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
@@ -15,8 +16,6 @@ namespace BackToTheFutureV
 
         public DateTime Time { get; }
         public float FrameTime { get; }
-
-        public float AdjustedRatio => 1 - (FrameTime / Game.LastFrameTime);
 
         public Vector3 Position { get; }
         public float Heading { get; }
@@ -68,7 +67,7 @@ namespace BackToTheFutureV
 
         public void Apply(Ped ped, WaybackPed nextReplica)
         {
-            float adjustedRatio = AdjustedRatio;
+            float adjustedRatio = 1 - (FrameTime / Game.LastFrameTime);
 
             Vehicle vehicle = WaybackVehicle?.Apply(ped, nextReplica.WaybackVehicle == null ? null : nextReplica.WaybackVehicle.VehicleReplica, adjustedRatio);
 
@@ -118,6 +117,30 @@ namespace BackToTheFutureV
 
                     ped.TaskGoStraightTo(FusionUtils.Lerp(Position, nextReplica.Position, adjustedRatio), FusionUtils.Lerp(Speed, nextReplica.Speed, adjustedRatio), FusionUtils.Lerp(Heading, nextReplica.Heading, adjustedRatio), -1, 0.1f);
                     break;
+            }
+        }
+
+        public static WaybackPed FromData(byte[] data)
+        {
+            using (MemoryStream stream = new MemoryStream(data))
+            {
+                try
+                {
+                    return (WaybackPed)FusionUtils.BinaryFormatter.Deserialize(stream);
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static implicit operator byte[](WaybackPed command)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                FusionUtils.BinaryFormatter.Serialize(stream, command);
+                return stream.ToArray();
             }
         }
     }

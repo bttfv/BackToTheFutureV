@@ -2,7 +2,6 @@
 using GTA;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using static BackToTheFutureV.InternalEnums;
 
@@ -12,7 +11,7 @@ namespace BackToTheFutureV
     {
         private static List<WaybackMachine> Machines = new List<WaybackMachine>();
 
-        public static WaybackMachine CurrentRecording => Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording);
+        public static WaybackMachine CurrentRecording => Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording && !x.IsRemote);
 
         static WaybackSystem()
         {
@@ -26,6 +25,12 @@ namespace BackToTheFutureV
 
             if (CurrentRecording == default)
                 Create(FusionUtils.PlayerPed, Guid.NewGuid());
+
+            if (Game.WasCheatStringJustEntered("server"))
+                WaybackServer.StartServer();
+
+            if (Game.WasCheatStringJustEntered("client"))
+                WaybackClient.StartClient();
 
             Machines.ForEach(x => x.Tick());
         }
@@ -54,7 +59,7 @@ namespace BackToTheFutureV
 
         public static WaybackMachine GetFromGUID(Guid guid)
         {
-            return Machines.FirstOrDefault(x => x.GUID == guid);
+            return Machines.SingleOrDefault(x => x.GUID == guid);
         }
 
         public static bool AddFromData(byte[] data)
@@ -64,34 +69,31 @@ namespace BackToTheFutureV
             if (waybackMachine == null)
                 return false;
 
-            if (!Machines.Contains(waybackMachine))
-                Machines.Add(waybackMachine);
+            if (Machines.SingleOrDefault(x => x.GUID == waybackMachine.GUID && x.IsRemote) != default)
+                return true;
+
+            waybackMachine.Reset(true);
+
+            Machines.Add(waybackMachine);
+
+            FusionUtils.HelpText = $"Added remote wayback. Total: ({Machines.Count})";
 
             return true;
         }
 
         public static bool RecordFromData(byte[] data)
         {
-            WaybackPed waybackPed;
+            WaybackPed waybackPed = WaybackPed.FromData(data);
 
-            using (MemoryStream stream = new MemoryStream(data))
-            {
-                try
-                {
-                    waybackPed = (WaybackPed)FusionUtils.BinaryFormatter.Deserialize(stream);
-                }
-                catch
-                {
-                    return false;
-                }
-            }
+            if (waybackPed == null)
+                return false;
 
-            WaybackMachine waybackMachine = Machines.SingleOrDefault(x => x.GUID == waybackPed.Owner);
+            WaybackMachine waybackMachine = Machines.SingleOrDefault(x => x.GUID == waybackPed.Owner && x.IsRemote);
 
             if (waybackMachine == default)
                 return false;
 
-            waybackMachine.Replicas.Add(waybackPed);
+            waybackMachine.Add(waybackPed);
 
             return true;
         }

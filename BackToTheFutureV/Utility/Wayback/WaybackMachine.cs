@@ -62,7 +62,7 @@ namespace BackToTheFutureV
         {
             get
             {
-                if (ReplicaIndex == Replicas.Count - 1)
+                if (ReplicaIndex >= Replicas.Count - 1)
                     return CurrentReplica;
 
                 return Replicas[ReplicaIndex + 1];
@@ -77,6 +77,8 @@ namespace BackToTheFutureV
         public bool WaitForReentry { get; private set; }
 
         private bool SkipNextRecord = false;
+
+        public bool IsRemote { get; private set; } = false;
 
         public WaybackMachine(Ped ped, Guid guid)
         {
@@ -102,6 +104,9 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
+            if (IsRemote)
+                GTA.UI.Screen.ShowSubtitle($"{Status} {StartTime} {EndTime} {ReplicaIndex} {Replicas.Count} {Ped.NotNullAndExists()}");
+
             switch (Status)
             {
                 case WaybackStatus.Idle:
@@ -137,7 +142,7 @@ namespace BackToTheFutureV
 
         private void Spawn()
         {
-            float adjustedRatio = ((CurrentReplica.FrameTime + NextReplica.FrameTime) / 2) / Game.LastFrameTime;
+            float adjustedRatio = 1 - (CurrentReplica.FrameTime / Game.LastFrameTime);
 
             Ped = World.GetClosestPed(FusionUtils.Lerp(CurrentReplica.Position, NextReplica.Position, adjustedRatio), 3, PedReplica.Model);
 
@@ -193,11 +198,20 @@ namespace BackToTheFutureV
 
             LastRecReplicaIndex++;
 
+            if (WaybackServer.Connected)
+                WaybackServer.Send(LastRecReplica);
+
+            if (WaybackClient.Connected)
+                WaybackClient.Send(LastRecReplica);
+
             return recordedReplica;
         }
 
         private void Play()
         {
+            if (IsRemote && ReplicaIndex >= Replicas.Count - 1)
+                return;
+
             if (!Ped.NotNullAndExists())
                 return;
 
@@ -211,7 +225,7 @@ namespace BackToTheFutureV
 
             CurrentReplica.Apply(Ped, NextReplica);
 
-            if (ReplicaIndex == Replicas.Count - 1)
+            if (!IsRemote && ReplicaIndex >= Replicas.Count - 1)
                 Status = WaybackStatus.Idle;
             else
                 ReplicaIndex++;
@@ -222,10 +236,25 @@ namespace BackToTheFutureV
             if (Status == WaybackStatus.Recording)
                 EndTime = LastRecReplica.Time.AddMinutes(-1);
 
+            Reset();
+        }
+
+        public void Reset(bool isRemote = false)
+        {
+            IsRemote = isRemote;
             ReplicaIndex = 0;
             Ped1Handle = 0;
             Ped2Handle = 0;
+            UsePed1 = true;
             Status = WaybackStatus.Idle;
+        }
+
+        public void Add(WaybackPed waybackPed)
+        {
+            Replicas.Add(waybackPed);
+            EndTime = waybackPed.Time.AddMinutes(-1);
+
+            LastRecReplicaIndex++;
         }
 
         public static WaybackMachine FromData(byte[] data)
