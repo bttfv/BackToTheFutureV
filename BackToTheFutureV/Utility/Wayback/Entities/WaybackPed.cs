@@ -1,8 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.Math;
-using GTA.Native;
 using System;
 using System.IO;
 using static BackToTheFutureV.InternalEnums;
