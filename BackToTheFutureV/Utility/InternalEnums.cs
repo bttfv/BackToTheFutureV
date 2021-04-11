@@ -13,13 +13,15 @@
 
         internal enum WaybackPedEvent
         {
+            None,
             Walking,
             EnteringVehicle,
             LeavingVehicle,
             DrivingVehicle,
             Jump,
             MeleeAttack,
-            Clone
+            Clone,
+            Climb
         }
 
         internal enum WaybackVehicleEvent
