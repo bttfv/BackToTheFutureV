@@ -20,7 +20,6 @@
             DrivingVehicle,
             Jump,
             MeleeAttack,
-            Clone,
             Climb
         }
 

@@ -15,6 +15,8 @@ namespace BackToTheFutureV
 
         public WaybackPedEvent Event { get; set; } = WaybackPedEvent.None;
 
+        public bool SwitchPed { get; set; }
+
         public WaybackPed(Ped ped)
         {
             Replica = new PedReplica(ped);
@@ -43,7 +45,7 @@ namespace BackToTheFutureV
 
         public void Apply(Ped ped, Vehicle vehicle, PedReplica nextReplica, float adjustedRatio)
         {
-            if (Event == WaybackPedEvent.None || Event == WaybackPedEvent.Clone)
+            if (Event == WaybackPedEvent.None)
                 return;
 
             switch (Event)

@@ -15,28 +15,16 @@ namespace BackToTheFutureV
 
         public Guid GUID { get; private set; } = Guid.Empty;
 
-        private int Ped1Handle { get; set; }
-        private int Ped2Handle { get; set; }
-        private bool UsePed1 { get; set; } = true;
+        private int PedHandle { get; set; }
         public Ped Ped
         {
-            get => (Ped)Entity.FromHandle(UsePed1 ? Ped1Handle : Ped2Handle);
+            get => (Ped)Entity.FromHandle(PedHandle);
             private set
             {
-                if (UsePed1)
-                {
-                    if (value.NotNullAndExists())
-                        Ped1Handle = value.Handle;
-                    else
-                        Ped1Handle = 0;
-                }
+                if (value.NotNullAndExists())
+                    PedHandle = value.Handle;
                 else
-                {
-                    if (value.NotNullAndExists())
-                        Ped2Handle = value.Handle;
-                    else
-                        Ped2Handle = 0;
-                }
+                    PedHandle = 0;
             }
         }
 
@@ -117,7 +105,7 @@ namespace BackToTheFutureV
                     break;
                 case WaybackStatus.Recording:
                     if (IsPlayer && Ped != FusionUtils.PlayerPed)
-                        Clone(FusionUtils.PlayerPed);
+                        SwitchPed(FusionUtils.PlayerPed);
 
                     Record();
                     break;
@@ -127,12 +115,13 @@ namespace BackToTheFutureV
             }
         }
 
-        public void Clone(Ped ped)
+        private void SwitchPed(Ped ped)
         {
-            UsePed1 = !UsePed1;
             Ped = ped;
 
-            Record().Ped.Event = WaybackPedEvent.Clone;
+            SkipNextRecord = false;
+
+            Record().Ped.SwitchPed = true;
 
             SkipNextRecord = true;
         }
@@ -190,11 +179,9 @@ namespace BackToTheFutureV
             if (!Ped.NotNullAndExists())
                 return;
 
-            if (CurrentRecord.Ped.Event == WaybackPedEvent.Clone)
+            if (CurrentRecord.Ped.SwitchPed)
             {
                 Ped?.Task.ClearAllImmediately();
-
-                UsePed1 = !UsePed1;
                 Ped = CurrentRecord.Spawn(NextRecord);
             }
 
@@ -211,25 +198,10 @@ namespace BackToTheFutureV
             if (Status == WaybackStatus.Recording)
                 EndTime = LastRecord.Time.AddMinutes(-1);
 
-            Reset();
-        }
-
-        public void Reset()
-        {
             CurrentIndex = 0;
-            Ped1Handle = 0;
-            Ped2Handle = 0;
-            UsePed1 = true;
+            PedHandle = 0;
             IsPlayer = false;
             Status = WaybackStatus.Idle;
-        }
-
-        public void Add(WaybackRecord waybackRecord)
-        {
-            Records.Add(waybackRecord);
-            EndTime = waybackRecord.Time.AddMinutes(-1);
-
-            LastRecordedIndex++;
         }
 
         public static WaybackMachine FromData(byte[] data)

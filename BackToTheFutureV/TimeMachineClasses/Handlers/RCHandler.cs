@@ -30,8 +30,6 @@ namespace BackToTheFutureV
 
         //private static AnimateProp RCProp;
 
-        private bool switchCall = false;
-
         public RcHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             PlayerSwitch.OnSwitchingComplete += OnSwitchingComplete;
@@ -103,12 +101,6 @@ namespace BackToTheFutureV
 
         private void OnSwitchingComplete()
         {
-            if (ModSettings.WaybackSystem && switchCall)
-                WaybackSystem.CurrentPlayerRecording.Clone(FusionUtils.PlayerPed);
-
-            if (switchCall)
-                switchCall = false;
-
             if (!Properties.IsRemoteControlled)
             {
                 Clone?.Delete();
@@ -130,7 +122,6 @@ namespace BackToTheFutureV
                 _handleBoost = false;
             }
 
-            switchCall = true;
             Clone = PlayerSwitch.CreatePedAndSwitch(out TimeMachine.OriginalPed, FusionUtils.PlayerPed.Position, FusionUtils.PlayerPed.Heading, true);
 
             Clone.SetIntoVehicle(Vehicle, VehicleSeat.Driver);
@@ -182,7 +173,6 @@ namespace BackToTheFutureV
 
                 TimeMachine.OriginalPed.Task.ClearAll();
 
-                switchCall = true;
                 PlayerSwitch.Switch(TimeMachine.OriginalPed, true, instant);
 
                 if (!instant)
