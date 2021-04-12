@@ -51,9 +51,6 @@ namespace BackToTheFutureV
             DMC12Handler.Abort();
 
             ExternalHUD.Stop();
-
-            WaybackServer.Dispose();
-            WaybackClient.Dispose();
         }
 
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)

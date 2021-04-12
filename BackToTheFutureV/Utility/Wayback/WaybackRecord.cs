@@ -10,17 +10,14 @@ namespace BackToTheFutureV
     [Serializable]
     internal class WaybackRecord
     {
-        public Guid Owner { get; }
-
         public DateTime Time { get; }
         public float FrameTime { get; }
 
         public WaybackPed Ped { get; }
         public WaybackVehicle Vehicle { get; }
 
-        public WaybackRecord(Guid guid, Ped ped)
+        public WaybackRecord(Ped ped)
         {
-            Owner = guid;
             Time = FusionUtils.CurrentTime;
             FrameTime = Game.LastFrameTime;
 
@@ -34,9 +31,8 @@ namespace BackToTheFutureV
             Vehicle = new WaybackVehicle(vehicle);
         }
 
-        public WaybackRecord(Guid guid, Ped ped, TimeMachine timeMachine, WaybackVehicleEvent wvEvent, int timeTravelDelay = 0)
+        public WaybackRecord(Ped ped, TimeMachine timeMachine, WaybackVehicleEvent wvEvent, int timeTravelDelay = 0)
         {
-            Owner = guid;
             Time = FusionUtils.CurrentTime;
             FrameTime = Game.LastFrameTime;
 

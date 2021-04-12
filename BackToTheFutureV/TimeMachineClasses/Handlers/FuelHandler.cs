@@ -71,7 +71,7 @@ namespace BackToTheFutureV
                     return;
 
                 if (ModSettings.WaybackSystem)
-                    WaybackSystem.CurrentRecording.Record(TimeMachine, WaybackVehicleEvent.RefuelReactor);
+                    WaybackSystem.CurrentPlayerRecording.Record(TimeMachine, WaybackVehicleEvent.RefuelReactor);
 
                 Events.SetRefuel?.Invoke(FusionUtils.PlayerPed);
             }
@@ -90,7 +90,7 @@ namespace BackToTheFutureV
                 return;
 
             if (ModSettings.WaybackSystem)
-                WaybackSystem.CurrentRecording.Record(TimeMachine, WaybackVehicleEvent.OpenCloseReactor);
+                WaybackSystem.CurrentPlayerRecording.Record(TimeMachine, WaybackVehicleEvent.OpenCloseReactor);
 
             Events.SetOpenCloseReactor?.Invoke();
         }

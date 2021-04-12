@@ -104,7 +104,7 @@ namespace BackToTheFutureV
         private void OnSwitchingComplete()
         {
             if (ModSettings.WaybackSystem && switchCall)
-                WaybackSystem.CurrentRecording.Clone(FusionUtils.PlayerPed);
+                WaybackSystem.CurrentPlayerRecording.Clone(FusionUtils.PlayerPed);
 
             if (switchCall)
                 switchCall = false;

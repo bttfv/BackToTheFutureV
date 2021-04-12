@@ -11,7 +11,7 @@ namespace BackToTheFutureV
     {
         private static List<WaybackMachine> Machines = new List<WaybackMachine>();
 
-        public static WaybackMachine CurrentRecording => Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording && !x.IsRemote);
+        public static WaybackMachine CurrentPlayerRecording => Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording && x.IsPlayer);
 
         static WaybackSystem()
         {
@@ -23,14 +23,8 @@ namespace BackToTheFutureV
             if (!ModSettings.WaybackSystem)
                 return;
 
-            if (CurrentRecording == default)
+            if (CurrentPlayerRecording == default)
                 Create(FusionUtils.PlayerPed, Guid.NewGuid());
-
-            if (Game.WasCheatStringJustEntered("server"))
-                WaybackServer.StartServer();
-
-            if (Game.WasCheatStringJustEntered("client"))
-                WaybackClient.StartClient();
 
             Machines.ForEach(x => x.Tick());
         }
@@ -48,8 +42,6 @@ namespace BackToTheFutureV
 
         public static WaybackMachine Create(Ped ped, Guid guid)
         {
-            CurrentRecording?.Stop();
-
             WaybackMachine wayback = new WaybackMachine(ped, guid);
 
             Machines.Add(wayback);
@@ -60,42 +52,6 @@ namespace BackToTheFutureV
         public static WaybackMachine GetFromGUID(Guid guid)
         {
             return Machines.SingleOrDefault(x => x.GUID == guid);
-        }
-
-        public static bool AddFromData(byte[] data)
-        {
-            WaybackMachine waybackMachine = WaybackMachine.FromData(data);
-
-            if (waybackMachine == null)
-                return false;
-
-            if (Machines.SingleOrDefault(x => x.GUID == waybackMachine.GUID && x.IsRemote) != default)
-                return true;
-
-            waybackMachine.Reset(true);
-
-            Machines.Add(waybackMachine);
-
-            FusionUtils.HelpText = $"Added remote wayback. Total: ({Machines.Count})";
-
-            return true;
-        }
-
-        public static bool RecordFromData(byte[] data)
-        {
-            WaybackRecord waybackRecord = WaybackRecord.FromData(data);
-
-            if (waybackRecord == null)
-                return false;
-
-            WaybackMachine waybackMachine = Machines.SingleOrDefault(x => x.GUID == waybackRecord.Owner && x.IsRemote);
-
-            if (waybackMachine == default)
-                return false;
-
-            waybackMachine.Add(waybackRecord);
-
-            return true;
         }
     }
 }
