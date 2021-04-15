@@ -4,7 +4,6 @@ using GTA;
 using GTA.Math;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -14,13 +13,12 @@ namespace BackToTheFutureV
         private int _nextId;
         private int _blinks;
 
-        private bool longPressed;
-
         private const int TotalBlinks = 16;
 
         private bool _isBlinking;
 
         private float _reactorGlowingTime = 0;
+        private float _refuelTime = 0;
 
         private NativeInput InteractPressed;
 
@@ -35,8 +33,7 @@ namespace BackToTheFutureV
             SetEmpty(false);
 
             Events.StartFuelBlink += StartFuelBlink;
-            Events.SetRefuel += Refuel;
-            Events.SetOpenCloseReactor += SetOpenCloseReactor;
+            Events.SetReactorState += SetReactorState;
 
             Events.OnReactorTypeChanged += OnReactorTypeChanged;
             OnReactorTypeChanged();
@@ -51,29 +48,23 @@ namespace BackToTheFutureV
             else
                 Players.Refuel = new MrFusionRefillPlayer(TimeMachine);
 
-            Players.Refuel.OnPlayerCompleted += OnCompleted;
-            Properties.IsRefueling = false;
-        }
+            _refuelTime = 0;
 
-        private void OnCompleted()
-        {
-            Properties.IsRefueling = !Properties.IsRefueling;
+            if (Properties.ReactorState != ReactorState.Closed)
+                SetReactorState(ReactorState.Opened);
         }
 
         private void OnControlJustReleased()
         {
-            if (!IsPedInPosition() || !Properties.IsRefueling || Players.Refuel.IsPlaying)
+            if (Properties.ReactorState != ReactorState.Opened || Players.Refuel.IsPlaying || !IsPlayerInPosition())
                 return;
 
             if (HasFuel())
             {
-                if (FusionUtils.PlayerPed.IsTaskActive(TaskType.ScriptedAnimation) || FusionUtils.PlayerPed.IsTaskActive(TaskType.TurnToFaceEntityOrCoord))
-                    return;
+                if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                    WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle = new WaybackVehicle(TimeMachine, WaybackVehicleEvent.RefuelReactor);
 
-                if (ModSettings.WaybackSystem)
-                    WaybackSystem.CurrentPlayerRecording.Record(TimeMachine, WaybackVehicleEvent.RefuelReactor);
-
-                Events.SetRefuel?.Invoke(FusionUtils.PlayerPed);
+                SetReactorState(ReactorState.Refueling);
             }
             else
             {
@@ -86,31 +77,38 @@ namespace BackToTheFutureV
 
         private void OnControlLongPressed()
         {
-            if (longPressed || !IsPedInPosition() || Players.Refuel.IsPlaying)
+            if ((Properties.ReactorState != ReactorState.Opened && Properties.ReactorState != ReactorState.Closed) || Players.Refuel.IsPlaying || !IsPlayerInPosition())
                 return;
 
-            if (ModSettings.WaybackSystem)
-                WaybackSystem.CurrentPlayerRecording.Record(TimeMachine, WaybackVehicleEvent.OpenCloseReactor);
+            if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle = new WaybackVehicle(TimeMachine, WaybackVehicleEvent.OpenCloseReactor);
 
-            Events.SetOpenCloseReactor?.Invoke();
+            SetReactorState(Properties.ReactorState == ReactorState.Closed ? ReactorState.Opened : ReactorState.Closed);
         }
 
-        private void SetOpenCloseReactor()
+        private void SetReactorState(ReactorState reactorState)
         {
-            Players.Refuel?.Play();
-            longPressed = true;
-        }
-
-        private void StartFuelBlink()
-        {
-            if (Properties.IsFueled)
+            if (Properties.ReactorState == reactorState)
                 return;
 
-            _isBlinking = true;
+            Properties.ReactorState = reactorState;
+
+            switch (reactorState)
+            {
+                case ReactorState.Opened:
+                case ReactorState.Closed:
+                    Players.Refuel?.Play();
+                    break;
+                case ReactorState.Refueling:
+                    Refuel();
+                    break;
+            }
         }
 
-        private void Refuel(Ped refuelPed)
+        private void Refuel()
         {
+            Ped refuelPed = IsPedInPosition();
+
             if (Properties.ReactorCharge >= Constants.MaxReactorCharge && refuelPed == FusionUtils.PlayerPed)
                 return;
 
@@ -142,24 +140,40 @@ namespace BackToTheFutureV
             SetEmpty(false);
         }
 
+        private void StartFuelBlink()
+        {
+            if (Properties.IsFueled)
+                return;
+
+            _isBlinking = true;
+        }
+
         public override void Tick()
         {
             Players.Refuel?.Tick();
 
-            if (longPressed && !Game.IsControlPressed(GTA.Control.Context))
-                longPressed = false;
+            if (Properties.ReactorState == ReactorState.Refueling)
+            {
+                if (_refuelTime > 3)
+                {
+                    Properties.ReactorState = ReactorState.Opened;
+                    _refuelTime = 0;
+                }
+                else
+                    _refuelTime += Game.LastFrameTime;
+            }
 
             // Pulsing animation while refueling for plutonium (bttf1) delorean
             if (Mods.Reactor == ReactorType.Nuclear && ModSettings.GlowingPlutoniumReactor)
             {
-                if (!Properties.IsFueled && !Properties.IsRefueling)
+                if (!Properties.IsFueled && Properties.ReactorState != ReactorState.Refueling)
                 {
                     if (Mods.GlowingReactor == ModState.On)
                         Mods.GlowingReactor = ModState.Off;
                 }
                 else
                 {
-                    if (Properties.IsRefueling)
+                    if (Properties.ReactorState == ReactorState.Refueling)
                     {
                         _reactorGlowingTime += Game.LastFrameTime;
 
@@ -231,30 +245,30 @@ namespace BackToTheFutureV
                     SetEmpty(true);
             }
 
-            if (Properties.IsRefueling)
+            if (Properties.ReactorState == ReactorState.Refueling && Mods.Reactor == ReactorType.MrFusion)
             {
-                if (Mods.Reactor == ReactorType.MrFusion)
-                {
-                    if (Vehicle.IsVisible && !Particles.MrFusionSmoke.IsPlaying)
-                        Particles.MrFusionSmoke.Play();
+                if (Vehicle.IsVisible && !Particles.MrFusionSmoke.IsPlaying)
+                    Particles.MrFusionSmoke.Play();
 
-                    if (!Vehicle.IsVisible && Particles.MrFusionSmoke.IsPlaying)
-                        Particles.MrFusionSmoke.Stop();
-                }
+                if (!Vehicle.IsVisible && Particles.MrFusionSmoke.IsPlaying)
+                    Particles.MrFusionSmoke.Stop();
             }
 
-            if (!IsPedInPosition())
+            if (Players.Refuel.IsPlaying || !IsPlayerInPosition())
                 return;
 
-            if (Properties.IsRefueling)
+            switch (Properties.ReactorState)
             {
-                if (HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
-                    TextHandler.ShowHelp("RefuelReactor");
-                else
-                    TextHandler.ShowHelp("CloseReactor");
+                case ReactorState.Opened:
+                    if (HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
+                        TextHandler.ShowHelp("RefuelReactor");
+                    else
+                        TextHandler.ShowHelp("CloseReactor");
+                    break;
+                case ReactorState.Closed:
+                    TextHandler.ShowHelp("OpenReactor");
+                    break;
             }
-            else
-                TextHandler.ShowHelp("OpenReactor");
         }
 
         private bool HasFuel()
@@ -271,9 +285,19 @@ namespace BackToTheFutureV
             return false;
         }
 
-        private bool IsPedInPosition()
+        private bool IsPlayerInPosition()
         {
             return IsPedInPosition(Vehicle, FusionUtils.PlayerPed);
+        }
+
+        private Ped IsPedInPosition()
+        {
+            Ped ped = World.GetClosestPed(Vehicle.Bones["mr_fusion"].Position, 1.9f);
+
+            if (!IsPedInPosition(Vehicle, ped))
+                ped = null;
+
+            return ped;
         }
 
         internal static bool IsPedInPosition(Vehicle vehicle, Ped ped)

@@ -35,6 +35,7 @@ namespace BackToTheFutureV
         public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
         public int TimeTravelsCount { get; set; }
         public bool ThreeDigitsSpeedo { get; set; }
+        public ReactorState ReactorState { get; set; } = ReactorState.Closed;
 
         //Temporary properties        
         public int ReactorCharge
@@ -49,7 +50,6 @@ namespace BackToTheFutureV
         public bool IsFueled => ReactorCharge > 0;
         public bool IsGivenScaleformPriority { get; set; }
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
-        public bool IsRefueling { get; set; }
         public bool IsFluxDoingBlueAnim { get; set; }
         public bool IsEngineStalling { get; set; }
         public bool IsRemoteControlled { get; set; }
@@ -113,7 +113,8 @@ namespace BackToTheFutureV
                 HasBeenStruckByLightning = HasBeenStruckByLightning,
                 TimeTravelDestPos = TimeTravelDestPos,
                 TimeTravelsCount = TimeTravelsCount,
-                ThreeDigitsSpeedo = ThreeDigitsSpeedo
+                ThreeDigitsSpeedo = ThreeDigitsSpeedo,
+                ReactorState = ReactorState
             };
 
             return ret;
@@ -155,6 +156,8 @@ namespace BackToTheFutureV
 
             if (AreHoodboxCircuitsReady)
                 timeMachine.Events.SetHoodboxWarmedUp?.Invoke();
+
+            timeMachine.Events.SetReactorState?.Invoke(ReactorState);
         }
 
         public void ApplyToWayback(TimeMachine timeMachine)

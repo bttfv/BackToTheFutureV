@@ -1,4 +1,6 @@
-﻿namespace BackToTheFutureV
+﻿using System;
+
+namespace BackToTheFutureV
 {
     internal class InternalEnums
     {
@@ -23,13 +25,21 @@
             Climb
         }
 
+        [Flags]
         internal enum WaybackVehicleEvent
         {
             None,
             OnSparksEnded,
             OpenCloseReactor,
-            RefuelReactor,
-            LightningStrike
+            RefuelReactor = 4,
+            LightningStrike = 8
+        }
+
+        internal enum ReactorState
+        {
+            Closed,
+            Opened,
+            Refueling
         }
 
         internal enum TCDBackground

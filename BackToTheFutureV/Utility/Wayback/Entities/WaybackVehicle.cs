@@ -20,16 +20,16 @@ namespace BackToTheFutureV
         public WaybackVehicleEvent Event { get; set; } = WaybackVehicleEvent.None;
         public int TimeTravelDelay { get; set; }
 
-        public WaybackVehicle(TimeMachine timeMachine, WaybackVehicleEvent wvEvent = WaybackVehicleEvent.None, int timeTravelDelay = 0)
+        public WaybackVehicle(TimeMachine timeMachine, WaybackVehicleEvent waybackVehicleEvent, int timeTravelDelay = 0)
         {
-            Replica = new VehicleReplica(timeMachine, SpawnFlags.NoOccupants);
+            Replica = new VehicleReplica(timeMachine.Vehicle, SpawnFlags.NoOccupants);
 
             IsTimeMachine = true;
 
             Properties = timeMachine.Properties.Clone();
             Mods = timeMachine.Mods.Clone();
 
-            Event = wvEvent;
+            Event |= waybackVehicleEvent;
             TimeTravelDelay = timeTravelDelay;
         }
 
@@ -112,21 +112,17 @@ namespace BackToTheFutureV
             if (Event == WaybackVehicleEvent.None)
                 return vehicle;
 
-            switch (Event)
-            {
-                case WaybackVehicleEvent.OnSparksEnded:
-                    timeMachine.Events.OnSparksEnded?.Invoke(TimeTravelDelay);
-                    break;
-                case WaybackVehicleEvent.OpenCloseReactor:
-                    timeMachine.Events.SetOpenCloseReactor?.Invoke();
-                    break;
-                case WaybackVehicleEvent.RefuelReactor:
-                    timeMachine.Events.SetRefuel?.Invoke(ped);
-                    break;
-                case WaybackVehicleEvent.LightningStrike:
-                    timeMachine.Events.StartLightningStrike?.Invoke(0);
-                    break;
-            }
+            if (Event.HasFlag(WaybackVehicleEvent.OnSparksEnded))
+                timeMachine.Events.OnSparksEnded?.Invoke(TimeTravelDelay);
+
+            if (Event.HasFlag(WaybackVehicleEvent.LightningStrike))
+                timeMachine.Events.StartLightningStrike?.Invoke(0);
+
+            if (Event.HasFlag(WaybackVehicleEvent.OpenCloseReactor))
+                timeMachine.Events.SetReactorState?.Invoke(timeMachine.Properties.ReactorState == ReactorState.Closed ? ReactorState.Opened : ReactorState.Closed);
+
+            if (Event.HasFlag(WaybackVehicleEvent.RefuelReactor))
+                timeMachine.Events.SetReactorState?.Invoke(ReactorState.Refueling);
 
             return vehicle;
         }

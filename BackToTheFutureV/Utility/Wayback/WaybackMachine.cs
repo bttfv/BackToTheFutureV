@@ -11,7 +11,7 @@ namespace BackToTheFutureV
     [Serializable]
     internal class WaybackMachine
     {
-        public List<WaybackRecord> Records { get; } = new List<WaybackRecord>();
+        private List<WaybackRecord> Records { get; } = new List<WaybackRecord>();
 
         public Guid GUID { get; private set; } = Guid.Empty;
 
@@ -33,6 +33,16 @@ namespace BackToTheFutureV
 
         public int CurrentIndex { get; private set; } = 0;
         public WaybackRecord CurrentRecord => Records[CurrentIndex];
+        public WaybackRecord PreviousRecord
+        {
+            get
+            {
+                if (CurrentIndex <= 0)
+                    return CurrentRecord;
+
+                return Records[CurrentIndex - 1];
+            }
+        }
         public WaybackRecord NextRecord
         {
             get
@@ -53,8 +63,6 @@ namespace BackToTheFutureV
 
         public bool WaitForReentry { get; private set; }
 
-        private bool SkipNextRecord = false;
-
         public WaybackMachine(Ped ped, Guid guid)
         {
             Ped = ped;
@@ -62,11 +70,6 @@ namespace BackToTheFutureV
 
             IsPlayer = Ped == FusionUtils.PlayerPed;
             Status = WaybackStatus.Recording;
-
-            Record();
-            StartTime = LastRecord.Time;
-
-            SkipNextRecord = true;
         }
 
         public void StartOn(Ped ped, bool waitForReentry = false)
@@ -104,9 +107,6 @@ namespace BackToTheFutureV
                     }
                     break;
                 case WaybackStatus.Recording:
-                    if (IsPlayer && Ped != FusionUtils.PlayerPed)
-                        SwitchPed(FusionUtils.PlayerPed);
-
                     Record();
                     break;
                 case WaybackStatus.Playing:
@@ -115,57 +115,26 @@ namespace BackToTheFutureV
             }
         }
 
-        private void SwitchPed(Ped ped)
-        {
-            Ped = ped;
-
-            SkipNextRecord = false;
-
-            Record().Ped.SwitchPed = true;
-
-            SkipNextRecord = true;
-        }
-
-        public WaybackRecord Record(TimeMachine timeMachine, WaybackVehicleEvent wvEvent, int timeTravelDelay = 0)
-        {
-            if (Status != WaybackStatus.Recording)
-                return null;
-
-            if (!Ped.NotNullAndExists() || FusionUtils.CurrentTime < StartTime)
-            {
-                Stop();
-                return null;
-            }
-
-            WaybackRecord waybackRecord = new WaybackRecord(Ped, timeMachine, wvEvent, timeTravelDelay);
-
-            Records.Add(waybackRecord);
-
-            LastRecordedIndex++;
-
-            SkipNextRecord = true;
-
-            return waybackRecord;
-        }
-
         private WaybackRecord Record()
         {
-            if (SkipNextRecord)
-            {
-                SkipNextRecord = false;
-                return null;
-            }
-
-            if (Status != WaybackStatus.Recording)
-                return null;
-
-            if (!Ped.NotNullAndExists() || FusionUtils.CurrentTime < StartTime)
+            if ((IsPlayer && !FusionUtils.PlayerPed.IsAlive) || (!IsPlayer && !Ped.ExistsAndAlive()) || FusionUtils.CurrentTime < StartTime)
             {
                 Stop();
                 return null;
             }
 
-            WaybackRecord waybackRecord = new WaybackRecord(Ped);
+            WaybackRecord waybackRecord;
+
+            if (IsPlayer)
+                waybackRecord = new WaybackRecord(FusionUtils.PlayerPed);
+            else
+                waybackRecord = new WaybackRecord(Ped);
+
+            if (IsPlayer && PedHandle != FusionUtils.PlayerPed.Handle)
+            {
+                waybackRecord.Ped.SwitchPed = true;
+                PedHandle = FusionUtils.PlayerPed.Handle;
+            }
 
             Records.Add(waybackRecord);
 
@@ -176,7 +145,7 @@ namespace BackToTheFutureV
 
         private void Play()
         {
-            if (!Ped.NotNullAndExists())
+            if (!Ped.ExistsAndAlive())
                 return;
 
             if (CurrentRecord.Ped.SwitchPed)
@@ -196,7 +165,10 @@ namespace BackToTheFutureV
         public void Stop()
         {
             if (Status == WaybackStatus.Recording)
+            {
+                StartTime = Records[0].Time;
                 EndTime = LastRecord.Time.AddMinutes(-1);
+            }
 
             CurrentIndex = 0;
             PedHandle = 0;

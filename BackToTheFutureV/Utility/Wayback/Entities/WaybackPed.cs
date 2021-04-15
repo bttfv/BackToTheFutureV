@@ -2,7 +2,6 @@
 using FusionLibrary.Extensions;
 using GTA;
 using System;
-using System.IO;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
@@ -89,30 +88,6 @@ namespace BackToTheFutureV
 
                     ped.TaskGoStraightTo(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), FusionUtils.Lerp(Replica.Speed, nextReplica.Speed, adjustedRatio), FusionUtils.Lerp(Replica.Heading, nextReplica.Heading, adjustedRatio));
                     break;
-            }
-        }
-
-        public static WaybackPed FromData(byte[] data)
-        {
-            using (MemoryStream stream = new MemoryStream(data))
-            {
-                try
-                {
-                    return (WaybackPed)FusionUtils.BinaryFormatter.Deserialize(stream);
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
-
-        public static implicit operator byte[](WaybackPed command)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                FusionUtils.BinaryFormatter.Serialize(stream, command);
-                return stream.ToArray();
             }
         }
     }

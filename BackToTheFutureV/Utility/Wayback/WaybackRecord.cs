@@ -3,7 +3,6 @@ using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.IO;
-using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
@@ -13,8 +12,8 @@ namespace BackToTheFutureV
         public DateTime Time { get; }
         public float FrameTime { get; }
 
-        public WaybackPed Ped { get; }
-        public WaybackVehicle Vehicle { get; }
+        public WaybackPed Ped { get; set; }
+        public WaybackVehicle Vehicle { get; set; }
 
         public WaybackRecord(Ped ped)
         {
@@ -29,15 +28,6 @@ namespace BackToTheFutureV
                 return;
 
             Vehicle = new WaybackVehicle(vehicle);
-        }
-
-        public WaybackRecord(Ped ped, TimeMachine timeMachine, WaybackVehicleEvent wvEvent, int timeTravelDelay = 0)
-        {
-            Time = FusionUtils.CurrentTime;
-            FrameTime = Game.LastFrameTime;
-
-            Ped = new WaybackPed(ped);
-            Vehicle = new WaybackVehicle(timeMachine, wvEvent, timeTravelDelay);
         }
 
         public void Apply(Ped ped, WaybackRecord nextRecord)

@@ -1,6 +1,6 @@
-﻿using GTA;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
@@ -36,8 +36,7 @@ namespace BackToTheFutureV
     internal delegate void StartTimeTravel(int delay = 0);
     internal delegate void StartFuelBlink();
     internal delegate void SetStopTracks(int delay = 0);
-    internal delegate void SetOpenCloseReactor();
-    internal delegate void SetRefuel(Ped ped);
+    internal delegate void SetReactorState(ReactorState reactorState);
     internal delegate void SetPedAI(bool state);
     internal delegate void SetWheelie(bool goUp);
     internal delegate void SetEngineStall(bool state);
@@ -80,8 +79,7 @@ namespace BackToTheFutureV
         public StartTimeTravel StartTimeTravel;
         public StartFuelBlink StartFuelBlink;
         public SetStopTracks SetStopTracks;
-        public SetOpenCloseReactor SetOpenCloseReactor;
-        public SetRefuel SetRefuel;
+        public SetReactorState SetReactorState;
         public SetPedAI StartDriverAI;
         public SetWheelie SetWheelie;
         public SetEngineStall SetEngineStall;

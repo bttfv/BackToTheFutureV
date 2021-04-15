@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using KlangRageAudioLibrary;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
@@ -29,7 +30,7 @@ namespace BackToTheFutureV
 
         private void PlutoniumCap_OnAnimCompleted(AnimationStep animationStep)
         {
-            if (!Properties.IsRefueling)
+            if (Properties.ReactorState == ReactorState.Opened)
             {
                 if (animationStep == AnimationStep.First)
                     plutoniumCap.Play(AnimationStep.Second);
@@ -59,7 +60,7 @@ namespace BackToTheFutureV
         {
             IsPlaying = true;
 
-            if (!Properties.IsRefueling)
+            if (Properties.ReactorState == ReactorState.Opened)
             {
                 open.Play();
                 plutoniumCap.Play();

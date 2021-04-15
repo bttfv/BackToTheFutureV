@@ -72,7 +72,7 @@ namespace BackToTheFutureV
                     if (!FuelHandler.IsPedInPosition(Vehicle, DriverAI))
                         break;
 
-                    Events.SetRefuel?.Invoke(DriverAI);
+                    //Events.SetRefuel?.Invoke(DriverAI);
 
                     Step++;
                     break;

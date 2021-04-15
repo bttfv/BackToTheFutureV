@@ -91,6 +91,8 @@ namespace BackToTheFutureV
             if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
                 ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
 
+            WaybackSystem.Tick();
+
             CustomTrainHandler.Tick();
             DMC12Handler.Tick();
             TimeMachineHandler.Tick();
@@ -102,8 +104,6 @@ namespace BackToTheFutureV
             StoryTimeMachineHandler.Tick();
             MenuHandler.Tick();
             TrashHandler.Tick();
-
-            WaybackSystem.Tick();
         }
     }
 }

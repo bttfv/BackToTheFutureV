@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using KlangRageAudioLibrary;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
@@ -36,7 +37,7 @@ namespace BackToTheFutureV
 
         private void _mrFusionHandle_OnAnimCompleted(AnimationStep animationStep)
         {
-            if (!Properties.IsRefueling)
+            if (Properties.ReactorState == ReactorState.Opened)
                 _mrFusion.Play();
             else
             {
@@ -49,7 +50,7 @@ namespace BackToTheFutureV
 
         private void _mrFusion_OnAnimCompleted(AnimationStep animationStep)
         {
-            if (Properties.IsRefueling)
+            if (Properties.ReactorState == ReactorState.Closed)
                 _mrFusionHandle.Play();
             else
             {
@@ -64,7 +65,7 @@ namespace BackToTheFutureV
             _mrfusionClosed?.Stop();
             _mrfusionOpen?.Stop();
 
-            if (!Properties.IsRefueling)
+            if (Properties.ReactorState == ReactorState.Opened)
             {
                 _mrFusionHandle.Play();
                 _mrfusionOpen.Play();

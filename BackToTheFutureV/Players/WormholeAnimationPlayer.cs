@@ -188,7 +188,7 @@ namespace BackToTheFutureV
             // Delete all other props
             Props.SeparatedCoils?.Delete();
 
-            if (Properties.IsRefueling)
+            if (Properties.ReactorState != ReactorState.Closed)
                 numOfProps = 6;
 
             if (numOfProps >= 11)
@@ -227,7 +227,7 @@ namespace BackToTheFutureV
             _startSparksAt = Game.GameTime + 1000;
 
             // Spawn the coil model
-            if (Mods.WormholeType != WormholeType.BTTF3 && !Properties.IsRefueling)
+            if (Mods.WormholeType != WormholeType.BTTF3 && Properties.ReactorState == ReactorState.Closed)
             {
                 Mods.OffCoils = ModState.Off;
 
@@ -266,7 +266,7 @@ namespace BackToTheFutureV
                 return;
 
             // Handle coil flickering for BTTF3
-            if (Mods.IsDMC12 && (Mods.WormholeType == WormholeType.BTTF3 || Properties.IsRefueling))
+            if (Mods.IsDMC12 && (Mods.WormholeType == WormholeType.BTTF3 || Properties.ReactorState != ReactorState.Closed))
                 HandleCoilFlicker();
 
             if (Properties.IsFueled || Properties.PhotoWormholeActive)
