@@ -70,6 +70,9 @@ namespace BackToTheFutureV
 
             IsPlayer = Ped == FusionUtils.PlayerPed;
             Status = WaybackStatus.Recording;
+
+            if (IsPlayer)
+                WaybackSystem.CurrentPlayerRecording?.Stop();
         }
 
         public void StartOn(Ped ped, bool waitForReentry = false)

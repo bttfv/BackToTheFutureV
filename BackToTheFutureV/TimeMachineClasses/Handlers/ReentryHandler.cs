@@ -26,7 +26,7 @@ namespace BackToTheFutureV
             Properties.TimeTravelPhase = TimeTravelPhase.Reentering;
 
             if (ModSettings.WaybackSystem && Driver != null && Driver != FusionUtils.PlayerPed)
-                WaybackSystem.GetFromGUID(Properties.ReplicaGUID).StartOn(Driver, true);
+                WaybackSystem.GetFromGUID(Properties.ReplicaGUID)?.StartOn(Driver, true);
         }
 
         public override void Tick()

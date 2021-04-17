@@ -131,7 +131,7 @@ namespace BackToTheFutureV
             if (Sounds.HoverModeUp.IsAnyInstancePlaying)
                 return;
 
-            if (Mods.Wheel != WheelType.RedInvisible && !Props.HoverModeWheelsGlow.IsSpawned)
+            if (Mods.Wheel != WheelType.RedInvisible && Props.HoverModeWheelsGlow != null && !Props.HoverModeWheelsGlow.IsSpawned)
                 Props.HoverModeWheelsGlow?.SpawnProp();
 
             Sounds.HoverModeUp?.Play();
