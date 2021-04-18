@@ -16,7 +16,7 @@ namespace BackToTheFutureV
             if (Game.IsLoading || Main.FirstTick || !ModSettings.PersistenceSystem)
                 return;
 
-            TimeMachineHandler.SaveAllTimeMachines();
+            TimeMachineHandler.Save();
             RemoteTimeMachineHandler.Save();
         }
     }

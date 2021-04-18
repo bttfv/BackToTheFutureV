@@ -30,7 +30,7 @@ namespace BackToTheFutureV
 
         private static bool _savedEmpty;
 
-        public static void SaveAllTimeMachines()
+        public static void Save()
         {
             if (TimeMachineCount == 0 && _savedEmpty)
                 return;
@@ -40,7 +40,7 @@ namespace BackToTheFutureV
             _savedEmpty = TimeMachineCount == 0;
         }
 
-        public static void LoadAllTimeMachines()
+        public static void Load()
         {
             try
             {

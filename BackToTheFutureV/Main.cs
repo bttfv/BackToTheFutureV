@@ -40,7 +40,7 @@ namespace BackToTheFutureV
                 RemoteTimeMachineHandler.StopRemoteControl(true);
 
             if (ModSettings.PersistenceSystem)
-                TimeMachineHandler.SaveAllTimeMachines();
+                TimeMachineHandler.Save();
 
             MissionHandler.Abort();
             StoryTimeMachineHandler.Abort();
@@ -74,7 +74,7 @@ namespace BackToTheFutureV
 
                 if (ModSettings.PersistenceSystem)
                 {
-                    TimeMachineHandler.LoadAllTimeMachines();
+                    TimeMachineHandler.Load();
                     RemoteTimeMachineHandler.Load();
                 }
 
@@ -84,14 +84,13 @@ namespace BackToTheFutureV
                     ExternalHUD.Toggle(true);
 
                 ExternalHUD.SetOff();
-
-                FirstTick = false;
             }
 
             if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
                 ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
 
-            WaybackSystem.Tick();
+            if (!FirstTick)
+                WaybackSystem.Tick();
 
             CustomTrainHandler.Tick();
             DMC12Handler.Tick();
@@ -104,6 +103,12 @@ namespace BackToTheFutureV
             StoryTimeMachineHandler.Tick();
             MenuHandler.Tick();
             TrashHandler.Tick();
+
+            if (FirstTick)
+            {
+                WaybackSystem.Tick();
+                FirstTick = false;
+            }
         }
     }
 }
