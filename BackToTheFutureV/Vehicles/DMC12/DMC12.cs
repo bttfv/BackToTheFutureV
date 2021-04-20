@@ -175,8 +175,8 @@ namespace BackToTheFutureV
             {
                 fanRotation += Game.LastFrameTime * 10.8f * (Vehicle.EngineTemperature - 50);
 
-                leftFan.MoveProp(Vector3.Zero, new Vector3(16f, fanRotation, 0));
-                rightFan.MoveProp(Vector3.Zero, new Vector3(16f, fanRotation, 0));
+                leftFan.MoveProp(Vector3.Zero, new Vector3(0, fanRotation, 0));
+                rightFan.MoveProp(Vector3.Zero, new Vector3(0, fanRotation, 0));
 
                 if (fanRotation >= 360)
                     fanRotation -= 360;
