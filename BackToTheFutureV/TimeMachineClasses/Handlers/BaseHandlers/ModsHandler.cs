@@ -58,6 +58,7 @@ namespace BackToTheFutureV
                     Wheel = WheelType.Red;
                     SuspensionsType = SuspensionsType.LiftFront;
                     break;
+               
             }
         }
 

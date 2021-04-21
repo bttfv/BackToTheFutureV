@@ -23,6 +23,7 @@ namespace BackToTheFutureV
                         return 88;
                     case WormholeType.BTTF3:
                         return Properties.IsOnTracks ? 82 : 65;
+                    
                     default:
                         return 88;
                 }
@@ -40,11 +41,12 @@ namespace BackToTheFutureV
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
-                        return 6000;
+                        return 3900;
                     case WormholeType.BTTF2:
                         return 3900;
                     case WormholeType.BTTF3:
                         return 5200;
+                    
                     default:
                         return 5200;
                 }
@@ -60,12 +62,9 @@ namespace BackToTheFutureV
                 {
                     case WormholeType.BTTF1:
                         return 82;
-                    case WormholeType.BTTF2:
-                        return 82;
-                    case WormholeType.BTTF3:
-                        return Properties.IsOnTracks ? 82 : 59;
+                    
                     default:
-                        return 82;
+                        return 255;
                 }
             }
         }
@@ -77,11 +76,12 @@ namespace BackToTheFutureV
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
-                        return "bttf_wormhole";
+                        return "bttf_wormhole_blue";
                     case WormholeType.BTTF2:
                         return "bttf_wormhole_blue";
                     case WormholeType.BTTF3:
                         return "bttf_wormhole_red";
+                    
                     default:
                         return "bttf_wormhole";
                 }
@@ -95,11 +95,12 @@ namespace BackToTheFutureV
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
-                        return 0;
+                        return 1;
                     case WormholeType.BTTF2:
                         return 1;
                     case WormholeType.BTTF3:
                         return 2;
+                    
                     default:
                         return 0;
                 }
@@ -113,11 +114,12 @@ namespace BackToTheFutureV
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
-                        return TimeHandler.IsNight ? ModelHandler.WormholeVioletNight : ModelHandler.WormholeViolet;
+                        return TimeHandler.IsNight ? ModelHandler.WormholeBlueNight : ModelHandler.WormholeBlue;
                     case WormholeType.BTTF2:
                         return TimeHandler.IsNight ? ModelHandler.WormholeBlueNight : ModelHandler.WormholeBlue;
                     case WormholeType.BTTF3:
                         return TimeHandler.IsNight ? ModelHandler.WormholeRedNight : ModelHandler.WormholeRed;
+                    
                     default:
                         return TimeHandler.IsNight ? ModelHandler.WormholeVioletNight : ModelHandler.WormholeViolet;
                 }
@@ -136,6 +138,7 @@ namespace BackToTheFutureV
                         return TimeHandler.IsNight ? ModelHandler.SparkNightModel : ModelHandler.SparkModel;
                     case WormholeType.BTTF3:
                         return TimeHandler.IsNight ? ModelHandler.SparkRedNightModel : ModelHandler.SparkRedModel;
+                    
                     default:
                         return TimeHandler.IsNight ? ModelHandler.SparkNightModel : ModelHandler.SparkModel;
                 }

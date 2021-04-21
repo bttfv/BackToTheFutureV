@@ -118,7 +118,8 @@ namespace BackToTheFutureV
             DMC12,
             BTTF1,
             BTTF2,
-            BTTF3
+            BTTF3,
+            
         }
 
         internal enum ModState

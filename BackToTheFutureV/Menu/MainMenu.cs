@@ -67,6 +67,7 @@ namespace BackToTheFutureV
                 case 5:
                     spawnBTTF.Description = GetItemValueDescription(sender, "BTTF3RR");
                     break;
+                
             }
 
             Recalculate();
@@ -105,6 +106,7 @@ namespace BackToTheFutureV
                     case 5:
                         wormholeType = WormholeType.BTTF3;
                         break;
+                    
                 }
 
                 if (ModSettings.CinematicSpawn)

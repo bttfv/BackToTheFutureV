@@ -174,7 +174,7 @@ namespace BackToTheFutureV
 
         private void HandleCoilFlicker()
         {
-            if (numOfProps == 11 | Game.GameTime < _nextFlicker)
+            if (numOfProps == 40 | Game.GameTime < _nextFlicker)
                 return;
 
             //// Choose how many coil props can spawn at one time
@@ -191,9 +191,9 @@ namespace BackToTheFutureV
             if (Properties.ReactorState != ReactorState.Closed)
                 numOfProps = 6;
 
-            if (numOfProps >= 11)
+            if (numOfProps >= 30)
             {
-                numOfProps = 11;
+                numOfProps = 30;
 
                 Mods.OffCoils = ModState.Off;
 
@@ -268,6 +268,8 @@ namespace BackToTheFutureV
             // Handle coil flickering for BTTF3
             if (Mods.IsDMC12 && (Mods.WormholeType == WormholeType.BTTF3 || Properties.ReactorState != ReactorState.Closed))
                 HandleCoilFlicker();
+           
+                
 
             if (Properties.IsFueled || Properties.PhotoWormholeActive)
                 HandleSparks();

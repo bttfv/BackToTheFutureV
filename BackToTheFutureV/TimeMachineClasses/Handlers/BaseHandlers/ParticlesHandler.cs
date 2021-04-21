@@ -39,7 +39,7 @@ namespace BackToTheFutureV
             LightExplosion = new PtfxEntityPlayer("scr_josh3", "scr_josh3_light_explosion", Vehicle, Vector3.Zero, Vector3.Zero, 4f);
             TimeTravelEffect = new PtfxEntityPlayer("core", "veh_exhaust_spacecraft", Vehicle, new Vector3(0, 4, 0), Vector3.Zero, 8f, true);
             Flash = new PtfxEntityPlayer("core", "ent_anim_paparazzi_flash", Vehicle, Vector3.Zero, Vector3.Zero, 50f);
-            Sparks = new PtfxEntityPlayer("scr_paletoscore", "scr_paleto_box_sparks", Props.InvisibleProp, Vector3.Zero, Vector3.Zero, 1.5f, true, true, 300);
+            Sparks = new PtfxEntityPlayer("scr_paletoscore", "scr_paleto_box_sparks", Props.InvisibleProp, Vector3.Zero, Vector3.Zero, 1.5f, true, true, 600);
             WheelsFire = SetupWheelPTFXs("veh_xs_vehicle_mods", "veh_nitrous", new Vector3(0, -0.25f, -0.15f), new Vector3(0, 0, 0), 1.3f);
             WheelsSparks = SetupWheelPTFXs("des_bigjobdrill", "ent_ray_big_drill_start_sparks", new Vector3(0, 0, 0.18f), new Vector3(90f, 0, 0), 1f, true);
 
