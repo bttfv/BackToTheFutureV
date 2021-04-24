@@ -210,7 +210,10 @@ namespace BackToTheFutureV
             IsPlaying = true;
 
             if (AreWheelsOpen && !Wheels.IsSpawned)
+            {
                 Wheels.SpawnProp();
+                UpdateWheelsRotations();
+            }
 
             if (open)
                 AllProps.Play();
@@ -236,7 +239,14 @@ namespace BackToTheFutureV
             for (int i = 0; i < WheelsRotations.Length; i++)
             {
                 WheelsRotations[i] = FusionUtils.Wrap(WheelsRotations[i], -(float)Math.PI, (float)Math.PI).ToDeg();
-                Wheels[i].setRotation(Coordinate.X, i % 2 == 1 ? -WheelsRotations[i] : WheelsRotations[i], true);
+
+                if (i % 2 == 1)
+                {
+                    WheelsRotations[i] -= 180;
+                    WheelsRotations[i] *= -1;
+                }
+
+                Wheels[i].setRotation(Coordinate.X, WheelsRotations[i], true);
             }
         }
 

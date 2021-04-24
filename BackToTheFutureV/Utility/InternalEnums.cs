@@ -35,6 +35,13 @@ namespace BackToTheFutureV
             LightningStrike = 8
         }
 
+        internal enum SparkType
+        {
+            WHE,
+            Left,
+            Right
+        }
+
         internal enum ReactorState
         {
             Closed,
