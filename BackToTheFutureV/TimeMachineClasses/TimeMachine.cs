@@ -421,19 +421,28 @@ namespace BackToTheFutureV
 
         public void Repair()
         {
-            if (!Mods.IsDMC12)
-                return;
+            bool fullDamaged = Constants.FullDamaged;
 
-            if (!Constants.FullDamaged && Properties.AreTimeCircuitsBroken)
-            {
+            if (Properties.AreFlyingCircuitsBroken && FusionUtils.CurrentTime.Year >= 2015)
+                Properties.AreFlyingCircuitsBroken = false;
+
+            if (FusionUtils.CurrentTime.Year >= 1985)
+                Properties.AreTimeCircuitsBroken = false;
+            else if (FusionUtils.CurrentTime.Year >= 1947)
                 Mods.Hoodbox = ModState.On;
-                return;
-            }
+            else
+                TextHandler.ShowNotification("UnableRepair");
 
-            Mods.Wheel = WheelType.Red;
+            if (!fullDamaged)
+                return;
+
             Mods.Wheels.Burst = false;
-            Mods.SuspensionsType = SuspensionsType.LiftFront;
-            Mods.Hoodbox = ModState.On;
+
+            if (FusionUtils.CurrentTime.Year < 1982)
+            {
+                Mods.Wheel = WheelType.Red;
+                Mods.SuspensionsType = SuspensionsType.LiftFront;
+            }
 
             Vehicle.FuelLevel = 60.0f;
         }

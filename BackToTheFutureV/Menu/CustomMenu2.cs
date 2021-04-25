@@ -61,7 +61,7 @@ namespace BackToTheFutureV
                         {
                             TimeMachine.Mods.Wheel = WheelType.Stock;
                             break;
-                        }                            
+                        }
 
                         TimeMachine.Mods.Wheel = WheelType.Stock;
                         break;
@@ -147,22 +147,6 @@ namespace BackToTheFutureV
                     _wheelsType.SelectedIndex = 3;
                     break;
             }
-        }
-
-        private ModState ConvertFromBool(bool value)
-        {
-            if (value)
-                return ModState.On;
-            else
-                return ModState.Off;
-        }
-
-        private bool ConvertFromModState(ModState value)
-        {
-            if (value == ModState.On)
-                return true;
-
-            return false;
         }
 
         public override void Menu_Shown(object sender, EventArgs e)

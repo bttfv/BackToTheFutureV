@@ -417,12 +417,7 @@ namespace BackToTheFutureV
             }
 
             if (ClosestTimeMachine.IsFunctioning() && FusionUtils.PlayerVehicle == ClosestTimeMachine.Vehicle)
-            {
                 CurrentTimeMachine = ClosestTimeMachine;
-
-                if (CurrentTimeMachine.Constants.FullDamaged)
-                    TextHandler.ShowHelp("RestoreDamaged", true, MenuHandler.TimeMachineMenu.GetItemTitle("Restore"), MenuHandler.TimeMachineMenu.Subtitle);
-            }
         }
     }
 }
