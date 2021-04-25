@@ -59,11 +59,6 @@ namespace BackToTheFutureV
             TimeMachineHandler.KeyDown(e);
             MissionHandler.KeyDown(e);
             MenuHandler.KeyDown(e);
-
-            if (e.KeyCode == Keys.L)
-            {
-                TimeMachineHandler.Create(FusionEnums.SpawnFlags.Broken, InternalEnums.WormholeType.BTTF2);
-            }
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)

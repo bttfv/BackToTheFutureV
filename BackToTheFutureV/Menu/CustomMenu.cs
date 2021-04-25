@@ -12,6 +12,7 @@ namespace BackToTheFutureV
     internal class CustomMenu : BTTFVMenu
     {
         public bool ForceNew = false;
+        public bool FromGarage = false;
 
         private NativeListItem<string> _wormholeType;
         private NativeListItem<string> _reactorType;
@@ -171,6 +172,13 @@ namespace BackToTheFutureV
                     _wheelsType.SelectedIndex = 3;
                     break;
             }
+
+            if (!FromGarage)
+                return;
+
+            _hoverUnderbody.Enabled = false;
+            _reactorType.Enabled = false;
+            _hoodBox.Enabled = false;
         }
 
         private ModState ConvertFromBool(bool value)
@@ -240,6 +248,7 @@ namespace BackToTheFutureV
             if (sender == _wormholeType | sender == _confirm)
             {
                 _save = true;
+                GarageHandler.WaitForCustomMenu = false;
                 Close();
             }
             else if (sender == _saveConf)

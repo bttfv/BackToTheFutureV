@@ -14,7 +14,7 @@ namespace BackToTheFutureV
         public NativeCheckboxItem RemoteControl { get; }
         //public NativeCheckboxItem EscapeMission { get; }
 
-        public NativeSubmenuItem CustomMenu { get; }
+        //public NativeSubmenuItem CustomMenu { get; }
         public NativeSubmenuItem PhotoMenu { get; }
         public NativeSubmenuItem TrainMissionMenu { get; }
         public NativeSubmenuItem BackToMain { get; }
@@ -28,7 +28,7 @@ namespace BackToTheFutureV
             RemoteControl = NewCheckboxItem("RC");
             //Add(EscapeMission = new NativeCheckboxItem("Escape Mission"));
 
-            CustomMenu = NewSubmenu(MenuHandler.CustomMenu, "Custom");
+            //CustomMenu = NewSubmenu(MenuHandler.CustomMenu, "Custom");
 
             PhotoMenu = NewSubmenu(MenuHandler.PhotoMenu, "Photo");
 
@@ -54,7 +54,7 @@ namespace BackToTheFutureV
             FlyMode.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.On;
             AltitudeHold.Enabled = FlyMode.Enabled;
             RemoteControl.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
-            CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+            //CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
             TimeCircuitsOn.Enabled = !RemoteControl.Enabled;
             CutsceneMode.Enabled = !RemoteControl.Enabled;
         }
@@ -96,8 +96,8 @@ namespace BackToTheFutureV
             AltitudeHold.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
 
-            CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
-            PhotoMenu.Enabled = CustomMenu.Enabled;
+            //CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+            PhotoMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
 
             TrainMissionMenu.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsOnTracks;
 
