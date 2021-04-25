@@ -173,6 +173,7 @@ namespace BackToTheFutureV
                                     Vehicle.DetachTowedVehicle();
                                     garageInfo.PlaceVehicle(timeMachine);
 
+                                    Vehicle.IsPersistent = true;
                                     Vehicle.PlaceOnNextStreet();
                                     FusionUtils.PlayerPed.PositionNoOffset = garageInfo.OutsideCameraPosition.SetToGroundHeight();
 

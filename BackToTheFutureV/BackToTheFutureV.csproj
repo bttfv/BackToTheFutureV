@@ -134,6 +134,7 @@
     <Compile Include="GUI\RCGUIScaleform.cs" />
     <Compile Include="GUI\SIDScaleform.cs" />
     <Compile Include="Menu\BTTFVMenu.cs" />
+    <Compile Include="Menu\CustomMenu2.cs" />
     <Compile Include="Menu\GarageMenu.cs" />
     <Compile Include="Players\EmitterSparkPlayer.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TCD3DRowHandler.cs" />

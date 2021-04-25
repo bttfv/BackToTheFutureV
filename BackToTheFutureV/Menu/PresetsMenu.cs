@@ -72,7 +72,7 @@ namespace BackToTheFutureV
             {
                 Close();
 
-                MenuHandler.CustomMenuForced.Open();
+                MenuHandler.CustomMenuPresets.Open();
             }
         }
 

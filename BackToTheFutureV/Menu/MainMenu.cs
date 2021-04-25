@@ -35,7 +35,7 @@ namespace BackToTheFutureV
 
             convertIntoTimeMachine = NewItem("Convert");
 
-            NewSubmenu(MenuHandler.CustomMenu, "Custom");
+            NewSubmenu(MenuHandler.CustomMenuMain, "Custom");
 
             rcMenu = NewSubmenu(MenuHandler.RCMenu, "RC");
             outatimeMenu = NewSubmenu(MenuHandler.OutatimeMenu, "Outatime");

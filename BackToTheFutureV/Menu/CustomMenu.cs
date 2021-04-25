@@ -12,7 +12,6 @@ namespace BackToTheFutureV
     internal class CustomMenu : BTTFVMenu
     {
         public bool ForceNew = false;
-        public bool FromGarage = false;
 
         private NativeListItem<string> _wormholeType;
         private NativeListItem<string> _reactorType;
@@ -149,9 +148,9 @@ namespace BackToTheFutureV
                 _hood.SelectedIndex = (int)_tempTimeMachine.Mods.Hood + 1;
                 _threeDigits.Checked = _tempTimeMachine.Properties.ThreeDigitsSpeedo;
 
-                _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying && !(FromGarage && _hoverUnderbody.Checked);
-                _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying && !(FromGarage && _hoverUnderbody.Checked);
-                _suspensions.Enabled = !_tempTimeMachine.Properties.IsFlying && !(FromGarage && _hoverUnderbody.Checked);
+                _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
+                _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying;
+                _suspensions.Enabled = !_tempTimeMachine.Properties.IsFlying;
             }
 
             switch (_tempTimeMachine.Mods.Wheel)
@@ -172,13 +171,6 @@ namespace BackToTheFutureV
                     _wheelsType.SelectedIndex = 3;
                     break;
             }
-
-            if (!FromGarage)
-                return;
-
-            _hoverUnderbody.Enabled = false;
-            _reactorType.Enabled = false;
-            _hoodBox.Enabled = false;
         }
 
         private ModState ConvertFromBool(bool value)

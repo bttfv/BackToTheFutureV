@@ -1,5 +1,4 @@
 ﻿using FusionLibrary;
-using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
@@ -270,17 +269,6 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (!FusionUtils.PlayerPed.IsInVehicle() && Properties.AreTimeCircuitsBroken && Mods.IsDMC12 && !Constants.FullDamaged && Mods.Hoodbox == ModState.Off)
-            {
-                if (!FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
-                    return;
-
-                TextHandler.ShowHelp("RepairTC");
-
-                if (Game.IsControlJustPressed(GTA.Control.Context))
-                    Mods.Hoodbox = ModState.On;
-            }
-
             if (!Properties.IsGivenScaleformPriority)
                 return;
 
