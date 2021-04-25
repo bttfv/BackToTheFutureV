@@ -424,6 +424,12 @@ namespace BackToTheFutureV
             if (!Mods.IsDMC12)
                 return;
 
+            if (!Constants.FullDamaged && Properties.AreTimeCircuitsBroken)
+            {
+                Mods.Hoodbox = ModState.On;
+                return;
+            }
+
             Mods.Wheel = WheelType.Red;
             Mods.Wheels.Burst = false;
             Mods.SuspensionsType = SuspensionsType.LiftFront;

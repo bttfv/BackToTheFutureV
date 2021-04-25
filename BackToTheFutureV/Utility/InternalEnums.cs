@@ -35,6 +35,13 @@ namespace BackToTheFutureV
             LightningStrike = 8
         }
 
+        internal enum GarageStep
+        {
+            Idle,
+            Busy,
+            Opening
+        }
+
         internal enum SparkType
         {
             WHE,

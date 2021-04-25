@@ -31,8 +31,6 @@ namespace BackToTheFutureV
             {
                 if (value >= 0 && value <= 5)
                     _plutonium = value;
-
-                _plutonium = 1;
             }
         }
 

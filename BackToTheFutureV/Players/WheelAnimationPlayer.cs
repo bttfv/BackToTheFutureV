@@ -74,9 +74,9 @@ namespace BackToTheFutureV
                 AnimateProp wheelAnimateProp;
 
                 if (wheel.Front)
-                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.03f), new Vector3(0, -90, 0));
+                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.03f), new Vector3(0, -MAX_ROTATION_OFFSET, 0));
                 else
-                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.035f), new Vector3(0, -90, 0));
+                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.035f), new Vector3(0, -MAX_ROTATION_OFFSET, 0));
 
                 AnimateProp wheelGlowAnimateProp = new AnimateProp(wheelGlowModel, null, Vector3.Zero, Vector3.Zero);
 
@@ -211,8 +211,8 @@ namespace BackToTheFutureV
 
             if (AreWheelsOpen && !Wheels.IsSpawned)
             {
-                Wheels.SpawnProp();
                 UpdateWheelsRotations();
+                Wheels.SpawnProp();
             }
 
             if (open)
