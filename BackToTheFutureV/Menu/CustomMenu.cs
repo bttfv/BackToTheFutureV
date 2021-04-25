@@ -149,9 +149,9 @@ namespace BackToTheFutureV
                 _hood.SelectedIndex = (int)_tempTimeMachine.Mods.Hood + 1;
                 _threeDigits.Checked = _tempTimeMachine.Properties.ThreeDigitsSpeedo;
 
-                _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying;
-                _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying;
-                _suspensions.Enabled = !_tempTimeMachine.Properties.IsFlying;
+                _wheelsType.Enabled = !_tempTimeMachine.Properties.IsFlying && !(FromGarage && _hoverUnderbody.Checked);
+                _exhaust.Enabled = !_tempTimeMachine.Properties.IsFlying && !(FromGarage && _hoverUnderbody.Checked);
+                _suspensions.Enabled = !_tempTimeMachine.Properties.IsFlying && !(FromGarage && _hoverUnderbody.Checked);
             }
 
             switch (_tempTimeMachine.Mods.Wheel)
@@ -207,9 +207,6 @@ namespace BackToTheFutureV
 
             if (ForceNew || (FusionUtils.PlayerVehicle == null || !FusionUtils.PlayerVehicle.IsTimeMachine()))
             {
-                if (ForceNew)
-                    ForceNew = false;
-
                 if (ForceNew || FusionUtils.PlayerVehicle == null)
                     _tempTimeMachine = TimeMachineHandler.Create(SpawnFlags.WarpPlayer);
                 else
