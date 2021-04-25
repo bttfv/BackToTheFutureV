@@ -42,6 +42,7 @@ namespace BackToTheFutureV
             if (ModSettings.PersistenceSystem)
                 TimeMachineHandler.Save();
 
+            GarageHandler.Abort();
             MissionHandler.Abort();
             StoryTimeMachineHandler.Abort();
             RemoteTimeMachineHandler.Abort();
@@ -58,6 +59,11 @@ namespace BackToTheFutureV
             TimeMachineHandler.KeyDown(e);
             MissionHandler.KeyDown(e);
             MenuHandler.KeyDown(e);
+
+            if (e.KeyCode == Keys.L)
+            {
+                TimeMachineHandler.Create(FusionEnums.SpawnFlags.Broken, InternalEnums.WormholeType.BTTF2);
+            }
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)
@@ -103,6 +109,7 @@ namespace BackToTheFutureV
             StoryTimeMachineHandler.Tick();
             MenuHandler.Tick();
             TrashHandler.Tick();
+            GarageHandler.Tick();
 
             if (FirstTick)
             {

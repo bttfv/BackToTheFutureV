@@ -109,8 +109,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\KlangRageAudioLibrary\irrKlang\irrKlang.NET4.dll</HintPath>
     </Reference>
-    <Reference Include="LemonUI.SHVDN3, Version=1.3.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\LemonUI.SHVDN3.1.3.0\lib\net48\LemonUI.SHVDN3.dll</HintPath>
+    <Reference Include="LemonUI.SHVDN3, Version=1.4.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\LemonUI.SHVDN3.1.4.0\lib\net48\LemonUI.SHVDN3.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework, Version=3.8.0.1641, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.8.0.1641\lib\net452\MonoGame.Framework.dll</HintPath>
@@ -134,10 +134,13 @@
     <Compile Include="GUI\RCGUIScaleform.cs" />
     <Compile Include="GUI\SIDScaleform.cs" />
     <Compile Include="Menu\BTTFVMenu.cs" />
+    <Compile Include="Menu\GarageMenu.cs" />
+    <Compile Include="Players\EmitterSparkPlayer.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TCD3DRowHandler.cs" />
     <Compile Include="TimeMachineClasses\Clone\TimeMachineCloneHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\ClockHandler.cs" />
     <Compile Include="TimeMachineClasses\Story\StoryTimeMachineHandler.cs" />
+    <Compile Include="Utility\GarageHandler.cs" />
     <Compile Include="Utility\InternalEnums.cs" />
     <Compile Include="Utility\InternalInventory.cs" />
     <Compile Include="Utility\PersistenceScript.cs" />

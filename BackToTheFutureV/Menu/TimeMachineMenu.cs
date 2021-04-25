@@ -7,7 +7,6 @@ namespace BackToTheFutureV
 {
     internal class TimeMachineMenu : BTTFVMenu
     {
-        public NativeItem Repair { get; private set; }
         public NativeCheckboxItem TimeCircuitsOn { get; }
         public NativeCheckboxItem CutsceneMode { get; }
         public NativeCheckboxItem FlyMode { get; }
@@ -41,11 +40,7 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
-            if (sender == Repair)
-            {
-                TimeMachineHandler.CurrentTimeMachine.Repair();
-                Close();
-            }
+
         }
 
         public override void Menu_Shown(object sender, EventArgs e)
@@ -62,16 +57,6 @@ namespace BackToTheFutureV
             CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
             TimeCircuitsOn.Enabled = !RemoteControl.Enabled;
             CutsceneMode.Enabled = !RemoteControl.Enabled;
-
-            bool fullDamaged = TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged;
-
-            if (Repair != null && !fullDamaged)
-            {
-                Remove(Repair);
-                Repair = null;
-            }
-            else if (Repair == null && fullDamaged)
-                Repair = NewItem(0, "Restore");
         }
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)

@@ -1,4 +1,5 @@
 ﻿using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System.Collections.Generic;
@@ -8,14 +9,12 @@ namespace BackToTheFutureV
 {
     internal class SparkPlayer : Players.Player
     {
-        public float Speed { get; set; }
+        public float Speed { get; set; } = 20f;
 
-        public SparkPlayer(TimeMachine timeMachine, IEnumerable<Vector3> frames, Model model, float speed = 20f) : base(timeMachine)
+        public SparkPlayer(TimeMachine timeMachine, IEnumerable<Vector3> frames) : base(timeMachine)
         {
             _frames = frames.ToList();
-            _spark = new AnimateProp(model, Vehicle, _frames[0], Vector3.Zero);
-
-            Speed = speed;
+            _spark = new AnimateProp(Constants.SparkModel, Vehicle, _frames[0], Vector3.Zero);
         }
 
         private AnimateProp _spark;
@@ -27,14 +26,6 @@ namespace BackToTheFutureV
         private Vector3 _lastDirection;
         private Vector3 _lastRotation;
 
-        public void UpdateSparkModel(Model model)
-        {
-            _spark.SwapModel(model);
-
-            if (_spark.IsSpawned)
-                _spark.SpawnProp();
-        }
-
         public override void Dispose()
         {
             _spark.Dispose();
@@ -44,7 +35,7 @@ namespace BackToTheFutureV
         {
             _currentFrame = 1;
 
-            _spark.MoveProp(_frames[0], FusionUtils.DirectionToRotation(_frames[_currentFrame], _spark.CurrentOffset, 0));
+            _spark.MoveProp(_frames[0], FusionUtils.DirectionToRotation(_frames[_currentFrame], _frames[0], 0));
 
             IsPlaying = true;
         }
@@ -73,10 +64,10 @@ namespace BackToTheFutureV
                 }
             }
 
-            _lastDirection = (_frames[_currentFrame] - _spark.CurrentOffset).Normalized;
+            _lastDirection = _spark.CurrentOffset.GetDirectionTo(_frames[_currentFrame]);
             _lastRotation = FusionUtils.DirectionToRotation(_frames[_currentFrame], _spark.CurrentOffset, 0);
 
-            _spark.MoveProp(_spark.CurrentOffset + _lastDirection * Speed * Game.LastFrameTime, _spark.Rotation + Vector3.Lerp(_spark.CurrentRotation, _lastRotation, Game.LastFrameTime * Speed));
+            _spark.MoveProp(_spark.CurrentOffset + _lastDirection * Speed * Game.LastFrameTime, Vector3.Lerp(_spark.CurrentRotation, _lastRotation, Game.LastFrameTime * Speed));
         }
 
         public override void Stop()

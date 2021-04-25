@@ -119,8 +119,12 @@ namespace BackToTheFutureV
 
             _sparks = new List<SparkPlayer>();
 
+            _wheSpark = new EmitterSparkPlayer(timeMachine, SparkType.WHE);
+            _leftSpark = new EmitterSparkPlayer(timeMachine, SparkType.Left);
+            _rightSpark = new EmitterSparkPlayer(timeMachine, SparkType.Right);
+
             foreach (List<Vector3> sparks in SparkOffsets)
-                _sparks.Add(new SparkPlayer(TimeMachine, sparks, Constants.SparkModel));
+                _sparks.Add(new SparkPlayer(TimeMachine, sparks));
 
             if (Mods.IsDMC12)
             {
@@ -142,6 +146,10 @@ namespace BackToTheFutureV
         private int _nextSpark;
         private List<SparkPlayer> _sparks;
 
+        private EmitterSparkPlayer _wheSpark;
+        private EmitterSparkPlayer _leftSpark;
+        private EmitterSparkPlayer _rightSpark;
+
         private bool _playWormhole;
 
         private void OnRenderTargetDraw()
@@ -153,6 +161,10 @@ namespace BackToTheFutureV
         {
             foreach (SparkPlayer spark in _sparks)
                 spark.Tick();
+
+            _wheSpark.Tick();
+            _leftSpark.Tick();
+            _rightSpark.Tick();
 
             if (Game.GameTime < _nextSpark || Game.GameTime < _startSparksAt) return;
 
@@ -253,6 +265,12 @@ namespace BackToTheFutureV
 
             _sparks?.ForEach(x => x?.Stop());
 
+            _wheSpark.Stop();
+
+            _leftSpark.Stop();
+
+            _rightSpark.Stop();
+
             Particles.WheelsFire?.ForEach(x => x?.Stop());
 
             Particles.WheelsSparks?.ForEach(x => x?.Stop());
@@ -308,6 +326,9 @@ namespace BackToTheFutureV
 
                 if (!Scaleforms.WormholeRT.Prop.IsSpawned && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || Properties.PhotoWormholeActive))
                 {
+                    _wheSpark.Play();
+                    _leftSpark.Play();
+                    _rightSpark.Play();
                     Scaleforms.WormholeRT.CreateProp();
                     ScaleformsHandler.WormholeScaleforms[Constants.WormholeScaleformIndex].CallFunction("START_ANIMATION");
                     _hasStartedWormhole = true;

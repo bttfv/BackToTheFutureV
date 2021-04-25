@@ -19,6 +19,9 @@ namespace BackToTheFutureV
 
         private void SetLed()
         {
+            if (TcdEditer.IsEditing)
+                return;
+
             for (int column = 0; column < 10; column++)
                 CallFunction("setLed", column, Convert.ToInt32(Properties.CurrentHeight[column]));
         }

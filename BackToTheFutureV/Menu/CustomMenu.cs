@@ -202,7 +202,13 @@ namespace BackToTheFutureV
                 if (ForceNew)
                     ForceNew = false;
 
-                _tempTimeMachine = TimeMachineHandler.Create(SpawnFlags.WarpPlayer);
+                if (ForceNew || FusionUtils.PlayerVehicle == null)
+                    _tempTimeMachine = TimeMachineHandler.Create(SpawnFlags.WarpPlayer);
+                else
+                {
+                    _tempTimeMachine = TimeMachineHandler.Create(FusionUtils.PlayerVehicle);
+                    _save = true;
+                }
             }
             else if (FusionUtils.PlayerVehicle.IsTimeMachine())
             {

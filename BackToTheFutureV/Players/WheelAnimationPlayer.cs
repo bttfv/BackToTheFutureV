@@ -74,9 +74,9 @@ namespace BackToTheFutureV
                 AnimateProp wheelAnimateProp;
 
                 if (wheel.Front)
-                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.03f), new Vector3(0, -90, 0));
+                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.03f), new Vector3(0, -MAX_ROTATION_OFFSET, 0));
                 else
-                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.035f), new Vector3(0, -90, 0));
+                    wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.035f), new Vector3(0, -MAX_ROTATION_OFFSET, 0));
 
                 AnimateProp wheelGlowAnimateProp = new AnimateProp(wheelGlowModel, null, Vector3.Zero, Vector3.Zero);
 
@@ -210,7 +210,10 @@ namespace BackToTheFutureV
             IsPlaying = true;
 
             if (AreWheelsOpen && !Wheels.IsSpawned)
+            {
+                UpdateWheelsRotations();
                 Wheels.SpawnProp();
+            }
 
             if (open)
                 AllProps.Play();
@@ -236,7 +239,14 @@ namespace BackToTheFutureV
             for (int i = 0; i < WheelsRotations.Length; i++)
             {
                 WheelsRotations[i] = FusionUtils.Wrap(WheelsRotations[i], -(float)Math.PI, (float)Math.PI).ToDeg();
-                Wheels[i].setRotation(Coordinate.X, i % 2 == 1 ? -WheelsRotations[i] : WheelsRotations[i], true);
+
+                if (i % 2 == 1)
+                {
+                    WheelsRotations[i] -= 180;
+                    WheelsRotations[i] *= -1;
+                }
+
+                Wheels[i].setRotation(Coordinate.X, WheelsRotations[i], true);
             }
         }
 

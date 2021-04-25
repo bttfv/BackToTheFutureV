@@ -35,6 +35,20 @@ namespace BackToTheFutureV
             LightningStrike = 8
         }
 
+        internal enum GarageStep
+        {
+            Idle,
+            Busy,
+            Opening
+        }
+
+        internal enum SparkType
+        {
+            WHE,
+            Left,
+            Right
+        }
+
         internal enum ReactorState
         {
             Closed,
