@@ -36,5 +36,7 @@ namespace BackToTheFutureV
                 IsPlaying = false;
             }
         }
+
+        public abstract void Abort();
     }
 }

@@ -83,7 +83,7 @@ namespace BackToTheFutureV
 
             if (DoorHandler.GetDoorState(GarageDoor) == DoorState.Unknown)
             {
-                if (IsPlayerNear && GarageHandler.Step != GarageStep.Idle && GarageHandler.Step != GarageStep.Opening)
+                if (IsPlayerNear && GarageHandler.Status != GarageStatus.Idle && GarageHandler.Status != GarageStatus.Opening)
                     DoorHandler.SetDoorState(GarageDoor, DoorState.Locked);
                 else
                     DoorHandler.SetDoorState(GarageDoor, DoorState.Unlocked);
@@ -126,7 +126,7 @@ namespace BackToTheFutureV
 
         private static Camera garageCamera;
 
-        public static GarageStep Step { get; private set; } = GarageStep.Idle;
+        public static GarageStatus Status { get; private set; } = GarageStatus.Idle;
 
         private static AudioPlayer garageSound = Main.CommonAudioEngine.Create("story/garage.wav", Presets.No3D);
 
@@ -164,7 +164,7 @@ namespace BackToTheFutureV
                     {
                         World.DrawMarker(MarkerType.VerticalCylinder, garageInfo.OutsideCameraPosition.SetToGroundHeight(), Vector3.Zero, Vector3.Zero, new Vector3(3, 3, 3), Color.Red);
 
-                        if (Vehicle.Position.DistanceToSquared2D(garageInfo.OutsideCameraPosition) <= 40)
+                        if (Vehicle.Position.DistanceToSquared2D(garageInfo.OutsideCameraPosition) <= 30)
                         {
                             if (_placeDamaged)
                             {
@@ -175,7 +175,9 @@ namespace BackToTheFutureV
 
                                     Vehicle.IsPersistent = true;
                                     Vehicle.PlaceOnNextStreet();
+
                                     FusionUtils.PlayerPed.PositionNoOffset = garageInfo.OutsideCameraPosition.SetToGroundHeight();
+                                    FusionUtils.PlayerPed.Heading = FusionUtils.PlayerPed.Position.GetDirectionTo(timeMachine.Vehicle.Position).ToHeading();
 
                                     _placeDamaged = false;
 
@@ -191,15 +193,15 @@ namespace BackToTheFutureV
                     }
                 }
 
-                if (!garageInfo.IsVehicleEntirelyInside(Vehicle) && Step == GarageStep.Idle)
+                if (!garageInfo.IsVehicleEntirelyInside(Vehicle) && Status == GarageStatus.Idle)
                     continue;
 
-                if (Step == GarageStep.Busy)
+                if (Status == GarageStatus.Busy)
                     Game.DisableAllControlsThisFrame();
 
-                switch (Step)
+                switch (Status)
                 {
-                    case GarageStep.Idle:
+                    case GarageStatus.Idle:
                         GTA.UI.Screen.ShowHelpTextThisFrame("Press ~INPUT_CONTEXT~ to open garage menu.");
 
                         if (Game.IsControlJustPressed(Control.Context))
@@ -212,20 +214,20 @@ namespace BackToTheFutureV
                             MenuHandler.GarageMenu.Open();
 
                             garageInfo.Lock();
-                            Step = GarageStep.Busy;
+                            Status = GarageStatus.Busy;
                         }
 
                         break;
-                    case GarageStep.Opening:
+                    case GarageStatus.Opening:
                         if (Game.GameTime < gameTime)
                             break;
 
                         TimeMachineHandler.CurrentTimeMachine?.Particles.IceSmoke?.StopNaturally();
                         DestroyCamera();
 
-                        Step = GarageStep.Idle;
+                        Status = GarageStatus.Idle;
                         break;
-                    case GarageStep.Busy:
+                    case GarageStatus.Busy:
                         if (MenuHandler.GarageMenu.Visible || WaitForCustomMenu)
                             break;
 
@@ -246,7 +248,7 @@ namespace BackToTheFutureV
                         garageInfo.Unlock();
 
                         gameTime = Game.GameTime + 2500;
-                        Step = GarageStep.Opening;
+                        Status = GarageStatus.Opening;
                         break;
                 }
             }

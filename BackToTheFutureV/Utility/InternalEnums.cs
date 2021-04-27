@@ -35,7 +35,7 @@ namespace BackToTheFutureV
             LightningStrike = 8
         }
 
-        internal enum GarageStep
+        internal enum GarageStatus
         {
             Idle,
             Busy,

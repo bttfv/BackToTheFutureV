@@ -27,7 +27,7 @@ namespace BackToTheFutureV
 
         public static void Tick()
         {
-            if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
+            if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing && GarageHandler.Status == GarageStatus.Idle)
             {
                 if ((ModControls.CombinationsForInteractionMenu && Game.IsEnabledControlPressed(ModControls.InteractionMenu1) && Game.IsControlPressed(ModControls.InteractionMenu2)) || (!ModControls.CombinationsForInteractionMenu && Game.IsControlPressed(ModControls.InteractionMenu1)))
                 {
@@ -58,7 +58,7 @@ namespace BackToTheFutureV
 
         public static void KeyDown(KeyEventArgs e)
         {
-            if (TcdEditer.IsEditing || RCGUIEditer.IsEditing)
+            if (TcdEditer.IsEditing || RCGUIEditer.IsEditing || GarageHandler.Status != GarageStatus.Idle)
                 return;
 
             if ((ModControls.UseControlForMainMenu && e.Control && e.KeyCode == ModControls.MainMenu) || (!ModControls.UseControlForMainMenu && !e.Control && e.KeyCode == ModControls.MainMenu))

@@ -9,7 +9,7 @@ namespace BackToTheFutureV
 
         public static TrainMission TrainMission = new TrainMission();
 
-        public static EscapeMission EscapeMission = new EscapeMission();
+        //public static EscapeMission EscapeMission = new EscapeMission();
 
         public static void Add(Mission mission)
         {
@@ -23,15 +23,12 @@ namespace BackToTheFutureV
 
         public static void KeyDown(KeyEventArgs key)
         {
-            foreach (Mission mission in _missions)
-                mission.KeyDown(key);
+            _missions.ForEach(x => x.KeyDown(key));
         }
 
         public static void Abort()
         {
-            foreach (Mission mission in _missions)
-                mission.End();
-
+            _missions.ForEach(x => x.Abort());
             _missions.Clear();
         }
     }

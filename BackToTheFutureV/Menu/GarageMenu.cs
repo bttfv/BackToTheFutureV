@@ -15,7 +15,9 @@ namespace BackToTheFutureV
         private NativeItem hoverConvert;
         private NativeItem installMrFusion;
         private NativeItem buyPlutonium;
-        private NativeItem restoreCar;
+        private NativeItem repairTC;
+        private NativeItem repairFC;
+        private NativeItem repairEngine;
 
         private NativeSubmenuItem customMenu;
 
@@ -25,10 +27,11 @@ namespace BackToTheFutureV
             hoverConvert = NewItem("InstallHover");
             installMrFusion = NewItem("InstallMrFusion");
             buyPlutonium = NewItem("BuyPlutonium");
-            restoreCar = NewItem("Restore");
+            repairTC = NewItem("RepairTC");
+            repairFC = NewItem("RepairFC");
+            repairEngine = NewItem("RepairEngine");
 
             customMenu = NewSubmenu(MenuHandler.CustomMenuGarage, "Custom");
-
             customMenu.Activated += CustomMenu_Activated;
         }
 
@@ -92,16 +95,40 @@ namespace BackToTheFutureV
                 Game.Player.Money -= 1500;
             }
 
-            if (sender == restoreCar)
+            if (sender == repairTC)
             {
-                if (Game.Player.Money < 1249)
+                if (Game.Player.Money < 500)
                 {
                     TextHandler.ShowNotification("NotEnoughMoney");
                     return;
                 }
 
-                TimeMachineHandler.CurrentTimeMachine.Repair();
-                Game.Player.Money -= 1249;
+                if (TimeMachineHandler.CurrentTimeMachine.Repair(true, false, false))
+                    Game.Player.Money -= 500;
+            }
+
+            if (sender == repairFC)
+            {
+                if (Game.Player.Money < 1000)
+                {
+                    TextHandler.ShowNotification("NotEnoughMoney");
+                    return;
+                }
+
+                if (TimeMachineHandler.CurrentTimeMachine.Repair(false, true, false))
+                    Game.Player.Money -= 100;
+            }
+
+            if (sender == repairEngine)
+            {
+                if (Game.Player.Money < 750)
+                {
+                    TextHandler.ShowNotification("NotEnoughMoney");
+                    return;
+                }
+
+                if (TimeMachineHandler.CurrentTimeMachine.Repair(false, false, true))
+                    Game.Player.Money -= 750;
             }
         }
 
@@ -141,9 +168,11 @@ namespace BackToTheFutureV
             transformInto.Enabled = !active && FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
             hoverConvert.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12 && !TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || TimeMachineHandler.CurrentTimeMachine.Vehicle.CanHoverTransform());
             installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12;
-            restoreCar.Enabled = active && (TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged || (TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsBroken && TimeMachineHandler.CurrentTimeMachine.Mods.Hoodbox == ModState.Off));
+            repairTC.Enabled = active && (TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsBroken && TimeMachineHandler.CurrentTimeMachine.Mods.Hoodbox == ModState.Off);
+            repairFC.Enabled = active && TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
+            repairEngine.Enabled = active && TimeMachineHandler.CurrentTimeMachine.Vehicle.EngineHealth <= 0;
 
-            buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 5;
+            buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 5 && FusionUtils.CurrentTime.Year == 1985;
             buyPlutonium.AltTitle = $"{InternalInventory.Current.Plutonium}/5";
 
             customMenu.Enabled = active && !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged;

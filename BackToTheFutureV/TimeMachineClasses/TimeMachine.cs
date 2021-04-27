@@ -414,37 +414,52 @@ namespace BackToTheFutureV
             Properties.ReactorCharge = 0;
             Properties.AreTimeCircuitsBroken = true;
             Properties.AreFlyingCircuitsBroken = true;
-            Mods.Wheels.Burst = true;
 
-            Vehicle.FuelLevel = 0;
+            Mods.Wheels.Burst = true;
+            Vehicle.EngineHealth = -4000;
         }
 
-        public void Repair()
+        public bool Repair(bool timeCircuits, bool flyingCircuits, bool engine)
         {
-            bool fullDamaged = Constants.FullDamaged;
-
-            if (Properties.AreFlyingCircuitsBroken && FusionUtils.CurrentTime.Year >= 2015)
-                Properties.AreFlyingCircuitsBroken = false;
-
-            if (FusionUtils.CurrentTime.Year >= 1985)
-                Properties.AreTimeCircuitsBroken = false;
-            else if (FusionUtils.CurrentTime.Year >= 1947)
-                Mods.Hoodbox = ModState.On;
-            else
-                TextHandler.ShowNotification("UnableRepair");
-
-            if (!fullDamaged)
-                return;
-
-            Mods.Wheels.Burst = false;
-
-            if (FusionUtils.CurrentTime.Year < 1982)
+            if (timeCircuits)
             {
-                Mods.Wheel = WheelType.Red;
-                Mods.SuspensionsType = SuspensionsType.LiftFront;
+                if (FusionUtils.CurrentTime.Year >= 1985)
+                    Properties.AreTimeCircuitsBroken = false;
+                else if (FusionUtils.CurrentTime.Year >= 1947)
+                    Mods.Hoodbox = ModState.On;
+                else
+                    TextHandler.ShowSubtitle("UnableRepairTC");
+
+                return !Properties.AreTimeCircuitsBroken || Mods.Hoodbox == ModState.On;
             }
 
-            Vehicle.FuelLevel = 60.0f;
+            if (flyingCircuits)
+            {
+                if (FusionUtils.CurrentTime.Year >= 2015)
+                    Properties.AreFlyingCircuitsBroken = false;
+                else
+                    TextHandler.ShowSubtitle("UnableRepairFC");
+
+                return !Properties.AreFlyingCircuitsBroken;
+            }
+
+            if (engine)
+            {
+                if (Mods.Wheels.Burst)
+                {
+                    if (FusionUtils.CurrentTime.Year < 1982)
+                    {
+                        Mods.Wheel = WheelType.Red;
+                        Mods.SuspensionsType = SuspensionsType.LiftFront;
+                    }
+                    else
+                        Mods.Wheels.Burst = false;
+                }
+
+                Vehicle.EngineHealth = 1000;
+            }
+
+            return true;
         }
 
         private void PhotoMode()

@@ -176,7 +176,7 @@ namespace BackToTheFutureV
 
         public string LowerWormholeType => Mods.WormholeType.ToString().ToLower();
         public bool IsStockWheel => Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible || Mods.Wheel == WheelType.DMC || Mods.Wheel == WheelType.DMCInvisible;
-        public bool FullDamaged => Mods.Wheel == WheelType.Stock && Mods.Wheels.Burst && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
+        public bool FullDamaged => Mods.Wheel == WheelType.Stock && Mods.Wheels.Burst && Vehicle.EngineHealth <= 0 && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
 
         public WheelType RoadWheel
         {

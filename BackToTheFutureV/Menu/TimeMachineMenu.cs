@@ -51,7 +51,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            FlyMode.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.On;
+            FlyMode.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.On && !TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
             AltitudeHold.Enabled = FlyMode.Enabled;
             RemoteControl.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
             //CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
