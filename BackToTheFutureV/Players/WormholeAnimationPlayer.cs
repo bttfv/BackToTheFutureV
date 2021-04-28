@@ -135,7 +135,6 @@ namespace BackToTheFutureV
 
         private bool _hasStartedWormhole;
 
-        private int _startSparksAt;
         private int _startWormholeAt;
         private int _endAt;
         private int numOfProps;
@@ -166,7 +165,8 @@ namespace BackToTheFutureV
             _leftSpark.Tick();
             _rightSpark.Tick();
 
-            if (Game.GameTime < _nextSpark || Game.GameTime < _startSparksAt) return;
+            if (Game.GameTime < _nextSpark || Game.GameTime < _startWormholeAt || !_hasStartedWormhole)
+                return;
 
             List<SparkPlayer> validSparks = _sparks.Where(x => !x.IsPlaying).ToList();
 
@@ -236,7 +236,6 @@ namespace BackToTheFutureV
 
             IsPlaying = true;
             _hasStartedWormhole = false;
-            _startSparksAt = Game.GameTime + 1000;
 
             // Spawn the coil model
             if (Mods.WormholeType != WormholeType.BTTF3 && Properties.ReactorState == ReactorState.Closed)
