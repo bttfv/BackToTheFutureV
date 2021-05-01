@@ -183,9 +183,9 @@ namespace BackToTheFutureV
 
             bool active = TimeMachineHandler.CurrentTimeMachine.NotNullAndExists();
 
-            transformInto.Enabled = !active; //&& FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
-            hoverConvert.Enabled = active; //&& FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12 && !TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || TimeMachineHandler.CurrentTimeMachine.Vehicle.CanHoverTransform());
-            installMrFusion.Enabled = active; //&& FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12;
+            transformInto.Enabled = !active && FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
+            hoverConvert.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12 && !TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || TimeMachineHandler.CurrentTimeMachine.Vehicle.CanHoverTransform());
+            installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12;
             repairTC.Enabled = active && (TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsBroken && TimeMachineHandler.CurrentTimeMachine.Mods.Hoodbox == ModState.Off);
             repairFC.Enabled = active && TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
             repairEngine.Enabled = active && TimeMachineHandler.CurrentTimeMachine.Vehicle.EngineHealth <= 0;
