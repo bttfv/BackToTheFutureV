@@ -171,6 +171,30 @@ namespace BackToTheFutureV
             //RearCarTowardsFront
             CustomCameraManager.Add(Vehicle, new Vector3(0f, -7.81f, 2f), new Vector3(0f, -6.81f, 2f), 50);
 
+            //PlateCustom
+            CustomCameraManager.Add(Vehicle, new Vector3(0.17f, -2.64f, 0.78f), new Vector3(-0.03f, -1.67f, 0.6f), 50);
+
+            //ReactorCustom
+            CustomCameraManager.Add(Vehicle, new Vector3(0.92f, -1.78f, 1.55f), new Vector3(0.02f, -1.60f, 1.17f), 50);
+
+            //RimCustom
+            CustomCameraManager.Add(Vehicle, new Vector3(1.74f, 1.79f, 0.48f), new Vector3(0.88f, 1.33f, 0.24f), 50);
+
+            //HoodCustom
+            CustomCameraManager.Add(Vehicle, new Vector3(-0.98f, 2.47f, 1.16f), new Vector3(-0.41f, 1.79f, 0.7f), 50);
+
+            //ExhaustCustom
+            CustomCameraManager.Add(Vehicle, new Vector3(-1.13f, -2.76f, 0.28f), new Vector3(-0.53f, -1.97f, 0.27f), 50);
+
+            //HookCustom
+            CustomCameraManager.Add(Vehicle, new Vector3(2.03f, -1.62f, 1.71f), new Vector3(1.22f, -1.16f, 1.36f), 50);
+
+            //SuspensionsCustom
+            CustomCameraManager.Add(Vehicle, new Vector3(-2.24f, -0.04f, 0.38f), new Vector3(-1.25f, -0.03f, 0.41f), 80);
+
+            //HoverUnderbodyCustom
+            CustomCameraManager.Add(Vehicle, new Vector3(-0.41f, 2.87f, 0.06f), new Vector3(-0.16f, 1.90f, 0.15f), 50);
+
             IsReady = true;
         }
 

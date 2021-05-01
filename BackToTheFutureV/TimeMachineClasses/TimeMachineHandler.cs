@@ -72,7 +72,7 @@ namespace BackToTheFutureV
 
         private static TimeMachine TransformIntoTimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
-            if (vehicle == null)
+            if (!vehicle.IsFunctioning())
                 return null;
 
             if (vehicle.Model.IsTrain)
@@ -80,7 +80,7 @@ namespace BackToTheFutureV
 
             TimeMachine timeMachine = GetTimeMachineFromVehicle(vehicle);
 
-            if (timeMachine != null)
+            if (timeMachine.NotNullAndExists())
                 return timeMachine;
 
             return new TimeMachine(vehicle, wormholeType);
@@ -146,10 +146,14 @@ namespace BackToTheFutureV
 
         public static TimeMachine Create(SpawnFlags spawnFlags = SpawnFlags.Default, WormholeType wormholeType = WormholeType.BTTF1, Vector3 position = default, float heading = default, TimeMachineClone timeMachineClone = default, string presetName = default, Vehicle vehicle = default)
         {
+            TimeMachine timeMachine = null;
+
             if (vehicle != default)
             {
-                if (vehicle.IsTimeMachine())
-                    return GetTimeMachineFromVehicle(vehicle);
+                timeMachine = GetTimeMachineFromVehicle(vehicle);
+
+                if (timeMachine.NotNullAndExists())
+                    return timeMachine;
             }
 
             Ped ped = FusionUtils.PlayerPed;
@@ -159,7 +163,6 @@ namespace BackToTheFutureV
 
             Vehicle veh = null;
             Vector3 spawnPos;
-            TimeMachine timeMachine = null;
 
             if (FusionUtils.PlayerVehicle != null && !RemoteTimeMachineHandler.IsRemoteOn)
                 spawnPos = ped.Position.Around(5f);
@@ -281,7 +284,7 @@ namespace BackToTheFutureV
 
         public static TimeMachine GetTimeMachineFromVehicle(Vehicle vehicle)
         {
-            if (vehicle == null)
+            if (!vehicle.IsFunctioning())
                 return null;
 
             TimeMachine timeMachine = AllTimeMachines.SingleOrDefault(x => x.Vehicle == vehicle);
@@ -310,11 +313,6 @@ namespace BackToTheFutureV
             }
 
             return timeMachine;
-        }
-
-        public static bool Exists(TimeMachine timeMachine)
-        {
-            return AllTimeMachines.Contains(timeMachine) | _timeMachinesToAdd.Contains(timeMachine);
         }
 
         public static bool IsVehicleATimeMachine(Vehicle vehicle)
@@ -409,14 +407,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (RemoteTimeMachineHandler.IsRemoteOn)
-            {
-                CurrentTimeMachine = RemoteTimeMachineHandler.RemoteControlling;
-
-                return;
-            }
-
-            if (ClosestTimeMachine.IsFunctioning() && FusionUtils.PlayerVehicle == ClosestTimeMachine.Vehicle)
+            if (ClosestTimeMachine.NotNullAndExists() && FusionUtils.PlayerVehicle == ClosestTimeMachine.Vehicle)
                 CurrentTimeMachine = ClosestTimeMachine;
         }
     }

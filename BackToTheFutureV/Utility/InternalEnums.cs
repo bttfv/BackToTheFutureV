@@ -123,7 +123,15 @@ namespace BackToTheFutureV
             LicensePlate,
             TimeTravelOnTracks,
             DigitalSpeedoTowardsFront,
-            RearCarTowardsFront
+            RearCarTowardsFront,
+            PlateCustom,
+            ReactorCustom,
+            RimCustom,
+            HoodCustom,
+            ExhaustCustom,
+            HookCustom,
+            SuspensionsCustom,
+            HoverUnderbodyCustom
         }
 
         internal enum WormholeType

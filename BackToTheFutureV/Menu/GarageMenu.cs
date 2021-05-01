@@ -2,6 +2,7 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Native;
+using KlangRageAudioLibrary;
 using LemonUI.Menus;
 using System;
 using System.ComponentModel;
@@ -18,6 +19,8 @@ namespace BackToTheFutureV
         private NativeItem repairTC;
         private NativeItem repairFC;
         private NativeItem repairEngine;
+
+        public static AudioPlayer[] GarageSounds { get; } = { Main.CommonAudioEngine.Create("general/garage/tireChange.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill1.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill2.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill3.wav", Presets.No3D) };
 
         private NativeSubmenuItem customMenu;
 
@@ -55,8 +58,10 @@ namespace BackToTheFutureV
                     return;
                 }
 
-                TimeMachineHandler.Create(FusionUtils.PlayerVehicle).Properties.ReactorCharge = 0;
+                //TimeMachineHandler.Create(FusionUtils.PlayerVehicle).Properties.ReactorCharge = 0;
                 Game.Player.Money -= 500000;
+                GarageHandler.Transform = true;
+                Close();
             }
 
             if (sender == hoverConvert)
@@ -67,7 +72,11 @@ namespace BackToTheFutureV
                     return;
                 }
 
+                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                TimeMachineHandler.CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HoverUnderbodyCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                 TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody = ModState.On;
+                TimeMachineHandler.CurrentTimeMachine.Mods.Plate = PlateType.BTTF2;
+                TimeMachineHandler.CurrentTimeMachine.Mods.WormholeType = WormholeType.BTTF2;
                 Game.Player.Money -= 39995;
             }
 
@@ -79,6 +88,8 @@ namespace BackToTheFutureV
                     return;
                 }
 
+                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                TimeMachineHandler.CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.ReactorCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                 TimeMachineHandler.CurrentTimeMachine.Mods.Reactor = ReactorType.MrFusion;
                 Game.Player.Money -= 100000;
             }
@@ -91,6 +102,7 @@ namespace BackToTheFutureV
                     return;
                 }
 
+                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                 InternalInventory.Current.Plutonium++;
                 Game.Player.Money -= 1500;
             }
@@ -103,6 +115,7 @@ namespace BackToTheFutureV
                     return;
                 }
 
+                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                 if (TimeMachineHandler.CurrentTimeMachine.Repair(true, false, false))
                     Game.Player.Money -= 500;
             }
@@ -115,6 +128,7 @@ namespace BackToTheFutureV
                     return;
                 }
 
+                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                 if (TimeMachineHandler.CurrentTimeMachine.Repair(false, true, false))
                     Game.Player.Money -= 100;
             }
@@ -127,6 +141,7 @@ namespace BackToTheFutureV
                     return;
                 }
 
+                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                 if (TimeMachineHandler.CurrentTimeMachine.Repair(false, false, true))
                     Game.Player.Money -= 750;
             }
@@ -151,6 +166,9 @@ namespace BackToTheFutureV
         public override void Menu_Shown(object sender, EventArgs e)
         {
             GarageHandler.WaitForCustomMenu = false;
+
+            foreach (AudioPlayer audioPlayer in GarageSounds)
+                audioPlayer.SourceEntity = TimeMachineHandler.CurrentTimeMachine;
         }
 
         public override void Tick()
@@ -165,9 +183,9 @@ namespace BackToTheFutureV
 
             bool active = TimeMachineHandler.CurrentTimeMachine.NotNullAndExists();
 
-            transformInto.Enabled = !active && FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
-            hoverConvert.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12 && !TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || TimeMachineHandler.CurrentTimeMachine.Vehicle.CanHoverTransform());
-            installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12;
+            transformInto.Enabled = !active; //&& FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
+            hoverConvert.Enabled = active; //&& FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12 && !TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || TimeMachineHandler.CurrentTimeMachine.Vehicle.CanHoverTransform());
+            installMrFusion.Enabled = active; //&& FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12;
             repairTC.Enabled = active && (TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsBroken && TimeMachineHandler.CurrentTimeMachine.Mods.Hoodbox == ModState.Off);
             repairFC.Enabled = active && TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
             repairEngine.Enabled = active && TimeMachineHandler.CurrentTimeMachine.Vehicle.EngineHealth <= 0;

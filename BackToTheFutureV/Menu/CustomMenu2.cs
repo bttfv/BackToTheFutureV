@@ -1,4 +1,5 @@
 ﻿using FusionLibrary;
+using GTA;
 using LemonUI.Menus;
 using System;
 using System.ComponentModel;
@@ -46,6 +47,9 @@ namespace BackToTheFutureV
 
         private void ModList_ItemChanged(object sender, ItemChangedEventArgs<string> e)
         {
+            if (!Game.IsControlJustPressed(Control.PhoneLeft) && !Game.IsControlJustPressed(Control.PhoneRight))
+                return;
+
             int newIndex = e.Index;
 
             if (sender == _wormholeType)
@@ -54,6 +58,8 @@ namespace BackToTheFutureV
             }
             else if (sender == _wheelsType)
             {
+                GarageMenu.GarageSounds[0].Play();
+                TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.RimCustom, FusionEnums.CameraSwitchType.Instant, 1600);
                 switch (newIndex)
                 {
                     case 0:
@@ -96,18 +102,26 @@ namespace BackToTheFutureV
             }
             else if (sender == _plate)
             {
+                GarageMenu.GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.PlateCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                 TimeMachine.Mods.Plate = (PlateType)(newIndex - 1);
             }
             else if (sender == _exhaust)
             {
+                GarageMenu.GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.ExhaustCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                 TimeMachine.Mods.Exhaust = (ExhaustType)(newIndex - 1);
             }
             else if (sender == _suspensions)
             {
+                GarageMenu.GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.SuspensionsCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                 TimeMachine.Mods.SuspensionsType = (SuspensionsType)newIndex;
             }
             else if (sender == _hood)
             {
+                GarageMenu.GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HoodCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                 TimeMachine.Mods.Hood = (HoodType)(newIndex - 1);
             }
         }
@@ -176,6 +190,8 @@ namespace BackToTheFutureV
         {
             if (sender == _hook)
             {
+                GarageMenu.GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HookCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                 if (Checked)
                     TimeMachine.Mods.Hook = HookState.OnDoor;
                 else
@@ -183,6 +199,7 @@ namespace BackToTheFutureV
             }
             else if (sender == _threeDigits)
             {
+                TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.DigitalSpeedo, FusionEnums.CameraSwitchType.Instant, 1250);
                 TimeMachine.Properties.ThreeDigitsSpeedo = !Checked;
                 TimeMachine.Properties.HUDProperties.ThreeDigitsSpeedo = !Checked;
             }

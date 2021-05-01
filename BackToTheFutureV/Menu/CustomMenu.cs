@@ -81,6 +81,9 @@ namespace BackToTheFutureV
 
         private void ModList_ItemChanged(object sender, ItemChangedEventArgs<string> e)
         {
+            if (!Game.IsControlJustPressed(Control.PhoneLeft) && !Game.IsControlJustPressed(Control.PhoneRight))
+                return;
+
             int newIndex = e.Index;
 
             if (sender == _wormholeType)

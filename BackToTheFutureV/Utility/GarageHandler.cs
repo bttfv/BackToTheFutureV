@@ -132,14 +132,23 @@ namespace BackToTheFutureV
 
         private static bool isTimeMachine;
 
-        public static void Abort()
-        {
-            GarageInfo.List.ForEach(x => x.Abort());
-        }
-
         private static bool _placeDamaged;
 
         public static bool WaitForCustomMenu;
+
+        public static bool Transform;
+
+        public static void Abort()
+        {
+            GarageInfo.List.ForEach(x => x.Abort());
+
+            if (Status == GarageStatus.Idle)
+                return;
+
+            FusionUtils.HideGUI = false;
+            DestroyCamera();
+            Status = GarageStatus.Idle;
+        }
 
         public static void Tick()
         {
@@ -147,7 +156,12 @@ namespace BackToTheFutureV
             //GTA.UI.Screen.ShowSubtitle($"{FusionUtils.PlayerVehicle?.Position} {FusionUtils.PlayerVehicle?.Rotation}");
 
             if (!Vehicle.NotNullAndExists() || RemoteTimeMachineHandler.IsRemoteOn)
+            {
+                if (Status != GarageStatus.Idle)
+                    Abort();
+
                 return;
+            }
 
             foreach (GarageInfo garageInfo in GarageInfo.List)
             {
@@ -160,7 +174,7 @@ namespace BackToTheFutureV
                 {
                     TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Vehicle.TowedVehicle);
 
-                    if (timeMachine.NotNullAndExists() && timeMachine.Constants.FullDamaged)
+                    if (timeMachine.NotNullAndExists())
                     {
                         World.DrawMarker(MarkerType.VerticalCylinder, garageInfo.OutsideCameraPosition.SetToGroundHeight(), Vector3.Zero, Vector3.Zero, new Vector3(3, 3, 3), Color.Red);
 
@@ -197,7 +211,13 @@ namespace BackToTheFutureV
                     continue;
 
                 if (Status == GarageStatus.Busy)
-                    Game.DisableAllControlsThisFrame();
+                {
+                    Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 75, true);
+                    Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
+                    Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 60, true);
+                    //Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 71, true);
+                    //Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 72, true);
+                }
 
                 switch (Status)
                 {
@@ -206,11 +226,14 @@ namespace BackToTheFutureV
 
                         if (Game.IsControlJustPressed(Control.Context))
                         {
+                            FusionUtils.HideGUI = true;
+
                             isTimeMachine = Vehicle.IsTimeMachine();
 
                             Vehicle.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 2000).Start();
+                            Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, false, false, true);
 
-                            SetupCamera(garageInfo.CreateInsideCamera());
+                            //SetupCamera(garageInfo.CreateInsideCamera());
                             MenuHandler.GarageMenu.Open();
 
                             garageInfo.Lock();
@@ -222,6 +245,7 @@ namespace BackToTheFutureV
                         if (Game.GameTime < gameTime)
                             break;
 
+                        FusionUtils.HideGUI = false;
                         TimeMachineHandler.CurrentTimeMachine?.Particles.IceSmoke?.StopNaturally();
                         DestroyCamera();
 
@@ -234,15 +258,22 @@ namespace BackToTheFutureV
                         SetupCamera(garageInfo.CreateOutsideCamera());
                         garageInfo.PlaceVehicle(Vehicle);
 
+                        if (Transform)
+                        {
+                            TimeMachineHandler.Create(Vehicle).Properties.ReactorCharge = 0;
+                            Transform = false;
+                        }
+
                         if (!isTimeMachine && Vehicle.IsTimeMachine())
                         {
                             garageSound.SourceEntity = FusionUtils.PlayerPed;
                             garageSound.Volume = 0.5f;
                             garageSound.Play();
 
-                            TimeMachineHandler.CurrentTimeMachine?.Particles.IceSmoke?.Play();
+                            TimeMachineHandler.GetTimeMachineFromVehicle(Vehicle)?.Particles.IceSmoke?.Play();
                         }
 
+                        Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, true, true, false);
                         Vehicle.TaskDrive().Create().Add(DriveAction.AccelerateWeak, 1000).Start();
 
                         garageInfo.Unlock();
