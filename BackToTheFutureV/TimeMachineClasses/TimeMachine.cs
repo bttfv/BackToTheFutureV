@@ -224,6 +224,12 @@ namespace BackToTheFutureV
                 return;
             }
 
+            if (Constants.HasScaleformPriority != Properties.HasScaleformPriority)
+            {
+                Properties.HasScaleformPriority = Constants.HasScaleformPriority;
+                Events.OnScaleformPriority?.Invoke();
+            }
+
             if (!Vehicle.IsVisible)
                 Vehicle.IsEngineRunning = false;
 

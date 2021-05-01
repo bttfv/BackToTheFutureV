@@ -27,7 +27,6 @@ namespace BackToTheFutureV
         private NativeItem _saveConf;
         private NativeItem _confirm;
 
-        private bool _save = false;
         private TimeMachine _tempTimeMachine;
 
         public CustomMenu() : base("Custom")
@@ -75,8 +74,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Closing(object sender, CancelEventArgs e)
         {
-            if (!_save)
-                _tempTimeMachine.Vehicle.Delete();
+
         }
 
         private void ModList_ItemChanged(object sender, ItemChangedEventArgs<string> e)
@@ -205,15 +203,11 @@ namespace BackToTheFutureV
                 if (ForceNew || FusionUtils.PlayerVehicle == null)
                     _tempTimeMachine = TimeMachineHandler.Create(SpawnFlags.WarpPlayer);
                 else
-                {
                     _tempTimeMachine = TimeMachineHandler.Create(FusionUtils.PlayerVehicle);
-                    _save = true;
-                }
             }
             else if (FusionUtils.PlayerVehicle.IsTimeMachine())
             {
                 _tempTimeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);
-                _save = true;
 
                 if (_tempTimeMachine.Constants.FullDamaged)
                 {
@@ -239,7 +233,6 @@ namespace BackToTheFutureV
         {
             if (sender == _wormholeType | sender == _confirm)
             {
-                _save = true;
                 GarageHandler.WaitForCustomMenu = false;
                 Close();
             }

@@ -203,7 +203,7 @@ namespace BackToTheFutureV
 
         public void DrawGUI()
         {
-            if (FusionUtils.HideGUI || FusionUtils.PlayerVehicle != Vehicle || !Properties.IsGivenScaleformPriority || FusionUtils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
+            if (FusionUtils.HideGUI || FusionUtils.PlayerVehicle != Vehicle || !Constants.HasScaleformPriority || FusionUtils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
                 return;
 
             float mphSpeed = Vehicle.GetMPHSpeed();

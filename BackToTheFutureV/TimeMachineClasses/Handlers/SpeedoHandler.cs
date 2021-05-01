@@ -27,7 +27,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (!Properties.IsGivenScaleformPriority)
+            if (!Constants.HasScaleformPriority)
                 return;
 
             if (Mods.IsDMC12)

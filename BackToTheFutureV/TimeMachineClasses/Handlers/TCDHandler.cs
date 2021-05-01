@@ -140,7 +140,7 @@ namespace BackToTheFutureV
 
         private void OnScaleformPriority()
         {
-            if (!Properties.IsGivenScaleformPriority || !Properties.AreTimeCircuitsOn)
+            if (!Constants.HasScaleformPriority || !Properties.AreTimeCircuitsOn)
                 return;
 
             destinationSlot.SetDate(Properties.DestinationTime);
@@ -150,7 +150,7 @@ namespace BackToTheFutureV
 
         private void OnTimeCircuitsToggle()
         {
-            if (!Properties.IsGivenScaleformPriority)
+            if (!Constants.HasScaleformPriority)
                 return;
 
             if (Properties.AreTimeCircuitsOn)
@@ -269,7 +269,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (!Properties.IsGivenScaleformPriority)
+            if (!Constants.HasScaleformPriority)
                 return;
 
             if (Mods.IsDMC12)

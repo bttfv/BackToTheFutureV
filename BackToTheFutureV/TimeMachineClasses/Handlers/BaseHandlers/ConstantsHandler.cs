@@ -8,6 +8,8 @@ namespace BackToTheFutureV
 {
     internal class ConstantsHandler : HandlerPrimitive
     {
+        public bool HasScaleformPriority => TimeMachineHandler.ClosestTimeMachine == TimeMachine;
+
         public bool Over88MphSpeed { get; private set; }
 
         public bool OverTimeTravelAtSpeed { get; private set; }

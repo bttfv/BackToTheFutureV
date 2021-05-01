@@ -72,8 +72,6 @@ namespace BackToTheFutureV
                 FluxCapacitor.Render2D(new PointF(0.5f, 0.5f), 1f);
             };
 
-            FluxCapacitorRT.CreateProp();
-
             //Speedo
             SpeedoRT = new RenderTarget(ModelHandler.BTTFSpeedo, "bttf_speedo", Vehicle, "bttf_speedo");
 
@@ -81,8 +79,6 @@ namespace BackToTheFutureV
             {
                 Speedo.Render2D(new PointF(0.5f, 0.54f), new SizeF(0.9f, 0.9f));
             };
-
-            SpeedoRT.CreateProp();
 
             //SID
             SIDRT = new RenderTarget(ModelHandler.SID, "bttf_sid", Vehicle, "bttf_sid");
@@ -95,10 +91,18 @@ namespace BackToTheFutureV
 
         private void OnScaleformPriority()
         {
-            if (Properties.IsGivenScaleformPriority)
+            if (Constants.HasScaleformPriority)
+            {
                 SIDRT?.CreateProp();
+                FluxCapacitorRT?.CreateProp();
+                SpeedoRT.CreateProp();
+            }
             else
+            {
                 SIDRT?.Dispose();
+                FluxCapacitorRT?.Dispose();
+                SpeedoRT?.Dispose();
+            }
         }
 
         public override void Dispose()

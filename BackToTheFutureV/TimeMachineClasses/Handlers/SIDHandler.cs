@@ -137,7 +137,7 @@ namespace BackToTheFutureV
                 _pause = columns.Count == 0;
             }
 
-            if (Properties.IsGivenScaleformPriority && Vehicle.IsVisible)
+            if (Constants.HasScaleformPriority && Vehicle.IsVisible)
                 Scaleforms.SIDRT?.Draw();
             else
                 return;

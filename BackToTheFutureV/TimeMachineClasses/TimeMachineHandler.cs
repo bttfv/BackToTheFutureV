@@ -347,12 +347,6 @@ namespace BackToTheFutureV
                     SquareDistToClosestTimeMachine = 0;
                 }
 
-                if (!CurrentTimeMachine.Properties.IsGivenScaleformPriority)
-                {
-                    CurrentTimeMachine.Properties.IsGivenScaleformPriority = true;
-                    CurrentTimeMachine.Events.OnScaleformPriority?.Invoke();
-                }
-
                 if (CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                     return;
 
@@ -392,17 +386,7 @@ namespace BackToTheFutureV
 
                 if (ClosestTimeMachine != timeMachine && (SquareDistToClosestTimeMachine == -1 || dist < SquareDistToClosestTimeMachine))
                 {
-                    if (ClosestTimeMachine != null)
-                    {
-                        ClosestTimeMachine.Properties.IsGivenScaleformPriority = false;
-                        ClosestTimeMachine.Events.OnScaleformPriority?.Invoke();
-                    }
-
                     ClosestTimeMachine = timeMachine;
-
-                    ClosestTimeMachine.Properties.IsGivenScaleformPriority = true;
-                    ClosestTimeMachine.Events.OnScaleformPriority?.Invoke();
-
                     SquareDistToClosestTimeMachine = dist;
                 }
             }

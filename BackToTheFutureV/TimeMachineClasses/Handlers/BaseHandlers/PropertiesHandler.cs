@@ -37,7 +37,8 @@ namespace BackToTheFutureV
         public bool ThreeDigitsSpeedo { get; set; }
         public ReactorState ReactorState { get; set; } = ReactorState.Closed;
 
-        //Temporary properties        
+        //Temporary properties
+        public bool HasScaleformPriority { get; set; }
         public int ReactorCharge
         {
             get => _reactorCharge;
@@ -48,7 +49,6 @@ namespace BackToTheFutureV
             }
         }
         public bool IsFueled => ReactorCharge > 0;
-        public bool IsGivenScaleformPriority { get; set; }
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
         public bool IsFluxDoingBlueAnim { get; set; }
         public bool IsEngineStalling { get; set; }

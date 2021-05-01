@@ -37,7 +37,6 @@ namespace BackToTheFutureV
             if (Mods.IsDMC12)
             {
                 Scaleforms.TCDRowsRT[slotType] = new RenderTarget(ModelHandler.TCDRTModels[slotType], "bttf_tcd_row_" + slotType, Vehicle, offsets[slotType], new Vector3(355.9951f, 0.04288517f, 352.7451f));
-                Scaleforms.TCDRowsRT[slotType].CreateProp();
 
                 amProp = new AnimateProp(ModelHandler.TCDAMModels[slotType], Vehicle, Vector3.Zero, Vector3.Zero);
                 pmProp = new AnimateProp(ModelHandler.TCDPMModels[slotType], Vehicle, Vector3.Zero, Vector3.Zero);
@@ -46,6 +45,16 @@ namespace BackToTheFutureV
             }
 
             date = new DateTime();
+
+            Events.OnScaleformPriority += OnScaleformPriority;
+        }
+
+        private void OnScaleformPriority()
+        {
+            if (Constants.HasScaleformPriority)
+                Scaleforms.TCDRowsRT[SlotType].CreateProp();
+            else
+                Scaleforms.TCDRowsRT[SlotType].Dispose();
         }
 
         public void SetDate(DateTime dateToSet)

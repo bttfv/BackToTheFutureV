@@ -46,7 +46,7 @@ namespace BackToTheFutureV
 
         private void OnScaleformPriority()
         {
-            if (!Properties.IsGivenScaleformPriority)
+            if (!Constants.HasScaleformPriority)
                 return;
 
             Update();
@@ -54,7 +54,7 @@ namespace BackToTheFutureV
 
         private void OnTimeCircuitsToggle()
         {
-            if (Properties.IsGivenScaleformPriority)
+            if (Constants.HasScaleformPriority)
                 Update();
         }
 
@@ -77,7 +77,7 @@ namespace BackToTheFutureV
             if (!Vehicle.IsVisible)
                 return;
 
-            if (Properties.IsGivenScaleformPriority)
+            if (Constants.HasScaleformPriority)
                 Scaleforms.FluxCapacitorRT?.Draw();
 
             if (Properties.IsFluxDoingBlueAnim)
