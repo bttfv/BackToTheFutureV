@@ -269,28 +269,11 @@ namespace BackToTheFutureV
             }
 
             if (IsReadyToAttach)
-                if (CheckForNearbyTargetVehicle())
+                if (TargetVehicle.DistanceToSquared2D((CarriageIndexForAttach == 0 ? Train : Carriage(CarriageIndexForAttach)).GetOffsetPosition(AttachOffset), 2))
                     AttachTargetVehicle();
 
             if (AttachedToTarget)
                 AttachTargetVehicle();
-        }
-
-        public bool CheckForNearbyTargetVehicle()
-        {
-            //float _tempDistance = TargetVehicle.Position.DistanceToSquared(AttachVehicle.GetOffsetPosition(AttachOffset));
-
-            //if (_tempDistance > _distance && _distance != 0)
-            //{
-            //    DeleteTrain();
-            //    return false;
-            //}
-
-            //_distance = _tempDistance;
-
-            //return _distance <= 0.1f * 0.1f;
-
-            return TargetVehicle.DistanceToSquared2D((CarriageIndexForAttach == 0 ? Train : Carriage(CarriageIndexForAttach)).GetOffsetPosition(AttachOffset), 2);
         }
 
         public void SetToAttach(Vehicle targetVehicle, Vector3 attachOffset, int carriageIndexForAttach, int carriageIndexForRotation)
@@ -396,7 +379,7 @@ namespace BackToTheFutureV
 
             AttachOffset = _checkOffset;
 
-            AttachOffset.Y += 0.1f;
+            AttachOffset.Y += 0.075f;
             AttachOffset.Z -= _wheeliePosZ;
 
             Train = TrainManager.ClosestRogersSierra.ColDeLorean;

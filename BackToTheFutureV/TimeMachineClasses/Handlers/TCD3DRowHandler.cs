@@ -46,15 +46,16 @@ namespace BackToTheFutureV
 
             date = new DateTime();
 
-            Events.OnScaleformPriority += OnScaleformPriority;
+            if (Mods.IsDMC12)
+                Events.OnScaleformPriority += OnScaleformPriority;
         }
 
         private void OnScaleformPriority()
         {
             if (Constants.HasScaleformPriority)
-                Scaleforms.TCDRowsRT[SlotType].CreateProp();
+                Scaleforms.TCDRowsRT[SlotType]?.CreateProp();
             else
-                Scaleforms.TCDRowsRT[SlotType].Dispose();
+                Scaleforms.TCDRowsRT[SlotType]?.Dispose();
         }
 
         public void SetDate(DateTime dateToSet)

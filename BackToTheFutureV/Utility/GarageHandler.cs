@@ -145,6 +145,9 @@ namespace BackToTheFutureV
             if (Status == GarageStatus.Idle)
                 return;
 
+            if (Vehicle.NotNullAndExists())
+                Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, Vehicle.IsEngineRunning, true, false);
+
             FusionUtils.HideGUI = false;
             DestroyCamera();
             Status = GarageStatus.Idle;
