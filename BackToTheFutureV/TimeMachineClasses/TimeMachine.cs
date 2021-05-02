@@ -27,6 +27,7 @@ namespace BackToTheFutureV
         public ScaleformsHandler Scaleforms { get; private set; }
         public ParticlesHandler Particles { get; private set; }
         public ConstantsHandler Constants { get; private set; }
+        public DecoratorsHandler Decorators { get; private set; }
 
         public CustomCameraHandler CustomCameraManager { get; private set; }
 
@@ -118,6 +119,8 @@ namespace BackToTheFutureV
                 leftSuspesionOffset = Vehicle.Bones["suspension_lf"].GetRelativeOffsetPosition(new Vector3(0.025f, 0, 0.005f));
                 rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.025f, 0, 0.005f));
             }
+            else
+                Decorators = new DecoratorsHandler(this);
 
             LastDisplacementClone = this.Clone();
             LastDisplacementClone.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);

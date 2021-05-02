@@ -21,6 +21,7 @@ namespace BackToTheFutureV
         public ScaleformsHandler Scaleforms => TimeMachine.Scaleforms;
         public ParticlesHandler Particles => TimeMachine.Particles;
         public ConstantsHandler Constants => TimeMachine.Constants;
+        public DecoratorsHandler Decorators => TimeMachine.Decorators;
 
         public HandlerPrimitive(TimeMachine timeMachine)
         {

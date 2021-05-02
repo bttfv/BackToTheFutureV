@@ -6,6 +6,18 @@ namespace BackToTheFutureV
     {
         public static string[] MeleeAttacks = new string[] { "walking_punch", "running_punch", "long_0_punch", "heavy_punch_a", "heavy_punch_b", "heavy_punch_b_var_1", "short_0_punch" };
 
+        internal static class BTTFVDecors
+        {
+            public const string TimeMachine = "BTTFV_TimeMachine";
+            public const string DestDate1 = "BTTFV_DestDate1";
+            public const string DestDate2 = "BTTFV_DestDate2";
+            public const string LastDate1 = "BTTFV_LastDate1";
+            public const string LastDate2 = "BTTFV_LastDate2";
+            public const string WormholeType = "BTTFV_WormholeType";
+            public const string TimeCircuitsOn = "BTTFV_TCOn";
+            public const string CutsceneMode = "BTTFV_TimeTravelType";
+        }
+
         internal enum WaybackStatus
         {
             Idle,

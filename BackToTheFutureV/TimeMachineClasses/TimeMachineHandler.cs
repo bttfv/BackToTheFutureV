@@ -30,6 +30,8 @@ namespace BackToTheFutureV
 
         private static bool _savedEmpty;
 
+        private static Vehicle _checkVehicle;
+
         public static void Save()
         {
             if (TimeMachineCount == 0 && _savedEmpty)
@@ -269,6 +271,14 @@ namespace BackToTheFutureV
             {
                 AllTimeMachines.AddRange(_timeMachinesToAdd);
                 _timeMachinesToAdd.Clear();
+            }
+
+            if (_checkVehicle != FusionUtils.PlayerVehicle)
+            {
+                _checkVehicle = FusionUtils.PlayerVehicle;
+
+                if (_checkVehicle.IsFunctioning() && !_checkVehicle.IsTimeMachine() && DecoratorsHandler.CheckVehicle(_checkVehicle))
+                    Create(_checkVehicle);
             }
 
             UpdateClosestTimeMachine();

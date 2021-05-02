@@ -311,7 +311,7 @@ namespace BackToTheFutureV
         public override void KeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == ModControls.CutsceneToggle)
-                SetCutsceneMode(!Properties.CutsceneMode);
+                Events.SetCutsceneMode?.Invoke(!Properties.CutsceneMode);
         }
     }
 }

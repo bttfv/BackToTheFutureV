@@ -137,6 +137,7 @@
     <Compile Include="Menu\CustomMenu2.cs" />
     <Compile Include="Menu\GarageMenu.cs" />
     <Compile Include="Players\EmitterSparkPlayer.cs" />
+    <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\DecoratorsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TCD3DRowHandler.cs" />
     <Compile Include="TimeMachineClasses\Clone\TimeMachineCloneHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\ClockHandler.cs" />

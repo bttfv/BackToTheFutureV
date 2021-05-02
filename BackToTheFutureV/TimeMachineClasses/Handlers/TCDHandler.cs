@@ -76,7 +76,7 @@ namespace BackToTheFutureV
             Events.OnScaleformPriority += OnScaleformPriority;
 
             Events.OnSparksInterrupted += () => { Particles.LightningSparks?.Stop(); };
-            Events.OnTimeTravelStarted += OnTimeTravel;
+            Events.OnTimeTravelStarted += OnTimeTravelStarted;
 
             Events.SetTimeCircuits += SetTimeCircuitsOn;
             Events.SetTimeCircuitsBroken += SetTimeCircuitsBroken;
@@ -204,7 +204,7 @@ namespace BackToTheFutureV
             destinationSlot.SetVisibleAt(true, 500, 600);
         }
 
-        private void OnTimeTravel()
+        private void OnTimeTravelStarted()
         {
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
                 previousSlot.SetDate(Properties.PreviousTime);

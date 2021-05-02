@@ -17,6 +17,7 @@ namespace BackToTheFutureV
             { "yellow", new Vector3(-0.01964803f, 0.2769623f, 0.565388f) },
             { "green", new Vector3(-0.01737539f, 0.2979541f, 0.6045464f) }
         };
+        private static Vector3 rotation = new Vector3(-5.01f, -0.46f, -7.26f);
 
         public string SlotType { get; private set; }
 
@@ -36,7 +37,7 @@ namespace BackToTheFutureV
 
             if (Mods.IsDMC12)
             {
-                Scaleforms.TCDRowsRT[slotType] = new RenderTarget(ModelHandler.TCDRTModels[slotType], "bttf_tcd_row_" + slotType, Vehicle, offsets[slotType], new Vector3(355.9951f, 0.04288517f, 352.7451f));
+                Scaleforms.TCDRowsRT[slotType] = new RenderTarget(ModelHandler.TCDRTModels[slotType], "bttf_tcd_row_" + slotType, Vehicle, offsets[slotType], rotation);
 
                 amProp = new AnimateProp(ModelHandler.TCDAMModels[slotType], Vehicle, Vector3.Zero, Vector3.Zero);
                 pmProp = new AnimateProp(ModelHandler.TCDPMModels[slotType], Vehicle, Vector3.Zero, Vector3.Zero);
