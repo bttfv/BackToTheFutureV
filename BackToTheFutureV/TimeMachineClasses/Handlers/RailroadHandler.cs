@@ -181,7 +181,7 @@ namespace BackToTheFutureV
                 if (Properties.MissionType == MissionType.Train)
                     return;
 
-                Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.TankerCarModel, ModelHandler.SierraDebugModel, ModelHandler.SierraModel, ModelHandler.SierraTenderModel);
+                Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.TankerCarModel);
 
                 if (Vehicle.IsVisible && _train != null && Vehicle.IsTouching(_train))
                 {
