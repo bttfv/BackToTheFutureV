@@ -59,7 +59,6 @@ namespace BackToTheFutureV
         public bool IsHoverGoingUpDown { get; set; }
         public bool IsPhotoModeOn { get; set; }
         public bool IsOnTracks { get; set; }
-        public bool IsAttachedToRogersSierra { get; set; }
         public bool PhotoWormholeActive { get; set; }
         public bool PhotoGlowingCoilsActive { get; set; }
         public bool PhotoFluxCapacitorActive { get; set; }

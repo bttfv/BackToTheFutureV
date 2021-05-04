@@ -38,7 +38,6 @@ namespace BackToTheFutureV
     internal delegate void SetStopTracks(int delay = 0);
     internal delegate void SetReactorState(ReactorState reactorState);
     internal delegate void SetPedAI(bool state);
-    internal delegate void SetWheelie(bool goUp);
     internal delegate void SetEngineStall(bool state);
     internal delegate void StartLightningStrike(int delay);
     internal delegate void SimulateInputDate(DateTime dateTime);
@@ -81,7 +80,6 @@ namespace BackToTheFutureV
         public SetStopTracks SetStopTracks;
         public SetReactorState SetReactorState;
         public SetPedAI StartDriverAI;
-        public SetWheelie SetWheelie;
         public SetEngineStall SetEngineStall;
         public StartLightningStrike StartLightningStrike;
         public SimulateInputDate SimulateInputDate;

@@ -22,7 +22,6 @@ namespace BackToTheFutureV
         public static PresetsMenu PresetsMenu { get; } = new PresetsMenu();
         public static OutatimeMenu OutatimeMenu { get; } = new OutatimeMenu();
         public static MainMenu MainMenu { get; } = new MainMenu();
-        public static TrainMissionMenu TrainMissionMenu { get; } = new TrainMissionMenu();
         public static TimeMachineMenu TimeMachineMenu { get; } = new TimeMachineMenu();
 
         public static void Tick()

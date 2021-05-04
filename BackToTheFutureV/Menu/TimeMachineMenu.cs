@@ -16,7 +16,6 @@ namespace BackToTheFutureV
 
         //public NativeSubmenuItem CustomMenu { get; }
         public NativeSubmenuItem PhotoMenu { get; }
-        public NativeSubmenuItem TrainMissionMenu { get; }
         public NativeSubmenuItem BackToMain { get; }
 
         public TimeMachineMenu() : base("TimeMachine")
@@ -31,9 +30,6 @@ namespace BackToTheFutureV
             //CustomMenu = NewSubmenu(MenuHandler.CustomMenu, "Custom");
 
             PhotoMenu = NewSubmenu(MenuHandler.PhotoMenu, "Photo");
-
-            TrainMissionMenu = AddSubMenu(MenuHandler.TrainMissionMenu);
-            TrainMissionMenu.Title = "Train Mission";
 
             BackToMain = NewSubmenu(MenuHandler.MainMenu, "GoToMain");
         }
@@ -98,8 +94,6 @@ namespace BackToTheFutureV
 
             //CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
             PhotoMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
-
-            TrainMissionMenu.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsOnTracks;
 
             //EscapeMission.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
             //EscapeMission.Checked = MissionHandler.Escape.IsPlaying;

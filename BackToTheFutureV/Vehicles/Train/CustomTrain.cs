@@ -2,15 +2,14 @@
 using GTA;
 using GTA.Math;
 using GTA.Native;
-using RogersSierraRailway;
 using System;
 using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
     internal delegate void OnVehicleDestroyed();
-    internal delegate void OnVehicleAttached(bool toRogersSierra = false);
-    internal delegate void OnVehicleDetached(bool fromRogersSierra = false);
+    internal delegate void OnVehicleAttached();
+    internal delegate void OnVehicleDetached();
     internal delegate void OnTrainDeleted();
 
     internal class CustomTrain
@@ -20,23 +19,11 @@ namespace BackToTheFutureV
         public event OnVehicleDetached OnVehicleDetached;
         public event OnTrainDeleted OnTrainDeleted;
 
-        public SetWheelie SetWheelie;
-
-        public bool IsRogersSierra => Train.IsRogersSierra();
-        public RogersSierra RogersSierra => TrainManager.GetRogersSierraFromVehicle(Train);
-
-        private float _wheelieRotX;
-        private float _wheeliePosZ = -0.35f;
-
-        public bool DoWheelie { get; set; }
-        public bool WheelieUp { get; set; }
-
         public Vehicle Train;
         public bool Direction { get; set; }
         public Vector3 Position { get => Train.Position; set => Function.Call(Hash.SET_MISSION_TRAIN_COORDS, Train, value.X, value.Y, value.Z); }
         public int CarriageCount { get; }
 
-        private Vector3 _checkOffset;
         private int _variation;
         private float _cruiseSpeed;
         private bool _setSpeed;
@@ -82,8 +69,6 @@ namespace BackToTheFutureV
                 Carriage(i).IsPersistent = true;
 
             ToDestroy = false;
-
-            SetWheelie += StartWheelie;
         }
 
         public void SetPosition(Vector3 position)
@@ -197,57 +182,21 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
-            if (!IsRogersSierra)
+            if (IsAccelerationOn)
+                Acceleration();
+
+            if (IsAutomaticBrakeOn)
+                Brake();
+
+            if (_setSpeed)
             {
-                if (IsAccelerationOn)
-                    Acceleration();
+                if (SpeedMPH > 90)
+                    SpeedMPH = 90;
 
-                if (IsAutomaticBrakeOn)
-                    Brake();
+                if (SpeedMPH < -25)
+                    SpeedMPH = -25;
 
-                if (_setSpeed)
-                {
-                    if (SpeedMPH > 90)
-                        SpeedMPH = 90;
-
-                    if (SpeedMPH < -25)
-                        SpeedMPH = -25;
-
-                    Function.Call(Hash.SET_TRAIN_SPEED, Train, Speed);
-                }
-            }
-            else
-            {
-                if (DoWheelie)
-                {
-                    switch (WheelieUp)
-                    {
-                        case true:
-                            _wheelieRotX += 15 * Game.LastFrameTime;
-                            _wheeliePosZ += 0.35f * Game.LastFrameTime;
-
-                            if (_wheelieRotX >= 10 && _wheeliePosZ >= 0)
-                            {
-                                //_wheelieRotX = 10;
-                                //_wheeliePosZ = 0;
-                                DoWheelie = false;
-                            }
-
-                            break;
-                        case false:
-                            _wheelieRotX -= 15 * Game.LastFrameTime;
-                            _wheeliePosZ -= 0.35f * Game.LastFrameTime;
-
-                            if (_wheelieRotX <= 0 && _wheeliePosZ <= -0.35f)
-                            {
-                                _wheelieRotX = 0;
-                                _wheeliePosZ = -0.35f;
-                                DoWheelie = false;
-                            }
-
-                            break;
-                    }
-                }
+                Function.Call(Hash.SET_TRAIN_SPEED, Train, Speed);
             }
 
             if (ToDestroy)
@@ -298,18 +247,8 @@ namespace BackToTheFutureV
 
         public void AttachTargetVehicle()
         {
-            TrySwitchToRogersSierra();
-
-            if (!IsRogersSierra)
-            {
-                TargetVehicle.AttachToPhysically(AttachVehicle, AttachOffset, Vector3.Zero);
-                TargetVehicle.Rotation = RotationVehicle.Rotation;
-            }
-            else
-            {
-                TargetVehicle.AttachToPhysically(AttachVehicle, AttachOffset.GetSingleOffset(Coordinate.Z, _wheeliePosZ), Vector3.Zero);
-                TargetVehicle.Rotation = RotationVehicle.Rotation.GetSingleOffset(Coordinate.X, _wheelieRotX);
-            }
+            TargetVehicle.AttachToPhysically(AttachVehicle, AttachOffset, Vector3.Zero);
+            TargetVehicle.Rotation = RotationVehicle.Rotation;
 
             if (IsReadyToAttach)
             {
@@ -350,74 +289,13 @@ namespace BackToTheFutureV
             DestroyCounter = 0;
             ToDestroy = false;
         }
-
-        public bool CheckForClosestRogersSierra()
+        
+        public void DeleteTrain()
         {
-            _checkOffset = Vector3.Zero;
-
-            _checkOffset.Z = TrainManager.ClosestRogersSierra.Locomotive.GetPositionOffset(TargetVehicle.Position).Z;
-            _checkOffset.Y = 5.13f - TargetVehicle.Model.Dimensions.rearBottomLeft.Y;
-
-            return TrainManager.ClosestRogersSierra.Locomotive.RelativeVelocity().Y >= 0 && TargetVehicle.SameDirection(TrainManager.ClosestRogersSierra) && World.GetClosestVehicle(TrainManager.ClosestRogersSierra.Locomotive.GetOffsetPosition(_checkOffset), 0.1f) == TargetVehicle;
-        }
-
-        public void TrySwitchToRogersSierra()
-        {
-            if (IsRogersSierra)
-                return;
-
-            if (TrainManager.ClosestRogersSierra is null || TrainManager.ClosestRogersSierra.IsExploded || TrainManager.ClosestRogersSierra.RejectAttach || !CheckForClosestRogersSierra())
-                return;
-
-            Function.Call(Hash.DETACH_ENTITY, TargetVehicle, false, false);
-
             int handle = Train.Handle;
             unsafe
             {
                 Function.Call(Hash.DELETE_MISSION_TRAIN, &handle);
-            }
-
-            AttachOffset = _checkOffset;
-
-            AttachOffset.Y += 0.075f;
-            AttachOffset.Z -= _wheeliePosZ;
-
-            Train = TrainManager.ClosestRogersSierra.ColDeLorean;
-
-            TrainManager.ClosestRogersSierra.AttachedVehicle = TargetVehicle;
-
-            IsAccelerationOn = false;
-
-            if (TargetVehicle.IsTimeMachine())
-                MissionHandler.TrainMission.OnVehicleAttachedToRogersSierra?.Invoke(TimeMachineHandler.GetTimeMachineFromVehicle(TargetVehicle));
-        }
-
-        public void SwitchToRegular()
-        {
-            RogersSierra.SetRejectDelay(2000);
-            RogersSierra.AttachedVehicle = null;
-
-            DeleteTrain();
-        }
-
-        public void StartWheelie(bool goUp)
-        {
-            if (IsRogersSierra)
-            {
-                DoWheelie = true;
-                WheelieUp = goUp;
-            }
-        }
-
-        public void DeleteTrain()
-        {
-            if (!IsRogersSierra)
-            {
-                int handle = Train.Handle;
-                unsafe
-                {
-                    Function.Call(Hash.DELETE_MISSION_TRAIN, &handle);
-                }
             }
 
             Exists = false;
