@@ -261,9 +261,16 @@ namespace BackToTheFutureV
                         SetupCamera(garageInfo.CreateOutsideCamera());
                         garageInfo.PlaceVehicle(Vehicle);
 
+                        TimeMachine timeMachine;
+
                         if (Transform)
                         {
-                            TimeMachineHandler.Create(Vehicle).Properties.ReactorCharge = 0;
+                            timeMachine = TimeMachineHandler.Create(Vehicle);
+                            timeMachine.Properties.ReactorCharge = 0;
+
+                            if (ModSettings.WaybackSystem)
+                                WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle = new WaybackVehicle(timeMachine, WaybackVehicleEvent.Transform);
+
                             Transform = false;
                         }
 

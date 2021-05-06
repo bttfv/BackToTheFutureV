@@ -24,7 +24,10 @@ namespace BackToTheFutureV
                 return;
 
             if (CurrentPlayerRecording == default)
-                Create(FusionUtils.PlayerPed, Guid.NewGuid());
+            {
+                if (!TimeMachineHandler.CurrentTimeMachine.IsFunctioning() || (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase != TimeTravelPhase.InTime && TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase != TimeTravelPhase.Reentering))
+                    Create(FusionUtils.PlayerPed, Guid.NewGuid());
+            }
 
             Machines.ForEach(x => x.Tick());
         }

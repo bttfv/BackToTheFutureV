@@ -302,7 +302,7 @@ namespace BackToTheFutureV
 
         internal static bool IsPedInPosition(Vehicle vehicle, Ped ped)
         {
-            if (ped.IsInVehicle())
+            if (!ped.NotNullAndExists() || ped.IsInVehicle())
                 return false;
 
             Vector3 bootPos = vehicle.Bones["mr_fusion"].Position;

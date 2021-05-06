@@ -101,7 +101,18 @@ namespace BackToTheFutureV
             if (!IsTimeMachine)
                 return vehicle;
 
-            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
+            TimeMachine timeMachine;
+
+            if (Event.HasFlag(WaybackVehicleEvent.Transform))
+            {
+                timeMachine = TimeMachineHandler.Create(vehicle);
+                Mods.ApplyTo(timeMachine);
+                Properties.ApplyTo(timeMachine);
+
+                return vehicle;
+            }
+
+            timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
             if (!timeMachine.NotNullAndExists())
                 return vehicle;

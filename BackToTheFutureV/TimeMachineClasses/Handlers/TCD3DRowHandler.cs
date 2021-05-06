@@ -53,6 +53,9 @@ namespace BackToTheFutureV
 
         private void OnScaleformPriority()
         {
+            if (!Mods.IsDMC12)
+                return;
+
             if (Constants.HasScaleformPriority)
                 Scaleforms.TCDRowsRT[SlotType]?.CreateProp();
             else

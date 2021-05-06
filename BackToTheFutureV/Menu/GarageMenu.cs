@@ -187,7 +187,7 @@ namespace BackToTheFutureV
             hoverConvert.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12 && !TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || TimeMachineHandler.CurrentTimeMachine.Vehicle.CanHoverTransform());
             installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12;
             repairTC.Enabled = active && (TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsBroken && TimeMachineHandler.CurrentTimeMachine.Mods.Hoodbox == ModState.Off);
-            repairFC.Enabled = active && TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
+            repairFC.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
             repairEngine.Enabled = active && TimeMachineHandler.CurrentTimeMachine.Vehicle.EngineHealth <= 0;
 
             buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 5 && FusionUtils.CurrentTime.Year == 1985;

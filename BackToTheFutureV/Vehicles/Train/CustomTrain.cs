@@ -3,7 +3,6 @@ using GTA;
 using GTA.Math;
 using GTA.Native;
 using System;
-using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -289,7 +288,7 @@ namespace BackToTheFutureV
             DestroyCounter = 0;
             ToDestroy = false;
         }
-        
+
         public void DeleteTrain()
         {
             int handle = Train.Handle;

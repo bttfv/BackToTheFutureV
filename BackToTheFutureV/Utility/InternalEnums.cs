@@ -41,6 +41,7 @@ namespace BackToTheFutureV
         internal enum WaybackVehicleEvent
         {
             None,
+            Transform,
             OnSparksEnded,
             OpenCloseReactor,
             RefuelReactor = 4,
