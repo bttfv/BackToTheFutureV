@@ -111,8 +111,8 @@ namespace BackToTheFutureV
 
                 return vehicle;
             }
-
-            timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
+            else
+                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
             if (!timeMachine.NotNullAndExists())
                 return vehicle;

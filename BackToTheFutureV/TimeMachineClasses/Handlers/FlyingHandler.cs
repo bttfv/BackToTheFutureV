@@ -345,6 +345,9 @@ namespace BackToTheFutureV
                 }
             }
 
+            if (Mods.IsDMC12 && Props.HoverModeVentsGlow.IsSpawned && Driver == null)
+                Props.HoverModeVentsGlow?.Delete();
+
             if (Properties.AreFlyingCircuitsBroken)
             {
                 Vector3 force = Vehicle.UpVector;

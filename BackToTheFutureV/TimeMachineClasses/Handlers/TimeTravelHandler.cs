@@ -255,7 +255,7 @@ namespace BackToTheFutureV
                     FireTrailsHandler.RemoveTrail(trails);
 
                     if (Properties.TimeTravelType == TimeTravelType.Cutscene)
-                        TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-2));
+                        TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-1));
                     else
                         TimeHandler.TimeTravelTo(Properties.DestinationTime);
 
