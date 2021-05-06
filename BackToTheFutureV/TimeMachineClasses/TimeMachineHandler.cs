@@ -349,45 +349,49 @@ namespace BackToTheFutureV
 
         public static void UpdateClosestTimeMachine()
         {
-            if (FusionUtils.PlayerVehicle.IsFunctioning() && CurrentTimeMachine.IsFunctioning() && CurrentTimeMachine.Vehicle == FusionUtils.PlayerVehicle)
-            {
-                if (ClosestTimeMachine != CurrentTimeMachine)
-                {
-                    ClosestTimeMachine = CurrentTimeMachine;
-                    SquareDistToClosestTimeMachine = 0;
-                }
-
-                if (CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
-                    return;
-
-                if (!CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible)
-                    CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible = true;
-
-                if (CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
-                    Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, false);
-
-                return;
-            }
-
-            if (CurrentTimeMachine.IsFunctioning() && !FusionUtils.PlayerVehicle.IsFunctioning())
-            {
-                ExternalHUD.SetOff();
-
-                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
-            }
-
-            CurrentTimeMachine = null;
-
             if (AllTimeMachines.Count == 0 && SquareDistToClosestTimeMachine != -1)
             {
                 ClosestTimeMachine = null;
                 SquareDistToClosestTimeMachine = -1;
             }
 
+            if (AllTimeMachines.Count == 0)
+                return;
+
+            if (CurrentTimeMachine != null && !FusionUtils.PlayerVehicle.IsFunctioning())
+            {
+                ExternalHUD.SetOff();
+                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
+
+                CurrentTimeMachine = null;
+            }                
+
             foreach (TimeMachine timeMachine in TimeMachines)
             {
                 if (!timeMachine.IsFunctioning())
                     continue;
+
+                if (timeMachine == FusionUtils.PlayerVehicle)
+                {
+                    CurrentTimeMachine = timeMachine;
+
+                    if (ClosestTimeMachine != CurrentTimeMachine)
+                    {
+                        ClosestTimeMachine = CurrentTimeMachine;
+                        SquareDistToClosestTimeMachine = 0;
+                    }
+
+                    if (CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+                        return;
+
+                    if (!CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible)
+                        CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible = true;
+
+                    if (CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
+                        Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, false);
+
+                    return;
+                }
 
                 float dist = FusionUtils.PlayerPed.DistanceToSquared2D(timeMachine);
 
@@ -400,9 +404,6 @@ namespace BackToTheFutureV
                     SquareDistToClosestTimeMachine = dist;
                 }
             }
-
-            if (ClosestTimeMachine.NotNullAndExists() && FusionUtils.PlayerVehicle == ClosestTimeMachine.Vehicle)
-                CurrentTimeMachine = ClosestTimeMachine;
         }
     }
 }
