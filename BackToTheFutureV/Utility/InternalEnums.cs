@@ -40,12 +40,12 @@ namespace BackToTheFutureV
         [Flags]
         internal enum WaybackVehicleEvent
         {
-            None,
-            Transform,
-            OnSparksEnded,
-            OpenCloseReactor,
-            RefuelReactor = 4,
-            LightningStrike = 8
+            None = 0,
+            Transform = 1,
+            OnSparksEnded = 2,
+            OpenCloseReactor = 4, 
+            RefuelReactor = 8,
+            LightningStrike = 16
         }
 
         internal enum GarageStatus
