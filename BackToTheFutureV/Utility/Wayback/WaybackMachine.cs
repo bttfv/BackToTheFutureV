@@ -29,7 +29,16 @@ namespace BackToTheFutureV
         }
 
         public int LastRecordedIndex { get; private set; } = -1;
-        public WaybackRecord LastRecord => Records[LastRecordedIndex];
+        public WaybackRecord LastRecord
+        {
+            get
+            {
+                if (LastRecordedIndex < 0)
+                    return Records[0];
+
+                return Records[LastRecordedIndex];
+            }
+        }
 
         public int CurrentIndex { get; private set; } = 0;
         public WaybackRecord CurrentRecord => Records[CurrentIndex];
@@ -167,7 +176,7 @@ namespace BackToTheFutureV
 
         public void Stop()
         {
-            if (Status == WaybackStatus.Recording)
+            if (Status == WaybackStatus.Recording && Records.Count > 0)
             {
                 StartTime = Records[0].Time;
                 EndTime = LastRecord.Time.AddMinutes(-1);

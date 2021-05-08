@@ -351,6 +351,7 @@ namespace BackToTheFutureV
         {
             if (AllTimeMachines.Count == 0 && SquareDistToClosestTimeMachine != -1)
             {
+                CurrentTimeMachine = null;
                 ClosestTimeMachine = null;
                 SquareDistToClosestTimeMachine = -1;
             }
