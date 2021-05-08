@@ -266,7 +266,9 @@ namespace BackToTheFutureV
                         if (Transform)
                         {
                             timeMachine = TimeMachineHandler.Create(Vehicle);
-                            timeMachine.Properties.ReactorCharge = 0;
+
+                            if (timeMachine.Mods.IsDMC12)
+                                timeMachine.Properties.ReactorCharge = 0;                            
 
                             if (ModSettings.WaybackSystem)
                                 WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle = new WaybackVehicle(timeMachine, WaybackVehicleEvent.Transform);
