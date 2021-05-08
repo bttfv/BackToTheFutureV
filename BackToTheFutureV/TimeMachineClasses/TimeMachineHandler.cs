@@ -365,7 +365,7 @@ namespace BackToTheFutureV
                 Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
 
                 CurrentTimeMachine = null;
-            }                
+            }
 
             foreach (TimeMachine timeMachine in TimeMachines)
             {
