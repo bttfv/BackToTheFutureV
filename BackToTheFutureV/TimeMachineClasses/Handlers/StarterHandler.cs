@@ -80,6 +80,9 @@ namespace BackToTheFutureV
                 return;
             }
 
+            if (Properties.IsFlying)
+                Events.SetFlyMode?.Invoke(false);
+
             Vehicle.GetLightsState(out _lightsOn, out _highbeamsOn);
 
             if (_highbeamsOn)
@@ -163,7 +166,7 @@ namespace BackToTheFutureV
                         _isRestarting = true;
                     }
 
-                    if (Game.GameTime > _restartAt)
+                    if (Game.GameTime > _restartAt || (Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f))
                     {
                         Stop();
                         Vehicle.FuelLevel = _deloreanMaxFuelLevel;
