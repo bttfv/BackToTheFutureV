@@ -43,7 +43,7 @@ namespace BackToTheFutureV
             None = 0,
             Transform = 1,
             OnSparksEnded = 2,
-            OpenCloseReactor = 4, 
+            OpenCloseReactor = 4,
             RefuelReactor = 8,
             LightningStrike = 16
         }
