@@ -73,7 +73,7 @@ namespace BackToTheFutureV
         {
             if (IsPlaying)
             {
-                oldTime = oldTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * 30 * Game.TimeScale));
+                oldTime = oldTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * (TimeHandler.RealTime ? 1 : 30) * Game.TimeScale));
 
                 InstrumentalMenu.UpdatePanel();
 
@@ -129,7 +129,7 @@ namespace BackToTheFutureV
                 }
             }
             else
-                Properties.SpawnTime = Properties.SpawnTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * 30 * Game.TimeScale));
+                Properties.SpawnTime = Properties.SpawnTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * (TimeHandler.RealTime ? 1 : 30) * Game.TimeScale));
 
             DateTime checkTime;
 
@@ -155,7 +155,7 @@ namespace BackToTheFutureV
                     Sounds.Alarm.Stop();
             }
 
-            Props.BulovaClockMinute.setRotation(Coordinate.Y, Properties.SpawnTime.Minute * 6);
+            Props.BulovaClockMinute.setRotation(Coordinate.Y, Properties.SpawnTime.Minute * 6 + (TimeHandler.RealTime ? Properties.SpawnTime.Second * 0.1f : 0));
             Props.BulovaClockHour.setRotation(Coordinate.Y, Properties.SpawnTime.Hour * 30 + Properties.SpawnTime.Minute * 0.5f);
         }
 
