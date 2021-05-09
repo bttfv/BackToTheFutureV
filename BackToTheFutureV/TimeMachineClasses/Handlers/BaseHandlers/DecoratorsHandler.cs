@@ -14,6 +14,18 @@ namespace BackToTheFutureV
     {
         public Decorator Decorator { get; }
 
+        public float TorqueMultiplier
+        {
+            get
+            {
+                return Decorator.GetFloat(BTTFVDecors.TorqueMultiplier);
+            }
+            set
+            {
+                Decorator.SetFloat(BTTFVDecors.TorqueMultiplier, value);
+            }
+        }
+
         public static void Register()
         {
             Decorator.Register(BTTFVDecors.TimeMachine, DecorType.Bool);
@@ -24,6 +36,7 @@ namespace BackToTheFutureV
             Decorator.Register(BTTFVDecors.WormholeType, DecorType.Int);
             Decorator.Register(BTTFVDecors.TimeCircuitsOn, DecorType.Bool);
             Decorator.Register(BTTFVDecors.CutsceneMode, DecorType.Bool);
+            Decorator.Register(BTTFVDecors.TorqueMultiplier, DecorType.Float);
             Decorator.Lock();
         }
 
@@ -57,6 +70,9 @@ namespace BackToTheFutureV
             OnTimeTravelStarted();
             OnTimeCircuitsToggle();
             SetCutsceneMode(Properties.CutsceneMode);
+
+            if (!Decorator.Exists(BTTFVDecors.TorqueMultiplier))
+                TorqueMultiplier = 1;
         }
 
         public bool CheckVehicle()
