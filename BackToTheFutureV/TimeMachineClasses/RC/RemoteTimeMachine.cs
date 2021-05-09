@@ -56,7 +56,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (!Spawned && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime, FusionUtils.CurrentTime.AddMinutes(1)))
+            if (!Spawned && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime))
             {
                 Spawn(ReenterType.Normal);
 
