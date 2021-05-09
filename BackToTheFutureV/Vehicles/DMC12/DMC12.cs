@@ -57,6 +57,8 @@ namespace BackToTheFutureV
 
             Vehicle.IsPersistent = true;
 
+            Vehicle.Decorator().DotNotDelete = true;
+
             Mods = new DMC12Mods(Vehicle);
 
             rpmNeedle = new AnimateProp(ModelHandler.RPMNeedle, Vehicle, "rpm_needle");

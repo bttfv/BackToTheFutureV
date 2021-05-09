@@ -124,6 +124,9 @@ namespace BackToTheFutureV
 
         private void OnReenterEnded()
         {
+            if (Driver == FusionUtils.PlayerPed)
+                RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
+
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
             Vehicle.SetVisible(true);

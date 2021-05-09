@@ -63,7 +63,7 @@ namespace BackToTheFutureV
         public bool PhotoGlowingCoilsActive { get; set; }
         public bool PhotoFluxCapacitorActive { get; set; }
         public bool PhotoEngineStallActive { get; set; }
-        public bool PhotoSIDMaxActive { get; set; }        
+        public bool PhotoSIDMaxActive { get; set; }
         public MissionType MissionType { get; set; } = MissionType.None;
         public bool Story { get; set; }
         public bool BlockSparks { get; set; }

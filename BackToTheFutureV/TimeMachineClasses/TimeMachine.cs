@@ -70,6 +70,8 @@ namespace BackToTheFutureV
 
             Vehicle.IsPersistent = true;
 
+            Vehicle.Decorator().DotNotDelete = true;
+
             TimeMachineHandler.AddTimeMachine(this);
 
             Events = new EventsHandler(this);

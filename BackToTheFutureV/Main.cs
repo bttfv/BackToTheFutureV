@@ -63,7 +63,7 @@ namespace BackToTheFutureV
 
         private unsafe void Main_Tick(object sender, EventArgs e)
         {
-            if (Game.IsLoading)
+            if (Game.IsLoading || FusionUtils.FirstTick)
                 return;
 
             if (FirstTick)
@@ -80,6 +80,7 @@ namespace BackToTheFutureV
                 }
 
                 FusionUtils.RandomTrains = ModSettings.RandomTrains;
+                TimeHandler.RealTime = ModSettings.RealTime;
 
                 if (ModSettings.ExternalTCDToggle)
                     ExternalHUD.Toggle(true);

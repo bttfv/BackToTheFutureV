@@ -46,7 +46,7 @@ namespace BackToTheFutureV
     internal delegate void SetSIDLedsState(bool on, bool instant = false);
     internal delegate void StartTrain(bool force);
     internal delegate void SetTrainSpeed(float speed);
-    
+
     internal class EventsHandler : HandlerPrimitive
     {
         public OnScaleformPriority OnScaleformPriority;

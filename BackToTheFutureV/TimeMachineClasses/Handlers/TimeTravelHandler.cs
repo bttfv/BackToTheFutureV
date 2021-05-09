@@ -143,9 +143,6 @@ namespace BackToTheFutureV
                         Events.OnTimeTravelEnded?.Invoke();
                         Events.OnReenterEnded?.Invoke();
 
-                        //Add LastDisplacementCopy to remote time machines list
-                        RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
-
                         return;
                     }
 
@@ -253,7 +250,10 @@ namespace BackToTheFutureV
                     TimeMachine.CustomCameraManager.Stop();
                     FireTrailsHandler.RemoveTrail(trails);
 
-                    TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-2));
+                    if (TimeHandler.RealTime)
+                        TimeHandler.TimeTravelTo(Properties.DestinationTime.AddSeconds(-4));
+                    else
+                        TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-2));
 
                     if (Properties.TimeTravelDestPos != Vector3.Zero)
                     {
@@ -284,12 +284,8 @@ namespace BackToTheFutureV
 
                 case 5:
 
-                    //Add LastDisplacementCopy to remote time machines list
-                    RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
-
                     Events.OnTimeTravelEnded?.Invoke();
                     Events.OnReenterStarted?.Invoke();
-
                     break;
             }
         }
