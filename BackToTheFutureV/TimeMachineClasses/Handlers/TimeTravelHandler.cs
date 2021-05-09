@@ -254,10 +254,7 @@ namespace BackToTheFutureV
                     TimeMachine.CustomCameraManager.Stop();
                     FireTrailsHandler.RemoveTrail(trails);
 
-                    if (Properties.TimeTravelType == TimeTravelType.Cutscene)
-                        TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-1));
-                    else
-                        TimeHandler.TimeTravelTo(Properties.DestinationTime);
+                    TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-2));
 
                     if (Properties.TimeTravelDestPos != Vector3.Zero)
                     {
