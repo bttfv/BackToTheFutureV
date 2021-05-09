@@ -73,7 +73,7 @@ namespace BackToTheFutureV
         {
             if (IsPlaying)
             {
-                oldTime = oldTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * (TimeHandler.RealTime ? 1 : 30) * Game.TimeScale));
+                oldTime = oldTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * (TimeHandler.RealTime ? 1 : 30)));
 
                 InstrumentalMenu.UpdatePanel();
 
@@ -129,7 +129,7 @@ namespace BackToTheFutureV
                 }
             }
             else
-                Properties.SpawnTime = Properties.SpawnTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * (TimeHandler.RealTime ? 1 : 30) * Game.TimeScale));
+                Properties.SpawnTime = Properties.SpawnTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * (TimeHandler.RealTime ? 1 : 30)));
 
             DateTime checkTime;
 
