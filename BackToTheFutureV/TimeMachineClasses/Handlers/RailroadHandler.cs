@@ -30,6 +30,16 @@ namespace BackToTheFutureV
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
             Events.OnReenterEnded += OnReenterEnded;
             Events.SetStopTracks += Stop;
+            Events.StartTrain += Start;
+            Events.SetTrainSpeed += SetTrainSpeed;
+        }
+
+        public void SetTrainSpeed(float speed)
+        {
+            if (!Properties.IsOnTracks || customTrain == null || !customTrain.Exists)
+                return;
+
+            customTrain.Speed = speed;
         }
 
         public void SetWheelie(bool goUp)
