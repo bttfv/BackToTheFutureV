@@ -235,7 +235,7 @@ namespace BackToTheFutureV
                 Function.Call(Hash.OVERRIDE_VEH_HORN, Vehicle, true, _defaultHorn);
 
             if (!Properties.IsLanding && !Properties.IsFlying)
-                Properties.TorqueMultiplier = 1.4f;
+                Decorators.TorqueMultiplier = 1.4f;
 
             if (!Properties.IsFlying && Properties.IsAltitudeHolding)
                 Properties.IsAltitudeHolding = false;

@@ -16,6 +16,7 @@ namespace BackToTheFutureV
             public const string WormholeType = "BTTFV_WormholeType";
             public const string TimeCircuitsOn = "BTTFV_TCOn";
             public const string CutsceneMode = "BTTFV_TimeTravelType";
+            public const string TorqueMultiplier = "BTTFV_TorqueMultiplier";
         }
 
         internal enum WaybackStatus

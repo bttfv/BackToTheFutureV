@@ -21,7 +21,7 @@ namespace BackToTheFutureV
         public Vector3 LastVelocity { get; set; }
         public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;
         public bool AreTimeCircuitsBroken { get; set; }
-        private int _reactorCharge = 1;
+        private int reactorCharge = 1;
         public bool CutsceneMode { get; set; } = true;
         public bool IsFreezed { get; set; }
         public bool IsDefrosting { get; set; }
@@ -41,11 +41,11 @@ namespace BackToTheFutureV
         public bool HasScaleformPriority { get; set; }
         public int ReactorCharge
         {
-            get => _reactorCharge;
+            get => reactorCharge;
             set
             {
                 if (value >= 0)
-                    _reactorCharge = value;
+                    reactorCharge = value;
             }
         }
         public bool IsFueled => ReactorCharge > 0;
@@ -64,8 +64,7 @@ namespace BackToTheFutureV
         public bool PhotoGlowingCoilsActive { get; set; }
         public bool PhotoFluxCapacitorActive { get; set; }
         public bool PhotoEngineStallActive { get; set; }
-        public bool PhotoSIDMaxActive { get; set; }
-        public float TorqueMultiplier { get; set; } = 1;
+        public bool PhotoSIDMaxActive { get; set; }        
         public MissionType MissionType { get; set; } = MissionType.None;
         public bool Story { get; set; }
         public bool BlockSparks { get; set; }
@@ -98,7 +97,7 @@ namespace BackToTheFutureV
                 LastVelocity = LastVelocity,
                 TimeTravelType = TimeTravelType,
                 AreTimeCircuitsBroken = AreTimeCircuitsBroken,
-                _reactorCharge = _reactorCharge,
+                reactorCharge = reactorCharge,
                 CutsceneMode = CutsceneMode,
                 IsFreezed = IsFreezed,
                 IsDefrosting = IsDefrosting,
@@ -133,7 +132,7 @@ namespace BackToTheFutureV
             timeMachine.Properties.LastVelocity = LastVelocity;
             timeMachine.Properties.TimeTravelType = TimeTravelType;
             timeMachine.Properties.AreTimeCircuitsBroken = AreTimeCircuitsBroken;
-            timeMachine.Properties._reactorCharge = _reactorCharge;
+            timeMachine.Properties.reactorCharge = reactorCharge;
             timeMachine.Properties.CutsceneMode = CutsceneMode;
             timeMachine.Properties.IsFreezed = IsFreezed;
             timeMachine.Properties.IsDefrosting = IsDefrosting;

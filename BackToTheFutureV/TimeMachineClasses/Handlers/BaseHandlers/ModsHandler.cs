@@ -213,8 +213,8 @@ namespace BackToTheFutureV
                 }
                 else
                 {
-                    if (TimeMachine.Properties != null)
-                        TimeMachine.Properties.TorqueMultiplier = 1;
+                    if (TimeMachine.Decorators != null)
+                        TimeMachine.Decorators.TorqueMultiplier = 1;
                 }
             }
         }

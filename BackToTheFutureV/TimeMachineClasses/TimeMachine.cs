@@ -119,8 +119,8 @@ namespace BackToTheFutureV
                 leftSuspesionOffset = Vehicle.Bones["suspension_lf"].GetRelativeOffsetPosition(new Vector3(0.025f, 0, 0.005f));
                 rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.025f, 0, 0.005f));
             }
-            else
-                Decorators = new DecoratorsHandler(this);
+
+            Decorators = new DecoratorsHandler(this);
 
             LastDisplacementClone = this.Clone();
             LastDisplacementClone.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
@@ -239,7 +239,7 @@ namespace BackToTheFutureV
             if (Properties.IsWayback && TimeMachineHandler.CurrentTimeMachine == this)
                 Properties.IsWayback = false;
 
-            Function.Call(Hash._SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER, Vehicle, Properties.TorqueMultiplier);
+            Function.Call(Hash._SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER, Vehicle, Decorators.TorqueMultiplier);
 
             if (Mods.HoverUnderbody == ModState.Off && Mods.IsDMC12)
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
@@ -296,8 +296,8 @@ namespace BackToTheFutureV
                 if (Mods.Hoodbox == ModState.On)
                     Vehicle.Doors[VehicleDoorIndex.Hood].CanBeBroken = false;
 
-                if (Mods.SuspensionsType != SuspensionsType.Stock && Properties.TorqueMultiplier != 2.4f)
-                    Properties.TorqueMultiplier = 2.4f;
+                if (Mods.SuspensionsType != SuspensionsType.Stock && Decorators.TorqueMultiplier != 2.4f)
+                    Decorators.TorqueMultiplier = 2.4f;
 
                 switch (Mods.SuspensionsType)
                 {
@@ -489,7 +489,7 @@ namespace BackToTheFutureV
                         Mods.Wheels.Burst = false;
                 }
 
-                Vehicle.EngineHealth = 1000;
+                Vehicle.Repair();
             }
 
             return true;

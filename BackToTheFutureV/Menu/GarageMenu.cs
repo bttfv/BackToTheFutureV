@@ -188,7 +188,7 @@ namespace BackToTheFutureV
             installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && TimeMachineHandler.CurrentTimeMachine.Mods.IsDMC12;
             repairTC.Enabled = active && (TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsBroken && TimeMachineHandler.CurrentTimeMachine.Mods.Hoodbox == ModState.Off);
             repairFC.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
-            repairEngine.Enabled = active && TimeMachineHandler.CurrentTimeMachine.Vehicle.EngineHealth <= 0;
+            repairEngine.Enabled = active && (TimeMachineHandler.CurrentTimeMachine.Vehicle.EngineHealth <= 0 || TimeMachineHandler.CurrentTimeMachine.Mods.Wheels.Burst);
 
             buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 5 && FusionUtils.CurrentTime.Year == 1985;
             buyPlutonium.AltTitle = $"{InternalInventory.Current.Plutonium}/5";
