@@ -15,6 +15,7 @@ namespace BackToTheFutureV
         private NativeCheckboxItem PersistenceSystem;
         private NativeCheckboxItem WaybackSystem;
         private NativeCheckboxItem RandomTrains;
+        private NativeCheckboxItem RealTime;
         private NativeCheckboxItem GlowingWormholeEmitter;
         private NativeCheckboxItem GlowingPlutoniumReactor;
 
@@ -28,6 +29,7 @@ namespace BackToTheFutureV
             PersistenceSystem = NewCheckboxItem("Persistence", ModSettings.PersistenceSystem);
             WaybackSystem = NewCheckboxItem("Wayback", ModSettings.WaybackSystem);
             RandomTrains = NewCheckboxItem("RandomTrains", ModSettings.RandomTrains);
+            RealTime = NewCheckboxItem("RealTime", ModSettings.RealTime);
             GlowingWormholeEmitter = NewCheckboxItem("GlowingWormhole", ModSettings.GlowingWormholeEmitter);
             GlowingPlutoniumReactor = NewCheckboxItem("GlowingReactor", ModSettings.GlowingPlutoniumReactor);
 
@@ -73,6 +75,13 @@ namespace BackToTheFutureV
                 ModSettings.RandomTrains = Checked;
 
                 FusionUtils.RandomTrains = Checked;
+            }
+
+            if (sender == RealTime)
+            {
+                ModSettings.RealTime = Checked;
+
+                TimeHandler.RealTime = Checked;
             }
 
             if (sender == GlowingWormholeEmitter)

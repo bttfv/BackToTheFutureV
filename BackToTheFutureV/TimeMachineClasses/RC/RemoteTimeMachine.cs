@@ -39,10 +39,10 @@ namespace BackToTheFutureV
             if (!Spawned && TimeMachine != null)
                 TimeMachine = null;
 
-            if (Game.GameTime < _timer)
+            if (Spawned || Game.GameTime < _timer)
                 return;
 
-            if (!Spawned && FusionUtils.CurrentTime.Near(TimeMachineClone.Properties.DestinationTime, new TimeSpan(0, 1, 0), true))
+            if ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-45), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-3)))
             {
                 if (!_hasPlayedWarningSound)
                 {
@@ -56,12 +56,12 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (!Spawned && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime))
+            if ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-2)))
             {
                 Spawn(ReenterType.Normal);
 
                 _hasPlayedWarningSound = false;
-                _timer = Game.GameTime + 3000;
+                _timer = Game.GameTime + 10000;
             }
         }
 

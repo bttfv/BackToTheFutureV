@@ -78,8 +78,13 @@ namespace BackToTheFutureV
 
             Train.IsPersistent = true;
 
+            Train.Decorator().DotNotDelete = true;
+
             for (int i = 0; i <= CarriageCount; i++)
+            {
                 Carriage(i).IsPersistent = true;
+                Carriage(i).Decorator().DotNotDelete = true;
+            }
 
             ToDestroy = false;
 

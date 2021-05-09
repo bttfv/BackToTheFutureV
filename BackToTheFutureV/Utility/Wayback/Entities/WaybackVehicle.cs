@@ -101,7 +101,7 @@ namespace BackToTheFutureV
                     Replica.ApplyTo(vehicle, spawnFlags);
                 else
                     Replica.ApplyTo(vehicle, spawnFlags, nextReplica, adjustedRatio);
-            } 
+            }
             else if (Properties.IsOnTracks)
             {
                 timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
