@@ -107,6 +107,7 @@ namespace BackToTheFutureV
                 CanConvert = CanConvert,
                 AreFlyingCircuitsBroken = AreFlyingCircuitsBroken,
                 AreHoodboxCircuitsReady = AreHoodboxCircuitsReady,
+                IsOnTracks = IsOnTracks,
                 WasOnTracks = WasOnTracks,
                 HasBeenStruckByLightning = HasBeenStruckByLightning,
                 TimeTravelDestPos = TimeTravelDestPos,

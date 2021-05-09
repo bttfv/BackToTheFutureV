@@ -93,15 +93,24 @@ namespace BackToTheFutureV
             if (ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle()))
                 spawnFlags |= SpawnFlags.NoPosition;
 
-            if (nextReplica == null)
-                Replica.ApplyTo(vehicle, spawnFlags);
-            else
-                Replica.ApplyTo(vehicle, spawnFlags, nextReplica, adjustedRatio);
+            TimeMachine timeMachine = null;
+
+            if (!IsTimeMachine || !Properties.IsOnTracks)
+            {
+                if (nextReplica == null)
+                    Replica.ApplyTo(vehicle, spawnFlags);
+                else
+                    Replica.ApplyTo(vehicle, spawnFlags, nextReplica, adjustedRatio);
+            } 
+            else if (Properties.IsOnTracks)
+            {
+                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
+
+                timeMachine.Events.SetTrainSpeed?.Invoke(Replica.Speed * (Replica.IsGoingForward ? 1 : -1));
+            }
 
             if (!IsTimeMachine)
                 return vehicle;
-
-            TimeMachine timeMachine;
 
             if (Event.HasFlag(WaybackVehicleEvent.Transform))
             {

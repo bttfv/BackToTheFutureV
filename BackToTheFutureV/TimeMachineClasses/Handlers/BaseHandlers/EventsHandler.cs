@@ -44,7 +44,9 @@ namespace BackToTheFutureV
     internal delegate void SimulateHoverBoost(bool state);
     internal delegate void SimulateHoverGoingUpDown(bool state);
     internal delegate void SetSIDLedsState(bool on, bool instant = false);
-
+    internal delegate void StartTrain(bool force);
+    internal delegate void SetTrainSpeed(float speed);
+    
     internal class EventsHandler : HandlerPrimitive
     {
         public OnScaleformPriority OnScaleformPriority;
@@ -86,6 +88,8 @@ namespace BackToTheFutureV
         public SimulateHoverBoost SimulateHoverBoost;
         public SimulateHoverGoingUpDown SimulateHoverGoingUpDown;
         public SetSIDLedsState SetSIDLedsState;
+        public StartTrain StartTrain;
+        public SetTrainSpeed SetTrainSpeed;
 
         public EventsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
