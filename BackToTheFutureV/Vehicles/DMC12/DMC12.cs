@@ -209,7 +209,7 @@ namespace BackToTheFutureV
                 suspensionRightRear?.Delete();
             }
 
-            if (FusionUtils.IsAnyOfFrontDoorsOpen(Vehicle))
+            if (FusionUtils.IsAnyDoorOpen(Vehicle))
                 doorIndicator.SpawnProp();
             else
                 doorIndicator.Delete();
