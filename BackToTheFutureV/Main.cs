@@ -91,8 +91,6 @@ namespace BackToTheFutureV
                 WeatherHandler.Register();
             }
 
-            Screen.ShowSubtitle($"{FusionUtils.WindSpeed}");
-
             if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
                 ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
 
