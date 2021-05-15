@@ -222,6 +222,7 @@
     <Compile Include="Utility\Wayback\WaybackSystem.cs" />
     <Compile Include="Utility\Wayback\Entities\WaybackVehicle.cs" />
     <Compile Include="Utility\Wayback\Entities\WaybackPed.cs" />
+    <Compile Include="Utility\WeatherHandler.cs" />
     <Compile Include="Vehicles\DMC12\ModsPrimitive.cs" />
     <Compile Include="Vehicles\DMC12\DMC12.cs" />
     <Compile Include="Vehicles\DMC12\DMC12Handler.cs" />

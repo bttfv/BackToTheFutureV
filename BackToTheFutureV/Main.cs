@@ -1,5 +1,4 @@
 ﻿using FusionLibrary;
-using FusionLibrary.Extensions;
 using GTA;
 using GTA.Native;
 using KlangRageAudioLibrary;
@@ -60,9 +59,6 @@ namespace BackToTheFutureV
             TimeMachineHandler.KeyDown(e);
             MissionHandler.KeyDown(e);
             MenuHandler.KeyDown(e);
-
-            if (e.KeyCode == Keys.L)
-                FusionUtils.RainLevel = -1f;
         }
 
         private unsafe void Main_Tick(object sender, EventArgs e)
@@ -92,21 +88,10 @@ namespace BackToTheFutureV
                 ExternalHUD.SetOff();
 
                 DecoratorsHandler.Register();
-
-                new MomentReplica(new DateTime(1955, 11, 12, 21, 54, 0)) { Weather = Weather.ThunderStorm, RainLevel = 0 };                
-                new MomentReplica(new DateTime(1955, 11, 12, 22, 15, 0)) { Weather = Weather.ThunderStorm };
-                new MomentReplica(new DateTime(2015, 10, 21, 16, 29, 0)) { Weather = Weather.ThunderStorm };
-                new MomentReplica(new DateTime(2015, 10, 21, 16, 50, 0)) { Weather = Weather.ExtraSunny };
+                WeatherHandler.Register();
             }
 
-            if (FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 22, 10, 0), new DateTime(1955, 11, 12, 22, 30, 0)) && World.Weather == Weather.ThunderStorm && FusionUtils.RainLevel == 0)
-            {
-                World.Weather = Weather.ThunderStorm;
-                FusionUtils.RainLevel = -1;
-            }
-
-            if (FusionUtils.CurrentTime.Between(new DateTime(2015, 10, 21, 16, 40, 0), new DateTime(2015, 10, 21, 17, 0, 0)) && World.Weather != Weather.ExtraSunny)
-                World.Weather = Weather.ExtraSunny;
+            Screen.ShowSubtitle($"{FusionUtils.WindSpeed}");
 
             if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
                 ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
@@ -126,6 +111,7 @@ namespace BackToTheFutureV
             MenuHandler.Tick();
             TrashHandler.Tick();
             GarageHandler.Tick();
+            WeatherHandler.Tick();
 
             if (FirstTick)
             {
