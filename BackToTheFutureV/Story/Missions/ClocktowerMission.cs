@@ -65,11 +65,11 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs key)
         {
-            if (key.KeyCode == Keys.L)
-                IsPlaying = true;
+            //if (key.KeyCode == Keys.L)
+            //    IsPlaying = true;
 
-            if (key.KeyCode == Keys.O)
-                FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);
+            //if (key.KeyCode == Keys.O)
+            //    FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);
         }
 
         public override void Tick()
