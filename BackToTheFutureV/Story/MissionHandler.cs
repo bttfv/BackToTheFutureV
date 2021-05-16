@@ -9,6 +9,8 @@ namespace BackToTheFutureV
 
         public static TrainMission TrainMission = new TrainMission();
 
+        public static ClocktowerMission ClocktowerMission = new ClocktowerMission();
+
         //public static EscapeMission EscapeMission = new EscapeMission();
 
         public static void Add(Mission mission)

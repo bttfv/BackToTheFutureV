@@ -251,6 +251,8 @@ namespace BackToTheFutureV
                     TimeMachine.CustomCameraManager.Stop();
                     FireTrailsHandler.RemoveTrail(trails);
 
+                    World.RenderingCamera = null;
+
                     if (TimeHandler.RealTime)
                         TimeHandler.TimeTravelTo(Properties.DestinationTime.AddSeconds(-4));
                     else

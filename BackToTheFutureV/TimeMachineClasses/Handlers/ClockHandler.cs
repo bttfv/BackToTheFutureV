@@ -9,6 +9,8 @@ namespace BackToTheFutureV
 {
     internal class ClockHandler : HandlerPrimitive
     {
+        private static DateTime clocktowerAlarm = new DateTime(1955, 11, 12, 22, 3, 50);
+
         private float gameTimer;
         private int pressedTime;
 
@@ -138,21 +140,43 @@ namespace BackToTheFutureV
             else
                 checkTime = Properties.SpawnTime;
 
-            if (Properties.AlarmSet && Properties.AlarmTime.Hour == checkTime.Hour && checkTime.Minute >= Properties.AlarmTime.Minute && checkTime.Minute <= Properties.AlarmTime.Minute + 2)
+            if (TimeHandler.RealTime)
             {
-                if (!Props.BulovaClockRing.IsPlaying)
-                    Props.BulovaClockRing.Play();
+                if ((Properties.AlarmSet && Properties.AlarmTime.Hour == checkTime.Hour && checkTime.Minute == Properties.AlarmTime.Minute && checkTime.Second >= Properties.AlarmTime.Second && checkTime.Second <= Properties.AlarmTime.Second + 5) || (clocktowerAlarm.Hour == checkTime.Hour && checkTime.Minute == clocktowerAlarm.Minute && checkTime.Second >= clocktowerAlarm.Second && checkTime.Second <= clocktowerAlarm.Second + 5))
+                {
+                    if (!Props.BulovaClockRing.IsPlaying)
+                        Props.BulovaClockRing.Play();
 
-                if (!Sounds.Alarm.IsAnyInstancePlaying)
-                    Sounds.Alarm.Play();
+                    if (!Sounds.Alarm.IsAnyInstancePlaying)
+                        Sounds.Alarm.Play();
+                }
+                else
+                {
+                    if (Props.BulovaClockRing.IsPlaying)
+                        Props.BulovaClockRing.Stop();
+
+                    if (Sounds.Alarm.IsAnyInstancePlaying)
+                        Sounds.Alarm.Stop();
+                }
             }
             else
             {
-                if (Props.BulovaClockRing.IsPlaying)
-                    Props.BulovaClockRing.Stop();
+                if (Properties.AlarmSet && Properties.AlarmTime.Hour == checkTime.Hour && checkTime.Minute >= Properties.AlarmTime.Minute && checkTime.Minute <= Properties.AlarmTime.Minute + 2)
+                {
+                    if (!Props.BulovaClockRing.IsPlaying)
+                        Props.BulovaClockRing.Play();
 
-                if (Sounds.Alarm.IsAnyInstancePlaying)
-                    Sounds.Alarm.Stop();
+                    if (!Sounds.Alarm.IsAnyInstancePlaying)
+                        Sounds.Alarm.Play();
+                }
+                else
+                {
+                    if (Props.BulovaClockRing.IsPlaying)
+                        Props.BulovaClockRing.Stop();
+
+                    if (Sounds.Alarm.IsAnyInstancePlaying)
+                        Sounds.Alarm.Stop();
+                }
             }
 
             Props.BulovaClockMinute.setRotation(Coordinate.Y, Properties.SpawnTime.Minute * 6 + (TimeHandler.RealTime ? Properties.SpawnTime.Second * 0.1f : 0));
