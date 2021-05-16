@@ -153,6 +153,8 @@ namespace BackToTheFutureV
 
                 Properties.HasBeenStruckByLightning = false;
 
+                Properties.PhotoFluxCapacitorActive = false;
+
                 if (Properties.IsFlying)
                 {
                     Properties.AreFlyingCircuitsBroken = true;
@@ -160,6 +162,8 @@ namespace BackToTheFutureV
                     if (!Mods.IsDMC12 || Mods.Hoodbox == ModState.Off)
                         Events.SetTimeCircuitsBroken?.Invoke();
                 }
+                else
+                    Properties.PhotoGlowingCoilsActive = false;
             }
             else if (Mods.IsDMC12)
                 Properties.ReactorCharge--;

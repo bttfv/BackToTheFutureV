@@ -11,6 +11,7 @@ namespace BackToTheFutureV
     {
         private int _nextCheck;
         private int _delay = -1;
+        private bool _instant;
 
         public LightningStrikeHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -20,6 +21,13 @@ namespace BackToTheFutureV
 
         private void StartLightningStrike(int delay)
         {
+            if (delay == -1)
+            {
+                _instant = true;
+                Strike();
+                return;
+            }
+
             _delay = Game.GameTime + delay * 1000;
         }
 
@@ -52,12 +60,15 @@ namespace BackToTheFutureV
 
         private void Strike()
         {
-            Sounds.Thunder?.Play();
+            if (!_instant)
+            {
+                Sounds.Thunder?.Play();
 
-            Props.Lightnings.IsSequenceLooped = Properties.AreTimeCircuitsOn;
+                Props.Lightnings.IsSequenceLooped = Properties.AreTimeCircuitsOn;
+                Props.Lightnings.Play();
+            }
+
             Props.LightningsOnCar.IsSequenceLooped = Properties.AreTimeCircuitsOn;
-
-            Props.Lightnings.Play();
             Props.LightningsOnCar.Play();
 
             if (Properties.AreTimeCircuitsOn)
@@ -78,9 +89,9 @@ namespace BackToTheFutureV
                 Properties.PhotoGlowingCoilsActive = true;
 
                 if (Mods.Hook == HookState.On && !Properties.IsFlying)
-                    Events.OnSparksEnded?.Invoke(500);
+                    Events.OnSparksEnded?.Invoke(_instant ? 250 : 500);
                 else
-                    Events.OnSparksEnded?.Invoke(2000);
+                    Events.OnSparksEnded?.Invoke(_instant ? 250 : 2000);
 
                 TimeMachineClone timeMachineClone = TimeMachine.Clone();
                 timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
@@ -98,28 +109,13 @@ namespace BackToTheFutureV
             }
 
             _nextCheck = Game.GameTime + 60000;
+            _instant = false;
             _delay = -1;
         }
 
         public override void KeyDown(KeyEventArgs e)
         {
-            //if (key == Keys.L)
-            //{
-            //    Props.Lightnings.IsSequenceLooped = true;
-            //    Props.Lightnings.Play();
-            //    Props.LightningsOnCar.IsSequenceLooped = true;
-            //    Props.LightningsOnCar.Play();
 
-            //    Particles.LightningSparks.Play();
-            //}
-
-            //if (key == Keys.O)
-            //{
-            //    Props.Lightnings.Delete();
-            //    Props.LightningsOnCar.Delete();
-
-            //    Particles.LightningSparks.StopNaturally();
-            //}
         }
 
         public override void Stop()
