@@ -103,9 +103,12 @@ namespace BackToTheFutureV
             switch (step)
             {
                 case 0:
-                    CustomCamera?.Show();
+                    if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Vehicle.GetMPHSpeed() >= 80)
+                        CustomCamera?.Show();
 
+                    Thunder.SourceEntity = FusionUtils.PlayerPed;
                     Thunder.Play();
+
                     Lightnings.Play();
                     Spark.Play();
 
@@ -202,12 +205,9 @@ namespace BackToTheFutureV
 
             Spark = new PtfxEntityPlayer("core", "ent_brk_sparking_wires_sp", Pole, Vector3.Zero, Vector3.Zero, 8f, true, true, 500);
 
-            //Spark2 = new PtfxEntityPlayer("core", "ent_amb_sparking_wires_sm_sp", Pole, Vector3.Zero, Vector3.Zero, 8f);
-
             CustomCamera = new CustomCamera(RightStreetPole, new Vector3(11.93889f, 11.07275f, 4.756693f), new Vector3(11.65637f, 10.13232f, 4.56657f), 64);
 
             Thunder = Main.CommonAudioEngine.Create("general/thunder.wav", Presets.No3D);
-            Thunder.SourceEntity = FusionUtils.PlayerPed;
 
             Vector3 curPos = polePosition;
 

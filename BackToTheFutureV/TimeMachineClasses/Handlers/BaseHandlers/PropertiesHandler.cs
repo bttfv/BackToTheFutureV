@@ -15,7 +15,8 @@ namespace BackToTheFutureV
         public bool AreTimeCircuitsOn { get; set; }
         public DateTime AlarmTime { get; set; }
         public bool AlarmSet { get; set; } = false;
-        public DateTime SpawnTime { get; set; } = FusionUtils.CurrentTime;
+        public bool SyncWithCurTime { get; set; } = true;
+        public DateTime ClockTime { get; set; } = FusionUtils.CurrentTime;
         public DateTime DestinationTime { get; set; } = BTTFImportantDates.GetRandom();
         public DateTime PreviousTime { get; set; } = new DateTime(1985, 10, 26, 1, 20, 00);
         public Vector3 LastVelocity { get; set; }
@@ -91,7 +92,8 @@ namespace BackToTheFutureV
                 AreTimeCircuitsOn = AreTimeCircuitsOn,
                 AlarmSet = AlarmSet,
                 AlarmTime = AlarmTime,
-                SpawnTime = SpawnTime,
+                SyncWithCurTime = SyncWithCurTime,
+                ClockTime = ClockTime,
                 DestinationTime = DestinationTime,
                 PreviousTime = PreviousTime,
                 LastVelocity = LastVelocity,
@@ -127,7 +129,8 @@ namespace BackToTheFutureV
             timeMachine.Properties.AreTimeCircuitsOn = AreTimeCircuitsOn;
             timeMachine.Properties.AlarmTime = AlarmTime;
             timeMachine.Properties.AlarmSet = AlarmSet;
-            timeMachine.Properties.SpawnTime = SpawnTime;
+            timeMachine.Properties.SyncWithCurTime = SyncWithCurTime;
+            timeMachine.Properties.ClockTime = ClockTime;
             timeMachine.Properties.DestinationTime = DestinationTime;
             timeMachine.Properties.PreviousTime = PreviousTime;
             timeMachine.Properties.LastVelocity = LastVelocity;
