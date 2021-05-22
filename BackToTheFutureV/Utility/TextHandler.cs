@@ -45,5 +45,10 @@ namespace BackToTheFutureV
         {
             CustomText.ShowNotification(entry, blinking, values);
         }
+
+        public static string GetOnOff(bool value)
+        {
+            return value ? GetLocalizedText("On") : GetLocalizedText("Off");
+        }        
     }
 }
