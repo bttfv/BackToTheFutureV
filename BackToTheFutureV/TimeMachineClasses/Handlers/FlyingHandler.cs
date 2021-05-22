@@ -253,7 +253,7 @@ namespace BackToTheFutureV
         public void SetHoverMode(bool mode)
         {
             Properties.IsAltitudeHolding = mode;
-            TextHandler.ShowHelp("AltitudeHoldChange", true, Properties.IsAltitudeHolding ? TextHandler.GetLocalizedText("On") : TextHandler.GetLocalizedText("Off"));
+            TextHandler.ShowHelp("AltitudeHoldChange", true, TextHandler.GetOnOff(Properties.IsAltitudeHolding));
         }
 
         public override void Tick()

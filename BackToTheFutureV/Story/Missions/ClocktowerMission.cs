@@ -2,6 +2,7 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
+using GTA.Native;
 using KlangRageAudioLibrary;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,8 @@ namespace BackToTheFutureV
         private CustomCamera CustomCamera;
 
         private AudioPlayer Thunder;
+        
+        public const Hash LightningRunStreet = unchecked((Hash)(-119993883));
 
         static ClocktowerMission()
         {
