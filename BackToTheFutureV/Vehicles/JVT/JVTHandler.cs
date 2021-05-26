@@ -44,9 +44,6 @@ namespace BackToTheFutureV
 
         public static void KeyDown(KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.O && FusionUtils.PlayerVehicle == null)
-                Create(new Vector3(2611, 1681, 27), false, true);
-
             CurrentJVT?.KeyDown(e);
         }
 

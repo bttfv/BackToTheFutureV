@@ -2,6 +2,7 @@
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Math;
 using LemonUI.Menus;
 using System;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace BackToTheFutureV
     internal class MainMenu : BTTFVMenu
     {
         private NativeListItem<string> spawnBTTF;
-
+        private NativeItem spawnJVT;
         private NativeItem convertIntoTimeMachine;
 
         private NativeSubmenuItem rcMenu;
@@ -30,6 +31,8 @@ namespace BackToTheFutureV
             spawnBTTF = NewListItem("Spawn", TextHandler.GetLocalizedText("DMC12", "BTTF1", "BTTF1H", "BTTF2", "BTTF3", "BTTF3RR"));
             spawnBTTF.ItemChanged += SpawnBTTF_ItemChanged;
             spawnBTTF.Description = GetItemValueDescription("Spawn", "DMC12");
+
+            Add(spawnJVT = new NativeItem("Spawn JVT"));
 
             NewSubmenu(MenuHandler.PresetsMenu, "Presets");
 
@@ -123,6 +126,9 @@ namespace BackToTheFutureV
                 if (spawnBTTF.SelectedIndex == 5)
                     timeMachine.Mods.Wheel = WheelType.RailroadInvisible;
             }
+
+            if (sender == spawnJVT)
+                JVTHandler.Create(new Vector3(2611, 1681, 27), false, true);
 
             if (sender == convertIntoTimeMachine)
                 FusionUtils.PlayerVehicle.TransformIntoTimeMachine();
