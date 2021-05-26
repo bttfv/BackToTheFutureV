@@ -49,6 +49,6 @@ namespace BackToTheFutureV
         public static string GetOnOff(bool value)
         {
             return value ? GetLocalizedText("On") : GetLocalizedText("Off");
-        }        
+        }
     }
 }

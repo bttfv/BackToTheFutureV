@@ -101,6 +101,9 @@ namespace BackToTheFutureV
         public static CustomModel SierraTenderModel = new CustomModel("sierratender");
         public static CustomModel SierraDebugModel = new CustomModel("sierra_debug");
 
+        public static CustomModel JVTModel = new CustomModel("jvt");
+        public static CustomModel JVTTenderModel = new CustomModel("jvt_tender");
+
         public static CustomModel DeluxoModel = new CustomModel("deluxo");
 
         private static string[] tcdTypes = new string[3]

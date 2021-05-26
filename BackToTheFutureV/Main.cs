@@ -50,6 +50,7 @@ namespace BackToTheFutureV
             FireTrailsHandler.Abort();
             CustomTrainHandler.Abort();
             DMC12Handler.Abort();
+            JVTHandler.Abort();
 
             ExternalHUD.Stop();
         }
@@ -57,6 +58,7 @@ namespace BackToTheFutureV
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
         {
             TimeMachineHandler.KeyDown(e);
+            JVTHandler.KeyDown(e);
             MissionHandler.KeyDown(e);
             MenuHandler.KeyDown(e);
         }
@@ -99,6 +101,7 @@ namespace BackToTheFutureV
 
             CustomTrainHandler.Tick();
             DMC12Handler.Tick();
+            JVTHandler.Tick();
             TimeMachineHandler.Tick();
             RemoteTimeMachineHandler.Tick();
             FireTrailsHandler.Tick();

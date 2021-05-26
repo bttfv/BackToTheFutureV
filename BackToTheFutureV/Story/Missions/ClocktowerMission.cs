@@ -45,7 +45,7 @@ namespace BackToTheFutureV
         private CustomCamera CustomCamera;
 
         private AudioPlayer Thunder;
-        
+
         public const Hash LightningRunStreet = unchecked((Hash)(-119993883));
 
         static ClocktowerMission()

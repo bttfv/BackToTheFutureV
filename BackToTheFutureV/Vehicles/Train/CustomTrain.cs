@@ -1,4 +1,5 @@
-﻿using FusionLibrary.Extensions;
+﻿using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
@@ -45,6 +46,8 @@ namespace BackToTheFutureV
         public bool Exists { get; private set; } = true;
         public bool IsAutomaticBrakeOn { get; set; } = true;
         public bool IsAccelerationOn { get; set; } = false;
+        public bool CanBeDriven { get; set; } = false;
+        public bool CheckDriver { get; set; } = false;
 
         public float CruiseSpeed { get => _cruiseSpeed; set { _cruiseSpeed = value; _setSpeed = false; IsAutomaticBrakeOn = false; Function.Call(Hash.SET_TRAIN_CRUISE_SPEED, Train, value); } }
         public float CruiseSpeedMPH { get => CruiseSpeed.ToMPH(); set => CruiseSpeed = value.ToMS(); }
@@ -77,7 +80,6 @@ namespace BackToTheFutureV
             CarriageCount = carriageCount;
 
             Train.IsPersistent = true;
-
             Train.Decorator().DotNotDelete = true;
 
             for (int i = 0; i <= CarriageCount; i++)
@@ -163,6 +165,9 @@ namespace BackToTheFutureV
 
         private void Acceleration()
         {
+            if (CheckDriver && FusionUtils.PlayerVehicle != Train)
+                return;
+
             if (Game.IsControlPressed(Control.VehicleHandbrake))
             {
                 if (_speed < 0)
@@ -204,6 +209,9 @@ namespace BackToTheFutureV
         {
             if (!IsRogersSierra)
             {
+                if (CanBeDriven && FusionUtils.PlayerVehicle == null && Game.IsControlJustPressed(Control.Enter) && FusionUtils.PlayerPed.DistanceToSquared2D(Train, "seat_dside_f", 1.3f))
+                    FusionUtils.PlayerPed.Task.EnterVehicle(Train, VehicleSeat.Driver, -1, 1, EnterVehicleFlags.WarpIn);
+
                 if (IsAccelerationOn)
                     Acceleration();
 
@@ -277,7 +285,7 @@ namespace BackToTheFutureV
                 if (TargetVehicle.DistanceToSquared2D((CarriageIndexForAttach == 0 ? Train : Carriage(CarriageIndexForAttach)).GetOffsetPosition(AttachOffset), 2))
                     AttachTargetVehicle();
 
-            if (AttachedToTarget)
+            if (TargetVehicle != null && AttachedToTarget)
                 AttachTargetVehicle();
         }
 
