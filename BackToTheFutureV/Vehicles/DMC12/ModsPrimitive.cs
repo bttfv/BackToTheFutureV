@@ -6,7 +6,9 @@ namespace BackToTheFutureV
     [Serializable]
     internal class ModsPrimitive
     {
-        public bool IsDMC12 { get; protected set; } = false;
+        public bool IsDMC12 => Type == TimeMachineType.DMC12;
+
+        public TimeMachineType Type { get; set; }
 
         public WormholeType WormholeType { get; set; } = WormholeType.DMC12;
         public SuspensionsType SuspensionsType { get; set; } = SuspensionsType.Stock;
@@ -27,7 +29,7 @@ namespace BackToTheFutureV
         {
             ModsPrimitive ret = new ModsPrimitive
             {
-                IsDMC12 = IsDMC12,
+                Type = Type,
                 WormholeType = WormholeType,
                 SuspensionsType = SuspensionsType,
                 Wheel = Wheel,
@@ -53,7 +55,7 @@ namespace BackToTheFutureV
 
             timeMachine.Vehicle.Mods.InstallModKit();
 
-            ret.IsDMC12 = IsDMC12;
+            ret.Type = Type;
             ret.WormholeType = WormholeType;
             ret.SuspensionsType = SuspensionsType;
             ret.Wheel = Wheel;

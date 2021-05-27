@@ -14,7 +14,12 @@ namespace BackToTheFutureV
         {
             Vehicle = vehicle;
 
-            IsDMC12 = Vehicle.Model == ModelHandler.DMC12;
+            if (Vehicle.Model == ModelHandler.DMC12)
+                Type = TimeMachineType.DMC12;
+            else if (Vehicle.Model == ModelHandler.JVTModel)
+                Type = TimeMachineType.JVT;
+            else
+                Type = TimeMachineType.Other;
 
             Vehicle.Mods.InstallModKit();
 

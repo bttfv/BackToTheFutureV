@@ -197,6 +197,12 @@ namespace BackToTheFutureV
 
                     Vehicle.SetVisible(false);
 
+                    if (Mods.Type == TimeMachineType.JVT)
+                    {
+                        CustomTrain.SetVisible(false);
+                        CustomTrain.SpeedMPH = 0;
+                    }
+
                     if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime)
                     {
                         //if (Properties.TimeTravelType == TimeTravelType.Cutscene)

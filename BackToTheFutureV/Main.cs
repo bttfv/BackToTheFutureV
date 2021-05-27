@@ -42,6 +42,7 @@ namespace BackToTheFutureV
             if (ModSettings.PersistenceSystem)
                 TimeMachineHandler.Save();
 
+            JVTHandler.Abort();
             GarageHandler.Abort();
             MissionHandler.Abort();
             StoryTimeMachineHandler.Abort();
@@ -50,7 +51,6 @@ namespace BackToTheFutureV
             FireTrailsHandler.Abort();
             CustomTrainHandler.Abort();
             DMC12Handler.Abort();
-            JVTHandler.Abort();
 
             ExternalHUD.Stop();
         }

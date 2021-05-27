@@ -77,7 +77,7 @@ namespace BackToTheFutureV
             if (!vehicle.IsFunctioning())
                 return null;
 
-            if (vehicle.Model.IsTrain)
+            if (vehicle.Model.IsTrain && vehicle.Model != ModelHandler.JVTModel)
                 return null;
 
             TimeMachine timeMachine = GetTimeMachineFromVehicle(vehicle);

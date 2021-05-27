@@ -15,7 +15,7 @@ namespace BackToTheFutureV
 {
     internal class TimeMachine
     {
-        public Vehicle Vehicle { get; }
+        public Vehicle Vehicle { get; private set; }
         public DMC12 DMC12 { get; }
 
         public EventsHandler Events { get; private set; }
@@ -28,6 +28,8 @@ namespace BackToTheFutureV
         public ParticlesHandler Particles { get; private set; }
         public ConstantsHandler Constants { get; private set; }
         public DecoratorsHandler Decorators { get; private set; }
+
+        public CustomTrain CustomTrain { get; set; }
 
         public CustomCameraHandler CustomCameraManager { get; private set; }
 
@@ -204,6 +206,11 @@ namespace BackToTheFutureV
             CustomCameraManager.Add(Vehicle, new Vector3(-0.106f, -0.534f, 0.784f), new Vector3(-0.253f, 0.452f, 0.714f), 17, 2500).SetEnd(new Vector3(-0.027f, 0.014f, 0.687f), new Vector3(0.110f, 1.0f, 0.604f), 20, 500, 1500);
 
             IsReady = true;
+        }
+
+        public void SwitchVehicle(Vehicle vehicle)
+        {
+            Vehicle = vehicle;
         }
 
         public T GetHandler<T>()

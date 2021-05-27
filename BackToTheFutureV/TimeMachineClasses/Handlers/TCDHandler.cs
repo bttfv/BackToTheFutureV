@@ -375,7 +375,7 @@ namespace BackToTheFutureV
             if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole | TcdEditer.IsEditing | RCGUIEditer.IsEditing)
                 return;
 
-            if (!Properties.AreTimeCircuitsOn && Mods.Hoodbox == ModState.On && !Properties.AreHoodboxCircuitsReady)
+            if (Mods.IsDMC12 && !Properties.AreTimeCircuitsOn && Mods.Hoodbox == ModState.On && !Properties.AreHoodboxCircuitsReady)
             {
                 if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
                     TextHandler.ShowHelp("NotWarmed");

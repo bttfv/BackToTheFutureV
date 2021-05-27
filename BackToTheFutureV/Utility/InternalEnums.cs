@@ -19,6 +19,14 @@ namespace BackToTheFutureV
             public const string TorqueMultiplier = "BTTFV_TorqueMultiplier";
         }
 
+        internal enum TimeMachineType
+        {
+            DMC12,
+            JVT,
+            FlyingJVT,
+            Other
+        }
+
         internal enum WaybackStatus
         {
             Idle,

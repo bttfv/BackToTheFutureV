@@ -59,7 +59,7 @@ namespace BackToTheFutureV
         public float DestroyCounter;
         public bool TargetExploded;
 
-        public bool IsReadyToAttach { get; private set; }
+        public bool IsReadyToAttach { get; set; }
         public bool AttachedToTarget => TargetVehicle.IsAttachedTo(AttachVehicle);
         public Vector3 AttachOffset;
         public int CarriageIndexForAttach { get; private set; }

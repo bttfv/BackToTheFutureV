@@ -22,6 +22,12 @@ namespace BackToTheFutureV.Players
         public ConstantsHandler Constants => TimeMachine.Constants;
         public DecoratorsHandler Decorators => TimeMachine.Decorators;
 
+        public CustomTrain CustomTrain
+        {
+            get => TimeMachine.CustomTrain;
+            set => TimeMachine.CustomTrain = value;
+        }
+
         public Player(TimeMachine timeMachine)
         {
             TimeMachine = timeMachine;

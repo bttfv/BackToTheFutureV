@@ -139,7 +139,12 @@ namespace BackToTheFutureV
 
             Game.Player.IgnoredByPolice = false;
 
-            if (!Properties.WasOnTracks)
+            if (Mods.Type == TimeMachineType.JVT)
+            {
+                CustomTrain.SetVisible(true);
+                CustomTrain.SpeedMPH = 88;
+            }
+            else if (!Properties.WasOnTracks)
             {
                 Vehicle.Velocity = Properties.LastVelocity;
 

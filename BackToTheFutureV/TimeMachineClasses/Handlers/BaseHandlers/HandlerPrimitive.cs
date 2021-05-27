@@ -23,6 +23,12 @@ namespace BackToTheFutureV
         public ConstantsHandler Constants => TimeMachine.Constants;
         public DecoratorsHandler Decorators => TimeMachine.Decorators;
 
+        public CustomTrain CustomTrain
+        {
+            get => TimeMachine.CustomTrain;
+            set => TimeMachine.CustomTrain = value;
+        }
+
         public HandlerPrimitive(TimeMachine timeMachine)
         {
             TimeMachine = timeMachine;
