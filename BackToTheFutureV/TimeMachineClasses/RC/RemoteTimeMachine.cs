@@ -72,8 +72,13 @@ namespace BackToTheFutureV
 
             switch (reenterType)
             {
-                case ReenterType.Forced:
                 case ReenterType.Normal:
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
+                    TimeMachine.Properties.DestinationTime = TimeMachineClone.Properties.DestinationTime;
+                    TimeMachine.LastDisplacementClone = TimeMachineClone;
+
+                    return TimeMachine;
+                case ReenterType.Forced:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
