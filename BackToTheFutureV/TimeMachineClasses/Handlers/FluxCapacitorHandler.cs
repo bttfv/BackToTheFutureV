@@ -33,6 +33,9 @@ namespace BackToTheFutureV
 
         public void StartTimeTravelEffect()
         {
+            if (!Properties.IsFueled)
+                return;
+
             ScaleformsHandler.FluxCapacitor.CallFunction("START_BLUE_ANIMATION");
             Properties.IsFluxDoingBlueAnim = true;
         }
