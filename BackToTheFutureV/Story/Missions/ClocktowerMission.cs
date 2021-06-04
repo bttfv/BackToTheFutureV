@@ -48,6 +48,10 @@ namespace BackToTheFutureV
 
         public const Hash LightningRunStreet = unchecked((Hash)(-119993883));
 
+        private FrametimeHelper ptfxHelper = new FrametimeHelper(60);
+
+        //private int startTime;
+
         static ClocktowerMission()
         {
             lightningOffset = (lightningOffset * -1).GetSingleOffset(Coordinate.Z, poleModel.Dimensions.frontTopRight.Z);
@@ -72,7 +76,8 @@ namespace BackToTheFutureV
             //    IsPlaying = true;
 
             //if (key.KeyCode == Keys.O)
-            //    FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);
+            //    FusionUtils.PlayerPed.PositionNoOffset = polePosition;
+            //FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);
         }
 
         public override void Tick()
@@ -121,11 +126,18 @@ namespace BackToTheFutureV
                 case 1:
                     if (currentIndex == sparkRope.Count)
                     {
+                        //GTA.UI.Screen.ShowSubtitle($"{Game.GameTime - startTime}");
+
+                        ptfxHelper.Reset();
+
                         currentIndex = 0;
                         step++;
                         gameTime = Game.GameTime + 1000;
                         break;
                     }
+
+                    //if (currentIndex == 0)
+                    //    startTime = Game.GameTime;
 
                     if (Lightnings.IsSequencePlaying)
                         Lightnings.Delete();
@@ -133,9 +145,26 @@ namespace BackToTheFutureV
                     if (Spark.IsPlaying)
                         Spark.Stop();
 
-                    sparkRope[currentIndex].Play();
-                    currentIndex++;
-                    gameTime = Game.GameTime + 10;
+                    ptfxHelper.Tick();
+
+                    for (int i = 0; i < ptfxHelper.Count; i++)
+                    {
+                        if (currentIndex == sparkRope.Count)
+                        {
+                            //GTA.UI.Screen.ShowSubtitle($"{Game.GameTime - startTime}");
+
+                            ptfxHelper.Reset();
+
+                            currentIndex = 0;
+                            step++;
+                            gameTime = Game.GameTime + 1000;
+                            break;
+                        }
+
+                        sparkRope[currentIndex].Play();
+                        currentIndex++;
+                    }
+
                     break;
                 case 2:
                     sparkRope.ForEach(x => x.StopNaturally());
@@ -146,17 +175,34 @@ namespace BackToTheFutureV
                 case 3:
                     if (currentIndex == fireRope.Count)
                     {
+                        ptfxHelper.Reset();
+
                         currentIndex = 0;
                         step++;
                         gameTime = Game.GameTime + 5000;
                         break;
                     }
 
-                    if (FusionUtils.Random.NextDouble() >= 0.5f)
-                        fireRope[currentIndex].Play();
+                    ptfxHelper.Tick();
 
-                    currentIndex++;
-                    gameTime = Game.GameTime + 10;
+                    for (int i = 0; i < ptfxHelper.Count; i++)
+                    {
+                        if (currentIndex == fireRope.Count)
+                        {
+                            ptfxHelper.Reset();
+
+                            currentIndex = 0;
+                            step++;
+                            gameTime = Game.GameTime + 5000;
+                            break;
+                        }
+
+                        if (FusionUtils.Random.NextDouble() >= 0.5f)
+                            fireRope[currentIndex].Play();
+
+                        currentIndex++;
+                    }
+                    
                     break;
                 case 4:
                     if (currentIndex == fireRope.Count)
