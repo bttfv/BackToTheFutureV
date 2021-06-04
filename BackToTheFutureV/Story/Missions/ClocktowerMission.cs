@@ -45,7 +45,7 @@ namespace BackToTheFutureV
         private CustomCamera CustomCamera;
 
         private AudioPlayer Thunder;
-        
+
         public const Hash LightningRunStreet = unchecked((Hash)(-119993883));
 
         private FrametimeHelper ptfxHelper = new FrametimeHelper(60);
@@ -124,18 +124,6 @@ namespace BackToTheFutureV
                     gameTime = Game.GameTime + 100;
                     break;
                 case 1:
-                    if (currentIndex == sparkRope.Count)
-                    {
-                        //GTA.UI.Screen.ShowSubtitle($"{Game.GameTime - startTime}");
-
-                        ptfxHelper.Reset();
-
-                        currentIndex = 0;
-                        step++;
-                        gameTime = Game.GameTime + 1000;
-                        break;
-                    }
-
                     //if (currentIndex == 0)
                     //    startTime = Game.GameTime;
 
@@ -173,16 +161,6 @@ namespace BackToTheFutureV
                     gameTime = Game.GameTime + 250;
                     break;
                 case 3:
-                    if (currentIndex == fireRope.Count)
-                    {
-                        ptfxHelper.Reset();
-
-                        currentIndex = 0;
-                        step++;
-                        gameTime = Game.GameTime + 5000;
-                        break;
-                    }
-
                     ptfxHelper.Tick();
 
                     for (int i = 0; i < ptfxHelper.Count; i++)
@@ -202,7 +180,7 @@ namespace BackToTheFutureV
 
                         currentIndex++;
                     }
-                    
+
                     break;
                 case 4:
                     if (currentIndex == fireRope.Count)
