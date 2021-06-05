@@ -138,6 +138,9 @@ namespace BackToTheFutureV
             if (Event.HasFlag(WaybackVehicleEvent.LightningStrike))
                 timeMachine.Events.StartLightningStrike?.Invoke(0);
 
+            if (Event.HasFlag(WaybackVehicleEvent.LightningRun))
+                timeMachine.Events.StartLightningStrike?.Invoke(-1);
+
             if (Event.HasFlag(WaybackVehicleEvent.OpenCloseReactor))
                 timeMachine.Events.SetReactorState?.Invoke(timeMachine.Properties.ReactorState == ReactorState.Closed ? ReactorState.Opened : ReactorState.Closed);
 

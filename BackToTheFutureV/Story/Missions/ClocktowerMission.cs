@@ -50,6 +50,10 @@ namespace BackToTheFutureV
 
         private FrametimeHelper ptfxHelper = new FrametimeHelper(60);
 
+        private Vector3 checkPos = new Vector3(41.5676f, 6585.7378f, 30.3686f);
+
+        private bool setup;
+
         //private int startTime;
 
         static ClocktowerMission()
@@ -82,10 +86,15 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (!TimeHandler.RealTime || FusionUtils.PlayerPed.Position.DistanceToSquared2D(new Vector3(41.5676f, 6585.7378f, 30.3686f)) > 197480)
-                return;
+            if (!TimeHandler.RealTime || FusionUtils.PlayerPed.Position.DistanceToSquared2D(checkPos) > 197480)
+            {
+                if (setup)
+                    OnEnd();
 
-            if (!LeftStreetPole.NotNullAndExists() | !RightStreetPole.NotNullAndExists() | !Mast.NotNullAndExists() | !Pole.NotNullAndExists())
+                return;
+            }
+
+            if (!setup)
             {
                 OnEnd();
                 Setup();
@@ -101,7 +110,12 @@ namespace BackToTheFutureV
                 if (raycastResult.DidHit && raycastResult.HitEntity == CurrentTimeMachine)
                 {
                     if (CurrentTimeMachine.Mods.Hook == HookState.On && CurrentTimeMachine.Properties.AreTimeCircuitsOn && CurrentTimeMachine.Constants.Over88MphSpeed && !CurrentTimeMachine.Properties.HasBeenStruckByLightning && sparkRope.Count(x => x.IsPlaying) >= 100)
+                    {
+                        if (ModSettings.WaybackSystem)
+                            WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.LightningRun;
+
                         CurrentTimeMachine.Events.StartLightningStrike?.Invoke(-1);
+                    }
                 }
             }
 
@@ -204,6 +218,8 @@ namespace BackToTheFutureV
 
         private void Setup()
         {
+            //GTA.UI.Screen.ShowSubtitle($"Setup", 1000);
+
             LeftStreetPole = World.CreateProp(streetPoleModel, new Vector3(50.4339f, 6576.8843f, 30.3620f), true, false);
             RightStreetPole = World.CreateProp(streetPoleModel, new Vector3(41.5676f, 6585.7378f, 30.3686f), true, false);
 
@@ -279,6 +295,8 @@ namespace BackToTheFutureV
                 fireRope.Last().SetEvolutionParam("dist", 0);
                 fireRope.Last().SetEvolutionParam("fadein", 0);
             } while (curPos.DistanceTo(rightRope) > 0.1f);
+
+            setup = true;
         }
 
         protected override void OnEnd()
@@ -296,6 +314,7 @@ namespace BackToTheFutureV
             fireRope?.ForEach(x => x?.Stop());
 
             IsPlaying = false;
+            setup = false;
         }
 
         protected override void OnStart()
