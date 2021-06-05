@@ -46,7 +46,8 @@ namespace BackToTheFutureV
             OnSparksEnded = 2,
             OpenCloseReactor = 4,
             RefuelReactor = 8,
-            LightningStrike = 16
+            LightningStrike = 16,
+            LightningRun = 32
         }
 
         internal enum GarageStatus
