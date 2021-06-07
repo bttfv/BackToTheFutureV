@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -179,6 +180,9 @@ namespace BackToTheFutureV
         public string LowerWormholeType => Mods.WormholeType.ToString().ToLower();
         public bool IsStockWheel => Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible || Mods.Wheel == WheelType.DMC || Mods.Wheel == WheelType.DMCInvisible;
         public bool FullDamaged => Mods.Wheel == WheelType.Stock && Mods.Wheels.Burst && Vehicle.EngineHealth <= 0 && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
+
+        public bool IsGoingForLightningRun => Mods.Hook == HookState.On && Properties.ReactorCharge == 0 && !Properties.IsFlying && !Properties.HasBeenStruckByLightning && Vehicle.GetStreetHash() == ClocktowerMission.LightningRunStreet && FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 21, 30, 00), new DateTime(1955, 11, 12, 22, 4, 30));
+        public bool IsOnStartingLine => Vehicle.GetStreetHash() == ClocktowerMission.LightningRunStreet && Vehicle.GetCrossingHash() == ClocktowerMission.LightningRunCross;
 
         public WheelType RoadWheel
         {
