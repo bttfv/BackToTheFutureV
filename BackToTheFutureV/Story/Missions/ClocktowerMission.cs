@@ -19,6 +19,16 @@ namespace BackToTheFutureV
 
         private static Vector3 polePosition = new Vector3(63.4558f, 6581.7065f, 46.8226f);
 
+        private static Vector3 leftStreetPole = new Vector3(50.4339f, 6576.8843f, 30.3620f);
+        private static Vector3 rightStreetPole = new Vector3(41.5676f, 6585.7378f, 30.3686f);
+
+        private static Vector3 leftRope = leftStreetPole.GetSingleOffset(Coordinate.Z, 3.42f);
+        private static Vector3 rightRope = rightStreetPole.GetSingleOffset(Coordinate.Z, 3.42f);
+
+        private static float ropeDistance = leftRope.DistanceTo(rightRope);
+
+        private static float rope2Distance = leftRope.DistanceTo(polePosition);
+
         private static Model streetPoleModel = new Model("prop_streetlight_09");
         private static Model mastModel = new Model("prop_air_mast_01");
         private static Model poleModel = new Model("prop_flagpole_1a");
@@ -45,10 +55,12 @@ namespace BackToTheFutureV
         private CustomCamera CustomCamera;
 
         private AudioPlayer Thunder;
+        private AudioPlayer ThunderTT;
 
-        public const Hash LightningRunStreet = unchecked((Hash)(-119993883));
+        public const Hash LightningRunStreet = unchecked((Hash)4174973413);
+        public const Hash LightningRunCross = unchecked((Hash)2593489231);
 
-        private FrametimeHelper ptfxHelper = new FrametimeHelper(60);
+        private FrameTimeHelper ptfxHelper = new FrameTimeHelper(0.025f);
 
         private Vector3 checkPos = new Vector3(41.5676f, 6585.7378f, 30.3686f);
 
@@ -67,6 +79,8 @@ namespace BackToTheFutureV
             {
                 OnEnd();
             };
+
+            Setup();
         }
 
         public override void Abort()
@@ -76,12 +90,12 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs key)
         {
-            //if (key.KeyCode == Keys.L)
-            //    IsPlaying = true;
+            if (key.KeyCode == Keys.L)
+                IsPlaying = true;
 
-            //if (key.KeyCode == Keys.O)
-            //    FusionUtils.PlayerPed.PositionNoOffset = polePosition;
-            //FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);
+            if (key.KeyCode == Keys.O)
+                //FusionUtils.PlayerPed.PositionNoOffset = polePosition;
+                FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);
         }
 
         public override void Tick()
@@ -97,25 +111,22 @@ namespace BackToTheFutureV
             if (!setup)
             {
                 OnEnd();
-                Setup();
+                SpawnProps();
             }
 
             if (FusionUtils.CurrentTime == new DateTime(1955, 11, 12, 22, 4, 0) && !IsPlaying)
                 IsPlaying = true;
 
-            if (IsPlaying && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && LeftStreetPole.NotNullAndExists() && RightStreetPole.NotNullAndExists())
+            if (IsPlaying && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Constants.IsGoingForLightningRun && CurrentTimeMachine.Properties.AreTimeCircuitsOn && CurrentTimeMachine.Constants.Over88MphSpeed && sparkRope.Count(x => x.IsPlaying) >= 100)
             {
-                RaycastResult raycastResult = World.Raycast(LeftStreetPole.Position.GetSingleOffset(Coordinate.Z, 0.75f), RightStreetPole.Position.GetSingleOffset(Coordinate.Z, 0.75f), IntersectFlags.MissionEntities);
+                RaycastResult raycastResult = World.Raycast(leftStreetPole.GetSingleOffset(Coordinate.Z, 0.75f), rightStreetPole.GetSingleOffset(Coordinate.Z, 0.75f), IntersectFlags.MissionEntities);
 
                 if (raycastResult.DidHit && raycastResult.HitEntity == CurrentTimeMachine)
                 {
-                    if (CurrentTimeMachine.Mods.Hook == HookState.On && CurrentTimeMachine.Properties.AreTimeCircuitsOn && CurrentTimeMachine.Constants.Over88MphSpeed && !CurrentTimeMachine.Properties.HasBeenStruckByLightning && sparkRope.Count(x => x.IsPlaying) >= 100)
-                    {
-                        if (ModSettings.WaybackSystem)
-                            WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.LightningRun;
+                    if (ModSettings.WaybackSystem)
+                        WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.LightningRun;
 
-                        CurrentTimeMachine.Events.StartLightningStrike?.Invoke(-1);
-                    }
+                    CurrentTimeMachine.Events.StartLightningStrike?.Invoke(-1);
                 }
             }
 
@@ -125,11 +136,18 @@ namespace BackToTheFutureV
             switch (step)
             {
                 case 0:
-                    if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Vehicle.GetMPHSpeed() >= 80)
+                    if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Constants.IsGoingForLightningRun)
+                    {
                         CustomCamera?.Show();
 
-                    Thunder.SourceEntity = FusionUtils.PlayerPed;
-                    Thunder.Play();
+                        ThunderTT.SourceEntity = FusionUtils.PlayerPed;
+                        ThunderTT.Play();
+                    }
+                    else
+                    {
+                        Thunder.SourceEntity = FusionUtils.PlayerPed;
+                        Thunder.Play();
+                    }
 
                     Lightnings.Play();
                     Spark.Play();
@@ -159,7 +177,7 @@ namespace BackToTheFutureV
 
                             currentIndex = 0;
                             step++;
-                            gameTime = Game.GameTime + 1000;
+                            gameTime = Game.GameTime + 1500;
                             break;
                         }
 
@@ -200,6 +218,7 @@ namespace BackToTheFutureV
                     if (currentIndex == fireRope.Count)
                     {
                         CustomCamera?.Stop();
+                        ThunderTT?.Stop();
 
                         currentIndex = 0;
                         step = 0;
@@ -216,31 +235,35 @@ namespace BackToTheFutureV
             Spark?.Tick();
         }
 
-        private void Setup()
+        private void SpawnProps()
         {
-            //GTA.UI.Screen.ShowSubtitle($"Setup", 1000);
+            LeftStreetPole = World.CreateProp(streetPoleModel, leftStreetPole, true, false);
+            RightStreetPole = World.CreateProp(streetPoleModel, rightStreetPole, true, false);
 
-            LeftStreetPole = World.CreateProp(streetPoleModel, new Vector3(50.4339f, 6576.8843f, 30.3620f), true, false);
-            RightStreetPole = World.CreateProp(streetPoleModel, new Vector3(41.5676f, 6585.7378f, 30.3686f), true, false);
+            CustomCamera = new CustomCamera(RightStreetPole, new Vector3(11.93889f, 11.07275f, 4.756693f), new Vector3(11.65637f, 10.13232f, 4.56657f), 64);
 
-            Vector3 leftRope = LeftStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
-            Vector3 rightRope = RightStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
-
-            float distance = leftRope.DistanceTo(rightRope);
-
-            StreetRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(rightRope).DirectionToRotation(0), distance, distance, false);
-            StreetRope.Connect(LeftStreetPole, leftRope, RightStreetPole, rightRope, distance);
+            StreetRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(rightRope).DirectionToRotation(0), ropeDistance, ropeDistance, false);
+            StreetRope.Connect(LeftStreetPole, leftRope, RightStreetPole, rightRope, ropeDistance);
 
             Mast = World.CreateProp(mastModel, new Vector3(63.0749f, 6582.1401f, 30.5130f), true, false);
             Mast.IsPositionFrozen = true;
 
-            distance = leftRope.DistanceTo(polePosition);
-
-            MastRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(polePosition).DirectionToRotation(0), distance, distance, false);
-            MastRope.Connect(LeftStreetPole, leftRope, Mast, polePosition, distance);
+            MastRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(polePosition).DirectionToRotation(0), rope2Distance, rope2Distance, false);
+            MastRope.Connect(LeftStreetPole, leftRope, Mast, polePosition, rope2Distance);
 
             Pole = World.CreateProp(poleModel, polePosition, true, false);
             Pole.IsPositionFrozen = true;
+
+            Spark.Entity = Pole;
+
+            Lightnings.TransferTo(Pole);
+
+            setup = true;
+        }
+
+        private void Setup()
+        {
+            //GTA.UI.Screen.ShowSubtitle($"Setup", 1000);
 
             Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true, IsSequenceLooped = true };
             foreach (CustomModel x in ModelHandler.Lightnings)
@@ -248,9 +271,8 @@ namespace BackToTheFutureV
 
             Spark = new PtfxEntityPlayer("core", "ent_brk_sparking_wires_sp", Pole, Vector3.Zero, Vector3.Zero, 8f, true, true, 500);
 
-            CustomCamera = new CustomCamera(RightStreetPole, new Vector3(11.93889f, 11.07275f, 4.756693f), new Vector3(11.65637f, 10.13232f, 4.56657f), 64);
-
             Thunder = Main.CommonAudioEngine.Create("general/thunder.wav", Presets.No3D);
+            ThunderTT = Main.CommonAudioEngine.Create("story/lightningRun/thunder_tt.wav", Presets.No3D);
 
             Vector3 curPos = polePosition;
 
@@ -295,8 +317,6 @@ namespace BackToTheFutureV
                 fireRope.Last().SetEvolutionParam("dist", 0);
                 fireRope.Last().SetEvolutionParam("fadein", 0);
             } while (curPos.DistanceTo(rightRope) > 0.1f);
-
-            setup = true;
         }
 
         protected override void OnEnd()
@@ -310,8 +330,11 @@ namespace BackToTheFutureV
             StreetRope?.Delete();
             MastRope?.Delete();
 
-            sparkRope?.ForEach(x => x?.Stop());
-            fireRope?.ForEach(x => x?.Stop());
+            sparkRope?.ForEach(x => x?.StopNaturally());
+            fireRope?.ForEach(x => x?.StopNaturally());
+
+            Thunder?.Stop();
+            ThunderTT?.Stop();
 
             IsPlaying = false;
             setup = false;

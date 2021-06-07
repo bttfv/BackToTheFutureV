@@ -107,6 +107,9 @@ namespace BackToTheFutureV
                         if (!Ped.NotNullAndExists())
                             Ped = CurrentRecord.Spawn(NextRecord);
 
+                        if (Ped.AttachedBlips.Length == 0)
+                            Ped.AddBlip();
+
                         Play();
                     }
                     break;
@@ -164,6 +167,9 @@ namespace BackToTheFutureV
             {
                 Ped?.Task.ClearAllImmediately();
                 Ped = CurrentRecord.Spawn(NextRecord);
+
+                if (Ped.AttachedBlips.Length == 0)
+                    Ped.AddBlip();
             }
 
             CurrentRecord.Apply(Ped, NextRecord);

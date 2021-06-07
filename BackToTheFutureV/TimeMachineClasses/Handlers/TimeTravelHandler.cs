@@ -235,7 +235,7 @@ namespace BackToTheFutureV
                     break;
 
                 case 2:
-                    if (Properties.MissionType == MissionType.Escape)
+                    if (Properties.MissionType == MissionType.Escape || (Properties.HasBeenStruckByLightning && MissionHandler.ClocktowerMission.IsPlaying))
                         return;
 
                     Screen.FadeOut(1000);

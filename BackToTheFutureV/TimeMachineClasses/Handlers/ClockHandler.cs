@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using KlangRageAudioLibrary;
 using System;
 using System.Windows.Forms;
 using static FusionLibrary.FusionEnums;
@@ -16,6 +17,8 @@ namespace BackToTheFutureV
         private bool save;
 
         private DateTime tempTime;
+
+        private AudioPlayer Start;
 
         private static readonly InstrumentalMenu InstrumentalMenu;
 
@@ -38,12 +41,15 @@ namespace BackToTheFutureV
 
         public ClockHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-
+            Start = Sounds.AudioEngine.Create("story/lightningRun/start.wav", Presets.No3D);
+            Start.StopFadeOut = true;
+            Start.FadeOutMultiplier = 2f;
         }
 
         public override void Dispose()
         {
-
+            Start?.Stop();
+            Start?.Dispose();
         }
 
         private void ProcessButton(Keys key)
@@ -57,7 +63,11 @@ namespace BackToTheFutureV
 
                 if (IsPlaying)
                 {
-                    tempTime = Properties.ClockTime.AddSeconds(-Properties.ClockTime.Second);
+                    if (Properties.AlarmSet)
+                        tempTime = Properties.AlarmTime;
+                    else
+                        tempTime = Properties.ClockTime.AddSeconds(-Properties.ClockTime.Second);
+
                     save = false;
 
                     if (Properties.AlarmSet)
@@ -78,13 +88,13 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (Properties.AlarmSet && FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 21, 30, 00), new DateTime(1955, 11, 12, 22, 3, 45)) && Properties.AlarmTime.Between(new DateTime(1955, 11, 12, 21, 30, 00), new DateTime(1955, 11, 12, 22, 3, 45)) && Vehicle.GetStreetHash() == ClocktowerMission.LightningRunStreet && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.Random.NextDouble() > 0.3f)
-                Events.SetEngineStall?.Invoke(true);
-
             if (Properties.SyncWithCurTime)
                 Properties.ClockTime = FusionUtils.CurrentTime;
             else
                 Properties.ClockTime = Properties.ClockTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * (TimeHandler.RealTime ? 1 : 30)));
+
+            if (Properties.AlarmSet && Constants.IsGoingForLightningRun && Constants.IsOnStartingLine && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.Random.NextDouble() > 0.3f)
+                Properties.PhotoEngineStallActive = true;
 
             if (IsPlaying)
             {
@@ -197,6 +207,9 @@ namespace BackToTheFutureV
 
                     if (!Sounds.Alarm.IsAnyInstancePlaying)
                         Sounds.Alarm.Play();
+
+                    if (Constants.IsGoingForLightningRun && Constants.IsOnStartingLine && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() > 0 && !Start.IsAnyInstancePlaying)
+                        Start.Play();
                 }
                 else
                 {
