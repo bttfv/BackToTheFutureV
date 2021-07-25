@@ -48,7 +48,7 @@ namespace BackToTheFutureV
 
         public const Hash LightningRunStreet = unchecked((Hash)(-119993883));
 
-        private FrametimeHelper ptfxHelper = new FrametimeHelper(60);
+        private FrameTimeHelper ptfxHelper = new FrameTimeHelper(60);
 
         private Vector3 checkPos = new Vector3(41.5676f, 6585.7378f, 30.3686f);
 
