@@ -203,12 +203,12 @@ namespace BackToTheFutureV
         internal enum WheelType
         {
             Stock = -1,
-            StockInvisible = 0,
-            RailroadInvisible = 1,
-            RedInvisible = 2,
-            Red = 3,
-            DMC = 4,
-            DMCInvisible = 5
+            StockInvisible = 210,
+            RailroadInvisible = 211,
+            RedInvisible = 212,
+            Red = 213,
+            DMC = 214,
+            DMCInvisible = 215
         }
 
         internal enum SuspensionsType
