@@ -4,9 +4,3 @@
 [submodule "FusionLibrary"]
 	path = FusionLibrary
 	url = https://github.com/bttfv/FusionLibrary
-[submodule "RogersSierra"]
-	path = RogersSierra
-	url = https://github.com/bttfv/RogersSierra
-[submodule "BackToTheFutureV.HUD"]
-	path = BackToTheFutureV.HUD
-	url = https://github.com/bttfv/BackToTheFutureV.HUD
