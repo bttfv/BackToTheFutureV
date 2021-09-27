@@ -138,6 +138,7 @@ namespace BackToTheFutureV
             customTrain.IsAutomaticBrakeOn = true;
 
             Properties.IsOnTracks = true;
+            Mods.Wheels.Burst = false;
 
             if (_isReentryOn)
             {
@@ -214,7 +215,7 @@ namespace BackToTheFutureV
 
             if (_attachDelay < Game.GameTime && Mods.Wheel == WheelType.RailroadInvisible && !Properties.IsFlying)
             {
-                if (FusionUtils.GetWheelsPositions(Vehicle).TrueForAll(x => FusionUtils.IsWheelOnTracks(x, Vehicle)))
+                if (Vehicle.IsOnTracks())
                 {
                     customTrain?.DeleteTrain();
                     Start(TimeMachine.Properties.TimeTravelPhase == TimeTravelPhase.Reentering);
@@ -231,6 +232,7 @@ namespace BackToTheFutureV
         {
             _isReentryOn = false;
             Properties.IsOnTracks = false;
+            Mods.Wheels.Burst = true;
 
             if (delay > 0)
                 _attachDelay = Game.GameTime + delay;

@@ -16,7 +16,7 @@ namespace BackToTheFutureV
         public static bool IsRemoteOn => RemoteControlling != null;
 
         private static TimerBarCollection TimerBarCollection { get; }
-        private static TimerBarProgress SignalBar;
+        private static readonly TimerBarProgress SignalBar;
 
         public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
         public static int RemoteTimeMachineCount => RemoteTimeMachines.Count;
@@ -123,7 +123,7 @@ namespace BackToTheFutureV
                 File.Delete(_saveFile);
         }
 
-        private static string _saveFile = "./scripts/BackToTheFutureV/RemoteTimeMachines.dmc12";
+        private static readonly string _saveFile = "./scripts/BackToTheFutureV/RemoteTimeMachines.dmc12";
 
         public static void Save()
         {

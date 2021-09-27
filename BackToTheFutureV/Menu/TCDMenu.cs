@@ -7,16 +7,16 @@ namespace BackToTheFutureV
 {
     internal class TCDMenu : BTTFVMenu
     {
-        private NativeListItem<TCDBackground> tcdBackground;
-        private NativeItem changeTCD;
-        private NativeItem resetToDefaultTCD;
+        private readonly NativeListItem<TCDBackground> tcdBackground;
+        private readonly NativeItem changeTCD;
+        private readonly NativeItem resetToDefaultTCD;
 
-        private NativeItem changeRCGUI;
+        private readonly NativeItem changeRCGUI;
 
-        private NativeCheckboxItem hideSID;
-        private NativeCheckboxItem useExternalTCD;
-        private NativeCheckboxItem useNetworkTCD;
-        private NativeCheckboxItem hideIngameTCD;
+        private readonly NativeCheckboxItem hideSID;
+        private readonly NativeCheckboxItem useExternalTCD;
+        private readonly NativeCheckboxItem useNetworkTCD;
+        private readonly NativeCheckboxItem hideIngameTCD;
 
         public TCDMenu() : base("TCD")
         {
@@ -56,7 +56,7 @@ namespace BackToTheFutureV
             {
                 TcdEditer.SetEditMode(true);
 
-                Close();
+                Visible = false;
             }
 
             if (sender == resetToDefaultTCD)
@@ -75,7 +75,7 @@ namespace BackToTheFutureV
             {
                 RCGUIEditer.SetEditMode(true);
 
-                Close();
+                Visible = false;
             }
         }
 

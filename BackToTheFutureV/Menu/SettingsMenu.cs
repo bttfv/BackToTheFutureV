@@ -7,17 +7,17 @@ namespace BackToTheFutureV
 {
     internal class SettingsMenu : BTTFVMenu
     {
-        private NativeCheckboxItem cinematicSpawn;
-        private NativeCheckboxItem useInputToggle;
-        private NativeCheckboxItem forceFlyMode;
-        private NativeCheckboxItem LandingSystem;
-        private NativeCheckboxItem InfiniteFuel;
-        private NativeCheckboxItem PersistenceSystem;
-        private NativeCheckboxItem WaybackSystem;
-        private NativeCheckboxItem RandomTrains;
-        private NativeCheckboxItem RealTime;
-        private NativeCheckboxItem GlowingWormholeEmitter;
-        private NativeCheckboxItem GlowingPlutoniumReactor;
+        private readonly NativeCheckboxItem cinematicSpawn;
+        private readonly NativeCheckboxItem useInputToggle;
+        private readonly NativeCheckboxItem forceFlyMode;
+        private readonly NativeCheckboxItem LandingSystem;
+        private readonly NativeCheckboxItem InfiniteFuel;
+        private readonly NativeCheckboxItem PersistenceSystem;
+        private readonly NativeCheckboxItem WaybackSystem;
+        private readonly NativeCheckboxItem RandomTrains;
+        private readonly NativeCheckboxItem RealTime;
+        private readonly NativeCheckboxItem GlowingWormholeEmitter;
+        private readonly NativeCheckboxItem GlowingPlutoniumReactor;
 
         public SettingsMenu() : base("Settings")
         {

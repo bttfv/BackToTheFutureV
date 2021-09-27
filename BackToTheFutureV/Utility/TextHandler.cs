@@ -4,7 +4,7 @@ namespace BackToTheFutureV
 {
     public static class TextHandler
     {
-        private static CustomText CustomText = new CustomText("BTTFV_Text_{0}");
+        private static readonly CustomText CustomText = new CustomText("BTTFV_Text_{0}");
 
         public static string GetLocalizedText(string entry)
         {

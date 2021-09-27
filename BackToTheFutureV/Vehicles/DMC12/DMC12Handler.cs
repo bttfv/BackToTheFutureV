@@ -11,9 +11,9 @@ namespace BackToTheFutureV
 {
     internal class DMC12Handler
     {
-        private static List<DMC12> _deloreans = new List<DMC12>();
-        private static List<DMC12> _deloreansToAdd = new List<DMC12>();
-        private static Dictionary<DMC12, bool> _deloreansToRemove = new Dictionary<DMC12, bool>();
+        private static readonly List<DMC12> _deloreans = new List<DMC12>();
+        private static readonly List<DMC12> _deloreansToAdd = new List<DMC12>();
+        private static readonly Dictionary<DMC12, bool> _deloreansToRemove = new Dictionary<DMC12, bool>();
 
         public static void Abort()
         {

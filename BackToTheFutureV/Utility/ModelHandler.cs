@@ -99,7 +99,7 @@ namespace BackToTheFutureV
 
         public static CustomModel DeluxoModel = new CustomModel("deluxo");
 
-        private static string[] tcdTypes = new string[3]
+        private static readonly string[] tcdTypes = new string[3]
         {
             "red",
             "green",
@@ -127,7 +127,7 @@ namespace BackToTheFutureV
             for (int i = 1; i <= 11; i++)
                 CoilSeparated.Add(new CustomModel($"bttf3_coils_glowing_{i}"));
 
-            GetAllModels(typeof(ModelHandler)).ForEach(x => PreloadModel(x));
+            GetAllModels(typeof(ModelHandler)).ForEach(x => x.Request());
         }
     }
 }

@@ -13,19 +13,19 @@ namespace BackToTheFutureV
     {
         public bool ForceNew = false;
 
-        private NativeListItem<string> _wormholeType;
-        private NativeListItem<string> _reactorType;
-        private NativeListItem<string> _wheelsType;
-        private NativeCheckboxItem _hoverUnderbody;
-        private NativeCheckboxItem _hoodBox;
-        private NativeCheckboxItem _hook;
-        private NativeCheckboxItem _threeDigits;
-        private NativeListItem<string> _plate;
-        private NativeListItem<string> _exhaust;
-        private NativeListItem<string> _suspensions;
-        private NativeListItem<string> _hood;
-        private NativeItem _saveConf;
-        private NativeItem _confirm;
+        private readonly NativeListItem<string> _wormholeType;
+        private readonly NativeListItem<string> _reactorType;
+        private readonly NativeListItem<string> _wheelsType;
+        private readonly NativeCheckboxItem _hoverUnderbody;
+        private readonly NativeCheckboxItem _hoodBox;
+        private readonly NativeCheckboxItem _hook;
+        private readonly NativeCheckboxItem _threeDigits;
+        private readonly NativeListItem<string> _plate;
+        private readonly NativeListItem<string> _exhaust;
+        private readonly NativeListItem<string> _suspensions;
+        private readonly NativeListItem<string> _hood;
+        private readonly NativeItem _saveConf;
+        private readonly NativeItem _confirm;
 
         private TimeMachine _tempTimeMachine;
 
@@ -193,10 +193,10 @@ namespace BackToTheFutureV
         public override void Menu_Shown(object sender, EventArgs e)
         {
             if (MenuHandler.MainMenu.Visible)
-                MenuHandler.MainMenu.Close();
+                MenuHandler.MainMenu.Visible = false;
 
             if (MenuHandler.TimeMachineMenu.Visible)
-                MenuHandler.TimeMachineMenu.Close();
+                MenuHandler.TimeMachineMenu.Visible = false;
 
             if (ForceNew || (FusionUtils.PlayerVehicle == null || !FusionUtils.PlayerVehicle.IsTimeMachine()))
             {
@@ -211,7 +211,7 @@ namespace BackToTheFutureV
 
                 if (_tempTimeMachine.Constants.FullDamaged)
                 {
-                    Close();
+                    Visible = false;
                     return;
                 }
 
@@ -234,7 +234,7 @@ namespace BackToTheFutureV
             if (sender == _wormholeType | sender == _confirm)
             {
                 GarageHandler.WaitForCustomMenu = false;
-                Close();
+                Visible = false;
             }
             else if (sender == _saveConf)
             {
@@ -275,7 +275,7 @@ namespace BackToTheFutureV
         {
             if (FusionUtils.PlayerVehicle != _tempTimeMachine)
             {
-                Close();
+                Visible = false;
                 return;
             }
 

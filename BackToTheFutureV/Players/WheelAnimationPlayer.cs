@@ -16,10 +16,10 @@ namespace BackToTheFutureV
 
         private bool AreWheelsOpen;
 
-        private AnimatePropsHandler AllProps = new AnimatePropsHandler();
+        private readonly AnimatePropsHandler AllProps = new AnimatePropsHandler();
 
-        private AnimatePropsHandler GlowWheels = new AnimatePropsHandler();
-        private AnimatePropsHandler Wheels = new AnimatePropsHandler();
+        private readonly AnimatePropsHandler GlowWheels = new AnimatePropsHandler();
+        private readonly AnimatePropsHandler Wheels = new AnimatePropsHandler();
 
         private static readonly Vector3 strutOffsetFromWheel = new Vector3(0.2247245f, -0.004109263f, 0.09079965f);
         private static readonly Vector3 diskOffsetFromStrut = new Vector3(-0.23691f, 0.002096051f, -0.1387549f);
@@ -37,16 +37,16 @@ namespace BackToTheFutureV
 
                 switch (wheel.WheelID)
                 {
-                    case WheelId.FrontLeft:
+                    case VehicleWheelBoneId.WheelLeftFront:
                         strutOffset = strutOffsetFromWheel.GetSingleOffset(Coordinate.Z, Mods.IsDMC12 ? 0 : 0.04f);
                         break;
-                    case WheelId.FrontRight:
+                    case VehicleWheelBoneId.WheelRightFront:
                         strutOffset = strutOffsetFromWheel.GetSingleOffset(Coordinate.Z, Mods.IsDMC12 ? 0 : 0.04f).InvertCoordinate(Coordinate.X);
                         break;
-                    case WheelId.RearLeft:
+                    case VehicleWheelBoneId.WheelLeftRear:
                         strutOffset = strutOffsetFromWheel.GetSingleOffset(Coordinate.Z, 0.02f);
                         break;
-                    case WheelId.RearRight:
+                    case VehicleWheelBoneId.WheelRightRear:
                         strutOffset = strutOffsetFromWheel.GetSingleOffset(Coordinate.Z, 0.02f).InvertCoordinate(Coordinate.X);
                         break;
                 }
@@ -55,17 +55,17 @@ namespace BackToTheFutureV
 
                 AnimateProp strut = new AnimateProp(ModelHandler.Strut, Vehicle, strutOffset, wheel.Left ? Vector3.Zero : new Vector3(0, 0, 180));
                 if (wheel.Left)
-                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.30f, 1);
+                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.30f, 1, false);
                 else
-                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.30f, 1);
+                    strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.30f, 1, false);
                 strut.SpawnProp();
 
                 AnimateProp disk = new AnimateProp(ModelHandler.Disk, strut, diskOffsetFromStrut, new Vector3(0, MAX_ROTATION_OFFSET, 0));
-                disk[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, false, 0, MAX_ROTATION_OFFSET, 1, 120, 1);
+                disk[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, false, 0, MAX_ROTATION_OFFSET, 1, 120, 1, false);
                 disk.SpawnProp();
 
                 AnimateProp piston = new AnimateProp(ModelHandler.Piston, disk, pistonOffsetFromDisk, new Vector3(0, -MAX_ROTATION_OFFSET, 0));
-                piston[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, true, -MAX_ROTATION_OFFSET, 0, 1, 120, 1);
+                piston[AnimationType.Rotation][AnimationStep.Second][Coordinate.Y].Setup(true, true, -MAX_ROTATION_OFFSET, 0, 1, 120, 1, false);
                 piston.SpawnProp();
 
                 Model wheelModel = wheel.Front ? Constants.WheelModel : Constants.WheelRearModel;

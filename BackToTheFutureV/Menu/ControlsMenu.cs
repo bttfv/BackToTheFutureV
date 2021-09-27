@@ -10,24 +10,24 @@ namespace BackToTheFutureV
 {
     internal class ControlsMenu : BTTFVMenu
     {
-        private NativeCheckboxItem UseControlForMainMenu;
-        private NativeListItem<Keys> MainMenu;
+        private readonly NativeCheckboxItem UseControlForMainMenu;
+        private readonly NativeListItem<Keys> MainMenu;
 
-        private NativeCheckboxItem CombinationsForInteractionMenu;
-        private NativeListItem<ControlInfo> InteractionMenu1;
-        private NativeListItem<ControlInfo> InteractionMenu2;
+        private readonly NativeCheckboxItem CombinationsForInteractionMenu;
+        private readonly NativeListItem<ControlInfo> InteractionMenu1;
+        private readonly NativeListItem<ControlInfo> InteractionMenu2;
 
-        private NativeCheckboxItem LongPressForHover;
-        private NativeListItem<ControlInfo> Hover;
-        private NativeListItem<ControlInfo> HoverBoost;
-        private NativeListItem<ControlInfo> HoverVTOL;
-        private NativeListItem<Keys> HoverAltitudeHold;
+        private readonly NativeCheckboxItem LongPressForHover;
+        private readonly NativeListItem<ControlInfo> Hover;
+        private readonly NativeListItem<ControlInfo> HoverBoost;
+        private readonly NativeListItem<ControlInfo> HoverVTOL;
+        private readonly NativeListItem<Keys> HoverAltitudeHold;
 
-        private NativeListItem<Keys> TCToggle;
-        private NativeListItem<Keys> CutsceneToggle;
-        private NativeListItem<Keys> InputToggle;
+        private readonly NativeListItem<Keys> TCToggle;
+        private readonly NativeListItem<Keys> CutsceneToggle;
+        private readonly NativeListItem<Keys> InputToggle;
 
-        private NativeItem Reset;
+        private readonly NativeItem Reset;
 
         private bool _doNotUpdate;
 

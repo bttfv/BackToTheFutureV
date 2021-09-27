@@ -12,9 +12,9 @@ namespace BackToTheFutureV
 
         private Vector3 _destination;
 
-        private AnimateProp _spark;
+        private readonly AnimateProp _spark;
 
-        private SparkType _sparkType;
+        private readonly SparkType _sparkType;
 
         private float _speed;
 

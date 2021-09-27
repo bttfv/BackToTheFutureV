@@ -18,7 +18,7 @@ namespace BackToTheFutureV
         private float _smokeIndex;
 
         private float _iceDisappearVal;
-        private float _timeToDisappear = 180f; // 360 = 6 minutes
+        private readonly float _timeToDisappear = 180f; // 360 = 6 minutes
 
         private bool _resuming;
 
@@ -85,10 +85,10 @@ namespace BackToTheFutureV
 
                 if (newIce <= 0.15f)
                 {
-                    Particles?.IceSmoke?.StopNaturally();
+                    Particles?.IceSmoke?.Stop();
 
-                    foreach (PtfxEntityBonePlayer waterDrop in Particles?.IceWaterDrops)
-                        waterDrop?.StopNaturally();
+                    foreach (ParticlePlayer waterDrop in Particles?.IceWaterDrops)
+                        waterDrop?.Stop();
 
                     Sounds.Ice?.Stop();
                     Properties.IsDefrosting = false;
@@ -121,7 +121,7 @@ namespace BackToTheFutureV
                         // Spawn the ice particles
                         Particles?.IceSmoke?.Play();
 
-                        foreach (PtfxEntityBonePlayer waterDrop in Particles?.IceWaterDrops)
+                        foreach (ParticlePlayer waterDrop in Particles?.IceWaterDrops)
                         {
                             UpdateDoorIce(waterDrop.BoneName.Contains("left")
                                 ? VehicleDoorIndex.FrontLeftDoor
@@ -176,7 +176,7 @@ namespace BackToTheFutureV
                     break;
             }
         }
-        private void UpdateDoorIce(VehicleDoorIndex doorIndex, PtfxEntityBonePlayer waterDrop)
+        private void UpdateDoorIce(VehicleDoorIndex doorIndex, ParticlePlayer waterDrop)
         {
             if (waterDrop.IsPlaying)
                 return;
@@ -199,10 +199,10 @@ namespace BackToTheFutureV
             Sounds.Ice?.Stop(!Vehicle.IsVisible);
             Sounds.IceVents?.Stop(!Vehicle.IsVisible);
 
-            foreach (PtfxEntityBonePlayer waterDrop in Particles?.IceWaterDrops)
-                waterDrop.StopNaturally();
+            foreach (ParticlePlayer waterDrop in Particles?.IceWaterDrops)
+                waterDrop.Stop();
 
-            Particles?.IceSmoke?.StopNaturally();
+            Particles?.IceSmoke?.Stop();
         }
 
         public override void Dispose()

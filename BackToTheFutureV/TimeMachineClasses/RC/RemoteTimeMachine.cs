@@ -18,7 +18,7 @@ namespace BackToTheFutureV
         private int _timer;
         private bool _hasPlayedWarningSound;
 
-        private static AudioPlayer WarningSound;
+        private static readonly AudioPlayer WarningSound;
 
         static RemoteTimeMachine()
         {

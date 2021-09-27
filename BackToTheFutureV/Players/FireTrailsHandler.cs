@@ -6,7 +6,7 @@ namespace BackToTheFutureV
 {
     internal class FireTrailsHandler
     {
-        private static List<FireTrail> fireTrails = new List<FireTrail>();
+        private static readonly List<FireTrail> fireTrails = new List<FireTrail>();
 
         static FireTrailsHandler()
         {
@@ -15,7 +15,7 @@ namespace BackToTheFutureV
 
         public static FireTrail SpawnForTimeMachine(TimeMachine timeMachine)
         {
-            FireTrail fireTrail = new FireTrail(timeMachine.Vehicle, timeMachine.Constants.FireTrailsIs99, timeMachine.Constants.FireTrailsDisappearTime, timeMachine.Constants.FireTrailsAppearTime, timeMachine.Constants.FireTrailsUseBlue, timeMachine.Constants.FireTrailsLength);
+            FireTrail fireTrail = new FireTrail(timeMachine.Vehicle, timeMachine.Constants.FireTrailsIs99, timeMachine.Constants.FireTrailsDisappearTime, timeMachine.Constants.FireTrailsAppearTime, timeMachine.Constants.FireTrailsLength);
             fireTrails.Add(fireTrail);
 
             return fireTrail;

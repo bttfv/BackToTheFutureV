@@ -5,7 +5,6 @@ using GTA.Math;
 using GTA.Native;
 using KlangRageAudioLibrary;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
@@ -32,29 +31,24 @@ namespace BackToTheFutureV
         private Rope MastRope;
 
         private AnimatePropsHandler Lightnings;
-        private PtfxEntityPlayer Spark;
-        private List<PtfxPlayer> sparkRope = new List<PtfxPlayer>();
-        private List<PtfxPlayer> fireRope = new List<PtfxPlayer>();
+        private ParticlePlayer Spark;
+        private readonly ParticlePlayerHandler sparkRope = new ParticlePlayerHandler();
+        private readonly ParticlePlayerHandler fireRope = new ParticlePlayerHandler();
 
         private int step = 0;
-        private int currentIndex = 0;
         private int gameTime;
 
         private TimeMachine CurrentTimeMachine => TimeMachineHandler.CurrentTimeMachine;
 
-        private CustomCamera CustomCamera;
+        private readonly CustomCameraHandler CustomCamera = new CustomCameraHandler();
 
         private AudioPlayer Thunder;
 
         public const Hash LightningRunStreet = unchecked((Hash)(-119993883));
 
-        private FrameTimeHelper ptfxHelper = new FrameTimeHelper(60);
-
         private Vector3 checkPos = new Vector3(41.5676f, 6585.7378f, 30.3686f);
 
         private bool setup;
-
-        //private int startTime;
 
         static ClocktowerMission()
         {
@@ -76,12 +70,11 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs key)
         {
-            //if (key.KeyCode == Keys.L)
-            //    IsPlaying = true;
+            if (key.KeyCode == Keys.U)
+                IsPlaying = true;
 
-            //if (key.KeyCode == Keys.O)
-            //    FusionUtils.PlayerPed.PositionNoOffset = polePosition;
-            //FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);
+            if (key.KeyCode == Keys.O)
+                FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);            
         }
 
         public override void Tick()
@@ -109,7 +102,7 @@ namespace BackToTheFutureV
 
                 if (raycastResult.DidHit && raycastResult.HitEntity == CurrentTimeMachine)
                 {
-                    if (CurrentTimeMachine.Mods.Hook == HookState.On && CurrentTimeMachine.Properties.AreTimeCircuitsOn && CurrentTimeMachine.Constants.Over88MphSpeed && !CurrentTimeMachine.Properties.HasBeenStruckByLightning && sparkRope.Count(x => x.IsPlaying) >= 100)
+                    if (CurrentTimeMachine.Mods.Hook == HookState.On && CurrentTimeMachine.Properties.AreTimeCircuitsOn && CurrentTimeMachine.Constants.Over88MphSpeed && !CurrentTimeMachine.Properties.HasBeenStruckByLightning && sparkRope.ParticlePlayers.Count(x => x.IsPlaying) >= 100)
                     {
                         if (ModSettings.WaybackSystem)
                             WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.LightningRun;
@@ -126,7 +119,7 @@ namespace BackToTheFutureV
             {
                 case 0:
                     if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Vehicle.GetMPHSpeed() >= 80)
-                        CustomCamera?.Show();
+                        CustomCamera?.Show(0);
 
                     Thunder.SourceEntity = FusionUtils.PlayerPed;
                     Thunder.Play();
@@ -138,82 +131,52 @@ namespace BackToTheFutureV
                     gameTime = Game.GameTime + 100;
                     break;
                 case 1:
-                    //if (currentIndex == 0)
-                    //    startTime = Game.GameTime;
-
                     if (Lightnings.IsSequencePlaying)
                         Lightnings.Delete();
 
                     if (Spark.IsPlaying)
                         Spark.Stop();
 
-                    ptfxHelper.Tick();
-
-                    for (int i = 0; i < ptfxHelper.Count; i++)
+                    if (!sparkRope.IsPlaying)
+                        sparkRope.Play();
+                    else if (sparkRope.SequenceComplete)
                     {
-                        if (currentIndex == sparkRope.Count)
-                        {
-                            //GTA.UI.Screen.ShowSubtitle($"{Game.GameTime - startTime}");
-
-                            ptfxHelper.Reset();
-
-                            currentIndex = 0;
-                            step++;
-                            gameTime = Game.GameTime + 1000;
-                            break;
-                        }
-
-                        sparkRope[currentIndex].Play();
-                        currentIndex++;
+                        step++;
+                        gameTime = Game.GameTime + 1000;
                     }
 
                     break;
                 case 2:
-                    sparkRope.ForEach(x => x.StopNaturally());
+                    sparkRope.Stop();
 
                     step++;
                     gameTime = Game.GameTime + 250;
                     break;
                 case 3:
-                    ptfxHelper.Tick();
 
-                    for (int i = 0; i < ptfxHelper.Count; i++)
+                    if (!fireRope.IsPlaying)
+                        fireRope.Play();
+                    else if (fireRope.SequenceComplete)
                     {
-                        if (currentIndex == fireRope.Count)
-                        {
-                            ptfxHelper.Reset();
-
-                            currentIndex = 0;
-                            step++;
-                            gameTime = Game.GameTime + 5000;
-                            break;
-                        }
-
-                        if (FusionUtils.Random.NextDouble() >= 0.5f)
-                            fireRope[currentIndex].Play();
-
-                        currentIndex++;
+                        step++;
+                        gameTime = Game.GameTime + 1000;
                     }
 
                     break;
-                case 4:
-                    if (currentIndex == fireRope.Count)
-                    {
-                        CustomCamera?.Stop();
+                case 4:                    
+                    fireRope.StopInSequence();
 
-                        currentIndex = 0;
-                        step = 0;
-                        IsPlaying = false;
+                    step++;                    
+                    break;
+                case 5:
+
+                    if (fireRope.IsPlaying)
                         break;
-                    }
 
-                    fireRope[currentIndex].StopNaturally();
-                    currentIndex++;
-                    gameTime = Game.GameTime + 20;
+                    IsPlaying = false;
+                    step = 0;
                     break;
             }
-
-            Spark?.Tick();
         }
 
         private void Setup()
@@ -246,55 +209,55 @@ namespace BackToTheFutureV
             foreach (CustomModel x in ModelHandler.Lightnings)
                 Lightnings.Add(new AnimateProp(x, Pole, lightningOffset, Vector3.Zero));
 
-            Spark = new PtfxEntityPlayer("core", "ent_brk_sparking_wires_sp", Pole, Vector3.Zero, Vector3.Zero, 8f, true, true, 500);
+            Spark = new ParticlePlayer("core", "ent_brk_sparking_wires_sp", ParticleType.ForceLooped, Pole, Vector3.Zero, Vector3.Zero, 8f) { Interval = 500 };
 
-            CustomCamera = new CustomCamera(RightStreetPole, new Vector3(11.93889f, 11.07275f, 4.756693f), new Vector3(11.65637f, 10.13232f, 4.56657f), 64);
+            CustomCamera.Add(RightStreetPole, new Vector3(11.93889f, 11.07275f, 4.756693f), new Vector3(11.65637f, 10.13232f, 4.56657f), 64);
 
             Thunder = Main.CommonAudioEngine.Create("general/thunder.wav", Presets.No3D);
 
             Vector3 curPos = polePosition;
 
-            sparkRope.Add(new PtfxPlayer("scr_reconstructionaccident", "scr_sparking_generator", curPos, Vector3.Zero, 2, true));
+            sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
 
             do
             {
                 curPos += curPos.GetDirectionTo(leftRope) * 0.25f;
-                sparkRope.Add(new PtfxPlayer("scr_reconstructionaccident", "scr_sparking_generator", curPos, Vector3.Zero, 2, true));
+                sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
             } while (curPos.DistanceTo(leftRope) > 0.1f);
 
             do
             {
                 curPos += curPos.GetDirectionTo(rightRope) * 0.25f;
-                sparkRope.Add(new PtfxPlayer("scr_reconstructionaccident", "scr_sparking_generator", curPos, Vector3.Zero, 2, true));
+                sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
             } while (curPos.DistanceTo(rightRope) > 0.1f);
+
+            sparkRope.UseFrameTimeHelper = true;
 
             curPos = polePosition.GetSingleOffset(Coordinate.Z, -0.1f);
 
             leftRope = leftRope.GetSingleOffset(Coordinate.Z, -0.1f);
             rightRope = rightRope.GetSingleOffset(Coordinate.Z, -0.1f);
 
-            fireRope.Add(new PtfxPlayer("core", "fire_petroltank_heli", curPos, curPos.GetDirectionTo(leftRope).DirectionToRotation(0), 0.4f, true));
-            fireRope.Last().SetEvolutionParam("strength", 1);
-            fireRope.Last().SetEvolutionParam("dist", 0);
-            fireRope.Last().SetEvolutionParam("fadein", 0);
+            fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, curPos.GetDirectionTo(leftRope).DirectionToRotation(0), 0.4f);
 
             do
             {
                 curPos += curPos.GetDirectionTo(leftRope) * 0.5f;
-                fireRope.Add(new PtfxPlayer("core", "fire_petroltank_heli", curPos, curPos.GetDirectionTo(leftRope).DirectionToRotation(0), 0.4f, true));
-                fireRope.Last().SetEvolutionParam("strength", 1);
-                fireRope.Last().SetEvolutionParam("dist", 0);
-                fireRope.Last().SetEvolutionParam("fadein", 0);
+                fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, curPos.GetDirectionTo(leftRope).DirectionToRotation(0), 0.4f);
             } while (curPos.DistanceTo(leftRope) > 0.1f);
 
             do
             {
                 curPos += curPos.GetDirectionTo(rightRope) * 0.5f;
-                fireRope.Add(new PtfxPlayer("core", "fire_petroltank_heli", curPos, rightRope.GetDirectionTo(curPos).DirectionToRotation(0), 0.4f, true));
-                fireRope.Last().SetEvolutionParam("strength", 1);
-                fireRope.Last().SetEvolutionParam("dist", 0);
-                fireRope.Last().SetEvolutionParam("fadein", 0);
+                fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, rightRope.GetDirectionTo(curPos).DirectionToRotation(0), 0.4f);
             } while (curPos.DistanceTo(rightRope) > 0.1f);
+
+            fireRope.SetEvolutionParam("strength", 1);
+            fireRope.SetEvolutionParam("dist", 0);
+            fireRope.SetEvolutionParam("fadein", 0);
+
+            fireRope.UseFrameTimeHelper = true;
+            fireRope.ChanceOfSpawn = 0.5f;
 
             setup = true;
         }
@@ -310,8 +273,8 @@ namespace BackToTheFutureV
             StreetRope?.Delete();
             MastRope?.Delete();
 
-            sparkRope?.ForEach(x => x?.Stop());
-            fireRope?.ForEach(x => x?.Stop());
+            sparkRope?.Stop();
+            fireRope?.Stop();
 
             IsPlaying = false;
             setup = false;

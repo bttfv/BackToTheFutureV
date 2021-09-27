@@ -11,7 +11,7 @@ namespace BackToTheFutureV
 {
     internal class TCD3DRowHandler : HandlerPrimitive
     {
-        private static Dictionary<string, Vector3> offsets = new Dictionary<string, Vector3>()
+        private static readonly Dictionary<string, Vector3> offsets = new Dictionary<string, Vector3>()
         {
             { "red", new Vector3(-0.01477456f, 0.3175744f, 0.6455771f) },
             { "yellow", new Vector3(-0.01964803f, 0.2769623f, 0.565388f) },
@@ -28,8 +28,8 @@ namespace BackToTheFutureV
         private int showPropsAt;
         private int showMonthAt;
 
-        private AnimateProp amProp;
-        private AnimateProp pmProp;
+        private readonly AnimateProp amProp;
+        private readonly AnimateProp pmProp;
 
         public TCD3DRowHandler(string slotType, TimeMachine timeMachine) : base(timeMachine)
         {

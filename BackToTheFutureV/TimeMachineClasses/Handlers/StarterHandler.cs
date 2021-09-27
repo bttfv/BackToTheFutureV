@@ -14,14 +14,14 @@ namespace BackToTheFutureV
         private int _restartAt;
         private int _nextCheck;
 
-        private TimedEventHandler timedEventManager;
+        private readonly TimedEventHandler timedEventManager;
 
         private bool _lightsOn;
         private bool _highbeamsOn;
 
         private float _lightsBrightness;
 
-        private int _deloreanMaxFuelLevel = 65;
+        private readonly int _deloreanMaxFuelLevel = 65;
 
         public StarterHandler(TimeMachine timeMachine) : base(timeMachine)
         {

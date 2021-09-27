@@ -11,7 +11,7 @@ namespace BackToTheFutureV
 
     internal class ModSettings
     {
-        private static Version LastCompatibleVersion = new Version(2, 0, 0, 0);
+        private static readonly Version LastCompatibleVersion = new Version(2, 0, 0, 0);
         public static OnGUIChange OnGUIChange { get; set; }
 
         public static PointF RCGUIPosition { get; set; } = new PointF(0.901f, 0.879f);
@@ -47,7 +47,7 @@ namespace BackToTheFutureV
         public static bool RealTime { get; set; } = false;
 
         private static ScriptSettings settings;
-        private static CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
+        private static readonly CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
 
         public static void LoadSettings()
         {

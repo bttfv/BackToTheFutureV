@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Native;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -177,6 +178,8 @@ namespace BackToTheFutureV
 
                     if (WormholeType == WormholeType.BTTF3)
                         TimeMachine.Events?.OnWormholeTypeChanged?.Invoke();
+
+                    Wheels.Burst = true;
                 }
                 else
                 {

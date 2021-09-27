@@ -18,20 +18,20 @@ namespace BackToTheFutureV
 
         public bool Disposed { get; private set; }
 
-        private AnimateProp rpmNeedle;
-        private AnimateProp speedNeedle;
-        private AnimateProp fuelNeedle;
-        private AnimateProp tempNeedle;
-        private AnimateProp oilNeedle;
-        private AnimateProp voltNeedle;
-        private AnimateProp doorIndicator;
-        private AnimateProp leftFan;
-        private AnimateProp rightFan;
+        private readonly AnimateProp rpmNeedle;
+        private readonly AnimateProp speedNeedle;
+        private readonly AnimateProp fuelNeedle;
+        private readonly AnimateProp tempNeedle;
+        private readonly AnimateProp oilNeedle;
+        private readonly AnimateProp voltNeedle;
+        private readonly AnimateProp doorIndicator;
+        private readonly AnimateProp leftFan;
+        private readonly AnimateProp rightFan;
 
-        private AnimateProp suspensionLeftFront;
-        private AnimateProp suspensionLeftRear;
-        private AnimateProp suspensionRightFront;
-        private AnimateProp suspensionRightRear;
+        private readonly AnimateProp suspensionLeftFront;
+        private readonly AnimateProp suspensionLeftRear;
+        private readonly AnimateProp suspensionRightFront;
+        private readonly AnimateProp suspensionRightRear;
 
         private float voltLevel = 50f;
 
@@ -57,7 +57,7 @@ namespace BackToTheFutureV
 
             Vehicle.IsPersistent = true;
 
-            Vehicle.Decorator().DotNotDelete = true;
+            Vehicle.Decorator().DoNotDelete = true;
 
             Mods = new DMC12Mods(Vehicle);
 
@@ -209,7 +209,7 @@ namespace BackToTheFutureV
                 suspensionRightRear?.Delete();
             }
 
-            if (FusionUtils.IsAnyDoorOpen(Vehicle))
+            if (Vehicle.IsAnyDoorOpen())
                 doorIndicator.SpawnProp();
             else
                 doorIndicator.Delete();

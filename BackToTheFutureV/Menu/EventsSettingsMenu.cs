@@ -6,9 +6,9 @@ namespace BackToTheFutureV
 {
     internal class EventsSettingsMenu : BTTFVMenu
     {
-        private NativeCheckboxItem LightningStrikeEvent;
-        private NativeCheckboxItem EngineStallEvent;
-        private NativeCheckboxItem TurbulenceEvent;
+        private readonly NativeCheckboxItem LightningStrikeEvent;
+        private readonly NativeCheckboxItem EngineStallEvent;
+        private readonly NativeCheckboxItem TurbulenceEvent;
 
         public EventsSettingsMenu() : base("Events")
         {

@@ -7,8 +7,8 @@ namespace BackToTheFutureV
 {
     internal static class CustomTrainHandler
     {
-        private static List<CustomTrain> trainHandlers = new List<CustomTrain>();
-        private static List<CustomTrain> trainHandlersToRemove = new List<CustomTrain>();
+        private static readonly List<CustomTrain> trainHandlers = new List<CustomTrain>();
+        private static readonly List<CustomTrain> trainHandlersToRemove = new List<CustomTrain>();
 
         public static CustomTrain CreateFreightTrain(Vehicle vehicle, bool direction)
         {
@@ -21,7 +21,7 @@ namespace BackToTheFutureV
 
         public static CustomTrain CreateInvisibleTrain(Vehicle vehicle, bool direction)
         {
-            trainHandlers.Add(new CustomTrain(vehicle.GetOffsetPosition(new Vector3(0, -10, 0)), direction, 25, 1));
+            trainHandlers.Add(new CustomTrain(vehicle.GetOffsetPosition(new Vector3(0, -10, 0)), direction, 27, 1));
 
             trainHandlers.Last().SetCollision(false);
 

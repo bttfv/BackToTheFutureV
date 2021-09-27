@@ -41,16 +41,16 @@ namespace BackToTheFutureV
 
                     if (RemoteTimeMachineHandler.IsRemoteOn)
                     {
-                        TimeMachineMenu.Open();
+                        TimeMachineMenu.Visible = true;
                         return;
                     }
                     else if (CustomNativeMenu.ObjectPool.AreAnyVisible)
                         return;
 
                     if (TimeMachineHandler.CurrentTimeMachine != null)
-                        TimeMachineMenu.Open();
+                        TimeMachineMenu.Visible = true;
                     else
-                        MainMenu.Open();
+                        MainMenu.Visible = true;
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace BackToTheFutureV
 
                 CustomNativeMenu.ObjectPool.HideAll();
 
-                MainMenu.Open();
+                MainMenu.Visible = true;
             }
         }
     }

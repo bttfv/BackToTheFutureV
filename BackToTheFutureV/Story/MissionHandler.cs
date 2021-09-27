@@ -5,7 +5,7 @@ namespace BackToTheFutureV
 {
     internal static class MissionHandler
     {
-        private static List<Mission> _missions = new List<Mission>();
+        private static readonly List<Mission> _missions = new List<Mission>();
 
         public static ClocktowerMission ClocktowerMission = new ClocktowerMission();
 

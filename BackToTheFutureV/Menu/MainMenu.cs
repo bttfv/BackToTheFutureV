@@ -12,16 +12,16 @@ namespace BackToTheFutureV
 {
     internal class MainMenu : BTTFVMenu
     {
-        private NativeListItem<string> spawnBTTF;
+        private readonly NativeListItem<string> spawnBTTF;
 
-        private NativeItem convertIntoTimeMachine;
+        private readonly NativeItem convertIntoTimeMachine;
 
-        private NativeSubmenuItem rcMenu;
-        private NativeSubmenuItem outatimeMenu;
+        private readonly NativeSubmenuItem rcMenu;
+        private readonly NativeSubmenuItem outatimeMenu;
 
-        private NativeItem deleteCurrent;
-        private NativeItem deleteOthers;
-        private NativeItem deleteAll;
+        private readonly NativeItem deleteCurrent;
+        private readonly NativeItem deleteOthers;
+        private readonly NativeItem deleteAll;
 
         public MainMenu() : base("Main")
         {
@@ -90,7 +90,7 @@ namespace BackToTheFutureV
                 if (spawnBTTF.SelectedIndex == 0)
                 {
                     FusionUtils.PlayerPed.Task.WarpIntoVehicle(DMC12Handler.CreateDMC12(FusionUtils.PlayerPed.Position, FusionUtils.PlayerPed.Heading), VehicleSeat.Driver);
-                    Close();
+                    Visible = false;
                     return;
                 }
 
@@ -158,7 +158,7 @@ namespace BackToTheFutureV
                 ExternalHUD.SetOff();
             }
 
-            Close();
+            Visible = false;
         }
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)

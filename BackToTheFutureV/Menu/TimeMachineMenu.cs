@@ -43,7 +43,7 @@ namespace BackToTheFutureV
         {
             if (TimeMachineHandler.CurrentTimeMachine == null)
             {
-                Close();
+                Visible = false;
                 return;
             }
 
@@ -82,7 +82,7 @@ namespace BackToTheFutureV
         {
             if (TimeMachineHandler.CurrentTimeMachine == null)
             {
-                Close();
+                Visible = false;
                 return;
             }
 

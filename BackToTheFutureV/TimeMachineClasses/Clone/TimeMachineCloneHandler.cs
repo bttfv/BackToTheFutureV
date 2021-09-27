@@ -23,7 +23,7 @@ namespace BackToTheFutureV
                 x.Spawn(SpawnFlags.CheckExists);
         }
 
-        private static string _saveFile = "./scripts/BackToTheFutureV/TimeMachines.dmc12";
+        private static readonly string _saveFile = "./scripts/BackToTheFutureV/TimeMachines.dmc12";
 
         public static void Delete()
         {

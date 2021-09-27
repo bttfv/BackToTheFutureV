@@ -9,7 +9,7 @@ namespace BackToTheFutureV
 {
     internal class FluxCapacitorHandler : HandlerPrimitive
     {
-        private LightHandler FluxBlueLight;
+        private readonly LightHandler FluxBlueLight;
 
         public FluxCapacitorHandler(TimeMachine timeMachine) : base(timeMachine)
         {

@@ -42,8 +42,8 @@ namespace BackToTheFutureV
 
         private readonly Dictionary<string, HandlerPrimitive> registeredHandlers = new Dictionary<string, HandlerPrimitive>();
 
-        private VehicleBone boneLf;
-        private VehicleBone boneRf;
+        private readonly VehicleBone boneLf;
+        private readonly VehicleBone boneRf;
 
         private Vector3 leftSuspesionOffset;
         private Vector3 rightSuspesionOffset;
@@ -70,7 +70,7 @@ namespace BackToTheFutureV
 
             Vehicle.IsPersistent = true;
 
-            Vehicle.Decorator().DotNotDelete = true;
+            Vehicle.Decorator().DoNotDelete = true;
 
             TimeMachineHandler.AddTimeMachine(this);
 
@@ -244,7 +244,7 @@ namespace BackToTheFutureV
             if (Properties.IsWayback && TimeMachineHandler.CurrentTimeMachine == this)
                 Properties.IsWayback = false;
 
-            Function.Call(Hash._SET_VEHICLE_ENGINE_TORQUE_MULTIPLIER, Vehicle, Decorators.TorqueMultiplier);
+            Function.Call(Hash.SET_VEHICLE_CHEAT_POWER_INCREASE, Vehicle, Decorators.TorqueMultiplier);
 
             if (Mods.HoverUnderbody == ModState.Off && Mods.IsDMC12)
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
@@ -255,20 +255,6 @@ namespace BackToTheFutureV
                 Vehicle.LockStatus = VehicleLockStatus.None;
 
             Vehicle.IsRadioEnabled = false;
-
-            if (Mods.Wheel == WheelType.RailroadInvisible)
-            {
-                if (Properties.IsOnTracks)
-                {
-                    if (Mods.Wheels.Burst)
-                        Mods.Wheels.Burst = false;
-                }
-                else
-                {
-                    if (!Mods.Wheels.Burst)
-                        Mods.Wheels.Burst = true;
-                }
-            }
 
             if (Mods.IsDMC12)
             {
@@ -307,38 +293,38 @@ namespace BackToTheFutureV
                 switch (Mods.SuspensionsType)
                 {
                     case SuspensionsType.LiftFrontLowerRear:
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.50f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0.50f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, -0.25f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, -0.25f);
                         break;
                     case SuspensionsType.LiftFront:
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.50f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0.50f);
                         break;
                     case SuspensionsType.LiftRear:
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0.50f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0.50f);
                         break;
                     case SuspensionsType.LiftFrontAndRear:
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0.75f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0.75f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0.75f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, 0.75f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.50f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0.50f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0.50f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0.50f);
                         break;
                     case SuspensionsType.LowerFront:
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, -0.25f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, -0.25f);
                         break;
                     case SuspensionsType.LowerRear:
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, -0.25f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, -0.25f);
                         break;
                     case SuspensionsType.LowerFrontAndRear:
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, -0.25f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, -0.25f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, -0.25f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, -0.25f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, -0.25f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, -0.25f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, -0.25f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, -0.25f);
                         break;
                 }
 

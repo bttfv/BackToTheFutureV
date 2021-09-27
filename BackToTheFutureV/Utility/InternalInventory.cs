@@ -7,7 +7,7 @@ namespace BackToTheFutureV
 {
     internal class InternalInventory
     {
-        private static List<InternalInventory> InternalInventories = new List<InternalInventory>();
+        private static readonly List<InternalInventory> InternalInventories = new List<InternalInventory>();
         public static InternalInventory Current => InternalInventories.DefaultIfEmpty(new InternalInventory()).SingleOrDefault(x => x.Ped == FusionUtils.PlayerPed.Model);
 
         public Model Ped { get; }

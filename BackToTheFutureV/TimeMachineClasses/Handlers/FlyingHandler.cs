@@ -28,14 +28,14 @@ namespace BackToTheFutureV
 
         private bool _reload;
 
-        private Hash _defaultHorn;
+        private readonly Hash _defaultHorn;
 
         public FlyingHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             if (Mods.HoverUnderbody == ModState.On)
                 OnHoverUnderbodyToggle();
 
-            _defaultHorn = Function.Call<Hash>(Hash._GET_VEHICLE_HORN_HASH, Vehicle);
+            _defaultHorn = Function.Call<Hash>(Hash.GET_VEHICLE_DEFAULT_HORN, Vehicle);
 
             _flyModeInput = new NativeInput(ModControls.Hover);
             _flyModeInput.OnControlLongPressed += OnFlyModeControlJustLongPressed;
@@ -205,18 +205,15 @@ namespace BackToTheFutureV
             else
                 Players.HoverModeWheels?.Play(open);
 
-            // undocced native, changes delxuo transformation
-            // from land to hover
-            // (DOES NOT CHANGE FLY MODE!)
             if (!Properties.IsLanding)
-                Function.Call((Hash)0x438b3d7ca026fe91, Vehicle, Properties.IsFlying ? 1f : 0f);
+                Function.Call(Hash._SET_VEHICLE_HOVER_TRANSFORM_PERCENTAGE, Vehicle, Properties.IsFlying ? 1f : 0f);
             else
                 TextHandler.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
 
             if (Properties.IsFlying && !instant)
             {
                 Sounds.HoverModeOn?.Play();
-                Particles?.HoverModeSmoke?.ForEach(x => x?.Play());
+                Particles?.HoverModeSmoke?.Play();
             }
             else if (!Properties.IsFlying && !instant)
             {
@@ -298,7 +295,7 @@ namespace BackToTheFutureV
 
                 if (Vehicle.HeightAboveGround < 2 && !_landingSmoke)
                 {
-                    Particles?.HoverModeSmoke?.ForEach(x => x?.Play());
+                    Particles?.HoverModeSmoke?.Play();
                     _landingSmoke = true;
                 }
 

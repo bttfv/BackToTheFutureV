@@ -166,11 +166,9 @@ namespace BackToTheFutureV
             }
         }
 
-        public int FireTrailsAppearTime => (FireTrailsIs99 || Properties.IsFlying) ? -1 : 0;
+        public int FireTrailsAppearTime => (FireTrailsIs99 || Properties.IsFlying) ? 0 : 1;
 
-        public float FireTrailsDisappearTime => (FireTrailsIs99 || Properties.IsFlying) ? 1 : 15;
-
-        public bool FireTrailsUseBlue => Mods.WormholeType == WormholeType.BTTF1;
+        public int FireTrailsDisappearTime => (FireTrailsIs99 || Properties.IsFlying) ? 2 : 5;
 
         public bool FireTrailsIs99 => Properties.IsFlying && Properties.HasBeenStruckByLightning;
 

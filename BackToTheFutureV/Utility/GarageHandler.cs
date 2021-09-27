@@ -128,7 +128,7 @@ namespace BackToTheFutureV
 
         public static GarageStatus Status { get; private set; } = GarageStatus.Idle;
 
-        private static AudioPlayer garageSound = Main.CommonAudioEngine.Create("story/garage.wav", Presets.No3D);
+        private static readonly AudioPlayer garageSound = Main.CommonAudioEngine.Create("story/garage.wav", Presets.No3D);
 
         private static bool isTimeMachine;
 
@@ -237,7 +237,7 @@ namespace BackToTheFutureV
                             Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, false, false, true);
 
                             //SetupCamera(garageInfo.CreateInsideCamera());
-                            MenuHandler.GarageMenu.Open();
+                            MenuHandler.GarageMenu.Visible = true;
 
                             garageInfo.Lock();
                             Status = GarageStatus.Busy;
@@ -249,7 +249,7 @@ namespace BackToTheFutureV
                             break;
 
                         FusionUtils.HideGUI = false;
-                        TimeMachineHandler.CurrentTimeMachine?.Particles.IceSmoke?.StopNaturally();
+                        TimeMachineHandler.CurrentTimeMachine?.Particles.IceSmoke?.Stop();
                         DestroyCamera();
 
                         Status = GarageStatus.Idle;

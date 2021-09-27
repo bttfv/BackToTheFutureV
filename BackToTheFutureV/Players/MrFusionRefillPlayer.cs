@@ -16,12 +16,12 @@ namespace BackToTheFutureV
         public MrFusionRefillPlayer(TimeMachine timeMachine) : base(timeMachine)
         {
             _mrFusion = new AnimateProp(ModelHandler.BTTFMrFusion, Vehicle, "mr_fusion");
-            _mrFusion[AnimationType.Rotation][AnimationStep.First][Coordinate.X].Setup(true, false, -70, 0, 1, 140, 1);
+            _mrFusion[AnimationType.Rotation][AnimationStep.First][Coordinate.X].Setup(true, false, -70, 0, 1, 140, 1, false);
             _mrFusion.OnAnimCompleted += _mrFusion_OnAnimCompleted;
             _mrFusion.SpawnProp();
 
             _mrFusionHandle = new AnimateProp(ModelHandler.BTTFMrFusionHandle, Vehicle, "mr_fusion_handle");
-            _mrFusionHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.X].Setup(true, true, 0, 30, 1, 140, 1);
+            _mrFusionHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.X].Setup(true, true, 0, 30, 1, 140, 1, false);
             _mrFusionHandle.OnAnimCompleted += _mrFusionHandle_OnAnimCompleted;
             _mrFusionHandle.SpawnProp();
 
@@ -41,7 +41,7 @@ namespace BackToTheFutureV
                 _mrFusion.Play();
             else
             {
-                Particles.MrFusionSmoke?.StopNaturally();
+                Particles.MrFusionSmoke?.Stop();
 
                 IsPlaying = false;
                 OnPlayerCompleted?.Invoke();

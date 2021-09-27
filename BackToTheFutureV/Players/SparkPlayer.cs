@@ -17,7 +17,7 @@ namespace BackToTheFutureV
             _spark = new AnimateProp(Constants.SparkModel, Vehicle, _frames[0], Vector3.Zero);
         }
 
-        private AnimateProp _spark;
+        private readonly AnimateProp _spark;
 
         private readonly List<Vector3> _frames = new List<Vector3>();
 

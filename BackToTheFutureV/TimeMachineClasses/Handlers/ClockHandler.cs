@@ -78,7 +78,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (Properties.AlarmSet && FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 21, 30, 00), new DateTime(1955, 11, 12, 22, 3, 45)) && Properties.AlarmTime.Between(new DateTime(1955, 11, 12, 21, 30, 00), new DateTime(1955, 11, 12, 22, 3, 45)) && Vehicle.GetStreetHash() == ClocktowerMission.LightningRunStreet && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.Random.NextDouble() > 0.3f)
+            if (Properties.AlarmSet && FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 21, 30, 00), new DateTime(1955, 11, 12, 22, 3, 50)) && Properties.AlarmTime.Between(new DateTime(1955, 11, 12, 21, 30, 00), new DateTime(1955, 11, 12, 22, 3, 50)) && Vehicle.GetStreetInfo().Street == ClocktowerMission.LightningRunStreet && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.Random.NextDouble() > 0.3f)
                 Events.SetEngineStall?.Invoke(true);
 
             if (Properties.SyncWithCurTime)

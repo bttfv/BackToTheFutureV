@@ -22,9 +22,9 @@ namespace BackToTheFutureV
         private static List<TimeMachine> AllTimeMachines { get; } = new List<TimeMachine>();
         public static List<TimeMachine> TimeMachines => AllTimeMachines.Except(StoryTimeMachines).ToList();
 
-        private static List<TimeMachine> _timeMachinesToAdd = new List<TimeMachine>();
-        private static Dictionary<TimeMachine, bool> _timeMachinesToRemove = new Dictionary<TimeMachine, bool>();
-        private static Dictionary<TimeMachine, bool> _timeMachinesToRemoveWaitSounds = new Dictionary<TimeMachine, bool>();
+        private static readonly List<TimeMachine> _timeMachinesToAdd = new List<TimeMachine>();
+        private static readonly Dictionary<TimeMachine, bool> _timeMachinesToRemove = new Dictionary<TimeMachine, bool>();
+        private static readonly Dictionary<TimeMachine, bool> _timeMachinesToRemoveWaitSounds = new Dictionary<TimeMachine, bool>();
 
         public static int TimeMachineCount => TimeMachines.Count();
 

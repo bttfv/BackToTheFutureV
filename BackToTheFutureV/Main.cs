@@ -71,7 +71,7 @@ namespace BackToTheFutureV
                 ModelHandler.RequestModels();
 
                 //Disable fake shake of the cars.
-                Function.Call((Hash)0x84FD40F56075E816, 0);
+                Function.Call(Hash._​SET_​CAR_​HIGH_​SPEED_​BUMP_​SEVERITY_​MULTIPLIER, 0);
 
                 if (ModSettings.PersistenceSystem)
                 {

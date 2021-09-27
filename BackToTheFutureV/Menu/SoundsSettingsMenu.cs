@@ -6,10 +6,10 @@ namespace BackToTheFutureV
 {
     internal class SoundsSettingsMenu : BTTFVMenu
     {
-        private NativeCheckboxItem playFluxCapacitorSound;
-        private NativeCheckboxItem playDiodeSound;
-        private NativeCheckboxItem playSpeedoBeep;
-        private NativeCheckboxItem playEngineSounds;
+        private readonly NativeCheckboxItem playFluxCapacitorSound;
+        private readonly NativeCheckboxItem playDiodeSound;
+        private readonly NativeCheckboxItem playSpeedoBeep;
+        private readonly NativeCheckboxItem playEngineSounds;
 
         public SoundsSettingsMenu() : base("Sounds")
         {

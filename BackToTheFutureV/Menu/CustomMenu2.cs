@@ -9,14 +9,14 @@ namespace BackToTheFutureV
 {
     internal class CustomMenu2 : BTTFVMenu
     {
-        private NativeListItem<string> _wormholeType;
-        private NativeListItem<string> _wheelsType;
-        private NativeCheckboxItem _hook;
-        private NativeCheckboxItem _threeDigits;
-        private NativeListItem<string> _plate;
-        private NativeListItem<string> _exhaust;
-        private NativeListItem<string> _suspensions;
-        private NativeListItem<string> _hood;
+        private readonly NativeListItem<string> _wormholeType;
+        private readonly NativeListItem<string> _wheelsType;
+        private readonly NativeCheckboxItem _hook;
+        private readonly NativeCheckboxItem _threeDigits;
+        private readonly NativeListItem<string> _plate;
+        private readonly NativeListItem<string> _exhaust;
+        private readonly NativeListItem<string> _suspensions;
+        private readonly NativeListItem<string> _hood;
 
         private TimeMachine TimeMachine => TimeMachineHandler.CurrentTimeMachine;
 
@@ -166,10 +166,10 @@ namespace BackToTheFutureV
         public override void Menu_Shown(object sender, EventArgs e)
         {
             if (MenuHandler.MainMenu.Visible)
-                MenuHandler.MainMenu.Close();
+                MenuHandler.MainMenu.Visible = false;
 
             if (MenuHandler.TimeMachineMenu.Visible)
-                MenuHandler.TimeMachineMenu.Close();
+                MenuHandler.TimeMachineMenu.Visible = false;
 
             _hook.Enabled = TimeMachine.Mods.IsDMC12;
             _plate.Enabled = TimeMachine.Mods.IsDMC12;
@@ -209,7 +209,7 @@ namespace BackToTheFutureV
         {
             if (FusionUtils.PlayerVehicle != TimeMachine)
             {
-                Close();
+                Visible = false;
                 return;
             }
 

@@ -23,7 +23,7 @@ namespace BackToTheFutureV
         public Vector3 Position { get => Train.Position; set => Function.Call(Hash.SET_MISSION_TRAIN_COORDS, Train, value.X, value.Y, value.Z); }
         public int CarriageCount { get; }
 
-        private int _variation;
+        private readonly int _variation;
         private float _cruiseSpeed;
         private bool _setSpeed;
         private float _speed;
@@ -64,12 +64,12 @@ namespace BackToTheFutureV
 
             Train.IsPersistent = true;
 
-            Train.Decorator().DotNotDelete = true;
+            Train.Decorator().DoNotDelete = true;
 
             for (int i = 0; i <= CarriageCount; i++)
             {
                 Carriage(i).IsPersistent = true;
-                Carriage(i).Decorator().DotNotDelete = true;
+                Carriage(i).Decorator().DoNotDelete = true;
             }
 
             ToDestroy = false;

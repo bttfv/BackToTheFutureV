@@ -143,11 +143,11 @@ namespace BackToTheFutureV
         private int _nextFlicker;
 
         private int _nextSpark;
-        private List<SparkPlayer> _sparks;
+        private readonly List<SparkPlayer> _sparks;
 
-        private EmitterSparkPlayer _wheSpark;
-        private EmitterSparkPlayer _leftSpark;
-        private EmitterSparkPlayer _rightSpark;
+        private readonly EmitterSparkPlayer _wheSpark;
+        private readonly EmitterSparkPlayer _leftSpark;
+        private readonly EmitterSparkPlayer _rightSpark;
 
         private bool _playWormhole;
 
@@ -260,7 +260,7 @@ namespace BackToTheFutureV
 
             Mods.OffCoils = ModState.On;
 
-            Particles.Sparks?.StopNonLooped();
+            Particles.Sparks?.Stop();
 
             _sparks?.ForEach(x => x?.Stop());
 
@@ -270,9 +270,9 @@ namespace BackToTheFutureV
 
             _rightSpark.Stop();
 
-            Particles.WheelsFire?.ForEach(x => x?.Stop());
+            Particles.WheelsFire?.Stop();
 
-            Particles.WheelsSparks?.ForEach(x => x?.Stop());
+            Particles.WheelsSparks?.Stop();
 
             Scaleforms.WormholeRT?.DeleteProp();
         }
@@ -289,30 +289,16 @@ namespace BackToTheFutureV
             if (Properties.IsFueled || Properties.PhotoWormholeActive)
                 HandleSparks();
 
-            if (Mods.WormholeType != WormholeType.BTTF2 && !Properties.IsFlying)
-                Particles.WheelsFire.ForEach(x =>
-                {
-                    if (!x.IsPlaying)
-                        x.Play();
-
-                    x.Tick();
-                });
+            if (Mods.WormholeType != WormholeType.BTTF2 && !Properties.IsFlying && !Particles.WheelsFire.IsPlaying)
+                Particles.WheelsFire.Play();
 
             if (Mods.WormholeType == WormholeType.BTTF3)
             {
-                if (!Properties.IsFlying)
-                    Particles.WheelsSparks.ForEach(x =>
-                    {
-                        if (!x.IsPlaying)
-                            x.Play();
-
-                        x.Tick();
-                    });
+                if (!Properties.IsFlying && !Particles.WheelsSparks.IsPlaying)
+                    Particles.WheelsSparks.Play();
 
                 if (!Particles.Sparks.IsPlaying)
                     Particles.Sparks?.Play();
-
-                Particles.Sparks?.Tick();
             }
 
             // Some wormhole sparks logic.

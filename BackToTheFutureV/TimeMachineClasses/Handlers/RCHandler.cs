@@ -17,7 +17,7 @@ namespace BackToTheFutureV
         private Camera _camera;
         private Blip _blip;
 
-        private NativeInput rcHandbrake;
+        private readonly NativeInput rcHandbrake;
 
         private bool _forcedHandbrake = false;
         private bool _boostStarted = false;

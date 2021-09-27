@@ -7,15 +7,15 @@ namespace BackToTheFutureV
 {
     internal class PhotoMenu : BTTFVMenu
     {
-        private NativeCheckboxItem Wormhole;
-        private NativeCheckboxItem Coils;
-        private NativeCheckboxItem Ice;
-        private NativeCheckboxItem FluxCapacitor;
-        private NativeCheckboxItem EngineStall;
-        private NativeCheckboxItem SIDMax;
-        private NativeItem LightningStrike;
-        private NativeSliderItem StrikeDelay;
-        private NativeCheckboxItem HideHUD;
+        private readonly NativeCheckboxItem Wormhole;
+        private readonly NativeCheckboxItem Coils;
+        private readonly NativeCheckboxItem Ice;
+        private readonly NativeCheckboxItem FluxCapacitor;
+        private readonly NativeCheckboxItem EngineStall;
+        private readonly NativeCheckboxItem SIDMax;
+        private readonly NativeItem LightningStrike;
+        private readonly NativeSliderItem StrikeDelay;
+        private readonly NativeCheckboxItem HideHUD;
 
         private TimeMachine TimeMachine => TimeMachineHandler.CurrentTimeMachine;
 
@@ -43,7 +43,7 @@ namespace BackToTheFutureV
             if (sender == LightningStrike)
             {
                 TimeMachine.Events.StartLightningStrike?.Invoke(StrikeDelay.Value);
-                Close();
+                Visible = false;
             }
         }
 
@@ -90,7 +90,7 @@ namespace BackToTheFutureV
         {
             if (TimeMachineHandler.CurrentTimeMachine == null)
             {
-                Close();
+                Visible = false;
 
                 return;
             }

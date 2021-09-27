@@ -12,17 +12,17 @@ namespace BackToTheFutureV
 {
     internal class GarageMenu : BTTFVMenu
     {
-        private NativeItem transformInto;
-        private NativeItem hoverConvert;
-        private NativeItem installMrFusion;
-        private NativeItem buyPlutonium;
-        private NativeItem repairTC;
-        private NativeItem repairFC;
-        private NativeItem repairEngine;
+        private readonly NativeItem transformInto;
+        private readonly NativeItem hoverConvert;
+        private readonly NativeItem installMrFusion;
+        private readonly NativeItem buyPlutonium;
+        private readonly NativeItem repairTC;
+        private readonly NativeItem repairFC;
+        private readonly NativeItem repairEngine;
 
         public static AudioPlayer[] GarageSounds { get; } = { Main.CommonAudioEngine.Create("general/garage/tireChange.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill1.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill2.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill3.wav", Presets.No3D) };
 
-        private NativeSubmenuItem customMenu;
+        private readonly NativeSubmenuItem customMenu;
 
         public GarageMenu() : base("Garage")
         {
@@ -61,7 +61,7 @@ namespace BackToTheFutureV
                 //TimeMachineHandler.Create(FusionUtils.PlayerVehicle).Properties.ReactorCharge = 0;
                 Game.Player.Money -= 500000;
                 GarageHandler.Transform = true;
-                Close();
+                Visible = false;
             }
 
             if (sender == hoverConvert)
@@ -175,7 +175,7 @@ namespace BackToTheFutureV
         {
             if (!FusionUtils.PlayerVehicle.NotNullAndExists())
             {
-                Close();
+                Visible = false;
                 return;
             }
 

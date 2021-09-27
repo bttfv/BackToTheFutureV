@@ -2,7 +2,7 @@
 using GTA;
 using GTA.Math;
 using System;
-using System.Collections.Generic;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -52,30 +52,19 @@ namespace BackToTheFutureV
             new Vector3(-0.7550426f, 3.894026f, 0.1759465f)
         };
 
-        private List<PtfxPlayer> _fireTrailPtfxs = new List<PtfxPlayer>();
+        private readonly ParticlePlayerHandler _fireTrailPtfxs = new ParticlePlayerHandler();
 
-        private int _nextSpawn;
-        private int _currentSpawnIndex;
-        private int _appearTime;
+        private readonly int _appearTime;
+        private readonly int _disappearTime;
 
         private float _currentStrength;
-        private float _currentFadeIn;
-        private float _disappearAt = -1;
-        private float _disappearTime;
-        private float _fireSize;
 
-        private bool _is99;
-        private bool _hasSpawned;
-        private bool _useBlueFadein;
+        private bool _fadeAway;
 
-        public FireTrail(Vehicle vehicle, bool is99, float disappearTime, int appearTime, bool useBlueFadein, int maxLength)
+        public FireTrail(Vehicle vehicle, bool is99, int disappearTime, int appearTime, int maxLength)
         {
-            _is99 = is99;
             _disappearTime = disappearTime;
             _appearTime = appearTime;
-            _useBlueFadein = useBlueFadein;
-
-            _fireSize = 1.2f;
 
             if (!is99)
             {
@@ -103,20 +92,8 @@ namespace BackToTheFutureV
                     }
 
                     // Create and configure fire particle
-                    PtfxPlayer leftWheelPtfx = new PtfxPlayer("core", "fire_petrol_one", leftPosOffset, vehicle.Rotation, _fireSize, true, false);
-                    PtfxPlayer rightWheelPtfx = new PtfxPlayer("core", "fire_petrol_one", rightPosOffset, vehicle.Rotation, _fireSize, true, false);
-
-                    _currentStrength = 1f;
-                    _currentFadeIn = useBlueFadein ? 0.15f : 0f;
-
-                    _fireTrailPtfxs.Add(leftWheelPtfx);
-                    _fireTrailPtfxs.Add(rightWheelPtfx);
-                    foreach (PtfxPlayer ptfx in _fireTrailPtfxs)
-                    {
-                        ptfx.SetEvolutionParam("strength", 1f);
-                        ptfx.SetEvolutionParam("dist", 0f);
-                        ptfx.SetEvolutionParam("fadein", _currentFadeIn);
-                    }
+                    _fireTrailPtfxs.Add("core", "fire_petrol_one", ParticleType.Looped, leftPosOffset, vehicle.Rotation, 1.2f);
+                    _fireTrailPtfxs.Add("core", "fire_petrol_one", ParticleType.Looped, rightPosOffset, vehicle.Rotation, 1.2f);                    
                 }
             }
             else
@@ -131,87 +108,61 @@ namespace BackToTheFutureV
                     leftPosOffset = vehicle.GetOffsetPosition(leftPosOffset);
                     rightPosOffset = vehicle.GetOffsetPosition(rightPosOffset);
 
-                    PtfxPlayer leftWheelPtfx = new PtfxPlayer("core", "fire_petrol_one", leftPosOffset, vehicle.Rotation, _fireSize, true, false);
-                    PtfxPlayer rightWheelPtfx = new PtfxPlayer("core", "fire_petrol_one", rightPosOffset, vehicle.Rotation, _fireSize, true, false);
-
-                    _currentStrength = 1f;
-
-                    _fireTrailPtfxs.Add(leftWheelPtfx);
-                    _fireTrailPtfxs.Add(rightWheelPtfx);
-                    foreach (PtfxPlayer ptfx in _fireTrailPtfxs)
-                    {
-                        ptfx.SetEvolutionParam("strength", 1);
-                        ptfx.SetEvolutionParam("dist", 0f);
-                        ptfx.SetEvolutionParam("fadein", 0f);
-                    }
+                    _fireTrailPtfxs.Add("core", "fire_petrol_one", ParticleType.Looped, leftPosOffset, vehicle.Rotation, 1.2f);
+                    _fireTrailPtfxs.Add("core", "fire_petrol_one", ParticleType.Looped, rightPosOffset, vehicle.Rotation, 1.2f);
                 }
             }
 
-            if (_appearTime == -1)
+            GTA.UI.Screen.ShowSubtitle($"{maxLength} {_fireTrailPtfxs.ParticlePlayers.Count}");
+
+            _currentStrength = 1f;
+
+            _fireTrailPtfxs.SetEvolutionParam("strength", _currentStrength);
+            _fireTrailPtfxs.SetEvolutionParam("dist", 0f);
+            _fireTrailPtfxs.SetEvolutionParam("fadein", 0f);
+
+            _fireTrailPtfxs.SequenceInterval = _appearTime;
+
+            _fireTrailPtfxs.OnParticleSequenceCompleted += _fireTrailPtfxs_OnParticleSequenceCompleted;
+
+            _fireTrailPtfxs.Play();
+
+            if (_appearTime == 0)
             {
-                _hasSpawned = true;
-                _currentSpawnIndex = 0;
-                _fireTrailPtfxs.ForEach(x => x.Play());
-            }
-            else
-            {
-                _hasSpawned = false;
-                _currentSpawnIndex = 0;
-            }
+                _fireTrailPtfxs.SequenceInterval = 1;
+                _fireTrailPtfxs.StopInSequence();
+                _fadeAway = true;
+            }                
+        }
+
+        private void _fireTrailPtfxs_OnParticleSequenceCompleted(bool isStop)
+        {
+            if (!isStop)
+                _fadeAway = true;
         }
 
         public void Tick()
         {
-            if (_fireTrailPtfxs.Count > 0)
+            if (!_fireTrailPtfxs.IsPlaying || !_fadeAway)
+                return;
+
+            if (_currentStrength > 0)
             {
-                if (!_hasSpawned && Game.GameTime > _nextSpawn)
-                {
-                    if (_currentSpawnIndex > (_fireTrailPtfxs.Count - 1))
-                    {
-                        _hasSpawned = true;
-                        _currentSpawnIndex = 0;
-                    }
-                    else
-                    {
-                        _fireTrailPtfxs[_currentSpawnIndex].Play();
-
-                        _currentSpawnIndex++;
-                        _nextSpawn = Game.GameTime + _appearTime;
-                    }
-                    return;
-                }
-
-                float amountToSub = (1f * Game.LastFrameTime) / (_disappearTime * 0.75f);
-                _currentStrength -= amountToSub;
+                _currentStrength -= Game.LastFrameTime * (1f / _disappearTime);
 
                 if (_currentStrength < 0)
                     _currentStrength = 0;
 
-                _fireTrailPtfxs.ForEach(x => x.SetEvolutionParam("strength", _currentStrength));
-
-                if (_useBlueFadein)
-                {
-                    amountToSub = (0.15f * Game.LastFrameTime) / _disappearTime;
-                    _currentFadeIn -= amountToSub;
-
-                    if (_currentFadeIn < 0)
-                        _currentFadeIn = 0;
-
-                    _fireTrailPtfxs.ForEach(x => x.SetEvolutionParam("fadein", _currentFadeIn));
-                }
-
-                if (_currentStrength <= 0 && _disappearAt == -1)
-                    _disappearAt = Game.GameTime + 5000;
-                else if (_currentStrength <= 0 && Game.GameTime > _disappearAt)
-                    Stop();
+                _fireTrailPtfxs.SetEvolutionParam("strength", _currentStrength);
             }
+
+            if (_currentStrength == 0)
+                Stop(false);
         }
 
-        public void Stop()
+        public void Stop(bool instant = true)
         {
-            _fireTrailPtfxs.ForEach(x => x.RemovePtfx(x.Handle));
-            _fireTrailPtfxs.ForEach(x => x.Dispose());
-            _fireTrailPtfxs.Clear();
+            _fireTrailPtfxs.Stop(instant);
         }
     }
 }

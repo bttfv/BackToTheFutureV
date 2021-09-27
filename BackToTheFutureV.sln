@@ -5,10 +5,6 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackToTheFutureV", "BackToTheFutureV\BackToTheFutureV.csproj", "{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlangRageAudioLibrary", "KlangRageAudioLibrary\KlangRageAudioLibrary.csproj", "{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FusionLibrary", "FusionLibrary\FusionLibrary.csproj", "{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,22 +21,6 @@ Global
 		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Release|x64.ActiveCfg = Release|Any CPU
 		{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}.Release|x64.Build.0 = Release|Any CPU
-		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Debug|x64.ActiveCfg = Debug|x64
-		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Debug|x64.Build.0 = Debug|x64
-		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Release|x64.ActiveCfg = Release|x64
-		{E52DB215-0AA9-453A-B5F3-91F3FF35C1D9}.Release|x64.Build.0 = Release|x64
-		{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}.Debug|x64.Build.0 = Debug|Any CPU
-		{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}.Release|x64.ActiveCfg = Release|Any CPU
-		{F5AAD1BD-63CA-4A12-97A8-F0D876AB4462}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -20,7 +20,7 @@ namespace BackToTheFutureV
         private float _reactorGlowingTime = 0;
         private float _refuelTime = 0;
 
-        private NativeInput InteractPressed;
+        private readonly NativeInput InteractPressed;
 
         private TaskSequence refuelSequence;
 

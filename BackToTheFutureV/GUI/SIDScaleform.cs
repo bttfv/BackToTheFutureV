@@ -10,7 +10,7 @@ namespace BackToTheFutureV
         private PropertiesHandler Properties => TimeMachineHandler.ClosestTimeMachine.Properties;
 
         private static PointF SID3DLocation = new PointF() { X = 0.626f, Y = 0.626f };
-        private static float SID3DScale = 1.284f;
+        private static readonly float SID3DScale = 1.284f;
 
         public SIDScaleform(bool is2D) : base(is2D ? "bttf_2d_sid" : "bttf_3d_sid")
         {

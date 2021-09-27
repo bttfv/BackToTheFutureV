@@ -10,7 +10,7 @@ namespace BackToTheFutureV
 {
     internal class PresetsMenu : BTTFVMenu
     {
-        private InstrumentalMenu _instrumentalMenu;
+        private readonly InstrumentalMenu _instrumentalMenu;
 
         public PresetsMenu() : base("Presets")
         {
@@ -30,7 +30,7 @@ namespace BackToTheFutureV
             else
                 TimeMachineHandler.Create(sender.Title, SpawnFlags.NoPosition | SpawnFlags.NoOccupants | SpawnFlags.NoProperties | SpawnFlags.NoVelocity | SpawnFlags.WarpPlayer);
 
-            Close();
+            Visible = false;
         }
 
         public override void Menu_Shown(object sender, EventArgs e)
@@ -70,9 +70,9 @@ namespace BackToTheFutureV
 
             if (Game.IsControlJustPressed(Control.PhoneExtraOption))
             {
-                Close();
+                Visible = false;
 
-                MenuHandler.CustomMenuPresets.Open();
+                MenuHandler.CustomMenuPresets.Visible = true;
             }
         }
 

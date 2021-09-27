@@ -1,8 +1,8 @@
 ﻿using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Native;
 using static BackToTheFutureV.InternalEnums;
-using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -20,6 +20,8 @@ namespace BackToTheFutureV
 
             if (IsDMC12)
             {
+                Function.Call(Hash._SET_HYDRAULIC_RAISED, Vehicle, false);
+
                 Vehicle.ToggleExtra(10, true);
 
                 Vehicle.Mods.PrimaryColor = VehicleColor.BrushedAluminium;
@@ -82,22 +84,20 @@ namespace BackToTheFutureV
                 switch (value)
                 {
                     case SuspensionsType.Stock:
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0f);
 
-                        Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, false);
-                        Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, false);
+                        Function.Call(Hash._SET_CAMBERED_WHEELS_DISABLED, Vehicle, false);                        
                         break;
                     default:
-                        Function.Call((Hash)0x1201E8A3290A3B98, Vehicle, true);
-                        Function.Call((Hash)0x28B18377EB6E25F6, Vehicle, true);
-
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontLeft, 0f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.FrontRight, 0f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearLeft, 0f);
-                        FusionUtils.LiftUpWheel(Vehicle, WheelId.RearRight, 0f);
+                        Function.Call(Hash._SET_CAMBERED_WHEELS_DISABLED, Vehicle, true);
+                        
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0f);
                         break;
                 }
             }

@@ -10,7 +10,7 @@ namespace BackToTheFutureV
 {
     internal class TCDHandler : HandlerPrimitive
     {
-        private static DateTime errorDate = new DateTime(1885, 1, 1, 0, 0, 0);
+        private static readonly DateTime errorDate = new DateTime(1885, 1, 1, 0, 0, 0);
 
         private static readonly Dictionary<int, double> _probabilities = new Dictionary<int, double>()
         {
@@ -42,14 +42,14 @@ namespace BackToTheFutureV
 
         private int nextCheckGlitch;
 
-        private TimedEventHandler glitchEvents = new TimedEventHandler();
+        private readonly TimedEventHandler glitchEvents = new TimedEventHandler();
         private bool softGlitch;
 
         private bool doGlitch;
 
-        private TCD3DRowHandler destinationSlot;
-        private TCD3DRowHandler presentSlot;
-        private TCD3DRowHandler previousSlot;
+        private readonly TCD3DRowHandler destinationSlot;
+        private readonly TCD3DRowHandler presentSlot;
+        private readonly TCD3DRowHandler previousSlot;
 
         private bool currentState;
 

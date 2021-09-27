@@ -11,10 +11,10 @@ namespace BackToTheFutureV
 {
     internal class RCMenu : BTTFVMenu
     {
-        private NativeListItem<TimeMachine> timeMachinesList;
-        private NativeCheckboxItem FuelChamberDescription;
-        private NativeCheckboxItem TimeCircuitsOnDescription;
-        private NativeItem DestinationTimeDescription;
+        private readonly NativeListItem<TimeMachine> timeMachinesList;
+        private readonly NativeCheckboxItem FuelChamberDescription;
+        private readonly NativeCheckboxItem TimeCircuitsOnDescription;
+        private readonly NativeItem DestinationTimeDescription;
 
         private TimeMachine CurrentTimeMachine => timeMachinesList.SelectedItem;
         private Camera CarCam { get; set; }
@@ -48,7 +48,7 @@ namespace BackToTheFutureV
             {
                 if (CanBeSelected)
                 {
-                    Close();
+                    Visible = false;
 
                     RemoteTimeMachineHandler.StartRemoteControl(CurrentTimeMachine);
                 }
@@ -111,7 +111,7 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (FusionUtils.PlayerVehicle != null)
-                Close();
+                Visible = false;
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
