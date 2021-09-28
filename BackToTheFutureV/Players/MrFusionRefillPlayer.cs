@@ -17,12 +17,12 @@ namespace BackToTheFutureV
         {
             _mrFusion = new AnimateProp(ModelHandler.BTTFMrFusion, Vehicle, "mr_fusion");
             _mrFusion[AnimationType.Rotation][AnimationStep.First][Coordinate.X].Setup(true, false, -70, 0, 1, 140, 1, false);
-            _mrFusion.OnAnimCompleted += _mrFusion_OnAnimCompleted;
+            _mrFusion.OnAnimCompleted += MrFusion_OnAnimCompleted;
             _mrFusion.SpawnProp();
 
             _mrFusionHandle = new AnimateProp(ModelHandler.BTTFMrFusionHandle, Vehicle, "mr_fusion_handle");
             _mrFusionHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.X].Setup(true, true, 0, 30, 1, 140, 1, false);
-            _mrFusionHandle.OnAnimCompleted += _mrFusionHandle_OnAnimCompleted;
+            _mrFusionHandle.OnAnimCompleted += MrFusionHandle_OnAnimCompleted;
             _mrFusionHandle.SpawnProp();
 
             _mrfusionOpen = Sounds.AudioEngine.Create("general/mrfusionOpen.wav", Presets.Exterior);
@@ -35,7 +35,7 @@ namespace BackToTheFutureV
             _mrfusionClosed.SourceBone = "mr_fusion";
         }
 
-        private void _mrFusionHandle_OnAnimCompleted(AnimationStep animationStep)
+        private void MrFusionHandle_OnAnimCompleted(AnimationStep animationStep)
         {
             if (Properties.ReactorState == ReactorState.Opened)
             {
@@ -50,7 +50,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void _mrFusion_OnAnimCompleted(AnimationStep animationStep)
+        private void MrFusion_OnAnimCompleted(AnimationStep animationStep)
         {
             if (Properties.ReactorState == ReactorState.Closed)
             {

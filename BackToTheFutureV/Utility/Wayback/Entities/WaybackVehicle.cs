@@ -109,7 +109,7 @@ namespace BackToTheFutureV
                 spawnFlags |= SpawnFlags.NoPosition;
             }
 
-            TimeMachine timeMachine = null;
+            TimeMachine timeMachine;
 
             if (!IsTimeMachine || !Properties.IsOnTracks)
             {

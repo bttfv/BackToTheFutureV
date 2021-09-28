@@ -120,7 +120,7 @@ namespace BackToTheFutureV
 
             //Hover Mode            
             HoverModeWheelsGlow = new AnimatePropsHandler();
-            foreach (CVehicleWheel wheel in Mods.Wheels)
+            for (int i = 0; i < Vehicle.Wheels.Count; i++)
             {
                 HoverModeWheelsGlow.Add(new AnimateProp(ModelHandler.HoverGlowing, null, Vector3.Zero, new Vector3(0, 90, 0))
                 {
@@ -192,7 +192,7 @@ namespace BackToTheFutureV
 
             //Bulova clock
             BulovaClockHour = new AnimateProp(ModelHandler.BulovaClockHour, Vehicle, "bulova_clock_ring_hands");
-            BulovaClockHour.setOffset(new Vector3(0, 0.001f, 0));
+            BulovaClockHour.SetOffset(new Vector3(0, 0.001f, 0));
             BulovaClockHour.SpawnProp();
             BulovaClockMinute = new AnimateProp(ModelHandler.BulovaClockMinute, Vehicle, "bulova_clock_ring_hands");
             BulovaClockMinute.SpawnProp();

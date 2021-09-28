@@ -123,7 +123,7 @@ namespace BackToTheFutureV
 
         public static int[] ConvertDateToInt(DateTime dateTime)
         {
-            return new int[] { Convert.ToInt32($"9{dateTime.ToString("MMyyyy")}"), Convert.ToInt32($"9{dateTime.ToString("ddhhmm")}") };
+            return new int[] { Convert.ToInt32($"9{dateTime:MMyyyy}"), Convert.ToInt32($"9{dateTime:ddhhmm}") };
         }
 
         public static DateTime ConvertIntToDate(int dateTime1, int dateTime2)

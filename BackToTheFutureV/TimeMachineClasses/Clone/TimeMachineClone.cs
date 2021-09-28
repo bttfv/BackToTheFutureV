@@ -50,7 +50,7 @@ namespace BackToTheFutureV
         {
             if (!name.ToLower().EndsWith(".dmc12"))
             {
-                name = name + ".dmc12";
+                name += ".dmc12";
             }
 
             name = FusionUtils.RemoveIllegalFileNameChars(name);
@@ -72,7 +72,7 @@ namespace BackToTheFutureV
         {
             if (!name.ToLower().EndsWith(".dmc12"))
             {
-                name = name + ".dmc12";
+                name += ".dmc12";
             }
 
             return File.Exists($"{PresetsPath}/{name}");
@@ -92,7 +92,7 @@ namespace BackToTheFutureV
         {
             if (!name.ToLower().EndsWith(".dmc12"))
             {
-                name = name + ".dmc12";
+                name += ".dmc12";
             }
 
             File.Delete($"{PresetsPath}/{name}");
@@ -112,12 +112,12 @@ namespace BackToTheFutureV
         {
             if (!name.ToLower().EndsWith(".dmc12"))
             {
-                name = name + ".dmc12";
+                name += ".dmc12";
             }
 
             if (!newName.ToLower().EndsWith(".dmc12"))
             {
-                newName = newName + ".dmc12";
+                newName += ".dmc12";
             }
 
             File.Move($"{PresetsPath}/{name}", $"{PresetsPath}/{newName}");
@@ -127,7 +127,7 @@ namespace BackToTheFutureV
         {
             if (!name.ToLower().EndsWith(".dmc12"))
             {
-                name = name + ".dmc12";
+                name += ".dmc12";
             }
 
             Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Open, FileAccess.Read);

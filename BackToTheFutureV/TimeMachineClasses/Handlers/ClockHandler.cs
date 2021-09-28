@@ -279,13 +279,13 @@ namespace BackToTheFutureV
 
             if (IsPlaying)
             {
-                Props.BulovaClockMinute.setRotation(Coordinate.Y, tempTime.Minute * 6 + (TimeHandler.RealTime ? tempTime.Second * 0.1f : 0));
-                Props.BulovaClockHour.setRotation(Coordinate.Y, tempTime.Hour * 30 + tempTime.Minute * 0.5f);
+                Props.BulovaClockMinute.SetRotation(Coordinate.Y, tempTime.Minute * 6 + (TimeHandler.RealTime ? tempTime.Second * 0.1f : 0));
+                Props.BulovaClockHour.SetRotation(Coordinate.Y, tempTime.Hour * 30 + tempTime.Minute * 0.5f);
             }
             else
             {
-                Props.BulovaClockMinute.setRotation(Coordinate.Y, Properties.ClockTime.Minute * 6 + (TimeHandler.RealTime ? Properties.ClockTime.Second * 0.1f : 0));
-                Props.BulovaClockHour.setRotation(Coordinate.Y, Properties.ClockTime.Hour * 30 + Properties.ClockTime.Minute * 0.5f);
+                Props.BulovaClockMinute.SetRotation(Coordinate.Y, Properties.ClockTime.Minute * 6 + (TimeHandler.RealTime ? Properties.ClockTime.Second * 0.1f : 0));
+                Props.BulovaClockHour.SetRotation(Coordinate.Y, Properties.ClockTime.Hour * 30 + Properties.ClockTime.Minute * 0.5f);
             }
         }
 

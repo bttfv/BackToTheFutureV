@@ -5,7 +5,7 @@ namespace BackToTheFutureV
 {
     internal static class TrashHandler
     {
-        private static Model[] dumpsterModels { get; } = new Model[]
+        private static Model[] DumpsterModels { get; } = new Model[]
         {
             new Model("prop_bin_01a"),
             new Model("prop_bin_02a"),
@@ -62,7 +62,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            Prop dumpster = World.GetClosestProp(FusionUtils.PlayerPed.Position, 1.6f, dumpsterModels);
+            Prop dumpster = World.GetClosestProp(FusionUtils.PlayerPed.Position, 1.6f, DumpsterModels);
 
             if (dumpster == null || !Game.IsControlJustPressed(Control.Context))
             {

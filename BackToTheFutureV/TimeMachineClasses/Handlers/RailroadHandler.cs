@@ -129,20 +129,20 @@ namespace BackToTheFutureV
 
             customTrain.SetPosition(Vehicle.GetOffsetPosition(offset: Vector3.Zero.GetSingleOffset(Coordinate.Y, -1)));
 
-            customTrain.OnVehicleAttached += customTrain_OnVehicleAttached;
-            customTrain.OnTrainDeleted += customTrain_OnTrainDeleted;
+            customTrain.OnVehicleAttached += CustomTrain_OnVehicleAttached;
+            customTrain.OnTrainDeleted += CustomTrain_OnTrainDeleted;
         }
 
-        private void customTrain_OnTrainDeleted()
+        private void CustomTrain_OnTrainDeleted()
         {
-            customTrain.OnTrainDeleted -= customTrain_OnTrainDeleted;
-            customTrain.OnVehicleAttached -= customTrain_OnVehicleAttached;
+            customTrain.OnTrainDeleted -= CustomTrain_OnTrainDeleted;
+            customTrain.OnVehicleAttached -= CustomTrain_OnVehicleAttached;
             customTrain = null;
 
             Stop();
         }
 
-        private void customTrain_OnVehicleAttached()
+        private void CustomTrain_OnVehicleAttached()
         {
             customTrain.DisableToDestroy();
 
@@ -277,8 +277,8 @@ namespace BackToTheFutureV
                     customTrain.DetachTargetVehicle();
                 }
 
-                customTrain.OnVehicleAttached -= customTrain_OnVehicleAttached;
-                customTrain.OnTrainDeleted -= customTrain_OnTrainDeleted;
+                customTrain.OnVehicleAttached -= CustomTrain_OnVehicleAttached;
+                customTrain.OnTrainDeleted -= CustomTrain_OnTrainDeleted;
 
                 if (customTrain.Exists)
                 {

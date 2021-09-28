@@ -23,7 +23,6 @@ namespace BackToTheFutureV
             }
         }
 
-        private PedGroup Peds { get; set; }
         private TimeMachine TimeMachine;
 
         private int step = -1;
@@ -49,7 +48,6 @@ namespace BackToTheFutureV
                 plutoniumBlip.Delete();
             }
 
-            Peds = null;
             step = -1;
         }
 
@@ -96,7 +94,7 @@ namespace BackToTheFutureV
             Shooter.Weapons.Give(WeaponHash.Pistol, 999, true, true);
             Shooter.Task.VehicleShootAtPed(TargetPed);
 
-            Peds = new PedGroup
+            PedGroup peds = new PedGroup
             {
                 { Driver, true },
                 { Shooter, false }

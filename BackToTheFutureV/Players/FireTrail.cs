@@ -113,8 +113,6 @@ namespace BackToTheFutureV
                 }
             }
 
-            GTA.UI.Screen.ShowSubtitle($"{maxLength} {_fireTrailPtfxs.ParticlePlayers.Count}");
-
             _currentStrength = 1f;
 
             _fireTrailPtfxs.SetEvolutionParam("strength", _currentStrength);
@@ -123,7 +121,7 @@ namespace BackToTheFutureV
 
             _fireTrailPtfxs.SequenceInterval = _appearTime;
 
-            _fireTrailPtfxs.OnParticleSequenceCompleted += _fireTrailPtfxs_OnParticleSequenceCompleted;
+            _fireTrailPtfxs.OnParticleSequenceCompleted += FireTrailPtfxs_OnParticleSequenceCompleted;
 
             _fireTrailPtfxs.Play();
 
@@ -135,7 +133,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void _fireTrailPtfxs_OnParticleSequenceCompleted(bool isStop)
+        private void FireTrailPtfxs_OnParticleSequenceCompleted(bool isStop)
         {
             if (!isStop)
             {

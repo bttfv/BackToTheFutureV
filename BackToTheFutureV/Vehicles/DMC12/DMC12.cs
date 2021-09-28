@@ -93,20 +93,20 @@ namespace BackToTheFutureV
             suspensionRightFront.SpawnProp();
             suspensionRightRear.SpawnProp();
 
-            SetStockSuspensions += dSetStockSuspensions;
-            SetVoltValue += dSetVoltValue;
+            SetStockSuspensions += DSetStockSuspensions;
+            SetVoltValue += DSetVoltValue;
 
             spawnSuspension = true;
 
             DMC12Handler.AddDelorean(this);
         }
 
-        private void dSetVoltValue(float value)
+        private void DSetVoltValue(float value)
         {
             voltLevel = value;
         }
 
-        private void dSetStockSuspensions(bool state)
+        private void DSetStockSuspensions(bool state)
         {
             spawnSuspension = state;
         }
@@ -150,9 +150,9 @@ namespace BackToTheFutureV
                 return;
             }
 
-            float fuelLevel = FusionUtils.Clamp(Vehicle.FuelLevel, Vehicle.HandlingData.PetrolTankVolume, 100);
-            float oilLevel = FusionUtils.Clamp(Vehicle.OilLevel, Vehicle.OilVolume, 100);
-            float tempLevel = FusionUtils.Clamp(Vehicle.EngineTemperature, 190, 100);
+            float fuelLevel = Vehicle.FuelLevel.Remap(0, Vehicle.HandlingData.PetrolTankVolume, 0, 100);
+            float oilLevel = Vehicle.OilLevel.Remap(0, Vehicle.HandlingData.OilVolume, 0, 100);
+            float tempLevel = Vehicle.EngineTemperature.Remap(0, 190, 0, 100);
 
             if (Vehicle.IsEngineRunning)
             {

@@ -133,9 +133,7 @@ namespace BackToTheFutureV
 
                         foreach (ParticlePlayer waterDrop in Particles?.IceWaterDrops)
                         {
-                            UpdateDoorIce(waterDrop.BoneName.Contains("left")
-                                ? VehicleDoorIndex.FrontLeftDoor
-                                : VehicleDoorIndex.FrontRightDoor, waterDrop);
+                            UpdateDoorIce(waterDrop);
                         }
 
                         Sounds.Ice?.Play();
@@ -192,7 +190,7 @@ namespace BackToTheFutureV
                     break;
             }
         }
-        private void UpdateDoorIce(VehicleDoorIndex doorIndex, ParticlePlayer waterDrop)
+        private void UpdateDoorIce(ParticlePlayer waterDrop)
         {
             if (waterDrop.IsPlaying)
             {

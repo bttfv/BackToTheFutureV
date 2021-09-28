@@ -277,7 +277,7 @@ namespace BackToTheFutureV
                     WheelsRotations[i] *= -1;
                 }
 
-                Wheels[i].setRotation(Coordinate.X, WheelsRotations[i], true);
+                Wheels[i].SetRotation(Coordinate.X, WheelsRotations[i], true);
             }
         }
 

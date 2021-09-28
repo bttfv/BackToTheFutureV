@@ -34,7 +34,6 @@ namespace BackToTheFutureV
         }
         public int CarriageCount { get; }
 
-        private readonly int _variation;
         private float _cruiseSpeed;
         private bool _setSpeed;
         private float _speed;
@@ -108,8 +107,6 @@ namespace BackToTheFutureV
         {
             Direction = direction;
             Train = Function.Call<Vehicle>(Hash.CREATE_MISSION_TRAIN, variation, position.X, position.Y, position.Z, direction);
-
-            _variation = variation;
 
             CruiseSpeed = 0;
             Speed = 0;

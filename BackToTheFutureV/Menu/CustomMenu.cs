@@ -41,7 +41,7 @@ namespace BackToTheFutureV
             _wheelsType.ItemChanged += ModList_ItemChanged;
 
             _hoverUnderbody = NewCheckboxItem("Hover");
-            _hoverUnderbody.Selected += _hoverUnderbody_Selected;
+            _hoverUnderbody.Selected += HoverUnderbody_Selected;
 
             _hoodBox = NewCheckboxItem("ControlTubes");
 
@@ -66,7 +66,7 @@ namespace BackToTheFutureV
             _confirm = NewItem("Confirm");
         }
 
-        private void _hoverUnderbody_Selected(object sender, SelectedEventArgs e)
+        private void HoverUnderbody_Selected(object sender, SelectedEventArgs e)
         {
             if (!_hoverUnderbody.Enabled && _tempTimeMachine.Properties.AreFlyingCircuitsBroken)
             {
