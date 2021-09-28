@@ -25,7 +25,9 @@ namespace BackToTheFutureV
             Vehicle vehicle = ped.GetUsingVehicle();
 
             if (!vehicle.NotNullAndExists())
+            {
                 return;
+            }
 
             Vehicle = new WaybackVehicle(vehicle);
         }
@@ -37,7 +39,9 @@ namespace BackToTheFutureV
             Vehicle vehicle = null;
 
             if (Vehicle != null)
+            {
                 vehicle = Vehicle.Apply(nextRecord.Vehicle?.Replica, adjustedRatio, ped);
+            }
 
             Ped.Apply(ped, vehicle, nextRecord.Ped.Replica, adjustedRatio);
         }
@@ -49,7 +53,9 @@ namespace BackToTheFutureV
             Ped ped = World.GetClosestPed(FusionUtils.Lerp(Ped.Replica.Position, nextRecord.Ped.Replica.Position, adjustedRatio), 3, Ped.Replica.Model);
 
             if (ped.NotNullAndExists() && ped != FusionUtils.PlayerPed)
+            {
                 return ped;
+            }
 
             return Ped.Replica.Spawn(FusionUtils.Lerp(Ped.Replica.Position, nextRecord.Ped.Replica.Position, adjustedRatio), FusionUtils.Lerp(Ped.Replica.Heading, nextRecord.Ped.Replica.Heading, adjustedRatio));
         }

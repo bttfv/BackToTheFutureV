@@ -23,7 +23,14 @@ namespace BackToTheFutureV
         public bool IsOnTracks { get; }
 
         public TimeMachine TimeMachine { get; private set; }
-        public bool Spawned => TimeMachine.IsFunctioning();
+        public bool Spawned
+        {
+            get
+            {
+                return TimeMachine.IsFunctioning();
+            }
+        }
+
         public bool IsUsed { get; private set; }
         public bool WarningMessageShowed { get; private set; }
 
@@ -46,18 +53,26 @@ namespace BackToTheFutureV
             TimeMachine = TimeMachineHandler.Create(SpawnFlags, WormholeType, Position, Heading);
 
             if (IsOnTracks)
+            {
                 TimeMachine.Mods.Wheel = WheelType.RailroadInvisible;
+            }
 
             if (DestinationTime != default)
+            {
                 TimeMachine.Properties.DestinationTime = DestinationTime;
+            }
 
             if (PreviousTime != default)
+            {
                 TimeMachine.Properties.PreviousTime = PreviousTime;
+            }
 
             TimeMachine.Vehicle.IsInvincible = IsInvincible;
 
             if (SpawnFlags.HasFlag(SpawnFlags.Broken))
+            {
                 TimeMachine.Vehicle.DirtLevel = 15.0f;
+            }
 
             TimeMachineHandler.AddStory(TimeMachine);
 
@@ -72,7 +87,9 @@ namespace BackToTheFutureV
         public void Tick()
         {
             if (!Spawned && IsUsed)
+            {
                 IsUsed = false;
+            }
 
             if (Spawned && !IsUsed)
             {
@@ -90,7 +107,9 @@ namespace BackToTheFutureV
                 if (FusionUtils.PlayerPed.DistanceToSquared2D(TimeMachine, 4.47f))
                 {
                     if (TimeMachine.Properties.Story)
+                    {
                         TimeMachineHandler.RemoveStory(TimeMachine);
+                    }
 
                     if (!WarningMessageShowed && TimeMachine.Constants.FullDamaged)
                     {
@@ -103,19 +122,27 @@ namespace BackToTheFutureV
                         string ret = TextHandler.GetLocalizedText("Buried");
 
                         if (years != 0 && months != 0 && days != 0)
+                        {
                             ret = string.Format(ret, $"{years} {TextHandler.GetLocalizedText("Years")}, {months} {TextHandler.GetLocalizedText("Months")} {TextHandler.GetLocalizedText("And")} {days} {TextHandler.GetLocalizedText("Days")}");
+                        }
                         else
                         {
                             if (years != 0 && months != 0)
+                            {
                                 ret = string.Format(ret, $"{years} {TextHandler.GetLocalizedText("Years")} {TextHandler.GetLocalizedText("And")} {months} {TextHandler.GetLocalizedText("Months")}");
+                            }
                             else
                             {
                                 if (years != 0 && days != 0)
+                                {
                                     ret = string.Format(ret, $"{years} {TextHandler.GetLocalizedText("Years")} {TextHandler.GetLocalizedText("And")} {days} {TextHandler.GetLocalizedText("Days")}");
+                                }
                                 else
                                 {
                                     if (months != 0 && days != 0)
+                                    {
                                         ret = string.Format(ret, $"{months} {TextHandler.GetLocalizedText("Months")} {TextHandler.GetLocalizedText("And")} {days} {TextHandler.GetLocalizedText("Days")}");
+                                    }
                                 }
                             }
                         }
@@ -125,7 +152,9 @@ namespace BackToTheFutureV
                     }
                 }
                 else if (!TimeMachine.Properties.Story)
+                {
                     TimeMachineHandler.AddStory(TimeMachine);
+                }
             }
 
             if (Spawned && !IsUsed && FusionUtils.PlayerPed.IsInVehicle(TimeMachine))
@@ -143,7 +172,9 @@ namespace BackToTheFutureV
             }
 
             if (Exists(FusionUtils.CurrentTime) && !Spawned)
+            {
                 Spawn();
+            }
         }
     }
 }

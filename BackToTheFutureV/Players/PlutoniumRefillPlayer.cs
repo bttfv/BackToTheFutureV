@@ -33,9 +33,13 @@ namespace BackToTheFutureV
             if (Properties.ReactorState == ReactorState.Opened)
             {
                 if (animationStep == AnimationStep.First)
+                {
                     plutoniumCap.Play(AnimationStep.Second);
+                }
                 else if (animationStep == AnimationStep.Second)
+                {
                     plutoniumCap.Play(AnimationStep.Third);
+                }
                 else
                 {
                     IsPlaying = false;
@@ -45,9 +49,13 @@ namespace BackToTheFutureV
             else
             {
                 if (animationStep == AnimationStep.Third)
+                {
                     plutoniumCap.Play(AnimationStep.Second);
+                }
                 else if (animationStep == AnimationStep.Second)
+                {
                     plutoniumCap.Play();
+                }
                 else
                 {
                     IsPlaying = false;

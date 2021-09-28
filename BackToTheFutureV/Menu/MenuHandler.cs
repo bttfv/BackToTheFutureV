@@ -33,11 +33,15 @@ namespace BackToTheFutureV
                     if (TimeMachineHandler.CurrentTimeMachine != null)
                     {
                         if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+                        {
                             return;
+                        }
                     }
 
                     if (FusionUtils.PlayerPed.IsGoingIntoCover)
+                    {
                         FusionUtils.PlayerPed.Task.StandStill(1);
+                    }
 
                     if (RemoteTimeMachineHandler.IsRemoteOn)
                     {
@@ -45,12 +49,18 @@ namespace BackToTheFutureV
                         return;
                     }
                     else if (CustomNativeMenu.ObjectPool.AreAnyVisible)
+                    {
                         return;
+                    }
 
                     if (TimeMachineHandler.CurrentTimeMachine != null)
+                    {
                         TimeMachineMenu.Visible = true;
+                    }
                     else
+                    {
                         MainMenu.Visible = true;
+                    }
                 }
             }
         }
@@ -58,13 +68,19 @@ namespace BackToTheFutureV
         public static void KeyDown(KeyEventArgs e)
         {
             if (TcdEditer.IsEditing || RCGUIEditer.IsEditing || GarageHandler.Status != GarageStatus.Idle)
+            {
                 return;
+            }
 
             if ((ModControls.UseControlForMainMenu && e.Control && e.KeyCode == ModControls.MainMenu) || (!ModControls.UseControlForMainMenu && !e.Control && e.KeyCode == ModControls.MainMenu))
             {
                 if (TimeMachineHandler.CurrentTimeMachine != null)
+                {
                     if (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+                    {
                         return;
+                    }
+                }
 
                 CustomNativeMenu.ObjectPool.HideAll();
 

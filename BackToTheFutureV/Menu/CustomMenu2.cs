@@ -18,7 +18,13 @@ namespace BackToTheFutureV
         private readonly NativeListItem<string> _suspensions;
         private readonly NativeListItem<string> _hood;
 
-        private TimeMachine TimeMachine => TimeMachineHandler.CurrentTimeMachine;
+        private TimeMachine TimeMachine
+        {
+            get
+            {
+                return TimeMachineHandler.CurrentTimeMachine;
+            }
+        }
 
         public CustomMenu2() : base("Custom")
         {
@@ -48,7 +54,9 @@ namespace BackToTheFutureV
         private void ModList_ItemChanged(object sender, ItemChangedEventArgs<string> e)
         {
             if (!Game.IsControlJustPressed(Control.PhoneLeft) && !Game.IsControlJustPressed(Control.PhoneRight))
+            {
                 return;
+            }
 
             int newIndex = e.Index;
 
@@ -80,12 +88,18 @@ namespace BackToTheFutureV
                             if (TimeMachine.Mods.Wheel == WheelType.Red)
                             {
                                 if (TimeMachine.Mods.IsDMC12)
+                                {
                                     TimeMachine.Mods.Wheel = WheelType.Stock;
+                                }
                                 else
+                                {
                                     TimeMachine.Mods.Wheel = WheelType.DMC;
+                                }
                             }
                             else
+                            {
                                 TimeMachine.Mods.Wheel = WheelType.Red;
+                            }
 
                             break;
                         }
@@ -94,9 +108,14 @@ namespace BackToTheFutureV
                         break;
                     case 3:
                         if (TimeMachine.Mods.IsDMC12)
+                        {
                             TimeMachine.Mods.Wheel = WheelType.Stock;
+                        }
                         else
+                        {
                             TimeMachine.Mods.Wheel = WheelType.DMC;
+                        }
+
                         break;
                 }
             }
@@ -166,10 +185,14 @@ namespace BackToTheFutureV
         public override void Menu_Shown(object sender, EventArgs e)
         {
             if (MenuHandler.MainMenu.Visible)
+            {
                 MenuHandler.MainMenu.Visible = false;
+            }
 
             if (MenuHandler.TimeMachineMenu.Visible)
+            {
                 MenuHandler.TimeMachineMenu.Visible = false;
+            }
 
             _hook.Enabled = TimeMachine.Mods.IsDMC12;
             _plate.Enabled = TimeMachine.Mods.IsDMC12;
@@ -193,9 +216,13 @@ namespace BackToTheFutureV
                 GarageMenu.GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                 TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HookCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                 if (Checked)
+                {
                     TimeMachine.Mods.Hook = HookState.OnDoor;
+                }
                 else
+                {
                     TimeMachine.Mods.Hook = HookState.Off;
+                }
             }
             else if (sender == _threeDigits)
             {

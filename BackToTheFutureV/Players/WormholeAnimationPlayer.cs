@@ -111,9 +111,13 @@ namespace BackToTheFutureV
             Scaleforms.WormholeRT?.Dispose();
 
             if (Mods.IsDMC12)
+            {
                 Scaleforms.WormholeRT = new RenderTarget(Constants.WormholeModel, Constants.WormholeRenderTargetName, Vehicle, "bttf_wormhole");
+            }
             else
+            {
                 Scaleforms.WormholeRT = new RenderTarget(Constants.WormholeModel, Constants.WormholeRenderTargetName, Vehicle, new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 1, 0.4f));
+            }
 
             Scaleforms.WormholeRT.OnRenderTargetDraw += OnRenderTargetDraw;
 
@@ -124,7 +128,9 @@ namespace BackToTheFutureV
             _rightSpark = new EmitterSparkPlayer(timeMachine, SparkType.Right);
 
             foreach (List<Vector3> sparks in SparkOffsets)
+            {
                 _sparks.Add(new SparkPlayer(TimeMachine, sparks));
+            }
 
             if (Mods.IsDMC12)
             {
@@ -159,14 +165,18 @@ namespace BackToTheFutureV
         private void HandleSparks()
         {
             foreach (SparkPlayer spark in _sparks)
+            {
                 spark.Tick();
+            }
 
             _wheSpark.Tick();
             _leftSpark.Tick();
             _rightSpark.Tick();
 
             if (Game.GameTime < _nextSpark || Game.GameTime < _startWormholeAt || !_hasStartedWormhole)
+            {
                 return;
+            }
 
             List<SparkPlayer> validSparks = _sparks.Where(x => !x.IsPlaying).ToList();
 
@@ -187,13 +197,17 @@ namespace BackToTheFutureV
         private void HandleCoilFlicker()
         {
             if (numOfProps == 11 | Game.GameTime < _nextFlicker)
+            {
                 return;
+            }
 
             //// Choose how many coil props can spawn at one time
             float by = (Vehicle.GetMPHSpeed() - 65f) / (88f - 65f);
 
             if (Properties.PhotoWormholeActive)
+            {
                 by = (70 - 65f) / (88f - 65f);
+            }
 
             numOfProps = FusionUtils.Lerp(1, 11, by);
 
@@ -201,7 +215,9 @@ namespace BackToTheFutureV
             Props.SeparatedCoils?.Delete();
 
             if (Properties.ReactorState != ReactorState.Closed)
+            {
                 numOfProps = 6;
+            }
 
             if (numOfProps >= 11)
             {
@@ -216,7 +232,9 @@ namespace BackToTheFutureV
                 List<int> propsToBeSpawned = Enumerable.Range(0, 11).OrderBy(x => FusionUtils.Random.Next()).Take(numOfProps).ToList();
 
                 foreach (int propindex in propsToBeSpawned)
+                {
                     Props.SeparatedCoils[propindex].SpawnProp();
+                }
 
                 // Set next flicker 
                 _nextFlicker = Game.GameTime + FusionUtils.Random.Next(30, 60);
@@ -280,25 +298,37 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (!IsPlaying)
+            {
                 return;
+            }
 
             // Handle coil flickering for BTTF3
             if (Mods.IsDMC12 && (Mods.WormholeType == WormholeType.BTTF3 || Properties.ReactorState != ReactorState.Closed))
+            {
                 HandleCoilFlicker();
+            }
 
             if (Properties.IsFueled || Properties.PhotoWormholeActive)
+            {
                 HandleSparks();
+            }
 
             if (Mods.WormholeType != WormholeType.BTTF2 && !Properties.IsFlying && !Particles.WheelsFire.IsPlaying)
+            {
                 Particles.WheelsFire.Play();
+            }
 
             if (Mods.WormholeType == WormholeType.BTTF3)
             {
                 if (!Properties.IsFlying && !Particles.WheelsSparks.IsPlaying)
+                {
                     Particles.WheelsSparks.Play();
+                }
 
                 if (!Particles.Sparks.IsPlaying)
+                {
                     Particles.Sparks?.Play();
+                }
             }
 
             // Some wormhole sparks logic.

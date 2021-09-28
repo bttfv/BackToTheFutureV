@@ -76,52 +76,79 @@ namespace BackToTheFutureV
                 SetDate(type, dates[type]);
 
                 if (!month)
+                {
                     CallFunction("SET_" + type.ToUpper() + "_MONTH", -1);
+                }
 
                 if (!day)
+                {
                     CallFunction("SET_" + type.ToUpper() + "_DAY", -1);
+                }
 
                 if (!year)
+                {
                     CallFunction("SET_" + type.ToUpper() + "_YEAR", -1);
+                }
 
                 if (!hour)
+                {
                     CallFunction("SET_" + type.ToUpper() + "_HOUR", -1);
+                }
 
                 if (!minute)
+                {
                     CallFunction("SET_" + type.ToUpper() + "_MINUTE", -1);
+                }
 
                 if (!amPm)
+                {
                     CallFunction("SET_AM_PM", type.ToLower(), 3);
-
+                }
             }
             else
             {
                 if (month)
+                {
                     CallFunction("SET_" + type.ToUpper() + "_MONTH", -1);
+                }
 
                 if (day)
+                {
                     CallFunction("SET_" + type.ToUpper() + "_DAY", -1);
+                }
 
                 if (year)
+                {
                     CallFunction("SET_" + type.ToUpper() + "_YEAR", -1);
+                }
 
                 if (hour)
+                {
                     CallFunction("SET_" + type.ToUpper() + "_HOUR", -1);
+                }
 
                 if (minute)
+                {
                     CallFunction("SET_" + type.ToUpper() + "_MINUTE", -1);
+                }
 
                 if (amPm)
+                {
                     CallFunction("SET_AM_PM", type.ToLower(), 3);
+                }
             }
         }
 
         private string GetStringFromBackgroundType(TCDBackground background)
         {
             if (background == TCDBackground.Metal)
+            {
                 return "metal";
+            }
             else
+            {
                 return "trans";
+            }
         }
     }
 }

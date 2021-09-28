@@ -109,10 +109,14 @@ namespace BackToTheFutureV
         public static void RequestModels()
         {
             for (int i = 0; i <= 10; i++)
+            {
                 LightningsOnCar.Add(new CustomModel($"bolt_s_{i}"));
+            }
 
             for (int i = 1; i < 6; i++)
+            {
                 UnderbodyLights.Add(new CustomModel($"bttf_light_{i}"));
+            }
 
             foreach (string strModel in tcdTypes)
             {
@@ -122,10 +126,14 @@ namespace BackToTheFutureV
             }
 
             for (int i = 1; i <= 3; i++)
+            {
                 GaugeModels.Add(new CustomModel($"bttf_needle{i}"));
+            }
 
             for (int i = 1; i <= 11; i++)
+            {
                 CoilSeparated.Add(new CustomModel($"bttf3_coils_glowing_{i}"));
+            }
 
             GetAllModels(typeof(ModelHandler)).ForEach(x => x.Request());
         }

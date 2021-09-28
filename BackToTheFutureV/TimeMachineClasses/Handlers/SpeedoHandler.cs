@@ -28,7 +28,9 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (!Constants.HasScaleformPriority)
+            {
                 return;
+            }
 
             if (Mods.IsDMC12)
             {
@@ -48,14 +50,18 @@ namespace BackToTheFutureV
             Scaleforms.SpeedoRT?.Draw();
 
             if (Game.GameTime < nextCheck)
+            {
                 return;
+            }
 
             if (Properties.TimeTravelPhase < TimeTravelPhase.InTime)
             {
                 float mphSpeed = Vehicle.GetMPHSpeed();
 
                 if (mphSpeed > 88)
+                {
                     mphSpeed = 88;
+                }
 
                 string mphSpeedStr = mphSpeed.ToString("00.0");
 
@@ -66,17 +72,23 @@ namespace BackToTheFutureV
                 if (mphSpeed > currentSpeed || mphSpeed < currentSpeed)
                 {
                     if ((int)mphSpeed != (int)currentSpeed && ModSettings.PlaySpeedoBeep && Vehicle.IsVisible)
+                    {
                         Sounds.Speedo?.Play();
+                    }
 
                     currentSpeed = mphSpeed;
 
                     if (Mods.IsDMC12)
+                    {
                         UpdateGUI(ScaleformsHandler.Speedo, speedDigit1, speedDigit2, speedDigit3);
+                    }
 
                     Properties.HUDProperties.Speed = (int)mphSpeed;
 
                     if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
+                    {
                         UpdateGUI(ScaleformsHandler.GUI, speedDigit1, speedDigit2, speedDigit3);
+                    }
                 }
             }
 
@@ -89,9 +101,13 @@ namespace BackToTheFutureV
             scaleform.CallFunction("SET_DIGIT_2", digit2);
 
             if (Properties.ThreeDigitsSpeedo)
+            {
                 scaleform.CallFunction("SET_DIGIT_3", digit3);
+            }
             else
+            {
                 scaleform.CallFunction("SET_DIGIT_3", 10);
+            }
         }
 
         public override void Stop()

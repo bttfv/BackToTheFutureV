@@ -91,7 +91,9 @@ namespace BackToTheFutureV
         public static void Tick()
         {
             if (!IsEditing)
+            {
                 return;
+            }
 
             InstrumentalMenu.UpdatePanel();
 
@@ -162,20 +164,28 @@ namespace BackToTheFutureV
             }
 
             if (multiplier > MultiplierMax)
+            {
                 multiplier = MultiplierMax;
+            }
 
             // Limit for scale
             if (scale > 1.0f)
+            {
                 scale = 1.0f;
+            }
             else if (scale < 0.1f)
+            {
                 scale = 0.1f;
+            }
 
             ModSettings.RCGUIPosition = new PointF(posX, posY);
             ModSettings.RCGUIScale = scale;
 
             // Otherwise game instantly saves changes
             if (Game.GameTime < exitDelay)
+            {
                 return;
+            }
 
             // Save / Cancel changes
             if (Game.IsControlJustPressed(Control.PhoneCancel))

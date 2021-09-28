@@ -33,7 +33,9 @@ namespace BackToTheFutureV
         public FlyingHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             if (Mods.HoverUnderbody == ModState.On)
+            {
                 OnHoverUnderbodyToggle();
+            }
 
             _defaultHorn = Function.Call<Hash>(Hash.GET_VEHICLE_DEFAULT_HORN, Vehicle);
 
@@ -49,7 +51,9 @@ namespace BackToTheFutureV
             Events.SimulateHoverGoingUpDown += SpawnHoverGlow;
 
             if (!Mods.IsDMC12)
+            {
                 return;
+            }
 
             TimeHandler.OnDayNightChange += OnDayNightChange;
 
@@ -61,9 +65,13 @@ namespace BackToTheFutureV
             Props.HoverModeVentsGlow?.Delete();
 
             if (TimeHandler.IsNight)
+            {
                 Props.HoverModeVentsGlow.SwapModel(ModelHandler.VentGlowingNight);
+            }
             else
+            {
                 Props.HoverModeVentsGlow.SwapModel(ModelHandler.VentGlowing);
+            }
         }
 
         private void SimulateHoverBoost(bool state)
@@ -71,7 +79,9 @@ namespace BackToTheFutureV
             Properties.IsHoverBoosting = state;
 
             if (state)
+            {
                 Boost();
+            }
             else
             {
                 _hasPlayedBoostSound = false;
@@ -85,7 +95,9 @@ namespace BackToTheFutureV
             _reload = reload;
 
             if (Mods.HoverUnderbody == ModState.Off && Properties.IsFlying)
+            {
                 SetFlyMode(false, true);
+            }
 
             if (Players.HoverModeWheels != null)
             {
@@ -105,7 +117,9 @@ namespace BackToTheFutureV
             }
 
             if (Properties.IsFlying)
+            {
                 SetFlyMode(false, true);
+            }
 
             Props.HoverModeUnderbodyLights?.Delete();
         }
@@ -117,7 +131,9 @@ namespace BackToTheFutureV
                 _startHoverGlowLater = !Vehicle.IsEngineRunning;
 
                 if (!_startHoverGlowLater)
+                {
                     SpawnHoverGlow();
+                }
             }
         }
 
@@ -126,13 +142,19 @@ namespace BackToTheFutureV
             Properties.IsHoverGoingUpDown = state;
 
             if (!state)
+            {
                 return;
+            }
 
             if (Sounds.HoverModeUp.IsAnyInstancePlaying)
+            {
                 return;
+            }
 
             if (Mods.Wheel != WheelType.RedInvisible && Props.HoverModeWheelsGlow != null && !Props.HoverModeWheelsGlow.IsSpawned)
+            {
                 Props.HoverModeWheelsGlow?.SpawnProp();
+            }
 
             Sounds.HoverModeUp?.Play();
             _startHoverGlowLater = false;
@@ -181,12 +203,16 @@ namespace BackToTheFutureV
         public void SetFlyMode(bool open, bool instant = false)
         {
             if (_reload)
+            {
                 OnHoverUnderbodyToggle();
+            }
 
             if (open && Properties.AreFlyingCircuitsBroken)
             {
                 if (VehicleControl.GetDeluxoTransformation(Vehicle) > 0)
+                {
                     VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
+                }
 
                 TextHandler.ShowHelp("HoverDamaged");
 
@@ -194,21 +220,31 @@ namespace BackToTheFutureV
             }
 
             if (Properties.IsOnTracks)
+            {
                 Events.SetStopTracks?.Invoke(3000);
+            }
 
             Properties.IsFlying = open;
 
             Properties.IsLanding = ModSettings.LandingSystem && !Properties.IsFlying && !Properties.AreFlyingCircuitsBroken && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
 
             if (instant)
+            {
                 Players.HoverModeWheels?.SetInstant(open);
+            }
             else
+            {
                 Players.HoverModeWheels?.Play(open);
+            }
 
             if (!Properties.IsLanding)
+            {
                 Function.Call(Hash._SET_VEHICLE_HOVER_TRANSFORM_PERCENTAGE, Vehicle, Properties.IsFlying ? 1f : 0f);
+            }
             else
+            {
                 TextHandler.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
+            }
 
             if (Properties.IsFlying && !instant)
             {
@@ -218,7 +254,9 @@ namespace BackToTheFutureV
             else if (!Properties.IsFlying && !instant)
             {
                 if (!Properties.IsFlying)
+                {
                     Sounds.HoverModeOff?.Play();
+                }
 
                 Props.HoverModeWheelsGlow?.Delete();
             }
@@ -226,16 +264,24 @@ namespace BackToTheFutureV
             _landingSmoke = false;
 
             if (Mods.IsDMC12)
+            {
                 Function.Call(Hash._FORCE_VEHICLE_ENGINE_AUDIO, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
+            }
 
             if (Mods.IsDMC12)
+            {
                 Function.Call(Hash.OVERRIDE_VEH_HORN, Vehicle, true, _defaultHorn);
+            }
 
             if (!Properties.IsLanding && !Properties.IsFlying)
+            {
                 Decorators.TorqueMultiplier = 1.4f;
+            }
 
             if (!Properties.IsFlying && Properties.IsAltitudeHolding)
+            {
                 Properties.IsAltitudeHolding = false;
+            }
 
             Props.HoverModeVentsGlow?.Delete();
             Props.HoverModeWheelsGlow?.Delete();
@@ -244,7 +290,9 @@ namespace BackToTheFutureV
         public override void KeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == ModControls.HoverAltitudeHold && FusionUtils.PlayerVehicle == Vehicle && Properties.IsFlying)
+            {
                 SetHoverMode(!Properties.IsAltitudeHolding);
+            }
         }
 
         public void SetHoverMode(bool mode)
@@ -256,16 +304,22 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (Mods.HoverUnderbody == ModState.Off)
+            {
                 return;
+            }
 
             // Automatically fold wheels in if fly mode is exited in any other way
             // Example: getting out of vehicle, flipping vehicle over, etc
             if (Properties.IsFlying && VehicleControl.GetDeluxoTransformation(Vehicle) <= 0)
+            {
                 SetFlyMode(false);
+            }
 
             // Automatically set fly mode if deluxo is transformed in any other way.
             if (!Properties.IsFlying && VehicleControl.GetDeluxoTransformation(Vehicle) > 0 && !Properties.IsLanding)
+            {
                 SetFlyMode(true);
+            }
 
             // Process the wheel animations
             Players.HoverModeWheels?.Tick();
@@ -273,14 +327,18 @@ namespace BackToTheFutureV
             if (!Vehicle.IsVisible)
             {
                 if (Mods.IsDMC12 && Props.HoverModeUnderbodyLights.IsSequencePlaying)
+                {
                     Props.HoverModeUnderbodyLights.Delete();
+                }
 
                 return;
             }
 
             // Process underbody lights
             if (Mods.IsDMC12 && !Props.HoverModeUnderbodyLights.IsSequencePlaying)
+            {
                 Props.HoverModeUnderbodyLights.Play();
+            }
 
             if (Properties.IsLanding)
             {
@@ -300,13 +358,17 @@ namespace BackToTheFutureV
                 }
 
                 if (!Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 0.5f && Vehicle.HeightAboveGround < 20)
+                {
                     return;
+                }
 
                 SetFlyMode(false, true);
             }
 
             if (!Properties.IsFlying)
+            {
                 return;
+            }
 
             if (Properties.HasBeenStruckByLightning || (ModSettings.TurbulenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)))
             {
@@ -329,12 +391,16 @@ namespace BackToTheFutureV
                     }
 
                     if (Properties.HasBeenStruckByLightning)
+                    {
                         _force = 1;
+                    }
 
                     _force *= (Vehicle.HeightAboveGround / 20f);
 
                     if (_force > 1)
+                    {
                         _force = 1;
+                    }
 
                     Vehicle.ApplyForce(Vector3.RandomXYZ() * _force, Vector3.RandomXYZ() * _force);
 
@@ -343,21 +409,27 @@ namespace BackToTheFutureV
             }
 
             if (Mods.IsDMC12 && Props.HoverModeVentsGlow.IsSpawned && Driver == null)
+            {
                 Props.HoverModeVentsGlow?.Delete();
+            }
 
             if (Properties.AreFlyingCircuitsBroken)
             {
                 Vector3 force = Vehicle.UpVector;
 
                 if (!Vehicle.IsUpsideDown)
+                {
                     force.Z = -force.Z;
+                }
 
                 force *= 18 * Game.LastFrameTime;
 
                 Vehicle.ApplyForce(force, Vector3.Zero);
 
                 if (Vehicle.HeightAboveGround < 2)
+                {
                     SetFlyMode(false);
+                }
 
                 return;
             }
@@ -375,10 +447,14 @@ namespace BackToTheFutureV
 
                 // Altitude holder
                 if (Properties.IsAltitudeHolding)
+                {
                     HandleAltitudeHolding();
+                }
 
                 if (Game.IsControlPressed(Control.VehicleHandbrake) && !Game.IsControlPressed(Control.VehicleAccelerate) && !Game.IsControlPressed(Control.VehicleBrake) && Vehicle.GetMPHSpeed() > 1)
+                {
                     Properties.Boost = Vehicle.IsGoingForward() ? -0.4f : 0.4f;
+                }
             }
 
             // Apply force
@@ -386,32 +462,44 @@ namespace BackToTheFutureV
 
             // Force fly mode
             if (ModSettings.ForceFlyMode && FusionUtils.PlayerVehicle == Vehicle)
+            {
                 VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
+            }
 
             // Force brake lights on if flying
             if (Properties.IsFlying)
+            {
                 Vehicle.AreBrakeLightsOn = true;
+            }
 
             if (_startHoverGlowLater && Vehicle.IsEngineRunning)
+            {
                 SpawnHoverGlow();
+            }
         }
 
         public void HandleBoosting()
         {
             // First of all, check if vehicle is in fly mode, if its not just return
             if (FusionUtils.PlayerVehicle != Vehicle)
+            {
                 return;
+            }
 
             // If the Handbrake control is pressed
             // Using this so that controllers are also supported
             if (Game.IsControlPressed(ModControls.HoverBoost) && Game.IsControlPressed(Control.VehicleAccelerate) && Vehicle.IsEngineRunning)
             {
                 if (Game.IsControlJustPressed(ModControls.HoverBoost))
+                {
                     FusionUtils.SetPadShake(100, 200);
+                }
 
                 // Boost!
                 if (Vehicle.GetMPHSpeed() <= 95)
+                {
                     Boost();
+                }
 
                 Properties.IsHoverBoosting = true;
             }
@@ -440,7 +528,9 @@ namespace BackToTheFutureV
         {
             // What are you doing 
             if (FusionUtils.PlayerVehicle != Vehicle)
+            {
                 return;
+            }
 
             // Get how much value is moved up/down
             float upNormal = 0;
@@ -453,12 +543,16 @@ namespace BackToTheFutureV
                     Game.DisableControlThisFrame(Control.VehicleFlyThrottleUp);
 
                     if (!Properties.IsLanding && !Properties.IsHoverGoingUpDown)
+                    {
                         SpawnHoverGlow();
+                    }
 
                     upNormal = 1;
                 }
                 else
+                {
                     FusionUtils.SetPadShake(100, 80);
+                }
             }
             else if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
             {
@@ -470,11 +564,15 @@ namespace BackToTheFutureV
                     upNormal = -1;
                 }
                 else
+                {
                     FusionUtils.SetPadShake(100, 80);
+                }
             }
 
             if (upNormal == 0 && Properties.IsHoverGoingUpDown)
+            {
                 Properties.IsHoverGoingUpDown = false;
+            }
 
             // Apply force
             GoUpDown(upNormal);
@@ -483,9 +581,13 @@ namespace BackToTheFutureV
         public void GoUpDown(float upNormal)
         {
             if (!Properties.IsLanding || upNormal == 1)
+            {
                 _forceToBeApplied += Vehicle.UpVector * 15f * upNormal * Game.LastFrameTime;
+            }
             else if (upNormal == -1)
+            {
                 _forceToBeApplied.Z = -Vehicle.Velocity.Z - 1;
+            }
 
             if (upNormal != 0 && !Properties.IsHoverBoosting)
             {

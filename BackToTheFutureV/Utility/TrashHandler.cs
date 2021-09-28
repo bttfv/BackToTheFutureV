@@ -58,12 +58,16 @@ namespace BackToTheFutureV
         internal static void Tick()
         {
             if (FusionUtils.PlayerPed.IsInVehicle())
+            {
                 return;
+            }
 
             Prop dumpster = World.GetClosestProp(FusionUtils.PlayerPed.Position, 1.6f, dumpsterModels);
 
             if (dumpster == null || !Game.IsControlJustPressed(Control.Context))
+            {
                 return;
+            }
 
             InternalInventory.Current.Trash++;
 

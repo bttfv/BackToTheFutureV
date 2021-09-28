@@ -34,7 +34,9 @@ namespace BackToTheFutureV
         public void StartTimeTravelEffect()
         {
             if (!Properties.IsFueled)
+            {
                 return;
+            }
 
             ScaleformsHandler.FluxCapacitor.CallFunction("START_BLUE_ANIMATION");
             Properties.IsFluxDoingBlueAnim = true;
@@ -50,7 +52,9 @@ namespace BackToTheFutureV
         private void OnScaleformPriority()
         {
             if (!Constants.HasScaleformPriority)
+            {
                 return;
+            }
 
             Update();
         }
@@ -58,39 +62,59 @@ namespace BackToTheFutureV
         private void OnTimeCircuitsToggle()
         {
             if (Constants.HasScaleformPriority)
+            {
                 Update();
+            }
         }
 
         public override void Tick()
         {
             if (!Properties.AreTimeCircuitsOn)
+            {
                 return;
+            }
 
             if (ModSettings.PlayFluxCapacitorSound)
             {
                 if (!Vehicle.IsVisible && Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                {
                     Sounds.FluxCapacitor?.Stop();
+                }
 
                 if (!Sounds.FluxCapacitor.IsAnyInstancePlaying && Vehicle.IsVisible)
+                {
                     Sounds.FluxCapacitor?.Play();
+                }
             }
             else if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
+            {
                 Sounds.FluxCapacitor?.Stop();
+            }
 
             if (!Vehicle.IsVisible)
+            {
                 return;
+            }
 
             if (Constants.HasScaleformPriority)
+            {
                 Scaleforms.FluxCapacitorRT?.Draw();
+            }
 
             if (Properties.IsFluxDoingBlueAnim)
+            {
                 FluxBlueLight.Draw();
+            }
 
             if (Properties.IsFluxDoingBlueAnim && !Props.FluxBlue.IsSpawned)
+            {
                 Props.FluxBlue.SpawnProp();
+            }
 
             if (!Properties.IsFluxDoingBlueAnim && Props.FluxBlue.IsSpawned)
+            {
                 Props.FluxBlue?.Delete();
+            }
         }
 
         public void Update()
@@ -101,12 +125,16 @@ namespace BackToTheFutureV
                 Props.FluxBlue?.Delete();
 
                 if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                {
                     Sounds.FluxCapacitor?.Stop();
+                }
             }
             else
             {
                 if (ModSettings.PlayFluxCapacitorSound && !Sounds.FluxCapacitor.IsAnyInstancePlaying)
+                {
                     Sounds.FluxCapacitor?.Play();
+                }
 
                 StartNormalFluxing();
             }

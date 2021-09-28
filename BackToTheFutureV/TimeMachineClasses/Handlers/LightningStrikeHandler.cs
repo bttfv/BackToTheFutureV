@@ -36,25 +36,33 @@ namespace BackToTheFutureV
             if (_delay > -1 && Game.GameTime > _delay)
             {
                 if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                {
                     WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.LightningStrike;
+                }
 
                 Strike();
             }
 
             if (!ModSettings.LightningStrikeEvent || World.Weather != Weather.ThunderStorm || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole || Game.GameTime < _nextCheck)
+            {
                 return;
+            }
 
             if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
             {
                 if (FusionUtils.Random.NextDouble() < 0.3)
                 {
                     if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                    {
                         WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.LightningStrike;
+                    }
 
                     Strike();
                 }
                 else
+                {
                     _nextCheck = Game.GameTime + 10000;
+                }
             }
         }
 
@@ -89,9 +97,13 @@ namespace BackToTheFutureV
                 Properties.PhotoGlowingCoilsActive = true;
 
                 if (Mods.Hook == HookState.On && !Properties.IsFlying)
+                {
                     Events.OnSparksEnded?.Invoke(_instant ? 250 : 500);
+                }
                 else
+                {
                     Events.OnSparksEnded?.Invoke(_instant ? 250 : 2000);
+                }
 
                 TimeMachineClone timeMachineClone = TimeMachine.Clone();
                 timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
@@ -105,7 +117,9 @@ namespace BackToTheFutureV
                 Function.Call(Hash.FORCE_LIGHTNING_FLASH);
 
                 if (Properties.IsFlying)
+                {
                     Properties.AreFlyingCircuitsBroken = true;
+                }
             }
 
             _nextCheck = Game.GameTime + 60000;
@@ -121,7 +135,9 @@ namespace BackToTheFutureV
         public override void Stop()
         {
             if (!IsPlaying)
+            {
                 return;
+            }
 
             Sounds.LightningStrike?.Stop();
             Sounds.Thunder?.Stop();
@@ -130,7 +146,9 @@ namespace BackToTheFutureV
             Props.LightningsOnCar?.Delete();
 
             if (Mods.IsDMC12)
+            {
                 Particles.LightningSparks?.Stop();
+            }
 
             IsPlaying = false;
         }

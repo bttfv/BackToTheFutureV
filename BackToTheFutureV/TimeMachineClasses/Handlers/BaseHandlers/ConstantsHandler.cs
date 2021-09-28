@@ -8,7 +8,13 @@ namespace BackToTheFutureV
 {
     internal class ConstantsHandler : HandlerPrimitive
     {
-        public bool HasScaleformPriority => TimeMachineHandler.ClosestTimeMachine == TimeMachine;
+        public bool HasScaleformPriority
+        {
+            get
+            {
+                return TimeMachineHandler.ClosestTimeMachine == TimeMachine;
+            }
+        }
 
         public bool Over88MphSpeed { get; private set; }
 
@@ -149,7 +155,9 @@ namespace BackToTheFutureV
             get
             {
                 if (TimeHandler.IsNight)
+                {
                     return ModelHandler.CoilsGlowingNight;
+                }
 
                 return ModelHandler.CoilsGlowing;
             }
@@ -160,23 +168,69 @@ namespace BackToTheFutureV
             get
             {
                 if (Mods.Reactor == ReactorType.Nuclear)
+                {
                     return 1;
+                }
 
                 return 3;
             }
         }
 
-        public int FireTrailsAppearTime => (FireTrailsIs99 || Properties.IsFlying) ? 0 : 1;
+        public int FireTrailsAppearTime
+        {
+            get
+            {
+                return (FireTrailsIs99 || Properties.IsFlying) ? 0 : 1;
+            }
+        }
 
-        public int FireTrailsDisappearTime => (FireTrailsIs99 || Properties.IsFlying) ? 2 : 5;
+        public int FireTrailsDisappearTime
+        {
+            get
+            {
+                return (FireTrailsIs99 || Properties.IsFlying) ? 2 : 5;
+            }
+        }
 
-        public bool FireTrailsIs99 => Properties.IsFlying && Properties.HasBeenStruckByLightning;
+        public bool FireTrailsIs99
+        {
+            get
+            {
+                return Properties.IsFlying && Properties.HasBeenStruckByLightning;
+            }
+        }
 
-        public int FireTrailsLength => Properties.IsOnTracks ? 100 : 50;
+        public int FireTrailsLength
+        {
+            get
+            {
+                return Properties.IsOnTracks ? 100 : 50;
+            }
+        }
 
-        public string LowerWormholeType => Mods.WormholeType.ToString().ToLower();
-        public bool IsStockWheel => Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible || Mods.Wheel == WheelType.DMC || Mods.Wheel == WheelType.DMCInvisible;
-        public bool FullDamaged => Mods.Wheel == WheelType.Stock && Mods.Wheels.Burst && Vehicle.EngineHealth <= 0 && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
+        public string LowerWormholeType
+        {
+            get
+            {
+                return Mods.WormholeType.ToString().ToLower();
+            }
+        }
+
+        public bool IsStockWheel
+        {
+            get
+            {
+                return Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible || Mods.Wheel == WheelType.DMC || Mods.Wheel == WheelType.DMCInvisible;
+            }
+        }
+
+        public bool FullDamaged
+        {
+            get
+            {
+                return Mods.Wheel == WheelType.Stock && Mods.Wheels.Burst && Vehicle.EngineHealth <= 0 && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
+            }
+        }
 
         public WheelType RoadWheel
         {
@@ -185,17 +239,36 @@ namespace BackToTheFutureV
                 if (IsStockWheel)
                 {
                     if (Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible)
+                    {
                         return WheelType.Stock;
+                    }
                     else
+                    {
                         return WheelType.DMC;
+                    }
                 }
                 else
+                {
                     return WheelType.Red;
+                }
             }
         }
 
-        public CustomModel WheelModel => IsStockWheel ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
-        public CustomModel WheelRearModel => IsStockWheel ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
+        public CustomModel WheelModel
+        {
+            get
+            {
+                return IsStockWheel ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
+            }
+        }
+
+        public CustomModel WheelRearModel
+        {
+            get
+            {
+                return IsStockWheel ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
+            }
+        }
 
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -241,13 +314,19 @@ namespace BackToTheFutureV
                 TimeTravelCooldown += Game.LastFrameTime;
 
                 if (TimeTravelCooldown >= 30)
+                {
                     TimeTravelCooldown = -1;
+                }
                 else
+                {
                     return;
+                }
             }
 
             if (Properties.BlockSparks || Properties.HasBeenStruckByLightning || Properties.IsPhotoModeOn || !Properties.AreTimeCircuitsOn)
+            {
                 return;
+            }
 
             if (Vehicle.GetMPHSpeed() >= SIDMaxAtSpeed && !OverSIDMaxAtSpeed)
             {
@@ -285,7 +364,9 @@ namespace BackToTheFutureV
             }
 
             if (Vehicle.GetMPHSpeed() < 88 && Over88MphSpeed)
+            {
                 Over88MphSpeed = false;
+            }
         }
 
         public override void Stop()

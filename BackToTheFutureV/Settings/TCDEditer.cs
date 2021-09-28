@@ -111,7 +111,9 @@ namespace BackToTheFutureV
         public static void Tick()
         {
             if (!IsEditing)
+            {
                 return;
+            }
 
             InstrumentalMenu.UpdatePanel();
 
@@ -199,13 +201,19 @@ namespace BackToTheFutureV
             }
 
             if (multiplier > MultiplierMax)
+            {
                 multiplier = MultiplierMax;
+            }
 
             // Limit for scale
             if (_scale > 1.0f)
+            {
                 _scale = 1.0f;
+            }
             else if (_scale < 0.1f)
+            {
                 _scale = 0.1f;
+            }
 
             if (Game.IsControlPressed(Control.VehicleHandbrake))
             {
@@ -228,7 +236,9 @@ namespace BackToTheFutureV
 
             // Otherwise game instantly saves changes
             if (Game.GameTime < exitDelay)
+            {
                 return;
+            }
 
             // Save / Cancel changes
             if (Game.IsControlJustPressed(Control.PhoneCancel))

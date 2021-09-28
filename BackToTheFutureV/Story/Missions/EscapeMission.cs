@@ -15,7 +15,13 @@ namespace BackToTheFutureV
         public Vehicle Vehicle { get; private set; }
         public Ped Driver { get; private set; }
         public Ped Shooter { get; private set; }
-        public Ped TargetPed => TimeMachine.Vehicle.GetPedOnSeat(VehicleSeat.Driver);
+        public Ped TargetPed
+        {
+            get
+            {
+                return TimeMachine.Vehicle.GetPedOnSeat(VehicleSeat.Driver);
+            }
+        }
 
         private PedGroup Peds { get; set; }
         private TimeMachine TimeMachine;
@@ -39,7 +45,9 @@ namespace BackToTheFutureV
             Vehicle?.DeleteCompletely();
 
             if (plutoniumBlip != null && plutoniumBlip.Exists())
+            {
                 plutoniumBlip.Delete();
+            }
 
             Peds = null;
             step = -1;
@@ -48,7 +56,9 @@ namespace BackToTheFutureV
         public void StartOn(TimeMachine timeMachine)
         {
             if (IsPlaying)
+            {
                 return;
+            }
 
             TextHandler.ShowSubtitle("FoundMe");
             TimeMachine = timeMachine;
@@ -58,7 +68,9 @@ namespace BackToTheFutureV
         protected override void OnStart()
         {
             if (TimeMachine == null)
+            {
                 TimeMachine = TimeMachineHandler.CurrentTimeMachine;
+            }
 
             Model model = new Model("sabregt");
 
@@ -100,13 +112,17 @@ namespace BackToTheFutureV
         public void OnTimeTravelStarted()
         {
             if (!IsPlaying)
+            {
                 return;
+            }
 
             gameTimer = Game.GameTime + 5000;
             step = 1;
 
             if (TimeMachine.Properties.TimeTravelType == TimeTravelType.Instant)
+            {
                 End();
+            }
         }
 
         private void StopVehicle()
@@ -148,7 +164,9 @@ namespace BackToTheFutureV
                 }
 
                 if (!TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() || TimeMachineHandler.CurrentTimeMachine.Vehicle.Position.DistanceToSquared2D(plutoniumPos) > 0.679f)
+                {
                     return;
+                }
 
                 InternalInventory.Current.Plutonium = 5;
                 StartOn(TimeMachineHandler.CurrentTimeMachine);
@@ -157,29 +175,39 @@ namespace BackToTheFutureV
             if (!IsPlaying)
             {
                 if (plutoniumBlip != null && plutoniumBlip.Exists() && FusionUtils.CurrentTime.Year != 1985)
+                {
                     plutoniumBlip.Delete();
+                }
 
                 return;
             }
 
             if (plutoniumBlip != null && plutoniumBlip.Exists())
+            {
                 plutoniumBlip.Delete();
+            }
 
             switch (step)
             {
                 case 0:
                     if (Driver.IsDead || Shooter.IsDead)
+                    {
                         End();
+                    }
 
                     break;
                 case 1:
                     if (Vehicle.DistanceToSquared2D(TargetPed, 2) || gameTimer < Game.GameTime)
+                    {
                         StopVehicle();
+                    }
 
                     break;
                 case 2:
                     if (gameTimer < Game.GameTime)
+                    {
                         ExplodeVehicle();
+                    }
 
                     break;
             }
@@ -195,7 +223,9 @@ namespace BackToTheFutureV
             End();
 
             if (plutoniumBlip != null && plutoniumBlip.Exists())
+            {
                 plutoniumBlip.Delete();
+            }
         }
     }
 }

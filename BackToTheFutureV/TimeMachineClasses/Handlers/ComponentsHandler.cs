@@ -27,13 +27,19 @@ namespace BackToTheFutureV
         public void OnReenterEnded()
         {
             if (Mods.HoverUnderbody == ModState.On)
+            {
                 Properties.CanConvert = true;
+            }
 
             if (Mods.Plate == PlateType.Outatime && !Properties.IsFlying)
+            {
                 Mods.Plate = PlateType.Empty;
+            }
 
             if (Mods.Hook == HookState.On)
+            {
                 Mods.Hook = HookState.Removed;
+            }
 
             if (Mods.IsDMC12 && Properties.IsFlying && Mods.Reactor == ReactorType.MrFusion)
             {
@@ -42,7 +48,9 @@ namespace BackToTheFutureV
             }
 
             if (Mods.Hoodbox == ModState.Off || Properties.AreHoodboxCircuitsReady)
+            {
                 return;
+            }
 
             Instant();
         }
@@ -63,22 +71,30 @@ namespace BackToTheFutureV
             Props.HoodboxLights?.Delete();
 
             if (TimeHandler.IsNight)
+            {
                 Props.HoodboxLights.SwapModel(ModelHandler.HoodboxLightsNight);
+            }
             else
+            {
                 Props.HoodboxLights.SwapModel(ModelHandler.HoodboxLights);
+            }
         }
 
         private void HookProcess()
         {
             if (Mods.Hook != HookState.OnDoor || FusionUtils.PlayerPed.IsInVehicle())
+            {
                 return;
+            }
 
             if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
             {
                 TextHandler.ShowHelp("ApplyHook");
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))
+                {
                     Mods.Hook = HookState.On;
+                }
             }
         }
 
@@ -87,7 +103,9 @@ namespace BackToTheFutureV
             Props.Compass?.MoveProp(Vector3.Zero, new Vector3(0, 0, Vehicle.Heading));
 
             if (Props.Compass.Visible != Vehicle.IsVisible)
+            {
                 Props.Compass.Visible = Vehicle.IsVisible;
+            }
         }
 
         private void HoodboxProcess()
@@ -101,10 +119,14 @@ namespace BackToTheFutureV
                 }
 
                 if (!Props.HoodboxLights.IsSpawned)
+                {
                     Props.HoodboxLights.SpawnProp();
+                }
 
                 if (Vehicle.IsVisible != Props.HoodboxLights?.Visible)
+                {
                     Props.HoodboxLights.Visible = Vehicle.IsVisible;
+                }
 
                 return;
             }
@@ -121,14 +143,18 @@ namespace BackToTheFutureV
             }
 
             if (Mods.Hoodbox == ModState.Off || Properties.AreHoodboxCircuitsReady || _warmUp > 0 || FusionUtils.PlayerPed.IsInVehicle() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
+            {
                 return;
+            }
 
             if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
             {
                 TextHandler.ShowHelp("Warmup");
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))
+                {
                     _warmUp = Game.GameTime + 8000;
+                }
             }
         }
 

@@ -11,7 +11,13 @@ namespace BackToTheFutureV
     {
         private static readonly List<WaybackMachine> Machines = new List<WaybackMachine>();
 
-        public static WaybackMachine CurrentPlayerRecording => Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording && x.IsPlayer);
+        public static WaybackMachine CurrentPlayerRecording
+        {
+            get
+            {
+                return Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording && x.IsPlayer);
+            }
+        }
 
         static WaybackSystem()
         {
@@ -21,12 +27,16 @@ namespace BackToTheFutureV
         public static void Tick()
         {
             if (!ModSettings.WaybackSystem)
+            {
                 return;
+            }
 
             if (CurrentPlayerRecording == default)
             {
                 if (!TimeMachineHandler.CurrentTimeMachine.IsFunctioning() || (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase != TimeTravelPhase.InTime && TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase != TimeTravelPhase.Reentering))
+                {
                     Create(FusionUtils.PlayerPed, Guid.NewGuid());
+                }
             }
 
             Machines.ForEach(x => x.Tick());

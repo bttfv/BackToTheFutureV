@@ -40,7 +40,9 @@ namespace BackToTheFutureV
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
             if (timeMachine == null)
+            {
                 return;
+            }
 
             IsTimeMachine = true;
 
@@ -53,7 +55,9 @@ namespace BackToTheFutureV
             Vehicle vehicle = Replica.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants);
 
             if (!IsTimeMachine)
+            {
                 return vehicle;
+            }
 
             TimeMachine timeMachine = TimeMachineHandler.Create(vehicle);
 
@@ -68,12 +72,18 @@ namespace BackToTheFutureV
             Vehicle vehicle;
 
             if (nextReplica == null)
+            {
                 vehicle = World.GetClosestVehicle(Replica.Position, 3, Replica.Model);
+            }
             else
+            {
                 vehicle = World.GetClosestVehicle(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), 3, Replica.Model);
+            }
 
             if (!vehicle.NotNullAndExists() || FusionUtils.PlayerPed == vehicle)
+            {
                 vehicle = Spawn();
+            }
 
             return vehicle;
         }
@@ -83,24 +93,34 @@ namespace BackToTheFutureV
             Vehicle vehicle = ped?.GetUsingVehicle();
 
             if (!vehicle.NotNullAndExists())
+            {
                 vehicle = TryFindOrSpawn(nextReplica, adjustedRatio);
+            }
 
             if (!vehicle.NotNullAndExists())
+            {
                 return null;
+            }
 
             SpawnFlags spawnFlags = SpawnFlags.NoOccupants;
 
             if (ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle()))
+            {
                 spawnFlags |= SpawnFlags.NoPosition;
+            }
 
             TimeMachine timeMachine = null;
 
             if (!IsTimeMachine || !Properties.IsOnTracks)
             {
                 if (nextReplica == null)
+                {
                     Replica.ApplyTo(vehicle, spawnFlags);
+                }
                 else
+                {
                     Replica.ApplyTo(vehicle, spawnFlags, nextReplica, adjustedRatio);
+                }
             }
             else if (Properties.IsOnTracks)
             {
@@ -110,7 +130,9 @@ namespace BackToTheFutureV
             }
 
             if (!IsTimeMachine)
+            {
                 return vehicle;
+            }
 
             if (Event.HasFlag(WaybackVehicleEvent.Transform))
             {
@@ -121,31 +143,47 @@ namespace BackToTheFutureV
                 return vehicle;
             }
             else
+            {
                 timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
+            }
 
             if (!timeMachine.NotNullAndExists())
+            {
                 return vehicle;
+            }
 
             Mods.ApplyToWayback(timeMachine);
             Properties.ApplyToWayback(timeMachine);
 
             if (Event == WaybackVehicleEvent.None)
+            {
                 return vehicle;
+            }
 
             if (Event.HasFlag(WaybackVehicleEvent.OnSparksEnded))
+            {
                 timeMachine.Events.OnSparksEnded?.Invoke(TimeTravelDelay);
+            }
 
             if (Event.HasFlag(WaybackVehicleEvent.LightningStrike))
+            {
                 timeMachine.Events.StartLightningStrike?.Invoke(0);
+            }
 
             if (Event.HasFlag(WaybackVehicleEvent.LightningRun))
+            {
                 timeMachine.Events.StartLightningStrike?.Invoke(-1);
+            }
 
             if (Event.HasFlag(WaybackVehicleEvent.OpenCloseReactor))
+            {
                 timeMachine.Events.SetReactorState?.Invoke(timeMachine.Properties.ReactorState == ReactorState.Closed ? ReactorState.Opened : ReactorState.Closed);
+            }
 
             if (Event.HasFlag(WaybackVehicleEvent.RefuelReactor))
+            {
                 timeMachine.Events.SetReactorState?.Invoke(ReactorState.Refueling);
+            }
 
             return vehicle;
         }

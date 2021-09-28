@@ -17,7 +17,13 @@ namespace BackToTheFutureV
         private NativeCheckboxItem ShowBlip { get; }
         private NativeItem ForceReenter { get; }
 
-        private RemoteTimeMachine CurrentRemoteTimeMachine => TimeMachines.SelectedItem;
+        private RemoteTimeMachine CurrentRemoteTimeMachine
+        {
+            get
+            {
+                return TimeMachines.SelectedItem;
+            }
+        }
 
         public OutatimeMenu() : base("Outatime")
         {
@@ -49,7 +55,9 @@ namespace BackToTheFutureV
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (sender == ForceReenter && !CurrentRemoteTimeMachine.Spawned)
+            {
                 CurrentRemoteTimeMachine.Spawn(ReenterType.Forced);
+            }
         }
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -90,7 +98,9 @@ namespace BackToTheFutureV
                     }
                 }
                 else
+                {
                     CurrentRemoteTimeMachine.Blip?.Delete();
+                }
             }
         }
 

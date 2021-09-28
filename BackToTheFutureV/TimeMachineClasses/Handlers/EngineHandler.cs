@@ -61,12 +61,24 @@ namespace BackToTheFutureV
         /// <summary>
         /// Returns vehicle engine rpm.
         /// </summary>
-        public float EngineRpm => Vehicle.CurrentRPM;
+        public float EngineRpm
+        {
+            get
+            {
+                return Vehicle.CurrentRPM;
+            }
+        }
 
         /// <summary>
         /// Returns vehicle speed relatively to world in MPH.
         /// </summary>
-        public float Speed => Vehicle.GetMPHSpeed();
+        public float Speed
+        {
+            get
+            {
+                return Vehicle.GetMPHSpeed();
+            }
+        }
 
         /// <summary>
         /// Returns rear wheel speed in MPH.
@@ -76,7 +88,13 @@ namespace BackToTheFutureV
         /// <summary>
         /// Returns current vehicle gear number.
         /// </summary>
-        public int CurrentGear => Vehicle.CurrentGear;
+        public int CurrentGear
+        {
+            get
+            {
+                return Vehicle.CurrentGear;
+            }
+        }
 
         /// <summary>
         /// Returns previous vehicle gear number.
@@ -294,7 +312,9 @@ namespace BackToTheFutureV
             // We don't process acceleration each tick
             // because we won't get accurate results
             if (Game.GameTime < _check)
+            {
                 return;
+            }
 
             HandleAccelerationSound();
 
@@ -303,7 +323,9 @@ namespace BackToTheFutureV
 
             // Re-check acceleration and reset timer
             if (Game.GameTime <= _check)
+            {
                 return;
+            }
 
             _prevAccel = FusionUtils.Magnitude(Vehicle.Velocity);
 
@@ -332,7 +354,9 @@ namespace BackToTheFutureV
         private void HandleRegularSounds()
         {
             if (Properties.IsFlying)
+            {
                 return;
+            }
 
             // Play Idle sound
             if (IsIdle)
@@ -393,7 +417,9 @@ namespace BackToTheFutureV
         private void HandleHoverSounds()
         {
             if (!Properties.IsFlying)
+            {
                 return;
+            }
 
             // Play acceleration sound
             if (Properties.IsHoverBoosting)
@@ -401,7 +427,9 @@ namespace BackToTheFutureV
                 if (_engineAccell2Sound.IsAnyInstancePlaying)
                 {
                     if (_engineAccell2Sound.Last?.PlayPosition >= 7000)
+                    {
                         _engineAccell2Sound.Play();
+                    }
                 }
                 else
                 {
@@ -430,7 +458,9 @@ namespace BackToTheFutureV
         private void HandleAccelerationSound()
         {
             if (Properties.IsFlying)
+            {
                 return;
+            }
 
             //Stop acceleration sounds if car is breaking / driving neutral
             if (Acceleration < -10f || !Game.IsControlPressed(Control.VehicleAccelerate) ||
@@ -448,7 +478,9 @@ namespace BackToTheFutureV
                     if (_accellSounds.Any(x => x.IsAnyInstancePlaying))
                     {
                         if (_currentAccel.Last?.PlayPosition >= 7000)
+                        {
                             _currentAccel.Play();
+                        }
                     }
                     else if (!_accellSounds.Any(x => x.IsAnyInstancePlaying))
                     {
@@ -464,18 +496,26 @@ namespace BackToTheFutureV
         private void OnGearUpEvent()
         {
             if (Mods.Wheels.AnyBurst)
+            {
                 return;
+            }
 
             if ((WheelSpeed < 12) || (Acceleration < 0.2f))
+            {
                 return;
+            }
 
             if (Speed <= 3.5f && !_possibleFastAccel)
+            {
                 return;
+            }
 
             if (_accellSounds.Any(x => x.IsAnyInstancePlaying))
             {
                 if (_accellSounds.Any(x => x.Last?.PlayPosition < 1000))
+                {
                     return;
+                }
             }
 
             _currentAccel.Play();
@@ -592,7 +632,9 @@ namespace BackToTheFutureV
         private static bool IsPlayerBreaking(Vehicle vehicle, bool accountHandBrake = true)
         {
             if (FusionUtils.PlayerVehicle != vehicle)
+            {
                 return false;
+            }
 
             if (accountHandBrake)
             {
@@ -605,7 +647,9 @@ namespace BackToTheFutureV
         private static bool IsPlayerRevving(Vehicle vehicle)
         {
             if (FusionUtils.PlayerVehicle != vehicle)
+            {
                 return false;
+            }
 
             return Game.IsControlPressed(Control.VehicleAccelerate) && Game.IsControlPressed(Control.VehicleHandbrake)
                 && !Game.IsControlPressed(Control.VehicleBrake);
@@ -629,7 +673,9 @@ namespace BackToTheFutureV
                     IntersectFlags.Everything, Vehicle);
 
                 if (!_allowedSurfaces.Contains(surface.MaterialHash))
+                {
                     _possibleFastAccel = false;
+                }
             }
 
             // Check if car angle is too high or not on all wheels
@@ -665,7 +711,9 @@ namespace BackToTheFutureV
                 }
 
                 if (_isPosChanged && _possibleFastAccel)
+                {
                     _possibleFastAccel = false;
+                }
             }
         }
 
@@ -677,11 +725,19 @@ namespace BackToTheFutureV
             _currentAccel = _engineAccell1Sound;
 
             if (CurrentGear == 2)
+            {
                 _currentAccel = _engineAccell2Sound;
+            }
+
             if (CurrentGear == 3)
+            {
                 _currentAccel = _engineAccell3Sound;
+            }
+
             if (CurrentGear >= 4)
+            {
                 _currentAccel = _engineAccell4Sound;
+            }
         }
 
         private void Debug(int id)

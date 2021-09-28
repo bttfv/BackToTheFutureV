@@ -167,7 +167,9 @@ namespace BackToTheFutureV
             Keypad = new Dictionary<int, AudioPlayer>();
 
             for (int i = 0; i <= 9; i++)
+            {
                 Keypad[i] = AudioEngine.Create("general/keypad/" + i + ".wav", Presets.Interior);
+            }
 
             foreach (KeyValuePair<int, AudioPlayer> keypad in Keypad)
             {
@@ -195,7 +197,9 @@ namespace BackToTheFutureV
             Thunder = AudioEngine.Create("general/thunder.wav", Presets.ExteriorLoud);
 
             if (!Mods.IsDMC12)
+            {
                 return;
+            }
 
             //Ice
             Ice = AudioEngine.Create("general/cold.wav", Presets.ExteriorLoop);
@@ -340,7 +344,9 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (Game.GameTime < _gameTimer | !Vehicle.IsVisible | !Mods.IsDMC12)
+            {
                 return;
+            }
 
             foreach (KeyValuePair<VehicleDoorIndex, DoorInfo> door in _doorStatus.ToList())
             {
@@ -354,9 +360,13 @@ namespace BackToTheFutureV
                 if (doorAngle > 0 && !door.Value.IsDoorOpen)
                 {
                     if (!Properties.IsFreezed)
+                    {
                         _doorOpenSound.Play();
+                    }
                     else
+                    {
                         _doorOpenColdSound.Play();
+                    }
 
                     _doorStatus[door.Key].IsDoorOpen = true;
                 }
@@ -372,9 +382,13 @@ namespace BackToTheFutureV
                 else if (doorAngle < 0.87f && door.Value.IsDoorFullyOpen)
                 {
                     if (!Properties.IsFreezed)
+                    {
                         _doorCloseSound.Play();
+                    }
                     else
+                    {
                         _doorCloseColdsound.Play();
+                    }
 
                     _doorStatus[door.Key].IsDoorFullyOpen = false;
                 }

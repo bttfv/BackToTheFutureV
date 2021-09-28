@@ -38,7 +38,13 @@ namespace BackToTheFutureV
         private int step = 0;
         private int gameTime;
 
-        private TimeMachine CurrentTimeMachine => TimeMachineHandler.CurrentTimeMachine;
+        private TimeMachine CurrentTimeMachine
+        {
+            get
+            {
+                return TimeMachineHandler.CurrentTimeMachine;
+            }
+        }
 
         private readonly CustomCameraHandler CustomCamera = new CustomCameraHandler();
 
@@ -71,10 +77,14 @@ namespace BackToTheFutureV
         public override void KeyDown(KeyEventArgs key)
         {
             if (key.KeyCode == Keys.U)
+            {
                 IsPlaying = true;
+            }
 
             if (key.KeyCode == Keys.O)
-                FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);            
+            {
+                FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);
+            }
         }
 
         public override void Tick()
@@ -82,7 +92,9 @@ namespace BackToTheFutureV
             if (!TimeHandler.RealTime || FusionUtils.PlayerPed.Position.DistanceToSquared2D(checkPos) > 197480)
             {
                 if (setup)
+                {
                     OnEnd();
+                }
 
                 return;
             }
@@ -94,7 +106,9 @@ namespace BackToTheFutureV
             }
 
             if (FusionUtils.CurrentTime == new DateTime(1955, 11, 12, 22, 4, 0) && !IsPlaying)
+            {
                 IsPlaying = true;
+            }
 
             if (IsPlaying && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && LeftStreetPole.NotNullAndExists() && RightStreetPole.NotNullAndExists())
             {
@@ -105,7 +119,9 @@ namespace BackToTheFutureV
                     if (CurrentTimeMachine.Mods.Hook == HookState.On && CurrentTimeMachine.Properties.AreTimeCircuitsOn && CurrentTimeMachine.Constants.Over88MphSpeed && !CurrentTimeMachine.Properties.HasBeenStruckByLightning && sparkRope.ParticlePlayers.Count(x => x.IsPlaying) >= 100)
                     {
                         if (ModSettings.WaybackSystem)
+                        {
                             WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.LightningRun;
+                        }
 
                         CurrentTimeMachine.Events.StartLightningStrike?.Invoke(-1);
                     }
@@ -113,13 +129,17 @@ namespace BackToTheFutureV
             }
 
             if (!IsPlaying || Game.GameTime < gameTime)
+            {
                 return;
+            }
 
             switch (step)
             {
                 case 0:
                     if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Vehicle.GetMPHSpeed() >= 80)
+                    {
                         CustomCamera?.Show(0);
+                    }
 
                     Thunder.SourceEntity = FusionUtils.PlayerPed;
                     Thunder.Play();
@@ -132,13 +152,19 @@ namespace BackToTheFutureV
                     break;
                 case 1:
                     if (Lightnings.IsSequencePlaying)
+                    {
                         Lightnings.Delete();
+                    }
 
                     if (Spark.IsPlaying)
+                    {
                         Spark.Stop();
+                    }
 
                     if (!sparkRope.IsPlaying)
+                    {
                         sparkRope.Play();
+                    }
                     else if (sparkRope.SequenceComplete)
                     {
                         step++;
@@ -155,7 +181,9 @@ namespace BackToTheFutureV
                 case 3:
 
                     if (!fireRope.IsPlaying)
+                    {
                         fireRope.Play();
+                    }
                     else if (fireRope.SequenceComplete)
                     {
                         step++;
@@ -163,15 +191,17 @@ namespace BackToTheFutureV
                     }
 
                     break;
-                case 4:                    
+                case 4:
                     fireRope.StopInSequence();
 
-                    step++;                    
+                    step++;
                     break;
                 case 5:
 
                     if (fireRope.IsPlaying)
+                    {
                         break;
+                    }
 
                     IsPlaying = false;
                     step = 0;
@@ -207,7 +237,9 @@ namespace BackToTheFutureV
 
             Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true, IsSequenceLooped = true };
             foreach (CustomModel x in ModelHandler.Lightnings)
+            {
                 Lightnings.Add(new AnimateProp(x, Pole, lightningOffset, Vector3.Zero));
+            }
 
             Spark = new ParticlePlayer("core", "ent_brk_sparking_wires_sp", ParticleType.ForceLooped, Pole, Vector3.Zero, Vector3.Zero, 8f) { Interval = 500 };
 

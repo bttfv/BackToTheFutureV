@@ -16,7 +16,14 @@ namespace BackToTheFutureV
         private readonly NativeCheckboxItem TimeCircuitsOnDescription;
         private readonly NativeItem DestinationTimeDescription;
 
-        private TimeMachine CurrentTimeMachine => timeMachinesList.SelectedItem;
+        private TimeMachine CurrentTimeMachine
+        {
+            get
+            {
+                return timeMachinesList.SelectedItem;
+            }
+        }
+
         private Camera CarCam { get; set; }
         private bool CanBeSelected { get; set; }
 
@@ -89,7 +96,9 @@ namespace BackToTheFutureV
         public void PreviewCar()
         {
             if (CarCam != null)
+            {
                 CarCam?.Delete();
+            }
 
             CarCam = World.CreateCamera(CurrentTimeMachine.Vehicle.GetOffsetPosition(new Vector3(0.0f, -5.0f, 3.0f)), World.RenderingCamera.Rotation, 75.0f);
             CarCam.PointAt(CurrentTimeMachine.Vehicle);
@@ -111,7 +120,9 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (FusionUtils.PlayerVehicle != null)
+            {
                 Visible = false;
+            }
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)

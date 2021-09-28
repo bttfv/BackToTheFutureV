@@ -17,7 +17,13 @@ namespace BackToTheFutureV
         private readonly NativeSliderItem StrikeDelay;
         private readonly NativeCheckboxItem HideHUD;
 
-        private TimeMachine TimeMachine => TimeMachineHandler.CurrentTimeMachine;
+        private TimeMachine TimeMachine
+        {
+            get
+            {
+                return TimeMachineHandler.CurrentTimeMachine;
+            }
+        }
 
         public PhotoMenu() : base("Photo")
         {
@@ -35,7 +41,9 @@ namespace BackToTheFutureV
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
         {
             if (sender == StrikeDelay)
+            {
                 StrikeDelay.Title = $"{GetItemTitle("StrikeDelay")}: {StrikeDelay.Value}";
+            }
         }
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
@@ -61,16 +69,24 @@ namespace BackToTheFutureV
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == Wormhole)
+            {
                 TimeMachine.Properties.PhotoWormholeActive = Checked;
+            }
 
             if (sender == Coils)
+            {
                 TimeMachine.Properties.PhotoGlowingCoilsActive = Checked;
+            }
 
             if (sender == Ice)
+            {
                 TimeMachine.Events.SetFreeze(!TimeMachine.Properties.IsFreezed);
+            }
 
             if (sender == FluxCapacitor)
+            {
                 TimeMachine.Properties.PhotoFluxCapacitorActive = Checked;
+            }
 
             if (sender == EngineStall)
             {
@@ -80,10 +96,14 @@ namespace BackToTheFutureV
             }
 
             if (sender == SIDMax)
+            {
                 TimeMachine.Properties.PhotoSIDMaxActive = Checked;
+            }
 
             if (sender == HideHUD)
+            {
                 FusionUtils.HideGUI = Checked;
+            }
         }
 
         public override void Tick()

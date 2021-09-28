@@ -13,13 +13,25 @@ namespace BackToTheFutureV
         public static readonly float MAX_DIST = 650f;
 
         public static TimeMachine RemoteControlling { get; private set; }
-        public static bool IsRemoteOn => RemoteControlling != null;
+        public static bool IsRemoteOn
+        {
+            get
+            {
+                return RemoteControlling != null;
+            }
+        }
 
         private static TimerBarCollection TimerBarCollection { get; }
         private static readonly TimerBarProgress SignalBar;
 
         public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
-        public static int RemoteTimeMachineCount => RemoteTimeMachines.Count;
+        public static int RemoteTimeMachineCount
+        {
+            get
+            {
+                return RemoteTimeMachines.Count;
+            }
+        }
 
         private const int MAX_REMOTE_TIMEMACHINES = 10;
 
@@ -36,10 +48,14 @@ namespace BackToTheFutureV
         public static void StartRemoteControl(TimeMachine timeMachine)
         {
             if (timeMachine == null)
+            {
                 return;
+            }
 
             if (IsRemoteOn)
+            {
                 RemoteControlling.Events.SetRCMode?.Invoke(false, true);
+            }
 
             timeMachine.Events.SetRCMode?.Invoke(true);
             RemoteControlling = timeMachine;
@@ -81,7 +97,9 @@ namespace BackToTheFutureV
             RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
 
             if (ModSettings.PersistenceSystem)
+            {
                 Save();
+            }
 
             return timeMachine;
         }
@@ -96,7 +114,9 @@ namespace BackToTheFutureV
             RemoteTimeMachines.ForEach(x => x.Tick());
 
             if (!IsRemoteOn)
+            {
                 return;
+            }
 
             float squareDist = RemoteControlling.OriginalPed.DistanceToSquared2D(RemoteControlling.Vehicle);
 
@@ -109,7 +129,9 @@ namespace BackToTheFutureV
             float percentage = ((MAX_DIST * MAX_DIST - squareDist) / (MAX_DIST * MAX_DIST)) * 100;
 
             if (!TimerBarCollection.Visible)
+            {
                 TimerBarCollection.Visible = true;
+            }
 
             SignalBar.Progress = percentage;
         }
@@ -120,7 +142,9 @@ namespace BackToTheFutureV
             RemoteTimeMachines.Clear();
 
             if (File.Exists(_saveFile))
+            {
                 File.Delete(_saveFile);
+            }
         }
 
         private static readonly string _saveFile = "./scripts/BackToTheFutureV/RemoteTimeMachines.dmc12";
@@ -139,7 +163,9 @@ namespace BackToTheFutureV
             try
             {
                 if (!File.Exists(_saveFile))
+                {
                     return;
+                }
 
                 Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
 
@@ -148,19 +174,25 @@ namespace BackToTheFutureV
                 stream.Close();
 
                 foreach (TimeMachineClone x in timeMachineClones)
+                {
                     RemoteTimeMachines.Add(new RemoteTimeMachine(x));
+                }
             }
             catch
             {
                 if (File.Exists(_saveFile))
+                {
                     File.Delete(_saveFile);
+                }
             }
         }
 
         public static void Abort()
         {
             foreach (RemoteTimeMachine x in RemoteTimeMachines)
+            {
                 x?.Dispose();
+            }
         }
     }
 }

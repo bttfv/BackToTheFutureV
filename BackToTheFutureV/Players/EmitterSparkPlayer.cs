@@ -38,9 +38,13 @@ namespace BackToTheFutureV
             _spark = new AnimateProp(Constants.SparkModel, Vehicle, _offset, Vector3.Zero);
 
             if (Mods.IsDMC12)
+            {
                 _destination = Vehicle.Bones["bttf_wormhole"].RelativePosition;
+            }
             else
+            {
                 _destination = new Vector3(0, Vehicle.Model.Dimensions.frontTopRight.Y + 1, 0.4f);
+            }
 
             _destination.Y += 0.8f;
 
@@ -84,7 +88,9 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (!IsPlaying)
+            {
                 return;
+            }
 
             Vector3 dir = _spark.CurrentOffset.GetDirectionTo(_destination) * Game.LastFrameTime * _speed;
             Vector3 pos = _spark.CurrentOffset + dir;

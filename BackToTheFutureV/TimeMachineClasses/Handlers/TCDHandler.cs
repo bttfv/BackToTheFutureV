@@ -58,7 +58,13 @@ namespace BackToTheFutureV
         private DateTime lastTime;
         private int nextCheck;
 
-        public bool IsDoingTimedVisible => destinationSlot.IsDoingTimedVisible;
+        public bool IsDoingTimedVisible
+        {
+            get
+            {
+                return destinationSlot.IsDoingTimedVisible;
+            }
+        }
 
         public TCDHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -107,7 +113,9 @@ namespace BackToTheFutureV
         private void Blank_OnExecute(TimedEvent timedEvent)
         {
             if (timedEvent.FirstExecution)
+            {
                 destinationSlot.SetVisible(false);
+            }
         }
 
         private void ErrorDate_OnExecute(TimedEvent timedEvent)
@@ -118,12 +126,16 @@ namespace BackToTheFutureV
                 if (timedEvent.Step == glitchEvents.EventsCount - 1)
                 {
                     if (!softGlitch)
+                    {
                         Properties.DestinationTime = errorDate;
+                    }
 
                     destinationSlot.SetDate(Properties.DestinationTime);
                 }
                 else
+                {
                     destinationSlot.SetDate(errorDate);
+                }
 
                 destinationSlot.Tick();
             }
@@ -132,7 +144,9 @@ namespace BackToTheFutureV
         private void RandomDate_OnExecute(TimedEvent timedEvent)
         {
             if (!timedEvent.FirstExecution)
+            {
                 return;
+            }
 
             destinationSlot.SetDate(FusionUtils.RandomDate());
             destinationSlot.Tick();
@@ -141,7 +155,9 @@ namespace BackToTheFutureV
         private void OnScaleformPriority()
         {
             if (!Constants.HasScaleformPriority || !Properties.AreTimeCircuitsOn)
+            {
                 return;
+            }
 
             destinationSlot.SetDate(Properties.DestinationTime);
             presentSlot.SetDate(FusionUtils.CurrentTime);
@@ -151,7 +167,9 @@ namespace BackToTheFutureV
         private void OnTimeCircuitsToggle()
         {
             if (!Constants.HasScaleformPriority)
+            {
                 return;
+            }
 
             if (Properties.AreTimeCircuitsOn)
             {
@@ -193,12 +211,16 @@ namespace BackToTheFutureV
         private void OnDestinationDateChange(InputType inputType)
         {
             if (TimeMachineHandler.CurrentTimeMachine != TimeMachine)
+            {
                 return;
+            }
 
             destinationSlot.SetDate(Properties.DestinationTime);
 
             if (inputType == InputType.Time)
+            {
                 return;
+            }
 
             destinationSlot.SetVisible(false);
             destinationSlot.SetVisibleAt(true, 500, 600);
@@ -207,7 +229,9 @@ namespace BackToTheFutureV
         private void OnTimeTravelStarted()
         {
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+            {
                 previousSlot.SetDate(Properties.PreviousTime);
+            }
 
             lastTime = FusionUtils.CurrentTime;
             StopGlitch();
@@ -246,7 +270,9 @@ namespace BackToTheFutureV
         public override void KeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == ModControls.TCToggle && !Properties.IsRemoteControlled)
+            {
                 SetTimeCircuitsOn(!Properties.AreTimeCircuitsOn);
+            }
         }
 
         private double GetProbabilityForDamage(int damage)
@@ -270,19 +296,25 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (!Constants.HasScaleformPriority)
+            {
                 return;
+            }
 
             if (Mods.IsDMC12)
             {
                 if (Properties.AreTimeCircuitsOn)
                 {
                     if (!IsDoingTimedVisible && Props.DiodesOff.IsSpawned)
+                    {
                         Props.DiodesOff?.Delete();
+                    }
                 }
                 else
                 {
                     if (!IsDoingTimedVisible && !Props.DiodesOff.IsSpawned)
+                    {
                         Props.DiodesOff?.SpawnProp();
+                    }
                 }
             }
 
@@ -291,27 +323,39 @@ namespace BackToTheFutureV
             presentSlot.Tick();
 
             if (!ModSettings.HideIngameTCDToggle)
+            {
                 DrawGUI();
+            }
 
             if (FusionUtils.PlayerVehicle == Vehicle && Properties.TimeTravelPhase < TimeTravelPhase.InTime)
+            {
                 ExternalHUD.Update(Properties.HUDProperties);
+            }
 
             if (!Properties.AreTimeCircuitsOn)
+            {
                 return;
+            }
 
             UpdateCurrentTimeDisplay();
             TickDiodes();
 
             if (!Vehicle.IsVisible)
+            {
                 return;
+            }
 
             if (Mods.IsDMC12 && Properties.ReactorState != ReactorState.Closed && Properties.TimeTravelPhase == TimeTravelPhase.OpeningWormhole)
             {
                 if (!doGlitch)
+                {
                     StartTimeCircuitsGlitch(true);
+                }
 
                 if (!Particles.LightningSparks.IsPlaying)
+                {
                     Particles.LightningSparks?.Play();
+                }
             }
 
             HandleGlitching();
@@ -321,17 +365,23 @@ namespace BackToTheFutureV
                 nextCheckGlitch = Game.GameTime + 60000;
 
                 if (doGlitch || Properties.DestinationTime == errorDate || (Vehicle.Health > 300 && Properties.TimeTravelsCount < 5))
+                {
                     return;
+                }
 
                 if (Vehicle.Health < 300)
                 {
                     if (FusionUtils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 100 ? 100 : Vehicle.Health)))
+                    {
                         StartTimeCircuitsGlitch(false);
+                    }
                 }
                 else if (Properties.TimeTravelsCount > 4)
                 {
                     if (FusionUtils.Random.NextDouble() < 0.25f)
+                    {
                         StartTimeCircuitsGlitch(true);
+                    }
                 }
             }
         }
@@ -339,7 +389,9 @@ namespace BackToTheFutureV
         private void DrawGUI()
         {
             if (FusionUtils.HideGUI || FusionUtils.PlayerVehicle != Vehicle || FusionUtils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled)
+            {
                 return;
+            }
 
             ScaleformsHandler.GUI.SetSpeedoBackground(Properties.ThreeDigitsSpeedo);
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
@@ -347,7 +399,9 @@ namespace BackToTheFutureV
             ScaleformsHandler.GUI.Draw2D();
 
             if (ModSettings.HideSID || !Mods.IsDMC12)
+            {
                 return;
+            }
 
             ScaleformsHandler.SID2D?.Draw2D();
         }
@@ -361,7 +415,9 @@ namespace BackToTheFutureV
                 if (Math.Abs((time - lastTime).TotalMilliseconds) > 600 && !presentSlot.IsDoingTimedVisible)
                 {
                     if (Vehicle != null)
+                    {
                         presentSlot.SetDate(time);
+                    }
 
                     lastTime = time;
                 }
@@ -373,12 +429,16 @@ namespace BackToTheFutureV
         public void SetTimeCircuitsOn(bool on)
         {
             if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole | TcdEditer.IsEditing | RCGUIEditer.IsEditing)
+            {
                 return;
+            }
 
             if (!Properties.AreTimeCircuitsOn && Mods.Hoodbox == ModState.On && !Properties.AreHoodboxCircuitsReady)
             {
                 if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
+                {
                     TextHandler.ShowHelp("NotWarmed");
+                }
 
                 return;
             }
@@ -386,20 +446,28 @@ namespace BackToTheFutureV
             if (!Properties.AreTimeCircuitsOn && Properties.AreTimeCircuitsBroken && Mods.Hoodbox == ModState.Off)
             {
                 if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
+                {
                     TextHandler.ShowHelp("ChipDamaged");
+                }
 
                 return;
             }
 
             if (IsDoingTimedVisible)
+            {
                 return;
+            }
 
             Properties.AreTimeCircuitsOn = on;
 
             if (on)
+            {
                 Sounds.InputOn?.Play();
+            }
             else
+            {
                 Sounds.InputOff?.Play();
+            }
 
             Events.OnTimeCircuitsToggle?.Invoke();
         }
@@ -425,7 +493,9 @@ namespace BackToTheFutureV
                 Properties.HUDProperties.IsTickVisible = currentState;
 
                 if (ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
+                {
                     Sounds.TCDBeep?.Play(true);
+                }
 
                 nextTick = Game.GameTime + 500;
                 currentState = !currentState;
@@ -439,7 +509,9 @@ namespace BackToTheFutureV
                 glitchEvents.RunEvents();
 
                 if (glitchEvents.AllExecuted())
+                {
                     doGlitch = false;
+                }
             }
         }
 

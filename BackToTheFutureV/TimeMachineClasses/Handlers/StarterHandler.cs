@@ -67,7 +67,9 @@ namespace BackToTheFutureV
         private void OnReenterEnded()
         {
             if (ModSettings.EngineStallEvent && Mods.Reactor == ReactorType.Nuclear)
+            {
                 IsPlaying = true;
+            }
         }
 
         private void SetEngineStall(bool state)
@@ -75,18 +77,24 @@ namespace BackToTheFutureV
             if (!state)
             {
                 if (Properties.IsEngineStalling)
+                {
                     Stop();
+                }
 
                 return;
             }
 
             if (Properties.IsFlying)
+            {
                 Events.SetFlyMode?.Invoke(false);
+            }
 
             Vehicle.GetLightsState(out _lightsOn, out _highbeamsOn);
 
             if (_highbeamsOn)
+            {
                 Vehicle.AreHighBeamsOn = false;
+            }
 
             _lightsBrightness = 1;
 
@@ -115,16 +123,22 @@ namespace BackToTheFutureV
             if (Mods.Reactor != ReactorType.Nuclear && IsPlaying && !Properties.PhotoEngineStallActive)
             {
                 if (Properties.IsEngineStalling)
+                {
                     Stop();
+                }
 
                 IsPlaying = false;
             }
 
             if (IsPlaying && !Vehicle.IsVisible && !Vehicle.IsEngineRunning && !Properties.IsEngineStalling)
+            {
                 Properties.PhotoEngineStallActive = true;
+            }
 
             if (Game.GameTime < _nextCheck || !IsPlaying || !Vehicle.IsVisible)
+            {
                 return;
+            }
 
             if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled)
             {
@@ -153,7 +167,9 @@ namespace BackToTheFutureV
                 if ((Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && FusionUtils.PlayerVehicle == Vehicle)
                 {
                     if (timedEventManager.AllExecuted())
+                    {
                         timedEventManager.ResetExecution();
+                    }
 
                     timedEventManager.RunEvents();
 
@@ -192,7 +208,9 @@ namespace BackToTheFutureV
         private void Last_OnExecute(TimedEvent timedEvent)
         {
             if (timedEvent.FirstExecution)
+            {
                 _lightsBrightness = 1;
+            }
 
             _lightsBrightness += timedEvent.CurrentFloat;
         }
@@ -208,7 +226,9 @@ namespace BackToTheFutureV
             _isRestarting = false;
 
             if (!Properties.IsDefrosting)
+            {
                 IsPlaying = false;
+            }
 
             Vehicle.FuelLevel = _deloreanMaxFuelLevel;
             Sounds.EngineRestarter?.Stop();

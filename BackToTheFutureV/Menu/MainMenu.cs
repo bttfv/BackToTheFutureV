@@ -108,9 +108,13 @@ namespace BackToTheFutureV
                 }
 
                 if (ModSettings.CinematicSpawn)
+                {
                     timeMachine = TimeMachineHandler.Create(SpawnFlags.ForceReentry | SpawnFlags.New, wormholeType);
+                }
                 else
+                {
                     timeMachine = TimeMachineHandler.Create(SpawnFlags.WarpPlayer | SpawnFlags.New, wormholeType);
+                }
 
                 if (spawnBTTF.SelectedIndex == 2)
                 {
@@ -121,11 +125,15 @@ namespace BackToTheFutureV
                 }
 
                 if (spawnBTTF.SelectedIndex == 5)
+                {
                     timeMachine.Mods.Wheel = WheelType.RailroadInvisible;
+                }
             }
 
             if (sender == convertIntoTimeMachine)
+            {
                 FusionUtils.PlayerVehicle.TransformIntoTimeMachine();
+            }
 
             if (sender == deleteCurrent)
             {

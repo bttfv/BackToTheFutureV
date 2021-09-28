@@ -55,6 +55,5 @@ namespace BackToTheFutureV
         {
             trainHandlers.ForEach(x => x.DeleteTrain());
         }
-
     }
 }

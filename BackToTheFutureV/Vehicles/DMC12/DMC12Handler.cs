@@ -28,7 +28,9 @@ namespace BackToTheFutureV
             Vehicle vehicle = World.CreateVehicle(ModelHandler.DMC12, position, heading);
 
             if (warpInPlayer)
+            {
                 FusionUtils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+            }
 
             return new DMC12(vehicle);
         }
@@ -36,7 +38,9 @@ namespace BackToTheFutureV
         public static DMC12 CreateDMC12(Vehicle vehicle, bool warpInPlayer = false)
         {
             if (warpInPlayer)
+            {
                 FusionUtils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+            }
 
             return new DMC12(vehicle);
         }
@@ -44,7 +48,9 @@ namespace BackToTheFutureV
         public static void AddDelorean(DMC12 vehicle)
         {
             if (_deloreansToAdd.Contains(vehicle) || _deloreans.Contains(vehicle))
+            {
                 return;
+            }
 
             _deloreansToAdd.Add(vehicle);
         }
@@ -52,7 +58,9 @@ namespace BackToTheFutureV
         public static void RemoveDelorean(DMC12 vehicle, bool deleteVeh = true)
         {
             if (_deloreansToRemove.ContainsKey(vehicle))
+            {
                 return;
+            }
 
             _deloreansToRemove.Add(vehicle, deleteVeh);
         }
@@ -67,13 +75,19 @@ namespace BackToTheFutureV
         public static void Tick()
         {
             foreach (Vehicle veh in World.GetAllVehicles())
+            {
                 if (veh.Model.Hash == ModelHandler.DMC12.Model.Hash && veh.IsFunctioning() && GetDeloreanFromVehicle(veh) == null)
+                {
                     CreateDMC12(veh);
+                }
+            }
 
             if (_deloreansToRemove.Count > 0)
             {
                 foreach (KeyValuePair<DMC12, bool> delo in _deloreansToRemove)
+                {
                     RemoveInstantlyDelorean(delo.Key, delo.Value);
+                }
 
                 _deloreansToRemove.Clear();
             }
@@ -87,7 +101,9 @@ namespace BackToTheFutureV
             foreach (DMC12 delo in _deloreans)
             {
                 if (delo.Mods.WormholeType > WormholeType.DMC12 && !delo.Vehicle.IsTimeMachine())
+                {
                     TimeMachineHandler.Create(delo, SpawnFlags.Default, delo.Mods.WormholeType);
+                }
 
                 delo.Tick();
             }
@@ -98,13 +114,17 @@ namespace BackToTheFutureV
             foreach (DMC12 delo in _deloreans)
             {
                 if (delo.Vehicle == vehicle)
+                {
                     return delo;
+                }
             }
 
             foreach (DMC12 delo in _deloreansToAdd)
             {
                 if (delo.Vehicle == vehicle)
+                {
                     return delo;
+                }
             }
 
             return null;

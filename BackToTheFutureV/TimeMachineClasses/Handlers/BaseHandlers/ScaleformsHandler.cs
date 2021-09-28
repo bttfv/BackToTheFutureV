@@ -60,7 +60,9 @@ namespace BackToTheFutureV
         public ScaleformsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             if (!Mods.IsDMC12)
+            {
                 return;
+            }
 
             Events.OnScaleformPriority += OnScaleformPriority;
 

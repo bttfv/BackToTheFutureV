@@ -17,7 +17,11 @@ namespace BackToTheFutureV
 
         public bool On
         {
-            get => on;
+            get
+            {
+                return on;
+            }
+
             set
             {
                 on = value;
@@ -40,7 +44,10 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
-            if (!rotate) return;
+            if (!rotate)
+            {
+                return;
+            }
 
             if (On && Rotation < MaxRot)
             {
@@ -48,7 +55,9 @@ namespace BackToTheFutureV
 
                 float diff = Math.Abs(Rotation - MaxRot);
                 if (diff <= 0.01)
+                {
                     rotate = false;
+                }
             }
             else if (!On && Rotation > 0)
             {
@@ -56,7 +65,9 @@ namespace BackToTheFutureV
 
                 float diff = Math.Abs(Rotation - 0);
                 if (diff <= 0.01)
+                {
                     rotate = false;
+                }
             }
 
             Prop.MoveProp(Vector3.Zero, new Vector3(0, Rotation, 0), false);
@@ -123,7 +134,9 @@ namespace BackToTheFutureV
             if (!hasPlayed && Properties.AreTimeCircuitsOn && Game.GameTime > playAt)
             {
                 if (Mods.Reactor == ReactorType.Nuclear)
+                {
                     Sounds.PlutoniumGauge?.Play();
+                }
 
                 _gaugeNeedle1.On = true;
                 _gaugeNeedle2.On = true;

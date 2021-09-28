@@ -33,36 +33,56 @@ namespace BackToTheFutureV
                 SetDate(date);
 
                 if (!month)
+                {
                     CallFunction("SET_MONTH", -1);
+                }
 
                 if (!day)
+                {
                     CallFunction("SET_DAY", -1);
+                }
 
                 if (!year)
+                {
                     CallFunction("SET_YEAR", -1);
+                }
 
                 if (!hour)
+                {
                     CallFunction("SET_HOUR", -1);
+                }
 
                 if (!minute)
+                {
                     CallFunction("SET_MINUTE", -1);
+                }
             }
             else
             {
                 if (month)
+                {
                     CallFunction("SET_MONTH", -1);
+                }
 
                 if (day)
+                {
                     CallFunction("SET_DAY", -1);
+                }
 
                 if (year)
+                {
                     CallFunction("SET_YEAR", -1);
+                }
 
                 if (hour)
+                {
                     CallFunction("SET_HOUR", -1);
+                }
 
                 if (minute)
+                {
                     CallFunction("SET_MINUTE", -1);
+                }
             }
         }
     }

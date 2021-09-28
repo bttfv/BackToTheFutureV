@@ -18,13 +18,21 @@ namespace BackToTheFutureV
         private int PedHandle { get; set; }
         public Ped Ped
         {
-            get => (Ped)Entity.FromHandle(PedHandle);
+            get
+            {
+                return (Ped)Entity.FromHandle(PedHandle);
+            }
+
             private set
             {
                 if (value.NotNullAndExists())
+                {
                     PedHandle = value.Handle;
+                }
                 else
+                {
                     PedHandle = 0;
+                }
             }
         }
 
@@ -34,20 +42,31 @@ namespace BackToTheFutureV
             get
             {
                 if (LastRecordedIndex < 0)
+                {
                     return Records[0];
+                }
 
                 return Records[LastRecordedIndex];
             }
         }
 
         public int CurrentIndex { get; private set; } = 0;
-        public WaybackRecord CurrentRecord => Records[CurrentIndex];
+        public WaybackRecord CurrentRecord
+        {
+            get
+            {
+                return Records[CurrentIndex];
+            }
+        }
+
         public WaybackRecord PreviousRecord
         {
             get
             {
                 if (CurrentIndex <= 0)
+                {
                     return CurrentRecord;
+                }
 
                 return Records[CurrentIndex - 1];
             }
@@ -57,7 +76,9 @@ namespace BackToTheFutureV
             get
             {
                 if (CurrentIndex >= LastRecordedIndex)
+                {
                     return CurrentRecord;
+                }
 
                 return Records[CurrentIndex + 1];
             }
@@ -81,7 +102,9 @@ namespace BackToTheFutureV
             Status = WaybackStatus.Recording;
 
             if (IsPlayer)
+            {
                 WaybackSystem.CurrentPlayerRecording?.Stop();
+            }
         }
 
         public void StartOn(Ped ped, bool waitForReentry = false)
@@ -105,7 +128,9 @@ namespace BackToTheFutureV
                         Status = WaybackStatus.Playing;
 
                         if (!Ped.NotNullAndExists())
+                        {
                             Ped = CurrentRecord.Spawn(NextRecord);
+                        }
 
                         Play();
                     }
@@ -117,7 +142,9 @@ namespace BackToTheFutureV
                     if (WaitForReentry)
                     {
                         if (TimeMachineHandler.GetTimeMachineFromReplicaGUID(GUID).Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
+                        {
                             return;
+                        }
 
                         WaitForReentry = false;
                     }
@@ -138,9 +165,13 @@ namespace BackToTheFutureV
             WaybackRecord waybackRecord;
 
             if (IsPlayer)
+            {
                 waybackRecord = new WaybackRecord(FusionUtils.PlayerPed);
+            }
             else
+            {
                 waybackRecord = new WaybackRecord(Ped);
+            }
 
             if (IsPlayer && PedHandle != FusionUtils.PlayerPed.Handle)
             {
@@ -158,7 +189,9 @@ namespace BackToTheFutureV
         private void Play()
         {
             if (!Ped.ExistsAndAlive())
+            {
                 return;
+            }
 
             if (CurrentRecord.Ped.SwitchPed)
             {
@@ -169,9 +202,13 @@ namespace BackToTheFutureV
             CurrentRecord.Apply(Ped, NextRecord);
 
             if (CurrentIndex >= LastRecordedIndex)
+            {
                 Status = WaybackStatus.Idle;
+            }
             else
+            {
                 CurrentIndex++;
+            }
         }
 
         public void Stop()

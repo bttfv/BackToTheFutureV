@@ -78,7 +78,9 @@ namespace BackToTheFutureV
                 return;
             }
             else if (savedVersion != Main.Version)
+            {
                 settings.SetValue("General", "Version", Main.Version);
+            }
 
             RCGUIPosition = new PointF(float.Parse(settings.GetValue("RCGUI", "PositionX", RCGUIPosition.X.ToString("G", info)), info), float.Parse(settings.GetValue("RCGUI", "PositionY", RCGUIPosition.Y.ToString("G", info)), info));
             RCGUIScale = float.Parse(settings.GetValue("RCGUI", "Scale", RCGUIScale.ToString("G", info)), info);

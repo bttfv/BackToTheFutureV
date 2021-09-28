@@ -33,8 +33,15 @@ namespace BackToTheFutureV
 
         public TimeMachineCamera CustomCamera
         {
-            get => (TimeMachineCamera)CustomCameraManager.CurrentCameraIndex;
-            set => CustomCameraManager.Show((int)value);
+            get
+            {
+                return (TimeMachineCamera)CustomCameraManager.CurrentCameraIndex;
+            }
+
+            set
+            {
+                CustomCameraManager.Show((int)value);
+            }
         }
 
         public TimeMachineClone LastDisplacementClone { get; set; }
@@ -65,7 +72,9 @@ namespace BackToTheFutureV
                 DMC12 = DMC12Handler.GetDeloreanFromVehicle(vehicle);
 
                 if (DMC12 == null)
+                {
                     DMC12 = new DMC12(vehicle);
+                }
             }
 
             Vehicle.IsPersistent = true;
@@ -130,7 +139,9 @@ namespace BackToTheFutureV
             Events.OnWormholeTypeChanged += UpdateBlip;
 
             if (Vehicle.Model == ModelHandler.DeluxoModel)
+            {
                 Mods.HoverUnderbody = ModState.On;
+            }
 
             CustomCameraManager = new CustomCameraHandler();
 
@@ -209,7 +220,9 @@ namespace BackToTheFutureV
         public T GetHandler<T>()
         {
             if (registeredHandlers.TryGetValue(typeof(T).Name, out HandlerPrimitive handler))
+            {
                 return (T)(object)handler;
+            }
 
             return default;
         }
@@ -217,13 +230,17 @@ namespace BackToTheFutureV
         private void DisposeAllHandlers()
         {
             foreach (HandlerPrimitive handler in registeredHandlers.Values)
+            {
                 handler.Dispose();
+            }
         }
 
         public void Tick()
         {
             if (!IsReady)
+            {
                 return;
+            }
 
             if (!Vehicle.IsFunctioning())
             {
@@ -239,20 +256,30 @@ namespace BackToTheFutureV
             }
 
             if (!Vehicle.IsVisible)
+            {
                 Vehicle.IsEngineRunning = false;
+            }
 
             if (Properties.IsWayback && TimeMachineHandler.CurrentTimeMachine == this)
+            {
                 Properties.IsWayback = false;
+            }
 
             Function.Call(Hash.SET_VEHICLE_CHEAT_POWER_INCREASE, Vehicle, Decorators.TorqueMultiplier);
 
             if (Mods.HoverUnderbody == ModState.Off && Mods.IsDMC12)
+            {
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
+            }
 
             if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole | Properties.IsRemoteControlled)
+            {
                 Vehicle.LockStatus = VehicleLockStatus.PlayerCannotLeaveCanBeBrokenIntoPersist;
+            }
             else
+            {
                 Vehicle.LockStatus = VehicleLockStatus.None;
+            }
 
             Vehicle.IsRadioEnabled = false;
 
@@ -285,10 +312,14 @@ namespace BackToTheFutureV
                 Vehicle.Doors[VehicleDoorIndex.BackRightDoor].Break(false);
 
                 if (Mods.Hoodbox == ModState.On)
+                {
                     Vehicle.Doors[VehicleDoorIndex.Hood].CanBeBroken = false;
+                }
 
                 if (Mods.SuspensionsType != SuspensionsType.Stock && Decorators.TorqueMultiplier != 2.4f)
+                {
                     Decorators.TorqueMultiplier = 2.4f;
+                }
 
                 switch (Mods.SuspensionsType)
                 {
@@ -339,7 +370,9 @@ namespace BackToTheFutureV
                     }
 
                     if (VehicleControl.GetWheelSize(Vehicle) != 1.1f)
+                    {
                         VehicleControl.SetWheelSize(Vehicle, 1.1f);
+                    }
                 }
                 else if (!_firstRedSetup)
                 {
@@ -354,7 +387,9 @@ namespace BackToTheFutureV
                 if (Props.LicensePlate.IsPlaying)
                 {
                     if (Props.LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].StepRatio > 0.1f)
+                    {
                         Props.LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].StepRatio -= Game.LastFrameTime;
+                    }
                 }
             }
 
@@ -369,7 +404,9 @@ namespace BackToTheFutureV
                 }
             }
             else if (Blip != null && Blip.Exists())
+            {
                 Blip.Delete();
+            }
 
             //if (TimeMachineHandler.CurrentTimeMachine == this)
             //    Main.CustomStopwatch.StartNewRecord();
@@ -431,7 +468,9 @@ namespace BackToTheFutureV
         public void Break()
         {
             if (!Mods.IsDMC12)
+            {
                 return;
+            }
 
             Mods.HoverUnderbody = ModState.Off;
 
@@ -448,11 +487,17 @@ namespace BackToTheFutureV
             if (timeCircuits)
             {
                 if (FusionUtils.CurrentTime.Year >= 1985)
+                {
                     Properties.AreTimeCircuitsBroken = false;
+                }
                 else if (FusionUtils.CurrentTime.Year >= 1947)
+                {
                     Mods.Hoodbox = ModState.On;
+                }
                 else
+                {
                     TextHandler.ShowSubtitle("UnableRepairTC");
+                }
 
                 return !Properties.AreTimeCircuitsBroken || Mods.Hoodbox == ModState.On;
             }
@@ -460,9 +505,13 @@ namespace BackToTheFutureV
             if (flyingCircuits)
             {
                 if (FusionUtils.CurrentTime.Year >= 2015)
+                {
                     Properties.AreFlyingCircuitsBroken = false;
+                }
                 else
+                {
                     TextHandler.ShowSubtitle("UnableRepairFC");
+                }
 
                 return !Properties.AreFlyingCircuitsBroken;
             }
@@ -477,7 +526,9 @@ namespace BackToTheFutureV
                         Mods.SuspensionsType = SuspensionsType.LiftFront;
                     }
                     else
+                    {
                         Mods.Wheels.Burst = false;
+                    }
                 }
 
                 Vehicle.Repair();
@@ -498,10 +549,14 @@ namespace BackToTheFutureV
             }
 
             if (Properties.PhotoWormholeActive && Players.Wormhole != null && !Players.Wormhole.IsPlaying)
+            {
                 Players.Wormhole.Play(true);
+            }
 
             if (!Properties.PhotoWormholeActive && Players.Wormhole != null && Players.Wormhole.IsPlaying && Properties.IsPhotoModeOn)
+            {
                 Players.Wormhole.Stop();
+            }
 
             if (Properties.PhotoGlowingCoilsActive && Props.Coils != null && !Props.Coils.IsSpawned)
             {
@@ -516,22 +571,34 @@ namespace BackToTheFutureV
             }
 
             if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingBlueAnim)
+            {
                 Events.OnWormholeStarted?.Invoke();
+            }
 
             if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
+            {
                 Events.OnSparksInterrupted?.Invoke();
+            }
 
             if (Properties.PhotoEngineStallActive && !Properties.IsEngineStalling)
+            {
                 Events.SetEngineStall?.Invoke(true);
+            }
 
             if (!Properties.PhotoEngineStallActive && Properties.IsEngineStalling && Properties.IsPhotoModeOn)
+            {
                 Events.SetEngineStall?.Invoke(false);
+            }
 
             if (Properties.PhotoSIDMaxActive && !Properties.ForceSIDMax)
+            {
                 Properties.ForceSIDMax = true;
+            }
 
             if (!Properties.PhotoSIDMaxActive && Properties.ForceSIDMax)
+            {
                 Properties.ForceSIDMax = false;
+            }
 
             Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.IsEngineStalling | Properties.PhotoSIDMaxActive;
         }
@@ -539,7 +606,9 @@ namespace BackToTheFutureV
         public void KeyDown(KeyEventArgs e)
         {
             foreach (KeyValuePair<string, HandlerPrimitive> entry in registeredHandlers)
+            {
                 entry.Value.KeyDown(e);
+            }
         }
 
         public void Dispose(bool deleteVeh = true)
@@ -556,9 +625,13 @@ namespace BackToTheFutureV
             Blip?.Delete();
 
             if (Mods.IsDMC12)
+            {
                 DMC12Handler.RemoveInstantlyDelorean(DMC12, deleteVeh);
+            }
             else if (deleteVeh)
+            {
                 Vehicle.DeleteCompletely();
+            }
 
             Disposed = true;
 
@@ -573,7 +646,9 @@ namespace BackToTheFutureV
         public static implicit operator Vehicle(TimeMachine timeMachine)
         {
             if (!timeMachine.NotNullAndExists())
+            {
                 return null;
+            }
 
             return timeMachine.Vehicle;
         }
@@ -581,7 +656,9 @@ namespace BackToTheFutureV
         public static implicit operator Entity(TimeMachine timeMachine)
         {
             if (!timeMachine.NotNullAndExists())
+            {
                 return null;
+            }
 
             return timeMachine.Vehicle;
         }
@@ -589,7 +666,9 @@ namespace BackToTheFutureV
         public static implicit operator InputArgument(TimeMachine timeMachine)
         {
             if (!timeMachine.NotNullAndExists())
+            {
                 return null;
+            }
 
             return timeMachine.Vehicle;
         }

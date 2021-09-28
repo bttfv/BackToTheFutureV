@@ -26,9 +26,13 @@ namespace BackToTheFutureV
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
             if (ModSettings.CinematicSpawn)
+            {
                 TimeMachineHandler.Create(sender.Title, SpawnFlags.NoPosition | SpawnFlags.NoOccupants | SpawnFlags.NoProperties | SpawnFlags.ForceReentry);
+            }
             else
+            {
                 TimeMachineHandler.Create(sender.Title, SpawnFlags.NoPosition | SpawnFlags.NoOccupants | SpawnFlags.NoProperties | SpawnFlags.NoVelocity | SpawnFlags.WarpPlayer);
+            }
 
             Visible = false;
         }
@@ -43,7 +47,9 @@ namespace BackToTheFutureV
             Clear();
 
             foreach (string preset in TimeMachineClone.ListPresets())
+            {
                 Add(new NativeItem(preset));
+            }
         }
 
         public override void Tick()
@@ -56,7 +62,9 @@ namespace BackToTheFutureV
                 string _name = Game.GetUserInput(WindowTitle.EnterMessage20, SelectedItem.Title, 20);
 
                 if (_name == null || _name == "")
+                {
                     return;
+                }
 
                 TimeMachineClone.RenameSave(SelectedItem.Title, _name);
                 ReloadList();

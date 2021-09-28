@@ -34,7 +34,9 @@ namespace BackToTheFutureV
         {
             //Hover Mode
             foreach (CVehicleWheel wheel in Mods.Wheels)
+            {
                 HoverModeSmoke.Add("cut_trevor1", "cs_meth_pipe_smoke", ParticleType.NonLooped, Vehicle, wheel.Position, new Vector3(-90, 0, 0), 7f);
+            }
 
             LightExplosion = new ParticlePlayer("scr_josh3", "scr_josh3_light_explosion", ParticleType.NonLooped, Vehicle, Vector3.Zero, Vector3.Zero, 4f);
             TimeTravelEffect = new ParticlePlayer("core", "veh_exhaust_spacecraft", ParticleType.Looped, Vehicle, new Vector3(0, 4, 0), Vector3.Zero, 8f);
@@ -44,7 +46,9 @@ namespace BackToTheFutureV
             WheelsSparks = SetupWheelPTFXs("des_bigjobdrill", "ent_ray_big_drill_start_sparks", ParticleType.ForceLooped, new Vector3(0, 0, 0.18f), new Vector3(90f, 0, 0), 1f);
 
             if (!Mods.IsDMC12)
+            {
                 return;
+            }
 
             //Ice
             IceVentLeftSmoke = new ParticlePlayer("scr_familyscenem", "scr_meth_pipe_smoke", ParticleType.NonLooped, Vehicle, new Vector3(0.5f, -2f, 0.7f), new Vector3(10f, 0, 180f), 10f);

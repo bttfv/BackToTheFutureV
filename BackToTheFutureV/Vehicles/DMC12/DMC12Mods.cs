@@ -33,13 +33,19 @@ namespace BackToTheFutureV
                 Vehicle.Mods[VehicleModType.VanityPlates].Index = 0;
 
                 if (!(WormholeType > WormholeType.DMC12))
+                {
                     WormholeType = WormholeType.DMC12;
+                }
 
                 if ((SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index == SuspensionsType.Unknown)
+                {
                     SuspensionsType = SuspensionsType.Stock;
+                }
 
                 if ((WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index <= WormholeType.DMC12)
+                {
                     Hood = (HoodType)FusionUtils.Random.Next(-1, 2);
+                }
             }
         }
 
@@ -52,7 +58,9 @@ namespace BackToTheFutureV
                     WormholeType wormholeType = (WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index;
 
                     if (wormholeType != base.WormholeType)
+                    {
                         base.WormholeType = wormholeType;
+                    }
                 }
 
                 return base.WormholeType;
@@ -62,24 +70,36 @@ namespace BackToTheFutureV
                 base.WormholeType = value;
 
                 if (IsDMC12)
+                {
                     Vehicle.Mods[VehicleModType.TrimDesign].Index = (int)value;
+                }
             }
         }
 
         public new SuspensionsType SuspensionsType
         {
-            get => base.SuspensionsType;
+            get
+            {
+                return base.SuspensionsType;
+            }
+
             set
             {
                 if (value == SuspensionsType.Unknown)
+                {
                     value = SuspensionsType.Stock;
+                }
 
                 base.SuspensionsType = value;
 
                 if (!IsDMC12)
+                {
                     return;
+                }
                 else
+                {
                     Vehicle.Mods[VehicleModType.Hydraulics].Index = (int)value;
+                }
 
                 switch (value)
                 {
@@ -89,11 +109,11 @@ namespace BackToTheFutureV
                         Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0f);
                         Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0f);
 
-                        Function.Call(Hash._SET_CAMBERED_WHEELS_DISABLED, Vehicle, false);                        
+                        Function.Call(Hash._SET_CAMBERED_WHEELS_DISABLED, Vehicle, false);
                         break;
                     default:
                         Function.Call(Hash._SET_CAMBERED_WHEELS_DISABLED, Vehicle, true);
-                        
+
                         Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0f);
                         Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0f);
                         Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0f);
@@ -105,7 +125,11 @@ namespace BackToTheFutureV
 
         public new WheelType Wheel
         {
-            get => base.Wheel;
+            get
+            {
+                return base.Wheel;
+            }
+
             set
             {
                 base.Wheel = value;
@@ -117,7 +141,11 @@ namespace BackToTheFutureV
 
         public new ModState Components
         {
-            get => base.Components;
+            get
+            {
+                return base.Components;
+            }
+
             set
             {
                 base.Components = value;
@@ -140,91 +168,137 @@ namespace BackToTheFutureV
 
         public new ModState OffCoils
         {
-            get => base.OffCoils;
+            get
+            {
+                return base.OffCoils;
+            }
+
             set
             {
                 base.OffCoils = value;
 
                 if (IsDMC12)
+                {
                     Vehicle.Mods[VehicleModType.FrontBumper].Index = (int)value;
+                }
             }
         }
 
         public new ModState GlowingEmitter
         {
-            get => base.GlowingEmitter;
+            get
+            {
+                return base.GlowingEmitter;
+            }
+
             set
             {
                 base.GlowingEmitter = value;
 
                 if (IsDMC12)
+                {
                     Vehicle.Mods[VehicleModType.Frame].Index = (int)value;
+                }
             }
         }
 
         public new ModState GlowingReactor
         {
-            get => base.GlowingReactor;
+            get
+            {
+                return base.GlowingReactor;
+            }
+
             set
             {
                 base.GlowingReactor = value;
 
                 if (IsDMC12)
+                {
                     Vehicle.Mods[VehicleModType.Fender].Index = (int)value;
+                }
             }
         }
 
         public new ModState HoverUnderbody
         {
-            get => base.HoverUnderbody;
+            get
+            {
+                return base.HoverUnderbody;
+            }
+
             set
             {
                 base.HoverUnderbody = value;
 
                 if (IsDMC12)
+                {
                     Vehicle.Mods[VehicleModType.DialDesign].Index = (int)value;
+                }
             }
         }
 
         public new ReactorType Reactor
         {
-            get => base.Reactor;
+            get
+            {
+                return base.Reactor;
+            }
+
             set
             {
                 base.Reactor = value;
 
                 if (IsDMC12)
+                {
                     Vehicle.Mods[VehicleModType.Plaques].Index = (int)value;
+                }
             }
         }
 
         public new PlateType Plate
         {
-            get => base.Plate;
+            get
+            {
+                return base.Plate;
+            }
+
             set
             {
                 base.Plate = value;
 
                 if (IsDMC12)
+                {
                     Vehicle.Mods[VehicleModType.Ornaments].Index = (int)value;
+                }
             }
         }
 
         public new ExhaustType Exhaust
         {
-            get => base.Exhaust;
+            get
+            {
+                return base.Exhaust;
+            }
+
             set
             {
                 base.Exhaust = value;
 
                 if (IsDMC12)
+                {
                     Vehicle.Mods[VehicleModType.Windows].Index = (int)value;
+                }
             }
         }
 
         public new ModState Hoodbox
         {
-            get => base.Hoodbox;
+            get
+            {
+                return base.Hoodbox;
+            }
+
             set
             {
                 base.Hoodbox = value;
@@ -239,13 +313,19 @@ namespace BackToTheFutureV
 
         public new HookState Hook
         {
-            get => base.Hook;
+            get
+            {
+                return base.Hook;
+            }
+
             set
             {
                 base.Hook = value;
 
                 if (!IsDMC12)
+                {
                     return;
+                }
 
                 switch (value)
                 {
@@ -295,13 +375,19 @@ namespace BackToTheFutureV
 
         public new HoodType Hood
         {
-            get => base.Hood;
+            get
+            {
+                return base.Hood;
+            }
+
             set
             {
                 base.Hood = value;
 
                 if (IsDMC12)
+                {
                     Vehicle.Mods[VehicleModType.Hood].Index = (int)value;
+                }
             }
         }
     }

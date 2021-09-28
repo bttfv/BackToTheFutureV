@@ -57,15 +57,21 @@ namespace BackToTheFutureV
         public void SetRCMode(bool state, bool instant = false)
         {
             if (state)
+            {
                 StartRC();
+            }
             else
+            {
                 StopRC(instant);
+            }
         }
 
         private void RcHandbrake_OnControlJustPressed()
         {
             if (!Properties.IsRemoteControlled || Properties.IsFlying)
+            {
                 return;
+            }
 
             if (_forcedHandbrake || Game.IsControlPressed(GTA.Control.VehicleDuck))
             {
@@ -73,14 +79,18 @@ namespace BackToTheFutureV
                 SetForcedHandbrake();
 
                 if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled)
+                {
                     Sounds.RCSomeSerious?.Play();
+                }
             }
         }
 
         private void StopForcedHandbrake()
         {
             if (Properties.IsRemoteControlled && _forcedHandbrake)
+            {
                 SetForcedHandbrake();
+            }
         }
 
         private void SetForcedHandbrake()
@@ -111,7 +121,9 @@ namespace BackToTheFutureV
         public void StartRC()
         {
             if (Vehicle == null)
+            {
                 return;
+            }
 
             Properties.IsRemoteControlled = true;
 
@@ -137,7 +149,9 @@ namespace BackToTheFutureV
             _blip.Color = BlipColor.White;
 
             foreach (KlangRageAudioLibrary.AudioPlayer sound in Sounds.RCSounds)
+            {
                 sound.SourceEntity = TimeMachine.OriginalPed;
+            }
 
             Sounds.RCOn?.Play();
 
@@ -169,22 +183,32 @@ namespace BackToTheFutureV
                 Properties.IsRemoteControlled = false;
 
                 if (TimeMachine.OriginalPed == null)
+                {
                     return;
+                }
 
                 TimeMachine.OriginalPed.Task.ClearAll();
 
                 PlayerSwitch.Switch(TimeMachine.OriginalPed, true, instant);
 
                 if (!instant)
+                {
                     Sounds.RCOff?.Play();
+                }
                 else
+                {
                     Clone?.Delete();
+                }
 
                 if (Sounds.RCSomeSerious.IsAnyInstancePlaying)
+                {
                     Sounds.RCSomeSerious?.Stop();
+                }
 
                 if (_forcedHandbrake)
+                {
                     SetForcedHandbrake();
+                }
 
                 Function.Call(Hash.CLEAR_FOCUS);
 
@@ -195,7 +219,9 @@ namespace BackToTheFutureV
                 World.RenderingCamera = null;
 
                 if (CurrentMode == RcModes.FromPlayerCamera)
+                {
                     Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
+                }
 
                 //RCProp?.Dispose();
             }
@@ -204,20 +230,26 @@ namespace BackToTheFutureV
         public void DrawGUI()
         {
             if (FusionUtils.HideGUI || FusionUtils.PlayerVehicle != Vehicle || !Constants.HasScaleformPriority || FusionUtils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
+            {
                 return;
+            }
 
             float mphSpeed = Vehicle.GetMPHSpeed();
 
             if (simulateSpeed)
             {
                 if (Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+                {
                     currentSimSpeed += (maxSpeed / maxSeconds) * Game.LastFrameTime;
+                }
                 else
                 {
                     currentSimSpeed -= (maxSpeed / (maxSeconds / 2)) * Game.LastFrameTime;
 
                     if (currentSimSpeed < 0)
+                    {
                         currentSimSpeed = 0;
+                    }
                 }
 
                 mphSpeed = currentSimSpeed;
@@ -250,7 +282,9 @@ namespace BackToTheFutureV
             DrawGUI();
 
             if (_handleBoost && !_boostStarted && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+            {
                 _boostStarted = true;
+            }
 
             if (_handleBoost && _boostStarted && !Game.IsControlPressed(GTA.Control.VehicleAccelerate))
             {
@@ -259,13 +293,19 @@ namespace BackToTheFutureV
             }
 
             if (_handleBoost && _boostStarted && !_forcedHandbrake && Game.IsControlPressed(GTA.Control.VehicleAccelerate) && Vehicle.GetMPHSpeed() <= 90)
+            {
                 Properties.Boost = 0.3f;
+            }
 
             if (PlayerSwitch.IsManualInProgress)
+            {
                 return;
+            }
 
             if (TimeMachine.OriginalPed == null)
+            {
                 return;
+            }
 
             if (TimeMachine.OriginalPed.HasCollided)
             {
@@ -274,7 +314,9 @@ namespace BackToTheFutureV
             }
 
             if (Game.IsControlJustPressed(GTA.Control.VehicleExit))
+            {
                 RemoteTimeMachineHandler.StopRemoteControl();
+            }
 
             //// When u go too far from clone ped, game removes collision under him and 
             ////  he falls through the ground, so if player is 50 we freeze clone
@@ -292,7 +334,9 @@ namespace BackToTheFutureV
             Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, TimeMachine.OriginalPed);
 
             if (Game.IsControlJustPressed(GTA.Control.VehicleAccelerate))
+            {
                 Sounds.RCAcceleration?.Play();
+            }
 
             if (Game.IsControlJustPressed(GTA.Control.NextCamera))
             {
@@ -328,13 +372,17 @@ namespace BackToTheFutureV
         public override void Stop()
         {
             if (Properties.IsRemoteControlled)
+            {
                 RemoteTimeMachineHandler.StopRemoteControl();
+            }
         }
 
         public override void Dispose()
         {
             if (Properties.IsRemoteControlled)
+            {
                 RemoteTimeMachineHandler.StopRemoteControl(true);
+            }
         }
 
         public override void KeyDown(KeyEventArgs e) { }

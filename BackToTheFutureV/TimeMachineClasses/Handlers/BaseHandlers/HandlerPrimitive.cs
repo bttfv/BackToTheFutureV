@@ -7,21 +7,109 @@ namespace BackToTheFutureV
     {
         public TimeMachine TimeMachine { get; }
 
-        public Ped Driver => Vehicle.Driver;
+        public Ped Driver
+        {
+            get
+            {
+                return Vehicle.Driver;
+            }
+        }
 
-        public Vehicle Vehicle => TimeMachine.Vehicle;
-        public DMC12 DMC12 => TimeMachine.DMC12;
+        public Vehicle Vehicle
+        {
+            get
+            {
+                return TimeMachine.Vehicle;
+            }
+        }
 
-        public ModsHandler Mods => TimeMachine.Mods;
-        public EventsHandler Events => TimeMachine.Events;
-        public PropertiesHandler Properties => TimeMachine.Properties;
-        public SoundsHandler Sounds => TimeMachine.Sounds;
-        public PropsHandler Props => TimeMachine.Props;
-        public PlayersHandler Players => TimeMachine.Players;
-        public ScaleformsHandler Scaleforms => TimeMachine.Scaleforms;
-        public ParticlesHandler Particles => TimeMachine.Particles;
-        public ConstantsHandler Constants => TimeMachine.Constants;
-        public DecoratorsHandler Decorators => TimeMachine.Decorators;
+        public DMC12 DMC12
+        {
+            get
+            {
+                return TimeMachine.DMC12;
+            }
+        }
+
+        public ModsHandler Mods
+        {
+            get
+            {
+                return TimeMachine.Mods;
+            }
+        }
+
+        public EventsHandler Events
+        {
+            get
+            {
+                return TimeMachine.Events;
+            }
+        }
+
+        public PropertiesHandler Properties
+        {
+            get
+            {
+                return TimeMachine.Properties;
+            }
+        }
+
+        public SoundsHandler Sounds
+        {
+            get
+            {
+                return TimeMachine.Sounds;
+            }
+        }
+
+        public PropsHandler Props
+        {
+            get
+            {
+                return TimeMachine.Props;
+            }
+        }
+
+        public PlayersHandler Players
+        {
+            get
+            {
+                return TimeMachine.Players;
+            }
+        }
+
+        public ScaleformsHandler Scaleforms
+        {
+            get
+            {
+                return TimeMachine.Scaleforms;
+            }
+        }
+
+        public ParticlesHandler Particles
+        {
+            get
+            {
+                return TimeMachine.Particles;
+            }
+        }
+
+        public ConstantsHandler Constants
+        {
+            get
+            {
+                return TimeMachine.Constants;
+            }
+        }
+
+        public DecoratorsHandler Decorators
+        {
+            get
+            {
+                return TimeMachine.Decorators;
+            }
+        }
 
         public HandlerPrimitive(TimeMachine timeMachine)
         {

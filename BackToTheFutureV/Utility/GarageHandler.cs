@@ -36,15 +36,43 @@ namespace BackToTheFutureV
         public Vector3 OutsideCameraPosition { get; }
         public Vector3 OutsideCameraRotation { get; }
 
-        public bool IsDoorClosed => DoorHandler.IsDoorClosed(GarageDoor);
-        public float GetDoorOpenRatio => DoorHandler.GetDoorOpenRatio(GarageDoor);
-        public DoorState GetDoorState => DoorHandler.GetDoorState(GarageDoor);
+        public bool IsDoorClosed
+        {
+            get
+            {
+                return DoorHandler.IsDoorClosed(GarageDoor);
+            }
+        }
+
+        public float GetDoorOpenRatio
+        {
+            get
+            {
+                return DoorHandler.GetDoorOpenRatio(GarageDoor);
+            }
+        }
+
+        public DoorState GetDoorState
+        {
+            get
+            {
+                return DoorHandler.GetDoorState(GarageDoor);
+            }
+        }
+
         public void SetDoorState(DoorState doorState)
         {
             DoorHandler.SetDoorState(GarageDoor, doorState);
         }
 
-        public bool IsPlayerNear => FusionUtils.PlayerPed.Position.DistanceToSquared2D(Position) <= 1000;
+        public bool IsPlayerNear
+        {
+            get
+            {
+                return FusionUtils.PlayerPed.Position.DistanceToSquared2D(Position) <= 1000;
+            }
+        }
+
         public bool IsVehicleEntirelyInside(Vehicle vehicle)
         {
             return vehicle.IsEntirelyInGarage(GarageDoor);
@@ -84,9 +112,13 @@ namespace BackToTheFutureV
             if (DoorHandler.GetDoorState(GarageDoor) == DoorState.Unknown)
             {
                 if (IsPlayerNear && GarageHandler.Status != GarageStatus.Idle && GarageHandler.Status != GarageStatus.Opening)
+                {
                     DoorHandler.SetDoorState(GarageDoor, DoorState.Locked);
+                }
                 else
+                {
                     DoorHandler.SetDoorState(GarageDoor, DoorState.Unlocked);
+                }
             }
         }
 
@@ -120,7 +152,13 @@ namespace BackToTheFutureV
 
     internal static class GarageHandler
     {
-        private static Vehicle Vehicle => FusionUtils.PlayerVehicle;
+        private static Vehicle Vehicle
+        {
+            get
+            {
+                return FusionUtils.PlayerVehicle;
+            }
+        }
 
         private static int gameTime;
 
@@ -143,10 +181,14 @@ namespace BackToTheFutureV
             GarageInfo.List.ForEach(x => x.Abort());
 
             if (Status == GarageStatus.Idle)
+            {
                 return;
+            }
 
             if (Vehicle.NotNullAndExists())
+            {
                 Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, Vehicle.IsEngineRunning, true, false);
+            }
 
             FusionUtils.HideGUI = false;
             DestroyCamera();
@@ -161,7 +203,9 @@ namespace BackToTheFutureV
             if (!Vehicle.NotNullAndExists() || RemoteTimeMachineHandler.IsRemoteOn)
             {
                 if (Status != GarageStatus.Idle)
+                {
                     Abort();
+                }
 
                 return;
             }
@@ -169,7 +213,9 @@ namespace BackToTheFutureV
             foreach (GarageInfo garageInfo in GarageInfo.List)
             {
                 if (!garageInfo.IsPlayerNear)
+                {
                     continue;
+                }
 
                 garageInfo.Tick();
 
@@ -211,7 +257,9 @@ namespace BackToTheFutureV
                 }
 
                 if (!garageInfo.IsVehicleEntirelyInside(Vehicle) && Status == GarageStatus.Idle)
+                {
                     continue;
+                }
 
                 if (Status == GarageStatus.Busy)
                 {
@@ -246,7 +294,9 @@ namespace BackToTheFutureV
                         break;
                     case GarageStatus.Opening:
                         if (Game.GameTime < gameTime)
+                        {
                             break;
+                        }
 
                         FusionUtils.HideGUI = false;
                         TimeMachineHandler.CurrentTimeMachine?.Particles.IceSmoke?.Stop();
@@ -256,7 +306,9 @@ namespace BackToTheFutureV
                         break;
                     case GarageStatus.Busy:
                         if (MenuHandler.GarageMenu.Visible || WaitForCustomMenu)
+                        {
                             break;
+                        }
 
                         SetupCamera(garageInfo.CreateOutsideCamera());
                         garageInfo.PlaceVehicle(Vehicle);
@@ -268,10 +320,14 @@ namespace BackToTheFutureV
                             timeMachine = TimeMachineHandler.Create(Vehicle);
 
                             if (timeMachine.Mods.IsDMC12)
+                            {
                                 timeMachine.Properties.ReactorCharge = 0;
+                            }
 
                             if (ModSettings.WaybackSystem)
+                            {
                                 WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle = new WaybackVehicle(timeMachine, WaybackVehicleEvent.Transform);
+                            }
 
                             Transform = false;
                         }

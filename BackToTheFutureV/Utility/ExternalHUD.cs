@@ -13,20 +13,32 @@ namespace BackToTheFutureV
 
         private const int port = 1985;
 
-        public static bool IsActive => HUD != null;
+        public static bool IsActive
+        {
+            get
+            {
+                return HUD != null;
+            }
+        }
 
         public static void Toggle(bool state)
         {
             if (state)
+            {
                 Start();
+            }
             else
+            {
                 Stop();
+            }
         }
 
         public static void Start()
         {
             if (IsActive)
+            {
                 Stop();
+            }
 
             HUD = new HUDDisplay();
 
@@ -55,7 +67,9 @@ namespace BackToTheFutureV
             _backgroundThread?.Abort();
 
             if (IsActive)
+            {
                 HUD.Exiting -= TimeCircuits_Exiting;
+            }
 
             HUD?.Exit();
             HUD?.Dispose();
@@ -72,10 +86,14 @@ namespace BackToTheFutureV
         public static void Update(HUDProperties properties)
         {
             if (ModSettings.ExternalTCDToggle && IsActive)
+            {
                 HUD.Properties = properties;
+            }
 
             if (!ModSettings.RemoteTCDToggle)
+            {
                 return;
+            }
 
             FusionNetwork.SendMsg(properties, port);
         }
@@ -83,10 +101,14 @@ namespace BackToTheFutureV
         public static void SetOff()
         {
             if (ModSettings.ExternalTCDToggle && IsActive)
+            {
                 HUD.Properties = new HUDProperties();
+            }
 
             if (!ModSettings.RemoteTCDToggle)
+            {
                 return;
+            }
 
             FusionNetwork.SendMsg(new HUDProperties(), port);
         }

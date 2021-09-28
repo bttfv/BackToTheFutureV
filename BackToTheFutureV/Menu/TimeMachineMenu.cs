@@ -58,15 +58,25 @@ namespace BackToTheFutureV
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == TimeCircuitsOn)
+            {
                 TimeMachineHandler.CurrentTimeMachine.Events.SetTimeCircuits?.Invoke(Checked);
+            }
             else if (sender == CutsceneMode)
+            {
                 TimeMachineHandler.CurrentTimeMachine.Events.SetCutsceneMode?.Invoke(Checked);
+            }
             else if (sender == RemoteControl && !Checked && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
+            {
                 RemoteTimeMachineHandler.StopRemoteControl();
+            }
             else if (sender == FlyMode)
+            {
                 TimeMachineHandler.CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
+            }
             else if (sender == AltitudeHold)
+            {
                 TimeMachineHandler.CurrentTimeMachine.Events.SetAltitudeHold?.Invoke(Checked);
+            }
             //else if (sender == EscapeMission)
             //{
             //    if (Checked)

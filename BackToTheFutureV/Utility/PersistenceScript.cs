@@ -14,7 +14,9 @@ namespace BackToTheFutureV
         private void PersistenceScript_Tick(object sender, EventArgs e)
         {
             if (Game.IsLoading || Main.FirstTick || !ModSettings.PersistenceSystem)
+            {
                 return;
+            }
 
             TimeMachineHandler.Save();
             RemoteTimeMachineHandler.Save();

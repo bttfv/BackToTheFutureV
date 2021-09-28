@@ -75,34 +75,54 @@ namespace BackToTheFutureV
             ModsHandler ret = timeMachine.Mods;
 
             if (ret.WormholeType != WormholeType)
+            {
                 ret.WormholeType = WormholeType;
+            }
 
             if (ret.SuspensionsType != SuspensionsType)
+            {
                 ret.SuspensionsType = SuspensionsType;
+            }
 
             if (ret.HoverUnderbody != HoverUnderbody)
+            {
                 ret.HoverUnderbody = HoverUnderbody;
+            }
 
             if (ret.Wheel != Wheel)
+            {
                 ret.Wheel = Wheel;
+            }
 
             if (ret.Reactor != Reactor)
+            {
                 ret.Reactor = Reactor;
+            }
 
             if (ret.Plate != Plate)
+            {
                 ret.Plate = Plate;
+            }
 
             if (ret.Exhaust != Exhaust)
+            {
                 ret.Exhaust = Exhaust;
+            }
 
             if (ret.Hoodbox != Hoodbox)
+            {
                 ret.Hoodbox = Hoodbox;
+            }
 
             if (ret.Hook != Hook)
+            {
                 ret.Hook = Hook;
+            }
 
             if (ret.Hood != Hood)
+            {
                 ret.Hood = Hood;
+            }
         }
     }
 }

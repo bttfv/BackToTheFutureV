@@ -33,13 +33,17 @@ namespace BackToTheFutureV
             _destinationTimeRaw = string.Empty;
 
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+            {
                 Events.OnDestinationDateChange?.Invoke(inputType);
+            }
         }
 
         public override void KeyDown(KeyEventArgs e)
         {
             if (!Properties.AreTimeCircuitsOn || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled || !Vehicle.IsVisible || CustomNativeMenu.ObjectPool.AreAnyVisible)
+            {
                 return;
+            }
 
             if (ModSettings.UseInputToggle && e.KeyCode == ModControls.InputToggle)
             {
@@ -57,7 +61,9 @@ namespace BackToTheFutureV
                 if (keyCode.Contains("NumPad") || (keyCode.Contains("D") && keyCode.Where(char.IsDigit).Count() > 0))
                 {
                     if (lastInput == e.KeyCode)
+                    {
                         return;
+                    }
 
                     lastInput = e.KeyCode;
                     ProcessInputNumber(new string(keyCode.Where(char.IsDigit).ToArray()));
@@ -66,7 +72,9 @@ namespace BackToTheFutureV
                 if (e.KeyCode == Keys.Enter)
                 {
                     if (lastInput == e.KeyCode)
+                    {
                         return;
+                    }
 
                     lastInput = e.KeyCode;
                     ProcessInputEnter();
@@ -77,7 +85,9 @@ namespace BackToTheFutureV
         private void SimulateDateInput(DateTime dateTime)
         {
             if (_simulateDatePos > -1)
+            {
                 return;
+            }
 
             _simulateDate = dateTime;
             _simulateDatePos = 0;
@@ -101,7 +111,9 @@ namespace BackToTheFutureV
         public void ProcessInputEnter()
         {
             if (Mods.IsDMC12)
+            {
                 Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.CancelableWithMovement);
+            }
 
             // If its not a valid length/mode
             if (_destinationTimeRaw.Length != 12 && _destinationTimeRaw.Length != 4 && _destinationTimeRaw.Length != 8)
@@ -123,7 +135,9 @@ namespace BackToTheFutureV
                 _destinationTimeRaw = string.Empty;
             }
             else
+            {
                 InputDate(dateTime.GetValueOrDefault(), inputType);
+            }
         }
 
         private string DateToInput(DateTime dateTime, int pos)
@@ -134,7 +148,9 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (lastInput != Keys.None && !Game.IsKeyPressed(lastInput))
+            {
                 lastInput = Keys.None;
+            }
 
             if (Properties.AreTimeCircuitsOn)
             {
@@ -160,7 +176,9 @@ namespace BackToTheFutureV
             }
 
             if (_simulateDatePos == -1 && Game.GameTime > _nextReset)
+            {
                 _destinationTimeRaw = string.Empty;
+            }
         }
 
         public override void Stop()

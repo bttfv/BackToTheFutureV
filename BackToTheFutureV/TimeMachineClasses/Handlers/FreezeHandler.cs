@@ -31,9 +31,13 @@ namespace BackToTheFutureV
         public void SetFreeze(bool state, bool resume = false)
         {
             if (state)
+            {
                 StartFreezeHandling(false, resume);
+            }
             else
+            {
                 Stop();
+            }
         }
 
         public void OnReenterEnded()
@@ -88,7 +92,9 @@ namespace BackToTheFutureV
                     Particles?.IceSmoke?.Stop();
 
                     foreach (ParticlePlayer waterDrop in Particles?.IceWaterDrops)
+                    {
                         waterDrop?.Stop();
+                    }
 
                     Sounds.Ice?.Stop();
                     Properties.IsDefrosting = false;
@@ -105,10 +111,14 @@ namespace BackToTheFutureV
             }
 
             if (!_doingFreezingSequence)
+            {
                 return;
+            }
 
             if (Game.GameTime < _gameTimer)
+            {
                 return;
+            }
 
             switch (_currentStep)
             {
@@ -143,7 +153,9 @@ namespace BackToTheFutureV
 
                 case 2:
                     if (Mods.Reactor == ReactorType.Nuclear && !_resuming)
+                    {
                         Sounds.IceVents?.Play();
+                    }
 
                     _currentStep++;
                     _gameTimer = Game.GameTime + 1000;
@@ -151,6 +163,7 @@ namespace BackToTheFutureV
 
                 case 3:
                     if (Mods.Reactor == ReactorType.Nuclear)
+                    {
                         for (; _smokeIndex < 7;)
                         {
                             Particles?.IceVentLeftSmoke?.Play();
@@ -162,6 +175,7 @@ namespace BackToTheFutureV
 
                             return;
                         }
+                    }
 
                     _currentStep++;
                     _gameTimer = Game.GameTime + 1000;
@@ -170,7 +184,9 @@ namespace BackToTheFutureV
                 case 4:
 
                     if (_fuelNotif)
+                    {
                         Events.StartFuelBlink?.Invoke();
+                    }
 
                     _doingFreezingSequence = false;
                     break;
@@ -179,7 +195,9 @@ namespace BackToTheFutureV
         private void UpdateDoorIce(VehicleDoorIndex doorIndex, ParticlePlayer waterDrop)
         {
             if (waterDrop.IsPlaying)
+            {
                 return;
+            }
 
             waterDrop.Play();
             waterDrop.Play();
@@ -200,7 +218,9 @@ namespace BackToTheFutureV
             Sounds.IceVents?.Stop(!Vehicle.IsVisible);
 
             foreach (ParticlePlayer waterDrop in Particles?.IceWaterDrops)
+            {
                 waterDrop.Stop();
+            }
 
             Particles?.IceSmoke?.Stop();
         }

@@ -28,7 +28,9 @@ namespace BackToTheFutureV
         public static void Tick()
         {
             foreach (StoryTimeMachine x in StoryTimeMachines)
+            {
                 x.Tick();
+            }
         }
 
         public static void Abort()
@@ -36,7 +38,9 @@ namespace BackToTheFutureV
             foreach (StoryTimeMachine x in StoryTimeMachines)
             {
                 if (x.Spawned && !x.IsUsed)
+                {
                     x.TimeMachine.Dispose();
+                }
             }
         }
     }

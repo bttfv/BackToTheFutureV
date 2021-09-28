@@ -1,6 +1,5 @@
 ﻿using FusionLibrary;
 using GTA;
-using GTA.Native;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -69,115 +68,169 @@ namespace BackToTheFutureV
             WormholeType wormholeType = (WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index;
 
             if (wormholeType != WormholeType)
+            {
                 WormholeType = wormholeType;
+            }
 
             WheelType wheelType = (WheelType)Vehicle.Mods[VehicleModType.FrontWheel].Index;
 
             if (wheelType != Wheel)
+            {
                 Wheel = wheelType;
+            }
 
             if (Wheel == WheelType.RailroadInvisible && TimeMachine.Props != null && !TimeMachine.Props.RRWheels.IsSpawned)
+            {
                 TimeMachine.Props?.RRWheels?.SpawnProp();
+            }
 
             ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
 
             if (reactorType != Reactor)
+            {
                 Reactor = reactorType;
+            }
 
             PlateType plateType = (PlateType)Vehicle.Mods[VehicleModType.Ornaments].Index;
 
             if (plateType != Plate)
+            {
                 Plate = plateType;
+            }
 
             ExhaustType exhaustType = (ExhaustType)Vehicle.Mods[VehicleModType.Windows].Index;
 
             if (exhaustType != Exhaust)
+            {
                 Exhaust = exhaustType;
+            }
 
             HoodType hoodType = (HoodType)Vehicle.Mods[VehicleModType.Hood].Index;
 
             if (hoodType != Hood)
+            {
                 Hood = hoodType;
+            }
 
             ModState modState = (ModState)Vehicle.Mods[VehicleModType.Spoilers].Index;
 
             if (modState != Components)
+            {
                 Components = modState;
+            }
 
             modState = (ModState)Vehicle.Mods[VehicleModType.FrontBumper].Index;
 
             if (modState != OffCoils)
+            {
                 OffCoils = modState;
+            }
 
             modState = (ModState)Vehicle.Mods[VehicleModType.Frame].Index;
 
             if (modState != GlowingEmitter)
+            {
                 GlowingEmitter = modState;
+            }
 
             modState = (ModState)Vehicle.Mods[VehicleModType.Fender].Index;
 
             if (modState != GlowingReactor)
+            {
                 GlowingReactor = modState;
+            }
 
             modState = (ModState)Vehicle.Mods[VehicleModType.DialDesign].Index;
 
             if (modState != HoverUnderbody)
+            {
                 HoverUnderbody = modState;
+            }
 
             modState = (ModState)Vehicle.Mods[VehicleModType.Livery].Index;
 
             if (modState != Hoodbox)
+            {
                 Hoodbox = modState;
+            }
 
             HookState hookState = HookState.Unknown;
 
             if (Vehicle.Mods[VehicleModType.Roof].Index == 1 && Vehicle.Mods[VehicleModType.ArchCover].Index == -1 && Vehicle.Mods[VehicleModType.Grille].Index == -1)
+            {
                 hookState = HookState.Off;
+            }
 
             if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == 0 && Vehicle.Mods[VehicleModType.Grille].Index == 0)
+            {
                 hookState = HookState.OnDoor;
+            }
 
             if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == 1 && Vehicle.Mods[VehicleModType.Grille].Index == 1)
+            {
                 hookState = HookState.On;
+            }
 
             if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == -1 && Vehicle.Mods[VehicleModType.Grille].Index == 0)
+            {
                 hookState = HookState.Removed;
+            }
 
             if (hookState != Hook)
+            {
                 Hook = hookState;
+            }
 
             if (suspensionsType != SuspensionsType)
+            {
                 SuspensionsType = suspensionsType;
+            }
         }
 
         public new WheelType Wheel
         {
-            get => base.Wheel;
+            get
+            {
+                return base.Wheel;
+            }
+
             set
             {
                 if (!IsDMC12 && HoverUnderbody == ModState.On && value != WheelType.DMC && value != WheelType.Red && value != WheelType.DMCInvisible && value != WheelType.RedInvisible)
+                {
                     HoverUnderbody = ModState.Off;
+                }
 
                 base.Wheel = value;
 
                 if (TimeMachine.Properties == null)
+                {
                     return;
+                }
 
                 if (value == WheelType.RailroadInvisible)
                 {
                     TimeMachine.Props?.RRWheels?.SpawnProp();
 
                     if (!IsDMC12)
+                    {
                         return;
+                    }
 
                     if (HoverUnderbody == ModState.On)
+                    {
                         HoverUnderbody = ModState.Off;
+                    }
 
                     if (SuspensionsType != SuspensionsType.Stock)
+                    {
                         SuspensionsType = SuspensionsType.Stock;
+                    }
 
                     if (WormholeType == WormholeType.BTTF3)
+                    {
                         TimeMachine.Events?.OnWormholeTypeChanged?.Invoke();
+                    }
 
                     Wheels.Burst = true;
                 }
@@ -192,43 +245,63 @@ namespace BackToTheFutureV
 
         public new SuspensionsType SuspensionsType
         {
-            get => base.SuspensionsType;
+            get
+            {
+                return base.SuspensionsType;
+            }
+
             set
             {
                 if (IsDMC12)
                 {
                     if (TimeMachine.Properties != null && TimeMachine.Properties.IsFlying)
+                    {
                         return;
+                    }
                 }
 
                 base.SuspensionsType = value;
 
                 if (!IsDMC12)
+                {
                     return;
+                }
 
                 if (value != SuspensionsType.Stock)
                 {
                     if (HoverUnderbody == ModState.On)
+                    {
                         HoverUnderbody = ModState.Off;
+                    }
 
                     if (Wheel == WheelType.RailroadInvisible)
+                    {
                         Wheel = WheelType.Stock;
+                    }
                 }
                 else
                 {
                     if (TimeMachine.Decorators != null)
+                    {
                         TimeMachine.Decorators.TorqueMultiplier = 1;
+                    }
                 }
             }
         }
 
         public new ModState HoverUnderbody
         {
-            get => base.HoverUnderbody;
+            get
+            {
+                return base.HoverUnderbody;
+            }
+
             set
             {
                 if (TimeMachine.Properties != null && TimeMachine.Properties.IsFlying)
+                {
                     return;
+                }
 
                 base.HoverUnderbody = value;
 
@@ -237,15 +310,21 @@ namespace BackToTheFutureV
                 if (value == ModState.On)
                 {
                     if (Wheel == WheelType.RailroadInvisible)
+                    {
                         Wheel = WheelType.Stock;
+                    }
 
                     if (!IsDMC12 && Wheel != WheelType.DMC && Wheel != WheelType.Red)
+                    {
                         Wheel = WheelType.DMC;
+                    }
 
                     reload = SuspensionsType != SuspensionsType.Stock;
 
                     if (SuspensionsType != SuspensionsType.Stock)
+                    {
                         SuspensionsType = SuspensionsType.Stock;
+                    }
 
                     Exhaust = ExhaustType.None;
                 }
@@ -258,25 +337,37 @@ namespace BackToTheFutureV
 
         public new ExhaustType Exhaust
         {
-            get => base.Exhaust;
+            get
+            {
+                return base.Exhaust;
+            }
+
             set
             {
                 if (IsDMC12)
                 {
                     if (TimeMachine.Properties != null && TimeMachine.Properties.IsFlying)
+                    {
                         return;
+                    }
                 }
 
                 base.Exhaust = value;
 
                 if (IsDMC12 && value != ExhaustType.None && HoverUnderbody == ModState.On)
+                {
                     HoverUnderbody = ModState.Off;
+                }
             }
         }
 
         public new WormholeType WormholeType
         {
-            get => base.WormholeType;
+            get
+            {
+                return base.WormholeType;
+            }
+
             set
             {
                 base.WormholeType = value;
@@ -287,7 +378,11 @@ namespace BackToTheFutureV
 
         public new ReactorType Reactor
         {
-            get => base.Reactor;
+            get
+            {
+                return base.Reactor;
+            }
+
             set
             {
                 base.Reactor = value;
@@ -298,7 +393,11 @@ namespace BackToTheFutureV
 
         public new ModState Hoodbox
         {
-            get => base.Hoodbox;
+            get
+            {
+                return base.Hoodbox;
+            }
+
             set
             {
                 base.Hoodbox = value;
@@ -306,20 +405,28 @@ namespace BackToTheFutureV
                 if (value == ModState.On)
                 {
                     if (TimeMachine.Properties == null)
+                    {
                         return;
+                    }
 
                     if (TimeMachine.Properties.AreTimeCircuitsOn)
+                    {
                         TimeMachine.Events?.SetTimeCircuits?.Invoke(false);
+                    }
 
                     if (!TimeMachine.Properties.AreTimeCircuitsBroken)
+                    {
                         return;
+                    }
 
                     WormholeType = WormholeType.BTTF3;
                 }
                 else
                 {
                     if (TimeMachine.Properties.AreTimeCircuitsOn)
+                    {
                         TimeMachine.Events.SetTimeCircuits?.Invoke(false);
+                    }
 
                     TimeMachine.Properties.AreHoodboxCircuitsReady = false;
                 }

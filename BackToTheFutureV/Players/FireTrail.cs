@@ -93,7 +93,7 @@ namespace BackToTheFutureV
 
                     // Create and configure fire particle
                     _fireTrailPtfxs.Add("core", "fire_petrol_one", ParticleType.Looped, leftPosOffset, vehicle.Rotation, 1.2f);
-                    _fireTrailPtfxs.Add("core", "fire_petrol_one", ParticleType.Looped, rightPosOffset, vehicle.Rotation, 1.2f);                    
+                    _fireTrailPtfxs.Add("core", "fire_petrol_one", ParticleType.Looped, rightPosOffset, vehicle.Rotation, 1.2f);
                 }
             }
             else
@@ -132,32 +132,40 @@ namespace BackToTheFutureV
                 _fireTrailPtfxs.SequenceInterval = 1;
                 _fireTrailPtfxs.StopInSequence();
                 _fadeAway = true;
-            }                
+            }
         }
 
         private void _fireTrailPtfxs_OnParticleSequenceCompleted(bool isStop)
         {
             if (!isStop)
+            {
                 _fadeAway = true;
+            }
         }
 
         public void Tick()
         {
             if (!_fireTrailPtfxs.IsPlaying || !_fadeAway)
+            {
                 return;
+            }
 
             if (_currentStrength > 0)
             {
                 _currentStrength -= Game.LastFrameTime * (1f / _disappearTime);
 
                 if (_currentStrength < 0)
+                {
                     _currentStrength = 0;
+                }
 
                 _fireTrailPtfxs.SetEvolutionParam("strength", _currentStrength);
             }
 
             if (_currentStrength == 0)
+            {
                 Stop(false);
+            }
         }
 
         public void Stop(bool instant = true)

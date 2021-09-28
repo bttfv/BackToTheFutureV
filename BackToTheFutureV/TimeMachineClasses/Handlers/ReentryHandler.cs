@@ -26,7 +26,9 @@ namespace BackToTheFutureV
             Properties.TimeTravelPhase = TimeTravelPhase.Reentering;
 
             if (ModSettings.WaybackSystem && Driver != null && Driver != FusionUtils.PlayerPed)
+            {
                 WaybackSystem.GetFromGUID(Properties.ReplicaGUID)?.StartOn(Driver, true);
+            }
         }
 
         public override void Tick()
@@ -44,10 +46,14 @@ namespace BackToTheFutureV
             }
 
             if (Properties.TimeTravelPhase != TimeTravelPhase.Reentering)
+            {
                 return;
+            }
 
             if (Game.GameTime < _gameTimer)
+            {
                 return;
+            }
 
             switch (_currentStep)
             {
@@ -60,7 +66,9 @@ namespace BackToTheFutureV
                     Function.Call(Hash.ADD_SHOCKING_EVENT_AT_POSITION, 88, Vehicle.Position.X, Vehicle.Position.Y, Vehicle.Position.Z, 1f);
 
                     if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                    {
                         FusionUtils.SetPadShake(500, 200);
+                    }
 
                     int timeToAdd = 500;
 
@@ -84,7 +92,9 @@ namespace BackToTheFutureV
                     Particles?.Flash?.Play();
 
                     if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                    {
                         FusionUtils.SetPadShake(500, 200);
+                    }
 
                     timeToAdd = 500;
 
@@ -108,7 +118,9 @@ namespace BackToTheFutureV
                     Particles?.Flash?.Play();
 
                     if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                    {
                         FusionUtils.SetPadShake(500, 200);
+                    }
 
                     _currentStep++;
                     break;
@@ -125,7 +137,9 @@ namespace BackToTheFutureV
         private void OnReenterEnded()
         {
             if (Driver == FusionUtils.PlayerPed)
+            {
                 RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
+            }
 
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
@@ -144,7 +158,9 @@ namespace BackToTheFutureV
                 Vehicle.Velocity = Properties.LastVelocity;
 
                 if (Vehicle.GetMPHSpeed() < Constants.SIDMaxAtSpeed)
+                {
                     Vehicle.SetMPHSpeed(88);
+                }
             }
 
             if (Properties.HasBeenStruckByLightning)
@@ -160,13 +176,19 @@ namespace BackToTheFutureV
                     Properties.AreFlyingCircuitsBroken = true;
 
                     if (!Mods.IsDMC12 || Mods.Hoodbox == ModState.Off)
+                    {
                         Events.SetTimeCircuitsBroken?.Invoke();
+                    }
                 }
                 else
+                {
                     Properties.PhotoGlowingCoilsActive = false;
+                }
             }
             else if (Mods.IsDMC12)
+            {
                 Properties.ReactorCharge--;
+            }
 
             if (!Properties.IsOnTracks && !Properties.IsFlying && Vehicle.Driver == null)
             {
@@ -183,10 +205,14 @@ namespace BackToTheFutureV
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
 
             if (!ModSettings.WaybackSystem && Driver != null && Driver != FusionUtils.PlayerPed)
+            {
                 Driver.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 10000).Start();
+            }
 
             if (ModSettings.WaybackSystem && FusionUtils.PlayerVehicle == Vehicle)
+            {
                 WaybackSystem.Create(FusionUtils.PlayerPed, Properties.ReplicaGUID);
+            }
         }
 
         public override void Stop()

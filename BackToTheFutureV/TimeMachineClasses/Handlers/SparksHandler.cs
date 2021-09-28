@@ -20,7 +20,9 @@ namespace BackToTheFutureV
         public void OnTimeTravelSpeedReached(bool over)
         {
             if (!Properties.AreTimeCircuitsOn)
+            {
                 return;
+            }
 
             if (over)
             {
@@ -33,7 +35,9 @@ namespace BackToTheFutureV
                 Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
 
                 if (Properties.IsFueled)
+                {
                     DMC12?.SetVoltValue?.Invoke(100);
+                }
 
                 WaypointScript.LoadWaypointPosition(true);
             }
@@ -54,7 +58,9 @@ namespace BackToTheFutureV
         public void OnSIDMaxSpeedReached(bool over)
         {
             if (!Properties.AreTimeCircuitsOn || !over)
+            {
                 return;
+            }
 
             Sounds.DiodesGlowing?.Play();
         }
@@ -62,7 +68,9 @@ namespace BackToTheFutureV
         private void OnTimeCircuitsToggle()
         {
             if (!Properties.AreTimeCircuitsOn && Players.Wormhole.IsPlaying)
+            {
                 Stop();
+            }
         }
 
         public override void Tick()
@@ -70,13 +78,19 @@ namespace BackToTheFutureV
             if (!Properties.AreTimeCircuitsOn && !Properties.IsPhotoModeOn)
             {
                 if (Sounds.SparkStabilized.IsAnyInstancePlaying)
+                {
                     Sounds.SparkStabilized?.Stop(true);
+                }
 
                 if (Sounds.SparksEmpty.IsAnyInstancePlaying)
+                {
                     Sounds.SparksEmpty?.Stop(true);
+                }
 
                 if (Sounds.Sparks.IsAnyInstancePlaying)
+                {
                     Sounds.Sparks?.Stop(true);
+                }
 
                 return;
             }
@@ -86,7 +100,9 @@ namespace BackToTheFutureV
             if (Constants.OverTimeTravelAtSpeed)
             {
                 if (!FusionUtils.IsPadShaking && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+                {
                     FusionUtils.SetPadShake(Constants.WormholeLengthTime, 100);
+                }
 
                 if (Properties.IsFueled)
                 {
@@ -95,13 +111,17 @@ namespace BackToTheFutureV
                         Players.Wormhole?.Play(true);
 
                         if (ModSettings.GlowingWormholeEmitter)
+                        {
                             Mods.GlowingEmitter = ModState.On;
+                        }
                     }
 
                     if (!Sounds.Sparks.IsAnyInstancePlaying && !Sounds.SparkStabilized.IsAnyInstancePlaying)
                     {
                         if (Mods.HoverUnderbody == ModState.On)
+                        {
                             Properties.CanConvert = false;
+                        }
 
                         Sounds.Sparks?.Play();
                     }
@@ -111,38 +131,54 @@ namespace BackToTheFutureV
                         Sounds.Sparks?.Stop();
 
                         if (!Sounds.SparkStabilized.IsAnyInstancePlaying)
+                        {
                             Sounds.SparkStabilized?.Play();
+                        }
                     }
 
                     if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.Over88MphSpeed && !Properties.IsWayback)
+                    {
                         Events.OnSparksEnded?.Invoke();
+                    }
                 }
                 else
                 {
                     if (!Players.Wormhole.IsPlaying)
+                    {
                         Players.Wormhole.Play(false);
+                    }
 
                     if (!Sounds.SparksEmpty.IsAnyInstancePlaying)
+                    {
                         Sounds.SparksEmpty?.Play();
+                    }
                 }
             }
             else
             {
                 if (Sounds.SparkStabilized.IsAnyInstancePlaying)
+                {
                     Sounds.SparkStabilized?.Stop(true);
+                }
 
                 if (Sounds.SparksEmpty.IsAnyInstancePlaying)
+                {
                     Sounds.SparksEmpty?.Stop(true);
+                }
 
                 if (Sounds.Sparks.IsAnyInstancePlaying)
+                {
                     Sounds.Sparks?.Stop(true);
+                }
             }
         }
 
         public override void Stop()
         {
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+            {
                 FusionUtils.StopPadShake();
+            }
 
             Players.Wormhole?.Stop();
 
@@ -155,10 +191,14 @@ namespace BackToTheFutureV
             Mods.GlowingEmitter = ModState.Off;
 
             if (Players.Wormhole.IsPlaying)
+            {
                 Players.Wormhole?.Stop();
+            }
 
             if (Mods.HoverUnderbody == ModState.On)
+            {
                 Properties.CanConvert = true;
+            }
 
             Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
             PlayerSwitch.Disable = false;

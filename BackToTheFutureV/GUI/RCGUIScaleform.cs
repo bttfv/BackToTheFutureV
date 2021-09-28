@@ -21,7 +21,9 @@ namespace BackToTheFutureV
         public void SetSpeed(float mphSpeed)
         {
             if (mphSpeed > 88.0f)
+            {
                 mphSpeed = 88.0f;
+            }
 
             string mphSpeedStr = mphSpeed.ToString("00.0");
 

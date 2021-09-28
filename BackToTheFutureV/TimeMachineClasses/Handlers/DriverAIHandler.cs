@@ -40,18 +40,24 @@ namespace BackToTheFutureV
                 DriverAI = Vehicle.GetPedOnSeat(VehicleSeat.Driver);
 
                 if (DriverAI == null)
+                {
                     DriverAI = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
+                }
 
                 IsPlaying = true;
             }
             else
+            {
                 Stop();
+            }
         }
 
         private void OnTimeTravelEnded()
         {
             if (IsPlaying)
+            {
                 Stop();
+            }
         }
 
         private void TaskTimeTravel()
@@ -62,15 +68,21 @@ namespace BackToTheFutureV
             {
                 case 0:
                     if (!Properties.IsFueled)
+                    {
                         DriverAI.Task.GoStraightTo(Vehicle.GetOffsetPosition(new Vector3(0, -2.5f, 0f)), -1, Vehicle.Heading);
+                    }
                     else
+                    {
                         Step = 3;
+                    }
 
                     Step++;
                     break;
                 case 1:
                     if (!FuelHandler.IsPedInPosition(Vehicle, DriverAI))
+                    {
                         break;
+                    }
 
                     //Events.SetRefuel?.Invoke(DriverAI);
 
@@ -78,7 +90,9 @@ namespace BackToTheFutureV
                     break;
                 case 2:
                     if (!Properties.IsFueled)
+                    {
                         break;
+                    }
 
                     DriverAI.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
 
@@ -86,16 +100,24 @@ namespace BackToTheFutureV
                     break;
                 case 3:
                     if (!DriverAI.IsInVehicle(Vehicle))
+                    {
                         break;
+                    }
 
                     if (Properties.AreTimeCircuitsBroken && Mods.Hoodbox == ModState.Off)
+                    {
                         Mods.Hoodbox = ModState.On;
+                    }
 
                     if (Mods.Hoodbox == ModState.On && !Properties.AreHoodboxCircuitsReady)
+                    {
                         Events.SetHoodboxWarmedUp?.Invoke();
+                    }
 
                     if (!Properties.AreTimeCircuitsOn)
+                    {
                         Events.SetTimeCircuits?.Invoke(true);
+                    }
 
                     Step++;
                     break;
@@ -124,7 +146,9 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (!IsPlaying)
+            {
                 return;
+            }
 
             switch (DriverTask)
             {

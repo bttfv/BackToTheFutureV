@@ -56,19 +56,29 @@ namespace BackToTheFutureV
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == cinematicSpawn)
+            {
                 ModSettings.CinematicSpawn = Checked;
+            }
 
             if (sender == useInputToggle)
+            {
                 ModSettings.UseInputToggle = Checked;
+            }
 
             if (sender == forceFlyMode)
+            {
                 ModSettings.ForceFlyMode = Checked;
+            }
 
             if (sender == LandingSystem)
+            {
                 ModSettings.LandingSystem = Checked;
+            }
 
             if (sender == PersistenceSystem)
+            {
                 ModSettings.PersistenceSystem = Checked;
+            }
 
             if (sender == RandomTrains)
             {
@@ -85,20 +95,28 @@ namespace BackToTheFutureV
             }
 
             if (sender == GlowingWormholeEmitter)
+            {
                 ModSettings.GlowingWormholeEmitter = Checked;
+            }
 
             if (sender == GlowingPlutoniumReactor)
+            {
                 ModSettings.GlowingPlutoniumReactor = Checked;
+            }
 
             if (sender == InfiniteFuel)
+            {
                 ModSettings.InfiniteFuel = Checked;
+            }
 
             if (sender == WaybackSystem)
             {
                 ModSettings.WaybackSystem = Checked;
 
                 if (!Checked)
+                {
                     BackToTheFutureV.WaybackSystem.Abort();
+                }
             }
 
             ModSettings.SaveSettings();

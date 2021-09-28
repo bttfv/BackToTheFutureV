@@ -69,7 +69,9 @@ namespace BackToTheFutureV
         private void _hoverUnderbody_Selected(object sender, SelectedEventArgs e)
         {
             if (!_hoverUnderbody.Enabled && _tempTimeMachine.Properties.AreFlyingCircuitsBroken)
+            {
                 TextHandler.ShowSubtitle("HoverDamaged");
+            }
         }
 
         public override void Menu_Closing(object sender, CancelEventArgs e)
@@ -80,7 +82,9 @@ namespace BackToTheFutureV
         private void ModList_ItemChanged(object sender, ItemChangedEventArgs<string> e)
         {
             if (!Game.IsControlJustPressed(Control.PhoneLeft) && !Game.IsControlJustPressed(Control.PhoneRight))
+            {
                 return;
+            }
 
             int newIndex = e.Index;
 
@@ -107,9 +111,14 @@ namespace BackToTheFutureV
                         break;
                     case 3:
                         if (_tempTimeMachine.Mods.IsDMC12)
+                        {
                             _tempTimeMachine.Mods.Wheel = WheelType.Stock;
+                        }
                         else
+                        {
                             _tempTimeMachine.Mods.Wheel = WheelType.DMC;
+                        }
+
                         break;
                 }
             }
@@ -177,15 +186,21 @@ namespace BackToTheFutureV
         private ModState ConvertFromBool(bool value)
         {
             if (value)
+            {
                 return ModState.On;
+            }
             else
+            {
                 return ModState.Off;
+            }
         }
 
         private bool ConvertFromModState(ModState value)
         {
             if (value == ModState.On)
+            {
                 return true;
+            }
 
             return false;
         }
@@ -193,17 +208,25 @@ namespace BackToTheFutureV
         public override void Menu_Shown(object sender, EventArgs e)
         {
             if (MenuHandler.MainMenu.Visible)
+            {
                 MenuHandler.MainMenu.Visible = false;
+            }
 
             if (MenuHandler.TimeMachineMenu.Visible)
+            {
                 MenuHandler.TimeMachineMenu.Visible = false;
+            }
 
             if (ForceNew || (FusionUtils.PlayerVehicle == null || !FusionUtils.PlayerVehicle.IsTimeMachine()))
             {
                 if (ForceNew || FusionUtils.PlayerVehicle == null)
+                {
                     _tempTimeMachine = TimeMachineHandler.Create(SpawnFlags.WarpPlayer);
+                }
                 else
+                {
                     _tempTimeMachine = TimeMachineHandler.Create(FusionUtils.PlayerVehicle);
+                }
             }
             else if (FusionUtils.PlayerVehicle.IsTimeMachine())
             {
@@ -241,7 +264,9 @@ namespace BackToTheFutureV
                 string _name = Game.GetUserInput(WindowTitle.EnterMessage20, "", 20);
 
                 if (_name == null || _name == "")
+                {
                     return;
+                }
 
                 _tempTimeMachine.Clone().Save(_name);
             }
@@ -260,9 +285,13 @@ namespace BackToTheFutureV
             else if (sender == _hook)
             {
                 if (Checked)
+                {
                     _tempTimeMachine.Mods.Hook = HookState.OnDoor;
+                }
                 else
+                {
                     _tempTimeMachine.Mods.Hook = HookState.Off;
+                }
             }
             else if (sender == _threeDigits)
             {

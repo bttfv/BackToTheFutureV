@@ -34,10 +34,14 @@ namespace BackToTheFutureV
             }
 
             if (Rain2015.IsNow() && World.Weather != Weather.Raining)
+            {
                 World.TransitionToWeather(Weather.Raining, 2);
+            }
 
             if (Clear2015.IsNow() && World.Weather != Weather.Clear)
+            {
                 World.TransitionToWeather(Weather.Clear, 2);
+            }
         }
     }
 }

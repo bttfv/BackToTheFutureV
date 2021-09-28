@@ -7,7 +7,13 @@ namespace BackToTheFutureV
 {
     internal class SIDScaleform : ScaleformGui
     {
-        private PropertiesHandler Properties => TimeMachineHandler.ClosestTimeMachine.Properties;
+        private PropertiesHandler Properties
+        {
+            get
+            {
+                return TimeMachineHandler.ClosestTimeMachine.Properties;
+            }
+        }
 
         private static PointF SID3DLocation = new PointF() { X = 0.626f, Y = 0.626f };
         private static readonly float SID3DScale = 1.284f;
@@ -20,10 +26,14 @@ namespace BackToTheFutureV
         private void SetLed()
         {
             if (TcdEditer.IsEditing)
+            {
                 return;
+            }
 
             for (int column = 0; column < 10; column++)
+            {
                 CallFunction("setLed", column, Convert.ToInt32(Properties.CurrentHeight[column]));
+            }
         }
 
         public void Draw2D()

@@ -78,16 +78,24 @@ namespace BackToTheFutureV
             RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_rr"));
 
             if (Vehicle.Bones["wheel_lm1"].Index > 0)
+            {
                 RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_lm1"));
+            }
 
             if (Vehicle.Bones["wheel_rm1"].Index > 0)
+            {
                 RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_rm1"));
+            }
 
             if (Vehicle.Bones["wheel_lm2"].Index > 0)
+            {
                 RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_lm2"));
+            }
 
             if (Vehicle.Bones["wheel_rm2"].Index > 0)
+            {
                 RRWheels.Add(new AnimateProp(ModelHandler.RRWheelProp, Vehicle, "wheel_rm2"));
+            }
 
             WhiteSphere = new AnimateProp(ModelHandler.WhiteSphere, Vehicle)
             {
@@ -100,22 +108,30 @@ namespace BackToTheFutureV
             //Lightnings
             Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true };
             foreach (CustomModel x in ModelHandler.Lightnings)
+            {
                 Lightnings.Add(new AnimateProp(x, Vehicle));
+            }
 
             LightningsOnCar = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true };
             foreach (CustomModel x in ModelHandler.LightningsOnCar)
+            {
                 LightningsOnCar.Add(new AnimateProp(x, Vehicle));
+            }
 
             //Hover Mode            
             HoverModeWheelsGlow = new AnimatePropsHandler();
             foreach (CVehicleWheel wheel in Mods.Wheels)
+            {
                 HoverModeWheelsGlow.Add(new AnimateProp(ModelHandler.HoverGlowing, null, Vector3.Zero, new Vector3(0, 90, 0))
                 {
                     Duration = 1.8f
                 });
+            }
 
             if (!Mods.IsDMC12)
+            {
                 return;
+            }
 
             BTTFDecals = new AnimateProp(ModelHandler.BTTFDecals, Vehicle);
             BTTFDecals.SpawnProp();
@@ -124,7 +140,9 @@ namespace BackToTheFutureV
             HoverModeVentsGlow = new AnimateProp(ModelHandler.VentGlowing, Vehicle);
             HoverModeUnderbodyLights = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 200, IsSequenceLooped = true };
             foreach (CustomModel model in ModelHandler.UnderbodyLights)
+            {
                 HoverModeUnderbodyLights.Add(new AnimateProp(model, Vehicle));
+            }
 
             //Fuel
             EmptyGlowing = new AnimateProp(ModelHandler.Empty, Vehicle);
@@ -134,7 +152,9 @@ namespace BackToTheFutureV
             //Coils = new AnimateProp(Vehicle, ModelHandler.CoilsGlowing);
             SeparatedCoils = new AnimatePropsHandler();
             foreach (CustomModel coilModel in ModelHandler.CoilSeparated)
+            {
                 SeparatedCoils.Add(new AnimateProp(coilModel, TimeMachine.Vehicle));
+            }
 
             //Plutonium gauge
             GaugeGlow = new AnimateProp(ModelHandler.GaugeGlow, Vehicle);

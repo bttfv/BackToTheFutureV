@@ -42,14 +42,27 @@ namespace BackToTheFutureV
         public bool HasScaleformPriority { get; set; }
         public int ReactorCharge
         {
-            get => reactorCharge;
+            get
+            {
+                return reactorCharge;
+            }
+
             set
             {
                 if (value >= 0)
+                {
                     reactorCharge = value;
+                }
             }
         }
-        public bool IsFueled => ReactorCharge > 0;
+        public bool IsFueled
+        {
+            get
+            {
+                return ReactorCharge > 0;
+            }
+        }
+
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
         public bool IsFluxDoingBlueAnim { get; set; }
         public bool IsEngineStalling { get; set; }
@@ -151,13 +164,19 @@ namespace BackToTheFutureV
             timeMachine.Properties.ThreeDigitsSpeedo = ThreeDigitsSpeedo;
 
             if (IsFlying)
+            {
                 timeMachine.Events.SetFlyMode?.Invoke(true, true);
+            }
 
             if (IsFreezed)
+            {
                 timeMachine.Events.SetFreeze?.Invoke(true, true);
+            }
 
             if (AreHoodboxCircuitsReady)
+            {
                 timeMachine.Events.SetHoodboxWarmedUp?.Invoke();
+            }
 
             timeMachine.Events.SetReactorState?.Invoke(ReactorState);
         }
@@ -167,31 +186,49 @@ namespace BackToTheFutureV
             timeMachine.Properties.IsWayback = true;
 
             if (ReactorCharge != timeMachine.Properties.ReactorCharge)
+            {
                 timeMachine.Properties.ReactorCharge = ReactorCharge;
+            }
 
             if (ThreeDigitsSpeedo != timeMachine.Properties.ThreeDigitsSpeedo)
+            {
                 timeMachine.Properties.ThreeDigitsSpeedo = ThreeDigitsSpeedo;
+            }
 
             if (PreviousTime != timeMachine.Properties.PreviousTime)
+            {
                 timeMachine.Properties.PreviousTime = PreviousTime;
+            }
 
             if (AreHoodboxCircuitsReady != timeMachine.Properties.AreHoodboxCircuitsReady)
+            {
                 timeMachine.Properties.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;
+            }
 
             if (AreTimeCircuitsOn != timeMachine.Properties.AreTimeCircuitsOn)
+            {
                 timeMachine.Events.SetTimeCircuits?.Invoke(AreTimeCircuitsOn);
+            }
 
             if (DestinationTime != timeMachine.Properties.DestinationTime)
+            {
                 timeMachine.Events.SimulateInputDate?.Invoke(DestinationTime);
+            }
 
             if (IsFlying != timeMachine.Properties.IsFlying)
+            {
                 timeMachine.Events.SetFlyMode?.Invoke(IsFlying);
+            }
 
             if (IsHoverBoosting != timeMachine.Properties.IsHoverBoosting)
+            {
                 timeMachine.Events.SimulateHoverBoost?.Invoke(IsHoverBoosting);
+            }
 
             if (IsHoverGoingUpDown != timeMachine.Properties.IsHoverGoingUpDown)
+            {
                 timeMachine.Events.SimulateHoverGoingUpDown?.Invoke(IsHoverGoingUpDown);
+            }
         }
     }
 }

@@ -48,18 +48,26 @@ namespace BackToTheFutureV
             date = new DateTime();
 
             if (Mods.IsDMC12)
+            {
                 Events.OnScaleformPriority += OnScaleformPriority;
+            }
         }
 
         private void OnScaleformPriority()
         {
             if (!Mods.IsDMC12)
+            {
                 return;
+            }
 
             if (Constants.HasScaleformPriority)
+            {
                 Scaleforms.TCDRowsRT[SlotType]?.CreateProp();
+            }
             else
+            {
                 Scaleforms.TCDRowsRT[SlotType]?.Dispose();
+            }
         }
 
         public void SetDate(DateTime dateToSet)
@@ -85,7 +93,9 @@ namespace BackToTheFutureV
                 ScaleformsHandler.GUI.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
 
                 if (toggleTo)
+                {
                     Properties.HUDProperties.SetDate(SlotType, date);
+                }
 
                 Properties.HUDProperties.SetVisible(SlotType, toggleTo, month, day, year, hour, minute, amPm);
             }
@@ -117,7 +127,9 @@ namespace BackToTheFutureV
         public override void Dispose()
         {
             if (Mods.IsDMC12)
+            {
                 Scaleforms.TCDRowsRT[SlotType]?.Dispose();
+            }
 
             amProp?.Delete();
             pmProp?.Delete();
@@ -136,7 +148,9 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (Mods.IsDMC12 && (toggle || IsDoingTimedVisible))
+            {
                 Scaleforms.TCDRowsRT[SlotType]?.Draw();
+            }
 
             if (!IsDoingTimedVisible)
             {
@@ -146,13 +160,19 @@ namespace BackToTheFutureV
             }
 
             if (Game.GameTime > showPropsAt)
+            {
                 SetVisible(toggle, false);
+            }
 
             if (Game.GameTime > showMonthAt)
+            {
                 SetVisible(toggle);
+            }
 
             if (Game.GameTime > showPropsAt && Game.GameTime > showMonthAt)
+            {
                 IsDoingTimedVisible = false;
+            }
         }
 
         public override void Stop()

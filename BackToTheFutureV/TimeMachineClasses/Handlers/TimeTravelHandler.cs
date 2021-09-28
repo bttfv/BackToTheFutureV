@@ -23,7 +23,9 @@ namespace BackToTheFutureV
             Events.SetCutsceneMode += SetCutsceneMode;
 
             if (Mods.IsDMC12)
+            {
                 Props.LicensePlate.OnAnimCompleted += LicensePlate_OnAnimCompleted;
+            }
 
             TimeHandler.OnTimeChanged += TimeChanged;
         }
@@ -33,7 +35,9 @@ namespace BackToTheFutureV
             Props.LicensePlate?.ScatterProp(0.1f);
 
             if (Properties.TimeTravelPhase == TimeTravelPhase.InTime && Properties.TimeTravelType == TimeTravelType.Cutscene)
+            {
                 gameTimer += 1500;
+            }
         }
 
         public static void TimeChanged(DateTime time)
@@ -41,7 +45,9 @@ namespace BackToTheFutureV
             TimeMachineHandler.ExistenceCheck(time);
 
             if (!ModSettings.WaybackSystem)
+            {
                 RemoteTimeMachineHandler.ExistenceCheck(time);
+            }
         }
 
         public void SetCutsceneMode(bool cutsceneOn)
@@ -61,10 +67,14 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (Properties.TimeTravelPhase != TimeTravelPhase.InTime)
+            {
                 return;
+            }
 
             if (FusionUtils.PlayerVehicle == Vehicle && !Properties.IsRemoteControlled && !FusionUtils.HideGUI)
+            {
                 FusionUtils.HideGUI = true;
+            }
 
             if (FusionUtils.PlayerPed.IsInVehicle(Vehicle))
             {
@@ -73,26 +83,38 @@ namespace BackToTheFutureV
             }
 
             if (Game.GameTime < gameTimer)
+            {
                 return;
+            }
 
             switch (_currentStep)
             {
                 case 0:
 
                     if (Properties.IsRemoteControlled)
+                    {
                         Properties.TimeTravelType = TimeTravelType.RC;
+                    }
                     else if (Properties.IsWayback)
+                    {
                         Properties.TimeTravelType = TimeTravelType.Wayback;
+                    }
                     else
                     {
                         if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != FusionUtils.PlayerPed)
+                        {
                             Properties.TimeTravelType = TimeTravelType.RC;
+                        }
                         else
                         {
                             if (!Properties.CutsceneMode || FusionUtils.IsCameraInFirstPerson())
+                            {
                                 Properties.TimeTravelType = TimeTravelType.Instant;
+                            }
                             else
+                            {
                                 Properties.TimeTravelType = TimeTravelType.Cutscene;
+                            }
                         }
                     }
 
@@ -118,9 +140,13 @@ namespace BackToTheFutureV
                         Sounds.TimeTravelInstant?.Play();
 
                         if (FusionUtils.IsCameraInFirstPerson())
+                        {
                             Props.WhiteSphere.SpawnProp();
+                        }
                         else
+                        {
                             ScreenFlash.FlashScreen(0.25f);
+                        }
 
                         if (Properties.TimeTravelDestPos != Vector3.Zero)
                         {
@@ -169,7 +195,9 @@ namespace BackToTheFutureV
 
                         // Add to time travelled list
                         if (Properties.TimeTravelType == TimeTravelType.RC)
+                        {
                             RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone());
+                        }
 
                         Vehicle.SetVisible(false);
 
@@ -186,7 +214,9 @@ namespace BackToTheFutureV
                     TimeMachine.LastDisplacementClone = TimeMachine.Clone();
 
                     if (Mods.HoverUnderbody == ModState.On)
+                    {
                         Properties.CanConvert = false;
+                    }
 
                     Game.Player.IgnoredByPolice = true;
 
@@ -218,7 +248,9 @@ namespace BackToTheFutureV
                     {
                         // Stop remote controlling
                         if (Properties.IsRemoteControlled)
+                        {
                             RemoteTimeMachineHandler.StopRemoteControl();
+                        }
 
                         TimeMachineHandler.RemoveTimeMachine(TimeMachine, true, true);
 
@@ -235,7 +267,9 @@ namespace BackToTheFutureV
 
                 case 2:
                     if (Properties.MissionType == MissionType.Escape)
+                    {
                         return;
+                    }
 
                     Screen.FadeOut(1000);
                     gameTimer = Game.GameTime + 1500;
@@ -253,9 +287,13 @@ namespace BackToTheFutureV
                     World.RenderingCamera = null;
 
                     if (TimeHandler.RealTime)
+                    {
                         TimeHandler.TimeTravelTo(Properties.DestinationTime.AddSeconds(-4));
+                    }
                     else
+                    {
                         TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-2));
+                    }
 
                     if (Properties.TimeTravelDestPos != Vector3.Zero)
                     {
@@ -305,7 +343,9 @@ namespace BackToTheFutureV
         public override void KeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == ModControls.CutsceneToggle)
+            {
                 Events.SetCutsceneMode?.Invoke(!Properties.CutsceneMode);
+            }
         }
     }
 }

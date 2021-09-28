@@ -14,13 +14,17 @@ namespace BackToTheFutureV
         public TimeMachineCloneHandler(List<TimeMachine> timeMachines)
         {
             foreach (TimeMachine x in timeMachines)
+            {
                 timeMachineClones.Add(x.Clone());
+            }
         }
 
         public void SpawnAll()
         {
             foreach (TimeMachineClone x in timeMachineClones)
+            {
                 x.Spawn(SpawnFlags.CheckExists);
+            }
         }
 
         private static readonly string _saveFile = "./scripts/BackToTheFutureV/TimeMachines.dmc12";
@@ -28,7 +32,9 @@ namespace BackToTheFutureV
         public static void Delete()
         {
             if (File.Exists(_saveFile))
+            {
                 File.Delete(_saveFile);
+            }
         }
 
         public static void Save(List<TimeMachine> timeMachines)
@@ -42,7 +48,9 @@ namespace BackToTheFutureV
         public static TimeMachineCloneHandler Load()
         {
             if (!File.Exists(_saveFile))
+            {
                 return null;
+            }
 
             Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
 

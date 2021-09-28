@@ -36,7 +36,9 @@ namespace BackToTheFutureV
         public void SetTrainSpeed(float speed)
         {
             if (!Properties.IsOnTracks || customTrain == null || !customTrain.Exists)
+            {
                 return;
+            }
 
             customTrain.Speed = speed;
         }
@@ -46,7 +48,9 @@ namespace BackToTheFutureV
             Properties.WasOnTracks = Properties.IsOnTracks;
 
             if (!Properties.IsOnTracks)
+            {
                 return;
+            }
 
             switch (Properties.TimeTravelType)
             {
@@ -62,18 +66,25 @@ namespace BackToTheFutureV
         public void OnReenterEnded()
         {
             if (!Properties.WasOnTracks)
+            {
                 return;
+            }
 
             _isReentryOn = true;
 
             if (customTrain == null || !customTrain.Exists)
+            {
                 Start(true);
+            }
 
             switch (Properties.TimeTravelType)
             {
                 case TimeTravelType.Instant:
                     if (customTrain.SpeedMPH == 0)
+                    {
                         customTrain.SpeedMPH = 88;
+                    }
+
                     break;
                 case TimeTravelType.Cutscene:
                     customTrain.SpeedMPH = 88;
@@ -87,7 +98,9 @@ namespace BackToTheFutureV
         public void Start(bool force = false)
         {
             if (!force && !Vehicle.IsOnAllWheels)
+            {
                 return;
+            }
 
             _speed = Vehicle.Speed;
 
@@ -143,10 +156,14 @@ namespace BackToTheFutureV
             if (_isReentryOn)
             {
                 if (customTrain.SpeedMPH == 0)
+                {
                     customTrain.SpeedMPH = 88;
+                }
             }
             else
+            {
                 customTrain.Speed = Vehicle.IsGoingForward() ? _speed : -_speed;
+            }
         }
 
         public override void Dispose()
@@ -164,25 +181,33 @@ namespace BackToTheFutureV
             if (Mods.Wheel != WheelType.RailroadInvisible)
             {
                 if (Properties.IsOnTracks)
+                {
                     Stop();
+                }
 
                 return;
             }
 
             if (Properties.IsOnTracks && customTrain == null)
+            {
                 Stop();
+            }
 
             if (Properties.IsOnTracks)
             {
                 customTrain.IsAccelerationOn = Vehicle.IsPlayerDriving() && Vehicle.IsVisible && Vehicle.IsEngineRunning;
 
                 if (FusionUtils.PlayerVehicle == Vehicle)
+                {
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
+                }
 
                 if (_isReentryOn && customTrain.AttachedToTarget && customTrain.SpeedMPH == 0)
                 {
                     if (_forceFreightTrain || FusionUtils.Random.NextDouble() <= 0.25f)
+                    {
                         CustomTrainHandler.CreateFreightTrain(Vehicle, !_direction).SetToDestroy(Vehicle, 35);
+                    }
 
                     _isReentryOn = false;
                     _forceFreightTrain = false;
@@ -190,7 +215,9 @@ namespace BackToTheFutureV
                 }
 
                 if (Properties.MissionType == MissionType.Train)
+                {
                     return;
+                }
 
                 Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.TankerCarModel);
 
@@ -201,11 +228,15 @@ namespace BackToTheFutureV
                     if (Vehicle.SameDirection(_train))
                     {
                         if (Math.Abs(_train.GetMPHSpeed() + Vehicle.GetMPHSpeed()) > 35)
+                        {
                             Vehicle.Explode();
+                        }
                     }
                     else
                         if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 35)
+                    {
                         Vehicle.Explode();
+                    }
 
                     _attachDelay = Game.GameTime + 3000;
                 }
@@ -235,18 +266,24 @@ namespace BackToTheFutureV
             Mods.Wheels.Burst = true;
 
             if (delay > 0)
+            {
                 _attachDelay = Game.GameTime + delay;
+            }
 
             if (customTrain != null)
             {
                 if (customTrain.Exists && customTrain.AttachedToTarget)
+                {
                     customTrain.DetachTargetVehicle();
+                }
 
                 customTrain.OnVehicleAttached -= customTrain_OnVehicleAttached;
                 customTrain.OnTrainDeleted -= customTrain_OnTrainDeleted;
 
                 if (customTrain.Exists)
+                {
                     customTrain.DeleteTrain();
+                }
 
                 customTrain = null;
             }

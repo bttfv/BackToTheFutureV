@@ -53,7 +53,9 @@ namespace BackToTheFutureV
                 IsPlaying = !IsPlaying;
 
                 if (Game.IsControlJustPressed(Control.PhoneSelect))
+                {
                     save = true;
+                }
 
                 if (IsPlaying)
                 {
@@ -61,12 +63,16 @@ namespace BackToTheFutureV
                     save = false;
 
                     if (Properties.AlarmSet)
+                    {
                         TextHandler.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss"));
+                    }
                 }
                 else
                 {
                     if (save)
+                    {
                         Properties.ClockTime = tempTime;
+                    }
                 }
             }
         }
@@ -79,12 +85,18 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (Properties.AlarmSet && FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 21, 30, 00), new DateTime(1955, 11, 12, 22, 3, 50)) && Properties.AlarmTime.Between(new DateTime(1955, 11, 12, 21, 30, 00), new DateTime(1955, 11, 12, 22, 3, 50)) && Vehicle.GetStreetInfo().Street == ClocktowerMission.LightningRunStreet && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.Random.NextDouble() > 0.3f)
+            {
                 Events.SetEngineStall?.Invoke(true);
+            }
 
             if (Properties.SyncWithCurTime)
+            {
                 Properties.ClockTime = FusionUtils.CurrentTime;
+            }
             else
+            {
                 Properties.ClockTime = Properties.ClockTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * (TimeHandler.RealTime ? 1 : 30)));
+            }
 
             if (IsPlaying)
             {
@@ -99,7 +111,9 @@ namespace BackToTheFutureV
                 if (Game.GameTime > gameTimer)
                 {
                     if (pressedTime > 0 && !Game.IsControlPressed(Control.PhoneUp) && !Game.IsControlPressed(Control.PhoneDown))
+                    {
                         pressedTime = 0;
+                    }
 
                     if (Game.IsControlJustPressed(Control.PhoneCameraSelfie))
                     {
@@ -114,9 +128,13 @@ namespace BackToTheFutureV
                         pressedTime++;
 
                         if (pressedTime > 5)
+                        {
                             gameTimer = Game.GameTime + 10;
+                        }
                         else
+                        {
                             gameTimer = Game.GameTime + 150;
+                        }
                     }
 
                     if (Game.IsControlPressed(Control.PhoneDown))
@@ -125,9 +143,13 @@ namespace BackToTheFutureV
                         pressedTime++;
 
                         if (pressedTime > 5)
+                        {
                             gameTimer = Game.GameTime + 10;
+                        }
                         else
+                        {
                             gameTimer = Game.GameTime + 150;
+                        }
                     }
 
                     if (Game.IsControlPressed(Control.PhoneRight))
@@ -137,7 +159,9 @@ namespace BackToTheFutureV
                         second++;
 
                         if (second > 59)
+                        {
                             second = 0;
+                        }
 
                         tempTime = tempTime.AddSeconds(-tempTime.Second).AddSeconds(second);
                         pressedTime++;
@@ -145,9 +169,13 @@ namespace BackToTheFutureV
                         TextHandler.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString());
 
                         if (pressedTime > 5)
+                        {
                             gameTimer = Game.GameTime + 10;
+                        }
                         else
+                        {
                             gameTimer = Game.GameTime + 150;
+                        }
                     }
 
                     if (Game.IsControlPressed(Control.PhoneLeft))
@@ -157,7 +185,9 @@ namespace BackToTheFutureV
                         second--;
 
                         if (second < 0)
+                        {
                             second = 59;
+                        }
 
                         tempTime = tempTime.AddSeconds(-tempTime.Second).AddSeconds(second);
                         pressedTime++;
@@ -165,9 +195,13 @@ namespace BackToTheFutureV
                         TextHandler.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString());
 
                         if (pressedTime > 5)
+                        {
                             gameTimer = Game.GameTime + 10;
+                        }
                         else
+                        {
                             gameTimer = Game.GameTime + 150;
+                        }
                     }
 
                     if (Game.IsControlJustPressed(Control.PhoneExtraOption) && !Game.IsControlPressed(Control.PhoneCameraSelfie))
@@ -193,18 +227,26 @@ namespace BackToTheFutureV
                 if (Properties.AlarmSet && Properties.AlarmTime.ToString("hh") == Properties.ClockTime.ToString("hh") && Properties.ClockTime.Minute == Properties.AlarmTime.Minute && Properties.ClockTime.Second >= Properties.AlarmTime.Second && Properties.ClockTime.Second <= Properties.AlarmTime.Second + 5)
                 {
                     if (!Props.BulovaClockRing.IsPlaying)
+                    {
                         Props.BulovaClockRing.Play();
+                    }
 
                     if (!Sounds.Alarm.IsAnyInstancePlaying)
+                    {
                         Sounds.Alarm.Play();
+                    }
                 }
                 else
                 {
                     if (Props.BulovaClockRing.IsPlaying)
+                    {
                         Props.BulovaClockRing.Stop();
+                    }
 
                     if (Sounds.Alarm.IsAnyInstancePlaying)
+                    {
                         Sounds.Alarm.Stop();
+                    }
                 }
             }
             else
@@ -212,18 +254,26 @@ namespace BackToTheFutureV
                 if (Properties.AlarmSet && Properties.AlarmTime.ToString("hh") == Properties.ClockTime.ToString("hh") && Properties.ClockTime.Minute >= Properties.AlarmTime.Minute && Properties.ClockTime.Minute <= Properties.AlarmTime.Minute + 2)
                 {
                     if (!Props.BulovaClockRing.IsPlaying)
+                    {
                         Props.BulovaClockRing.Play();
+                    }
 
                     if (!Sounds.Alarm.IsAnyInstancePlaying)
+                    {
                         Sounds.Alarm.Play();
+                    }
                 }
                 else
                 {
                     if (Props.BulovaClockRing.IsPlaying)
+                    {
                         Props.BulovaClockRing.Stop();
+                    }
 
                     if (Sounds.Alarm.IsAnyInstancePlaying)
+                    {
                         Sounds.Alarm.Stop();
+                    }
                 }
             }
 

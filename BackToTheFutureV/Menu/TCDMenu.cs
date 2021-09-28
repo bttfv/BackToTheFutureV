@@ -36,16 +36,24 @@ namespace BackToTheFutureV
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == useExternalTCD)
+            {
                 ModSettings.ExternalTCDToggle = Checked;
+            }
 
             if (sender == useNetworkTCD)
+            {
                 ModSettings.RemoteTCDToggle = Checked;
+            }
 
             if (sender == hideIngameTCD)
+            {
                 ModSettings.HideIngameTCDToggle = Checked;
+            }
 
             if (sender == hideSID)
+            {
                 ModSettings.HideSID = Checked;
+            }
 
             ModSettings.SaveSettings();
         }

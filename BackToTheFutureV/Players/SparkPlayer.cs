@@ -43,7 +43,9 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (!IsPlaying)
+            {
                 return;
+            }
 
             if (_currentFrame > 0)
             {

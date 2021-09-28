@@ -55,9 +55,14 @@ namespace BackToTheFutureV
 
                 AnimateProp strut = new AnimateProp(ModelHandler.Strut, Vehicle, strutOffset, wheel.Left ? Vector3.Zero : new Vector3(0, 0, 180));
                 if (wheel.Left)
+                {
                     strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, false, strutOffset.X - MAX_POSITION_OFFSET, strutOffset.X, 1, 0.30f, 1, false);
+                }
                 else
+                {
                     strut[AnimationType.Offset][AnimationStep.First][Coordinate.X].Setup(true, true, strutOffset.X, strutOffset.X + MAX_POSITION_OFFSET, 1, 0.30f, 1, false);
+                }
+
                 strut.SpawnProp();
 
                 AnimateProp disk = new AnimateProp(ModelHandler.Disk, strut, diskOffsetFromStrut, new Vector3(0, MAX_ROTATION_OFFSET, 0));
@@ -74,9 +79,13 @@ namespace BackToTheFutureV
                 AnimateProp wheelAnimateProp;
 
                 if (wheel.Front)
+                {
                     wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.03f), new Vector3(0, -MAX_ROTATION_OFFSET, 0));
+                }
                 else
+                {
                     wheelAnimateProp = new AnimateProp(wheelModel, disk, new Vector3(0, 0, -0.035f), new Vector3(0, -MAX_ROTATION_OFFSET, 0));
+                }
 
                 AnimateProp wheelGlowAnimateProp = new AnimateProp(wheelGlowModel, null, Vector3.Zero, Vector3.Zero);
 
@@ -95,7 +104,9 @@ namespace BackToTheFutureV
         public void OnAnimationCompleted(AnimationStep animationStep)
         {
             if (!IsPlaying)
+            {
                 return;
+            }
 
             if (AreWheelsOpen)
             {
@@ -126,7 +137,9 @@ namespace BackToTheFutureV
         private void ReloadWheelModels()
         {
             foreach (CVehicleWheel wheel in Mods.Wheels)
+            {
                 Wheels[Mods.Wheels.IndexOf(wheel)].SwapModel(wheel.Front ? Constants.WheelModel : Constants.WheelRearModel);
+            }
         }
 
         public override void Play()
@@ -137,7 +150,9 @@ namespace BackToTheFutureV
         public override void Stop()
         {
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+            {
                 FusionUtils.StopPadShake();
+            }
 
             IsPlaying = false;
             PlayerSwitch.Disable = false;
@@ -185,7 +200,9 @@ namespace BackToTheFutureV
                 Mods.Wheel = Constants.RoadWheel.GetVariantWheelType();
 
                 if (!Wheels.IsSpawned)
+                {
                     Wheels.SpawnProp();
+                }
 
                 UpdateWheelsRotations();
             }
@@ -196,14 +213,20 @@ namespace BackToTheFutureV
         public void Play(bool open)
         {
             if (AreWheelsOpen == open)
+            {
                 return;
+            }
 
             AreWheelsOpen = open;
 
             if (AreWheelsOpen)
+            {
                 ReloadWheelModels();
+            }
             else
+            {
                 GlowWheels.Delete();
+            }
 
             Mods.Wheel = Constants.RoadWheel.GetVariantWheelType();
 
@@ -216,9 +239,13 @@ namespace BackToTheFutureV
             }
 
             if (open)
+            {
                 AllProps.Play();
+            }
             else
+            {
                 AllProps.Play(AnimationStep.Second);
+            }
 
             PlayerSwitch.Disable = true;
         }
@@ -226,10 +253,14 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             if (IsPlaying && !FusionUtils.IsPadShaking && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+            {
                 FusionUtils.SetPadShake(100, 80);
+            }
 
             if (IsPlaying)
+            {
                 UpdateWheelsRotations();
+            }
         }
 
         private void UpdateWheelsRotations()

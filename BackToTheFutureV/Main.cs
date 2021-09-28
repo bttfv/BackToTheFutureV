@@ -10,7 +10,14 @@ namespace BackToTheFutureV
 {
     internal class Main : Script
     {
-        public static Version Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+        public static Version Version
+        {
+            get
+            {
+                return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            }
+        }
+
         public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
         public static bool FirstTick { get; private set; } = true;
@@ -37,10 +44,14 @@ namespace BackToTheFutureV
             Screen.FadeIn(1000);
 
             if (RemoteTimeMachineHandler.IsRemoteOn)
+            {
                 RemoteTimeMachineHandler.StopRemoteControl(true);
+            }
 
             if (ModSettings.PersistenceSystem)
+            {
                 TimeMachineHandler.Save();
+            }
 
             GarageHandler.Abort();
             MissionHandler.Abort();
@@ -64,7 +75,9 @@ namespace BackToTheFutureV
         private unsafe void Main_Tick(object sender, EventArgs e)
         {
             if (Game.IsLoading || FusionUtils.FirstTick)
+            {
                 return;
+            }
 
             if (FirstTick)
             {
@@ -83,7 +96,9 @@ namespace BackToTheFutureV
                 TimeHandler.RealTime = ModSettings.RealTime;
 
                 if (ModSettings.ExternalTCDToggle)
+                {
                     ExternalHUD.Toggle(true);
+                }
 
                 ExternalHUD.SetOff();
 
@@ -92,10 +107,14 @@ namespace BackToTheFutureV
             }
 
             if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
+            {
                 ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
+            }
 
             if (!FirstTick)
+            {
                 WaybackSystem.Tick();
+            }
 
             CustomTrainHandler.Tick();
             DMC12Handler.Tick();

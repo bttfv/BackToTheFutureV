@@ -120,7 +120,9 @@ namespace BackToTheFutureV
         private void HoverVTOL_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
         {
             if (_doNotUpdate)
+            {
                 return;
+            }
 
             ModControls.HoverVTOL = e.Object.Control;
             TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
@@ -129,7 +131,9 @@ namespace BackToTheFutureV
         private void HoverBoost_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
         {
             if (_doNotUpdate)
+            {
                 return;
+            }
 
             ModControls.HoverBoost = e.Object.Control;
             TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
@@ -138,7 +142,9 @@ namespace BackToTheFutureV
         private void Hover_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
         {
             if (_doNotUpdate)
+            {
                 return;
+            }
 
             ModControls.Hover = e.Object.Control;
             TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
@@ -147,7 +153,9 @@ namespace BackToTheFutureV
         private void InteractionMenu2_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
         {
             if (_doNotUpdate)
+            {
                 return;
+            }
 
             ModControls.InteractionMenu2 = e.Object.Control;
             TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
@@ -156,7 +164,9 @@ namespace BackToTheFutureV
         private void InteractionMenu1_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
         {
             if (_doNotUpdate)
+            {
                 return;
+            }
 
             ModControls.InteractionMenu1 = e.Object.Control;
             TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
@@ -170,11 +180,17 @@ namespace BackToTheFutureV
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == UseControlForMainMenu)
+            {
                 ModControls.UseControlForMainMenu = Checked;
+            }
             else if (sender == CombinationsForInteractionMenu)
+            {
                 ModControls.CombinationsForInteractionMenu = Checked;
+            }
             else if (sender == LongPressForHover)
+            {
                 ModControls.LongPressForHover = Checked;
+            }
         }
 
         public override void Menu_Shown(object sender, EventArgs e)

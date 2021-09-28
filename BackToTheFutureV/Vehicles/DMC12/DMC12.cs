@@ -51,7 +51,9 @@ namespace BackToTheFutureV
         public DMC12(Vehicle vehicle)
         {
             if (DMC12Handler.GetDeloreanFromVehicle(vehicle) != null)
+            {
                 return;
+            }
 
             Vehicle = vehicle;
 
@@ -119,10 +121,14 @@ namespace BackToTheFutureV
             }
 
             if (FusionUtils.PlayerVehicle == Vehicle)
+            {
                 Function.Call(Hash.DISABLE_CONTROL_ACTION, 31, 337, true);
+            }
 
             if (!Vehicle.IsTimeMachine())
+            {
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0);
+            }
 
             if (!Vehicle.IsVisible)
             {
@@ -158,7 +164,9 @@ namespace BackToTheFutureV
                 speedRotation = 270 * speed / 95 - 8;
 
                 if (speedRotation > 270)
+                {
                     speedRotation = 270;
+                }
 
                 fuelRotation = FusionUtils.Lerp(fuelRotation, -fuelLevel, Game.LastFrameTime);
                 tempRotation = FusionUtils.Lerp(tempRotation, tempLevel, Game.LastFrameTime);
@@ -181,7 +189,9 @@ namespace BackToTheFutureV
                 rightFan.MoveProp(Vector3.Zero, new Vector3(0, fanRotation, 0));
 
                 if (fanRotation >= 360)
+                {
                     fanRotation -= 360;
+                }
             }
 
             speedNeedle.MoveProp(Vector3.Zero, new Vector3(0, speedRotation, 0));
@@ -210,9 +220,13 @@ namespace BackToTheFutureV
             }
 
             if (Vehicle.IsAnyDoorOpen())
+            {
                 doorIndicator.SpawnProp();
+            }
             else
+            {
                 doorIndicator.Delete();
+            }
         }
 
         public void Dispose(bool deleteVeh = true)
@@ -233,7 +247,9 @@ namespace BackToTheFutureV
             suspensionRightRear?.Dispose();
 
             if (deleteVeh)
+            {
                 Vehicle?.DeleteCompletely();
+            }
 
             Disposed = true;
         }

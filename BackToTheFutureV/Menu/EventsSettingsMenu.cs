@@ -30,13 +30,19 @@ namespace BackToTheFutureV
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
             if (sender == LightningStrikeEvent)
+            {
                 ModSettings.LightningStrikeEvent = Checked;
+            }
 
             if (sender == EngineStallEvent)
+            {
                 ModSettings.EngineStallEvent = Checked;
+            }
 
             if (sender == TurbulenceEvent)
+            {
                 ModSettings.TurbulenceEvent = Checked;
+            }
 
             ModSettings.SaveSettings();
         }

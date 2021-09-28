@@ -35,13 +35,19 @@ namespace BackToTheFutureV
             int max = GetMaxHeight(column);
 
             if (height > max)
+            {
                 height = max;
+            }
 
             if (height < 0)
+            {
                 height = 0;
+            }
 
             if (_pause && height != Properties.CurrentHeight[column])
+            {
                 _pause = false;
+            }
 
             Properties.NewHeight[column] = height;
             Properties.LedDelay[column] = 0;
@@ -50,18 +56,26 @@ namespace BackToTheFutureV
         private void Random(int min = 0, int max = 20)
         {
             if (_waitTurnOn && AreColumnProcessing().Count > 0)
+            {
                 return;
+            }
 
             if (_waitTurnOn)
+            {
                 _waitTurnOn = false;
+            }
 
             if (!_randomDelay)
+            {
                 _randomDelay = true;
+            }
 
             for (int column = 0; column < 10; column++)
             {
                 if (Properties.LedDelay[column] > Game.GameTime)
+                {
                     continue;
+                }
 
                 SetColumnHeight(column, FusionUtils.Random.Next(min, max + 1));
             }
@@ -76,11 +90,15 @@ namespace BackToTheFutureV
                 SetColumnHeight(column, on ? max : 0);
 
                 if (instant)
+                {
                     Properties.CurrentHeight[column] = max;
+                }
             }
 
             if (instant)
+            {
                 return;
+            }
 
             _randomDelay = false;
             _waitTurnOn = on;
@@ -91,8 +109,12 @@ namespace BackToTheFutureV
             List<int> ret = new List<int>();
 
             for (int column = 0; column < 10; column++)
+            {
                 if (Properties.NewHeight[column] != Properties.CurrentHeight[column])
+                {
                     ret.Add(column);
+                }
+            }
 
             return ret;
         }
@@ -123,12 +145,18 @@ namespace BackToTheFutureV
                 foreach (int column in columns)
                 {
                     if (Properties.LedDelay[column] > Game.GameTime)
+                    {
                         continue;
+                    }
 
                     if (Properties.NewHeight[column] > Properties.CurrentHeight[column])
+                    {
                         Properties.CurrentHeight[column]++;
+                    }
                     else if (Properties.NewHeight[column] < Properties.CurrentHeight[column])
+                    {
                         Properties.CurrentHeight[column]--;
+                    }
 
                     Properties.LedDelay[column] = Game.GameTime + 60 + (_randomDelay ? FusionUtils.Random.Next(-30, 31) : 0);
                     Properties.HUDProperties.CurrentHeight[column] = Properties.CurrentHeight[column];
@@ -138,12 +166,18 @@ namespace BackToTheFutureV
             }
 
             if (Constants.HasScaleformPriority && Vehicle.IsVisible)
+            {
                 Scaleforms.SIDRT?.Draw();
+            }
             else
+            {
                 return;
+            }
 
             if (!Properties.AreTimeCircuitsOn || Properties.HasBeenStruckByLightning || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+            {
                 return;
+            }
 
             if (Constants.OverSIDMaxAtSpeed || Properties.ForceSIDMax)
             {
@@ -162,7 +196,9 @@ namespace BackToTheFutureV
             }
 
             if (speed > 88)
+            {
                 speed = 88;
+            }
 
             int height = (int)((speed / 88) * 15);
 
@@ -170,10 +206,14 @@ namespace BackToTheFutureV
             int max = height + 5;
 
             if (min < 0)
+            {
                 min = 0;
+            }
 
             if (max > 20)
+            {
                 max = 20;
+            }
 
             Random(min, max);
         }

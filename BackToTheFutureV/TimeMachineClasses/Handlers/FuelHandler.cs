@@ -44,44 +44,62 @@ namespace BackToTheFutureV
             Players.Refuel?.Dispose();
 
             if (Mods.Reactor == ReactorType.Nuclear)
+            {
                 Players.Refuel = new PlutoniumRefillPlayer(TimeMachine);
+            }
             else
+            {
                 Players.Refuel = new MrFusionRefillPlayer(TimeMachine);
+            }
 
             _refuelTime = 0;
 
             if (Properties.ReactorState != ReactorState.Closed)
+            {
                 SetReactorState(ReactorState.Opened);
+            }
         }
 
         private void OnControlJustReleased()
         {
             if (Properties.ReactorState != ReactorState.Opened || Players.Refuel.IsPlaying || !IsPlayerInPosition())
+            {
                 return;
+            }
 
             if (HasFuel())
             {
                 if (ModSettings.WaybackSystem)
+                {
                     WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle = new WaybackVehicle(TimeMachine, WaybackVehicleEvent.RefuelReactor);
+                }
 
                 SetReactorState(ReactorState.Refueling);
             }
             else
             {
                 if (Mods.Reactor == ReactorType.MrFusion)
+                {
                     TextHandler.ShowNotification("NotEnoughGarbage");
+                }
                 else
+                {
                     TextHandler.ShowNotification("NotEnoughPlutonium");
+                }
             }
         }
 
         private void OnControlLongPressed()
         {
             if ((Properties.ReactorState != ReactorState.Opened && Properties.ReactorState != ReactorState.Closed) || Players.Refuel.IsPlaying || !IsPlayerInPosition())
+            {
                 return;
+            }
 
             if (ModSettings.WaybackSystem)
+            {
                 WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle = new WaybackVehicle(TimeMachine, WaybackVehicleEvent.OpenCloseReactor);
+            }
 
             SetReactorState(Properties.ReactorState == ReactorState.Closed ? ReactorState.Opened : ReactorState.Closed);
         }
@@ -89,7 +107,9 @@ namespace BackToTheFutureV
         private void SetReactorState(ReactorState reactorState)
         {
             if (Properties.ReactorState == reactorState)
+            {
                 return;
+            }
 
             Properties.ReactorState = reactorState;
 
@@ -110,17 +130,25 @@ namespace BackToTheFutureV
             Ped refuelPed = IsPedInPosition();
 
             if (Properties.ReactorCharge >= Constants.MaxReactorCharge && refuelPed == FusionUtils.PlayerPed)
+            {
                 return;
+            }
 
             if (Mods.Reactor == ReactorType.Nuclear)
+            {
                 Sounds.PlutoniumRefuel?.Play();
+            }
 
             if (refuelPed == FusionUtils.PlayerPed && !ModSettings.InfiniteFuel)
             {
                 if (Mods.Reactor == ReactorType.MrFusion)
+                {
                     InternalInventory.Current.Trash--;
+                }
                 else
+                {
                     InternalInventory.Current.Plutonium--;
+                }
             }
 
             if (refuelPed != null)
@@ -143,7 +171,9 @@ namespace BackToTheFutureV
         private void StartFuelBlink()
         {
             if (Properties.IsFueled)
+            {
                 return;
+            }
 
             _isBlinking = true;
         }
@@ -160,7 +190,9 @@ namespace BackToTheFutureV
                     _refuelTime = 0;
                 }
                 else
+                {
                     _refuelTime += Game.LastFrameTime;
+                }
             }
 
             // Pulsing animation while refueling for plutonium (bttf1) delorean
@@ -169,7 +201,9 @@ namespace BackToTheFutureV
                 if (!Properties.IsFueled && Properties.ReactorState != ReactorState.Refueling)
                 {
                     if (Mods.GlowingReactor == ModState.On)
+                    {
                         Mods.GlowingReactor = ModState.Off;
+                    }
                 }
                 else
                 {
@@ -193,7 +227,9 @@ namespace BackToTheFutureV
                 }
             }
             else if (Mods.GlowingReactor != ModState.Off)
+            {
                 Mods.GlowingReactor = ModState.Off;
+            }
 
             // Empty animation
 
@@ -242,28 +278,41 @@ namespace BackToTheFutureV
                     HideEmpty();
                 }
                 else
+                {
                     SetEmpty(true);
+                }
             }
 
             if (Properties.ReactorState == ReactorState.Refueling && Mods.Reactor == ReactorType.MrFusion)
             {
                 if (Vehicle.IsVisible && !Particles.MrFusionSmoke.IsPlaying)
+                {
                     Particles.MrFusionSmoke.Play();
+                }
 
                 if (!Vehicle.IsVisible && Particles.MrFusionSmoke.IsPlaying)
+                {
                     Particles.MrFusionSmoke.Stop();
+                }
             }
 
             if (Players.Refuel.IsPlaying || !IsPlayerInPosition())
+            {
                 return;
+            }
 
             switch (Properties.ReactorState)
             {
                 case ReactorState.Opened:
                     if (HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
+                    {
                         TextHandler.ShowHelp("RefuelReactor");
+                    }
                     else
+                    {
                         TextHandler.ShowHelp("CloseReactor");
+                    }
+
                     break;
                 case ReactorState.Closed:
                     TextHandler.ShowHelp("OpenReactor");
@@ -274,13 +323,19 @@ namespace BackToTheFutureV
         private bool HasFuel()
         {
             if (ModSettings.InfiniteFuel)
+            {
                 return true;
+            }
 
             if (Mods.Reactor == ReactorType.Nuclear && InternalInventory.Current.Plutonium > 0)
+            {
                 return true;
+            }
 
             if (Mods.Reactor == ReactorType.MrFusion && InternalInventory.Current.Trash > 0)
+            {
                 return true;
+            }
 
             return false;
         }
@@ -295,7 +350,9 @@ namespace BackToTheFutureV
             Ped ped = World.GetClosestPed(Vehicle.Bones["mr_fusion"].Position, 1.9f);
 
             if (!IsPedInPosition(Vehicle, ped))
+            {
                 ped = null;
+            }
 
             return ped;
         }
@@ -303,7 +360,9 @@ namespace BackToTheFutureV
         internal static bool IsPedInPosition(Vehicle vehicle, Ped ped)
         {
             if (!ped.NotNullAndExists() || ped.IsInVehicle())
+            {
                 return false;
+            }
 
             Vector3 bootPos = vehicle.Bones["mr_fusion"].Position;
 
@@ -344,10 +403,14 @@ namespace BackToTheFutureV
         private void SetEmpty(bool isOn)
         {
             if (FusionUtils.PlayerVehicle == Vehicle)
+            {
                 Properties.HUDProperties.Empty = isOn ? HUD.Core.EmptyType.On : HUD.Core.EmptyType.Off;
+            }
 
             if (Vehicle.IsVisible == false)
+            {
                 return;
+            }
 
             if (isOn)
             {
@@ -364,7 +427,9 @@ namespace BackToTheFutureV
         private void HideEmpty()
         {
             if (FusionUtils.PlayerVehicle != Vehicle)
+            {
                 return;
+            }
 
             Properties.HUDProperties.Empty = HUD.Core.EmptyType.Hide;
         }

@@ -38,7 +38,9 @@ namespace BackToTheFutureV
         private void _mrFusionHandle_OnAnimCompleted(AnimationStep animationStep)
         {
             if (Properties.ReactorState == ReactorState.Opened)
+            {
                 _mrFusion.Play();
+            }
             else
             {
                 Particles.MrFusionSmoke?.Stop();
@@ -51,7 +53,9 @@ namespace BackToTheFutureV
         private void _mrFusion_OnAnimCompleted(AnimationStep animationStep)
         {
             if (Properties.ReactorState == ReactorState.Closed)
+            {
                 _mrFusionHandle.Play();
+            }
             else
             {
                 IsPlaying = false;

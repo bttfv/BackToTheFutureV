@@ -117,7 +117,9 @@ namespace BackToTheFutureV
 
                 GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                 if (TimeMachineHandler.CurrentTimeMachine.Repair(true, false, false))
+                {
                     Game.Player.Money -= 500;
+                }
             }
 
             if (sender == repairFC)
@@ -130,7 +132,9 @@ namespace BackToTheFutureV
 
                 GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                 if (TimeMachineHandler.CurrentTimeMachine.Repair(false, true, false))
+                {
                     Game.Player.Money -= 100;
+                }
             }
 
             if (sender == repairEngine)
@@ -143,7 +147,9 @@ namespace BackToTheFutureV
 
                 GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                 if (TimeMachineHandler.CurrentTimeMachine.Repair(false, false, true))
+                {
                     Game.Player.Money -= 750;
+                }
             }
         }
 
@@ -155,7 +161,9 @@ namespace BackToTheFutureV
         public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
         {
             if (sender == hoverConvert && !sender.Enabled && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken)
+            {
                 TextHandler.ShowSubtitle("HoverDamaged");
+            }
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
@@ -168,7 +176,9 @@ namespace BackToTheFutureV
             GarageHandler.WaitForCustomMenu = false;
 
             foreach (AudioPlayer audioPlayer in GarageSounds)
+            {
                 audioPlayer.SourceEntity = TimeMachineHandler.CurrentTimeMachine;
+            }
         }
 
         public override void Tick()

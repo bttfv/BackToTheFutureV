@@ -41,18 +41,24 @@ namespace BackToTheFutureV
             Mods.ApplyTo(timeMachine);
 
             if (!spawnFlags.HasFlag(SpawnFlags.NoProperties))
+            {
                 Properties.ApplyTo(timeMachine);
+            }
         }
 
         public void Save(string name)
         {
             if (!name.ToLower().EndsWith(".dmc12"))
+            {
                 name = name + ".dmc12";
+            }
 
             name = FusionUtils.RemoveIllegalFileNameChars(name);
 
             if (!Directory.Exists(PresetsPath))
+            {
                 Directory.CreateDirectory(PresetsPath);
+            }
 
             Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Create, FileAccess.Write);
 
@@ -65,7 +71,9 @@ namespace BackToTheFutureV
         public static bool PresetExists(string name)
         {
             if (!name.ToLower().EndsWith(".dmc12"))
+            {
                 name = name + ".dmc12";
+            }
 
             return File.Exists($"{PresetsPath}/{name}");
         }
@@ -73,7 +81,9 @@ namespace BackToTheFutureV
         public static List<string> ListPresets()
         {
             if (!Directory.Exists(PresetsPath))
+            {
                 Directory.CreateDirectory(PresetsPath);
+            }
 
             return new DirectoryInfo(PresetsPath).GetFiles("*.dmc12").Select(x => x.Name.Replace(".dmc12", "")).ToList();
         }
@@ -81,7 +91,9 @@ namespace BackToTheFutureV
         public static void DeleteSave(string name)
         {
             if (!name.ToLower().EndsWith(".dmc12"))
+            {
                 name = name + ".dmc12";
+            }
 
             File.Delete($"{PresetsPath}/{name}");
         }
@@ -89,7 +101,9 @@ namespace BackToTheFutureV
         public static void DeleteAll()
         {
             if (!Directory.Exists(PresetsPath))
+            {
                 return;
+            }
 
             new DirectoryInfo(PresetsPath).GetFiles("*.dmc12").ToList().ForEach(x => x.Delete());
         }
@@ -97,10 +111,14 @@ namespace BackToTheFutureV
         public static void RenameSave(string name, string newName)
         {
             if (!name.ToLower().EndsWith(".dmc12"))
+            {
                 name = name + ".dmc12";
+            }
 
             if (!newName.ToLower().EndsWith(".dmc12"))
+            {
                 newName = newName + ".dmc12";
+            }
 
             File.Move($"{PresetsPath}/{name}", $"{PresetsPath}/{newName}");
         }
@@ -108,7 +126,9 @@ namespace BackToTheFutureV
         public static TimeMachineClone Load(string name)
         {
             if (!name.ToLower().EndsWith(".dmc12"))
+            {
                 name = name + ".dmc12";
+            }
 
             Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Open, FileAccess.Read);
 
