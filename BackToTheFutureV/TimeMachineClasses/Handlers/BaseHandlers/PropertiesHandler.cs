@@ -66,6 +66,7 @@ namespace BackToTheFutureV
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
         public bool IsFluxDoingBlueAnim { get; set; }
         public bool IsEngineStalling { get; set; }
+        public bool BlockEngineRecover { get; set; }
         public bool IsRemoteControlled { get; set; }
         public bool IsLanding { get; set; }
         public bool IsAltitudeHolding { get; set; }

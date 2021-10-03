@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -270,6 +271,24 @@ namespace BackToTheFutureV
             }
         }
 
+        public bool ReadyForLightningRun
+        {
+            get
+            {
+                return FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 22, 3, 0), new DateTime(1955, 11, 12, 22, 4, 0)) && Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet;
+            }
+        }
+
+        public bool ReadyForLightningRunFromStartLine
+        {
+            get
+            {
+                return ReadyForLightningRun && Vehicle.GetStreetInfo().Crossing == LightningRun.StartLine;
+            }
+        }
+
+        public float TorqueForLightningRun { get; } = 0.65f;
+
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnLightningStrike += StartTimeTravelCooldown;
@@ -315,10 +334,16 @@ namespace BackToTheFutureV
 
                 if (TimeTravelCooldown >= 30)
                 {
+                    if (Mods.IsDMC12)
+                        DMC12.SetVoltValue?.Invoke(50);
+
                     TimeTravelCooldown = -1;
                 }
                 else
                 {
+                    if (Mods.IsDMC12)
+                        DMC12.SetVoltValue?.Invoke(0);
+
                     return;
                 }
             }

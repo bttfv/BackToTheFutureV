@@ -12,7 +12,7 @@ using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
-    internal class ClocktowerMission : Mission
+    internal class LightningRun : Mission
     {
         private static Vector3 lightningOffset = new Vector3(0, -1.548199f, 0.994037f);
 
@@ -50,18 +50,23 @@ namespace BackToTheFutureV
 
         private AudioPlayer Thunder;
 
-        public const Hash LightningRunStreet = unchecked((Hash)(-119993883));
+        public const Hash LightningRunStreet = unchecked((Hash)4174973413);
+        public const Hash StartLine = unchecked((Hash)2593489231);
 
         private Vector3 checkPos = new Vector3(41.5676f, 6585.7378f, 30.3686f);
 
+        public static DateTime StrikeTime { get; } = new DateTime(1955, 11, 12, 22, 4, 0);
+
         private bool setup;
 
-        static ClocktowerMission()
+        //private int testTime;
+
+        static LightningRun()
         {
             lightningOffset = (lightningOffset * -1).GetSingleOffset(Coordinate.Z, poleModel.Dimensions.frontTopRight.Z);
         }
 
-        public ClocktowerMission()
+        public LightningRun()
         {
             TimeHandler.OnTimeChanged += (DateTime time) =>
             {
@@ -76,19 +81,29 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs key)
         {
-            if (key.KeyCode == Keys.U)
-            {
-                IsPlaying = true;
-            }
+            //if (key.KeyCode == Keys.U)
+            //{
+            //    IsPlaying = true;
+            //}
 
-            if (key.KeyCode == Keys.O)
-            {
-                FusionUtils.CurrentTime = new DateTime(1955, 11, 12, 22, 3, 0);
-            }
+            //if (key.KeyCode == Keys.O)
+            //{
+            //    FusionUtils.CurrentTime = StrikeTime.AddMinutes(-1);
+            //}
         }
 
         public override void Tick()
         {
+            //if (Game.IsControlJustPressed(GTA.Control.VehicleAccelerate) && testTime == 0)
+            //    testTime = Game.GameTime;
+
+            //if (Game.IsControlJustPressed(GTA.Control.VehicleHandbrake) && testTime != 0)
+            //{                
+            //    GTA.UI.Screen.ShowSubtitle($"{Game.GameTime - testTime}");
+
+            //    testTime = 0;
+            //}
+
             if (!TimeHandler.RealTime || FusionUtils.PlayerPed.Position.DistanceToSquared2D(checkPos) > 197480)
             {
                 if (setup)
@@ -105,7 +120,7 @@ namespace BackToTheFutureV
                 Setup();
             }
 
-            if (FusionUtils.CurrentTime == new DateTime(1955, 11, 12, 22, 4, 0) && !IsPlaying)
+            if (FusionUtils.CurrentTime == StrikeTime && !IsPlaying)
             {
                 IsPlaying = true;
             }
@@ -132,13 +147,13 @@ namespace BackToTheFutureV
             {
                 return;
             }
-
+            
             switch (step)
             {
                 case 0:
-                    if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Vehicle.GetMPHSpeed() >= 80)
+                    if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Constants.ReadyForLightningRun && CurrentTimeMachine.Vehicle.GetMPHSpeed() >= 80)
                     {
-                        CustomCamera?.Show(0);
+                        CustomCamera.Show(0);
                     }
 
                     Thunder.SourceEntity = FusionUtils.PlayerPed;
@@ -204,14 +219,17 @@ namespace BackToTheFutureV
                     }
 
                     IsPlaying = false;
+
+                    CustomCamera.Stop();
+
                     step = 0;
                     break;
             }
         }
 
         private void Setup()
-        {
-            //GTA.UI.Screen.ShowSubtitle($"Setup", 1000);
+        {            
+            GTA.UI.Screen.ShowSubtitle($"Setup", 1000);
 
             LeftStreetPole = World.CreateProp(streetPoleModel, new Vector3(50.4339f, 6576.8843f, 30.3620f), true, false);
             RightStreetPole = World.CreateProp(streetPoleModel, new Vector3(41.5676f, 6585.7378f, 30.3686f), true, false);
@@ -296,7 +314,7 @@ namespace BackToTheFutureV
 
         protected override void OnEnd()
         {
-            CustomCamera?.Stop();
+            CustomCamera.Stop();
 
             Lightnings?.Delete();
             LeftStreetPole?.Delete();

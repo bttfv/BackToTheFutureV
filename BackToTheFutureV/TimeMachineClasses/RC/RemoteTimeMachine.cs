@@ -91,12 +91,12 @@ namespace BackToTheFutureV
                     TimeMachine.Properties.DestinationTime = TimeMachineClone.Properties.DestinationTime;
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
-                    return TimeMachine;
+                    break;
                 case ReenterType.Forced:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
-                    return TimeMachine;
+                    break;
                 case ReenterType.Spawn:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
@@ -107,10 +107,12 @@ namespace BackToTheFutureV
                     }
 
                     TimeMachine.Events.OnVehicleSpawned?.Invoke();
-                    return TimeMachine;
+                    break;
             }
 
-            return null;
+            TimeMachine.Vehicle.SetPlayerLights(true);
+
+            return TimeMachine;
         }
 
         public void ExistenceCheck(DateTime time)

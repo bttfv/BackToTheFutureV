@@ -162,7 +162,7 @@ namespace BackToTheFutureV
             }
             else
             {
-                customTrain.Speed = Vehicle.IsGoingForward() ? _speed : -_speed;
+                customTrain.Speed = Vehicle.RunningDirection() == RunningDirection.Forward  ? _speed : -_speed;
             }
         }
 
@@ -263,7 +263,9 @@ namespace BackToTheFutureV
         {
             _isReentryOn = false;
             Properties.IsOnTracks = false;
-            Mods.Wheels.Burst = true;
+
+            if (Mods.Wheel == WheelType.RailroadInvisible)
+                Mods.Wheels.Burst = true;
 
             if (delay > 0)
             {

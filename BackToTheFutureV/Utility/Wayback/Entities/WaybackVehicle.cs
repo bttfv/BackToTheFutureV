@@ -54,6 +54,8 @@ namespace BackToTheFutureV
         {
             Vehicle vehicle = Replica.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants);
 
+            vehicle.SetPlayerLights(true);
+
             if (!IsTimeMachine)
             {
                 return vehicle;
@@ -126,7 +128,7 @@ namespace BackToTheFutureV
             {
                 timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
-                timeMachine.Events.SetTrainSpeed?.Invoke(Replica.Speed * (Replica.IsGoingForward ? 1 : -1));
+                timeMachine.Events.SetTrainSpeed?.Invoke(Replica.Speed * (Replica.RunningDirection != RunningDirection.Backward ? 1 : -1));
             }
 
             if (!IsTimeMachine)

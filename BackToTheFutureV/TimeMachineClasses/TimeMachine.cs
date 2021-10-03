@@ -263,7 +263,7 @@ namespace BackToTheFutureV
             if (Properties.IsWayback && TimeMachineHandler.CurrentTimeMachine == this)
             {
                 Properties.IsWayback = false;
-            }
+            }            
 
             Function.Call(Hash.SET_VEHICLE_CHEAT_POWER_INCREASE, Vehicle, Decorators.TorqueMultiplier);
 
@@ -316,7 +316,7 @@ namespace BackToTheFutureV
                     Vehicle.Doors[VehicleDoorIndex.Hood].CanBeBroken = false;
                 }
 
-                if (Mods.SuspensionsType != SuspensionsType.Stock && Decorators.TorqueMultiplier != 2.4f)
+                if (Mods.SuspensionsType != SuspensionsType.Stock && Decorators.TorqueMultiplier != 2.4f && Decorators.TorqueMultiplier != Constants.TorqueForLightningRun)
                 {
                     Decorators.TorqueMultiplier = 2.4f;
                 }
@@ -324,18 +324,18 @@ namespace BackToTheFutureV
                 switch (Mods.SuspensionsType)
                 {
                     case SuspensionsType.LiftFrontLowerRear:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.50f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0.50f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.40f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0.40f);
                         Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, -0.25f);
                         Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, -0.25f);
                         break;
                     case SuspensionsType.LiftFront:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.50f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0.50f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.40f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0.40f);
                         break;
                     case SuspensionsType.LiftRear:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0.50f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0.50f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0.40f);
+                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0.40f);
                         break;
                     case SuspensionsType.LiftFrontAndRear:
                         Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.50f);

@@ -6,6 +6,7 @@ using GTA.Math;
 using GTA.Native;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
+using static FusionLibrary.FusionEnums;
 using Control = GTA.Control;
 
 namespace BackToTheFutureV
@@ -453,7 +454,7 @@ namespace BackToTheFutureV
 
                 if (Game.IsControlPressed(Control.VehicleHandbrake) && !Game.IsControlPressed(Control.VehicleAccelerate) && !Game.IsControlPressed(Control.VehicleBrake) && Vehicle.GetMPHSpeed() > 1)
                 {
-                    Properties.Boost = Vehicle.IsGoingForward() ? -0.4f : 0.4f;
+                    Properties.Boost = Vehicle.RunningDirection() == RunningDirection.Forward ? -0.4f : 0.4f;
                 }
             }
 
@@ -537,7 +538,7 @@ namespace BackToTheFutureV
 
             if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleUp))
             {
-                if (Vehicle.DecreaseSpeedAndWait(Vehicle.IsGoingForward() ? 20 : 10))
+                if (Vehicle.DecreaseSpeedAndWait(Vehicle.RunningDirection() == RunningDirection.Forward ? 20 : 10))
                 {
                     Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
                     Game.DisableControlThisFrame(Control.VehicleFlyThrottleUp);
@@ -556,7 +557,7 @@ namespace BackToTheFutureV
             }
             else if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
             {
-                if (Vehicle.DecreaseSpeedAndWait(Vehicle.IsGoingForward() ? 10 : 20))
+                if (Vehicle.DecreaseSpeedAndWait(Vehicle.RunningDirection() == RunningDirection.Forward ? 10 : 20))
                 {
                     Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
                     Game.DisableControlThisFrame(Control.VehicleFlyThrottleDown);

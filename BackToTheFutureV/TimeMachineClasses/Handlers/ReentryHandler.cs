@@ -153,6 +153,9 @@ namespace BackToTheFutureV
 
             Game.Player.IgnoredByPolice = false;
 
+            if (Decorators.TorqueMultiplier == Constants.TorqueForLightningRun)
+                Decorators.TorqueMultiplier = 1f;
+
             if (!Properties.WasOnTracks)
             {
                 Vehicle.Velocity = Properties.LastVelocity;

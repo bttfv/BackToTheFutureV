@@ -1,6 +1,8 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using KlangRageAudioLibrary;
+using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -135,6 +137,12 @@ namespace BackToTheFutureV
                 Properties.PhotoEngineStallActive = true;
             }
 
+            if (Constants.ReadyForLightningRun && Properties.AlarmSet && Properties.AlarmTime.Between(new DateTime(1955, 11, 12, 22, 03, 0), new DateTime(1955, 11, 12, 22, 3, 45)) && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.CurrentTime == Properties.AlarmTime.AddSeconds(-5))
+            {
+                Properties.PhotoEngineStallActive = true;
+                Properties.BlockEngineRecover = true;
+            }
+
             if (Game.GameTime < _nextCheck || !IsPlaying || !Vehicle.IsVisible)
             {
                 return;
@@ -182,7 +190,7 @@ namespace BackToTheFutureV
                         _isRestarting = true;
                     }
 
-                    if (Game.GameTime > _restartAt || (Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f))
+                    if ((Properties.BlockEngineRecover && FusionUtils.CurrentTime >= new DateTime(1955, 11, 12, 22, 03, 50)) || (!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (!Properties.BlockEngineRecover && Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f))
                     {
                         Stop();
                         Vehicle.FuelLevel = _deloreanMaxFuelLevel;
@@ -223,6 +231,7 @@ namespace BackToTheFutureV
 
             Properties.IsEngineStalling = false;
             Properties.PhotoEngineStallActive = false;
+            Properties.BlockEngineRecover = false;
             _isRestarting = false;
 
             if (!Properties.IsDefrosting)

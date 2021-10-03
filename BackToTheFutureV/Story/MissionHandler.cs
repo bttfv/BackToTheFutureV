@@ -7,7 +7,7 @@ namespace BackToTheFutureV
     {
         private static readonly List<Mission> _missions = new List<Mission>();
 
-        public static ClocktowerMission ClocktowerMission = new ClocktowerMission();
+        public static LightningRun ClocktowerMission = new LightningRun();
 
         //public static EscapeMission EscapeMission = new EscapeMission();
 

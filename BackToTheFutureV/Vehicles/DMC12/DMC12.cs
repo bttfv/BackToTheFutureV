@@ -5,6 +5,7 @@ using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;
+using System;
 
 namespace BackToTheFutureV
 {
@@ -36,17 +37,32 @@ namespace BackToTheFutureV
         private float voltLevel = 50f;
 
         private float rpmRotation;
-        private float speedRotation;
-        private float fuelRotation;
-        private float tempRotation;
-        private float oilRotation;
-        private float voltRotation;
+        private float speedRotation = 17.5f;
+
+        private float fuelRotation = 10;
+        private float tempRotation = -10;
+        private float oilRotation = 10;
+        private float voltRotation = -10;
         private float fanRotation;
 
         public SetStockSuspensions SetStockSuspensions;
         public SetVoltValue SetVoltValue;
 
         private bool spawnSuspension;
+
+        private bool _isTimeMachine;
+        public bool IsTimeMachine
+        {
+            get
+            {
+                if (!_isTimeMachine)
+                {
+                    _isTimeMachine = Vehicle.IsTimeMachine();
+                }
+
+                return _isTimeMachine;
+            }
+        }
 
         public DMC12(Vehicle vehicle)
         {
@@ -125,7 +141,7 @@ namespace BackToTheFutureV
                 Function.Call(Hash.DISABLE_CONTROL_ACTION, 31, 337, true);
             }
 
-            if (!Vehicle.IsTimeMachine())
+            if (!IsTimeMachine)
             {
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0);
             }
@@ -150,31 +166,44 @@ namespace BackToTheFutureV
                 return;
             }
 
-            float fuelLevel = Vehicle.FuelLevel.Remap(0, Vehicle.HandlingData.PetrolTankVolume, 0, 100);
-            float oilLevel = Vehicle.OilLevel.Remap(0, Vehicle.HandlingData.OilVolume, 0, 100);
-            float tempLevel = Vehicle.EngineTemperature.Remap(0, 190, 0, 100);
-
             if (Vehicle.IsEngineRunning)
             {
-                // --- RPM --
-                rpmRotation = Vehicle.CurrentRPM * 210;
+                rpmRotation = Vehicle.CurrentRPM.Remap(0, 1, 0, 245);
 
-                // --- Speed ---
-                float speed = Vehicle.GetMPHSpeed();
-                speedRotation = 270 * speed / 95 - 8;
-
-                if (speedRotation > 270)
+                if (IsTimeMachine)
                 {
-                    speedRotation = 270;
+                    if (Vehicle.GetMPHSpeed() < 15)
+                    {
+                        speedRotation = Vehicle.GetMPHSpeed().Remap(0, 15, 17.5f, 32);
+                    }
+                    else
+                    {
+                        speedRotation = Vehicle.GetMPHSpeed().Remap(15, 95, 32, 265);
+                    }
                 }
+                else
+                {
+                    speedRotation = Vehicle.GetMPHSpeed().Remap(0, 85, 17.5f, 265);
+                }
+                
+                speedRotation = Math.Min(speedRotation, 265);
 
-                fuelRotation = FusionUtils.Lerp(fuelRotation, -fuelLevel, Game.LastFrameTime);
+                speedRotation = Math.Max(speedRotation, 17.5f);
+
+                float fuelLevel = Vehicle.FuelLevel.Remap(0, Vehicle.HandlingData.PetrolTankVolume, 10, -100);
+                float tempLevel = Vehicle.EngineTemperature.Remap(0, 190, -10, 100);
+                float oilLevel = Vehicle.OilLevel.Remap(0, Vehicle.HandlingData.OilVolume, 10, -100);
+
+                fuelRotation = FusionUtils.Lerp(fuelRotation, fuelLevel, Game.LastFrameTime);
                 tempRotation = FusionUtils.Lerp(tempRotation, tempLevel, Game.LastFrameTime);
-                oilRotation = FusionUtils.Lerp(oilRotation, -oilLevel, Game.LastFrameTime);
+                oilRotation = FusionUtils.Lerp(oilRotation, oilLevel, Game.LastFrameTime);
                 voltRotation = FusionUtils.Lerp(voltRotation, voltLevel, Game.LastFrameTime);
             }
             else
             {
+                rpmRotation = FusionUtils.Lerp(rpmRotation, 0, Game.LastFrameTime);
+                speedRotation = FusionUtils.Lerp(speedRotation, 17.5f, Game.LastFrameTime);
+                
                 fuelRotation = FusionUtils.Lerp(fuelRotation, 10, Game.LastFrameTime);
                 tempRotation = FusionUtils.Lerp(tempRotation, -10, Game.LastFrameTime);
                 oilRotation = FusionUtils.Lerp(oilRotation, 10, Game.LastFrameTime);
@@ -194,8 +223,9 @@ namespace BackToTheFutureV
                 }
             }
 
-            speedNeedle.MoveProp(Vector3.Zero, new Vector3(0, speedRotation, 0));
             rpmNeedle.MoveProp(Vector3.Zero, new Vector3(0, rpmRotation, 0));
+            speedNeedle.MoveProp(Vector3.Zero, new Vector3(0, speedRotation, 0));
+            
             fuelNeedle.MoveProp(Vector3.Zero, new Vector3(0, fuelRotation, 0));
             tempNeedle.MoveProp(Vector3.Zero, new Vector3(0, tempRotation, 0));
             oilNeedle.MoveProp(Vector3.Zero, new Vector3(0, oilRotation, 0));
