@@ -61,8 +61,6 @@ namespace BackToTheFutureV
             FireTrailsHandler.Abort();
             CustomTrainHandler.Abort();
             DMC12Handler.Abort();
-
-            ExternalHUD.Stop();
         }
 
         private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
@@ -94,21 +92,8 @@ namespace BackToTheFutureV
 
                 FusionUtils.RandomTrains = ModSettings.RandomTrains;
                 TimeHandler.RealTime = ModSettings.RealTime;
-
-                if (ModSettings.ExternalTCDToggle)
-                {
-                    ExternalHUD.Toggle(true);
-                }
-
-                ExternalHUD.SetOff();
-
                 DecoratorsHandler.Register();
                 WeatherHandler.Register();
-            }
-
-            if (ModSettings.ExternalTCDToggle != ExternalHUD.IsActive)
-            {
-                ExternalHUD.Toggle(ModSettings.ExternalTCDToggle);
             }
 
             if (!FirstTick)

@@ -327,11 +327,6 @@ namespace BackToTheFutureV
                 DrawGUI();
             }
 
-            if (FusionUtils.PlayerVehicle == Vehicle && Properties.TimeTravelPhase < TimeTravelPhase.InTime)
-            {
-                ExternalHUD.Update(Properties.HUDProperties);
-            }
-
             if (!Properties.AreTimeCircuitsOn)
             {
                 return;

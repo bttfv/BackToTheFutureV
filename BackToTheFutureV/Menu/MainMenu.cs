@@ -147,7 +147,6 @@ namespace BackToTheFutureV
 
                 TimeMachineHandler.RemoveTimeMachine(timeMachine);
 
-                ExternalHUD.SetOff();
             }
 
             if (sender == deleteOthers)
@@ -163,7 +162,6 @@ namespace BackToTheFutureV
                 RemoteTimeMachineHandler.DeleteAll();
                 TextHandler.ShowNotification("RemovedAllTimeMachines");
 
-                ExternalHUD.SetOff();
             }
 
             Visible = false;

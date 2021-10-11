@@ -4,3 +4,12 @@
 
 ## Requirements:
 - W.I.P.
+
+## Changes:
+
+### Feature Removal:
+- External/RemoteHUD, didn't work anymore, caused game crashes.
+
+### Feature Improvement:
+
+### New Features:

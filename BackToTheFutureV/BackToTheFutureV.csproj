@@ -62,9 +62,9 @@
     <Reference Include="BackToTheFutureV.HUD.Core">
       <HintPath>$(GTAPath)\scripts\BackToTheFutureV.HUD.Core.dll</HintPath>
     </Reference>
-    <Reference Include="FusionLibrary, Version=1.0.7917.28287, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FusionLibrary, Version=1.0.7905.40953, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(GTAPath)\scripts\FusionLibrary.dll</HintPath>
+      <HintPath>D:\Grand Theft Auto V\scripts\FusionLibrary.dll</HintPath>
     </Reference>
     <Reference Include="irrKlang.NET4, Version=1.0.6617.18847, Culture=neutral, PublicKeyToken=a854741bd80517c7, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
@@ -107,7 +107,6 @@
     <Compile Include="Story\Missions\EscapeMission.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ConstantsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\SIDHandler.cs" />
-    <Compile Include="Utility\ExternalHUD.cs" />
     <Compile Include="GUI\TCD3DRowScaleform.cs" />
     <Compile Include="GUI\TCD2DScaleform.cs" />
     <Compile Include="Menu\CustomMenu.cs" />
