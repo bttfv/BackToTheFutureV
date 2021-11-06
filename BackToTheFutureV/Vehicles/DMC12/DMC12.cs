@@ -185,7 +185,7 @@ namespace BackToTheFutureV
                 {
                     speedRotation = Vehicle.GetMPHSpeed().Remap(0, 85, 17.5f, 265);
                 }
-                
+
                 speedRotation = Math.Min(speedRotation, 265);
 
                 speedRotation = Math.Max(speedRotation, 17.5f);
@@ -203,7 +203,7 @@ namespace BackToTheFutureV
             {
                 rpmRotation = FusionUtils.Lerp(rpmRotation, 0, Game.LastFrameTime);
                 speedRotation = FusionUtils.Lerp(speedRotation, 17.5f, Game.LastFrameTime);
-                
+
                 fuelRotation = FusionUtils.Lerp(fuelRotation, 10, Game.LastFrameTime);
                 tempRotation = FusionUtils.Lerp(tempRotation, -10, Game.LastFrameTime);
                 oilRotation = FusionUtils.Lerp(oilRotation, 10, Game.LastFrameTime);
@@ -225,7 +225,7 @@ namespace BackToTheFutureV
 
             rpmNeedle.MoveProp(Vector3.Zero, new Vector3(0, rpmRotation, 0));
             speedNeedle.MoveProp(Vector3.Zero, new Vector3(0, speedRotation, 0));
-            
+
             fuelNeedle.MoveProp(Vector3.Zero, new Vector3(0, fuelRotation, 0));
             tempNeedle.MoveProp(Vector3.Zero, new Vector3(0, tempRotation, 0));
             oilNeedle.MoveProp(Vector3.Zero, new Vector3(0, oilRotation, 0));

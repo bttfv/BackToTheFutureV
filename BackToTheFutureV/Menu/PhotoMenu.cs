@@ -17,13 +17,7 @@ namespace BackToTheFutureV
         private readonly NativeSliderItem StrikeDelay;
         private readonly NativeCheckboxItem HideHUD;
 
-        private TimeMachine TimeMachine
-        {
-            get
-            {
-                return TimeMachineHandler.CurrentTimeMachine;
-            }
-        }
+        private TimeMachine TimeMachine => TimeMachineHandler.CurrentTimeMachine;
 
         public PhotoMenu() : base("Photo")
         {

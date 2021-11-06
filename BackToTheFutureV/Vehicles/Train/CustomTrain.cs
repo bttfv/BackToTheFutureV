@@ -22,15 +22,9 @@ namespace BackToTheFutureV
         public bool Direction { get; set; }
         public Vector3 Position
         {
-            get
-            {
-                return Train.Position;
-            }
+            get => Train.Position;
 
-            set
-            {
-                Function.Call(Hash.SET_MISSION_TRAIN_COORDS, Train, value.X, value.Y, value.Z);
-            }
+            set => Function.Call(Hash.SET_MISSION_TRAIN_COORDS, Train, value.X, value.Y, value.Z);
         }
         public int CarriageCount { get; }
 
@@ -42,31 +36,19 @@ namespace BackToTheFutureV
         public bool IsAutomaticBrakeOn { get; set; } = true;
         public bool IsAccelerationOn { get; set; } = false;
 
-        public float CruiseSpeed { get { return _cruiseSpeed; } set { _cruiseSpeed = value; _setSpeed = false; IsAutomaticBrakeOn = false; Function.Call(Hash.SET_TRAIN_CRUISE_SPEED, Train, value); } }
+        public float CruiseSpeed { get => _cruiseSpeed; set { _cruiseSpeed = value; _setSpeed = false; IsAutomaticBrakeOn = false; Function.Call(Hash.SET_TRAIN_CRUISE_SPEED, Train, value); } }
         public float CruiseSpeedMPH
         {
-            get
-            {
-                return CruiseSpeed.ToMPH();
-            }
+            get => CruiseSpeed.ToMPH();
 
-            set
-            {
-                CruiseSpeed = value.ToMS();
-            }
+            set => CruiseSpeed = value.ToMS();
         }
-        public float Speed { get { return _speed; } set { _speed = value; _setSpeed = true; } }
+        public float Speed { get => _speed; set { _speed = value; _setSpeed = true; } }
         public float SpeedMPH
         {
-            get
-            {
-                return Speed.ToMPH();
-            }
+            get => Speed.ToMPH();
 
-            set
-            {
-                Speed = value.ToMS();
-            }
+            set => Speed = value.ToMS();
         }
 
         public bool ToDestroy { get; private set; }
@@ -75,33 +57,15 @@ namespace BackToTheFutureV
         public bool TargetExploded;
 
         public bool IsReadyToAttach { get; private set; }
-        public bool AttachedToTarget
-        {
-            get
-            {
-                return TargetVehicle.IsAttachedTo(AttachVehicle);
-            }
-        }
+        public bool AttachedToTarget => TargetVehicle.IsAttachedTo(AttachVehicle);
 
         public Vector3 AttachOffset;
         public int CarriageIndexForAttach { get; private set; }
         public int CarriageIndexForRotation { get; private set; }
 
-        private Vehicle AttachVehicle
-        {
-            get
-            {
-                return CarriageIndexForAttach == 0 ? Train : Carriage(CarriageIndexForAttach);
-            }
-        }
+        private Vehicle AttachVehicle => CarriageIndexForAttach == 0 ? Train : Carriage(CarriageIndexForAttach);
 
-        private Vehicle RotationVehicle
-        {
-            get
-            {
-                return CarriageIndexForRotation == 0 ? Train : Carriage(CarriageIndexForRotation);
-            }
-        }
+        private Vehicle RotationVehicle => CarriageIndexForRotation == 0 ? Train : Carriage(CarriageIndexForRotation);
 
         public CustomTrain(Vector3 position, bool direction, int variation, int carriageCount)
         {

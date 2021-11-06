@@ -11,13 +11,7 @@ namespace BackToTheFutureV
     {
         private static readonly List<WaybackMachine> Machines = new List<WaybackMachine>();
 
-        public static WaybackMachine CurrentPlayerRecording
-        {
-            get
-            {
-                return Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording && x.IsPlayer);
-            }
-        }
+        public static WaybackMachine CurrentPlayerRecording => Machines.SingleOrDefault(x => x.Status == WaybackStatus.Recording && x.IsPlayer);
 
         static WaybackSystem()
         {

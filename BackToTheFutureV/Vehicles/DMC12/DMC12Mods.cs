@@ -78,10 +78,7 @@ namespace BackToTheFutureV
 
         public new SuspensionsType SuspensionsType
         {
-            get
-            {
-                return base.SuspensionsType;
-            }
+            get => base.SuspensionsType;
 
             set
             {
@@ -125,10 +122,7 @@ namespace BackToTheFutureV
 
         public new WheelType Wheel
         {
-            get
-            {
-                return base.Wheel;
-            }
+            get => base.Wheel;
 
             set
             {
@@ -141,10 +135,7 @@ namespace BackToTheFutureV
 
         public new ModState Components
         {
-            get
-            {
-                return base.Components;
-            }
+            get => base.Components;
 
             set
             {
@@ -168,10 +159,7 @@ namespace BackToTheFutureV
 
         public new ModState OffCoils
         {
-            get
-            {
-                return base.OffCoils;
-            }
+            get => base.OffCoils;
 
             set
             {
@@ -186,10 +174,7 @@ namespace BackToTheFutureV
 
         public new ModState GlowingEmitter
         {
-            get
-            {
-                return base.GlowingEmitter;
-            }
+            get => base.GlowingEmitter;
 
             set
             {
@@ -204,10 +189,7 @@ namespace BackToTheFutureV
 
         public new ModState GlowingReactor
         {
-            get
-            {
-                return base.GlowingReactor;
-            }
+            get => base.GlowingReactor;
 
             set
             {
@@ -222,10 +204,7 @@ namespace BackToTheFutureV
 
         public new ModState HoverUnderbody
         {
-            get
-            {
-                return base.HoverUnderbody;
-            }
+            get => base.HoverUnderbody;
 
             set
             {
@@ -240,10 +219,7 @@ namespace BackToTheFutureV
 
         public new ReactorType Reactor
         {
-            get
-            {
-                return base.Reactor;
-            }
+            get => base.Reactor;
 
             set
             {
@@ -258,10 +234,7 @@ namespace BackToTheFutureV
 
         public new PlateType Plate
         {
-            get
-            {
-                return base.Plate;
-            }
+            get => base.Plate;
 
             set
             {
@@ -276,10 +249,7 @@ namespace BackToTheFutureV
 
         public new ExhaustType Exhaust
         {
-            get
-            {
-                return base.Exhaust;
-            }
+            get => base.Exhaust;
 
             set
             {
@@ -294,10 +264,7 @@ namespace BackToTheFutureV
 
         public new ModState Hoodbox
         {
-            get
-            {
-                return base.Hoodbox;
-            }
+            get => base.Hoodbox;
 
             set
             {
@@ -313,10 +280,7 @@ namespace BackToTheFutureV
 
         public new HookState Hook
         {
-            get
-            {
-                return base.Hook;
-            }
+            get => base.Hook;
 
             set
             {
@@ -375,10 +339,7 @@ namespace BackToTheFutureV
 
         public new HoodType Hood
         {
-            get
-            {
-                return base.Hood;
-            }
+            get => base.Hood;
 
             set
             {

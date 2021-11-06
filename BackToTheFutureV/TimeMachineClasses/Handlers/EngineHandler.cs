@@ -61,24 +61,12 @@ namespace BackToTheFutureV
         /// <summary>
         /// Returns vehicle engine rpm.
         /// </summary>
-        public float EngineRpm
-        {
-            get
-            {
-                return Vehicle.CurrentRPM;
-            }
-        }
+        public float EngineRpm => Vehicle.CurrentRPM;
 
         /// <summary>
         /// Returns vehicle speed relatively to world in MPH.
         /// </summary>
-        public float Speed
-        {
-            get
-            {
-                return Vehicle.GetMPHSpeed();
-            }
-        }
+        public float Speed => Vehicle.GetMPHSpeed();
 
         /// <summary>
         /// Returns rear wheel speed in MPH.
@@ -88,13 +76,7 @@ namespace BackToTheFutureV
         /// <summary>
         /// Returns current vehicle gear number.
         /// </summary>
-        public int CurrentGear
-        {
-            get
-            {
-                return Vehicle.CurrentGear;
-            }
-        }
+        public int CurrentGear => Vehicle.CurrentGear;
 
         /// <summary>
         /// Returns previous vehicle gear number.

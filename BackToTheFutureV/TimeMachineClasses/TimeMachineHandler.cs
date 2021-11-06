@@ -20,25 +20,13 @@ namespace BackToTheFutureV
         public static float SquareDistToClosestTimeMachine { get; private set; } = -1;
         public static List<TimeMachine> StoryTimeMachines { get; } = new List<TimeMachine>();
         private static List<TimeMachine> AllTimeMachines { get; } = new List<TimeMachine>();
-        public static List<TimeMachine> TimeMachines
-        {
-            get
-            {
-                return AllTimeMachines.Except(StoryTimeMachines).ToList();
-            }
-        }
+        public static List<TimeMachine> TimeMachines => AllTimeMachines.Except(StoryTimeMachines).ToList();
 
         private static readonly List<TimeMachine> _timeMachinesToAdd = new List<TimeMachine>();
         private static readonly Dictionary<TimeMachine, bool> _timeMachinesToRemove = new Dictionary<TimeMachine, bool>();
         private static readonly Dictionary<TimeMachine, bool> _timeMachinesToRemoveWaitSounds = new Dictionary<TimeMachine, bool>();
 
-        public static int TimeMachineCount
-        {
-            get
-            {
-                return TimeMachines.Count();
-            }
-        }
+        public static int TimeMachineCount => TimeMachines.Count();
 
         private static bool _savedEmpty;
 

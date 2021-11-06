@@ -17,10 +17,7 @@ namespace BackToTheFutureV
 
         public bool On
         {
-            get
-            {
-                return on;
-            }
+            get => on;
 
             set
             {

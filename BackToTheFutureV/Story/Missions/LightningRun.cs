@@ -38,13 +38,7 @@ namespace BackToTheFutureV
         private int step = 0;
         private int gameTime;
 
-        private TimeMachine CurrentTimeMachine
-        {
-            get
-            {
-                return TimeMachineHandler.CurrentTimeMachine;
-            }
-        }
+        private TimeMachine CurrentTimeMachine => TimeMachineHandler.CurrentTimeMachine;
 
         private readonly CustomCameraHandler CustomCamera = new CustomCameraHandler();
 
@@ -147,7 +141,7 @@ namespace BackToTheFutureV
             {
                 return;
             }
-            
+
             switch (step)
             {
                 case 0:
@@ -228,7 +222,7 @@ namespace BackToTheFutureV
         }
 
         private void Setup()
-        {            
+        {
             //GTA.UI.Screen.ShowSubtitle($"Setup", 1000);
 
             LeftStreetPole = World.CreateProp(streetPoleModel, new Vector3(50.4339f, 6576.8843f, 30.3620f), true, false);

@@ -162,7 +162,7 @@ namespace BackToTheFutureV
             }
             else
             {
-                customTrain.Speed = Vehicle.RunningDirection() == RunningDirection.Forward  ? _speed : -_speed;
+                customTrain.Speed = Vehicle.RunningDirection() == RunningDirection.Forward ? _speed : -_speed;
             }
         }
 

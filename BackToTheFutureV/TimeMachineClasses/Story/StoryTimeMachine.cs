@@ -23,13 +23,7 @@ namespace BackToTheFutureV
         public bool IsOnTracks { get; }
 
         public TimeMachine TimeMachine { get; private set; }
-        public bool Spawned
-        {
-            get
-            {
-                return TimeMachine.IsFunctioning();
-            }
-        }
+        public bool Spawned => TimeMachine.IsFunctioning();
 
         public bool IsUsed { get; private set; }
         public bool WarningMessageShowed { get; private set; }

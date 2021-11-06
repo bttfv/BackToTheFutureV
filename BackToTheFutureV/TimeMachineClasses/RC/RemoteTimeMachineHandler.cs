@@ -13,25 +13,13 @@ namespace BackToTheFutureV
         public static readonly float MAX_DIST = 650f;
 
         public static TimeMachine RemoteControlling { get; private set; }
-        public static bool IsRemoteOn
-        {
-            get
-            {
-                return RemoteControlling != null;
-            }
-        }
+        public static bool IsRemoteOn => RemoteControlling != null;
 
         private static TimerBarCollection TimerBarCollection { get; }
         private static readonly TimerBarProgress SignalBar;
 
         public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
-        public static int RemoteTimeMachineCount
-        {
-            get
-            {
-                return RemoteTimeMachines.Count;
-            }
-        }
+        public static int RemoteTimeMachineCount => RemoteTimeMachines.Count;
 
         private const int MAX_REMOTE_TIMEMACHINES = 10;
 

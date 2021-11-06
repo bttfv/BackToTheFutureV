@@ -58,13 +58,7 @@ namespace BackToTheFutureV
         private DateTime lastTime;
         private int nextCheck;
 
-        public bool IsDoingTimedVisible
-        {
-            get
-            {
-                return destinationSlot.IsDoingTimedVisible;
-            }
-        }
+        public bool IsDoingTimedVisible => destinationSlot.IsDoingTimedVisible;
 
         public TCDHandler(TimeMachine timeMachine) : base(timeMachine)
         {

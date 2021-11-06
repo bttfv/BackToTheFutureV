@@ -8,23 +8,14 @@ namespace BackToTheFutureV
     internal class InternalInventory
     {
         private static readonly List<InternalInventory> InternalInventories = new List<InternalInventory>();
-        public static InternalInventory Current
-        {
-            get
-            {
-                return InternalInventories.DefaultIfEmpty(new InternalInventory()).SingleOrDefault(x => x.Ped == FusionUtils.PlayerPed.Model);
-            }
-        }
+        public static InternalInventory Current => InternalInventories.DefaultIfEmpty(new InternalInventory()).SingleOrDefault(x => x.Ped == FusionUtils.PlayerPed.Model);
 
         public Model Ped { get; }
 
         private int _trash;
         public int Trash
         {
-            get
-            {
-                return _trash;
-            }
+            get => _trash;
 
             set
             {
@@ -38,10 +29,7 @@ namespace BackToTheFutureV
         private int _plutonium = 1;
         public int Plutonium
         {
-            get
-            {
-                return _plutonium;
-            }
+            get => _plutonium;
 
             set
             {

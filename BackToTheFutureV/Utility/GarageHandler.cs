@@ -36,42 +36,18 @@ namespace BackToTheFutureV
         public Vector3 OutsideCameraPosition { get; }
         public Vector3 OutsideCameraRotation { get; }
 
-        public bool IsDoorClosed
-        {
-            get
-            {
-                return DoorHandler.IsDoorClosed(GarageDoor);
-            }
-        }
+        public bool IsDoorClosed => DoorHandler.IsDoorClosed(GarageDoor);
 
-        public float GetDoorOpenRatio
-        {
-            get
-            {
-                return DoorHandler.GetDoorOpenRatio(GarageDoor);
-            }
-        }
+        public float GetDoorOpenRatio => DoorHandler.GetDoorOpenRatio(GarageDoor);
 
-        public DoorState GetDoorState
-        {
-            get
-            {
-                return DoorHandler.GetDoorState(GarageDoor);
-            }
-        }
+        public DoorState GetDoorState => DoorHandler.GetDoorState(GarageDoor);
 
         public void SetDoorState(DoorState doorState)
         {
             DoorHandler.SetDoorState(GarageDoor, doorState);
         }
 
-        public bool IsPlayerNear
-        {
-            get
-            {
-                return FusionUtils.PlayerPed.Position.DistanceToSquared2D(Position) <= 1000;
-            }
-        }
+        public bool IsPlayerNear => FusionUtils.PlayerPed.Position.DistanceToSquared2D(Position) <= 1000;
 
         public bool IsVehicleEntirelyInside(Vehicle vehicle)
         {
@@ -152,13 +128,7 @@ namespace BackToTheFutureV
 
     internal static class GarageHandler
     {
-        private static Vehicle Vehicle
-        {
-            get
-            {
-                return FusionUtils.PlayerVehicle;
-            }
-        }
+        private static Vehicle Vehicle => FusionUtils.PlayerVehicle;
 
         private static int gameTime;
 

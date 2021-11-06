@@ -9,13 +9,7 @@ namespace BackToTheFutureV
 {
     internal class ConstantsHandler : HandlerPrimitive
     {
-        public bool HasScaleformPriority
-        {
-            get
-            {
-                return TimeMachineHandler.ClosestTimeMachine == TimeMachine;
-            }
-        }
+        public bool HasScaleformPriority => TimeMachineHandler.ClosestTimeMachine == TimeMachine;
 
         public bool Over88MphSpeed { get; private set; }
 
@@ -177,61 +171,19 @@ namespace BackToTheFutureV
             }
         }
 
-        public int FireTrailsAppearTime
-        {
-            get
-            {
-                return (FireTrailsIs99 || Properties.IsFlying) ? 0 : 1;
-            }
-        }
+        public int FireTrailsAppearTime => (FireTrailsIs99 || Properties.IsFlying) ? 0 : 1;
 
-        public int FireTrailsDisappearTime
-        {
-            get
-            {
-                return (FireTrailsIs99 || Properties.IsFlying) ? 2 : 5;
-            }
-        }
+        public int FireTrailsDisappearTime => (FireTrailsIs99 || Properties.IsFlying) ? 2 : 5;
 
-        public bool FireTrailsIs99
-        {
-            get
-            {
-                return Properties.IsFlying && Properties.HasBeenStruckByLightning;
-            }
-        }
+        public bool FireTrailsIs99 => Properties.IsFlying && Properties.HasBeenStruckByLightning;
 
-        public int FireTrailsLength
-        {
-            get
-            {
-                return Properties.IsOnTracks ? 100 : 50;
-            }
-        }
+        public int FireTrailsLength => Properties.IsOnTracks ? 100 : 50;
 
-        public string LowerWormholeType
-        {
-            get
-            {
-                return Mods.WormholeType.ToString().ToLower();
-            }
-        }
+        public string LowerWormholeType => Mods.WormholeType.ToString().ToLower();
 
-        public bool IsStockWheel
-        {
-            get
-            {
-                return Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible || Mods.Wheel == WheelType.DMC || Mods.Wheel == WheelType.DMCInvisible;
-            }
-        }
+        public bool IsStockWheel => Mods.Wheel == WheelType.Stock || Mods.Wheel == WheelType.StockInvisible || Mods.Wheel == WheelType.DMC || Mods.Wheel == WheelType.DMCInvisible;
 
-        public bool FullDamaged
-        {
-            get
-            {
-                return Mods.Wheel == WheelType.Stock && Mods.Wheels.Burst && Vehicle.EngineHealth <= 0 && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
-            }
-        }
+        public bool FullDamaged => Mods.Wheel == WheelType.Stock && Mods.Wheels.Burst && Vehicle.EngineHealth <= 0 && Properties.AreFlyingCircuitsBroken && Properties.AreTimeCircuitsBroken;
 
         public WheelType RoadWheel
         {
@@ -255,37 +207,13 @@ namespace BackToTheFutureV
             }
         }
 
-        public CustomModel WheelModel
-        {
-            get
-            {
-                return IsStockWheel ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
-            }
-        }
+        public CustomModel WheelModel => IsStockWheel ? ModelHandler.WheelProp : ModelHandler.RedWheelProp;
 
-        public CustomModel WheelRearModel
-        {
-            get
-            {
-                return IsStockWheel ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
-            }
-        }
+        public CustomModel WheelRearModel => IsStockWheel ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
 
-        public bool ReadyForLightningRun
-        {
-            get
-            {
-                return FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 22, 3, 0), new DateTime(1955, 11, 12, 22, 4, 0)) && Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet;
-            }
-        }
+        public bool ReadyForLightningRun => FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 22, 3, 0), new DateTime(1955, 11, 12, 22, 4, 0)) && !Properties.IsFlying && Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet;
 
-        public bool ReadyForLightningRunFromStartLine
-        {
-            get
-            {
-                return ReadyForLightningRun && Vehicle.GetStreetInfo().Crossing == LightningRun.StartLine;
-            }
-        }
+        public bool ReadyForLightningRunFromStartLine => ReadyForLightningRun && Vehicle.GetStreetInfo().Crossing == LightningRun.StartLine;
 
         public float TorqueForLightningRun { get; } = 0.65f;
 

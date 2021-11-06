@@ -17,13 +17,7 @@ namespace BackToTheFutureV
         private NativeCheckboxItem ShowBlip { get; }
         private NativeItem ForceReenter { get; }
 
-        private RemoteTimeMachine CurrentRemoteTimeMachine
-        {
-            get
-            {
-                return TimeMachines.SelectedItem;
-            }
-        }
+        private RemoteTimeMachine CurrentRemoteTimeMachine => TimeMachines.SelectedItem;
 
         public OutatimeMenu() : base("Outatime")
         {

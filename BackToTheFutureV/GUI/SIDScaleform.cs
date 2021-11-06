@@ -7,13 +7,7 @@ namespace BackToTheFutureV
 {
     internal class SIDScaleform : ScaleformGui
     {
-        private PropertiesHandler Properties
-        {
-            get
-            {
-                return TimeMachineHandler.ClosestTimeMachine.Properties;
-            }
-        }
+        private PropertiesHandler Properties => TimeMachineHandler.ClosestTimeMachine.Properties;
 
         private static PointF SID3DLocation = new PointF() { X = 0.626f, Y = 0.626f };
         private static readonly float SID3DScale = 1.284f;

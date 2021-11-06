@@ -16,15 +16,9 @@ namespace BackToTheFutureV
 
         public float TorqueMultiplier
         {
-            get
-            {
-                return Decorator.GetFloat(BTTFVDecors.TorqueMultiplier);
-            }
+            get => Decorator.GetFloat(BTTFVDecors.TorqueMultiplier);
 
-            set
-            {
-                Decorator.SetFloat(BTTFVDecors.TorqueMultiplier, value);
-            }
+            set => Decorator.SetFloat(BTTFVDecors.TorqueMultiplier, value);
         }
 
         public static void Register()

@@ -33,15 +33,9 @@ namespace BackToTheFutureV
 
         public TimeMachineCamera CustomCamera
         {
-            get
-            {
-                return (TimeMachineCamera)CustomCameraManager.CurrentCameraIndex;
-            }
+            get => (TimeMachineCamera)CustomCameraManager.CurrentCameraIndex;
 
-            set
-            {
-                CustomCameraManager.Show((int)value);
-            }
+            set => CustomCameraManager.Show((int)value);
         }
 
         public TimeMachineClone LastDisplacementClone { get; set; }
@@ -263,7 +257,7 @@ namespace BackToTheFutureV
             if (Properties.IsWayback && TimeMachineHandler.CurrentTimeMachine == this)
             {
                 Properties.IsWayback = false;
-            }            
+            }
 
             Function.Call(Hash.SET_VEHICLE_CHEAT_POWER_INCREASE, Vehicle, Decorators.TorqueMultiplier);
 

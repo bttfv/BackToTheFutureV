@@ -18,10 +18,7 @@ namespace BackToTheFutureV
         private int PedHandle { get; set; }
         public Ped Ped
         {
-            get
-            {
-                return (Ped)Entity.FromHandle(PedHandle);
-            }
+            get => (Ped)Entity.FromHandle(PedHandle);
 
             private set
             {
@@ -51,13 +48,7 @@ namespace BackToTheFutureV
         }
 
         public int CurrentIndex { get; private set; } = 0;
-        public WaybackRecord CurrentRecord
-        {
-            get
-            {
-                return Records[CurrentIndex];
-            }
-        }
+        public WaybackRecord CurrentRecord => Records[CurrentIndex];
 
         public WaybackRecord PreviousRecord
         {

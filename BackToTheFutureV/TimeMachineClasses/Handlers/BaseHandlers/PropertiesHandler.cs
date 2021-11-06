@@ -42,10 +42,7 @@ namespace BackToTheFutureV
         public bool HasScaleformPriority { get; set; }
         public int ReactorCharge
         {
-            get
-            {
-                return reactorCharge;
-            }
+            get => reactorCharge;
 
             set
             {
@@ -55,13 +52,7 @@ namespace BackToTheFutureV
                 }
             }
         }
-        public bool IsFueled
-        {
-            get
-            {
-                return ReactorCharge > 0;
-            }
-        }
+        public bool IsFueled => ReactorCharge > 0;
 
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
         public bool IsFluxDoingBlueAnim { get; set; }

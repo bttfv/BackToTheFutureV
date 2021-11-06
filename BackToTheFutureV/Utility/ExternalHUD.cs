@@ -13,13 +13,7 @@ namespace BackToTheFutureV
 
         private const int port = 1985;
 
-        public static bool IsActive
-        {
-            get
-            {
-                return HUD != null;
-            }
-        }
+        public static bool IsActive => HUD != null;
 
         public static void Toggle(bool state)
         {

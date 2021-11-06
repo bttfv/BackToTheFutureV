@@ -15,13 +15,7 @@ namespace BackToTheFutureV
         public Vehicle Vehicle { get; private set; }
         public Ped Driver { get; private set; }
         public Ped Shooter { get; private set; }
-        public Ped TargetPed
-        {
-            get
-            {
-                return TimeMachine.Vehicle.GetPedOnSeat(VehicleSeat.Driver);
-            }
-        }
+        public Ped TargetPed => TimeMachine.Vehicle.GetPedOnSeat(VehicleSeat.Driver);
 
         private TimeMachine TimeMachine;
 

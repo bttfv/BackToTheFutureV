@@ -18,13 +18,7 @@ namespace BackToTheFutureV
         private readonly NativeListItem<string> _suspensions;
         private readonly NativeListItem<string> _hood;
 
-        private TimeMachine TimeMachine
-        {
-            get
-            {
-                return TimeMachineHandler.CurrentTimeMachine;
-            }
-        }
+        private TimeMachine TimeMachine => TimeMachineHandler.CurrentTimeMachine;
 
         public CustomMenu2() : base("Custom")
         {
