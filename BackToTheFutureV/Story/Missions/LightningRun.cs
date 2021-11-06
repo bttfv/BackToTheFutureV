@@ -229,7 +229,7 @@ namespace BackToTheFutureV
 
         private void Setup()
         {            
-            GTA.UI.Screen.ShowSubtitle($"Setup", 1000);
+            //GTA.UI.Screen.ShowSubtitle($"Setup", 1000);
 
             LeftStreetPole = World.CreateProp(streetPoleModel, new Vector3(50.4339f, 6576.8843f, 30.3620f), true, false);
             RightStreetPole = World.CreateProp(streetPoleModel, new Vector3(41.5676f, 6585.7378f, 30.3686f), true, false);
