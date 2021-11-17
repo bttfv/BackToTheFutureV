@@ -71,7 +71,7 @@ namespace BackToTheFutureV
 
             InternalInventory.Current.Trash++;
 
-            TextHandler.ShowHelp("FoundTrash", true, InternalInventory.Current.Trash);
+            TextHandler.Me.ShowHelp("FoundTrash", true, InternalInventory.Current.Trash);
         }
     }
 }

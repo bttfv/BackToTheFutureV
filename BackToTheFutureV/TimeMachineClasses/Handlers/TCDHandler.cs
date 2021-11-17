@@ -431,7 +431,7 @@ namespace BackToTheFutureV
             {
                 if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
                 {
-                    TextHandler.ShowHelp("NotWarmed");
+                    TextHandler.Me.ShowHelp("NotWarmed");
                 }
 
                 return;
@@ -441,7 +441,7 @@ namespace BackToTheFutureV
             {
                 if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
                 {
-                    TextHandler.ShowHelp("ChipDamaged");
+                    TextHandler.Me.ShowHelp("ChipDamaged");
                 }
 
                 return;

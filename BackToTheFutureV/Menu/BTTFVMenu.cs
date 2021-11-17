@@ -1,5 +1,4 @@
 ﻿using FusionLibrary;
-using GTA;
 using LemonUI.Elements;
 using System.Drawing;
 
@@ -16,32 +15,32 @@ namespace BackToTheFutureV
 
         public override string GetMenuTitle()
         {
-            return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Title");
+            return TextHandler.Me.GetMenuTitle(InternalName);
         }
 
         public override string GetMenuDescription()
         {
-            return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Description");
+            return TextHandler.Me.GetMenuDescription(InternalName);
         }
 
         public override string GetItemTitle(string itemName)
         {
-            return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Title");
+            return TextHandler.Me.GetItemTitle(InternalName, itemName);
         }
 
         public override string GetItemDescription(string itemName)
         {
-            return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Description");
+            return TextHandler.Me.GetItemDescription(InternalName, itemName);
         }
 
         public override string GetItemValueTitle(string itemName, string valueName)
         {
-            return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Value_{valueName}_Title");
+            return TextHandler.Me.GetItemValueTitle(InternalName, itemName, valueName);
         }
 
         public override string GetItemValueDescription(string itemName, string valueName)
         {
-            return Game.GetLocalizedString($"BTTFV_Menu_{InternalName}_Item_{itemName}_Value_{valueName}_Description");
+            return TextHandler.Me.GetItemValueDescription(InternalName, itemName, valueName);
         }
     }
 }

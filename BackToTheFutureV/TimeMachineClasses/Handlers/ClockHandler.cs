@@ -24,15 +24,15 @@ namespace BackToTheFutureV
 
             InstrumentalMenu.ClearPanel();
 
-            InstrumentalMenu.AddControl(Control.PhoneCancel, TextHandler.GetLocalizedText("TCDEdit_CancelButton"));
-            InstrumentalMenu.AddControl(Control.PhoneSelect, TextHandler.GetLocalizedText("TCDEdit_SaveButton"));
-            InstrumentalMenu.AddControl(Control.PhoneCameraSelfie, TextHandler.GetLocalizedText("Clock_Sync"));
-            InstrumentalMenu.AddControl(Control.PhoneOption, TextHandler.GetLocalizedText("Clock_DisableAlarm"));
-            InstrumentalMenu.AddControl(Control.PhoneExtraOption, TextHandler.GetLocalizedText("Clock_SetAlarm"));
-            InstrumentalMenu.AddControl(Control.PhoneDown, TextHandler.GetLocalizedText("Clock_SubMinutes"));
-            InstrumentalMenu.AddControl(Control.PhoneUp, TextHandler.GetLocalizedText("Clock_AddMinutes"));
-            InstrumentalMenu.AddControl(Control.PhoneRight, TextHandler.GetLocalizedText("Clock_AddSeconds"));
-            InstrumentalMenu.AddControl(Control.PhoneLeft, TextHandler.GetLocalizedText("Clock_SubSeconds"));
+            InstrumentalMenu.AddControl(Control.PhoneCancel, TextHandler.Me.GetLocalizedText("TCDEdit_CancelButton"));
+            InstrumentalMenu.AddControl(Control.PhoneSelect, TextHandler.Me.GetLocalizedText("TCDEdit_SaveButton"));
+            InstrumentalMenu.AddControl(Control.PhoneCameraSelfie, TextHandler.Me.GetLocalizedText("Clock_Sync"));
+            InstrumentalMenu.AddControl(Control.PhoneOption, TextHandler.Me.GetLocalizedText("Clock_DisableAlarm"));
+            InstrumentalMenu.AddControl(Control.PhoneExtraOption, TextHandler.Me.GetLocalizedText("Clock_SetAlarm"));
+            InstrumentalMenu.AddControl(Control.PhoneDown, TextHandler.Me.GetLocalizedText("Clock_SubMinutes"));
+            InstrumentalMenu.AddControl(Control.PhoneUp, TextHandler.Me.GetLocalizedText("Clock_AddMinutes"));
+            InstrumentalMenu.AddControl(Control.PhoneRight, TextHandler.Me.GetLocalizedText("Clock_AddSeconds"));
+            InstrumentalMenu.AddControl(Control.PhoneLeft, TextHandler.Me.GetLocalizedText("Clock_SubSeconds"));
         }
 
         public ClockHandler(TimeMachine timeMachine) : base(timeMachine)
@@ -63,7 +63,7 @@ namespace BackToTheFutureV
 
                     if (Properties.AlarmSet)
                     {
-                        TextHandler.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss"));
+                        TextHandler.Me.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss"));
                     }
                 }
                 else
@@ -113,7 +113,7 @@ namespace BackToTheFutureV
                     {
                         Properties.SyncWithCurTime = !Properties.SyncWithCurTime;
 
-                        TextHandler.ShowNotification("Clock_SyncToggle", false, TextHandler.GetOnOff(Properties.SyncWithCurTime));
+                        TextHandler.Me.ShowNotification("Clock_SyncToggle", false, TextHandler.Me.GetOnOff(Properties.SyncWithCurTime));
                     }
 
                     if (Game.IsControlPressed(Control.PhoneUp))
@@ -160,7 +160,7 @@ namespace BackToTheFutureV
                         tempTime = tempTime.AddSeconds(-tempTime.Second).AddSeconds(second);
                         pressedTime++;
 
-                        TextHandler.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString());
+                        TextHandler.Me.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString());
 
                         if (pressedTime > 5)
                         {
@@ -186,7 +186,7 @@ namespace BackToTheFutureV
                         tempTime = tempTime.AddSeconds(-tempTime.Second).AddSeconds(second);
                         pressedTime++;
 
-                        TextHandler.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString());
+                        TextHandler.Me.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString());
 
                         if (pressedTime > 5)
                         {
@@ -203,15 +203,15 @@ namespace BackToTheFutureV
                         Properties.AlarmTime = tempTime;
                         Properties.AlarmSet = true;
 
-                        TextHandler.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss"));
+                        TextHandler.Me.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss"));
 
-                        TextHandler.ShowNotification("Clock_AlarmSet");
+                        TextHandler.Me.ShowNotification("Clock_AlarmSet");
                     }
 
                     if (Game.IsControlJustPressed(Control.PhoneOption))
                     {
                         Properties.AlarmSet = false;
-                        TextHandler.ShowNotification("Clock_AlarmDisabled");
+                        TextHandler.Me.ShowNotification("Clock_AlarmDisabled");
                     }
                 }
             }

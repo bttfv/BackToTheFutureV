@@ -22,7 +22,7 @@ namespace BackToTheFutureV
 
         public CustomMenu2() : base("Custom")
         {
-            _wormholeType = NewListItem("Wormhole", TextHandler.GetLocalizedText("BTTF1", "BTTF2", "BTTF3"));
+            _wormholeType = NewListItem("Wormhole", TextHandler.Me.GetLocalizedText("BTTF1", "BTTF2", "BTTF3"));
             _wormholeType.ItemChanged += ModList_ItemChanged;
 
             _wheelsType = NewLocalizedListItem("Wheel", "Stock", "Red", "Rail", "DMC");

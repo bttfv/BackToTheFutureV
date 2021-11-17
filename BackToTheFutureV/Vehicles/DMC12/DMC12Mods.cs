@@ -1,7 +1,8 @@
 ﻿using FusionLibrary;
-using FusionLibrary.Extensions;
 using GTA;
+using GTA.Math;
 using GTA.Native;
+using System.Collections.Generic;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -10,9 +11,18 @@ namespace BackToTheFutureV
     {
         protected Vehicle Vehicle { get; }
 
+        public Dictionary<VehicleWheelBoneId, Vector3> WheelStartOffsets { get; } = new Dictionary<VehicleWheelBoneId, Vector3>();
+
+        public CVehicle CVehicle { get; }
+
         public DMC12Mods(Vehicle vehicle)
         {
             Vehicle = vehicle;
+
+            CVehicle = new CVehicle(vehicle);
+
+            foreach (KeyValuePair<VehicleWheelBoneId, CWheel> cWheel in CVehicle.Wheels)
+                WheelStartOffsets.Add(cWheel.Key, cWheel.Value.RelativePosition.Get());
 
             IsDMC12 = Vehicle.Model == ModelHandler.DMC12;
 
@@ -25,6 +35,7 @@ namespace BackToTheFutureV
                 Vehicle.ToggleExtra(10, true);
 
                 Vehicle.Mods.PrimaryColor = VehicleColor.BrushedAluminium;
+                vehicle.Mods.SecondaryColor = VehicleColor.MetallicBlackSteel;
                 Vehicle.Mods.TrimColor = VehicleColor.PureWhite;
 
                 Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, 0f);
@@ -96,26 +107,6 @@ namespace BackToTheFutureV
                 else
                 {
                     Vehicle.Mods[VehicleModType.Hydraulics].Index = (int)value;
-                }
-
-                switch (value)
-                {
-                    case SuspensionsType.Stock:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0f);
-
-                        Function.Call(Hash._SET_CAMBERED_WHEELS_DISABLED, Vehicle, false);
-                        break;
-                    default:
-                        Function.Call(Hash._SET_CAMBERED_WHEELS_DISABLED, Vehicle, true);
-
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0f);
-                        break;
                 }
             }
         }

@@ -37,6 +37,13 @@ namespace BackToTheFutureV
         public int TimeTravelsCount { get; set; }
         public bool ThreeDigitsSpeedo { get; set; }
         public ReactorState ReactorState { get; set; } = ReactorState.Closed;
+        public bool OverrideTimeTravelConstants { get; set; }
+        public bool OverrideSet { get; set; }
+        public int OverrideSIDSpeed { get; set; }
+        public int OverrideTTSfxSpeed { get; set; }
+        public int OverrideTTSpeed { get; set; }
+        public int OverrideWormholeLengthTime { get; set; }
+
 
         //Temporary properties
         public bool HasScaleformPriority { get; set; }
@@ -120,7 +127,13 @@ namespace BackToTheFutureV
                 TimeTravelDestPos = TimeTravelDestPos,
                 TimeTravelsCount = TimeTravelsCount,
                 ThreeDigitsSpeedo = ThreeDigitsSpeedo,
-                ReactorState = ReactorState
+                ReactorState = ReactorState,
+                OverrideTimeTravelConstants = OverrideTimeTravelConstants,
+                OverrideSet = OverrideSet,
+                OverrideSIDSpeed = OverrideSIDSpeed,
+                OverrideTTSfxSpeed = OverrideTTSfxSpeed,
+                OverrideTTSpeed = OverrideTTSpeed,
+                OverrideWormholeLengthTime = OverrideWormholeLengthTime
             };
 
             return ret;
@@ -154,6 +167,12 @@ namespace BackToTheFutureV
             timeMachine.Properties.TimeTravelDestPos = TimeTravelDestPos;
             timeMachine.Properties.TimeTravelsCount = TimeTravelsCount;
             timeMachine.Properties.ThreeDigitsSpeedo = ThreeDigitsSpeedo;
+            timeMachine.Properties.OverrideTimeTravelConstants = OverrideTimeTravelConstants;
+            timeMachine.Properties.OverrideSet = OverrideSet;
+            timeMachine.Properties.OverrideSIDSpeed = OverrideSIDSpeed;
+            timeMachine.Properties.OverrideTTSfxSpeed = OverrideTTSfxSpeed;
+            timeMachine.Properties.OverrideTTSpeed = OverrideTTSpeed;
+            timeMachine.Properties.OverrideWormholeLengthTime = OverrideWormholeLengthTime;
 
             if (IsFlying)
             {

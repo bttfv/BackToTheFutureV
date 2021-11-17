@@ -52,7 +52,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            TextHandler.ShowSubtitle("FoundMe");
+            TextHandler.Me.ShowSubtitle("FoundMe");
             TimeMachine = timeMachine;
             Start();
         }

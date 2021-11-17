@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Native;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -13,6 +14,7 @@ namespace BackToTheFutureV
         public static TCDMenu TCDMenu { get; } = new TCDMenu();
         public static SettingsMenu SettingsMenu { get; } = new SettingsMenu();
         public static RCMenu RCMenu { get; } = new RCMenu();
+        public static OverrideMenu OverrideMenu { get; } = new OverrideMenu();
         public static PhotoMenu PhotoMenu { get; } = new PhotoMenu();
         public static CustomMenu CustomMenuMain { get; } = new CustomMenu() { ForceNew = true };
         public static CustomMenu CustomMenuPresets { get; } = new CustomMenu() { ForceNew = true };
@@ -24,8 +26,17 @@ namespace BackToTheFutureV
         public static MainMenu MainMenu { get; } = new MainMenu();
         public static TimeMachineMenu TimeMachineMenu { get; } = new TimeMachineMenu();
 
+        public static bool UnlockPhotoMenu { get; private set; }
+        public static bool UnlockSpawnMenu { get; private set; }
+
         public static void Tick()
         {
+            if (Function.Call<bool>(Hash._HAS_CHEAT_STRING_JUST_BEEN_ENTERED, 1748583210))
+                UnlockPhotoMenu = !UnlockPhotoMenu;
+
+            if (Function.Call<bool>(Hash._HAS_CHEAT_STRING_JUST_BEEN_ENTERED, 693644543))
+                UnlockSpawnMenu = !UnlockSpawnMenu;
+
             if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing && GarageHandler.Status == GarageStatus.Idle)
             {
                 if ((ModControls.CombinationsForInteractionMenu && Game.IsEnabledControlPressed(ModControls.InteractionMenu1) && Game.IsControlPressed(ModControls.InteractionMenu2)) || (!ModControls.CombinationsForInteractionMenu && Game.IsControlPressed(ModControls.InteractionMenu1)))
@@ -46,6 +57,7 @@ namespace BackToTheFutureV
                     if (RemoteTimeMachineHandler.IsRemoteOn)
                     {
                         TimeMachineMenu.Visible = true;
+
                         return;
                     }
                     else if (CustomNativeMenu.ObjectPool.AreAnyVisible)

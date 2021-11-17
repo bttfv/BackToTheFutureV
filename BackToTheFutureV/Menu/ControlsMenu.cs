@@ -125,7 +125,7 @@ namespace BackToTheFutureV
             }
 
             ModControls.HoverVTOL = e.Object.Control;
-            TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
+            TextHandler.Me.ShowHelp("SelectButton", false, e.Object.Button);
         }
 
         private void HoverBoost_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -136,7 +136,7 @@ namespace BackToTheFutureV
             }
 
             ModControls.HoverBoost = e.Object.Control;
-            TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
+            TextHandler.Me.ShowHelp("SelectButton", false, e.Object.Button);
         }
 
         private void Hover_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -147,7 +147,7 @@ namespace BackToTheFutureV
             }
 
             ModControls.Hover = e.Object.Control;
-            TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
+            TextHandler.Me.ShowHelp("SelectButton", false, e.Object.Button);
         }
 
         private void InteractionMenu2_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -158,7 +158,7 @@ namespace BackToTheFutureV
             }
 
             ModControls.InteractionMenu2 = e.Object.Control;
-            TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
+            TextHandler.Me.ShowHelp("SelectButton", false, e.Object.Button);
         }
 
         private void InteractionMenu1_ItemChanged(object sender, ItemChangedEventArgs<ControlInfo> e)
@@ -169,7 +169,7 @@ namespace BackToTheFutureV
             }
 
             ModControls.InteractionMenu1 = e.Object.Control;
-            TextHandler.ShowHelp("SelectButton", false, e.Object.Button);
+            TextHandler.Me.ShowHelp("SelectButton", false, e.Object.Button);
         }
 
         private void MainMenu_ItemChanged(object sender, ItemChangedEventArgs<Keys> e)

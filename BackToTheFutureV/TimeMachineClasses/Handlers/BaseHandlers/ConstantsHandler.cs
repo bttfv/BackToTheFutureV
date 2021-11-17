@@ -11,13 +11,17 @@ namespace BackToTheFutureV
     {
         public bool HasScaleformPriority => TimeMachineHandler.ClosestTimeMachine == TimeMachine;
 
-        public bool Over88MphSpeed { get; private set; }
-
         public bool OverTimeTravelAtSpeed { get; private set; }
-        public int TimeTravelAtSpeed
+        public int TimeTravelAtSpeed => (Properties.OverrideTimeTravelConstants ? Properties.OverrideTTSpeed : 88);
+
+        public bool OverWormholeAtSpeed { get; private set; }
+        public int WormholeAtSpeed
         {
             get
             {
+                if (Properties.OverrideTimeTravelConstants)
+                    return Properties.OverrideTTSfxSpeed;
+
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
@@ -40,6 +44,9 @@ namespace BackToTheFutureV
         {
             get
             {
+                if (Properties.OverrideTimeTravelConstants)
+                    return Properties.OverrideWormholeLengthTime;
+
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
@@ -59,6 +66,9 @@ namespace BackToTheFutureV
         {
             get
             {
+                if (Properties.OverrideTimeTravelConstants)
+                    return Properties.OverrideSIDSpeed;
+
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
@@ -219,6 +229,7 @@ namespace BackToTheFutureV
 
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
+            Events.OnWormholeTypeChanged += OnWormholeTypeChanged;
             Events.OnLightningStrike += StartTimeTravelCooldown;
             Events.OnTimeTravelStarted += StartTimeTravelCooldown;
             Events.OnReenterEnded += StartTimeTravelCooldown;
@@ -226,6 +237,19 @@ namespace BackToTheFutureV
             {
                 ResetAll();
             };
+
+            OnWormholeTypeChanged();
+        }
+
+        public void OnWormholeTypeChanged()
+        {
+            if (Properties.OverrideTimeTravelConstants || Properties.OverrideSet)
+                return;
+
+            Properties.OverrideSIDSpeed = SIDMaxAtSpeed;
+            Properties.OverrideTTSfxSpeed = WormholeAtSpeed;
+            Properties.OverrideWormholeLengthTime = WormholeLengthTime;
+            Properties.OverrideTTSpeed = 88;
         }
 
         public void StartTimeTravelCooldown()
@@ -239,9 +263,9 @@ namespace BackToTheFutureV
             TimeTravelAtTime = 0;
             StabilizationSoundAtTime = 0;
 
-            Over88MphSpeed = false;
-            OverSIDMaxAtSpeed = false;
             OverTimeTravelAtSpeed = false;
+            OverSIDMaxAtSpeed = false;
+            OverWormholeAtSpeed = false;
         }
 
         public override void Dispose()
@@ -296,29 +320,29 @@ namespace BackToTheFutureV
                 Events.OnSIDMaxSpeedReached?.Invoke(false);
             }
 
+            if (Vehicle.GetMPHSpeed() >= WormholeAtSpeed && !OverWormholeAtSpeed)
+            {
+                OverWormholeAtSpeed = true;
+                Events.OnTimeTravelSpeedReached?.Invoke(true);
+            }
+
+            if (Vehicle.GetMPHSpeed() < WormholeAtSpeed && OverWormholeAtSpeed)
+            {
+                OverWormholeAtSpeed = false;
+                Events.OnTimeTravelSpeedReached?.Invoke(false);
+            }
+
             if (Vehicle.GetMPHSpeed() >= TimeTravelAtSpeed && !OverTimeTravelAtSpeed)
             {
+                TimeTravelAtTime = Game.GameTime + WormholeLengthTime;
+                StabilizationSoundAtTime = Game.GameTime + 1000;
+
                 OverTimeTravelAtSpeed = true;
-                Events.OnTimeTravelSpeedReached?.Invoke(true);
             }
 
             if (Vehicle.GetMPHSpeed() < TimeTravelAtSpeed && OverTimeTravelAtSpeed)
             {
                 OverTimeTravelAtSpeed = false;
-                Events.OnTimeTravelSpeedReached?.Invoke(false);
-            }
-
-            if (Vehicle.GetMPHSpeed() >= 88 && !Over88MphSpeed)
-            {
-                TimeTravelAtTime = Game.GameTime + WormholeLengthTime;
-                StabilizationSoundAtTime = Game.GameTime + 1000;
-
-                Over88MphSpeed = true;
-            }
-
-            if (Vehicle.GetMPHSpeed() < 88 && Over88MphSpeed)
-            {
-                Over88MphSpeed = false;
             }
         }
 

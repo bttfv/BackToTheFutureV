@@ -7,6 +7,7 @@ namespace BackToTheFutureV
 {
     internal class PhotoMenu : BTTFVMenu
     {
+        private readonly NativeSubmenuItem OverrideMenu;
         private readonly NativeCheckboxItem Wormhole;
         private readonly NativeCheckboxItem Coils;
         private readonly NativeCheckboxItem Ice;
@@ -21,6 +22,7 @@ namespace BackToTheFutureV
 
         public PhotoMenu() : base("Photo")
         {
+            OverrideMenu = NewSubmenu(MenuHandler.OverrideMenu, "Override");
             Wormhole = NewCheckboxItem("Wormhole");
             Coils = NewCheckboxItem("Coils");
             Ice = NewCheckboxItem("Ice");

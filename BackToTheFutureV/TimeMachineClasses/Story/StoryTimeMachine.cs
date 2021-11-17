@@ -113,29 +113,29 @@ namespace BackToTheFutureV
                         int months = diff.Month - 1;
                         int days = diff.Day - 1;
 
-                        string ret = TextHandler.GetLocalizedText("Buried");
+                        string ret = TextHandler.Me.GetLocalizedText("Buried");
 
                         if (years != 0 && months != 0 && days != 0)
                         {
-                            ret = string.Format(ret, $"{years} {TextHandler.GetLocalizedText("Years")}, {months} {TextHandler.GetLocalizedText("Months")} {TextHandler.GetLocalizedText("And")} {days} {TextHandler.GetLocalizedText("Days")}");
+                            ret = string.Format(ret, $"{years} {TextHandler.Me.GetLocalizedText("Years")}, {months} {TextHandler.Me.GetLocalizedText("Months")} {TextHandler.Me.GetLocalizedText("And")} {days} {TextHandler.Me.GetLocalizedText("Days")}");
                         }
                         else
                         {
                             if (years != 0 && months != 0)
                             {
-                                ret = string.Format(ret, $"{years} {TextHandler.GetLocalizedText("Years")} {TextHandler.GetLocalizedText("And")} {months} {TextHandler.GetLocalizedText("Months")}");
+                                ret = string.Format(ret, $"{years} {TextHandler.Me.GetLocalizedText("Years")} {TextHandler.Me.GetLocalizedText("And")} {months} {TextHandler.Me.GetLocalizedText("Months")}");
                             }
                             else
                             {
                                 if (years != 0 && days != 0)
                                 {
-                                    ret = string.Format(ret, $"{years} {TextHandler.GetLocalizedText("Years")} {TextHandler.GetLocalizedText("And")} {days} {TextHandler.GetLocalizedText("Days")}");
+                                    ret = string.Format(ret, $"{years} {TextHandler.Me.GetLocalizedText("Years")} {TextHandler.Me.GetLocalizedText("And")} {days} {TextHandler.Me.GetLocalizedText("Days")}");
                                 }
                                 else
                                 {
                                     if (months != 0 && days != 0)
                                     {
-                                        ret = string.Format(ret, $"{months} {TextHandler.GetLocalizedText("Months")} {TextHandler.GetLocalizedText("And")} {days} {TextHandler.GetLocalizedText("Days")}");
+                                        ret = string.Format(ret, $"{months} {TextHandler.Me.GetLocalizedText("Months")} {TextHandler.Me.GetLocalizedText("And")} {days} {TextHandler.Me.GetLocalizedText("Days")}");
                                     }
                                 }
                             }

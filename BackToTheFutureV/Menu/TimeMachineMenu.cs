@@ -53,6 +53,11 @@ namespace BackToTheFutureV
             //CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
             TimeCircuitsOn.Enabled = !RemoteControl.Enabled;
             CutsceneMode.Enabled = !RemoteControl.Enabled;
+
+            if (!MenuHandler.UnlockPhotoMenu)
+                Remove(PhotoMenu);
+            else if (!Items.Contains(PhotoMenu))
+                Add(5, PhotoMenu);
         }
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -103,7 +108,9 @@ namespace BackToTheFutureV
             RemoteControl.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
 
             //CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
-            PhotoMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+
+            if (MenuHandler.UnlockPhotoMenu)
+                PhotoMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
 
             //EscapeMission.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
             //EscapeMission.Checked = MissionHandler.Escape.IsPlaying;

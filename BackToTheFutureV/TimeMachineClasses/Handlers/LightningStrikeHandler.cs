@@ -48,7 +48,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= 88 && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
+            if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= Constants.TimeTravelAtSpeed && !Properties.IsFlying) | (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
             {
                 if (FusionUtils.Random.NextDouble() < 0.3)
                 {

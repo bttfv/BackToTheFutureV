@@ -89,7 +89,7 @@ namespace BackToTheFutureV
 
             if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
             {
-                TextHandler.ShowHelp("ApplyHook");
+                TextHandler.Me.ShowHelp("ApplyHook");
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))
                 {
@@ -133,7 +133,7 @@ namespace BackToTheFutureV
 
             if (_warmUp > 0 && _warmUp < Game.GameTime)
             {
-                TextHandler.ShowHelp("WarmupComplete");
+                TextHandler.Me.ShowHelp("WarmupComplete");
                 Props.HoodboxLights.SpawnProp();
 
                 _warmUp = 0;
@@ -149,7 +149,7 @@ namespace BackToTheFutureV
 
             if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
             {
-                TextHandler.ShowHelp("Warmup");
+                TextHandler.Me.ShowHelp("Warmup");
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))
                 {

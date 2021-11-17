@@ -56,7 +56,7 @@ namespace BackToTheFutureV
                 ModSettings.TCDPosition = origPos;
                 ModSettings.TCDScale = origScale;
 
-                TextHandler.ShowNotification("TCDEdit_Cancel");
+                TextHandler.Me.ShowNotification("TCDEdit_Cancel");
 
                 Save();
                 return;
@@ -96,16 +96,16 @@ namespace BackToTheFutureV
         {
             InstrumentalMenu.ClearPanel();
 
-            InstrumentalMenu.AddControl(Control.PhoneDown, TextHandler.GetLocalizedText("TCDEdit_MoveDown"));
-            InstrumentalMenu.AddControl(Control.PhoneUp, TextHandler.GetLocalizedText("TCDEdit_MoveUp"));
-            InstrumentalMenu.AddControl(Control.PhoneRight, TextHandler.GetLocalizedText("TCDEdit_MoveRight"));
-            InstrumentalMenu.AddControl(Control.PhoneLeft, TextHandler.GetLocalizedText("TCDEdit_MoveLeft"));
+            InstrumentalMenu.AddControl(Control.PhoneDown, TextHandler.Me.GetLocalizedText("TCDEdit_MoveDown"));
+            InstrumentalMenu.AddControl(Control.PhoneUp, TextHandler.Me.GetLocalizedText("TCDEdit_MoveUp"));
+            InstrumentalMenu.AddControl(Control.PhoneRight, TextHandler.Me.GetLocalizedText("TCDEdit_MoveRight"));
+            InstrumentalMenu.AddControl(Control.PhoneLeft, TextHandler.Me.GetLocalizedText("TCDEdit_MoveLeft"));
 
-            InstrumentalMenu.AddControl(Control.ReplayFOVIncrease, TextHandler.GetLocalizedText("TCDEdit_ScaleUp"));
-            InstrumentalMenu.AddControl(Control.ReplayFOVDecrease, TextHandler.GetLocalizedText("TCDEdit_ScaleDown"));
+            InstrumentalMenu.AddControl(Control.ReplayFOVIncrease, TextHandler.Me.GetLocalizedText("TCDEdit_ScaleUp"));
+            InstrumentalMenu.AddControl(Control.ReplayFOVDecrease, TextHandler.Me.GetLocalizedText("TCDEdit_ScaleDown"));
 
-            InstrumentalMenu.AddControl(Control.PhoneCancel, TextHandler.GetLocalizedText("TCDEdit_Cancel"));
-            InstrumentalMenu.AddControl(Control.PhoneSelect, TextHandler.GetLocalizedText("TCDEdit_Save"));
+            InstrumentalMenu.AddControl(Control.PhoneCancel, TextHandler.Me.GetLocalizedText("TCDEdit_Cancel"));
+            InstrumentalMenu.AddControl(Control.PhoneSelect, TextHandler.Me.GetLocalizedText("TCDEdit_Save"));
         }
 
         public static void Tick()
@@ -248,7 +248,7 @@ namespace BackToTheFutureV
             else if (Game.IsControlJustPressed(Control.PhoneSelect))
             {
                 Save();
-                TextHandler.ShowNotification("TCDEdit_Save");
+                TextHandler.Me.ShowNotification("TCDEdit_Save");
             }
         }
     }

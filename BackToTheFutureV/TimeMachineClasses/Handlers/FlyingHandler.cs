@@ -169,7 +169,7 @@ namespace BackToTheFutureV
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
-                        TextHandler.ShowHelp("HoverDamaged");
+                        TextHandler.Me.ShowHelp("HoverDamaged");
 
                         return;
                     }
@@ -189,7 +189,7 @@ namespace BackToTheFutureV
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
-                        TextHandler.ShowHelp("HoverDamaged");
+                        TextHandler.Me.ShowHelp("HoverDamaged");
 
                         return;
                     }
@@ -215,7 +215,7 @@ namespace BackToTheFutureV
                     VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
                 }
 
-                TextHandler.ShowHelp("HoverDamaged");
+                TextHandler.Me.ShowHelp("HoverDamaged");
 
                 return;
             }
@@ -244,7 +244,7 @@ namespace BackToTheFutureV
             }
             else
             {
-                TextHandler.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
+                TextHandler.Me.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
             }
 
             if (Properties.IsFlying && !instant)
@@ -299,7 +299,7 @@ namespace BackToTheFutureV
         public void SetHoverMode(bool mode)
         {
             Properties.IsAltitudeHolding = mode;
-            TextHandler.ShowHelp("AltitudeHoldChange", true, TextHandler.GetOnOff(Properties.IsAltitudeHolding));
+            TextHandler.Me.ShowHelp("AltitudeHoldChange", true, TextHandler.Me.GetOnOff(Properties.IsAltitudeHolding));
         }
 
         public override void Tick()

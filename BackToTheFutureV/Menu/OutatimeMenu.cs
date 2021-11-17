@@ -68,24 +68,24 @@ namespace BackToTheFutureV
                     switch (CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType)
                     {
                         case WormholeType.BTTF1:
-                            CurrentRemoteTimeMachine.Blip.Name = TextHandler.GetLocalizedText("BTTF1");
+                            CurrentRemoteTimeMachine.Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1");
                             CurrentRemoteTimeMachine.Blip.Color = BlipColor.NetPlayer22;
                             break;
 
                         case WormholeType.BTTF2:
-                            CurrentRemoteTimeMachine.Blip.Name = TextHandler.GetLocalizedText("BTTF2");
+                            CurrentRemoteTimeMachine.Blip.Name = TextHandler.Me.GetLocalizedText("BTTF2");
                             CurrentRemoteTimeMachine.Blip.Color = BlipColor.NetPlayer21;
                             break;
 
                         case WormholeType.BTTF3:
                             if (CurrentRemoteTimeMachine.TimeMachineClone.Mods.Wheel == WheelType.RailroadInvisible)
                             {
-                                CurrentRemoteTimeMachine.Blip.Name = TextHandler.GetLocalizedText("BTTF3RR");
+                                CurrentRemoteTimeMachine.Blip.Name = TextHandler.Me.GetLocalizedText("BTTF3RR");
                                 CurrentRemoteTimeMachine.Blip.Color = BlipColor.Orange;
                             }
                             else
                             {
-                                CurrentRemoteTimeMachine.Blip.Name = TextHandler.GetLocalizedText("BTTF3");
+                                CurrentRemoteTimeMachine.Blip.Name = TextHandler.Me.GetLocalizedText("BTTF3");
                                 CurrentRemoteTimeMachine.Blip.Color = BlipColor.Red;
                             }
                             break;

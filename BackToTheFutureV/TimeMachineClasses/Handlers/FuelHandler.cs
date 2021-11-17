@@ -80,11 +80,11 @@ namespace BackToTheFutureV
             {
                 if (Mods.Reactor == ReactorType.MrFusion)
                 {
-                    TextHandler.ShowNotification("NotEnoughGarbage");
+                    TextHandler.Me.ShowNotification("NotEnoughGarbage");
                 }
                 else
                 {
-                    TextHandler.ShowNotification("NotEnoughPlutonium");
+                    TextHandler.Me.ShowNotification("NotEnoughPlutonium");
                 }
             }
         }
@@ -306,16 +306,16 @@ namespace BackToTheFutureV
                 case ReactorState.Opened:
                     if (HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
                     {
-                        TextHandler.ShowHelp("RefuelReactor");
+                        TextHandler.Me.ShowHelp("RefuelReactor");
                     }
                     else
                     {
-                        TextHandler.ShowHelp("CloseReactor");
+                        TextHandler.Me.ShowHelp("CloseReactor");
                     }
 
                     break;
                 case ReactorState.Closed:
-                    TextHandler.ShowHelp("OpenReactor");
+                    TextHandler.Me.ShowHelp("OpenReactor");
                     break;
             }
         }

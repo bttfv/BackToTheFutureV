@@ -54,7 +54,7 @@ namespace BackToTheFutureV
             {
                 if (Game.Player.Money < 500000)
                 {
-                    TextHandler.ShowNotification("NotEnoughMoney");
+                    TextHandler.Me.ShowNotification("NotEnoughMoney");
                     return;
                 }
 
@@ -68,7 +68,7 @@ namespace BackToTheFutureV
             {
                 if (Game.Player.Money < 39995)
                 {
-                    TextHandler.ShowNotification("NotEnoughMoney");
+                    TextHandler.Me.ShowNotification("NotEnoughMoney");
                     return;
                 }
 
@@ -84,7 +84,7 @@ namespace BackToTheFutureV
             {
                 if (Game.Player.Money < 100000)
                 {
-                    TextHandler.ShowNotification("NotEnoughMoney");
+                    TextHandler.Me.ShowNotification("NotEnoughMoney");
                     return;
                 }
 
@@ -98,7 +98,7 @@ namespace BackToTheFutureV
             {
                 if (Game.Player.Money < 1500)
                 {
-                    TextHandler.ShowNotification("NotEnoughMoney");
+                    TextHandler.Me.ShowNotification("NotEnoughMoney");
                     return;
                 }
 
@@ -111,7 +111,7 @@ namespace BackToTheFutureV
             {
                 if (Game.Player.Money < 500)
                 {
-                    TextHandler.ShowNotification("NotEnoughMoney");
+                    TextHandler.Me.ShowNotification("NotEnoughMoney");
                     return;
                 }
 
@@ -126,7 +126,7 @@ namespace BackToTheFutureV
             {
                 if (Game.Player.Money < 1000)
                 {
-                    TextHandler.ShowNotification("NotEnoughMoney");
+                    TextHandler.Me.ShowNotification("NotEnoughMoney");
                     return;
                 }
 
@@ -141,7 +141,7 @@ namespace BackToTheFutureV
             {
                 if (Game.Player.Money < 750)
                 {
-                    TextHandler.ShowNotification("NotEnoughMoney");
+                    TextHandler.Me.ShowNotification("NotEnoughMoney");
                     return;
                 }
 
@@ -162,7 +162,7 @@ namespace BackToTheFutureV
         {
             if (sender == hoverConvert && !sender.Enabled && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken)
             {
-                TextHandler.ShowSubtitle("HoverDamaged");
+                TextHandler.Me.ShowSubtitle("HoverDamaged");
             }
         }
 

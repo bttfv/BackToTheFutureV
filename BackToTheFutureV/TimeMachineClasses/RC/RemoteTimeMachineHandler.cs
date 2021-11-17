@@ -25,7 +25,7 @@ namespace BackToTheFutureV
 
         static RemoteTimeMachineHandler()
         {
-            TimerBarCollection = new TimerBarCollection(SignalBar = new TimerBarProgress(TextHandler.GetLocalizedText("SignalStrength")))
+            TimerBarCollection = new TimerBarCollection(SignalBar = new TimerBarProgress(TextHandler.Me.GetLocalizedText("SignalStrength")))
             {
                 Visible = false
             };

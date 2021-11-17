@@ -125,7 +125,7 @@ namespace BackToTheFutureV
 
                 if (raycastResult.DidHit && raycastResult.HitEntity == CurrentTimeMachine)
                 {
-                    if (CurrentTimeMachine.Mods.Hook == HookState.On && CurrentTimeMachine.Properties.AreTimeCircuitsOn && CurrentTimeMachine.Constants.Over88MphSpeed && !CurrentTimeMachine.Properties.HasBeenStruckByLightning && sparkRope.ParticlePlayers.Count(x => x.IsPlaying) >= 100)
+                    if (CurrentTimeMachine.Mods.Hook == HookState.On && CurrentTimeMachine.Properties.AreTimeCircuitsOn && CurrentTimeMachine.Constants.OverTimeTravelAtSpeed && !CurrentTimeMachine.Properties.HasBeenStruckByLightning && sparkRope.ParticlePlayers.Count(x => x.IsPlaying) >= 100)
                     {
                         if (ModSettings.WaybackSystem)
                         {

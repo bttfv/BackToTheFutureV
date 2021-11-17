@@ -337,7 +337,7 @@ namespace BackToTheFutureV
                 // Draw the wormhole RenderTarget, so that the animation appears on the prop
                 Scaleforms.WormholeRT.Draw();
 
-                if (!Scaleforms.WormholeRT.Prop.IsSpawned && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || Properties.PhotoWormholeActive))
+                if (!Scaleforms.WormholeRT.Prop.IsSpawned && _playWormhole && (Vehicle.GetMPHSpeed() >= Constants.TimeTravelAtSpeed || Properties.PhotoWormholeActive))
                 {
                     _wheSpark.Play();
                     _leftSpark.Play();
@@ -356,7 +356,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (!_hasStartedWormhole && _playWormhole && (Vehicle.GetMPHSpeed() >= 88 || Properties.PhotoWormholeActive))
+            if (!_hasStartedWormhole && _playWormhole && (Vehicle.GetMPHSpeed() >= Constants.TimeTravelAtSpeed || Properties.PhotoWormholeActive))
             {
                 _startWormholeAt = Game.GameTime + 1000;
                 _endAt = _startWormholeAt + Constants.WormholeLengthTime;

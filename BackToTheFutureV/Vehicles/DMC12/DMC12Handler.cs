@@ -15,6 +15,8 @@ namespace BackToTheFutureV
         private static readonly List<DMC12> _deloreansToAdd = new List<DMC12>();
         private static readonly Dictionary<DMC12, bool> _deloreansToRemove = new Dictionary<DMC12, bool>();
 
+        public static int Count => _deloreans.Count;
+
         public static void Abort()
         {
             _deloreans.ForEach(x =>

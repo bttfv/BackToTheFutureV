@@ -31,7 +31,7 @@ namespace BackToTheFutureV
 
         public CustomMenu() : base("Custom")
         {
-            _wormholeType = NewListItem("Wormhole", TextHandler.GetLocalizedText("BTTF1", "BTTF2", "BTTF3"));
+            _wormholeType = NewListItem("Wormhole", TextHandler.Me.GetLocalizedText("BTTF1", "BTTF2", "BTTF3"));
             _wormholeType.ItemChanged += ModList_ItemChanged;
 
             _reactorType = NewLocalizedListItem("Reactor", "MrFusion", "Nuclear");
@@ -70,7 +70,7 @@ namespace BackToTheFutureV
         {
             if (!_hoverUnderbody.Enabled && _tempTimeMachine.Properties.AreFlyingCircuitsBroken)
             {
-                TextHandler.ShowSubtitle("HoverDamaged");
+                TextHandler.Me.ShowSubtitle("HoverDamaged");
             }
         }
 

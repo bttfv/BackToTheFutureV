@@ -51,7 +51,7 @@ namespace BackToTheFutureV
                 _nextReset = 0;
                 _destinationTimeRaw = string.Empty;
 
-                TextHandler.ShowHelp("InputMode", true, TextHandler.GetOnOff(InputMode));
+                TextHandler.Me.ShowHelp("InputMode", true, TextHandler.Me.GetOnOff(InputMode));
             }
 
             if (!ModSettings.UseInputToggle || InputMode)

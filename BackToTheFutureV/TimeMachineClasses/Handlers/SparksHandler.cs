@@ -97,7 +97,7 @@ namespace BackToTheFutureV
 
             Players.Wormhole?.Tick();
 
-            if (Constants.OverTimeTravelAtSpeed)
+            if (Constants.OverWormholeAtSpeed)
             {
                 if (!FusionUtils.IsPadShaking && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
                 {
@@ -126,7 +126,7 @@ namespace BackToTheFutureV
                         Sounds.Sparks?.Play();
                     }
 
-                    if (Mods.WormholeType == WormholeType.BTTF3 && Game.GameTime >= Constants.StabilizationSoundAtTime && Constants.Over88MphSpeed)
+                    if (Mods.WormholeType == WormholeType.BTTF3 && Game.GameTime >= Constants.StabilizationSoundAtTime && Constants.OverTimeTravelAtSpeed)
                     {
                         Sounds.Sparks?.Stop();
 
@@ -136,7 +136,7 @@ namespace BackToTheFutureV
                         }
                     }
 
-                    if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.Over88MphSpeed && !Properties.IsWayback)
+                    if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.OverTimeTravelAtSpeed && !Properties.IsWayback)
                     {
                         Events.OnSparksEnded?.Invoke();
                     }

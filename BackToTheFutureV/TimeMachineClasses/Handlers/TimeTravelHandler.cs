@@ -54,7 +54,7 @@ namespace BackToTheFutureV
         {
             Properties.CutsceneMode = cutsceneOn;
 
-            TextHandler.ShowHelp("TimeTravelModeChange", true, Properties.CutsceneMode ? TextHandler.GetLocalizedText("Cutscene") : TextHandler.GetLocalizedText("Instant"));
+            TextHandler.Me.ShowHelp("TimeTravelModeChange", true, Properties.CutsceneMode ? TextHandler.Me.GetLocalizedText("Cutscene") : TextHandler.Me.GetLocalizedText("Instant"));
         }
 
         public void StartTimeTravel(int delay = 0)

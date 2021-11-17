@@ -43,13 +43,13 @@ namespace BackToTheFutureV
 
         private readonly Dictionary<string, HandlerPrimitive> registeredHandlers = new Dictionary<string, HandlerPrimitive>();
 
-        private readonly VehicleBone boneLf;
-        private readonly VehicleBone boneRf;
+        //private readonly VehicleBone boneLf;
+        //private readonly VehicleBone boneRf;
 
-        private Vector3 leftSuspesionOffset;
-        private Vector3 rightSuspesionOffset;
+        //private Vector3 leftSuspesionOffset;
+        //private Vector3 rightSuspesionOffset;
 
-        private bool _firstRedSetup = true;
+        //private bool _firstRedSetup = true;
 
         private Blip Blip;
 
@@ -74,6 +74,7 @@ namespace BackToTheFutureV
             Vehicle.IsPersistent = true;
 
             Vehicle.Decorator().DoNotDelete = true;
+            Vehicle.Decorator().RemoveFromUsed = true;
 
             TimeMachineHandler.AddTimeMachine(this);
 
@@ -118,11 +119,11 @@ namespace BackToTheFutureV
                 //registeredHandlers.Add("DriverAIHandler", new DriverAIHandler(this));
                 registeredHandlers.Add("ClockHandler", new ClockHandler(this));
 
-                VehicleBone.TryGetForVehicle(Vehicle, "suspension_lf", out boneLf);
-                VehicleBone.TryGetForVehicle(Vehicle, "suspension_rf", out boneRf);
+                //VehicleBone.TryGetForVehicle(Vehicle, "suspension_lf", out boneLf);
+                //VehicleBone.TryGetForVehicle(Vehicle, "suspension_rf", out boneRf);
 
-                leftSuspesionOffset = Vehicle.Bones["suspension_lf"].GetRelativeOffsetPosition(new Vector3(0.025f, 0, 0.005f));
-                rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.025f, 0, 0.005f));
+                //leftSuspesionOffset = Vehicle.Bones["suspension_lf"].GetRelativeOffsetPosition(new Vector3(0.025f, 0, 0.005f));
+                //rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.025f, 0, 0.005f));
             }
 
             Decorators = new DecoratorsHandler(this);
@@ -310,73 +311,7 @@ namespace BackToTheFutureV
                     Vehicle.Doors[VehicleDoorIndex.Hood].CanBeBroken = false;
                 }
 
-                if (Mods.SuspensionsType != SuspensionsType.Stock && Decorators.TorqueMultiplier != 2.4f && Decorators.TorqueMultiplier != Constants.TorqueForLightningRun)
-                {
-                    Decorators.TorqueMultiplier = 2.4f;
-                }
-
-                switch (Mods.SuspensionsType)
-                {
-                    case SuspensionsType.LiftFrontLowerRear:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.40f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0.40f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, -0.25f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, -0.25f);
-                        break;
-                    case SuspensionsType.LiftFront:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.40f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0.40f);
-                        break;
-                    case SuspensionsType.LiftRear:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0.40f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0.40f);
-                        break;
-                    case SuspensionsType.LiftFrontAndRear:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, 0.50f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, 0.50f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, 0.50f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, 0.50f);
-                        break;
-                    case SuspensionsType.LowerFront:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, -0.25f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, -0.25f);
-                        break;
-                    case SuspensionsType.LowerRear:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, -0.25f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, -0.25f);
-                        break;
-                    case SuspensionsType.LowerFrontAndRear:
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftFront, -0.25f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightFront, -0.25f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelLeftRear, -0.25f);
-                        Vehicle.LiftUpWheel(VehicleWheelBoneId.WheelRightRear, -0.25f);
-                        break;
-                }
-
-                if (Mods.Wheel == WheelType.Red && Mods.HoverUnderbody == ModState.Off)
-                {
-                    if (_firstRedSetup)
-                    {
-                        boneLf?.SetTranslation(leftSuspesionOffset);
-                        boneRf?.SetTranslation(rightSuspesionOffset);
-
-                        _firstRedSetup = false;
-                    }
-
-                    if (VehicleControl.GetWheelSize(Vehicle) != 1.1f)
-                    {
-                        VehicleControl.SetWheelSize(Vehicle, 1.1f);
-                    }
-                }
-                else if (!_firstRedSetup)
-                {
-                    boneLf?.ResetTranslation();
-                    boneRf?.ResetTranslation();
-
-                    _firstRedSetup = true;
-                }
-
-                Mods.SyncMods();
+                Mods.Tick();
 
                 if (Props.LicensePlate.IsPlaying)
                 {
@@ -434,24 +369,24 @@ namespace BackToTheFutureV
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
-                        Blip.Name = TextHandler.GetLocalizedText("BTTF1");
+                        Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1");
                         Blip.Color = BlipColor.NetPlayer22;
                         break;
 
                     case WormholeType.BTTF2:
-                        Blip.Name = TextHandler.GetLocalizedText("BTTF2");
+                        Blip.Name = TextHandler.Me.GetLocalizedText("BTTF2");
                         Blip.Color = BlipColor.NetPlayer21;
                         break;
 
                     case WormholeType.BTTF3:
                         if (Mods.Wheel == WheelType.RailroadInvisible)
                         {
-                            Blip.Name = TextHandler.GetLocalizedText("BTTF3RR");
+                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF3RR");
                             Blip.Color = BlipColor.Orange;
                         }
                         else
                         {
-                            Blip.Name = TextHandler.GetLocalizedText("BTTF3");
+                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF3");
                             Blip.Color = BlipColor.Red;
                         }
                         break;
@@ -490,7 +425,7 @@ namespace BackToTheFutureV
                 }
                 else
                 {
-                    TextHandler.ShowSubtitle("UnableRepairTC");
+                    TextHandler.Me.ShowSubtitle("UnableRepairTC");
                 }
 
                 return !Properties.AreTimeCircuitsBroken || Mods.Hoodbox == ModState.On;
@@ -504,7 +439,7 @@ namespace BackToTheFutureV
                 }
                 else
                 {
-                    TextHandler.ShowSubtitle("UnableRepairFC");
+                    TextHandler.Me.ShowSubtitle("UnableRepairFC");
                 }
 
                 return !Properties.AreFlyingCircuitsBroken;

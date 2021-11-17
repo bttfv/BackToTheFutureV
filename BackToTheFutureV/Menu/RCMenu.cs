@@ -82,7 +82,7 @@ namespace BackToTheFutureV
             {
                 StopPreviewing();
 
-                TextHandler.ShowNotification("UnableRC");
+                TextHandler.Me.ShowNotification("UnableRC");
                 return false;
             }
         }

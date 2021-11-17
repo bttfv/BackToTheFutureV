@@ -13,8 +13,9 @@ namespace BackToTheFutureV
     internal class MainMenu : BTTFVMenu
     {
         private readonly NativeListItem<string> spawnBTTF;
-
+        private readonly NativeSubmenuItem presetsMenu;
         private readonly NativeItem convertIntoTimeMachine;
+        private readonly NativeSubmenuItem customMenu;
 
         private readonly NativeSubmenuItem rcMenu;
         private readonly NativeSubmenuItem outatimeMenu;
@@ -25,17 +26,17 @@ namespace BackToTheFutureV
 
         public MainMenu() : base("Main")
         {
-            Subtitle = TextHandler.GetLocalizedText("SelectOption");
+            Subtitle = TextHandler.Me.GetLocalizedText("SelectOption");
 
-            spawnBTTF = NewListItem("Spawn", TextHandler.GetLocalizedText("DMC12", "BTTF1", "BTTF1H", "BTTF2", "BTTF3", "BTTF3RR"));
+            spawnBTTF = NewListItem("Spawn", TextHandler.Me.GetLocalizedText("DMC12", "BTTF1", "BTTF1H", "BTTF2", "BTTF3", "BTTF3RR"));
             spawnBTTF.ItemChanged += SpawnBTTF_ItemChanged;
             spawnBTTF.Description = GetItemValueDescription("Spawn", "DMC12");
 
-            NewSubmenu(MenuHandler.PresetsMenu, "Presets");
+            presetsMenu = NewSubmenu(MenuHandler.PresetsMenu, "Presets");
 
             convertIntoTimeMachine = NewItem("Convert");
 
-            NewSubmenu(MenuHandler.CustomMenuMain, "Custom");
+            customMenu = NewSubmenu(MenuHandler.CustomMenuMain, "Custom");
 
             rcMenu = NewSubmenu(MenuHandler.RCMenu, "RC");
             outatimeMenu = NewSubmenu(MenuHandler.OutatimeMenu, "Outatime");
@@ -141,7 +142,7 @@ namespace BackToTheFutureV
 
                 if (timeMachine == null)
                 {
-                    TextHandler.ShowNotification("NotSeated");
+                    TextHandler.Me.ShowNotification("NotSeated");
                     return;
                 }
 
@@ -154,14 +155,14 @@ namespace BackToTheFutureV
             {
                 TimeMachineHandler.RemoveAllTimeMachines(true);
                 RemoteTimeMachineHandler.DeleteAll();
-                TextHandler.ShowNotification("RemovedOtherTimeMachines");
+                TextHandler.Me.ShowNotification("RemovedOtherTimeMachines");
             }
 
             if (sender == deleteAll)
             {
                 TimeMachineHandler.RemoveAllTimeMachines();
                 RemoteTimeMachineHandler.DeleteAll();
-                TextHandler.ShowNotification("RemovedAllTimeMachines");
+                TextHandler.Me.ShowNotification("RemovedAllTimeMachines");
 
                 ExternalHUD.SetOff();
             }
@@ -186,7 +187,20 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
-
+            if (!MenuHandler.UnlockSpawnMenu)
+            {
+                Remove(spawnBTTF);
+                Remove(presetsMenu);
+                Remove(customMenu);
+                Remove(convertIntoTimeMachine);
+            }
+            else if (!Items.Contains(spawnBTTF))
+            {
+                Add(0, spawnBTTF);
+                Add(1, presetsMenu);
+                Add(2, customMenu);
+                Add(3, convertIntoTimeMachine);
+            }
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)

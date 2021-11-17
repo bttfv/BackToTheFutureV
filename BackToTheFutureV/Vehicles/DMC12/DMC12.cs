@@ -73,10 +73,6 @@ namespace BackToTheFutureV
 
             Vehicle = vehicle;
 
-            Vehicle.IsPersistent = true;
-
-            Vehicle.Decorator().DoNotDelete = true;
-
             Mods = new DMC12Mods(Vehicle);
 
             rpmNeedle = new AnimateProp(ModelHandler.RPMNeedle, Vehicle, "rpm_needle");
@@ -129,6 +125,13 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
+            //if (!Vehicle.Decorator().DrivenByPlayer && Vehicle.DistanceToSquared2D(FusionUtils.PlayerPed) > 200 * 200)
+            //{
+            //    DMC12Handler.RemoveDelorean(this);
+
+            //    return;
+            //}
+
             if (!Vehicle.IsFunctioning())
             {
                 DMC12Handler.RemoveDelorean(this, false);
@@ -187,7 +190,6 @@ namespace BackToTheFutureV
                 }
 
                 speedRotation = Math.Min(speedRotation, 265);
-
                 speedRotation = Math.Max(speedRotation, 17.5f);
 
                 float fuelLevel = Vehicle.FuelLevel.Remap(0, Vehicle.HandlingData.PetrolTankVolume, 10, -100);
