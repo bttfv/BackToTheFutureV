@@ -1,6 +1,8 @@
 ﻿using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
-using GTA.Native;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -31,12 +33,6 @@ namespace BackToTheFutureV
 
         public static void Tick()
         {
-            if (Function.Call<bool>(Hash._HAS_CHEAT_STRING_JUST_BEEN_ENTERED, 1748583210))
-                UnlockPhotoMenu = !UnlockPhotoMenu;
-
-            if (Function.Call<bool>(Hash._HAS_CHEAT_STRING_JUST_BEEN_ENTERED, 693644543))
-                UnlockSpawnMenu = !UnlockSpawnMenu;
-
             if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing && GarageHandler.Status == GarageStatus.Idle)
             {
                 if ((ModControls.CombinationsForInteractionMenu && Game.IsEnabledControlPressed(ModControls.InteractionMenu1) && Game.IsControlPressed(ModControls.InteractionMenu2)) || (!ModControls.CombinationsForInteractionMenu && Game.IsControlPressed(ModControls.InteractionMenu1)))
@@ -97,6 +93,21 @@ namespace BackToTheFutureV
                 CustomNativeMenu.ObjectPool.HideAll();
 
                 MainMenu.Visible = true;
+            }
+
+            if (e.Alt && e.KeyCode == Keys.D1)
+            {
+                string hash = Game.GetUserInput(WindowTitle.EnterMessage20, "", 20).ToLower().GetSHA256Hash();
+
+                switch (hash)
+                {
+                    case "aea395fae83369ea0f4db57fac6e565f77fd5b9a204b2799350a053608ffd3bf":
+                        UnlockSpawnMenu = !UnlockSpawnMenu;
+                        break;
+                    case "97a2a4ee69af4771b957df0780573f7263dbe46ccd4803300d62916e74f4f947":
+                        UnlockPhotoMenu = !UnlockPhotoMenu;
+                        break;
+                }
             }
         }
     }

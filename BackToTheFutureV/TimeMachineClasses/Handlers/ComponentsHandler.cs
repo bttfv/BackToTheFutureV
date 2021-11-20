@@ -82,18 +82,22 @@ namespace BackToTheFutureV
 
         private void HookProcess()
         {
-            if (Mods.Hook != HookState.OnDoor || FusionUtils.PlayerPed.IsInVehicle())
+            if ((Mods.Hook == HookState.On || Mods.Hook == HookState.OnDoor) && !FusionUtils.PlayerPed.IsInVehicle())
             {
-                return;
-            }
-
-            if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
-            {
-                TextHandler.Me.ShowHelp("ApplyHook");
-
-                if (Game.IsControlJustPressed(GTA.Control.Context))
+                if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
                 {
-                    Mods.Hook = HookState.On;
+                    if (Mods.Hook == HookState.OnDoor)
+                        TextHandler.Me.ShowHelp("ApplyHook");
+                    else
+                        TextHandler.Me.ShowHelp("RemoveHook");
+
+                    if (Game.IsControlJustPressed(GTA.Control.Context))
+                    {
+                        if (Mods.Hook == HookState.OnDoor)
+                            Mods.Hook = HookState.On;
+                        else
+                            Mods.Hook = HookState.OnDoor;
+                    }
                 }
             }
         }

@@ -9,7 +9,7 @@ namespace BackToTheFutureV
 
         public static LightningRun ClocktowerMission = new LightningRun();
 
-        //public static EscapeMission EscapeMission = new EscapeMission();
+        public static EscapeMission EscapeMission = new EscapeMission();
 
         public static void Add(Mission mission)
         {

@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace BackToTheFutureV
 {
-    public class TrafficHandler : Script
+    internal class TrafficHandler : Script
     {
-        public static bool Enabled { get; set; }
+        public static bool Enabled { get; private set; }
 
         public TrafficHandler()
         {
@@ -56,7 +56,7 @@ namespace BackToTheFutureV
 
                 newVehicle.PlaceOnGround();
 
-                newVehicle.AddBlip();
+                //newVehicle.AddBlip();
 
                 if (newVehicle.Driver.NotNullAndExists())
                     newVehicle.Driver.Task.CruiseWithVehicle(newVehicle, 30);

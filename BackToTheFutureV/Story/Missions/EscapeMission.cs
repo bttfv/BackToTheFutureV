@@ -70,6 +70,7 @@ namespace BackToTheFutureV
 
             Vehicle = World.CreateVehicle(model, TargetPed.GetOffsetPosition(new Vector3(0, -10, 0)));
             Vehicle.PlaceOnNextStreet();
+            Vehicle.IsPersistent = true;
 
             Vehicle.AddBlip();
 
