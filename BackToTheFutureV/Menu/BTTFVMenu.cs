@@ -8,7 +8,7 @@ namespace BackToTheFutureV
     {
         public BTTFVMenu(string name) : base("")
         {
-            InternalName = name;            
+            InternalName = name;
             Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
             CustomText = TextHandler.Me;
             Subtitle = GetMenuTitle();

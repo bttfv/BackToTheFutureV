@@ -75,6 +75,7 @@ namespace BackToTheFutureV
 
             Vehicle.Decorator().DoNotDelete = true;
             Vehicle.Decorator().RemoveFromUsed = true;
+            vehicle.Decorator().IgnoreForSwap = true;
 
             TimeMachineHandler.AddTimeMachine(this);
 

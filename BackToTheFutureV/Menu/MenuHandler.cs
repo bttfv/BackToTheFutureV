@@ -1,8 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -21,7 +19,6 @@ namespace BackToTheFutureV
         public static CustomMenu CustomMenuMain { get; } = new CustomMenu() { ForceNew = true };
         public static CustomMenu CustomMenuPresets { get; } = new CustomMenu() { ForceNew = true };
         public static CustomMenu2 CustomMenuGarage { get; } = new CustomMenu2();
-        //public static CustomMenu CustomMenu { get; } = new CustomMenu();
         public static GarageMenu GarageMenu { get; } = new GarageMenu();
         public static PresetsMenu PresetsMenu { get; } = new PresetsMenu();
         public static OutatimeMenu OutatimeMenu { get; } = new OutatimeMenu();

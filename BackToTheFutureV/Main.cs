@@ -75,6 +75,8 @@ namespace BackToTheFutureV
 
             if (FirstTick)
             {
+                Screen.ShowHelpText("BackToTheFutureV loading...", 3000);
+
                 ModelHandler.RequestModels();
 
                 //Disable fake shake of the cars.
@@ -127,6 +129,25 @@ namespace BackToTheFutureV
             if (FirstTick)
             {
                 WaybackSystem.Tick();
+
+                ModelSwap modelSwap = new ModelSwap
+                {
+                    Enabled = true,
+                    Model = ModelHandler.DMC12,
+                    VehicleType = VehicleType.Automobile,
+                    DateBased = true,
+                    StartDate = new DateTime(1981, 1, 21, 0, 0, 0),
+                    EndDate = DateTime.MaxValue,
+                    MaxInWorld = 25,
+                    MaxSpawned = 3,
+                    Wait = 10000
+                };
+
+                TrafficHandler.ModelSwaps.Add(modelSwap);
+
+                TrafficHandler.Enabled = true;
+
+                Screen.ShowHelpText("BackToTheFutureV loaded correctly.", 3000);
                 FirstTick = false;
             }
         }
