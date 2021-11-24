@@ -130,22 +130,19 @@ namespace BackToTheFutureV
             {
                 WaybackSystem.Tick();
 
-                ModelSwap modelSwap = new ModelSwap
+                TrafficHandler.ModelSwaps.Add(new ModelSwap
                 {
                     Enabled = true,
                     Model = ModelHandler.DMC12,
                     VehicleType = VehicleType.Automobile,
+                    VehicleClass = VehicleClass.Sports,
                     DateBased = true,
-                    StartDate = new DateTime(1981, 1, 21, 0, 0, 0),
-                    EndDate = DateTime.MaxValue,
+                    StartProductionDate = new DateTime(1981, 1, 21, 0, 0, 0),
+                    EndProductionDate = new DateTime(1982, 12, 24, 23, 59, 59),
                     MaxInWorld = 25,
                     MaxSpawned = 3,
-                    Wait = 10000
-                };
-
-                TrafficHandler.ModelSwaps.Add(modelSwap);
-
-                TrafficHandler.Enabled = true;
+                    WaitBetweenSpawns = 10000
+                });
 
                 Screen.ShowHelpText("BackToTheFutureV loaded correctly.", 3000);
                 FirstTick = false;
