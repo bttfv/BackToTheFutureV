@@ -16,7 +16,7 @@ namespace BackToTheFutureV
         private readonly NativeCheckboxItem TimeCircuitsOnDescription;
         private readonly NativeItem DestinationTimeDescription;
 
-        private TimeMachine CurrentTimeMachine => timeMachinesList.SelectedItem;
+        private new TimeMachine CurrentTimeMachine => timeMachinesList.SelectedItem;
 
         private Camera CarCam { get; set; }
         private bool CanBeSelected { get; set; }

@@ -220,8 +220,6 @@ namespace BackToTheFutureV
 
                     Game.Player.IgnoredByPolice = true;
 
-                    ExternalHUD.SetOff();
-
                     PlayerSwitch.Disable = true;
 
                     Vehicle.SetVisible(false);

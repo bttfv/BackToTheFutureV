@@ -6,6 +6,8 @@ namespace BackToTheFutureV
 {
     internal abstract class BTTFVMenu : CustomNativeMenu
     {
+        public TimeMachine CurrentTimeMachine => TimeMachineHandler.CurrentTimeMachine;
+
         public BTTFVMenu(string name) : base("")
         {
             InternalName = name;

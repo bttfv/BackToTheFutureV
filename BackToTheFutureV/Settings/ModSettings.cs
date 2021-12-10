@@ -23,8 +23,6 @@ namespace BackToTheFutureV
         public static PointF TCDPosition { get; set; } = new PointF(0.88f, 0.75f);
         public static float TCDScale { get; set; } = 0.3f;
         public static TCDBackground TCDBackground { get; set; } = TCDBackground.Metal;
-        public static bool ExternalTCDToggle { get; set; } = false;
-        public static bool RemoteTCDToggle { get; set; } = false;
         public static bool HideIngameTCDToggle { get; set; } = false;
         public static bool PlayFluxCapacitorSound { get; set; } = true;
         public static bool PlayDiodeBeep { get; set; } = true;
@@ -93,8 +91,6 @@ namespace BackToTheFutureV
             TCDPosition = new PointF(float.Parse(settings.GetValue("TimeCircuits", "PositionX", TCDPosition.X.ToString("G", info)), info), float.Parse(settings.GetValue("TimeCircuits", "PositionY", TCDPosition.Y.ToString("G", info)), info));
             TCDBackground = (TCDBackground)Enum.Parse(typeof(TCDBackground), settings.GetValue("TimeCircuits", "Background", "Metal"));
             UseInputToggle = settings.GetValue("TimeCircuits", "InputMode", UseInputToggle);
-            ExternalTCDToggle = settings.GetValue("TimeCircuits", "ExternalTCDToggle", ExternalTCDToggle);
-            RemoteTCDToggle = settings.GetValue("TimeCircuits", "NetworkTCDToggle", RemoteTCDToggle);
             HideIngameTCDToggle = settings.GetValue("TimeCircuits", "HideIngameTCDToggle", HideIngameTCDToggle);
             GlowingWormholeEmitter = settings.GetValue("TimeCircuits", "GlowingWormholeEmitter", GlowingWormholeEmitter);
             GlowingPlutoniumReactor = settings.GetValue("TimeCircuits", "GlowingPlutoniumReactor", GlowingPlutoniumReactor);
@@ -142,8 +138,6 @@ namespace BackToTheFutureV
             settings.SetValue("TimeCircuits", "PositionY", TCDPosition.Y.ToString("G", info));
             settings.SetValue("TimeCircuits", "Background", TCDBackground.ToString());
             settings.SetValue("TimeCircuits", "InputMode", UseInputToggle);
-            settings.SetValue("TimeCircuits", "ExternalTCDToggle", ExternalTCDToggle);
-            settings.SetValue("TimeCircuits", "NetworkTCDToggle", RemoteTCDToggle);
             settings.SetValue("TimeCircuits", "HideIngameTCDToggle", HideIngameTCDToggle);
             settings.SetValue("TimeCircuits", "GlowingWormholeEmitter", GlowingWormholeEmitter);
             settings.SetValue("TimeCircuits", "GlowingPlutoniumReactor", GlowingPlutoniumReactor);

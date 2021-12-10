@@ -1,5 +1,4 @@
-﻿using BackToTheFutureV.HUD.Core;
-using FusionLibrary;
+﻿using FusionLibrary;
 using GTA.Math;
 using System;
 using static BackToTheFutureV.InternalEnums;

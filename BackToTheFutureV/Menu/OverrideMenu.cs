@@ -13,8 +13,6 @@ namespace BackToTheFutureV
         public NativeSliderItem TTSpeed;
         public NativeItem WormholeLength;
 
-        public TimeMachine CurrentTimeMachine => TimeMachineHandler.CurrentTimeMachine;
-
         public OverrideMenu() : base("Override")
         {
             OverrideCheckbox = NewCheckboxItem("Set");

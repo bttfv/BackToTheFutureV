@@ -59,13 +59,6 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BackToTheFutureV.HUD.Core">
-      <HintPath>$(GTAPath)\scripts\BackToTheFutureV.HUD.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FusionLibrary, Version=1.3.7994.31027, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\scripts\FusionLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="irrKlang.NET4, Version=1.0.6617.18847, Culture=neutral, PublicKeyToken=a854741bd80517c7, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(GTAPath)\scripts\irrKlang.NET4.dll</HintPath>
@@ -101,6 +94,7 @@
     <Compile Include="TimeMachineClasses\Handlers\ClockHandler.cs" />
     <Compile Include="TimeMachineClasses\Story\StoryTimeMachineHandler.cs" />
     <Compile Include="Utility\GarageHandler.cs" />
+    <Compile Include="Utility\HUDProperties.cs" />
     <Compile Include="Utility\InternalEnums.cs" />
     <Compile Include="Utility\InternalInventory.cs" />
     <Compile Include="Utility\Memory\CVehicle.cs" />
@@ -117,7 +111,6 @@
     <Compile Include="Story\Missions\EscapeMission.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ConstantsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\SIDHandler.cs" />
-    <Compile Include="Utility\ExternalHUD.cs" />
     <Compile Include="GUI\TCD3DRowScaleform.cs" />
     <Compile Include="GUI\TCD2DScaleform.cs" />
     <Compile Include="Menu\CustomMenu.cs" />
@@ -199,19 +192,14 @@
     <Compile Include="Utility\InternalExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Include="..\BackToTheFutureV.HUD\BackToTheFutureV.HUD.Core\Content\Content.mgcb">
-      <Link>Content\Content.mgcb</Link>
-    </MonoGameContentReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FusionLibrary.SHVDN3">
+      <Version>1.4.1</Version>
+    </PackageReference>
     <PackageReference Include="LemonUI.SHVDN3">
       <Version>1.5.1</Version>
-    </PackageReference>
-    <PackageReference Include="MonoGame.Framework.DesktopGL">
-      <Version>3.8.0.1641</Version>
     </PackageReference>
     <PackageReference Include="ScriptHookVDotNet3">
       <Version>3.3.2</Version>

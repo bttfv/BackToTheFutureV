@@ -18,7 +18,6 @@ namespace BackToTheFutureV
         private readonly NativeSliderItem StrikeDelay;
         private readonly NativeCheckboxItem HideHUD;
 
-        private TimeMachine TimeMachine => TimeMachineHandler.CurrentTimeMachine;
 
         public PhotoMenu() : base("Photo")
         {
@@ -46,18 +45,18 @@ namespace BackToTheFutureV
         {
             if (sender == LightningStrike)
             {
-                TimeMachine.Events.StartLightningStrike?.Invoke(StrikeDelay.Value);
+                CurrentTimeMachine.Events.StartLightningStrike?.Invoke(StrikeDelay.Value);
                 Visible = false;
             }
         }
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
-            Coils.Enabled = TimeMachine.Mods.IsDMC12;
-            Ice.Enabled = TimeMachine.Mods.IsDMC12;
-            FluxCapacitor.Enabled = TimeMachine.Mods.IsDMC12;
-            EngineStall.Enabled = TimeMachine.Mods.IsDMC12;
-            SIDMax.Enabled = TimeMachine.Mods.IsDMC12;
+            Coils.Enabled = CurrentTimeMachine.Mods.IsDMC12;
+            Ice.Enabled = CurrentTimeMachine.Mods.IsDMC12;
+            FluxCapacitor.Enabled = CurrentTimeMachine.Mods.IsDMC12;
+            EngineStall.Enabled = CurrentTimeMachine.Mods.IsDMC12;
+            SIDMax.Enabled = CurrentTimeMachine.Mods.IsDMC12;
 
             StrikeDelay.Title = $"{GetItemTitle("StrikeDelay")}: {StrikeDelay.Value}";
         }
@@ -66,34 +65,34 @@ namespace BackToTheFutureV
         {
             if (sender == Wormhole)
             {
-                TimeMachine.Properties.PhotoWormholeActive = Checked;
+                CurrentTimeMachine.Properties.PhotoWormholeActive = Checked;
             }
 
             if (sender == Coils)
             {
-                TimeMachine.Properties.PhotoGlowingCoilsActive = Checked;
+                CurrentTimeMachine.Properties.PhotoGlowingCoilsActive = Checked;
             }
 
             if (sender == Ice)
             {
-                TimeMachine.Events.SetFreeze(!TimeMachine.Properties.IsFreezed);
+                CurrentTimeMachine.Events.SetFreeze(!CurrentTimeMachine.Properties.IsFreezed);
             }
 
             if (sender == FluxCapacitor)
             {
-                TimeMachine.Properties.PhotoFluxCapacitorActive = Checked;
+                CurrentTimeMachine.Properties.PhotoFluxCapacitorActive = Checked;
             }
 
             if (sender == EngineStall)
             {
-                TimeMachine.Events.SetEngineStall?.Invoke(Checked);
+                CurrentTimeMachine.Events.SetEngineStall?.Invoke(Checked);
 
-                TimeMachine.Properties.PhotoEngineStallActive = Checked;
+                CurrentTimeMachine.Properties.PhotoEngineStallActive = Checked;
             }
 
             if (sender == SIDMax)
             {
-                TimeMachine.Properties.PhotoSIDMaxActive = Checked;
+                CurrentTimeMachine.Properties.PhotoSIDMaxActive = Checked;
             }
 
             if (sender == HideHUD)
@@ -104,21 +103,21 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (TimeMachineHandler.CurrentTimeMachine == null)
+            if (CurrentTimeMachine == null)
             {
                 Visible = false;
 
                 return;
             }
 
-            Wormhole.Checked = TimeMachine.Properties.PhotoWormholeActive;
-            Coils.Checked = TimeMachine.Properties.PhotoGlowingCoilsActive;
-            Ice.Checked = TimeMachine.Properties.IsFreezed;
-            FluxCapacitor.Checked = TimeMachine.Properties.PhotoFluxCapacitorActive;
-            EngineStall.Checked = TimeMachine.Properties.IsEngineStalling;
-            SIDMax.Checked = TimeMachine.Properties.PhotoSIDMaxActive;
+            Wormhole.Checked = CurrentTimeMachine.Properties.PhotoWormholeActive;
+            Coils.Checked = CurrentTimeMachine.Properties.PhotoGlowingCoilsActive;
+            Ice.Checked = CurrentTimeMachine.Properties.IsFreezed;
+            FluxCapacitor.Checked = CurrentTimeMachine.Properties.PhotoFluxCapacitorActive;
+            EngineStall.Checked = CurrentTimeMachine.Properties.IsEngineStalling;
+            SIDMax.Checked = CurrentTimeMachine.Properties.PhotoSIDMaxActive;
 
-            LightningStrike.Enabled = !TimeMachine.Properties.IsPhotoModeOn;
+            LightningStrike.Enabled = !CurrentTimeMachine.Properties.IsPhotoModeOn;
 
             HideHUD.Checked = FusionUtils.HideGUI;
         }

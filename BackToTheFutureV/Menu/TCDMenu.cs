@@ -14,8 +14,6 @@ namespace BackToTheFutureV
         private readonly NativeItem changeRCGUI;
 
         private readonly NativeCheckboxItem hideSID;
-        private readonly NativeCheckboxItem useExternalTCD;
-        private readonly NativeCheckboxItem useNetworkTCD;
         private readonly NativeCheckboxItem hideIngameTCD;
 
         public TCDMenu() : base("TCD")
@@ -28,23 +26,11 @@ namespace BackToTheFutureV
             resetToDefaultTCD = NewItem("Reset");
 
             hideSID = NewCheckboxItem("HideSID", ModSettings.HideSID);
-            useExternalTCD = NewCheckboxItem("External", ModSettings.ExternalTCDToggle);
-            useNetworkTCD = NewCheckboxItem("Remote", ModSettings.RemoteTCDToggle);
             hideIngameTCD = NewCheckboxItem("HideHUD", ModSettings.HideIngameTCDToggle);
         }
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
-            if (sender == useExternalTCD)
-            {
-                ModSettings.ExternalTCDToggle = Checked;
-            }
-
-            if (sender == useNetworkTCD)
-            {
-                ModSettings.RemoteTCDToggle = Checked;
-            }
-
             if (sender == hideIngameTCD)
             {
                 ModSettings.HideIngameTCDToggle = Checked;
@@ -73,8 +59,6 @@ namespace BackToTheFutureV
                 TcdEditer.ResetToDefault();
 
                 ModSettings.HideIngameTCDToggle = false;
-                ModSettings.ExternalTCDToggle = false;
-                ModSettings.RemoteTCDToggle = false;
 
                 ModSettings.SaveSettings();
             }
@@ -95,7 +79,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
-            useExternalTCD.Checked = ModSettings.ExternalTCDToggle;
+
         }
 
         public override void Tick()

@@ -41,16 +41,16 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
-            if (TimeMachineHandler.CurrentTimeMachine == null)
+            if (CurrentTimeMachine == null)
             {
                 Visible = false;
                 return;
             }
 
-            FlyMode.Enabled = TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == ModState.On && !TimeMachineHandler.CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
+            FlyMode.Enabled = CurrentTimeMachine.Mods.HoverUnderbody == ModState.On && !CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
             AltitudeHold.Enabled = FlyMode.Enabled;
-            RemoteControl.Enabled = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
-            //CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+            RemoteControl.Enabled = CurrentTimeMachine.Properties.IsRemoteControlled;
+            //CustomMenu.Enabled = !CurrentTimeMachine.Properties.IsRemoteControlled;
             TimeCircuitsOn.Enabled = !RemoteControl.Enabled;
             CutsceneMode.Enabled = !RemoteControl.Enabled;
 
@@ -64,23 +64,23 @@ namespace BackToTheFutureV
         {
             if (sender == TimeCircuitsOn)
             {
-                TimeMachineHandler.CurrentTimeMachine.Events.SetTimeCircuits?.Invoke(Checked);
+                CurrentTimeMachine.Events.SetTimeCircuits?.Invoke(Checked);
             }
             else if (sender == CutsceneMode)
             {
-                TimeMachineHandler.CurrentTimeMachine.Events.SetCutsceneMode?.Invoke(Checked);
+                CurrentTimeMachine.Events.SetCutsceneMode?.Invoke(Checked);
             }
-            else if (sender == RemoteControl && !Checked && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
+            else if (sender == RemoteControl && !Checked && CurrentTimeMachine.Properties.IsRemoteControlled)
             {
                 RemoteTimeMachineHandler.StopRemoteControl();
             }
             else if (sender == FlyMode)
             {
-                TimeMachineHandler.CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
+                CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
             }
             else if (sender == AltitudeHold)
             {
-                TimeMachineHandler.CurrentTimeMachine.Events.SetAltitudeHold?.Invoke(Checked);
+                CurrentTimeMachine.Events.SetAltitudeHold?.Invoke(Checked);
             }
             //else if (sender == EscapeMission)
             //{
@@ -95,24 +95,24 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (TimeMachineHandler.CurrentTimeMachine == null)
+            if (CurrentTimeMachine == null)
             {
                 Visible = false;
                 return;
             }
 
-            TimeCircuitsOn.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.AreTimeCircuitsOn;
-            CutsceneMode.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.CutsceneMode;
-            FlyMode.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
-            AltitudeHold.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsAltitudeHolding;
-            RemoteControl.Checked = TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+            TimeCircuitsOn.Checked = CurrentTimeMachine.Properties.AreTimeCircuitsOn;
+            CutsceneMode.Checked = CurrentTimeMachine.Properties.CutsceneMode;
+            FlyMode.Checked = CurrentTimeMachine.Properties.IsFlying;
+            AltitudeHold.Checked = CurrentTimeMachine.Properties.IsAltitudeHolding;
+            RemoteControl.Checked = CurrentTimeMachine.Properties.IsRemoteControlled;
 
-            //CustomMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+            //CustomMenu.Enabled = !CurrentTimeMachine.Constants.FullDamaged && !CurrentTimeMachine.Properties.IsRemoteControlled;
 
             if (MenuHandler.UnlockPhotoMenu)
-                PhotoMenu.Enabled = !TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged && !TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled;
+                PhotoMenu.Enabled = !CurrentTimeMachine.Constants.FullDamaged && !CurrentTimeMachine.Properties.IsRemoteControlled;
 
-            //EscapeMission.Enabled = !TimeMachineHandler.CurrentTimeMachine.Properties.IsFlying;
+            //EscapeMission.Enabled = !CurrentTimeMachine.Properties.IsFlying;
             //EscapeMission.Checked = MissionHandler.Escape.IsPlaying;
         }
 

@@ -404,7 +404,7 @@ namespace BackToTheFutureV
         {
             if (FusionUtils.PlayerVehicle == Vehicle)
             {
-                Properties.HUDProperties.Empty = isOn ? HUD.Core.EmptyType.On : HUD.Core.EmptyType.Off;
+                Properties.HUDProperties.Empty = isOn ? EmptyType.On : EmptyType.Off;
             }
 
             if (Vehicle.IsVisible == false)
@@ -431,7 +431,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            Properties.HUDProperties.Empty = HUD.Core.EmptyType.Hide;
+            Properties.HUDProperties.Empty = EmptyType.Hide;
         }
     }
 }

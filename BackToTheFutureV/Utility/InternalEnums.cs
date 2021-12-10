@@ -6,6 +6,13 @@ namespace BackToTheFutureV
     {
         public static string[] MeleeAttacks = new string[] { "walking_punch", "running_punch", "long_0_punch", "heavy_punch_a", "heavy_punch_b", "heavy_punch_b_var_1", "short_0_punch" };
 
+        internal enum EmptyType
+        {
+            Hide,
+            Off,
+            On
+        }
+
         internal static class BTTFVDecors
         {
             public const string TimeMachine = "BTTFV_TimeMachine";
