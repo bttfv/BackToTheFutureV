@@ -16,7 +16,6 @@ namespace BackToTheFutureV
 
         //public NativeSubmenuItem CustomMenu { get; }
         public NativeSubmenuItem PhotoMenu { get; }
-        public NativeSubmenuItem BackToMain { get; }
 
         public TimeMachineMenu() : base("TimeMachine")
         {
@@ -29,9 +28,9 @@ namespace BackToTheFutureV
 
             //CustomMenu = NewSubmenu(MenuHandler.CustomMenu, "Custom");
 
-            PhotoMenu = NewSubmenu(MenuHandler.PhotoMenu, "Photo");
+            PhotoMenu = NewSubmenu(MenuHandler.PhotoMenu);
 
-            BackToMain = NewSubmenu(MenuHandler.MainMenu, "GoToMain");
+            NewSubmenu(MenuHandler.MainMenu);
         }
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)

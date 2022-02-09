@@ -26,26 +26,24 @@ namespace BackToTheFutureV
 
         public MainMenu() : base("Main")
         {
-            Subtitle = TextHandler.Me.GetLocalizedText("SelectOption");
-
             spawnBTTF = NewListItem("Spawn", TextHandler.Me.GetLocalizedText("DMC12", "BTTF1", "BTTF1H", "BTTF2", "BTTF3", "BTTF3RR"));
             spawnBTTF.ItemChanged += SpawnBTTF_ItemChanged;
             spawnBTTF.Description = GetItemValueDescription("Spawn", "DMC12");
 
-            presetsMenu = NewSubmenu(MenuHandler.PresetsMenu, "Presets");
+            presetsMenu = NewSubmenu(MenuHandler.PresetsMenu);
 
             convertIntoTimeMachine = NewItem("Convert");
 
-            customMenu = NewSubmenu(MenuHandler.CustomMenuMain, "Custom");
+            customMenu = NewSubmenu(MenuHandler.CustomMenuMain);
 
-            rcMenu = NewSubmenu(MenuHandler.RCMenu, "RC");
-            outatimeMenu = NewSubmenu(MenuHandler.OutatimeMenu, "Outatime");
+            rcMenu = NewSubmenu(MenuHandler.RCMenu);
+            outatimeMenu = NewSubmenu(MenuHandler.OutatimeMenu);
 
             deleteCurrent = NewItem("Remove");
             deleteOthers = NewItem("RemoveOther");
             deleteAll = NewItem("RemoveAll");
 
-            NewSubmenu(MenuHandler.SettingsMenu, "Settings");
+            NewSubmenu(MenuHandler.SettingsMenu);
         }
 
         private void SpawnBTTF_ItemChanged(object sender, ItemChangedEventArgs<string> e)

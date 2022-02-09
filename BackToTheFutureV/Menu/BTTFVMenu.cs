@@ -8,12 +8,11 @@ namespace BackToTheFutureV
     {
         public TimeMachine CurrentTimeMachine => TimeMachineHandler.CurrentTimeMachine;
 
-        public BTTFVMenu(string name) : base("")
+        private static ScaledTexture banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
+
+        public BTTFVMenu(string internalName) : base(TextHandler.Me, internalName, banner)
         {
-            InternalName = name;
-            Banner = new ScaledTexture(new PointF(0, 0), new SizeF(200, 100), "bttf_textures", "bttf_menu_banner");
-            CustomText = TextHandler.Me;
-            Subtitle = GetMenuTitle();
+            Title = null;
         }
     }
 }

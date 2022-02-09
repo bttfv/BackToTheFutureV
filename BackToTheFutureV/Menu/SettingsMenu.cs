@@ -33,13 +33,13 @@ namespace BackToTheFutureV
             GlowingWormholeEmitter = NewCheckboxItem("GlowingWormhole", ModSettings.GlowingWormholeEmitter);
             GlowingPlutoniumReactor = NewCheckboxItem("GlowingReactor", ModSettings.GlowingPlutoniumReactor);
 
-            NewSubmenu(MenuHandler.SoundsSettingsMenu, "Sounds");
+            NewSubmenu(MenuHandler.SoundsSettingsMenu);
 
-            NewSubmenu(MenuHandler.EventsSettingsMenu, "Events");
+            NewSubmenu(MenuHandler.EventsSettingsMenu);
 
-            NewSubmenu(MenuHandler.ControlsMenu, "Controls");
+            NewSubmenu(MenuHandler.ControlsMenu);
 
-            NewSubmenu(MenuHandler.TCDMenu, "TCD");
+            NewSubmenu(MenuHandler.TCDMenu);
         }
 
         public override void Menu_Shown(object sender, EventArgs e)

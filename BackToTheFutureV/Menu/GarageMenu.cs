@@ -34,7 +34,7 @@ namespace BackToTheFutureV
             repairFC = NewItem("RepairFC");
             repairEngine = NewItem("RepairEngine");
 
-            customMenu = NewSubmenu(MenuHandler.CustomMenuGarage, "Custom");
+            customMenu = NewSubmenu(MenuHandler.CustomMenuGarage);
             customMenu.Activated += CustomMenu_Activated;
         }
 

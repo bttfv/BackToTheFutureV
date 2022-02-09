@@ -21,7 +21,7 @@ namespace BackToTheFutureV
 
         public PhotoMenu() : base("Photo")
         {
-            OverrideMenu = NewSubmenu(MenuHandler.OverrideMenu, "Override");
+            OverrideMenu = NewSubmenu(MenuHandler.OverrideMenu);
             Wormhole = NewCheckboxItem("Wormhole");
             Coils = NewCheckboxItem("Coils");
             Ice = NewCheckboxItem("Ice");
