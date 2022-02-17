@@ -150,7 +150,7 @@ namespace BackToTheFutureV
                     break;
 
                 case 2:
-                    if (Mods.Reactor == ReactorType.Nuclear && !_resuming)
+                    if (Mods.Reactor == ReactorType.Nuclear && !_resuming && Mods.Hook != HookState.Removed)
                     {
                         Sounds.IceVents?.Play();
                     }
@@ -160,7 +160,7 @@ namespace BackToTheFutureV
                     break;
 
                 case 3:
-                    if (Mods.Reactor == ReactorType.Nuclear)
+                    if (Mods.Reactor == ReactorType.Nuclear && Mods.Hook != HookState.Removed)
                     {
                         for (; _smokeIndex < 7;)
                         {
@@ -181,7 +181,7 @@ namespace BackToTheFutureV
 
                 case 4:
 
-                    if (_fuelNotif)
+                    if (_fuelNotif && Mods.Hook != HookState.Removed)
                     {
                         Events.StartFuelBlink?.Invoke();
                     }
