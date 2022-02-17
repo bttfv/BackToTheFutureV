@@ -164,6 +164,21 @@ namespace BackToTheFutureV
             {
                 TextHandler.Me.ShowSubtitle("HoverDamaged");
             }
+
+            if (sender == repairTC && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreTimeCircuitsBroken)
+            {
+                TextHandler.Me.ShowSubtitle("UnableRepairTC");
+            }
+
+            if (sender == repairFC && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken)
+            {
+                TextHandler.Me.ShowSubtitle("UnableRepairFC");
+            }
+
+            if (sender == repairEngine && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst)
+            {
+                TextHandler.Me.ShowSubtitle("UnableRepairEngine");
+            }
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
@@ -196,9 +211,9 @@ namespace BackToTheFutureV
             transformInto.Enabled = !active && FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
             hoverConvert.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((CurrentTimeMachine.Mods.IsDMC12 && !CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || CurrentTimeMachine.Vehicle.CanHoverTransform());
             installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && CurrentTimeMachine.Mods.IsDMC12;
-            repairTC.Enabled = active && (CurrentTimeMachine.Properties.AreTimeCircuitsBroken && CurrentTimeMachine.Mods.Hoodbox == ModState.Off);
+            repairTC.Enabled = active && FusionUtils.CurrentTime.Year >= 1947 && (CurrentTimeMachine.Properties.AreTimeCircuitsBroken && CurrentTimeMachine.Mods.Hoodbox == ModState.Off);
             repairFC.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
-            repairEngine.Enabled = active && (CurrentTimeMachine.Vehicle.EngineHealth <= 0 || CurrentTimeMachine.Mods.Wheels.Burst);
+            repairEngine.Enabled = active && FusionUtils.CurrentTime.Year >= 1912 && (CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst);
 
             buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 5 && FusionUtils.CurrentTime.Year == 1985;
             buyPlutonium.AltTitle = $"{InternalInventory.Current.Plutonium}/5";
