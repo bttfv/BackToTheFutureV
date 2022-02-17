@@ -64,7 +64,7 @@ namespace BackToTheFutureV
                 TimeMachine = TimeMachineHandler.CurrentTimeMachine;
             }
 
-            Model model = new Model("sabregt");
+            Model model = new Model("surfer");
 
             FusionUtils.LoadAndRequestModel(model);
 
@@ -142,7 +142,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (FusionUtils.CurrentTime.Year == 1985 && !IsPlaying)
+            if (FusionUtils.CurrentTime.Year == 1985 && InternalInventory.Current.Plutonium <= 0 && !IsPlaying)
             {
                 World.DrawMarker(MarkerType.VerticalCylinder, plutoniumPos, Vector3.Zero, Vector3.Zero, new Vector3(1, 1, 1), Color.Yellow);
 
@@ -150,7 +150,7 @@ namespace BackToTheFutureV
                 {
                     plutoniumBlip = World.CreateBlip(plutoniumPos);
                     plutoniumBlip.Sprite = (BlipSprite)77;
-                    plutoniumBlip.Name = "Libyans hideout";
+                    plutoniumBlip.Name = "Libyan Hideout";
                     plutoniumBlip.DisplayType = BlipDisplayType.BothMapSelectable;
                     plutoniumBlip.IsShortRange = true;
                     plutoniumBlip.IsFriendly = false;
