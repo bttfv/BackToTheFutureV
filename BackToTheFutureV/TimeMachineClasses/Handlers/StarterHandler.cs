@@ -1,6 +1,8 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Native;
+using KlangRageAudioLibrary;
 using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
@@ -23,6 +25,8 @@ namespace BackToTheFutureV
         private float _lightsBrightness;
 
         private readonly int _deloreanMaxFuelLevel = 65;
+
+        private AudioPlayer _headHorn;
 
         public StarterHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -136,7 +140,7 @@ namespace BackToTheFutureV
                 Properties.PhotoEngineStallActive = true;
             }
 
-            if (Constants.ReadyForLightningRun && Properties.AlarmSet && Properties.AlarmTime.Between(new DateTime(1955, 11, 12, 22, 03, 0), new DateTime(1955, 11, 12, 22, 3, 45)) && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.CurrentTime == Properties.AlarmTime.AddSeconds(-5))
+            if (Constants.ReadyForLightningRun && Properties.AlarmSet && Properties.AlarmTime.Between(new DateTime(1955, 11, 12, 22, 03, 0), new DateTime(1955, 11, 12, 22, 3, 50)) && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.CurrentTime == Properties.AlarmTime.AddSeconds(-15))
             {
                 Properties.PhotoEngineStallActive = true;
                 Properties.BlockEngineRecover = true;
@@ -189,8 +193,14 @@ namespace BackToTheFutureV
                         _isRestarting = true;
                     }
 
-                    if ((Properties.BlockEngineRecover && FusionUtils.CurrentTime >= new DateTime(1955, 11, 12, 22, 03, 50)) || (!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (!Properties.BlockEngineRecover && Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f))
+                    if ((!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f))
                     {
+                        if (Game.IsControlPressed(GTA.Control.VehicleDuck))
+                            {
+                            _headHorn = Sounds.AudioEngine.Create("general/horn.wav", Presets.Exterior);
+                            _headHorn.Volume = 0.5f;
+                            _headHorn.Play();
+                        }
                         Stop();
                         Vehicle.FuelLevel = _deloreanMaxFuelLevel;
                         Vehicle.IsEngineRunning = true;
