@@ -47,9 +47,11 @@ namespace BackToTheFutureV
         public const Hash LightningRunStreet = unchecked((Hash)4174973413);
         public const Hash StartLine = unchecked((Hash)2593489231);
 
-        private Vector3 checkPos = new Vector3(41.5676f, 6585.7378f, 30.3686f);
+        private Vector3 checkPos = new Vector3(-143.6626f, 6390.0047f, 30.7007f);
 
         public static DateTime StrikeTime { get; } = new DateTime(1955, 11, 12, 22, 4, 0);
+
+        private bool traffic;
 
         private bool setup;
 
@@ -98,7 +100,7 @@ namespace BackToTheFutureV
             //    testTime = 0;
             //}
 
-            if (!TimeHandler.RealTime || FusionUtils.PlayerPed.Position.DistanceToSquared2D(checkPos) > 197480)
+            if (!TimeHandler.RealTime || FusionUtils.PlayerPed.Position.DistanceToSquared2D(checkPos) > 150000)
             {
                 if (setup)
                 {
@@ -188,7 +190,6 @@ namespace BackToTheFutureV
                     gameTime = Game.GameTime + 250;
                     break;
                 case 3:
-
                     if (!fireRope.IsPlaying)
                     {
                         fireRope.Play();
@@ -201,12 +202,13 @@ namespace BackToTheFutureV
 
                     break;
                 case 4:
+                    StreetRope?.Delete();
+                    MastRope?.Delete();
                     fireRope.StopInSequence();
 
                     step++;
                     break;
                 case 5:
-
                     if (fireRope.IsPlaying)
                     {
                         break;
@@ -215,6 +217,19 @@ namespace BackToTheFutureV
                     IsPlaying = false;
 
                     CustomCamera.Stop();
+
+                    if (traffic)
+                    {
+                        Function.Call(Hash.SET_CREATE_RANDOM_COPS, true);
+                        Function.Call(Hash.SET_GARBAGE_TRUCKS, true);
+                        Function.Call(Hash.SET_ROADS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
+                        Function.Call(Hash.SET_ALL_VEHICLE_GENERATORS_ACTIVE);
+                        Function.Call((Hash)0xF796359A959DF65D, true);
+                        Function.Call(Hash.DISABLE_VEHICLE_DISTANTLIGHTS, false);
+                        Function.Call(Hash.SET_PED_PATHS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
+                        Function.Call(Hash.SET_PED_POPULATION_BUDGET, 3);
+                        traffic = false;
+                    }
 
                     step = 0;
                     break;
@@ -228,6 +243,28 @@ namespace BackToTheFutureV
             LeftStreetPole = World.CreateProp(streetPoleModel, new Vector3(50.4339f, 6576.8843f, 30.3620f), true, false);
             RightStreetPole = World.CreateProp(streetPoleModel, new Vector3(41.5676f, 6585.7378f, 30.3686f), true, false);
 
+            Mast = World.CreateProp(mastModel, new Vector3(63.0749f, 6582.1401f, 30.5130f), true, false);
+            Mast.IsPositionFrozen = true;
+
+            Pole = World.CreateProp(poleModel, polePosition, true, false);
+            Pole.IsPositionFrozen = true;
+
+            if (FusionUtils.CurrentTime >= new DateTime(1955, 11, 12, 20, 0, 0) && FusionUtils.CurrentTime <= new DateTime(1955, 11, 12, 22, 5, 0))
+            {
+         
+                if (TimeHandler.RealTime && !traffic)
+                {
+                    Function.Call(Hash.SET_CREATE_RANDOM_COPS, false);
+                    Function.Call(Hash.SET_GARBAGE_TRUCKS, false);
+                    Function.Call(Hash.SET_ROADS_IN_AREA, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f, 0, 1);
+                    Function.Call(Hash.SET_ALL_VEHICLE_GENERATORS_ACTIVE_IN_AREA, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f, 0, 1);
+                    Function.Call((Hash)0xF796359A959DF65D, false);
+                    Function.Call(Hash.DISABLE_VEHICLE_DISTANTLIGHTS, true);
+                    Function.Call(Hash.SET_PED_PATHS_IN_AREA, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f, 1);
+                    Function.Call(Hash.SET_PED_POPULATION_BUDGET, 0);
+                    traffic = true;
+                }
+
             Vector3 leftRope = LeftStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
             Vector3 rightRope = RightStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
 
@@ -236,16 +273,10 @@ namespace BackToTheFutureV
             StreetRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(rightRope).DirectionToRotation(0), distance, distance, false);
             StreetRope.Connect(LeftStreetPole, leftRope, RightStreetPole, rightRope, distance);
 
-            Mast = World.CreateProp(mastModel, new Vector3(63.0749f, 6582.1401f, 30.5130f), true, false);
-            Mast.IsPositionFrozen = true;
-
             distance = leftRope.DistanceTo(polePosition);
 
             MastRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(polePosition).DirectionToRotation(0), distance, distance, false);
             MastRope.Connect(LeftStreetPole, leftRope, Mast, polePosition, distance);
-
-            Pole = World.CreateProp(poleModel, polePosition, true, false);
-            Pole.IsPositionFrozen = true;
 
             Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true, IsSequenceLooped = true };
             foreach (CustomModel x in ModelHandler.Lightnings)
@@ -302,7 +333,7 @@ namespace BackToTheFutureV
 
             fireRope.UseFrameTimeHelper = true;
             fireRope.ChanceOfSpawn = 0.5f;
-
+        }
             setup = true;
         }
 
@@ -320,6 +351,16 @@ namespace BackToTheFutureV
 
             sparkRope?.Stop();
             fireRope?.Stop();
+
+            Function.Call(Hash.SET_CREATE_RANDOM_COPS, true);
+            Function.Call(Hash.SET_GARBAGE_TRUCKS, true);
+            Function.Call(Hash.SET_ROADS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
+            Function.Call(Hash.SET_ALL_VEHICLE_GENERATORS_ACTIVE);
+            Function.Call((Hash)0xF796359A959DF65D, true);
+            Function.Call(Hash.DISABLE_VEHICLE_DISTANTLIGHTS, false);
+            Function.Call(Hash.SET_PED_PATHS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
+            Function.Call(Hash.SET_PED_POPULATION_BUDGET, 3);
+            traffic = false;
 
             IsPlaying = false;
             setup = false;
