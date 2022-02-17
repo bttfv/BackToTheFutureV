@@ -88,6 +88,7 @@ namespace BackToTheFutureV
 
                 FusionUtils.RandomTrains = ModSettings.RandomTrains;
                 TimeHandler.RealTime = ModSettings.RealTime;
+                TimeHandler.TrafficVolumeYearBased = ModSettings.YearTraffic;
 
                 DecoratorsHandler.Register();
                 WeatherHandler.Register();
