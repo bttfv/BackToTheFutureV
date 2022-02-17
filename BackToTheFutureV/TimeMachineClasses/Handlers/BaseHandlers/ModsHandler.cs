@@ -196,6 +196,12 @@ namespace BackToTheFutureV
 
             switch (SuspensionsType)
             {
+                case SuspensionsType.Stock:
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                    break;
                 case SuspensionsType.LiftFrontLowerRear:
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, -0.1f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, -0.1f));
@@ -205,8 +211,12 @@ namespace BackToTheFutureV
                 case SuspensionsType.LiftFront:
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, -0.1f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, -0.1f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.0f));
                     break;
                 case SuspensionsType.LiftRear:
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.0f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, -0.1f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, -0.1f));
                     break;
@@ -219,8 +229,12 @@ namespace BackToTheFutureV
                 case SuspensionsType.LowerFront:
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.05f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.05f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.0f));
                     break;
                 case SuspensionsType.LowerRear:
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.0f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.05f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.05f));
                     break;
@@ -229,6 +243,12 @@ namespace BackToTheFutureV
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.05f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.05f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.05f));
+                    break;
+                case SuspensionsType.LowerFrontLiftRear:
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.05f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.05f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, -0.1f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, -0.1f));
                     break;
             }
         }
