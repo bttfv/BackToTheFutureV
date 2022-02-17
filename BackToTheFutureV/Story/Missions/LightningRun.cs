@@ -309,6 +309,7 @@ namespace BackToTheFutureV
         protected override void OnEnd()
         {
             CustomCamera.Stop();
+            CustomCamera.Cameras.Clear();
 
             Lightnings?.Delete();
             LeftStreetPole?.Delete();
