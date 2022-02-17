@@ -426,7 +426,7 @@ namespace BackToTheFutureV
                 }
                 else
                 {
-                    TextHandler.Me.ShowSubtitle("UnableRepairTC");
+
                 }
 
                 return !Properties.AreTimeCircuitsBroken || Mods.Hoodbox == ModState.On;
@@ -440,7 +440,7 @@ namespace BackToTheFutureV
                 }
                 else
                 {
-                    TextHandler.Me.ShowSubtitle("UnableRepairFC");
+
                 }
 
                 return !Properties.AreFlyingCircuitsBroken;
@@ -450,7 +450,7 @@ namespace BackToTheFutureV
             {
                 if (Mods.Wheels.Burst)
                 {
-                    if (FusionUtils.CurrentTime.Year < 1982)
+                    if (FusionUtils.CurrentTime.Year < 1981)
                     {
                         Mods.Wheel = WheelType.Red;
                         Mods.SuspensionsType = SuspensionsType.LiftFront;
