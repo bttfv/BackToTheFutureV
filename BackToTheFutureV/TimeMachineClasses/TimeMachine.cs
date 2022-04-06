@@ -359,8 +359,6 @@ namespace BackToTheFutureV
             }
 
             PhotoMode();
-
-            CustomCameraManager.Tick();
         }
 
         private void UpdateBlip()
