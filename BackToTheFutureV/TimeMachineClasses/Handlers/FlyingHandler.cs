@@ -1,4 +1,4 @@
-﻿using FusionLibrary;
+using FusionLibrary;
 using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
 using GTA;
@@ -371,7 +371,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Properties.HasBeenStruckByLightning || (ModSettings.TurbulenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)))
+            if (Properties.HasBeenStruckByLightning || (ModSettings.TurbulenceEvent && (World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)))
             {
                 if (Game.GameTime > _nextForce)
                 {
