@@ -291,7 +291,7 @@ namespace BackToTheFutureV
 
                             if (timeMachine.Mods.IsDMC12)
                             {
-                                timeMachine.Properties.ReactorCharge = 0;
+                                timeMachine.Properties.ReactorCharge = 1;
                             }
 
                             if (ModSettings.WaybackSystem)
