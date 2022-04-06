@@ -3,6 +3,7 @@ using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
+    [Serializable]
     internal class HUDProperties
     {
         public int[] CurrentHeight = new int[10];
