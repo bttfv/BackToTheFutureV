@@ -1,4 +1,4 @@
-﻿using FusionLibrary;
+using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
@@ -50,8 +50,6 @@ namespace BackToTheFutureV
         private Vector3 checkPos = new Vector3(-143.6626f, 6390.0047f, 30.7007f);
 
         public static DateTime StrikeTime { get; } = new DateTime(1955, 11, 12, 22, 4, 0);
-
-        private bool traffic;
 
         private bool setup;
 
@@ -218,17 +216,12 @@ namespace BackToTheFutureV
 
                     CustomCamera.Stop();
 
-                    if (traffic)
+                    if (!FusionUtils.IsTrafficAlive)
                     {
-                        Function.Call(Hash.SET_CREATE_RANDOM_COPS, true);
-                        Function.Call(Hash.SET_GARBAGE_TRUCKS, true);
-                        Function.Call(Hash.SET_ROADS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
-                        Function.Call(Hash.SET_ALL_VEHICLE_GENERATORS_ACTIVE);
-                        Function.Call((Hash)0xF796359A959DF65D, true);
-                        Function.Call(Hash.DISABLE_VEHICLE_DISTANTLIGHTS, false);
+                        FusionUtils.IsTrafficAlive = true;
+                        TimeHandler.MissionTraffic = false;
                         Function.Call(Hash.SET_PED_PATHS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
                         Function.Call(Hash.SET_PED_POPULATION_BUDGET, 3);
-                        traffic = false;
                     }
 
                     step = 0;
@@ -249,20 +242,14 @@ namespace BackToTheFutureV
             Pole = World.CreateProp(poleModel, polePosition, true, false);
             Pole.IsPositionFrozen = true;
 
-            if (FusionUtils.CurrentTime >= new DateTime(1955, 11, 12, 20, 0, 0) && FusionUtils.CurrentTime <= new DateTime(1955, 11, 12, 22, 5, 0))
+            if (FusionUtils.CurrentTime >= new DateTime(1955, 11, 12, 20, 0, 0) && FusionUtils.CurrentTime <= new DateTime(1955, 11, 12, 22, 4, 30))
             {
-         
-                if (TimeHandler.RealTime && !traffic)
+                if (TimeHandler.RealTime && FusionUtils.IsTrafficAlive)
                 {
-                    Function.Call(Hash.SET_CREATE_RANDOM_COPS, false);
-                    Function.Call(Hash.SET_GARBAGE_TRUCKS, false);
-                    Function.Call(Hash.SET_ROADS_IN_AREA, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f, 0, 1);
-                    Function.Call(Hash.SET_ALL_VEHICLE_GENERATORS_ACTIVE_IN_AREA, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f, 0, 1);
-                    Function.Call((Hash)0xF796359A959DF65D, false);
-                    Function.Call(Hash.DISABLE_VEHICLE_DISTANTLIGHTS, true);
+                    TimeHandler.MissionTraffic = true;
+                    FusionUtils.IsTrafficAlive = false;
                     Function.Call(Hash.SET_PED_PATHS_IN_AREA, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f, 1);
                     Function.Call(Hash.SET_PED_POPULATION_BUDGET, 0);
-                    traffic = true;
                 }
 
             Vector3 leftRope = LeftStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
@@ -352,15 +339,13 @@ namespace BackToTheFutureV
             sparkRope?.Stop();
             fireRope?.Stop();
 
-            Function.Call(Hash.SET_CREATE_RANDOM_COPS, true);
-            Function.Call(Hash.SET_GARBAGE_TRUCKS, true);
-            Function.Call(Hash.SET_ROADS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
-            Function.Call(Hash.SET_ALL_VEHICLE_GENERATORS_ACTIVE);
-            Function.Call((Hash)0xF796359A959DF65D, true);
-            Function.Call(Hash.DISABLE_VEHICLE_DISTANTLIGHTS, false);
-            Function.Call(Hash.SET_PED_PATHS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
-            Function.Call(Hash.SET_PED_POPULATION_BUDGET, 3);
-            traffic = false;
+            if (!FusionUtils.IsTrafficAlive)
+            {
+                FusionUtils.IsTrafficAlive = true;
+                TimeHandler.MissionTraffic = false;
+                Function.Call(Hash.SET_PED_PATHS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
+                Function.Call(Hash.SET_PED_POPULATION_BUDGET, 3);
+            }
 
             IsPlaying = false;
             setup = false;
