@@ -195,9 +195,12 @@ namespace BackToTheFutureV
 
                     if ((!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (!Properties.BlockEngineRecover && Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f))
                     {
-                        _headHorn = Sounds.AudioEngine.Create("general/horn.wav", Presets.Exterior);
-                        _headHorn.Volume = 0.5f;
-                        _headHorn.Play();
+                        if (Game.IsControlPressed(GTA.Control.VehicleDuck))
+                        {
+                            _headHorn = Sounds.AudioEngine.Create("general/horn.wav", Presets.Exterior);
+                            _headHorn.Volume = 0.5f;
+                            _headHorn.Play();
+                        }
                         Stop();
                         Vehicle.FuelLevel = _deloreanMaxFuelLevel;
                         Vehicle.IsEngineRunning = true;
