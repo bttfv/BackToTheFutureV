@@ -42,6 +42,7 @@ namespace BackToTheFutureV
         public static CustomModel WormholeVioletNight = new CustomModel("bttf_wormhole_violet_night");
         public static CustomModel FluxModel = new CustomModel("bttf_flux");
         public static CustomModel FluxBlueModel = new CustomModel("bttf_flux_blue");
+        public static CustomModel FluxOrangeModel = new CustomModel("bttf_flux_orange");
         public static CustomModel GaugeGlow = new CustomModel("bttf_gauges_glow");
         public static List<CustomModel> GaugeModels = new List<CustomModel>();
         public static Dictionary<string, CustomModel> TCDRTModels = new Dictionary<string, CustomModel>();

@@ -508,6 +508,16 @@ namespace BackToTheFutureV
                 Events.OnSparksInterrupted?.Invoke();
             }
 
+            if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingOrangeAnim)
+            {
+                Events.OnWormholeStarted?.Invoke();
+            }
+
+            if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingOrangeAnim && Properties.IsPhotoModeOn)
+            {
+                Events.OnSparksInterrupted?.Invoke();
+            }
+
             if (Properties.PhotoEngineStallActive && !Properties.IsEngineStalling)
             {
                 Events.SetEngineStall?.Invoke(true);

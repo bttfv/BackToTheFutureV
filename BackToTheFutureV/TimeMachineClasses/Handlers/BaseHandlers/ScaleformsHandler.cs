@@ -1,4 +1,5 @@
 ﻿using FusionLibrary;
+using FusionLibrary.Extensions;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -98,6 +99,11 @@ namespace BackToTheFutureV
                 SIDRT?.CreateProp();
                 FluxCapacitorRT?.CreateProp();
                 SpeedoRT.CreateProp();
+
+                if (!Vehicle.IsVisible)
+                {
+                    Vehicle.SetVisible(false);
+                }
             }
             else
             {
