@@ -83,7 +83,7 @@ namespace BackToTheFutureV
 
             int _time = 0;
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 6; i++)
             {
                 glitchEvents.Add(0, 0, _time, 0, 0, _time + 499);
                 glitchEvents.Last.OnExecute += Blank_OnExecute;
