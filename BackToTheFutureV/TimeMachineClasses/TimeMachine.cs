@@ -498,22 +498,12 @@ namespace BackToTheFutureV
                 Props.Coils.Delete();
             }
 
-            if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingBlueAnim)
+            if (Properties.PhotoFluxCapacitorActive && !(Properties.IsFluxDoingBlueAnim || Properties.IsFluxDoingOrangeAnim))
             {
                 Events.OnWormholeStarted?.Invoke();
             }
 
-            if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
-            {
-                Events.OnSparksInterrupted?.Invoke();
-            }
-
-            if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingOrangeAnim)
-            {
-                Events.OnWormholeStarted?.Invoke();
-            }
-
-            if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingOrangeAnim && Properties.IsPhotoModeOn)
+            if (!Properties.PhotoFluxCapacitorActive && (Properties.IsFluxDoingBlueAnim || Properties.IsFluxDoingOrangeAnim) && Properties.IsPhotoModeOn)
             {
                 Events.OnSparksInterrupted?.Invoke();
             }
