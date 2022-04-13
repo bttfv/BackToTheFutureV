@@ -24,6 +24,8 @@ namespace BackToTheFutureV
 
         private bool _forceFreightTrain;
 
+        private bool _exploded = false;
+
         public RailroadHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
@@ -225,17 +227,10 @@ namespace BackToTheFutureV
                 {
                     Stop();
 
-                    if (Vehicle.SameDirection(_train))
-                    {
-                        if (Math.Abs(_train.GetMPHSpeed() + Vehicle.GetMPHSpeed()) > 35)
-                        {
-                            Vehicle.Explode();
-                        }
-                    }
-                    else
-                        if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 35)
+                    if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 33 && !_exploded)
                     {
                         Vehicle.Explode();
+                        _exploded = true;
                     }
 
                     _attachDelay = Game.GameTime + 3000;

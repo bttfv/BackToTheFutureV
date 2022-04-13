@@ -22,7 +22,7 @@ namespace BackToTheFutureV
             StoryTimeMachines.Add(new StoryTimeMachine(new Vector3(1746f, 3323f, 40.3f), 295.84f, WormholeType.BTTF3, SpawnFlags.NoPosition, new DateTime(1955, 11, 14, 0, 0, 0), new DateTime(1955, 11, 20, 0, 0, 0), false, new DateTime(1885, 1, 1, 0, 0, 0), new DateTime(1955, 11, 12, 21, 43, 0)));
 
             //Railroad
-            StoryTimeMachines.Add(new StoryTimeMachine(new Vector3(2611f, 1691.61f, 26.2f), 0, WormholeType.BTTF3, SpawnFlags.NoPosition, new DateTime(1885, 9, 6, 21, 0, 0), new DateTime(1885, 9, 7, 9, 0, 0), false, new DateTime(1885, 1, 2, 8, 0, 0), new DateTime(1955, 11, 14, 8, 0, 0), true));
+            StoryTimeMachines.Add(new StoryTimeMachine(new Vector3(2611f, 1691.61f, 26.2f), 180, WormholeType.BTTF3, SpawnFlags.NoPosition, new DateTime(1885, 9, 6, 21, 0, 0), new DateTime(1885, 9, 7, 9, 0, 0), false, new DateTime(1885, 1, 2, 8, 0, 0), new DateTime(1955, 11, 14, 8, 0, 0), true));
         }
 
         public static void Tick()
