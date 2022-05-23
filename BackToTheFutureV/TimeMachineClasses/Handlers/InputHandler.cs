@@ -124,6 +124,11 @@ namespace BackToTheFutureV
                 _destinationTimeRaw = string.Empty;
                 return;
             }
+            // If player tries to set Jan 1 0001 through Jan 3 0001 or year 9999 script breaks; set these dates to invalid to error out TCD input
+            if (_destinationTimeRaw.Substring(0, 8) == "01010001" || _destinationTimeRaw.Substring(0, 8) == "01020001" || _destinationTimeRaw.Substring(0, 8) == "01030001" || _destinationTimeRaw.Substring(4, 4) == "9999")
+            {
+                _destinationTimeRaw = "000000000000";
+            }
 
             DateTime? dateTime = FusionUtils.ParseFromRawString(_destinationTimeRaw, Properties.DestinationTime, out InputType inputType);
 

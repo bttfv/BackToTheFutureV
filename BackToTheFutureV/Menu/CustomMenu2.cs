@@ -128,6 +128,7 @@ namespace BackToTheFutureV
                 GarageMenu.GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                 CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.SuspensionsCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                 CurrentTimeMachine.Mods.SuspensionsType = (SuspensionsType)newIndex;
+                CurrentTimeMachine.Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.2f;
             }
             else if (sender == _hood)
             {

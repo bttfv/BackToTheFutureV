@@ -3,6 +3,7 @@ using GTA;
 using GTA.Native;
 using KlangRageAudioLibrary;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Screen = GTA.UI.Screen;
 
@@ -15,6 +16,10 @@ namespace BackToTheFutureV
         public static AudioEngine CommonAudioEngine { get; set; } = new AudioEngine() { BaseSoundFolder = "BackToTheFutureV\\Sounds" };
 
         public static bool FirstTick { get; private set; } = true;
+
+        public static DateTime ResetDate { get; private set; }
+
+        public static PedReplica ResetPed { get; private set; }
 
         public static CustomStopwatch CustomStopwatch { get; } = new CustomStopwatch();
 
@@ -75,6 +80,8 @@ namespace BackToTheFutureV
             {
                 Screen.ShowHelpText("BackToTheFutureV loading...", 3000);
 
+                ResetPed = new PedReplica(FusionUtils.PlayerPed);
+
                 ModelHandler.RequestModels();
 
                 //Disable fake shake of the cars.
@@ -115,6 +122,7 @@ namespace BackToTheFutureV
 
             if (FirstTick)
             {
+                ResetDate = FusionUtils.CurrentTime;
                 WaybackSystem.Tick();
 
                 TrafficHandler.ModelSwaps.Add(new ModelSwap

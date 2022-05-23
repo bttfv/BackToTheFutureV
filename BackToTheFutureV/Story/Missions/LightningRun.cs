@@ -200,7 +200,6 @@ namespace BackToTheFutureV
 
                     break;
                 case 4:
-                    StreetRope?.Delete();
                     MastRope?.Delete();
                     fireRope.StopInSequence();
 
@@ -244,7 +243,7 @@ namespace BackToTheFutureV
 
             if (FusionUtils.CurrentTime >= new DateTime(1955, 11, 12, 20, 0, 0) && FusionUtils.CurrentTime <= new DateTime(1955, 11, 12, 22, 4, 30))
             {
-                if (TimeHandler.RealTime && FusionUtils.IsTrafficAlive)
+                if (FusionUtils.IsTrafficAlive)
                 {
                     TimeHandler.MissionTraffic = true;
                     FusionUtils.IsTrafficAlive = false;

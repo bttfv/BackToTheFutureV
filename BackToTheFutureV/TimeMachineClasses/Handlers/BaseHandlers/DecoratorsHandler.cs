@@ -70,7 +70,7 @@ namespace BackToTheFutureV
 
             if (!Decorator.Exists(BTTFVDecors.TorqueMultiplier))
             {
-                TorqueMultiplier = 1;
+                TorqueMultiplier = 1f;
             }
         }
 

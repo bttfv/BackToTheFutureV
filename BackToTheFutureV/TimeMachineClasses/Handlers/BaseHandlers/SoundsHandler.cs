@@ -79,6 +79,7 @@ namespace BackToTheFutureV
 
         //Engine restarter
         public AudioPlayer EngineRestarter;
+        public AudioPlayer HeadHorn;
 
         //Sparks
         public AudioPlayer Sparks;
@@ -239,6 +240,9 @@ namespace BackToTheFutureV
             EngineRestarter.FadeInMultiplier = 4f;
             EngineRestarter.MinimumDistance = 6f;
 
+            HeadHorn = AudioEngine.Create("general/horn.wav", Presets.Exterior);
+            HeadHorn.Volume = 0.5f;
+
             //Flux capacitor            
             FluxCapacitor = AudioEngine.Create("general/fluxCapacitor.wav", Presets.InteriorLoop);
             FluxCapacitor.Volume = 0.1f;
@@ -306,6 +310,7 @@ namespace BackToTheFutureV
 
             //Engine restarter
             EngineRestarter?.Dispose();
+            HeadHorn?.Dispose();
 
             //Sparks
             Sparks?.Dispose();

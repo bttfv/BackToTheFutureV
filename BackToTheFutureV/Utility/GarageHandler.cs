@@ -245,7 +245,7 @@ namespace BackToTheFutureV
                     case GarageStatus.Idle:
                         GTA.UI.Screen.ShowHelpTextThisFrame("Press ~INPUT_CONTEXT~ to open garage menu.");
 
-                        if (Game.IsControlJustPressed(Control.Context))
+                        if (Game.IsControlJustPressed(Control.Context) && !Vehicle.IsEngineStarting && Vehicle.IsEngineRunning)
                         {
                             FusionUtils.HideGUI = true;
 

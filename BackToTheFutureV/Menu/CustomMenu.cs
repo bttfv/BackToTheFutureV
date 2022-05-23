@@ -131,6 +131,7 @@ namespace BackToTheFutureV
             else if (sender == _suspensions)
             {
                 CurrentTimeMachine.Mods.SuspensionsType = (SuspensionsType)newIndex;
+                CurrentTimeMachine.Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.2f;
             }
             else if (sender == _hood)
             {

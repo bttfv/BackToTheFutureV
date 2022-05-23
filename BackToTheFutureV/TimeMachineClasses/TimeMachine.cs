@@ -43,14 +43,6 @@ namespace BackToTheFutureV
 
         private readonly Dictionary<string, HandlerPrimitive> registeredHandlers = new Dictionary<string, HandlerPrimitive>();
 
-        //private readonly VehicleBone boneLf;
-        //private readonly VehicleBone boneRf;
-
-        //private Vector3 leftSuspesionOffset;
-        //private Vector3 rightSuspesionOffset;
-
-        //private bool _firstRedSetup = true;
-
         private Blip Blip;
 
         public bool IsReady { get; } = false;
@@ -75,7 +67,7 @@ namespace BackToTheFutureV
 
             Vehicle.Decorator().DoNotDelete = true;
             Vehicle.Decorator().RemoveFromUsed = true;
-            vehicle.Decorator().IgnoreForSwap = true;
+            Vehicle.Decorator().IgnoreForSwap = true;
 
             TimeMachineHandler.AddTimeMachine(this);
 
@@ -240,6 +232,7 @@ namespace BackToTheFutureV
 
             if (!Vehicle.IsFunctioning())
             {
+                Vehicle.Decorator().DoNotDelete = false;
                 TimeMachineHandler.RemoveTimeMachine(this, false);
 
                 return;
@@ -325,6 +318,7 @@ namespace BackToTheFutureV
 
             if (FusionUtils.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)
             {
+                Decorators.TorqueMultiplier = 1f;
                 if (Blip == null || !Blip.Exists())
                 {
                     Blip = Vehicle.AddBlip();
@@ -416,9 +410,13 @@ namespace BackToTheFutureV
             {
                 if (FusionUtils.CurrentTime.Year >= 1985)
                 {
+                    if (Mods.Hoodbox == ModState.On)
+                    {
+                        Mods.Hoodbox = ModState.Off;
+                    }
                     Properties.AreTimeCircuitsBroken = false;
                 }
-                else if (FusionUtils.CurrentTime.Year >= 1947)
+                else if (FusionUtils.CurrentTime.Year >= 1952)
                 {
                     Mods.Hoodbox = ModState.On;
                 }

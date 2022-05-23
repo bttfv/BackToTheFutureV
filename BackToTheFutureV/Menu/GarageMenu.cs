@@ -160,11 +160,6 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
         {
-            if (sender == hoverConvert && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken)
-            {
-                TextHandler.Me.ShowSubtitle("HoverDamaged");
-            }
-
             if (sender == repairTC && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreTimeCircuitsBroken)
             {
                 TextHandler.Me.ShowSubtitle("UnableRepairTC");
@@ -211,7 +206,7 @@ namespace BackToTheFutureV
             transformInto.Enabled = !active && FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
             hoverConvert.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((CurrentTimeMachine.Mods.IsDMC12 && !CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || CurrentTimeMachine.Vehicle.CanHoverTransform());
             installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && CurrentTimeMachine.Mods.IsDMC12;
-            repairTC.Enabled = active && FusionUtils.CurrentTime.Year >= 1947 && (CurrentTimeMachine.Properties.AreTimeCircuitsBroken && CurrentTimeMachine.Mods.Hoodbox == ModState.Off);
+            repairTC.Enabled = active && FusionUtils.CurrentTime.Year >= 1952 && (CurrentTimeMachine.Properties.AreTimeCircuitsBroken && CurrentTimeMachine.Mods.Hoodbox == ModState.Off) || (FusionUtils.CurrentTime.Year >= 1985 && CurrentTimeMachine.Mods.Hoodbox == ModState.On);
             repairFC.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
             repairEngine.Enabled = active && FusionUtils.CurrentTime.Year >= 1912 && (CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst);
 

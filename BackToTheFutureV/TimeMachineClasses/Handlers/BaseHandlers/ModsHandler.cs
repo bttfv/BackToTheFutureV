@@ -82,7 +82,7 @@ namespace BackToTheFutureV
                 Wheel = wheelType;
             }
 
-            if (Wheel == WheelType.RailroadInvisible && TimeMachine.Props != null && !TimeMachine.Props.RRWheels.IsSpawned)
+            if (Wheel == WheelType.RailroadInvisible && Vehicle.IsVisible && !TimeMachine.Props.RRWheels.IsSpawned)
             {
                 TimeMachine.Props?.RRWheels?.SpawnProp();
             }
@@ -273,8 +273,6 @@ namespace BackToTheFutureV
 
                 if (value == WheelType.RailroadInvisible)
                 {
-                    TimeMachine.Props?.RRWheels?.SpawnProp();
-
                     if (!IsDMC12)
                     {
                         return;
@@ -295,7 +293,11 @@ namespace BackToTheFutureV
                         TimeMachine.Events?.OnWormholeTypeChanged?.Invoke();
                     }
 
+                    if (Vehicle.IsVisible)
+                    {
+                        TimeMachine.Props?.RRWheels?.SpawnProp();
                     Wheels.Burst = true;
+					}
                 }
                 else
                 {
@@ -343,7 +345,7 @@ namespace BackToTheFutureV
                 {
                     if (TimeMachine.Decorators != null)
                     {
-                        TimeMachine.Decorators.TorqueMultiplier = 1;
+                        TimeMachine.Decorators.TorqueMultiplier = 1f;
                     }
                 }
             }

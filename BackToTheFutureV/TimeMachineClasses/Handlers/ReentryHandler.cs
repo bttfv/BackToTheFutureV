@@ -136,10 +136,10 @@ namespace BackToTheFutureV
 
         private void OnReenterEnded()
         {
-            if (Driver == FusionUtils.PlayerPed)
+            /*if (Driver == FusionUtils.PlayerPed)
             {
                 RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
-            }
+            }*/
 
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
@@ -168,8 +168,6 @@ namespace BackToTheFutureV
 
             if (Properties.HasBeenStruckByLightning)
             {
-                Events.SetSIDLedsState?.Invoke(true, true);
-
                 Properties.HasBeenStruckByLightning = false;
 
                 Properties.PhotoFluxCapacitorActive = false;

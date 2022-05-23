@@ -244,7 +244,10 @@ namespace BackToTheFutureV
             }
             else
             {
+                if (FusionUtils.PlayerPed.IsInVehicle(Vehicle))
+                {
                 TextHandler.Me.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
+            }
             }
 
             if (Properties.IsFlying && !instant)
@@ -276,7 +279,7 @@ namespace BackToTheFutureV
 
             if (!Properties.IsLanding && !Properties.IsFlying)
             {
-                Decorators.TorqueMultiplier = 1.4f;
+                Decorators.TorqueMultiplier = 2f;
             }
 
             if (!Properties.IsFlying && Properties.IsAltitudeHolding)
@@ -307,6 +310,11 @@ namespace BackToTheFutureV
             if (Mods.HoverUnderbody == ModState.Off)
             {
                 return;
+            }
+
+            if (FusionUtils.CurrentTime.Year >= 2015 && Properties.IsFlying)
+            {
+                Function.Call(Hash.SUPPRESS_SHOCKING_EVENTS_NEXT_FRAME);
             }
 
             // Automatically fold wheels in if fly mode is exited in any other way
@@ -371,7 +379,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Properties.HasBeenStruckByLightning || (ModSettings.TurbulenceEvent && (World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)))
+            if (Properties.HasBeenStruckByLightning || (ModSettings.TurbulenceEvent))
             {
                 if (Game.GameTime > _nextForce)
                 {
@@ -379,12 +387,12 @@ namespace BackToTheFutureV
 
                     switch (World.Weather)
                     {
-                        case Weather.Clearing:
+                        /*case Weather.Clearing:
                             _force = 0.5f;
                             break;
                         case Weather.Raining:
                             _force = 0.75f;
-                            break;
+                            break;*/
                         case Weather.ThunderStorm:
                         case Weather.Blizzard:
                             _force = 1;

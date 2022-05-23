@@ -1,7 +1,6 @@
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using KlangRageAudioLibrary;
 using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
@@ -24,8 +23,6 @@ namespace BackToTheFutureV
         private float _lightsBrightness;
 
         private readonly int _deloreanMaxFuelLevel = 65;
-
-        private AudioPlayer _headHorn;
 
         public StarterHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -197,9 +194,7 @@ namespace BackToTheFutureV
                     {
                         if (Game.IsControlPressed(GTA.Control.VehicleDuck))
                         {
-                            _headHorn = Sounds.AudioEngine.Create("general/horn.wav", Presets.Exterior);
-                            _headHorn.Volume = 0.5f;
-                            _headHorn.Play();
+                            Sounds.HeadHorn?.Play();
                         }
                         Stop();
                         Vehicle.FuelLevel = _deloreanMaxFuelLevel;
@@ -210,9 +205,7 @@ namespace BackToTheFutureV
 
                     if (Properties.BlockEngineRecover && Properties.PhotoEngineStallActive && FusionUtils.CurrentTime == Properties.AlarmTime.AddSeconds(+11) && (Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)))
                     {
-                        _headHorn = Sounds.AudioEngine.Create("general/horn.wav", Presets.Exterior);
-                        _headHorn.Volume = 0.5f;
-                        _headHorn.Play();
+                        Sounds.HeadHorn?.Play();
                         Stop();
                         Vehicle.FuelLevel = _deloreanMaxFuelLevel;
                         Vehicle.IsEngineRunning = true;

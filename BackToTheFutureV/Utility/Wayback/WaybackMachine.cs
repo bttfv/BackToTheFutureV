@@ -1,9 +1,11 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -179,6 +181,15 @@ namespace BackToTheFutureV
 
         private void Play()
         {
+            if ((Ped.NotNullAndExists() && Ped.IsDead && ModSettings.TimeParadox) || (Ped.NotNullAndExists() && Ped.LastVehicle.NotNullAndExists() && Ped.LastVehicle.IsConsideredDestroyed && ModSettings.TimeParadox))
+            {
+                FusionUtils.PlayerPed.Kill();
+                WaybackSystem.Paradox = true;
+                WaybackSystem.paradoxDelay = Game.GameTime + 3600;
+                ScreenFade.FadeOut(8000, 1000, 0);
+                WaybackSystem.Abort();
+            }
+
             if (!Ped.ExistsAndAlive())
             {
                 return;
@@ -188,6 +199,25 @@ namespace BackToTheFutureV
             {
                 Ped?.Task.ClearAllImmediately();
                 Ped = CurrentRecord.Spawn(NextRecord);
+            }
+
+            if (!CurrentRecord.Ped.Replica.Components.OfType<int>().SequenceEqual(PreviousRecord.Ped.Replica.Components.OfType<int>()) || !CurrentRecord.Ped.Replica.Props.OfType<int>().SequenceEqual(PreviousRecord.Ped.Replica.Props.OfType<int>()))
+            {
+                for (int x = 0; x <= 11; x++)
+                {
+                    Function.Call(Hash.SET_PED_COMPONENT_VARIATION, Ped, x, CurrentRecord.Ped.Replica.Components[x, 0], CurrentRecord.Ped.Replica.Components[x, 1], CurrentRecord.Ped.Replica.Components[x, 2]);
+                }
+                for (int x = 0; x <= 4; x++)
+                {
+                    if (x <= 2)
+                    {
+                        Function.Call(Hash.SET_PED_PROP_INDEX, Ped, x, CurrentRecord.Ped.Replica.Props[x, 0], CurrentRecord.Ped.Replica.Props[x, 1], true);
+                    }
+                    else
+                    {
+                        Function.Call(Hash.SET_PED_PROP_INDEX, Ped, x + 3, CurrentRecord.Ped.Replica.Props[x, 0], CurrentRecord.Ped.Replica.Props[x, 1], true);
+                    }
+                }
             }
 
             CurrentRecord.Apply(Ped, NextRecord);

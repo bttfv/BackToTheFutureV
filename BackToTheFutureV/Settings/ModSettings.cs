@@ -44,6 +44,7 @@ namespace BackToTheFutureV
         public static bool WaybackSystem { get; set; } = false;
         public static bool RealTime { get; set; } = false;
         public static bool YearTraffic { get; set; } = false;
+        public static bool TimeParadox { get; set; } = true;
 
         private static ScriptSettings settings;
         private static readonly CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
@@ -105,6 +106,7 @@ namespace BackToTheFutureV
             InfiniteFuel = settings.GetValue("General", "InfiniteFuel", InfiniteFuel);
             PersistenceSystem = settings.GetValue("General", "PersistenceSystem", PersistenceSystem);
             WaybackSystem = settings.GetValue("General", "WaybackSystem", WaybackSystem);
+            TimeParadox = settings.GetValue("General", "TimeParadox", TimeParadox);
             RandomTrains = settings.GetValue("General", "RandomTrains", RandomTrains);
             RealTime = settings.GetValue("General", "RealTime", RealTime);
             YearTraffic = settings.GetValue("General", "YearTraffic", YearTraffic);
@@ -151,6 +153,7 @@ namespace BackToTheFutureV
 
             settings.SetValue("General", "PersistenceSystem", PersistenceSystem);
             settings.SetValue("General", "WaybackSystem", WaybackSystem);
+            settings.SetValue("General", "TimeParadox", TimeParadox);
             settings.SetValue("General", "InfiniteFuel", InfiniteFuel);
             settings.SetValue("General", "CinematicSpawn", CinematicSpawn);
             settings.SetValue("General", "RandomTrains", RandomTrains);

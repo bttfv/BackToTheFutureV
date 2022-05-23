@@ -81,23 +81,31 @@ namespace BackToTheFutureV
             switch (reenterType)
             {
                 case ReenterType.Normal:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry | SpawnFlags.NoOccupants);
                     TimeMachine.Properties.DestinationTime = TimeMachineClone.Properties.DestinationTime;
-                    TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    //TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     break;
                 case ReenterType.Forced:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
-                    TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry | SpawnFlags.NoOccupants);
+                    //TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     break;
                 case ReenterType.Spawn:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity);
-                    TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants);
+                    //TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     if (!TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12)
                     {
                         TimeMachine.Properties.ReactorCharge--;
+                    }
+
+                    if (TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12 && TimeMachine.Properties.IsFlying)
+                    {
+                        TimeMachine.Properties.AreTimeCircuitsOn = false;
+                        TimeMachine.Properties.AreFlyingCircuitsBroken = true;
+                        TimeMachine.Properties.AreTimeCircuitsBroken = true;
+                        TimeMachine.Properties.HasBeenStruckByLightning = false;
                     }
 
                     TimeMachine.Events.OnVehicleSpawned?.Invoke();

@@ -143,6 +143,7 @@ namespace BackToTheFutureV
             Clone.BlockPermanentEvents = true;
             Clone.AlwaysKeepTask = true;
             Clone.IsVisible = false;
+            Clone.IsExplosionProof = true;
 
             _blip = TimeMachine.OriginalPed.AddBlip();
             _blip.Sprite = (BlipSprite)480;
@@ -307,7 +308,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (TimeMachine.OriginalPed.HasCollided)
+            if (TimeMachine.OriginalPed.HasCollided || TimeMachine.Vehicle.Health <= 100 || Clone.Health <= 100 || TimeMachine.Vehicle.IsConsideredDestroyed || TimeMachine.Vehicle.IsDead)
             {
                 RemoteTimeMachineHandler.StopRemoteControl();
                 return;

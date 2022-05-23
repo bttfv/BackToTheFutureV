@@ -123,6 +123,11 @@ namespace BackToTheFutureV
                     timeMachine.Properties.ReactorCharge = 0;
                 }
 
+                if (spawnBTTF.SelectedIndex == 4)
+                {
+                    timeMachine.Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.2f;
+                }
+
                 if (spawnBTTF.SelectedIndex == 5)
                 {
                     timeMachine.Mods.Wheel = WheelType.RailroadInvisible;
@@ -181,6 +186,24 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
+            if (RemoteTimeMachineHandler.IsRemoteOn && Items.Contains(deleteAll))
+            {
+                Remove(deleteCurrent);
+                Remove(deleteOthers);
+                Remove(deleteAll);
+            }
+            else if (!Items.Contains(deleteAll) && !Items.Contains(spawnBTTF))
+            {
+                Add(2, deleteCurrent);
+                Add(3, deleteOthers);
+                Add(4, deleteAll);
+            }
+            else if (!Items.Contains(deleteAll) && Items.Contains(spawnBTTF))
+            {
+                Add(6, deleteCurrent);
+                Add(7, deleteOthers);
+                Add(8, deleteAll);
+            }
             if (!MenuHandler.UnlockSpawnMenu)
             {
                 Remove(spawnBTTF);

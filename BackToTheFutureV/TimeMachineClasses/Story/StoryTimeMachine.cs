@@ -25,8 +25,14 @@ namespace BackToTheFutureV
         public TimeMachine TimeMachine { get; private set; }
         public bool Spawned => TimeMachine.IsFunctioning();
 
+        public bool FirstTime { get; private set; } = false;
+
         public bool IsUsed { get; private set; }
         public bool WarningMessageShowed { get; private set; }
+
+        private float delaySpawn;
+
+        private bool delaySet;
 
         public StoryTimeMachine(Vector3 position, float heading, WormholeType wormholeType, SpawnFlags spawnFlags, DateTime spawnDate, DateTime deleteDate, bool isInvincible = false, DateTime destinationTime = default, DateTime previousTime = default, bool isOnTracks = false)
         {
@@ -113,36 +119,31 @@ namespace BackToTheFutureV
                         int months = diff.Month - 1;
                         int days = diff.Day - 1;
 
-                        string ret = TextHandler.Me.GetLocalizedText("Buried");
+                        if (years > 1)
+                        {
+                            string ret = TextHandler.Me.GetLocalizedText("Buried");
 
-                        if (years != 0 && months != 0 && days != 0)
-                        {
-                            ret = string.Format(ret, $"{years} {TextHandler.Me.GetLocalizedText("Years")}, {months} {TextHandler.Me.GetLocalizedText("Months")} {TextHandler.Me.GetLocalizedText("And")} {days} {TextHandler.Me.GetLocalizedText("Days")}");
-                        }
-                        else
-                        {
-                            if (years != 0 && months != 0)
+                            if (months != 0 && days != 0)
                             {
-                                ret = string.Format(ret, $"{years} {TextHandler.Me.GetLocalizedText("Years")} {TextHandler.Me.GetLocalizedText("And")} {months} {TextHandler.Me.GetLocalizedText("Months")}");
+                                ret = string.Format(ret, $"{years} {TextHandler.Me.GetLocalizedText("Years")}, {months} {TextHandler.Me.GetLocalizedText("Months")} {TextHandler.Me.GetLocalizedText("And")} {days} {TextHandler.Me.GetLocalizedText("Days")}");
                             }
                             else
                             {
-                                if (years != 0 && days != 0)
+                                if (months != 0)
                                 {
-                                    ret = string.Format(ret, $"{years} {TextHandler.Me.GetLocalizedText("Years")} {TextHandler.Me.GetLocalizedText("And")} {days} {TextHandler.Me.GetLocalizedText("Days")}");
+                                    ret = string.Format(ret, $"{years} {TextHandler.Me.GetLocalizedText("Years")} {TextHandler.Me.GetLocalizedText("And")} {months} {TextHandler.Me.GetLocalizedText("Months")}");
                                 }
                                 else
                                 {
-                                    if (months != 0 && days != 0)
+                                    if (days != 0)
                                     {
-                                        ret = string.Format(ret, $"{months} {TextHandler.Me.GetLocalizedText("Months")} {TextHandler.Me.GetLocalizedText("And")} {days} {TextHandler.Me.GetLocalizedText("Days")}");
+                                        ret = string.Format(ret, $"{years} {TextHandler.Me.GetLocalizedText("Years")} {TextHandler.Me.GetLocalizedText("And")} {days} {TextHandler.Me.GetLocalizedText("Days")}");
                                     }
                                 }
                             }
+                            Screen.ShowSubtitle(ret);
+                            WarningMessageShowed = true;
                         }
-
-                        Screen.ShowSubtitle(ret);
-                        WarningMessageShowed = true;
                     }
                 }
                 else if (!TimeMachine.Properties.Story)
@@ -165,9 +166,26 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Exists(FusionUtils.CurrentTime) && !Spawned)
+            if (Exists(FusionUtils.CurrentTime) && !Spawned && !FirstTime)
             {
                 Spawn();
+                FirstTime = true;
+                return;
+            }
+
+            if (Exists(FusionUtils.CurrentTime) && !Spawned && FirstTime)
+            {
+                if (!delaySet)
+                {
+                    delaySpawn = Game.GameTime + 30000;
+                    delaySet = true;
+                }
+                if (Game.GameTime > delaySpawn)
+                {
+                    Spawn();
+                    delaySet = false;
+                }
+
             }
         }
     }

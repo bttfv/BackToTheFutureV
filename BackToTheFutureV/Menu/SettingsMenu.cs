@@ -14,8 +14,10 @@ namespace BackToTheFutureV
         private readonly NativeCheckboxItem InfiniteFuel;
         private readonly NativeCheckboxItem PersistenceSystem;
         private readonly NativeCheckboxItem WaybackSystem;
+        private readonly NativeCheckboxItem TimeParadox;
         private readonly NativeCheckboxItem RandomTrains;
         private readonly NativeCheckboxItem RealTime;
+        private readonly NativeCheckboxItem YearTraffic;
         private readonly NativeCheckboxItem GlowingWormholeEmitter;
         private readonly NativeCheckboxItem GlowingPlutoniumReactor;
 
@@ -28,8 +30,10 @@ namespace BackToTheFutureV
             InfiniteFuel = NewCheckboxItem("InfinityReactor", ModSettings.InfiniteFuel);
             PersistenceSystem = NewCheckboxItem("Persistence", ModSettings.PersistenceSystem);
             WaybackSystem = NewCheckboxItem("Wayback", ModSettings.WaybackSystem);
+            TimeParadox = NewCheckboxItem("TimeParadox", ModSettings.TimeParadox);
             RandomTrains = NewCheckboxItem("RandomTrains", ModSettings.RandomTrains);
             RealTime = NewCheckboxItem("RealTime", ModSettings.RealTime);
+            YearTraffic = NewCheckboxItem("YearTraffic", ModSettings.YearTraffic);
             GlowingWormholeEmitter = NewCheckboxItem("GlowingWormhole", ModSettings.GlowingWormholeEmitter);
             GlowingPlutoniumReactor = NewCheckboxItem("GlowingReactor", ModSettings.GlowingPlutoniumReactor);
 
@@ -92,6 +96,16 @@ namespace BackToTheFutureV
                 ModSettings.RealTime = Checked;
 
                 TimeHandler.RealTime = Checked;
+            }
+
+            if (sender == YearTraffic)
+            {
+                ModSettings.YearTraffic = Checked;
+            }
+
+            if (sender == TimeParadox)
+            {
+                ModSettings.TimeParadox = Checked;
             }
 
             if (sender == GlowingWormholeEmitter)
