@@ -413,6 +413,7 @@ namespace BackToTheFutureV
                     if (Mods.Hoodbox == ModState.On)
                     {
                         Mods.Hoodbox = ModState.Off;
+                        Mods.WormholeType = WormholeType.BTTF2;
                     }
                     Properties.AreTimeCircuitsBroken = false;
                 }

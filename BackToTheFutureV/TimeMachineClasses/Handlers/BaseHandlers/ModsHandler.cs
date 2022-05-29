@@ -474,8 +474,6 @@ namespace BackToTheFutureV
                     {
                         TimeMachine.Events.SetTimeCircuits?.Invoke(false);
                     }
-
-                    TimeMachine.Properties.AreHoodboxCircuitsReady = false;
                 }
             }
         }
