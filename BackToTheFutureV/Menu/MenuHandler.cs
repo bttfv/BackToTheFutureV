@@ -98,10 +98,10 @@ namespace BackToTheFutureV
 
                 switch (hash)
                 {
-                    case "aea395fae83369ea0f4db57fac6e565f77fd5b9a204b2799350a053608ffd3bf":
+                    case "c3cca7029c38959a99b7aa57c37f0b05b663fd624a8f7dbc6424e44320b84206":
                         UnlockSpawnMenu = !UnlockSpawnMenu;
                         break;
-                    case "97a2a4ee69af4771b957df0780573f7263dbe46ccd4803300d62916e74f4f947":
+                    case "fbff03e5367d548c10cb18965f950df472a8dc408d003f557ce974ddc2658ade":
                         UnlockPhotoMenu = !UnlockPhotoMenu;
                         break;
                 }

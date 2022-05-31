@@ -9,7 +9,7 @@ namespace BackToTheFutureV
     {
         private readonly NativeCheckboxItem cinematicSpawn;
         private readonly NativeCheckboxItem useInputToggle;
-        private readonly NativeCheckboxItem forceFlyMode;
+        //private readonly NativeCheckboxItem forceFlyMode;
         private readonly NativeCheckboxItem LandingSystem;
         private readonly NativeCheckboxItem InfiniteFuel;
         private readonly NativeCheckboxItem PersistenceSystem;
@@ -25,7 +25,7 @@ namespace BackToTheFutureV
         {
             cinematicSpawn = NewCheckboxItem("CinematicSpawn", ModSettings.CinematicSpawn);
             useInputToggle = NewCheckboxItem("InputToggle", ModSettings.UseInputToggle);
-            forceFlyMode = NewCheckboxItem("ForceFly", ModSettings.ForceFlyMode);
+            //forceFlyMode = NewCheckboxItem("ForceFly", ModSettings.ForceFlyMode);
             LandingSystem = NewCheckboxItem("LandingSystem", ModSettings.LandingSystem);
             InfiniteFuel = NewCheckboxItem("InfinityReactor", ModSettings.InfiniteFuel);
             PersistenceSystem = NewCheckboxItem("Persistence", ModSettings.PersistenceSystem);
@@ -69,10 +69,10 @@ namespace BackToTheFutureV
                 ModSettings.UseInputToggle = Checked;
             }
 
-            if (sender == forceFlyMode)
+            /*if (sender == forceFlyMode)
             {
                 ModSettings.ForceFlyMode = Checked;
-            }
+            }*/
 
             if (sender == LandingSystem)
             {

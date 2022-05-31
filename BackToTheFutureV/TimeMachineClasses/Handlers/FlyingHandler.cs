@@ -23,6 +23,8 @@ namespace BackToTheFutureV
 
         private bool _startHoverGlowLater;
 
+        private int _initialUp;
+
         private bool _landingSmoke;
 
         private Vector3 _forceToBeApplied = Vector3.Zero;
@@ -134,6 +136,7 @@ namespace BackToTheFutureV
                 if (!_startHoverGlowLater)
                 {
                     SpawnHoverGlow();
+                    _initialUp = Game.GameTime + 900;
                 }
             }
         }
@@ -446,6 +449,12 @@ namespace BackToTheFutureV
             // Reset force to be applied
             _forceToBeApplied = Vector3.Zero;
 
+            //Provide initial upwards thrust to match prop and sound on hover mode entry, unless player is already trying to fly up/forward
+            if (!Game.IsControlPressed(Control.VehicleFlyThrottleUp) && Game.GameTime < _initialUp)
+            {
+                _forceToBeApplied.Z = 0.2f;
+            }
+
             if (Vehicle.IsEngineRunning && !Players.HoverModeWheels.IsPlaying)
             {
                 // Process boost
@@ -505,7 +514,7 @@ namespace BackToTheFutureV
                 }
 
                 // Boost!
-                if (Vehicle.GetMPHSpeed() <= 95)
+                if (Vehicle.GetMPHSpeed() <= 120)
                 {
                     Boost();
                 }
