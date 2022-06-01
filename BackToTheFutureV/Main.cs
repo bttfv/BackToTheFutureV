@@ -71,76 +71,83 @@ namespace BackToTheFutureV
 
         private unsafe void Main_Tick(object sender, EventArgs e)
         {
-            if (Game.IsLoading || FusionUtils.FirstTick)
+            if (Game.Version >= GameVersion.v1_0_2372_0_NoSteam || Game.Version >= GameVersion.v1_0_2372_0_Steam)
             {
-                return;
-            }
-
-            if (FirstTick)
-            {
-                Screen.ShowHelpText("BackToTheFutureV loading...", 3000);
-
-                ResetPed = new PedReplica(FusionUtils.PlayerPed);
-
-                ModelHandler.RequestModels();
-
-                //Disable fake shake of the cars.
-                Function.Call(Hash._​SET_​CAR_​HIGH_​SPEED_​BUMP_​SEVERITY_​MULTIPLIER, 0);
-
-                if (ModSettings.PersistenceSystem)
+                if (Game.IsLoading || FusionUtils.FirstTick)
                 {
-                    TimeMachineHandler.Load();
-                    RemoteTimeMachineHandler.Load();
+                    return;
                 }
 
-                FusionUtils.RandomTrains = ModSettings.RandomTrains;
-                TimeHandler.RealTime = ModSettings.RealTime;
-                TimeHandler.TrafficVolumeYearBased = ModSettings.YearTraffic;
-
-                DecoratorsHandler.Register();
-                WeatherHandler.Register();
-            }
-
-            if (!FirstTick)
-            {
-                WaybackSystem.Tick();
-            }
-
-            CustomTrainHandler.Tick();
-            DMC12Handler.Tick();
-            TimeMachineHandler.Tick();
-            RemoteTimeMachineHandler.Tick();
-            FireTrailsHandler.Tick();
-            TcdEditer.Tick();
-            RCGUIEditer.Tick();
-            MissionHandler.Tick();
-            StoryTimeMachineHandler.Tick();
-            MenuHandler.Tick();
-            TrashHandler.Tick();
-            GarageHandler.Tick();
-            WeatherHandler.Tick();
-
-            if (FirstTick)
-            {
-                ResetDate = FusionUtils.CurrentTime;
-                WaybackSystem.Tick();
-
-                TrafficHandler.ModelSwaps.Add(new ModelSwap
+                if (FirstTick)
                 {
-                    Enabled = true,
-                    Model = ModelHandler.DMC12,
-                    VehicleType = VehicleType.Automobile,
-                    VehicleClass = VehicleClass.Sports,
-                    DateBased = true,
-                    StartProductionDate = new DateTime(1981, 1, 21, 0, 0, 0),
-                    EndProductionDate = new DateTime(1982, 12, 24, 23, 59, 59),
-                    MaxInWorld = 25,
-                    MaxSpawned = 3,
-                    WaitBetweenSpawns = 10000
-                });
+                    Screen.ShowHelpText("BackToTheFutureV loading...", 3000);
 
-                Screen.ShowHelpText("BackToTheFutureV loaded correctly.", 3000);
-                FirstTick = false;
+                    ResetPed = new PedReplica(FusionUtils.PlayerPed);
+
+                    ModelHandler.RequestModels();
+
+                    //Disable fake shake of the cars.
+                    Function.Call(Hash._​SET_​CAR_​HIGH_​SPEED_​BUMP_​SEVERITY_​MULTIPLIER, 0);
+
+                    if (ModSettings.PersistenceSystem)
+                    {
+                        TimeMachineHandler.Load();
+                        RemoteTimeMachineHandler.Load();
+                    }
+
+                    FusionUtils.RandomTrains = ModSettings.RandomTrains;
+                    TimeHandler.RealTime = ModSettings.RealTime;
+                    TimeHandler.TrafficVolumeYearBased = ModSettings.YearTraffic;
+
+                    DecoratorsHandler.Register();
+                    WeatherHandler.Register();
+                }
+
+                if (!FirstTick)
+                {
+                    WaybackSystem.Tick();
+                }
+
+                CustomTrainHandler.Tick();
+                DMC12Handler.Tick();
+                TimeMachineHandler.Tick();
+                RemoteTimeMachineHandler.Tick();
+                FireTrailsHandler.Tick();
+                TcdEditer.Tick();
+                RCGUIEditer.Tick();
+                MissionHandler.Tick();
+                StoryTimeMachineHandler.Tick();
+                MenuHandler.Tick();
+                TrashHandler.Tick();
+                GarageHandler.Tick();
+                WeatherHandler.Tick();
+
+                if (FirstTick)
+                {
+                    ResetDate = FusionUtils.CurrentTime;
+                    WaybackSystem.Tick();
+
+                    TrafficHandler.ModelSwaps.Add(new ModelSwap
+                    {
+                        Enabled = true,
+                        Model = ModelHandler.DMC12,
+                        VehicleType = VehicleType.Automobile,
+                        VehicleClass = VehicleClass.Sports,
+                        DateBased = true,
+                        StartProductionDate = new DateTime(1981, 1, 21, 0, 0, 0),
+                        EndProductionDate = new DateTime(1982, 12, 24, 23, 59, 59),
+                        MaxInWorld = 25,
+                        MaxSpawned = 3,
+                        WaitBetweenSpawns = 10000
+                    });
+
+                    Screen.ShowHelpText("BackToTheFutureV loaded correctly.", 3000);
+                    FirstTick = false;
+                }
+            }
+            else
+            {
+                Screen.ShowHelpText("~r~ERROR:~s~ ~y~BackToTheFutureV~s~ is ~o~not~s~ compatible with the currently installed version of the GTAV.~n~Please ~b~update~s~ your game to version ~g~2372~s~ or newer.", 100);
             }
         }
     }

@@ -362,8 +362,16 @@ namespace BackToTheFutureV
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
+                        if (Mods.Hook == HookState.On || Mods.Hook == HookState.OnDoor)
+                        {
+                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1H");
+                            Blip.Color = BlipColor.NetPlayer20;
+                        }
+                        else
+                        {
                         Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1");
                         Blip.Color = BlipColor.NetPlayer22;
+                        }
                         break;
 
                     case WormholeType.BTTF2:
