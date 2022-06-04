@@ -1,4 +1,4 @@
-﻿using FusionLibrary;
+using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
@@ -99,7 +99,7 @@ namespace BackToTheFutureV
 
         public void Start(bool force = false)
         {
-            if (!force && !Vehicle.IsOnAllWheels)
+            if ((!force && !Vehicle.IsOnAllWheels) || Vehicle == FusionUtils.PlayerVehicle.TowedVehicle)
             {
                 return;
             }
@@ -190,7 +190,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Properties.IsOnTracks && customTrain == null)
+            if (Properties.IsOnTracks && ((customTrain == null) || (FusionUtils.PlayerVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.TowedVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.TowedVehicle == Vehicle && !Vehicle.IsOnAllWheels)))
             {
                 Stop();
             }
@@ -223,7 +223,7 @@ namespace BackToTheFutureV
 
                 Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.TankerCarModel);
 
-                if (Vehicle.IsVisible && _train != null && Vehicle.IsTouching(_train))
+               if (Vehicle.IsVisible && _train != null && Vehicle.IsTouching(_train))
                 {
                     Stop();
 
