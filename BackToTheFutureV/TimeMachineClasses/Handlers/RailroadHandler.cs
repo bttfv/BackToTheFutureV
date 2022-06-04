@@ -223,7 +223,7 @@ namespace BackToTheFutureV
 
                 Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.TankerCarModel);
 
-               if (Vehicle.IsVisible && _train != null && Vehicle.IsTouching(_train))
+                if (Vehicle.IsVisible && _train != null && Vehicle.IsTouching(_train))
                 {
                     Stop();
 
