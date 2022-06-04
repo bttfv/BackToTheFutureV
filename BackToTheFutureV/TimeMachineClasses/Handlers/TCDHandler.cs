@@ -360,18 +360,18 @@ namespace BackToTheFutureV
 
                 if (Properties.AreTimeCircuitsOn == true)
                 {
-                if (Vehicle.Health < 991)
-                {
-                    if (FusionUtils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 920 ? 920 : Vehicle.Health)))
+                    if (Vehicle.Health < 991)
                     {
-                        StartTimeCircuitsGlitch(false);
+                        if (FusionUtils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 920 ? 920 : Vehicle.Health)))
+                        {
+                            StartTimeCircuitsGlitch(false);
+                        }
                     }
-                }
-                else if (Properties.TimeTravelsCount > 4)
-                {
-                    if (FusionUtils.Random.NextDouble() < 0.25f)
+                    else if (Properties.TimeTravelsCount > 4)
                     {
-                        StartTimeCircuitsGlitch(true);
+                        if (FusionUtils.Random.NextDouble() < 0.25f)
+                        {
+                            StartTimeCircuitsGlitch(true);
                         }
                     }
                 }

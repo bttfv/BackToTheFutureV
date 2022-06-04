@@ -1,4 +1,4 @@
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
 using GTA;
@@ -249,8 +249,8 @@ namespace BackToTheFutureV
             {
                 if (FusionUtils.PlayerPed.IsInVehicle(Vehicle))
                 {
-                TextHandler.Me.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
-            }
+                    TextHandler.Me.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
+                }
             }
 
             if (Properties.IsFlying && !instant)

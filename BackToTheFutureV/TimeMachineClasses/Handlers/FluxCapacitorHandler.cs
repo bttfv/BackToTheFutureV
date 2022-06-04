@@ -49,9 +49,9 @@ namespace BackToTheFutureV
             }
             else
             {
-            ScaleformsHandler.FluxCapacitor.CallFunction("START_BLUE_ANIMATION");
-            Properties.IsFluxDoingBlueAnim = true;
-        }
+                ScaleformsHandler.FluxCapacitor.CallFunction("START_BLUE_ANIMATION");
+                Properties.IsFluxDoingBlueAnim = true;
+            }
         }
 
         public void StartNormalFluxing()

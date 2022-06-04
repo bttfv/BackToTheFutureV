@@ -296,8 +296,8 @@ namespace BackToTheFutureV
                     if (Vehicle.IsVisible)
                     {
                         TimeMachine.Props?.RRWheels?.SpawnProp();
-                    Wheels.Burst = true;
-					}
+                        Wheels.Burst = true;
+                    }
                 }
                 else
                 {

@@ -369,8 +369,8 @@ namespace BackToTheFutureV
                         }
                         else
                         {
-                        Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1");
-                        Blip.Color = BlipColor.NetPlayer22;
+                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1");
+                            Blip.Color = BlipColor.NetPlayer22;
                         }
                         break;
 

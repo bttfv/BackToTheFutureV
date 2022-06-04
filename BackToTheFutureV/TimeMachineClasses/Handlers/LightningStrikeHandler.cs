@@ -104,11 +104,11 @@ namespace BackToTheFutureV
                 }
                 else
                 {
-                Events.OnSparksEnded?.Invoke(_instant ? 250 : 2000);
-                TimeMachineClone timeMachineClone = TimeMachine.Clone();
+                    Events.OnSparksEnded?.Invoke(_instant ? 250 : 2000);
+                    TimeMachineClone timeMachineClone = TimeMachine.Clone();
                     timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears((FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year)*2);
-                timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
-                RemoteTimeMachineHandler.AddRemote(timeMachineClone);
+                    timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
+                    RemoteTimeMachineHandler.AddRemote(timeMachineClone);
                 }
 
                 Events.OnLightningStrike?.Invoke();

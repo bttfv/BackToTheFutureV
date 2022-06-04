@@ -56,13 +56,13 @@ namespace BackToTheFutureV
         public static List<CustomModel> Lightnings = new List<CustomModel>() { new CustomModel("bolt_m0"), new CustomModel("bolt_m1"), new CustomModel("bolt_m2") };
         public static List<CustomModel> LightningsOnCar = new List<CustomModel>();
         public static CustomModel SID = new CustomModel("bttf_sid");
-        public static CustomModel BulovaClockHour = new CustomModel("clock_hour");
-        public static CustomModel BulovaClockMinute = new CustomModel("clock_minute");
-        public static CustomModel BulovaClockRing = new CustomModel("clock_ring");
         public static CustomModel SpeedoCover = new CustomModel("bttf_interior_speedo_cover");
 
         // BTTF1 CustomModels
         public static CustomModel BTTFReactorCap = new CustomModel("bttf_reactorcap");
+        public static CustomModel BulovaClockHour = new CustomModel("clock_hour");
+        public static CustomModel BulovaClockMinute = new CustomModel("clock_minute");
+        public static CustomModel BulovaClockRing = new CustomModel("clock_ring");
 
         // BTTF2 CustomModels
         public static CustomModel Strut = new CustomModel("bttf2_strut");

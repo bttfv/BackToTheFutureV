@@ -52,15 +52,15 @@ namespace BackToTheFutureV
         }
 
         private static void ClearPersistent()
-            {
+        {
             Function.Call(Hash.CLEAR_OVERRIDE_WEATHER);
             Function.Call(Hash.CLEAR_WEATHER_TYPE_PERSIST);
-            }
+        }
 
         private static void SetPersistent()
-            {
+        {
             Function.Call(Hash.SET_WEATHER_TYPE_PERSIST, World.Weather.ToString());
-            }
+        }
 
         public static void Tick()
         {
@@ -73,7 +73,7 @@ namespace BackToTheFutureV
                 for (int x = 0; x <= 39; x++)
                 {
                     if (MomentReplica.MomentReplicas[x].IsNow())
-            {
+                    {
                         MomentReplica.MomentReplicas[x].Apply();
                         SetPersistent();
                     }

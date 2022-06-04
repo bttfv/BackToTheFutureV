@@ -139,7 +139,7 @@ namespace BackToTheFutureV
                 _gaugeNeedle2.On = true;
                 if (Properties.IsFueled)
                 {
-                _gaugeNeedle3.On = true;
+                    _gaugeNeedle3.On = true;
                 }
 
                 Props.GaugeGlow?.SpawnProp();
