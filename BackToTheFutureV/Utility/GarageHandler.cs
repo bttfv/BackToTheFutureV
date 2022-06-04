@@ -1,4 +1,4 @@
-﻿using FusionLibrary;
+using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
@@ -245,7 +245,7 @@ namespace BackToTheFutureV
                     case GarageStatus.Idle:
                         GTA.UI.Screen.ShowHelpTextThisFrame("Press ~INPUT_CONTEXT~ to open garage menu.");
 
-                        if (Game.IsControlJustPressed(Control.Context) && !Vehicle.IsEngineStarting && Vehicle.IsEngineRunning)
+                        if (Game.IsControlJustPressed(Control.Context) && ((!Vehicle.IsEngineStarting && Vehicle.IsEngineRunning) || (Vehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged)))
                         {
                             FusionUtils.HideGUI = true;
 
