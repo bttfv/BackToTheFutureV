@@ -322,6 +322,11 @@ namespace BackToTheFutureV
                     }
                 }
 
+                if (TimeMachine.Mods.SuspensionsType != value)
+                {
+                    Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.3f;
+                }
+
                 base.SuspensionsType = value;
 
                 if (!IsDMC12)

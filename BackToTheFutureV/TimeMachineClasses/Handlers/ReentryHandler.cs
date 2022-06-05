@@ -136,10 +136,11 @@ namespace BackToTheFutureV
 
         private void OnReenterEnded()
         {
-            /*if (Driver == FusionUtils.PlayerPed)
+            if (Driver == FusionUtils.PlayerPed && ModSettings.WaybackSystem)
             {
+                TimeMachine.LastDisplacementClone.Properties.IsWayback = true;
                 RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
-            }*/
+            }
 
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 

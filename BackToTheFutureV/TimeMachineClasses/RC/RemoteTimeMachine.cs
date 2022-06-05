@@ -48,7 +48,7 @@ namespace BackToTheFutureV
 
             if ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-45), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-3)))
             {
-                if (!_hasPlayedWarningSound)
+                if (!_hasPlayedWarningSound && !TimeMachineClone.Properties.IsWayback && !TimeMachine.Properties.HasBeenStruckByLightning)
                 {
                     if (!FusionUtils.PlayerPed.IsInVehicle())
                     {
@@ -81,7 +81,7 @@ namespace BackToTheFutureV
             switch (reenterType)
             {
                 case ReenterType.Normal:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry | SpawnFlags.NoOccupants);
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
                     TimeMachine.Properties.DestinationTime = TimeMachineClone.Properties.DestinationTime;
                     //TimeMachine.LastDisplacementClone = TimeMachineClone;
 
@@ -119,7 +119,7 @@ namespace BackToTheFutureV
 
         public void ExistenceCheck(DateTime time)
         {
-            if (TimeMachineClone.Properties.DestinationTime < time && !Spawned)
+            if (TimeMachineClone.Properties.DestinationTime < time && !TimeMachineClone.Properties.IsWayback && !Spawned)
             {
                 Spawn(ReenterType.Spawn);
             }

@@ -429,10 +429,6 @@ namespace BackToTheFutureV
                 {
                     Mods.Hoodbox = ModState.On;
                 }
-                else
-                {
-
-                }
 
                 return !Properties.AreTimeCircuitsBroken || Mods.Hoodbox == ModState.On;
             }
@@ -442,10 +438,6 @@ namespace BackToTheFutureV
                 if (FusionUtils.CurrentTime.Year >= 2015)
                 {
                     Properties.AreFlyingCircuitsBroken = false;
-                }
-                else
-                {
-
                 }
 
                 return !Properties.AreFlyingCircuitsBroken;

@@ -251,75 +251,75 @@ namespace BackToTheFutureV
                     Function.Call(Hash.SET_PED_POPULATION_BUDGET, 0);
                 }
 
-            Vector3 leftRope = LeftStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
-            Vector3 rightRope = RightStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
+                Vector3 leftRope = LeftStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
+                Vector3 rightRope = RightStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
 
-            float distance = leftRope.DistanceTo(rightRope);
+                float distance = leftRope.DistanceTo(rightRope);
 
-            StreetRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(rightRope).DirectionToRotation(0), distance, distance, false);
-            StreetRope.Connect(LeftStreetPole, leftRope, RightStreetPole, rightRope, distance);
+                StreetRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(rightRope).DirectionToRotation(0), distance, distance, false);
+                StreetRope.Connect(LeftStreetPole, leftRope, RightStreetPole, rightRope, distance);
 
-            distance = leftRope.DistanceTo(polePosition);
+                distance = leftRope.DistanceTo(polePosition);
 
-            MastRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(polePosition).DirectionToRotation(0), distance, distance, false);
-            MastRope.Connect(LeftStreetPole, leftRope, Mast, polePosition, distance);
+                MastRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(polePosition).DirectionToRotation(0), distance, distance, false);
+                MastRope.Connect(LeftStreetPole, leftRope, Mast, polePosition, distance);
 
-            Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true, IsSequenceLooped = true };
-            foreach (CustomModel x in ModelHandler.Lightnings)
-            {
-                Lightnings.Add(new AnimateProp(x, Pole, lightningOffset, Vector3.Zero));
-            }
+                Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true, IsSequenceLooped = true };
+                foreach (CustomModel x in ModelHandler.Lightnings)
+                {
+                    Lightnings.Add(new AnimateProp(x, Pole, lightningOffset, Vector3.Zero));
+                }
 
-            Spark = new ParticlePlayer("core", "ent_brk_sparking_wires_sp", ParticleType.ForceLooped, Pole, Vector3.Zero, Vector3.Zero, 8f) { Interval = 500 };
+                Spark = new ParticlePlayer("core", "ent_brk_sparking_wires_sp", ParticleType.ForceLooped, Pole, Vector3.Zero, Vector3.Zero, 8f) { Interval = 500 };
 
-            CustomCamera.Add(RightStreetPole, new Vector3(11.93889f, 11.07275f, 4.756693f), new Vector3(11.65637f, 10.13232f, 4.56657f), 64);
+                CustomCamera.Add(RightStreetPole, new Vector3(11.93889f, 11.07275f, 4.756693f), new Vector3(11.65637f, 10.13232f, 4.56657f), 64);
 
-            Thunder = Main.CommonAudioEngine.Create("general/thunder.wav", Presets.No3D);
+                Thunder = Main.CommonAudioEngine.Create("general/thunder.wav", Presets.No3D);
 
-            Vector3 curPos = polePosition;
+                Vector3 curPos = polePosition;
 
-            sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
-
-            do
-            {
-                curPos += curPos.GetDirectionTo(leftRope) * 0.25f;
                 sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
-            } while (curPos.DistanceTo(leftRope) > 0.1f);
 
-            do
-            {
-                curPos += curPos.GetDirectionTo(rightRope) * 0.25f;
-                sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
-            } while (curPos.DistanceTo(rightRope) > 0.1f);
+                do
+                {
+                    curPos += curPos.GetDirectionTo(leftRope) * 0.25f;
+                    sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
+                } while (curPos.DistanceTo(leftRope) > 0.1f);
 
-            sparkRope.UseFrameTimeHelper = true;
+                do
+                {
+                    curPos += curPos.GetDirectionTo(rightRope) * 0.25f;
+                    sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
+                } while (curPos.DistanceTo(rightRope) > 0.1f);
 
-            curPos = polePosition.GetSingleOffset(Coordinate.Z, -0.1f);
+                sparkRope.UseFrameTimeHelper = true;
 
-            leftRope = leftRope.GetSingleOffset(Coordinate.Z, -0.1f);
-            rightRope = rightRope.GetSingleOffset(Coordinate.Z, -0.1f);
+                curPos = polePosition.GetSingleOffset(Coordinate.Z, -0.1f);
 
-            fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, curPos.GetDirectionTo(leftRope).DirectionToRotation(0), 0.4f);
+                leftRope = leftRope.GetSingleOffset(Coordinate.Z, -0.1f);
+                rightRope = rightRope.GetSingleOffset(Coordinate.Z, -0.1f);
 
-            do
-            {
-                curPos += curPos.GetDirectionTo(leftRope) * 0.5f;
                 fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, curPos.GetDirectionTo(leftRope).DirectionToRotation(0), 0.4f);
-            } while (curPos.DistanceTo(leftRope) > 0.1f);
 
-            do
-            {
-                curPos += curPos.GetDirectionTo(rightRope) * 0.5f;
-                fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, rightRope.GetDirectionTo(curPos).DirectionToRotation(0), 0.4f);
-            } while (curPos.DistanceTo(rightRope) > 0.1f);
+                do
+                {
+                    curPos += curPos.GetDirectionTo(leftRope) * 0.5f;
+                    fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, curPos.GetDirectionTo(leftRope).DirectionToRotation(0), 0.4f);
+                } while (curPos.DistanceTo(leftRope) > 0.1f);
 
-            fireRope.SetEvolutionParam("strength", 1);
-            fireRope.SetEvolutionParam("dist", 0);
-            fireRope.SetEvolutionParam("fadein", 0);
+                do
+                {
+                    curPos += curPos.GetDirectionTo(rightRope) * 0.5f;
+                    fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, rightRope.GetDirectionTo(curPos).DirectionToRotation(0), 0.4f);
+                } while (curPos.DistanceTo(rightRope) > 0.1f);
 
-            fireRope.UseFrameTimeHelper = true;
-            fireRope.ChanceOfSpawn = 0.5f;
-        }
+                fireRope.SetEvolutionParam("strength", 1);
+                fireRope.SetEvolutionParam("dist", 0);
+                fireRope.SetEvolutionParam("fadein", 0);
+
+                fireRope.UseFrameTimeHelper = true;
+                fireRope.ChanceOfSpawn = 0.5f;
+            }
             setup = true;
         }
 

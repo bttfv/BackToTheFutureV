@@ -85,8 +85,6 @@ namespace BackToTheFutureV
 
                 DMC12?.SetVoltValue?.Invoke(100);
 
-                WaypointScript.LoadWaypointPosition(true);
-
                 Properties.HasBeenStruckByLightning = true;
 
                 Particles.LightningSparks?.Play();

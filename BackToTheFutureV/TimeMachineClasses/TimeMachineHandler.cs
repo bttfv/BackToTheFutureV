@@ -227,7 +227,7 @@ namespace BackToTheFutureV
 
             if (spawnFlags.HasFlag(SpawnFlags.CheckExists) && timeMachineClone != default)
             {
-                veh = World.GetClosestVehicle(timeMachineClone.Vehicle.Position, 5.0f, timeMachineClone.Vehicle.Model);
+                veh = World.GetClosestVehicle(timeMachineClone.Vehicle.Position, 5f, timeMachineClone.Vehicle.Model);
             }
 
             if (vehicle != default)
@@ -289,19 +289,19 @@ namespace BackToTheFutureV
                 timeMachine.Vehicle.SetVisible(false);
 
                 timeMachine.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
-                if (timeMachine.Mods.Hook == HookState.OnDoor)
+                if (timeMachine.Mods.Hook == HookState.OnDoor && spawnFlags.HasFlag(SpawnFlags.New))
                 {
                     timeMachine.Properties.PreviousTime = new DateTime(1955, 11, 12, 22, 4, 0);
                 }
-                if (timeMachine.Mods.WormholeType == WormholeType.BTTF2)
+                if (timeMachine.Mods.WormholeType == WormholeType.BTTF2 && spawnFlags.HasFlag(SpawnFlags.New))
                 {
                     timeMachine.Properties.PreviousTime = new DateTime(2015, 10, 22, 19, 45, 0);
                 }
-                if (timeMachine.Mods.WormholeType == WormholeType.BTTF3 && timeMachine.Mods.Wheel != WheelType.RailroadInvisible)
+                if (timeMachine.Mods.WormholeType == WormholeType.BTTF3 && timeMachine.Mods.Wheel != WheelType.RailroadInvisible && spawnFlags.HasFlag(SpawnFlags.New))
                 {
                     timeMachine.Properties.PreviousTime = new DateTime(1955, 11, 12, 22, 4, 0);
                 }
-                if (timeMachine.Mods.Wheel == WheelType.RailroadInvisible)
+                if (timeMachine.Mods.Wheel == WheelType.RailroadInvisible && spawnFlags.HasFlag(SpawnFlags.New))
                 {
                     timeMachine.Properties.PreviousTime = new DateTime(1885, 9, 7, 10, 0, 0);
                 }
@@ -310,7 +310,9 @@ namespace BackToTheFutureV
 
                 if (ModSettings.WaybackSystem && spawnFlags.HasFlag(SpawnFlags.New))
                 {
-                    RemoteTimeMachineHandler.AddRemote(timeMachine.Clone());
+                    TimeMachineClone _new = timeMachine.Clone();
+                    _new.Properties.IsWayback = true;
+                    RemoteTimeMachineHandler.AddRemote(_new);
                 }
 
                 timeMachine.Events.OnReenterStarted?.Invoke();
