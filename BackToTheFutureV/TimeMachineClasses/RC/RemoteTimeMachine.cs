@@ -48,7 +48,7 @@ namespace BackToTheFutureV
 
             if ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-45), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-3)))
             {
-                if (!_hasPlayedWarningSound && !TimeMachineClone.Properties.IsWayback && !TimeMachine.Properties.HasBeenStruckByLightning)
+                if (!_hasPlayedWarningSound && !TimeMachineClone.Properties.IsWayback && !TimeMachineClone.Properties.HasBeenStruckByLightning)
                 {
                     if (!FusionUtils.PlayerPed.IsInVehicle())
                     {

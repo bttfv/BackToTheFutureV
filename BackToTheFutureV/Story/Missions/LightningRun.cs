@@ -331,6 +331,7 @@ namespace BackToTheFutureV
             Lightnings?.Delete();
             LeftStreetPole?.Delete();
             RightStreetPole?.Delete();
+            Mast?.Delete();
             Pole?.Delete();
             StreetRope?.Delete();
             MastRope?.Delete();
