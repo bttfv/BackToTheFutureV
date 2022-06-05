@@ -19,6 +19,7 @@ namespace BackToTheFutureV
         private static readonly TimerBarProgress SignalBar;
 
         public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
+        public static List<RemoteTimeMachine> WaybackTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
         public static int RemoteTimeMachineCount => RemoteTimeMachines.Count;
 
         private const int MAX_REMOTE_TIMEMACHINES = 10;
@@ -74,15 +75,27 @@ namespace BackToTheFutureV
 
         public static RemoteTimeMachine AddRemote(TimeMachineClone timeMachineClone)
         {
-            if (RemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES)
+            if (RemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES && !timeMachineClone.Properties.IsWayback)
             {
                 RemoteTimeMachines[0].Dispose();
                 RemoteTimeMachines.RemoveAt(0);
             }
+            else if (WaybackTimeMachines.Count > MAX_REMOTE_TIMEMACHINES && timeMachineClone.Properties.IsWayback)
+            {
+                WaybackTimeMachines[0].Dispose();
+                WaybackTimeMachines.RemoveAt(0);
+            }
 
             RemoteTimeMachine timeMachine;
 
-            RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
+            if (timeMachineClone.Properties.IsWayback)
+            {
+                WaybackTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
+            }
+            else
+            {
+                RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
+            }
 
             if (ModSettings.PersistenceSystem)
             {
@@ -100,6 +113,7 @@ namespace BackToTheFutureV
         public static void Tick()
         {
             RemoteTimeMachines.ForEach(x => x.Tick());
+            WaybackTimeMachines.ForEach(x => x.Tick());
 
             if (!IsRemoteOn)
             {
@@ -128,6 +142,8 @@ namespace BackToTheFutureV
         {
             RemoteTimeMachines.ForEach(x => x.Dispose());
             RemoteTimeMachines.Clear();
+            WaybackTimeMachines.ForEach(x => x.Dispose());
+            WaybackTimeMachines.Clear();
 
             if (File.Exists(_saveFile))
             {
@@ -178,6 +194,10 @@ namespace BackToTheFutureV
         public static void Abort()
         {
             foreach (RemoteTimeMachine x in RemoteTimeMachines)
+            {
+                x?.Dispose();
+            }
+            foreach (RemoteTimeMachine x in WaybackTimeMachines)
             {
                 x?.Dispose();
             }
