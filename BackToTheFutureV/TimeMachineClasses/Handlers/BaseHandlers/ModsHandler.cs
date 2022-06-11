@@ -322,9 +322,9 @@ namespace BackToTheFutureV
                     }
                 }
 
-                if (TimeMachine.Mods.SuspensionsType != value)
+                if (TimeMachine.Mods != null && TimeMachine.Mods.SuspensionsType != value)
                 {
-                    Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.3f;
+                    TimeMachine.Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.3f;
                 }
 
                 base.SuspensionsType = value;

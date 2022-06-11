@@ -39,7 +39,7 @@ namespace BackToTheFutureV
 
         public static void Save(List<TimeMachine> timeMachines)
         {
-            Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write);
+            Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write, FileShare.Read);
 
             FusionUtils.BinaryFormatter.Serialize(stream, new TimeMachineCloneHandler(timeMachines));
             stream.Close();
@@ -52,7 +52,7 @@ namespace BackToTheFutureV
                 return null;
             }
 
-            Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read);
+            Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read, FileShare.Write);
 
             TimeMachineCloneHandler timeMachineCloneManager = (TimeMachineCloneHandler)FusionUtils.BinaryFormatter.Deserialize(stream);
 

@@ -142,7 +142,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (FusionUtils.CurrentTime.Year == 1985 && InternalInventory.Current.Plutonium <= 0 && !IsPlaying)
+            if (FusionUtils.CurrentTime.Year == 1985 && InternalInventory.Current.Plutonium <= 0 && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && !IsPlaying)
             {
                 World.DrawMarker(MarkerType.VerticalCylinder, plutoniumPos, Vector3.Zero, Vector3.Zero, new Vector3(1, 1, 1), Color.Yellow);
 
