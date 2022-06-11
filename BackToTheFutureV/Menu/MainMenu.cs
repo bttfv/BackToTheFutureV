@@ -123,11 +123,6 @@ namespace BackToTheFutureV
                     timeMachine.Properties.ReactorCharge = 0;
                 }
 
-                if (spawnBTTF.SelectedIndex == 4)
-                {
-                    timeMachine.Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.2f;
-                }
-
                 if (spawnBTTF.SelectedIndex == 5)
                 {
                     timeMachine.Mods.Wheel = WheelType.RailroadInvisible;
