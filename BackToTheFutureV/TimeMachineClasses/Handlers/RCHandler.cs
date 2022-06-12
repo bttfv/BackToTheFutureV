@@ -87,13 +87,17 @@ namespace BackToTheFutureV
 
         private void StopForcedHandbrake()
         {
-            if (Properties.IsRemoteControlled && _forcedHandbrake)
+            if (Properties.IsRemoteControlled && _forcedHandbrake && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
             {
                 SetForcedHandbrake();
             }
+            else if (Properties.IsRemoteControlled && _forcedHandbrake && !Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+            {
+                SetForcedHandbrake(false);
+            }
         }
 
-        private void SetForcedHandbrake()
+        private void SetForcedHandbrake(bool boost = true)
         {
             _forcedHandbrake = !_forcedHandbrake;
 
@@ -103,7 +107,10 @@ namespace BackToTheFutureV
             if (_forcedHandbrake)
             {
                 _boostStarted = false;
-                _handleBoost = true;
+                if (boost)
+                {
+                    _handleBoost = true;
+                }
 
                 SetSimulateSpeed(64.5f, 8);
             }
