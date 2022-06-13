@@ -59,16 +59,9 @@ namespace BackToTheFutureV
                 {
                     Function.Call(Hash.SET_PED_COMPONENT_VARIATION, FusionUtils.PlayerPed, x, Main.ResetPed.Components[x, 0], Main.ResetPed.Components[x, 1], Main.ResetPed.Components[x, 2]);
                 }
-                for (int x = 0; x <= 4; x++)
+                for (int x = 0; x <= 12; x++)
                 {
-                    if (x <= 2)
-                    {
-                        Function.Call(Hash.SET_PED_PROP_INDEX, FusionUtils.PlayerPed, x, Main.ResetPed.Props[x, 0], Main.ResetPed.Props[x, 1], true);
-                    }
-                    else
-                    {
-                        Function.Call(Hash.SET_PED_PROP_INDEX, FusionUtils.PlayerPed, x + 3, Main.ResetPed.Props[x, 0], Main.ResetPed.Props[x, 1], true);
-                    }
+                    Function.Call(Hash.SET_PED_PROP_INDEX, FusionUtils.PlayerPed, x, Main.ResetPed.Props[x, 0], Main.ResetPed.Props[x, 1], true);
                 }
                 foreach (TimeMachine x in TimeMachineHandler.TimeMachines)
                 {

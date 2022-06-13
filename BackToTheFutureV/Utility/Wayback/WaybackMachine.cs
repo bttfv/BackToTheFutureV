@@ -207,16 +207,9 @@ namespace BackToTheFutureV
                 {
                     Function.Call(Hash.SET_PED_COMPONENT_VARIATION, Ped, x, CurrentRecord.Ped.Replica.Components[x, 0], CurrentRecord.Ped.Replica.Components[x, 1], CurrentRecord.Ped.Replica.Components[x, 2]);
                 }
-                for (int x = 0; x <= 4; x++)
+                for (int x = 0; x <= 12; x++)
                 {
-                    if (x <= 2)
-                    {
-                        Function.Call(Hash.SET_PED_PROP_INDEX, Ped, x, CurrentRecord.Ped.Replica.Props[x, 0], CurrentRecord.Ped.Replica.Props[x, 1], true);
-                    }
-                    else
-                    {
-                        Function.Call(Hash.SET_PED_PROP_INDEX, Ped, x + 3, CurrentRecord.Ped.Replica.Props[x, 0], CurrentRecord.Ped.Replica.Props[x, 1], true);
-                    }
+                    Function.Call(Hash.SET_PED_PROP_INDEX, Ped, x, CurrentRecord.Ped.Replica.Props[x, 0], CurrentRecord.Ped.Replica.Props[x, 1], true);
                 }
             }
 
