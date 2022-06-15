@@ -62,12 +62,16 @@ namespace BackToTheFutureV
                 }
             }
 
-            if ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-2)))
+            if ((!TimeHandler.RealTime && !TimeMachineClone.Properties.IsWayback && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && !TimeMachineClone.Properties.IsWayback && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-2)))
             {
                 Spawn(ReenterType.Normal);
 
                 _hasPlayedWarningSound = false;
                 _timer = Game.GameTime + 10000;
+            }
+            else if ((!TimeHandler.RealTime && TimeMachineClone.Properties.IsWayback && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-15), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && TimeMachineClone.Properties.IsWayback && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-1)))
+            {
+                Spawn(ReenterType.Normal);
             }
         }
 
