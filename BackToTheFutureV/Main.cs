@@ -3,7 +3,6 @@ using GTA;
 using GTA.Native;
 using KlangRageAudioLibrary;
 using System;
-using System.Linq;
 using System.Windows.Forms;
 using Screen = GTA.UI.Screen;
 

@@ -102,11 +102,11 @@ namespace BackToTheFutureV
 
         public void StartOn(Ped ped, bool waitForReentry = false)
         {
-            //Ped = ped;
+            Ped = ped;
             WaitForReentry = waitForReentry;
 
-            //CurrentIndex = 0;
-            //Status = WaybackStatus.Playing;
+            CurrentIndex = 0;
+            Status = WaybackStatus.Playing;
         }
 
         public void Tick()
@@ -114,15 +114,6 @@ namespace BackToTheFutureV
             switch (Status)
             {
                 case WaybackStatus.Idle:
-                    if (WaitForReentry)
-                    {
-                        if (TimeMachineHandler.GetTimeMachineFromReplicaGUID(GUID).Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
-                        {
-                            return;
-                        }
-                        WaitForReentry = false;
-                        TimeMachineHandler.GetTimeMachineFromReplicaGUID(GUID).Dispose();
-                    }
                     if (FusionUtils.CurrentTime.Between(StartTime, EndTime))
                     {
                         CurrentIndex = Records.FindIndex(x => x.Time >= FusionUtils.CurrentTime);
@@ -141,14 +132,14 @@ namespace BackToTheFutureV
                     Record();
                     break;
                 case WaybackStatus.Playing:
-                    /*if (WaitForReentry)
+                    if (WaitForReentry)
                     {
                         if (TimeMachineHandler.GetTimeMachineFromReplicaGUID(GUID).Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
                         {
                             return;
                         }
                         WaitForReentry = false;
-                    }*/
+                    }
 
                     Play();
                     break;
