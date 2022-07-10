@@ -116,7 +116,7 @@ namespace BackToTheFutureV
                         timeMachineClone.Properties.ReplicaGUID = Guid.NewGuid();
                         if (FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year == 0)
                         {
-                            timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(30);
+                            timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
                         }
                         else
                         {
