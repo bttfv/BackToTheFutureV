@@ -6,7 +6,7 @@
 - .NET Framework 4.8
 - Script Hook V => https://www.dev-c.com/gtav/scripthookv/
 - Community Script Hook V .NET v3.4.0 => https://github.com/crosire/scripthookvdotnet
-- LemonUI v1.7.0 => https://github.com/justalemon/LemonUI
+- LemonUI v1.7 => https://github.com/justalemon/LemonUI
 - (*Optional*)  PackfileLimitAdjuster
 - (*Optional*)  HeapAdjuster
 
@@ -85,8 +85,8 @@ In order to open solution, you need Visual Studio 2017+ with Xamarin components 
 ### Credits:
 - Artist: ranstar74
 - DMC12 model updates: RetroGamer
-- Programmer: AHK1221 / MrFusion92
-- Tester: Nickumto255 / hugoraider / SBTx14 / MatchstickMan / Evonia / Victor / Adrien / RetroGamer / Dwurban / auron / Lordf84
+- Programmer: AHK1221 / MrFusion92 / Nomake Wan
+- Tester: Nickumto255 / hugoraider / SBTx14 / MatchstickMan / Evonia / Victor / Adrien / RetroGamer / Dwurban / auron / Lordf84 / Sockcat / Reon
 - Audio: BTTFV / BTTF Hill Valley Team
 - #### Translations:
   - English -> BTTFV Team
