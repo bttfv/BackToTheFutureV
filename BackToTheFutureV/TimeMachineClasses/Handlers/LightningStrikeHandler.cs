@@ -2,6 +2,7 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Native;
+using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -43,8 +44,14 @@ namespace BackToTheFutureV
                 Strike();
             }
 
-            if (!ModSettings.LightningStrikeEvent || World.Weather != Weather.ThunderStorm || Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole || Game.GameTime < _nextCheck || Constants.ReadyForLightningRun)
+            if (!ModSettings.LightningStrikeEvent || World.Weather != Weather.ThunderStorm || Game.GameTime < _nextCheck || Constants.ReadyForLightningRun)
             {
+                return;
+            }
+
+            if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+            {
+                _nextCheck = Game.GameTime + 10000;
                 return;
             }
 
@@ -103,10 +110,21 @@ namespace BackToTheFutureV
                 else
                 {
                     Events.OnSparksEnded?.Invoke(_instant ? 250 : 2000);
-                    TimeMachineClone timeMachineClone = TimeMachine.Clone();
-                    timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears((FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year)*2);
-                    timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
-                    RemoteTimeMachineHandler.AddRemote(timeMachineClone);
+                    if (!Properties.IsWayback)
+                    {
+                        TimeMachineClone timeMachineClone = TimeMachine.Clone();
+                        timeMachineClone.Properties.ReplicaGUID = Guid.NewGuid();
+                        if (FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year == 0)
+                        {
+                            timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(30);
+                        }
+                        else
+                        {
+                            timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears((FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year) * 2);
+                        }
+                        timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
+                        RemoteTimeMachineHandler.AddRemote(timeMachineClone);
+                    }
                 }
 
                 Events.OnLightningStrike?.Invoke();
