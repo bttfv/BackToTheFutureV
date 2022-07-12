@@ -1,6 +1,5 @@
 ﻿using FusionLibrary;
 using GTA;
-using GTA.Native;
 using System;
 
 namespace BackToTheFutureV
@@ -51,32 +50,13 @@ namespace BackToTheFutureV
             new MomentReplica(new DateTime(2015, 10, 22, 7, 26, 0)) { Weather = Weather.Clearing, TransitionWeather = true, MomentDuration = 3 };
         }
 
-        private static void ClearPersistent()
-        {
-            Function.Call(Hash.CLEAR_OVERRIDE_WEATHER);
-            Function.Call(Hash.CLEAR_WEATHER_TYPE_PERSIST);
-        }
-
-        private static void SetPersistent()
-        {
-            Function.Call(Hash.SET_WEATHER_TYPE_PERSIST, World.Weather.ToString());
-        }
-
         public static void Tick()
         {
-            if (MomentReplica.SearchForMoment() == null)
+            for (int x = 0; x <= 39; x++)
             {
-                ClearPersistent();
-            }
-            else
-            {
-                for (int x = 0; x <= 39; x++)
+                if (MomentReplica.MomentReplicas[x].IsNow())
                 {
-                    if (MomentReplica.MomentReplicas[x].IsNow())
-                    {
-                        MomentReplica.MomentReplicas[x].Apply();
-                        SetPersistent();
-                    }
+                    MomentReplica.MomentReplicas[x].Apply();
                 }
             }
         }

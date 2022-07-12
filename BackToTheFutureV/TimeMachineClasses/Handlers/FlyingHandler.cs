@@ -427,6 +427,14 @@ namespace BackToTheFutureV
 
             if (Properties.AreFlyingCircuitsBroken)
             {
+                // Set vent effect invisible
+                Props.HoverModeVentsGlow?.Delete();
+
+                // Reset flag
+                _hasPlayedBoostSound = false;
+
+                Properties.IsHoverBoosting = false;
+
                 Vector3 force = Vehicle.UpVector;
 
                 if (!Vehicle.IsUpsideDown)
