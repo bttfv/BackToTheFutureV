@@ -101,6 +101,8 @@ namespace BackToTheFutureV
             if (sender == YearTraffic)
             {
                 ModSettings.YearTraffic = Checked;
+
+                TimeHandler.TrafficVolumeYearBased = Checked;
             }
 
             if (sender == TimeParadox)
