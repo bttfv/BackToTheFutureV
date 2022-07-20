@@ -316,7 +316,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (FusionUtils.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)
+            if (FusionUtils.PlayerVehicle != Vehicle && Vehicle.Exists() && !Properties.Story)
             {
                 Decorators.TorqueMultiplier = 1f;
                 if (Blip == null || !Blip.Exists())

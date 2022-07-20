@@ -245,7 +245,7 @@ namespace BackToTheFutureV
                     case GarageStatus.Idle:
                         GTA.UI.Screen.ShowHelpTextThisFrame("Press ~INPUT_CONTEXT~ to open garage menu.");
 
-                        if (Game.IsControlJustPressed(Control.Context) && ((!Vehicle.IsEngineStarting && Vehicle.IsEngineRunning) || (Vehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged)))
+                        if (Game.IsControlJustPressed(Control.Context) && ((!Vehicle.IsEngineStarting && Vehicle.IsEngineRunning) && !Game.IsMissionActive || (Vehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged)))
                         {
                             FusionUtils.HideGUI = true;
 
@@ -256,6 +256,7 @@ namespace BackToTheFutureV
 
                             //SetupCamera(garageInfo.CreateInsideCamera());
                             MenuHandler.GarageMenu.Visible = true;
+                            MenuHandler.CustomMenuGarage.CloseOnInvalidClick = false;
 
                             garageInfo.Lock();
                             Status = GarageStatus.Busy;

@@ -20,6 +20,8 @@ namespace BackToTheFutureV
 
         public static PedReplica ResetPed { get; private set; }
 
+        public static int SwitchedPed { get; private set; }
+
         public static CustomStopwatch CustomStopwatch { get; } = new CustomStopwatch();
 
         public Main()
@@ -82,6 +84,7 @@ namespace BackToTheFutureV
                     Screen.ShowHelpText("BackToTheFutureV loading...", 3000);
 
                     ResetPed = new PedReplica(FusionUtils.PlayerPed);
+                    SwitchedPed = Function.Call<int>(Hash.PLAYER_PED_ID);
 
                     ModelHandler.RequestModels();
 

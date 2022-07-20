@@ -190,6 +190,7 @@
 	0x9890E3C3 = Type of Time Machine.
 	0x10287D9E = New
 	0x30330CA6 = Adds the Hook to the car.
+	0x42F13293 = Cleans the Time Machine.
 	0x44013FA9 = Hide/unhide in-game HUD.
 	0x44318B93 = days
 	0x45822D3A = Time Travel Effects
@@ -238,6 +239,7 @@
 	0xA8F816CA = A brief history of time. Shows Time Machines currently waiting to reenter.
 	0xA52EEC37 = Opens menu for editing the mod's hotkeys and controls.
 	0xA55FADE4 = Set which speed time travel SFX will start.
+	0xA71BFD8D = Wash Time Machine ($ 10)
 	0xA74E728F = Controls Menu
 	0xA88BB4E0 = Combination Required
 	0xA95F9C85 = Allows you to enable/disable the key for toggling Input Mode.

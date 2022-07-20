@@ -143,7 +143,7 @@ namespace BackToTheFutureV
                 Properties.AlarmTime = Properties.AlarmTime.AddSeconds(-11);
             }
 
-            if (Game.GameTime < _nextCheck || !IsPlaying || !Vehicle.IsVisible)
+            if (Game.GameTime < _nextCheck || !IsPlaying || !Vehicle.IsVisible || MenuHandler.GarageMenu.Visible)
             {
                 return;
             }
@@ -190,9 +190,9 @@ namespace BackToTheFutureV
                         _isRestarting = true;
                     }
 
-                    if ((!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (!Properties.BlockEngineRecover && Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f))
+                    if ((!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (!Properties.BlockEngineRecover && Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f && !Properties.IsRemoteControlled))
                     {
-                        if (Game.IsControlPressed(GTA.Control.VehicleDuck))
+                        if (Game.IsControlPressed(GTA.Control.VehicleDuck) && !Properties.IsRemoteControlled)
                         {
                             Sounds.HeadHorn?.Play();
                         }

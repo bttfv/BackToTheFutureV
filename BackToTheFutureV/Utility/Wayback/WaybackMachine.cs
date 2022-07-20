@@ -148,7 +148,7 @@ namespace BackToTheFutureV
 
         private WaybackRecord Record()
         {
-            if ((IsPlayer && !FusionUtils.PlayerPed.IsAlive) || (!IsPlayer && !Ped.ExistsAndAlive()) || FusionUtils.CurrentTime < StartTime)
+            if ((IsPlayer && !FusionUtils.PlayerPed.IsAlive) || (!IsPlayer && !Ped.ExistsAndAlive()) || FusionUtils.CurrentTime < StartTime || Game.IsMissionActive)
             {
                 Stop();
                 return null;
@@ -180,8 +180,17 @@ namespace BackToTheFutureV
 
         private void Play()
         {
-            if ((Ped.NotNullAndExists() && Ped.IsDead && ModSettings.TimeParadox) || (Ped.NotNullAndExists() && Ped.LastVehicle.NotNullAndExists() && Ped.LastVehicle.IsConsideredDestroyed && ModSettings.TimeParadox))
+            if ((Ped.NotNullAndExists() && Ped.IsDead && !Game.IsMissionActive && ModSettings.TimeParadox) || (Ped.NotNullAndExists() && Ped.LastVehicle.NotNullAndExists() && Ped.LastVehicle.IsConsideredDestroyed && !Game.IsMissionActive && ModSettings.TimeParadox))
             {
+                if (FusionUtils.PlayerPed.CurrentVehicle.NotNullAndExists() && FusionUtils.PlayerPed.CurrentVehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
+                {
+                    RemoteTimeMachineHandler.StopRemoteControl();
+                }
+                if (FusionUtils.PlayerPed.Model != Main.ResetPed.Model)
+                {
+                    Function.Call(Hash.CHANGE_PLAYER_PED, Game.Player, Main.SwitchedPed, false, false);
+                    PlayerSwitch.Disable = true;
+                }
                 FusionUtils.PlayerPed.Kill();
                 WaybackSystem.Paradox = true;
                 WaybackSystem.paradoxDelay = Game.GameTime + 3600;

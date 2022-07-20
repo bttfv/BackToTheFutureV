@@ -45,6 +45,8 @@ namespace BackToTheFutureV
                 Function.Call(Hash.CLEAR_PLAYER_WANTED_LEVEL, FusionUtils.PlayerPed);
                 Function.Call(Hash.RESET_PLAYER_ARREST_STATE, FusionUtils.PlayerPed);
                 Function.Call(Hash.CLEAR_PED_BLOOD_DAMAGE, FusionUtils.PlayerPed);
+                Function.Call(Hash.CLEAR_PED_WETNESS, FusionUtils.PlayerPed);
+                Function.Call(Hash.CLEAR_PED_ENV_DIRT, FusionUtils.PlayerPed);
                 Function.Call(Hash.DISPLAY_HUD, true);
                 FusionUtils.PlayerPed.SetAlpha(FusionEnums.AlphaLevel.L5);
                 FusionUtils.PlayerPed.HealthFloat = Main.ResetPed.Health;
@@ -73,6 +75,7 @@ namespace BackToTheFutureV
                 timeParadox.Volume = 0.2f;
                 timeParadox.Play();
                 TimeHandler.TimeTravelTo(Main.ResetDate);
+                PlayerSwitch.Disable = false;
                 Paradox = false;
             }
 

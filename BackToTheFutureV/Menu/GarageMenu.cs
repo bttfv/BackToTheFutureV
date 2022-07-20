@@ -19,6 +19,7 @@ namespace BackToTheFutureV
         private readonly NativeItem repairTC;
         private readonly NativeItem repairFC;
         private readonly NativeItem repairEngine;
+        private readonly NativeItem washCar;
 
         public static AudioPlayer[] GarageSounds { get; } = { Main.CommonAudioEngine.Create("general/garage/tireChange.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill1.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill2.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill3.wav", Presets.No3D) };
 
@@ -33,6 +34,7 @@ namespace BackToTheFutureV
             repairTC = NewItem("RepairTC");
             repairFC = NewItem("RepairFC");
             repairEngine = NewItem("RepairEngine");
+            washCar = NewItem("WashCar");
 
             customMenu = NewSubmenu(MenuHandler.CustomMenuGarage);
             customMenu.Activated += CustomMenu_Activated;
@@ -151,6 +153,18 @@ namespace BackToTheFutureV
                     Game.Player.Money -= 750;
                 }
             }
+
+            if (sender == washCar)
+            {
+                if (Game.Player.Money < 10)
+                {
+                    TextHandler.Me.ShowNotification("NotEnoughMoney");
+                    return;
+                }
+
+                CurrentTimeMachine.Vehicle.Wash();
+                Game.Player.Money -= 10;
+            }
         }
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -209,6 +223,7 @@ namespace BackToTheFutureV
             repairTC.Enabled = active && FusionUtils.CurrentTime.Year >= 1952 && (CurrentTimeMachine.Properties.AreTimeCircuitsBroken || (FusionUtils.CurrentTime.Year >= 1985 && CurrentTimeMachine.Mods.Hoodbox == ModState.On && CurrentTimeMachine.Mods.IsDMC12));
             repairFC.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
             repairEngine.Enabled = active && FusionUtils.CurrentTime.Year >= 1912 && (CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst);
+            washCar.Enabled = active && CurrentTimeMachine.Vehicle.DirtLevel > 0;
 
             buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 5 && FusionUtils.CurrentTime.Year == 1985;
             buyPlutonium.AltTitle = $"{InternalInventory.Current.Plutonium}/5";
