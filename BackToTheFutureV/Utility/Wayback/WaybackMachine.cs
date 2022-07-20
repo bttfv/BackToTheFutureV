@@ -189,7 +189,6 @@ namespace BackToTheFutureV
                 if (FusionUtils.PlayerPed.Model != Main.ResetPed.Model)
                 {
                     Function.Call(Hash.CHANGE_PLAYER_PED, Game.Player, Main.SwitchedPed, false, false);
-                    PlayerSwitch.Disable = true;
                 }
                 FusionUtils.PlayerPed.Kill();
                 WaybackSystem.Paradox = true;

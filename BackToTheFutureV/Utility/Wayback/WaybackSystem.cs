@@ -75,7 +75,11 @@ namespace BackToTheFutureV
                 timeParadox.Volume = 0.2f;
                 timeParadox.Play();
                 TimeHandler.TimeTravelTo(Main.ResetDate);
-                PlayerSwitch.Disable = false;
+                if (Main.ResetVehicle != null)
+                {
+                    FusionUtils.PlayerPed.Task.WarpIntoVehicle(World.CreateVehicle(Main.ResetVehicle.Model, Main.ResetVehicle.Position, Main.ResetVehicle.Heading), VehicleSeat.Driver);
+                }
+                Machines.Clear();
                 Paradox = false;
             }
 

@@ -22,7 +22,7 @@ namespace BackToTheFutureV
         public static List<RemoteTimeMachine> WaybackTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
         public static int RemoteTimeMachineCount => RemoteTimeMachines.Count;
 
-        private const int MAX_REMOTE_TIMEMACHINES = 10;
+        public static int MAX_REMOTE_TIMEMACHINES;
 
         static RemoteTimeMachineHandler()
         {

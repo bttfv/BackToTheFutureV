@@ -20,6 +20,8 @@ namespace BackToTheFutureV
 
         public static PedReplica ResetPed { get; private set; }
 
+        public static VehicleReplica ResetVehicle { get; private set; }
+
         public static int SwitchedPed { get; private set; }
 
         public static CustomStopwatch CustomStopwatch { get; } = new CustomStopwatch();
@@ -85,6 +87,11 @@ namespace BackToTheFutureV
 
                     ResetPed = new PedReplica(FusionUtils.PlayerPed);
                     SwitchedPed = Function.Call<int>(Hash.PLAYER_PED_ID);
+                    if (FusionUtils.PlayerPed.IsInVehicle())
+                    {
+                        ResetVehicle = new VehicleReplica(FusionUtils.PlayerVehicle);
+                    }
+                    RemoteTimeMachineHandler.MAX_REMOTE_TIMEMACHINES = ModSettings.MaxRecordedMachines;
 
                     ModelHandler.RequestModels();
 

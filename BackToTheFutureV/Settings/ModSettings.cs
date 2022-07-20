@@ -45,6 +45,7 @@ namespace BackToTheFutureV
         public static bool RealTime { get; set; } = false;
         public static bool YearTraffic { get; set; } = false;
         public static bool TimeParadox { get; set; } = true;
+        public static int MaxRecordedMachines { get; set; } = 5;
 
         private static ScriptSettings settings;
         private static readonly CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
@@ -110,6 +111,7 @@ namespace BackToTheFutureV
             RandomTrains = settings.GetValue("General", "RandomTrains", RandomTrains);
             RealTime = settings.GetValue("General", "RealTime", RealTime);
             YearTraffic = settings.GetValue("General", "YearTraffic", YearTraffic);
+            MaxRecordedMachines = settings.GetValue("General", "MaxRemote", MaxRecordedMachines);
 
             ForceFlyMode = settings.GetValue("Hover", "ForceFly", ForceFlyMode);
             LandingSystem = settings.GetValue("Hover", "LandingSystem", LandingSystem);
@@ -159,6 +161,7 @@ namespace BackToTheFutureV
             settings.SetValue("General", "RandomTrains", RandomTrains);
             settings.SetValue("General", "RealTime", RealTime);
             settings.SetValue("General", "YearTraffic", YearTraffic);
+            settings.SetValue("General", "MaxRemote", MaxRecordedMachines);
 
             settings.SetValue("Hover", "ForceFly", ForceFlyMode);
             settings.SetValue("Hover", "LandingSystem", LandingSystem);
