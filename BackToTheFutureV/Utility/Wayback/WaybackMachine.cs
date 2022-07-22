@@ -190,6 +190,15 @@ namespace BackToTheFutureV
                 {
                     Function.Call(Hash.CHANGE_PLAYER_PED, Game.Player, Main.SwitchedPed, false, false);
                 }
+                if (FusionUtils.PlayerPed.IsInVehicle() && !FusionUtils.PlayerPed.IsLeavingVehicle())
+                {
+                    FusionUtils.PlayerPed.Task.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                    Game.Player.CanControlCharacter = false;
+                }
+                while (!FusionUtils.PlayerPed.IsFullyOutVehicle())
+                {
+                    Script.Yield();
+                }
                 FusionUtils.PlayerPed.Kill();
                 WaybackSystem.Paradox = true;
                 WaybackSystem.paradoxDelay = Game.GameTime + 3600;

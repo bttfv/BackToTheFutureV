@@ -79,6 +79,7 @@ namespace BackToTheFutureV
                 {
                     FusionUtils.PlayerPed.Task.WarpIntoVehicle(World.CreateVehicle(Main.ResetVehicle.Model, Main.ResetVehicle.Position, Main.ResetVehicle.Heading), VehicleSeat.Driver);
                 }
+                _opacityStep = 0;
                 Machines.Clear();
                 Paradox = false;
             }
