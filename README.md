@@ -80,7 +80,7 @@
   - It is possible to time travel on rail tracks... just be aware for a possible incoming train at reentry...
 
 ### For developers:
-In order to open solution, you need Visual Studio 2017+ with Xamarin components installed.
+In order to open solution, you need Visual Studio 2019+ with Xamarin components installed.
 
 ### Credits:
 - Artist: ranstar74
