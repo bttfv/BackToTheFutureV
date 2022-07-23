@@ -78,7 +78,7 @@ namespace BackToTheFutureV
                 Sounds.RCBrake?.Play();
                 SetForcedHandbrake();
 
-                if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled)
+                if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled && Properties.AreTimeCircuitsOn)
                 {
                     Sounds.RCSomeSerious?.Play();
                 }
