@@ -155,11 +155,9 @@ namespace BackToTheFutureV
 
         public static void Save()
         {
-            Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write, FileShare.Read);
+            using Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write, FileShare.Read);
 
             FusionUtils.BinaryFormatter.Serialize(stream, RemoteTimeMachines.Select(x => x.TimeMachineClone).ToList());
-
-            stream.Close();
         }
 
         public static void Load()
@@ -171,11 +169,9 @@ namespace BackToTheFutureV
                     return;
                 }
 
-                Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read, FileShare.Write);
+                using Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read, FileShare.Write);
 
                 List<TimeMachineClone> timeMachineClones = (List<TimeMachineClone>)FusionUtils.BinaryFormatter.Deserialize(stream);
-
-                stream.Close();
 
                 foreach (TimeMachineClone x in timeMachineClones)
                 {
