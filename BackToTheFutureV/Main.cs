@@ -112,6 +112,11 @@ namespace BackToTheFutureV
                     WeatherHandler.Register();
                 }
 
+                if (PlayerSwitch.IsInProgress && FusionUtils.PlayerPed.Model == ResetPed.Model)
+                {
+                    SwitchedPed = Function.Call<int>(Hash.PLAYER_PED_ID);
+                }
+
                 if (!FirstTick)
                 {
                     WaybackSystem.Tick();
