@@ -192,18 +192,17 @@ namespace BackToTheFutureV
                 }
                 if (FusionUtils.PlayerPed.IsInVehicle() && !FusionUtils.PlayerPed.IsLeavingVehicle())
                 {
-                    FusionUtils.PlayerPed.Task.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                     Game.Player.CanControlCharacter = false;
+                    FusionUtils.PlayerPed.Task.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                 }
-                while (!FusionUtils.PlayerPed.IsFullyOutVehicle())
+                if (FusionUtils.PlayerPed.IsFullyOutVehicle())
                 {
-                    Script.Yield();
+                    FusionUtils.PlayerPed.Kill();
+                    WaybackSystem.Paradox = true;
+                    WaybackSystem.paradoxDelay = Game.GameTime + 3600;
+                    ScreenFade.FadeOut(8000, 1000, 0);
+                    WaybackSystem.Abort();
                 }
-                FusionUtils.PlayerPed.Kill();
-                WaybackSystem.Paradox = true;
-                WaybackSystem.paradoxDelay = Game.GameTime + 3600;
-                ScreenFade.FadeOut(8000, 1000, 0);
-                WaybackSystem.Abort();
             }
 
             if (!Ped.ExistsAndAlive())

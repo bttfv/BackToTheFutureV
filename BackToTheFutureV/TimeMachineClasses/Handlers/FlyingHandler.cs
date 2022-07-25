@@ -168,7 +168,7 @@ namespace BackToTheFutureV
         {
             if (ModControls.LongPressForHover)
             {
-                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && FusionUtils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed && !Properties.IsEngineStalling)
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && FusionUtils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed && !Properties.IsEngineStalling && Vehicle.IsEngineRunning)
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
@@ -188,7 +188,7 @@ namespace BackToTheFutureV
         {
             if (!ModControls.LongPressForHover)
             {
-                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && FusionUtils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed && !Properties.IsEngineStalling)
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && FusionUtils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed && !Properties.IsEngineStalling && Vehicle.IsEngineRunning)
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
