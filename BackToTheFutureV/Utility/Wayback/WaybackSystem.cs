@@ -77,7 +77,14 @@ namespace BackToTheFutureV
                 TimeHandler.TimeTravelTo(Main.ResetDate);
                 if (Main.ResetVehicle != null)
                 {
-                    FusionUtils.PlayerPed.Task.WarpIntoVehicle(World.CreateVehicle(Main.ResetVehicle.Model, Main.ResetVehicle.Position, Main.ResetVehicle.Heading), VehicleSeat.Driver);
+                    Vehicle vehicle = Main.ResetVehicle.Spawn(FusionEnums.SpawnFlags.NoOccupants, Main.ResetVehicle.Position, Main.ResetVehicle.Heading);
+                    FusionUtils.PlayerPed.SetIntoVehicle(vehicle, VehicleSeat.Driver);
+                    if (Main.IsTimeMachine)
+                    {
+                        TimeMachine timeMachine = FusionUtils.PlayerVehicle.TransformIntoTimeMachine();
+                        Main.Mods.ApplyTo(timeMachine);
+                        Main.Properties.ApplyTo(timeMachine);
+                    }
                 }
                 _opacityStep = 0;
                 Machines.Clear();

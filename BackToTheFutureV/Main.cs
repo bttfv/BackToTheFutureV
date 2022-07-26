@@ -22,7 +22,15 @@ namespace BackToTheFutureV
 
         public static VehicleReplica ResetVehicle { get; private set; }
 
+        public static bool IsTimeMachine { get; private set; } = false;
+
+        public static ModsPrimitive Mods { get; private set; }
+
+        public static PropertiesHandler Properties { get; private set; }
+
         public static int SwitchedPed { get; private set; }
+
+        public static int? SwitchedVehicle { get; set; }
 
         public static CustomStopwatch CustomStopwatch { get; } = new CustomStopwatch();
 
@@ -86,11 +94,8 @@ namespace BackToTheFutureV
                     Screen.ShowHelpText("BackToTheFutureV loading...", 3000);
 
                     ResetPed = new PedReplica(FusionUtils.PlayerPed);
-                    SwitchedPed = Function.Call<int>(Hash.PLAYER_PED_ID);
-                    if (FusionUtils.PlayerPed.IsInVehicle())
-                    {
-                        ResetVehicle = new VehicleReplica(FusionUtils.PlayerVehicle);
-                    }
+                    SwitchedPed = FusionUtils.PlayerPed.Handle;
+                    
                     RemoteTimeMachineHandler.MAX_REMOTE_TIMEMACHINES = ModSettings.MaxRecordedMachines;
 
                     ModelHandler.RequestModels();
@@ -112,14 +117,34 @@ namespace BackToTheFutureV
                     WeatherHandler.Register();
                 }
 
-                if (PlayerSwitch.IsInProgress && FusionUtils.PlayerPed.Model == ResetPed.Model)
-                {
-                    SwitchedPed = Function.Call<int>(Hash.PLAYER_PED_ID);
-                }
-
                 if (!FirstTick)
                 {
                     WaybackSystem.Tick();
+                    if (ModSettings.TimeParadox)
+                    {
+                        if (PlayerSwitch.IsInProgress && FusionUtils.PlayerPed.Model == ResetPed.Model)
+                        {
+                            SwitchedPed = FusionUtils.PlayerPed.Handle;
+                        }
+                        else if (FusionUtils.PlayerPed.Model != ResetPed.Model)
+                        {
+                            Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, SwitchedPed, 1, 1);
+                        }
+
+                        if (FusionUtils.PlayerPed.Model == ResetPed.Model && FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle == null)
+                        {
+                            SwitchedVehicle = FusionUtils.PlayerVehicle.Handle;
+                        }
+                        else if (FusionUtils.PlayerPed.Model == ResetPed.Model && !FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle != null && FusionUtils.PlayerPed.LastVehicle != null)
+                        {
+                            FusionUtils.PlayerPed.LastVehicle.IsPersistent = false;
+                            SwitchedVehicle = null;
+                        }
+                        else if (FusionUtils.PlayerPed.Model != ResetPed.Model && SwitchedVehicle != null)
+                        {
+                            Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, SwitchedVehicle, 1, 1);
+                        }
+                    }
                 }
 
                 CustomTrainHandler.Tick();
@@ -154,6 +179,18 @@ namespace BackToTheFutureV
                         MaxSpawned = 3,
                         WaitBetweenSpawns = 10000
                     });
+
+                    if (FusionUtils.PlayerPed.IsInVehicle())
+                    {
+                        ResetVehicle = new VehicleReplica(FusionUtils.PlayerVehicle);
+                        if (FusionUtils.PlayerVehicle.IsTimeMachine())
+                        {
+                            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);
+                            IsTimeMachine = true;
+                            Mods = timeMachine.Mods.Clone();
+                            Properties = timeMachine.Properties.Clone();
+                        }
+                    }
 
                     Screen.ShowHelpText("BackToTheFutureV loaded correctly.", 3000);
                     FirstTick = false;

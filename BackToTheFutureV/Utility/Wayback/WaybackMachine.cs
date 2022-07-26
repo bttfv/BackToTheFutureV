@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Math;
 using GTA.Native;
 using System;
 using System.Collections.Generic;
@@ -188,16 +189,23 @@ namespace BackToTheFutureV
                 }
                 if (FusionUtils.PlayerPed.Model != Main.ResetPed.Model)
                 {
+                    Function.Call<Vector3>(Hash.GET_ENTITY_COORDS, Main.SwitchedPed, true).LoadScene();
                     Function.Call(Hash.CHANGE_PLAYER_PED, Game.Player, Main.SwitchedPed, false, false);
                 }
                 if (FusionUtils.PlayerPed.IsInVehicle() && !FusionUtils.PlayerPed.IsLeavingVehicle())
                 {
                     Game.Player.CanControlCharacter = false;
+                    FusionUtils.PlayerVehicle.IsPersistent = false;
                     FusionUtils.PlayerPed.Task.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                    Main.SwitchedVehicle = null;
                 }
                 if (FusionUtils.PlayerPed.IsFullyOutVehicle())
                 {
+                    Script.Yield();
                     FusionUtils.PlayerPed.Kill();
+                    Function.Call(Hash.TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME, "respawn_controller");
+                    Function.Call(Hash.IGNORE_NEXT_RESTART, true);
+                    Function.Call(Hash.PAUSE_DEATH_ARREST_RESTART, true);
                     WaybackSystem.Paradox = true;
                     WaybackSystem.paradoxDelay = Game.GameTime + 3600;
                     ScreenFade.FadeOut(8000, 1000, 0);
@@ -216,7 +224,7 @@ namespace BackToTheFutureV
                 Ped = CurrentRecord.Spawn(NextRecord);
             }
 
-            if (!CurrentRecord.Ped.Replica.Components.OfType<int>().SequenceEqual(PreviousRecord.Ped.Replica.Components.OfType<int>()) || !CurrentRecord.Ped.Replica.Props.OfType<int>().SequenceEqual(PreviousRecord.Ped.Replica.Props.OfType<int>()))
+            if ((!CurrentRecord.Ped.Replica.Components.OfType<int>().SequenceEqual(PreviousRecord.Ped.Replica.Components.OfType<int>()) && !CurrentRecord.Ped.SwitchPed && !PreviousRecord.Ped.SwitchPed) || (!CurrentRecord.Ped.Replica.Props.OfType<int>().SequenceEqual(PreviousRecord.Ped.Replica.Props.OfType<int>()) && !CurrentRecord.Ped.SwitchPed && !PreviousRecord.Ped.SwitchPed))
             {
                 for (int x = 0; x <= 11; x++)
                 {
