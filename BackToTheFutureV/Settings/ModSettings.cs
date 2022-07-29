@@ -33,7 +33,7 @@ namespace BackToTheFutureV
         public static bool ForceFlyMode { get; set; } = true;
         public static bool GlowingWormholeEmitter { get; set; } = true;
         public static bool GlowingPlutoniumReactor { get; set; } = true;
-        public static bool InfiniteFuel { get; set; }
+        public static bool InfiniteFuel { get; set; } = false;
         public static bool LightningStrikeEvent { get; set; } = true;
         public static bool EngineStallEvent { get; set; } = true;
         public static bool TurbulenceEvent { get; set; } = true;
@@ -42,9 +42,9 @@ namespace BackToTheFutureV
         public static bool PersistenceSystem { get; set; } = false;
         public static bool RandomTrains { get; set; } = true;
         public static bool WaybackSystem { get; set; } = false;
-        public static bool RealTime { get; set; } = false;
+        public static bool RealTime { get; set; } = true;
         public static bool YearTraffic { get; set; } = false;
-        public static bool TimeParadox { get; set; } = true;
+        public static bool TimeParadox { get; set; } = false;
         public static int MaxRecordedMachines { get; set; } = 5;
 
         private static ScriptSettings settings;

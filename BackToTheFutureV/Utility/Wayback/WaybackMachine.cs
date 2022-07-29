@@ -183,7 +183,7 @@ namespace BackToTheFutureV
         {
             if ((Ped.NotNullAndExists() && Ped.IsDead && !Game.IsMissionActive && ModSettings.TimeParadox) || (Ped.NotNullAndExists() && Ped.LastVehicle.NotNullAndExists() && Ped.LastVehicle.IsConsideredDestroyed && !Game.IsMissionActive && ModSettings.TimeParadox))
             {
-                if (FusionUtils.PlayerPed.CurrentVehicle.NotNullAndExists() && FusionUtils.PlayerPed.CurrentVehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
+                if (FusionUtils.PlayerVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
                 {
                     RemoteTimeMachineHandler.StopRemoteControl();
                 }

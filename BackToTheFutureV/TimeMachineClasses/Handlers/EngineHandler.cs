@@ -565,7 +565,7 @@ namespace BackToTheFutureV
 
         private void CheckDecelerration()
         {
-            if (IsPlayerBreaking(Vehicle) && !IsReversing)
+            if (IsPlayerBraking(Vehicle) && !IsReversing)
             {
                 IsBreaking = true;
             }
@@ -577,7 +577,7 @@ namespace BackToTheFutureV
 
         private void CheckNeutral()
         {
-            if (!IsAccelerating && !IsPlayerBreaking(Vehicle) && !IsIdle)
+            if (!IsAccelerating && !IsPlayerBraking(Vehicle) && !IsIdle)
             {
                 IsNeutral = true;
             }
@@ -611,7 +611,7 @@ namespace BackToTheFutureV
 
         #region UTILS
 
-        private static bool IsPlayerBreaking(Vehicle vehicle, bool accountHandBrake = true)
+        private static bool IsPlayerBraking(Vehicle vehicle, bool accountHandBrake = true)
         {
             if (FusionUtils.PlayerVehicle != vehicle)
             {

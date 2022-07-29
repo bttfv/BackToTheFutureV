@@ -82,7 +82,7 @@ namespace BackToTheFutureV
 
         private unsafe void Main_Tick(object sender, EventArgs e)
         {
-            if (Game.Version >= GameVersion.v1_0_2372_0_NoSteam || Game.Version >= GameVersion.v1_0_2372_0_Steam)
+            if (Game.Version >= GameVersion.v1_0_2372_0_Steam)
             {
                 if (Game.IsLoading || FusionUtils.FirstTick)
                 {
@@ -138,6 +138,10 @@ namespace BackToTheFutureV
                         else if (FusionUtils.PlayerPed.Model == ResetPed.Model && !FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle != null && FusionUtils.PlayerPed.LastVehicle != null)
                         {
                             FusionUtils.PlayerPed.LastVehicle.IsPersistent = false;
+                            SwitchedVehicle = null;
+                        }
+                        else if (FusionUtils.PlayerPed.Model == ResetPed.Model && !FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle != null && FusionUtils.PlayerPed.LastVehicle == null)
+                        {
                             SwitchedVehicle = null;
                         }
                         else if (FusionUtils.PlayerPed.Model != ResetPed.Model && SwitchedVehicle != null)
