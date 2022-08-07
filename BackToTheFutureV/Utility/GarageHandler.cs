@@ -236,8 +236,8 @@ namespace BackToTheFutureV
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 75, true);
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 60, true);
-                    //Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 71, true);
-                    //Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 72, true);
+                    Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 71, true);
+                    Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 72, true);
                 }
 
                 switch (Status)

@@ -112,7 +112,7 @@ namespace BackToTheFutureV
         {
             if (Mods.IsDMC12)
             {
-                Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.CancelableWithMovement);
+                Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.AllowRotation);
             }
 
             // If its not a valid length/mode

@@ -43,6 +43,7 @@ namespace BackToTheFutureV
             deleteOthers = NewItem("RemoveOther");
             deleteAll = NewItem("RemoveAll");
 
+            NewSubmenu(MenuHandler.DoorsMenu);
             NewSubmenu(MenuHandler.SettingsMenu);
         }
 

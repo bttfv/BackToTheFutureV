@@ -16,6 +16,7 @@ namespace BackToTheFutureV
         public static RCMenu RCMenu { get; } = new RCMenu();
         public static OverrideMenu OverrideMenu { get; } = new OverrideMenu();
         public static PhotoMenu PhotoMenu { get; } = new PhotoMenu();
+        public static DoorsMenu DoorsMenu { get; } = new DoorsMenu();
         public static CustomMenu CustomMenuMain { get; } = new CustomMenu() { ForceNew = true };
         public static CustomMenu CustomMenuPresets { get; } = new CustomMenu() { ForceNew = true };
         public static CustomMenu2 CustomMenuGarage { get; } = new CustomMenu2();
@@ -27,6 +28,18 @@ namespace BackToTheFutureV
 
         public static bool UnlockPhotoMenu { get; private set; }
         public static bool UnlockSpawnMenu { get; private set; }
+
+        public static bool IsAnyMenuOpen()
+        {
+            if (ControlsMenu.Visible || SoundsSettingsMenu.Visible || EventsSettingsMenu.Visible || TCDMenu.Visible || SettingsMenu.Visible || RCMenu.Visible || OverrideMenu.Visible || PhotoMenu.Visible || DoorsMenu.Visible || CustomMenuMain.Visible || CustomMenuPresets.Visible || CustomMenuGarage.Visible || GarageMenu.Visible || PresetsMenu.Visible || OutatimeMenu.Visible || MainMenu.Visible || TimeMachineMenu.Visible)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public static void Tick()
         {
