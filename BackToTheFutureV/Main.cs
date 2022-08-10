@@ -91,7 +91,7 @@ namespace BackToTheFutureV
 
                 if (FirstTick)
                 {
-                    Screen.ShowHelpText("BackToTheFutureV loading...", 3000);
+                    Screen.ShowHelpText("BackToTheFutureV loading...", -1, true, true);
 
                     ResetPed = new PedReplica(FusionUtils.PlayerPed);
                     SwitchedPed = FusionUtils.PlayerPed.Handle;
@@ -196,7 +196,7 @@ namespace BackToTheFutureV
                         }
                     }
 
-                    Screen.ShowHelpText("BackToTheFutureV loaded correctly.", 3000);
+                    Screen.ShowHelpText("BackToTheFutureV loaded correctly.");
                     FirstTick = false;
                 }
             }
