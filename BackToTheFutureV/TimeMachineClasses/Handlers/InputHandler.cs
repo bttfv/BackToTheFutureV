@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Native;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -110,9 +111,9 @@ namespace BackToTheFutureV
 
         public void ProcessInputEnter()
         {
-            if (Mods.IsDMC12)
+            if (Mods.IsDMC12 && Driver != null && Driver == FusionUtils.PlayerPed)
             {
-                Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.AllowRotation);
+                Driver.Task.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.AllowRotation);
             }
 
             // If its not a valid length/mode
@@ -152,6 +153,11 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
+            if (Driver != null && Function.Call<bool>(Hash.IS_ENTITY_PLAYING_ANIM, Driver, "veh@low@front_ds@base", "change_station", 3) && Game.IsControlJustPressed(GTA.Control.VehicleExit))
+            {
+                Driver.Task.ClearAnimation("veh@low@front_ds@base", "change_station");
+            }
+            
             if (lastInput != Keys.None && !Game.IsKeyPressed(lastInput))
             {
                 lastInput = Keys.None;

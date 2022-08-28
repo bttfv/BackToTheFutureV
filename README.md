@@ -5,10 +5,9 @@
 ### Requirements:
 - .NET Framework 4.8
 - Script Hook V => https://www.dev-c.com/gtav/scripthookv/
-- Community Script Hook V .NET v3.4.0 => https://github.com/crosire/scripthookvdotnet
-- LemonUI v1.7 => https://github.com/justalemon/LemonUI
-- (*Optional*)  PackfileLimitAdjuster
-- (*Optional*)  HeapAdjuster
+- Community Script Hook V .NET v3.5.0+ => https://github.com/crosire/scripthookvdotnet
+- LemonUI v1.7+ => https://github.com/justalemon/LemonUI
+- HeapAdjuster
 
 ### Controls:
 - #### Keyboard / Controller

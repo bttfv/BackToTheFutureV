@@ -30,7 +30,7 @@
 	0x2A7E649C = Activate SID
 	0x2B64E838 = Use Input Toggle
 	0x2B6345C7 = Sends you to the main menu of the mod.
-	0x2BCC560C = Sets the duration of the wormhole.
+	0x2BCC560C = Milliseconds from start of wormhole to time travel.
 	0x2C05305E = SID Speed
 	0x2C4E0AF4 = Set Alarm Time
 	0x2D2B37F2 = Stock
@@ -57,7 +57,7 @@
 	0x4FB8DC08 = Persistence System
 	0x5A7DAA16 = BTTF1
 	0x5B6C272A = Last time departed.
-	0x5B7D011D = How quickly wormhole will start opening.
+	0x5B7D011D = Sets vehicle speed wormhole will open at.
 	0x5C5CDB78 = Substract Seconds
 	0x5ECDA4AE = Delete
 	0x5ED12AE5 = Unable to repair time circuits. Suitable replacement parts will not be widely available until 1952.
@@ -153,7 +153,7 @@
 	0x457F50E0 = Cutscene
 	0x472CFC0E = Change various settings related to the Time Circuits Display.
 	0x503A85B2 = Interaction Menu (2)
-	0x533CA8A7 = Set at which speed the SID maxes out.
+	0x533CA8A7 = Sets vehicle speed SID will max out at.
 	0x567C7076 = 1981 w/ Gas Flap
 	0x580EF548 = Edit RC HUD
 	0x585DFF50 = Deletes all the Time Machines spawned by the script.
@@ -240,7 +240,7 @@
 	0xA441D08E = Time Circuits Display
 	0xA4A45F2C = Speedo Beep
 	0xA52EEC37 = Opens menu for editing the mod's hotkeys and controls.
-	0xA55FADE4 = Set which speed time travel SFX will start.
+	0xA55FADE4 = Sets vehicle speed time travel SFX will start at.
 	0xA5A4CCA4 = CTRL key must be pressed along with Main Menu key to open it.
 	0xA5E276AB = Time Machine Menu
 	0xA5EE7AD9 = Move Down

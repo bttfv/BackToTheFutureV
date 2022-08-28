@@ -77,6 +77,7 @@ namespace BackToTheFutureV
 
             Events.OnSparksInterrupted += () => { Particles.LightningSparks?.Stop(); };
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
+            Events.OnTimeTravelEnded += OnTimeTravelEnded;
 
             Events.SetTimeCircuits += SetTimeCircuitsOn;
             Events.SetTimeCircuitsBroken += SetTimeCircuitsBroken;
@@ -230,6 +231,14 @@ namespace BackToTheFutureV
             lastTime = FusionUtils.CurrentTime;
             StopGlitch();
             Particles.LightningSparks?.Stop();
+        }
+
+        private void OnTimeTravelEnded()
+        {
+            if (Vehicle != null)
+            {
+                presentSlot.SetDate(FusionUtils.CurrentTime);
+            }
         }
 
         public void StartTimeCircuitsGlitch(bool softGlitch)

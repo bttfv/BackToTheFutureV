@@ -121,6 +121,11 @@ namespace BackToTheFutureV
             TurbulenceEvent = settings.GetValue("Events", "Turbulence", TurbulenceEvent);
             TerroristsEvent = settings.GetValue("Events", "Terrorists", TerroristsEvent);
 
+            if (PersistenceSystem && WaybackSystem)
+            {
+                PersistenceSystem = false;
+            }
+
             ModControls.LoadControls(settings);
 
             SaveSettings();

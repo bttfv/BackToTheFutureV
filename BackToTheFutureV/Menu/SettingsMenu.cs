@@ -82,6 +82,12 @@ namespace BackToTheFutureV
             if (sender == PersistenceSystem)
             {
                 ModSettings.PersistenceSystem = Checked;
+
+                if (!Checked)
+                {
+                    TimeMachineCloneHandler.Delete();
+                    RemoteTimeMachineHandler.DeleteAll();
+                }
             }
 
             if (sender == RandomTrains)
@@ -140,7 +146,9 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-
+            PersistenceSystem.Enabled = !WaybackSystem.Checked;
+            WaybackSystem.Enabled = !PersistenceSystem.Checked;
+            TimeParadox.Enabled = WaybackSystem.Checked;
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
