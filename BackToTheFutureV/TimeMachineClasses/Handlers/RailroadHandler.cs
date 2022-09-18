@@ -206,7 +206,7 @@ namespace BackToTheFutureV
 
                 if (_isReentryOn && customTrain.AttachedToTarget && customTrain.SpeedMPH == 0)
                 {
-                    if (_forceFreightTrain || FusionUtils.Random.NextDouble() <= 0.25f)
+                    if (_forceFreightTrain || (ModSettings.TrainEvent && FusionUtils.Random.NextDouble() <= 0.25f))
                     {
                         CustomTrainHandler.CreateFreightTrain(Vehicle, !_direction).SetToDestroy(Vehicle, 35);
                     }

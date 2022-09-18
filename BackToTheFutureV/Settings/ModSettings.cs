@@ -38,6 +38,7 @@ namespace BackToTheFutureV
         public static bool EngineStallEvent { get; set; } = true;
         public static bool TurbulenceEvent { get; set; } = true;
         public static bool TerroristsEvent { get; set; } = true;
+        public static bool TrainEvent { get; set; } = true;
         public static bool LandingSystem { get; set; } = true;
         public static bool PersistenceSystem { get; set; } = false;
         public static bool RandomTrains { get; set; } = true;
@@ -120,6 +121,7 @@ namespace BackToTheFutureV
             EngineStallEvent = settings.GetValue("Events", "EngineStall", EngineStallEvent);
             TurbulenceEvent = settings.GetValue("Events", "Turbulence", TurbulenceEvent);
             TerroristsEvent = settings.GetValue("Events", "Terrorists", TerroristsEvent);
+            TrainEvent = settings.GetValue("Events", "Train", TrainEvent);
 
             if (PersistenceSystem && WaybackSystem)
             {
@@ -175,6 +177,7 @@ namespace BackToTheFutureV
             settings.SetValue("Events", "EngineStall", EngineStallEvent);
             settings.SetValue("Events", "Turbulence", TurbulenceEvent);
             settings.SetValue("Events", "Terrorists", TerroristsEvent);
+            settings.SetValue("Events", "Train", TrainEvent);
 
             settings.Save();
 

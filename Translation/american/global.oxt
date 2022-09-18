@@ -227,6 +227,7 @@
 	0x5EB8020C = Passenger Door
 	0x5ED61A53 = Year-based Traffic
 	0x64354264 = ↑ Front ↓ Rear
+	0x665A20DC = If enabled, RR DeLorean may be destroyed after reentry.
 	0x6D0D8DE6 = Opens or closes the hood.
 	0x75372355 = Nuclear Reactor
 	0x75403782 = Replace the nuclear reactor with Mr. Fusion's Home Energy Reactor.
@@ -349,6 +350,7 @@
 	0xE10C2D20 = Saves current configuration.
 	0xE26FA8AD = Garage Menu
 	0xE34E9914 = Deletes all Time Machines except the current one.
+	0xE674CF7A = Train Event
 	0xE78CDBB7 = NO TIME
 	0xE89D7EEB = Cancel
 	0xE227CE6F = Factory DMC
