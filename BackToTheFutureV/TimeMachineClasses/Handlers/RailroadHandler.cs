@@ -99,7 +99,7 @@ namespace BackToTheFutureV
 
         public void Start(bool force = false)
         {
-            if ((!force && !Vehicle.IsOnAllWheels) || Vehicle == FusionUtils.PlayerVehicle.TowedVehicle)
+            if ((!force && !Vehicle.IsOnAllWheels) || (Vehicle == FusionUtils.PlayerVehicle?.TowedVehicle))
             {
                 return;
             }
