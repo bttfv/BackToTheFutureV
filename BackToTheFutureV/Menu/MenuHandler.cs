@@ -26,8 +26,8 @@ namespace BackToTheFutureV
         public static MainMenu MainMenu { get; } = new MainMenu();
         public static TimeMachineMenu TimeMachineMenu { get; } = new TimeMachineMenu();
 
-        public static bool UnlockPhotoMenu { get; private set; }
-        public static bool UnlockSpawnMenu { get; private set; }
+        public static bool UnlockPhotoMenu { get; private set; } = true;
+        public static bool UnlockSpawnMenu { get; private set; } = true;
 
         public static bool IsAnyMenuOpen()
         {
