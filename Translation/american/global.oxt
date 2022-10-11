@@ -223,7 +223,7 @@
 	0x3F41D668 = If enabled, traffic density will be affected by era.
 	0x42189120 = Wayback System
 	0x45868B65 = Louvers
-	0x504B9B02 = There won't be a gas station until 1912.
+	0x504B9B02 = Unable to repair engine. There won't be a gas station until 1912.
 	0x5EB8020C = Passenger Door
 	0x5ED61A53 = Year-based Traffic
 	0x64354264 = ↑ Front ↓ Rear
