@@ -123,6 +123,9 @@ namespace BackToTheFutureV
             else
             {
                 _timeMachinesToRemove.Add(vehicle, deleteVeh);
+                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+                PlayerSwitch.Disable = false;
+                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
             }
         }
 
@@ -148,6 +151,9 @@ namespace BackToTheFutureV
                 }
 
                 RemoveTimeMachine(veh);
+                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+                PlayerSwitch.Disable = false;
+                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
             }
         }
 
@@ -221,7 +227,7 @@ namespace BackToTheFutureV
 
             if (spawnFlags.HasFlag(SpawnFlags.CheckExists) && timeMachineClone != default)
             {
-                veh = World.GetClosestVehicle(timeMachineClone.Vehicle.Position, 1.0f, timeMachineClone.Vehicle.Model);
+                veh = World.GetClosestVehicle(timeMachineClone.Vehicle.Position, 5f, timeMachineClone.Vehicle.Model);
             }
 
             if (vehicle != default)
@@ -283,16 +289,30 @@ namespace BackToTheFutureV
                 timeMachine.Vehicle.SetVisible(false);
 
                 timeMachine.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
-
+                if (timeMachine.Mods.WormholeType == WormholeType.BTTF2 && spawnFlags.HasFlag(SpawnFlags.New))
+                {
+                    timeMachine.Properties.PreviousTime = new DateTime(2015, 10, 22, 19, 45, 0);
+                }
+                if (timeMachine.Mods.WormholeType == WormholeType.BTTF3 && spawnFlags.HasFlag(SpawnFlags.New))
+                {
+                    timeMachine.Properties.PreviousTime = new DateTime(1955, 11, 16, 10, 20, 0);
+                }
                 timeMachine.Properties.AreTimeCircuitsOn = true;
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);
 
                 if (ModSettings.WaybackSystem && spawnFlags.HasFlag(SpawnFlags.New))
                 {
-                    RemoteTimeMachineHandler.AddRemote(timeMachine.Clone());
+                    TimeMachineClone _new = timeMachine.Clone();
+                    _new.Properties.IsWayback = true;
+                    RemoteTimeMachineHandler.AddRemote(_new);
                 }
 
                 timeMachine.Events.OnReenterStarted?.Invoke();
+            }
+
+            if (spawnFlags.HasFlag(SpawnFlags.NoOccupants) && timeMachine.Properties.IsFlying)
+            {
+                timeMachine.Events.SetFlyMode.Invoke(false);
             }
 
             return timeMachine;
@@ -446,7 +466,8 @@ namespace BackToTheFutureV
             if (CurrentTimeMachine != null && !FusionUtils.PlayerVehicle.IsFunctioning())
             {
                 Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
-
+                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+                PlayerSwitch.Disable = false;
                 CurrentTimeMachine = null;
             }
 

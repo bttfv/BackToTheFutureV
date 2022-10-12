@@ -82,7 +82,7 @@ namespace BackToTheFutureV
                 Wheel = wheelType;
             }
 
-            if (Wheel == WheelType.RailroadInvisible && TimeMachine.Props != null && !TimeMachine.Props.RRWheels.IsSpawned)
+            if (Wheel == WheelType.RailroadInvisible && Vehicle.IsVisible && !TimeMachine.Props.RRWheels.IsSpawned)
             {
                 TimeMachine.Props?.RRWheels?.SpawnProp();
             }
@@ -196,6 +196,12 @@ namespace BackToTheFutureV
 
             switch (SuspensionsType)
             {
+                case SuspensionsType.Stock:
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                    break;
                 case SuspensionsType.LiftFrontLowerRear:
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, -0.1f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, -0.1f));
@@ -205,8 +211,12 @@ namespace BackToTheFutureV
                 case SuspensionsType.LiftFront:
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, -0.1f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, -0.1f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.0f));
                     break;
                 case SuspensionsType.LiftRear:
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.0f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, -0.1f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, -0.1f));
                     break;
@@ -219,8 +229,12 @@ namespace BackToTheFutureV
                 case SuspensionsType.LowerFront:
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.05f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.05f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.0f));
                     break;
                 case SuspensionsType.LowerRear:
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.0f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.0f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.05f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.05f));
                     break;
@@ -229,6 +243,12 @@ namespace BackToTheFutureV
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.05f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.05f));
                     CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.05f));
+                    break;
+                case SuspensionsType.LowerFrontLiftRear:
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.05f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.05f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, -0.1f));
+                    CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, -0.1f));
                     break;
             }
         }
@@ -253,8 +273,6 @@ namespace BackToTheFutureV
 
                 if (value == WheelType.RailroadInvisible)
                 {
-                    TimeMachine.Props?.RRWheels?.SpawnProp();
-
                     if (!IsDMC12)
                     {
                         return;
@@ -275,7 +293,11 @@ namespace BackToTheFutureV
                         TimeMachine.Events?.OnWormholeTypeChanged?.Invoke();
                     }
 
-                    Wheels.Burst = true;
+                    if (Vehicle.IsVisible)
+                    {
+                        TimeMachine.Props?.RRWheels?.SpawnProp();
+                        Wheels.Burst = true;
+                    }
                 }
                 else
                 {
@@ -298,6 +320,11 @@ namespace BackToTheFutureV
                     {
                         return;
                     }
+                }
+
+                if (TimeMachine.Mods != null && TimeMachine.Mods.SuspensionsType != value)
+                {
+                    TimeMachine.Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.3f;
                 }
 
                 base.SuspensionsType = value;
@@ -323,7 +350,7 @@ namespace BackToTheFutureV
                 {
                     if (TimeMachine.Decorators != null)
                     {
-                        TimeMachine.Decorators.TorqueMultiplier = 1;
+                        TimeMachine.Decorators.TorqueMultiplier = 1f;
                     }
                 }
             }
@@ -452,8 +479,6 @@ namespace BackToTheFutureV
                     {
                         TimeMachine.Events.SetTimeCircuits?.Invoke(false);
                     }
-
-                    TimeMachine.Properties.AreHoodboxCircuitsReady = false;
                 }
             }
         }

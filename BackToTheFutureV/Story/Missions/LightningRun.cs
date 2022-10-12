@@ -47,7 +47,7 @@ namespace BackToTheFutureV
         public const Hash LightningRunStreet = unchecked((Hash)4174973413);
         public const Hash StartLine = unchecked((Hash)2593489231);
 
-        private Vector3 checkPos = new Vector3(41.5676f, 6585.7378f, 30.3686f);
+        private Vector3 checkPos = new Vector3(-143.6626f, 6390.0047f, 30.7007f);
 
         public static DateTime StrikeTime { get; } = new DateTime(1955, 11, 12, 22, 4, 0);
 
@@ -98,7 +98,7 @@ namespace BackToTheFutureV
             //    testTime = 0;
             //}
 
-            if (!TimeHandler.RealTime || FusionUtils.PlayerPed.Position.DistanceToSquared2D(checkPos) > 197480)
+            if (!TimeHandler.RealTime || FusionUtils.PlayerPed.Position.DistanceToSquared2D(checkPos) > 150000)
             {
                 if (setup)
                 {
@@ -188,7 +188,6 @@ namespace BackToTheFutureV
                     gameTime = Game.GameTime + 250;
                     break;
                 case 3:
-
                     if (!fireRope.IsPlaying)
                     {
                         fireRope.Play();
@@ -201,12 +200,12 @@ namespace BackToTheFutureV
 
                     break;
                 case 4:
+                    MastRope?.Delete();
                     fireRope.StopInSequence();
 
                     step++;
                     break;
                 case 5:
-
                     if (fireRope.IsPlaying)
                     {
                         break;
@@ -215,6 +214,14 @@ namespace BackToTheFutureV
                     IsPlaying = false;
 
                     CustomCamera.Stop();
+
+                    if (!FusionUtils.IsTrafficAlive)
+                    {
+                        FusionUtils.IsTrafficAlive = true;
+                        TimeHandler.MissionTraffic = false;
+                        Function.Call(Hash.SET_PED_PATHS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
+                        Function.Call(Hash.SET_PED_POPULATION_BUDGET, 3);
+                    }
 
                     step = 0;
                     break;
@@ -228,81 +235,91 @@ namespace BackToTheFutureV
             LeftStreetPole = World.CreateProp(streetPoleModel, new Vector3(50.4339f, 6576.8843f, 30.3620f), true, false);
             RightStreetPole = World.CreateProp(streetPoleModel, new Vector3(41.5676f, 6585.7378f, 30.3686f), true, false);
 
-            Vector3 leftRope = LeftStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
-            Vector3 rightRope = RightStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
-
-            float distance = leftRope.DistanceTo(rightRope);
-
-            StreetRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(rightRope).DirectionToRotation(0), distance, distance, false);
-            StreetRope.Connect(LeftStreetPole, leftRope, RightStreetPole, rightRope, distance);
-
             Mast = World.CreateProp(mastModel, new Vector3(63.0749f, 6582.1401f, 30.5130f), true, false);
             Mast.IsPositionFrozen = true;
-
-            distance = leftRope.DistanceTo(polePosition);
-
-            MastRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(polePosition).DirectionToRotation(0), distance, distance, false);
-            MastRope.Connect(LeftStreetPole, leftRope, Mast, polePosition, distance);
 
             Pole = World.CreateProp(poleModel, polePosition, true, false);
             Pole.IsPositionFrozen = true;
 
-            Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true, IsSequenceLooped = true };
-            foreach (CustomModel x in ModelHandler.Lightnings)
+            if (FusionUtils.CurrentTime >= new DateTime(1955, 11, 12, 20, 0, 0) && FusionUtils.CurrentTime <= new DateTime(1955, 11, 12, 22, 4, 30))
             {
-                Lightnings.Add(new AnimateProp(x, Pole, lightningOffset, Vector3.Zero));
-            }
+                if (FusionUtils.IsTrafficAlive)
+                {
+                    TimeHandler.MissionTraffic = true;
+                    FusionUtils.IsTrafficAlive = false;
+                    Function.Call(Hash.SET_PED_PATHS_IN_AREA, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f, 1);
+                    Function.Call(Hash.SET_PED_POPULATION_BUDGET, 0);
+                }
 
-            Spark = new ParticlePlayer("core", "ent_brk_sparking_wires_sp", ParticleType.ForceLooped, Pole, Vector3.Zero, Vector3.Zero, 8f) { Interval = 500 };
+                Vector3 leftRope = LeftStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
+                Vector3 rightRope = RightStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
 
-            CustomCamera.Add(RightStreetPole, new Vector3(11.93889f, 11.07275f, 4.756693f), new Vector3(11.65637f, 10.13232f, 4.56657f), 64);
+                float distance = leftRope.DistanceTo(rightRope);
 
-            Thunder = Main.CommonAudioEngine.Create("general/thunder.wav", Presets.No3D);
+                StreetRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(rightRope).DirectionToRotation(0), distance, distance, false);
+                StreetRope.Connect(LeftStreetPole, leftRope, RightStreetPole, rightRope, distance);
 
-            Vector3 curPos = polePosition;
+                distance = leftRope.DistanceTo(polePosition);
 
-            sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
+                MastRope = World.AddRope((RopeType)6, leftRope, leftRope.GetDirectionTo(polePosition).DirectionToRotation(0), distance, distance, false);
+                MastRope.Connect(LeftStreetPole, leftRope, Mast, polePosition, distance);
 
-            do
-            {
-                curPos += curPos.GetDirectionTo(leftRope) * 0.25f;
+                Lightnings = new AnimatePropsHandler() { SequenceSpawn = true, SequenceInterval = 100, IsSequenceRandom = true, IsSequenceLooped = true };
+                foreach (CustomModel x in ModelHandler.Lightnings)
+                {
+                    Lightnings.Add(new AnimateProp(x, Pole, lightningOffset, Vector3.Zero));
+                }
+
+                Spark = new ParticlePlayer("core", "ent_brk_sparking_wires_sp", ParticleType.ForceLooped, Pole, Vector3.Zero, Vector3.Zero, 8f) { Interval = 500 };
+
+                CustomCamera.Add(RightStreetPole, new Vector3(11.93889f, 11.07275f, 4.756693f), new Vector3(11.65637f, 10.13232f, 4.56657f), 64);
+
+                Thunder = Main.CommonAudioEngine.Create("general/thunder.wav", Presets.No3D);
+
+                Vector3 curPos = polePosition;
+
                 sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
-            } while (curPos.DistanceTo(leftRope) > 0.1f);
 
-            do
-            {
-                curPos += curPos.GetDirectionTo(rightRope) * 0.25f;
-                sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
-            } while (curPos.DistanceTo(rightRope) > 0.1f);
+                do
+                {
+                    curPos += curPos.GetDirectionTo(leftRope) * 0.25f;
+                    sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
+                } while (curPos.DistanceTo(leftRope) > 0.1f);
 
-            sparkRope.UseFrameTimeHelper = true;
+                do
+                {
+                    curPos += curPos.GetDirectionTo(rightRope) * 0.25f;
+                    sparkRope.Add("scr_reconstructionaccident", "scr_sparking_generator", ParticleType.Looped, curPos, Vector3.Zero, 2);
+                } while (curPos.DistanceTo(rightRope) > 0.1f);
 
-            curPos = polePosition.GetSingleOffset(Coordinate.Z, -0.1f);
+                sparkRope.UseFrameTimeHelper = true;
 
-            leftRope = leftRope.GetSingleOffset(Coordinate.Z, -0.1f);
-            rightRope = rightRope.GetSingleOffset(Coordinate.Z, -0.1f);
+                curPos = polePosition.GetSingleOffset(Coordinate.Z, -0.1f);
 
-            fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, curPos.GetDirectionTo(leftRope).DirectionToRotation(0), 0.4f);
+                leftRope = leftRope.GetSingleOffset(Coordinate.Z, -0.1f);
+                rightRope = rightRope.GetSingleOffset(Coordinate.Z, -0.1f);
 
-            do
-            {
-                curPos += curPos.GetDirectionTo(leftRope) * 0.5f;
                 fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, curPos.GetDirectionTo(leftRope).DirectionToRotation(0), 0.4f);
-            } while (curPos.DistanceTo(leftRope) > 0.1f);
 
-            do
-            {
-                curPos += curPos.GetDirectionTo(rightRope) * 0.5f;
-                fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, rightRope.GetDirectionTo(curPos).DirectionToRotation(0), 0.4f);
-            } while (curPos.DistanceTo(rightRope) > 0.1f);
+                do
+                {
+                    curPos += curPos.GetDirectionTo(leftRope) * 0.5f;
+                    fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, curPos.GetDirectionTo(leftRope).DirectionToRotation(0), 0.4f);
+                } while (curPos.DistanceTo(leftRope) > 0.1f);
 
-            fireRope.SetEvolutionParam("strength", 1);
-            fireRope.SetEvolutionParam("dist", 0);
-            fireRope.SetEvolutionParam("fadein", 0);
+                do
+                {
+                    curPos += curPos.GetDirectionTo(rightRope) * 0.5f;
+                    fireRope.Add("core", "fire_petroltank_heli", ParticleType.Looped, curPos, rightRope.GetDirectionTo(curPos).DirectionToRotation(0), 0.4f);
+                } while (curPos.DistanceTo(rightRope) > 0.1f);
 
-            fireRope.UseFrameTimeHelper = true;
-            fireRope.ChanceOfSpawn = 0.5f;
+                fireRope.SetEvolutionParam("strength", 1);
+                fireRope.SetEvolutionParam("dist", 0);
+                fireRope.SetEvolutionParam("fadein", 0);
 
+                fireRope.UseFrameTimeHelper = true;
+                fireRope.ChanceOfSpawn = 0.5f;
+            }
             setup = true;
         }
 
@@ -314,12 +331,21 @@ namespace BackToTheFutureV
             Lightnings?.Delete();
             LeftStreetPole?.Delete();
             RightStreetPole?.Delete();
+            Mast?.Delete();
             Pole?.Delete();
             StreetRope?.Delete();
             MastRope?.Delete();
 
             sparkRope?.Stop();
             fireRope?.Stop();
+
+            if (!FusionUtils.IsTrafficAlive)
+            {
+                FusionUtils.IsTrafficAlive = true;
+                TimeHandler.MissionTraffic = false;
+                Function.Call(Hash.SET_PED_PATHS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
+                Function.Call(Hash.SET_PED_POPULATION_BUDGET, 3);
+            }
 
             IsPlaying = false;
             setup = false;

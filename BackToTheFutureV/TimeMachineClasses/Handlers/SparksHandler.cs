@@ -37,18 +37,15 @@ namespace BackToTheFutureV
                 if (Properties.IsFueled)
                 {
                     DMC12?.SetVoltValue?.Invoke(100);
+                    WaypointScript.LoadWaypointPosition(true);
                 }
-
-                WaypointScript.LoadWaypointPosition(true);
             }
             else
             {
                 if (Players.Wormhole.IsPlaying)
                 {
                     DMC12?.SetVoltValue?.Invoke(50);
-
                     Sounds.WormholeInterrupted?.Play();
-                    Events.OnSparksInterrupted?.Invoke();
                 }
 
                 Stop();
@@ -181,6 +178,7 @@ namespace BackToTheFutureV
             }
 
             Players.Wormhole?.Stop();
+            Events.OnSparksInterrupted?.Invoke();
 
             Sounds.Sparks?.Stop(true);
 

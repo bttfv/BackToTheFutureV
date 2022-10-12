@@ -278,7 +278,7 @@ namespace BackToTheFutureV
 
             Mods.OffCoils = ModState.On;
 
-            Particles.Sparks?.Stop();
+            Particles.Sparks?.Stop(true);
 
             _sparks?.ForEach(x => x?.Stop());
 

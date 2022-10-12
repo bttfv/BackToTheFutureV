@@ -136,18 +136,19 @@ namespace BackToTheFutureV
                 Properties.PhotoEngineStallActive = true;
             }
 
-            if (Constants.ReadyForLightningRun && Properties.AlarmSet && Properties.AlarmTime.Between(new DateTime(1955, 11, 12, 22, 03, 0), new DateTime(1955, 11, 12, 22, 3, 45)) && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.CurrentTime == Properties.AlarmTime.AddSeconds(-5))
+            if (Constants.ReadyForLightningRun && Properties.AlarmSet && Properties.AlarmTime.Between(new DateTime(1955, 11, 12, 22, 03, 40), new DateTime(1955, 11, 12, 22, 3, 50)) && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.CurrentTime == Properties.AlarmTime.AddSeconds(-30))
             {
                 Properties.PhotoEngineStallActive = true;
                 Properties.BlockEngineRecover = true;
+                Properties.AlarmTime = Properties.AlarmTime.AddSeconds(-11);
             }
 
-            if (Game.GameTime < _nextCheck || !IsPlaying || !Vehicle.IsVisible)
+            if (Game.GameTime < _nextCheck || !IsPlaying || !Vehicle.IsVisible || MenuHandler.GarageMenu.Visible)
             {
                 return;
             }
 
-            if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled)
+            if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled && !Properties.IsRemoteControlled && Driver != null && !FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 20, 0, 0), new DateTime(1955, 11, 12, 22, 4, 10)) && Vehicle.GetStreetInfo().Street != LightningRun.LightningRunStreet)
             {
                 if (FusionUtils.Random.NextDouble() < 0.25)
                 {
@@ -162,7 +163,7 @@ namespace BackToTheFutureV
 
             if (Properties.IsEngineStalling)
             {
-                if (!ModSettings.EngineStallEvent && !Properties.PhotoEngineStallActive)
+                if (!ModSettings.EngineStallEvent && !Properties.PhotoEngineStallActive || Constants.ReadyForLightningRun && !Properties.PhotoEngineStallActive && !Properties.BlockEngineRecover)
                 {
                     Stop();
                     Vehicle.FuelLevel = _deloreanMaxFuelLevel;
@@ -189,8 +190,22 @@ namespace BackToTheFutureV
                         _isRestarting = true;
                     }
 
-                    if ((Properties.BlockEngineRecover && FusionUtils.CurrentTime >= new DateTime(1955, 11, 12, 22, 03, 50)) || (!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (!Properties.BlockEngineRecover && Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f))
+                    if ((!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (!Properties.BlockEngineRecover && Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f && !Properties.IsRemoteControlled))
                     {
+                        if (Game.IsControlPressed(GTA.Control.VehicleDuck) && !Properties.IsRemoteControlled)
+                        {
+                            Sounds.HeadHorn?.Play();
+                        }
+                        Stop();
+                        Vehicle.FuelLevel = _deloreanMaxFuelLevel;
+                        Vehicle.IsEngineRunning = true;
+                        _nextCheck = Game.GameTime + 10000;
+                        return;
+                    }
+
+                    if (Properties.BlockEngineRecover && Properties.PhotoEngineStallActive && FusionUtils.CurrentTime == Properties.AlarmTime.AddSeconds(+11) && (Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)))
+                    {
+                        Sounds.HeadHorn?.Play();
                         Stop();
                         Vehicle.FuelLevel = _deloreanMaxFuelLevel;
                         Vehicle.IsEngineRunning = true;

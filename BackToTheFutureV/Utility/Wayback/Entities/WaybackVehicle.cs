@@ -75,11 +75,11 @@ namespace BackToTheFutureV
 
             if (nextReplica == null)
             {
-                vehicle = World.GetClosestVehicle(Replica.Position, 3, Replica.Model);
+                vehicle = World.GetClosestVehicle(Replica.Position, 5f, Replica.Model);
             }
             else
             {
-                vehicle = World.GetClosestVehicle(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), 3, Replica.Model);
+                vehicle = World.GetClosestVehicle(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), 5f, Replica.Model);
             }
 
             if (!vehicle.NotNullAndExists() || FusionUtils.PlayerPed == vehicle)

@@ -19,6 +19,7 @@ namespace BackToTheFutureV
         private readonly NativeItem repairTC;
         private readonly NativeItem repairFC;
         private readonly NativeItem repairEngine;
+        private readonly NativeItem washCar;
 
         public static AudioPlayer[] GarageSounds { get; } = { Main.CommonAudioEngine.Create("general/garage/tireChange.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill1.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill2.wav", Presets.No3D), Main.CommonAudioEngine.Create("general/garage/drill3.wav", Presets.No3D) };
 
@@ -33,6 +34,7 @@ namespace BackToTheFutureV
             repairTC = NewItem("RepairTC");
             repairFC = NewItem("RepairFC");
             repairEngine = NewItem("RepairEngine");
+            washCar = NewItem("WashCar");
 
             customMenu = NewSubmenu(MenuHandler.CustomMenuGarage);
             customMenu.Activated += CustomMenu_Activated;
@@ -151,6 +153,18 @@ namespace BackToTheFutureV
                     Game.Player.Money -= 750;
                 }
             }
+
+            if (sender == washCar)
+            {
+                if (Game.Player.Money < 10)
+                {
+                    TextHandler.Me.ShowNotification("NotEnoughMoney");
+                    return;
+                }
+
+                CurrentTimeMachine.Vehicle.Wash();
+                Game.Player.Money -= 10;
+            }
         }
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -160,9 +174,19 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
         {
-            if (sender == hoverConvert && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken)
+            if (sender == repairTC && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreTimeCircuitsBroken)
             {
-                TextHandler.Me.ShowSubtitle("HoverDamaged");
+                TextHandler.Me.ShowSubtitle("UnableRepairTC");
+            }
+
+            if (sender == repairFC && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken)
+            {
+                TextHandler.Me.ShowSubtitle("UnableRepairFC");
+            }
+
+            if (sender == repairEngine && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst)
+            {
+                TextHandler.Me.ShowSubtitle("UnableRepairEngine");
             }
         }
 
@@ -196,11 +220,12 @@ namespace BackToTheFutureV
             transformInto.Enabled = !active && FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
             hoverConvert.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((CurrentTimeMachine.Mods.IsDMC12 && !CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || CurrentTimeMachine.Vehicle.CanHoverTransform());
             installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && CurrentTimeMachine.Mods.IsDMC12;
-            repairTC.Enabled = active && (CurrentTimeMachine.Properties.AreTimeCircuitsBroken && CurrentTimeMachine.Mods.Hoodbox == ModState.Off);
+            repairTC.Enabled = active && FusionUtils.CurrentTime.Year >= 1952 && (CurrentTimeMachine.Properties.AreTimeCircuitsBroken || (FusionUtils.CurrentTime.Year >= 1985 && CurrentTimeMachine.Mods.Hoodbox == ModState.On && CurrentTimeMachine.Mods.IsDMC12));
             repairFC.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
-            repairEngine.Enabled = active && (CurrentTimeMachine.Vehicle.EngineHealth <= 0 || CurrentTimeMachine.Mods.Wheels.Burst);
+            repairEngine.Enabled = active && FusionUtils.CurrentTime.Year >= 1912 && (CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst);
+            washCar.Enabled = active && CurrentTimeMachine.Vehicle.DirtLevel > 0;
 
-            buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 5 && FusionUtils.CurrentTime.Year == 1985;
+            buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 5 && FusionUtils.CurrentTime.Year > 1985 && FusionUtils.CurrentTime.Year < 2015;
             buyPlutonium.AltTitle = $"{InternalInventory.Current.Plutonium}/5";
 
             customMenu.Enabled = active && !CurrentTimeMachine.Constants.FullDamaged;

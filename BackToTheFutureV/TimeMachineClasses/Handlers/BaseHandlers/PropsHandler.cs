@@ -29,6 +29,7 @@ namespace BackToTheFutureV
 
         //Flux capacitor
         public AnimateProp FluxBlue;
+        public AnimateProp FluxOrange;
 
         //Plutonium gauge
         public AnimateProp GaugeGlow;
@@ -184,6 +185,7 @@ namespace BackToTheFutureV
 
             //Flux capacitor
             FluxBlue = new AnimateProp(ModelHandler.FluxBlueModel, Vehicle, "flux_capacitor");
+            FluxOrange = new AnimateProp(ModelHandler.FluxOrangeModel, Vehicle, "flux_capacitor");
 
             //License plate
             LicensePlate = new AnimateProp(ModelHandler.LicensePlate, Vehicle, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
@@ -245,6 +247,7 @@ namespace BackToTheFutureV
 
             //Flux capacitor
             FluxBlue?.Dispose();
+            FluxOrange?.Dispose();
 
             //License plate
             LicensePlate?.Dispose(LicensePlate != null && LicensePlate.IsSpawned);

@@ -79,6 +79,7 @@ namespace BackToTheFutureV
 
         //Engine restarter
         public AudioPlayer EngineRestarter;
+        public AudioPlayer HeadHorn;
 
         //Sparks
         public AudioPlayer Sparks;
@@ -239,6 +240,9 @@ namespace BackToTheFutureV
             EngineRestarter.FadeInMultiplier = 4f;
             EngineRestarter.MinimumDistance = 6f;
 
+            HeadHorn = AudioEngine.Create("general/horn.wav", Presets.Exterior);
+            HeadHorn.Volume = 0.5f;
+
             //Flux capacitor            
             FluxCapacitor = AudioEngine.Create("general/fluxCapacitor.wav", Presets.InteriorLoop);
             FluxCapacitor.Volume = 0.1f;
@@ -306,6 +310,7 @@ namespace BackToTheFutureV
 
             //Engine restarter
             EngineRestarter?.Dispose();
+            HeadHorn?.Dispose();
 
             //Sparks
             Sparks?.Dispose();
@@ -396,14 +401,20 @@ namespace BackToTheFutureV
 
             if (Vehicle.IsEngineRunning && !_engineOn)
             {
-                _engineOffsound.Stop();
-                _engineOnSound.Play();
+                if (!(GTA.UI.Screen.IsFadingIn || GTA.UI.Screen.IsFadingOut || GTA.UI.Screen.IsFadedOut))
+                {
+                    _engineOffsound.Stop();
+                    _engineOnSound.Play();
+                }
                 _engineOn = true;
             }
             else if (!Vehicle.IsEngineRunning && _engineOn)
             {
-                _engineOnSound.Stop();
-                _engineOffsound.Play();
+                if (!(GTA.UI.Screen.IsFadingIn || GTA.UI.Screen.IsFadingOut || GTA.UI.Screen.IsFadedOut))
+                {
+                    _engineOnSound.Stop();
+                    _engineOffsound.Play();
+                }
                 _engineOn = false;
             }
 

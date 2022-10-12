@@ -48,7 +48,7 @@ namespace BackToTheFutureV
 
             if ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-45), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-3)))
             {
-                if (!_hasPlayedWarningSound)
+                if (!_hasPlayedWarningSound && !TimeMachineClone.Properties.IsWayback && !TimeMachineClone.Properties.HasBeenStruckByLightning)
                 {
                     if (!FusionUtils.PlayerPed.IsInVehicle())
                     {
@@ -62,12 +62,16 @@ namespace BackToTheFutureV
                 }
             }
 
-            if ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-2)))
+            if ((!TimeHandler.RealTime && !TimeMachineClone.Properties.IsWayback && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && !TimeMachineClone.Properties.IsWayback && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-2)))
             {
                 Spawn(ReenterType.Normal);
 
                 _hasPlayedWarningSound = false;
                 _timer = Game.GameTime + 10000;
+            }
+            else if ((!TimeHandler.RealTime && TimeMachineClone.Properties.IsWayback && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && TimeMachineClone.Properties.IsWayback && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-1)))
+            {
+                Spawn(ReenterType.Normal);
             }
         }
 
@@ -83,21 +87,29 @@ namespace BackToTheFutureV
                 case ReenterType.Normal:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
                     TimeMachine.Properties.DestinationTime = TimeMachineClone.Properties.DestinationTime;
-                    TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    //TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     break;
                 case ReenterType.Forced:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
-                    TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry | SpawnFlags.NoOccupants);
+                    //TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     break;
                 case ReenterType.Spawn:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity);
-                    TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants);
+                    //TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     if (!TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12)
                     {
                         TimeMachine.Properties.ReactorCharge--;
+                    }
+
+                    if (TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12 && TimeMachine.Properties.IsFlying)
+                    {
+                        TimeMachine.Properties.AreTimeCircuitsOn = false;
+                        TimeMachine.Properties.AreFlyingCircuitsBroken = true;
+                        TimeMachine.Properties.AreTimeCircuitsBroken = true;
+                        TimeMachine.Properties.HasBeenStruckByLightning = false;
                     }
 
                     TimeMachine.Events.OnVehicleSpawned?.Invoke();
@@ -111,7 +123,7 @@ namespace BackToTheFutureV
 
         public void ExistenceCheck(DateTime time)
         {
-            if (TimeMachineClone.Properties.DestinationTime < time && !Spawned)
+            if (TimeMachineClone.Properties.DestinationTime < time && !TimeMachineClone.Properties.IsWayback && !Spawned)
             {
                 Spawn(ReenterType.Spawn);
             }

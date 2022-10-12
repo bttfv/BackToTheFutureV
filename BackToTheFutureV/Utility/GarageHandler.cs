@@ -236,8 +236,8 @@ namespace BackToTheFutureV
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 75, true);
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
                     Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 60, true);
-                    //Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 71, true);
-                    //Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 72, true);
+                    Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 71, true);
+                    Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 72, true);
                 }
 
                 switch (Status)
@@ -245,7 +245,7 @@ namespace BackToTheFutureV
                     case GarageStatus.Idle:
                         GTA.UI.Screen.ShowHelpTextThisFrame("Press ~INPUT_CONTEXT~ to open garage menu.");
 
-                        if (Game.IsControlJustPressed(Control.Context))
+                        if (Game.IsControlJustPressed(Control.Context) && ((!Vehicle.IsEngineStarting && Vehicle.IsEngineRunning) && !Game.IsMissionActive || (Vehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged)))
                         {
                             FusionUtils.HideGUI = true;
 
@@ -256,6 +256,7 @@ namespace BackToTheFutureV
 
                             //SetupCamera(garageInfo.CreateInsideCamera());
                             MenuHandler.GarageMenu.Visible = true;
+                            MenuHandler.CustomMenuGarage.CloseOnInvalidClick = false;
 
                             garageInfo.Lock();
                             Status = GarageStatus.Busy;
@@ -291,7 +292,7 @@ namespace BackToTheFutureV
 
                             if (timeMachine.Mods.IsDMC12)
                             {
-                                timeMachine.Properties.ReactorCharge = 0;
+                                timeMachine.Properties.ReactorCharge = 1;
                             }
 
                             if (ModSettings.WaybackSystem)

@@ -60,10 +60,10 @@ namespace BackToTheFutureV
                 Directory.CreateDirectory(PresetsPath);
             }
 
-            Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Create, FileAccess.Write);
-
-            FusionUtils.BinaryFormatter.Serialize(stream, this);
-            stream.Close();
+            using (Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Create, FileAccess.Write))
+            {
+                FusionUtils.BinaryFormatter.Serialize(stream, this);
+            }
         }
 
         public static string PresetsPath = "./scripts/BackToTheFutureV/presets";
@@ -130,13 +130,12 @@ namespace BackToTheFutureV
                 name += ".dmc12";
             }
 
-            Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Open, FileAccess.Read);
+            using (Stream stream = new FileStream($"{PresetsPath}/{name}", FileMode.Open, FileAccess.Read))
+            {
+                TimeMachineClone baseMods = (TimeMachineClone)FusionUtils.BinaryFormatter.Deserialize(stream);
 
-            TimeMachineClone baseMods = (TimeMachineClone)FusionUtils.BinaryFormatter.Deserialize(stream);
-
-            stream.Close();
-
-            return baseMods;
+                return baseMods;
+            }
         }
     }
 }

@@ -185,6 +185,7 @@ namespace BackToTheFutureV
         public override void Stop()
         {
             Props.HoodboxLights?.Delete();
+            Properties.AreHoodboxCircuitsReady = false;
             _warmUp = 0;
         }
 

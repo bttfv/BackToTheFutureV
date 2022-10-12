@@ -10,16 +10,21 @@ namespace BackToTheFutureV
     internal class FluxCapacitorHandler : HandlerPrimitive
     {
         private readonly LightHandler FluxBlueLight;
+        private readonly LightHandler FluxOrangeLight;
 
         public FluxCapacitorHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            FluxBlueLight = new LightHandler(TimeMachine, TimeMachineHandler.TimeMachineCount + 1);
-            FluxBlueLight.Add("flux_capacitor", "windscreen", Color.FromArgb(118, 147, 230), 10, 5, 0, 45, 100);
-            FluxBlueLight.Add("windscreen", "flux_capacitor", Color.FromArgb(118, 147, 230), 10, 10, 0, 6, 0);
-
             Vector3 pos = Vehicle.Bones["flux_capacitor"].RelativePosition;
             Vector3 dir = pos.GetDirectionTo(new Vector3(-0.03805999f, -0.0819466f, 0.5508024f));
 
+            FluxOrangeLight = new LightHandler(TimeMachine, TimeMachineHandler.TimeMachineCount + 1);
+            FluxOrangeLight.Add("flux_capacitor", "windscreen", Color.FromArgb(232, 196, 190), 10, 5, 0, 45, 100);
+            FluxOrangeLight.Add("windscreen", "flux_capacitor", Color.FromArgb(232, 196, 190), 10, 10, 0, 6, 0);
+            FluxOrangeLight.Add(pos, dir, Color.FromArgb(232, 196, 190), 10, 20, 0, 90, 100);
+
+            FluxBlueLight = new LightHandler(TimeMachine, TimeMachineHandler.TimeMachineCount + 1);
+            FluxBlueLight.Add("flux_capacitor", "windscreen", Color.FromArgb(118, 147, 230), 10, 5, 0, 45, 100);
+            FluxBlueLight.Add("windscreen", "flux_capacitor", Color.FromArgb(118, 147, 230), 10, 10, 0, 6, 0);
             FluxBlueLight.Add(pos, dir, Color.FromArgb(118, 147, 230), 10, 20, 0, 90, 100);
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
@@ -33,20 +38,29 @@ namespace BackToTheFutureV
 
         public void StartTimeTravelEffect()
         {
-            if (!Properties.IsFueled)
+            if (!Properties.IsFueled && !Properties.PhotoFluxCapacitorActive)
             {
                 return;
             }
-
-            ScaleformsHandler.FluxCapacitor.CallFunction("START_BLUE_ANIMATION");
-            Properties.IsFluxDoingBlueAnim = true;
+            if (Mods.WormholeType == InternalEnums.WormholeType.BTTF3)
+            {
+                ScaleformsHandler.FluxCapacitor.CallFunction("START_ORANGE_ANIMATION");
+                Properties.IsFluxDoingOrangeAnim = true;
+            }
+            else
+            {
+                ScaleformsHandler.FluxCapacitor.CallFunction("START_BLUE_ANIMATION");
+                Properties.IsFluxDoingBlueAnim = true;
+            }
         }
 
         public void StartNormalFluxing()
         {
             ScaleformsHandler.FluxCapacitor.CallFunction("START_ANIMATION");
             Props.FluxBlue?.Delete();
+            Props.FluxOrange?.Delete();
             Properties.IsFluxDoingBlueAnim = false;
+            Properties.IsFluxDoingOrangeAnim = false;
         }
 
         private void OnScaleformPriority()
@@ -106,6 +120,11 @@ namespace BackToTheFutureV
                 FluxBlueLight.Draw();
             }
 
+            if (Properties.IsFluxDoingOrangeAnim)
+            {
+                FluxOrangeLight.Draw();
+            }
+
             if (Properties.IsFluxDoingBlueAnim && !Props.FluxBlue.IsSpawned)
             {
                 Props.FluxBlue.SpawnProp();
@@ -115,6 +134,16 @@ namespace BackToTheFutureV
             {
                 Props.FluxBlue?.Delete();
             }
+
+            if (Properties.IsFluxDoingOrangeAnim && !Props.FluxOrange.IsSpawned)
+            {
+                Props.FluxOrange.SpawnProp();
+            }
+
+            if (!Properties.IsFluxDoingOrangeAnim && Props.FluxOrange.IsSpawned)
+            {
+                Props.FluxOrange?.Delete();
+            }
         }
 
         public void Update()
@@ -123,6 +152,7 @@ namespace BackToTheFutureV
             {
                 ScaleformsHandler.FluxCapacitor.CallFunction("STOP_ANIMATION");
                 Props.FluxBlue?.Delete();
+                Props.FluxOrange?.Delete();
 
                 if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
                 {
@@ -140,6 +170,7 @@ namespace BackToTheFutureV
             }
 
             Properties.IsFluxDoingBlueAnim = false;
+            Properties.IsFluxDoingOrangeAnim = false;
             Properties.PhotoFluxCapacitorActive = false;
         }
 

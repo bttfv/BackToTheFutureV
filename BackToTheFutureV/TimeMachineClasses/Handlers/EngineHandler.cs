@@ -51,7 +51,7 @@ namespace BackToTheFutureV
         /// <summary>
         /// Whether vehicle is breaking.
         /// </summary>
-        public bool IsBreaking { get; private set; }
+        public bool IsBraking { get; private set; }
 
         /// <summary>
         /// Whether vehicle is driving reverse.
@@ -108,17 +108,17 @@ namespace BackToTheFutureV
         #region PRIVATE_FIELDS
 
         private readonly List<AudioPlayer> _engineSounds;
-        private readonly List<AudioPlayer> _accellSounds;
+        private readonly List<AudioPlayer> _accelSounds;
 
         private readonly AudioPlayer _engineIdleSound;
         private readonly AudioPlayer _engineRevvingSound;
 
-        private readonly AudioPlayer _engineAccell1Sound;
-        private readonly AudioPlayer _engineAccell2Sound;
-        private readonly AudioPlayer _engineAccell3Sound;
-        private readonly AudioPlayer _engineAccell4Sound;
+        private readonly AudioPlayer _engineAccel1Sound;
+        private readonly AudioPlayer _engineAccel2Sound;
+        private readonly AudioPlayer _engineAccel3Sound;
+        private readonly AudioPlayer _engineAccel4Sound;
 
-        private readonly AudioPlayer _engineDecellSound;
+        private readonly AudioPlayer _engineDecelSound;
         private readonly AudioPlayer _engineNeutralSound;
         private readonly AudioPlayer _engineReverseSound;
 
@@ -158,12 +158,12 @@ namespace BackToTheFutureV
                 (_engineIdleSound = audioEngine.Create($"{SoundsFolder}idle.wav", Presets.ExteriorLoop)),
                 (_engineRevvingSound = audioEngine.Create($"{SoundsFolder}revving.wav", Presets.Exterior)),
 
-                (_engineAccell1Sound = audioEngine.Create($"{SoundsFolder}acceleration1.wav", Presets.Exterior)),
-                (_engineAccell2Sound = audioEngine.Create($"{SoundsFolder}acceleration2.wav", Presets.Exterior)),
-                (_engineAccell3Sound = audioEngine.Create($"{SoundsFolder}acceleration3.wav", Presets.Exterior)),
-                (_engineAccell4Sound = audioEngine.Create($"{SoundsFolder}acceleration4.wav", Presets.Exterior)),
+                (_engineAccel1Sound = audioEngine.Create($"{SoundsFolder}acceleration1.wav", Presets.Exterior)),
+                (_engineAccel2Sound = audioEngine.Create($"{SoundsFolder}acceleration2.wav", Presets.Exterior)),
+                (_engineAccel3Sound = audioEngine.Create($"{SoundsFolder}acceleration3.wav", Presets.Exterior)),
+                (_engineAccel4Sound = audioEngine.Create($"{SoundsFolder}acceleration4.wav", Presets.Exterior)),
 
-                (_engineDecellSound = audioEngine.Create($"{SoundsFolder}decelleration.wav", Presets.Exterior)),
+                (_engineDecelSound = audioEngine.Create($"{SoundsFolder}deceleration.wav", Presets.Exterior)),
                 (_engineNeutralSound = audioEngine.Create($"{SoundsFolder}neutral.wav", Presets.ExteriorLoop)),
                 (_engineReverseSound = audioEngine.Create($"{SoundsFolder}reverse.wav", Presets.Exterior))
             };
@@ -177,9 +177,9 @@ namespace BackToTheFutureV
                 sound.StopFadeOut = true;
             }
 
-            _accellSounds = new List<AudioPlayer>
+            _accelSounds = new List<AudioPlayer>
             {
-                _engineAccell1Sound, _engineAccell2Sound, _engineAccell3Sound, _engineAccell4Sound
+                _engineAccel1Sound, _engineAccel2Sound, _engineAccel3Sound, _engineAccel4Sound
             };
 
             _engineNeutralSound.FadeInMultiplier = 0.05f;
@@ -187,14 +187,14 @@ namespace BackToTheFutureV
 
             _engineIdleSound.FadeInMultiplier = 0.6f;
             _engineNeutralSound.FadeOutMultiplier = 0.4f;
-            _engineDecellSound.FadeOutMultiplier = 0.3f;
+            _engineDecelSound.FadeOutMultiplier = 0.3f;
             _engineReverseSound.FadeOutMultiplier = 0.7f;
 
             _engineNeutralSound.MinimumDistance = 2f;
             _engineIdleSound.MinimumDistance = 1f;
             _engineIdleSound.Volume = 0.35f;
 
-            foreach (AudioPlayer sound in _accellSounds)
+            foreach (AudioPlayer sound in _accelSounds)
             {
                 sound.FadeOutMultiplier = 0.9f;
             }
@@ -257,7 +257,7 @@ namespace BackToTheFutureV
             // Parse some engine info
             CheckIdle();
             CheckRevving();
-            CheckDecelerration();
+            CheckDeceleration();
             CheckNeutral();
             CheckReverse();
 
@@ -318,13 +318,13 @@ namespace BackToTheFutureV
         public override void Stop()
         {
             _engineSounds.ForEach(x => x.Stop());
-            _accellSounds.ForEach(x => x.Stop());
+            _accelSounds.ForEach(x => x.Stop());
         }
 
         public override void Dispose()
         {
             _engineSounds.ForEach(x => x.Dispose());
-            _accellSounds.ForEach(x => x.Dispose());
+            _accelSounds.ForEach(x => x.Dispose());
         }
 
         #endregion
@@ -368,17 +368,17 @@ namespace BackToTheFutureV
             }
 
             // Play deceleration sound
-            if (IsBreaking && Speed > 30 && !Mods.Wheels.AnyBurst && !Game.IsControlPressed(Control.VehicleAccelerate) &&
+            if (IsBraking && Speed > 30 && !Mods.Wheels.AnyBurst && !Game.IsControlPressed(Control.VehicleAccelerate) &&
                 !Vehicle.IsInWater)
             {
-                if (!_engineDecellSound.IsAnyInstancePlaying || _engineDecellSound.Last?.PlayPosition > 1000)
+                if (!_engineDecelSound.IsAnyInstancePlaying || _engineDecelSound.Last?.PlayPosition > 1000)
                 {
-                    _engineDecellSound.Play();
+                    _engineDecelSound.Play();
                 }
             }
             else
             {
-                _engineDecellSound.Stop();
+                _engineDecelSound.Stop();
             }
 
             // Play reverse sound
@@ -406,34 +406,34 @@ namespace BackToTheFutureV
             // Play acceleration sound
             if (Properties.IsHoverBoosting)
             {
-                if (_engineAccell2Sound.IsAnyInstancePlaying)
+                if (_engineAccel2Sound.IsAnyInstancePlaying)
                 {
-                    if (_engineAccell2Sound.Last?.PlayPosition >= 7000)
+                    if (_engineAccel2Sound.Last?.PlayPosition >= 7000)
                     {
-                        _engineAccell2Sound.Play();
+                        _engineAccel2Sound.Play();
                     }
                 }
                 else
                 {
-                    _engineAccell2Sound.Play();
+                    _engineAccel2Sound.Play();
                 }
             }
             else
             {
-                _engineAccell2Sound.Stop();
+                _engineAccel2Sound.Stop();
             }
 
             // Play deceleration sound
             if (Game.IsControlPressed(Control.VehicleBrake) && Speed > 15 && Vehicle.RelativeVelocity().Y > 0)
             {
-                if (!_engineDecellSound.IsAnyInstancePlaying || _engineDecellSound.Last?.PlayPosition > 1000)
+                if (!_engineDecelSound.IsAnyInstancePlaying || _engineDecelSound.Last?.PlayPosition > 1000)
                 {
-                    _engineDecellSound.Play();
+                    _engineDecelSound.Play();
                 }
             }
             else
             {
-                _engineDecellSound.Stop();
+                _engineDecelSound.Stop();
             }
         }
 
@@ -448,23 +448,23 @@ namespace BackToTheFutureV
             if (Acceleration < -10f || !Game.IsControlPressed(Control.VehicleAccelerate) ||
                 Game.IsControlPressed(Control.VehicleBrake) || Mods.Wheels.AnyBurst || Vehicle.IsInWater)
             {
-                _accellSounds.ForEach(x => x.Stop());
+                _accelSounds.ForEach(x => x.Stop());
                 return;
             }
 
             // Play acceleration sound if player accelerates after driving neutral
             if (IsAccelerating)
             {
-                if (_currentAccel != _engineAccell1Sound)
+                if (_currentAccel != _engineAccel1Sound)
                 {
-                    if (_accellSounds.Any(x => x.IsAnyInstancePlaying))
+                    if (_accelSounds.Any(x => x.IsAnyInstancePlaying))
                     {
                         if (_currentAccel.Last?.PlayPosition >= 7000)
                         {
                             _currentAccel.Play();
                         }
                     }
-                    else if (!_accellSounds.Any(x => x.IsAnyInstancePlaying))
+                    else if (!_accelSounds.Any(x => x.IsAnyInstancePlaying))
                     {
                         _currentAccel.Play();
                     }
@@ -492,9 +492,9 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (_accellSounds.Any(x => x.IsAnyInstancePlaying))
+            if (_accelSounds.Any(x => x.IsAnyInstancePlaying))
             {
-                if (_accellSounds.Any(x => x.Last?.PlayPosition < 1000))
+                if (_accelSounds.Any(x => x.Last?.PlayPosition < 1000))
                 {
                     return;
                 }
@@ -563,21 +563,21 @@ namespace BackToTheFutureV
             }
         }
 
-        private void CheckDecelerration()
+        private void CheckDeceleration()
         {
-            if (IsPlayerBreaking(Vehicle) && !IsReversing)
+            if (IsPlayerBraking(Vehicle) && !IsReversing)
             {
-                IsBreaking = true;
+                IsBraking = true;
             }
             else
             {
-                IsBreaking = false;
+                IsBraking = false;
             }
         }
 
         private void CheckNeutral()
         {
-            if (!IsAccelerating && !IsPlayerBreaking(Vehicle) && !IsIdle)
+            if (!IsAccelerating && !IsPlayerBraking(Vehicle) && !IsIdle)
             {
                 IsNeutral = true;
             }
@@ -611,14 +611,14 @@ namespace BackToTheFutureV
 
         #region UTILS
 
-        private static bool IsPlayerBreaking(Vehicle vehicle, bool accountHandBrake = true)
+        private static bool IsPlayerBraking(Vehicle vehicle, bool accountHandbrake = true)
         {
             if (FusionUtils.PlayerVehicle != vehicle)
             {
                 return false;
             }
 
-            if (accountHandBrake)
+            if (accountHandbrake)
             {
                 return (Game.IsControlPressed(Control.VehicleBrake) || Game.IsControlPressed(Control.VehicleHandbrake));
             }
@@ -704,21 +704,21 @@ namespace BackToTheFutureV
             WheelSpeed = VehicleControl.GetWheelRotationSpeeds(Vehicle)[3];
 
             // Define engine sound variation based on wheel speed
-            _currentAccel = _engineAccell1Sound;
+            _currentAccel = _engineAccel1Sound;
 
             if (CurrentGear == 2)
             {
-                _currentAccel = _engineAccell2Sound;
+                _currentAccel = _engineAccel2Sound;
             }
 
             if (CurrentGear == 3)
             {
-                _currentAccel = _engineAccell3Sound;
+                _currentAccel = _engineAccel3Sound;
             }
 
             if (CurrentGear >= 4)
             {
-                _currentAccel = _engineAccell4Sound;
+                _currentAccel = _engineAccel4Sound;
             }
         }
 
@@ -729,7 +729,7 @@ namespace BackToTheFutureV
                 case 0:
                     Screen.ShowSubtitle($"WSpeed: {Math.Round(WheelSpeed)} " +
                                         $"RPM: {Math.Round(EngineRpm, 2)} " +
-                                        $"Breaking: {IsBreaking} " +
+                                        $"Breaking: {IsBraking} " +
                                         $"Idle: {IsIdle} " +
                                         $"Neutral: {IsNeutral} " +
                                         $"Accel: {IsAccelerating} " +
@@ -737,8 +737,8 @@ namespace BackToTheFutureV
                                         $"Revving: {IsRevving}");
                     break;
                 case 1:
-                    Screen.ShowSubtitle($"Accel: {_engineAccell1Sound.IsAnyInstancePlaying} {_engineAccell1Sound.InstancesNumber}  " +
-                                        $"Decel: {_engineDecellSound.IsAnyInstancePlaying} {_engineDecellSound.InstancesNumber}  " +
+                    Screen.ShowSubtitle($"Accel: {_engineAccel1Sound.IsAnyInstancePlaying} {_engineAccel1Sound.InstancesNumber}  " +
+                                        $"Decel: {_engineDecelSound.IsAnyInstancePlaying} {_engineDecelSound.InstancesNumber}  " +
                                         $"Neutral: {_engineNeutralSound.IsAnyInstancePlaying} {_engineNeutralSound.InstancesNumber}  " +
                                         $"Reverse: {_engineReverseSound.IsAnyInstancePlaying} {_engineReverseSound.InstancesNumber}  " +
                                         $"Idle: {_engineIdleSound.IsAnyInstancePlaying} {_engineIdleSound.InstancesNumber}  " +

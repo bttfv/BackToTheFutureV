@@ -8,9 +8,9 @@ namespace BackToTheFutureV
     /// <summary>
     /// Contains various game memory addresses.
     /// </summary>
-	/// <remarks>
-	/// VER_1_0_2372_0_STEAM
-	/// </remarks>
+    /// <remarks>
+    /// VER_1_0_2372_0_STEAM
+    /// </remarks>
     internal static unsafe class NativeMemory
     {
         // Scan addresses

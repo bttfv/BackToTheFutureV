@@ -43,6 +43,7 @@ namespace BackToTheFutureV
             deleteOthers = NewItem("RemoveOther");
             deleteAll = NewItem("RemoveAll");
 
+            NewSubmenu(MenuHandler.DoorsMenu);
             NewSubmenu(MenuHandler.SettingsMenu);
         }
 
@@ -181,6 +182,24 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
+            if (RemoteTimeMachineHandler.IsRemoteOn && Items.Contains(deleteAll))
+            {
+                Remove(deleteCurrent);
+                Remove(deleteOthers);
+                Remove(deleteAll);
+            }
+            else if (!Items.Contains(deleteAll) && !Items.Contains(spawnBTTF))
+            {
+                Add(2, deleteCurrent);
+                Add(3, deleteOthers);
+                Add(4, deleteAll);
+            }
+            else if (!Items.Contains(deleteAll) && Items.Contains(spawnBTTF))
+            {
+                Add(6, deleteCurrent);
+                Add(7, deleteOthers);
+                Add(8, deleteAll);
+            }
             if (!MenuHandler.UnlockSpawnMenu)
             {
                 Remove(spawnBTTF);

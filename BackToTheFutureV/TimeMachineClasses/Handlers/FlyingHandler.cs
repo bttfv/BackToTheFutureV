@@ -23,6 +23,8 @@ namespace BackToTheFutureV
 
         private bool _startHoverGlowLater;
 
+        private int _initialUp;
+
         private bool _landingSmoke;
 
         private Vector3 _forceToBeApplied = Vector3.Zero;
@@ -134,6 +136,7 @@ namespace BackToTheFutureV
                 if (!_startHoverGlowLater)
                 {
                     SpawnHoverGlow();
+                    _initialUp = Game.GameTime + 900;
                 }
             }
         }
@@ -165,7 +168,7 @@ namespace BackToTheFutureV
         {
             if (ModControls.LongPressForHover)
             {
-                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && FusionUtils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed && !Properties.IsEngineStalling)
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && FusionUtils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed && !Properties.IsEngineStalling && Vehicle.IsEngineRunning)
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
@@ -185,7 +188,7 @@ namespace BackToTheFutureV
         {
             if (!ModControls.LongPressForHover)
             {
-                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && FusionUtils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed && !Properties.IsEngineStalling)
+                if (Mods.HoverUnderbody == ModState.On && Properties.CanConvert && FusionUtils.PlayerVehicle == Vehicle && Game.GameTime > _nextModeChangeAllowed && !Properties.IsEngineStalling && Vehicle.IsEngineRunning)
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
@@ -244,7 +247,10 @@ namespace BackToTheFutureV
             }
             else
             {
-                TextHandler.Me.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
+                if (FusionUtils.PlayerPed.IsInVehicle(Vehicle))
+                {
+                    TextHandler.Me.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
+                }
             }
 
             if (Properties.IsFlying && !instant)
@@ -276,7 +282,7 @@ namespace BackToTheFutureV
 
             if (!Properties.IsLanding && !Properties.IsFlying)
             {
-                Decorators.TorqueMultiplier = 1.4f;
+                Decorators.TorqueMultiplier = 2f;
             }
 
             if (!Properties.IsFlying && Properties.IsAltitudeHolding)
@@ -307,6 +313,11 @@ namespace BackToTheFutureV
             if (Mods.HoverUnderbody == ModState.Off)
             {
                 return;
+            }
+
+            if (FusionUtils.CurrentTime.Year >= 2015 && Properties.IsFlying)
+            {
+                Function.Call(Hash.SUPPRESS_SHOCKING_EVENTS_NEXT_FRAME);
             }
 
             // Automatically fold wheels in if fly mode is exited in any other way
@@ -371,7 +382,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Properties.HasBeenStruckByLightning || (ModSettings.TurbulenceEvent && (World.Weather == Weather.Clearing || World.Weather == Weather.Raining || World.Weather == Weather.ThunderStorm || World.Weather == Weather.Blizzard)))
+            if (Properties.HasBeenStruckByLightning || (ModSettings.TurbulenceEvent))
             {
                 if (Game.GameTime > _nextForce)
                 {
@@ -379,12 +390,12 @@ namespace BackToTheFutureV
 
                     switch (World.Weather)
                     {
-                        case Weather.Clearing:
+                        /*case Weather.Clearing:
                             _force = 0.5f;
                             break;
                         case Weather.Raining:
                             _force = 0.75f;
-                            break;
+                            break;*/
                         case Weather.ThunderStorm:
                         case Weather.Blizzard:
                             _force = 1;
@@ -416,6 +427,14 @@ namespace BackToTheFutureV
 
             if (Properties.AreFlyingCircuitsBroken)
             {
+                // Set vent effect invisible
+                Props.HoverModeVentsGlow?.Delete();
+
+                // Reset flag
+                _hasPlayedBoostSound = false;
+
+                Properties.IsHoverBoosting = false;
+
                 Vector3 force = Vehicle.UpVector;
 
                 if (!Vehicle.IsUpsideDown)
@@ -437,6 +456,12 @@ namespace BackToTheFutureV
 
             // Reset force to be applied
             _forceToBeApplied = Vector3.Zero;
+
+            //Provide initial upwards thrust to match prop and sound on hover mode entry, unless player is already trying to fly up/forward
+            if (!Game.IsControlPressed(Control.VehicleFlyThrottleUp) && Game.GameTime < _initialUp)
+            {
+                _forceToBeApplied.Z = 0.2f;
+            }
 
             if (Vehicle.IsEngineRunning && !Players.HoverModeWheels.IsPlaying)
             {
@@ -497,7 +522,7 @@ namespace BackToTheFutureV
                 }
 
                 // Boost!
-                if (Vehicle.GetMPHSpeed() <= 95)
+                if (Vehicle.GetMPHSpeed() <= 120)
                 {
                     Boost();
                 }

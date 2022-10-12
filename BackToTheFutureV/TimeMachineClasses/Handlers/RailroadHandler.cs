@@ -24,6 +24,8 @@ namespace BackToTheFutureV
 
         private bool _forceFreightTrain;
 
+        private bool _exploded = false;
+
         public RailroadHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
@@ -97,7 +99,7 @@ namespace BackToTheFutureV
 
         public void Start(bool force = false)
         {
-            if (!force && !Vehicle.IsOnAllWheels)
+            if ((!force && !Vehicle.IsOnAllWheels) || (Vehicle == FusionUtils.PlayerVehicle?.TowedVehicle))
             {
                 return;
             }
@@ -188,7 +190,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Properties.IsOnTracks && customTrain == null)
+            if (Properties.IsOnTracks && ((customTrain == null) || (FusionUtils.PlayerVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.TowedVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.TowedVehicle == Vehicle && !Vehicle.IsOnAllWheels)))
             {
                 Stop();
             }
@@ -204,7 +206,7 @@ namespace BackToTheFutureV
 
                 if (_isReentryOn && customTrain.AttachedToTarget && customTrain.SpeedMPH == 0)
                 {
-                    if (_forceFreightTrain || FusionUtils.Random.NextDouble() <= 0.25f)
+                    if (_forceFreightTrain || (ModSettings.TrainEvent && FusionUtils.Random.NextDouble() <= 0.25f))
                     {
                         CustomTrainHandler.CreateFreightTrain(Vehicle, !_direction).SetToDestroy(Vehicle, 35);
                     }
@@ -225,17 +227,14 @@ namespace BackToTheFutureV
                 {
                     Stop();
 
-                    if (Vehicle.SameDirection(_train))
+                    if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 33 && !_exploded)
                     {
-                        if (Math.Abs(_train.GetMPHSpeed() + Vehicle.GetMPHSpeed()) > 35)
+                        if (TimeMachine.Properties.IsRemoteControlled)
                         {
-                            Vehicle.Explode();
+                            RemoteTimeMachineHandler.StopRemoteControl();
                         }
-                    }
-                    else
-                        if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 35)
-                    {
                         Vehicle.Explode();
+                        _exploded = true;
                     }
 
                     _attachDelay = Game.GameTime + 3000;

@@ -1,9 +1,12 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Math;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -136,7 +139,6 @@ namespace BackToTheFutureV
                         {
                             return;
                         }
-
                         WaitForReentry = false;
                     }
 
@@ -147,7 +149,7 @@ namespace BackToTheFutureV
 
         private WaybackRecord Record()
         {
-            if ((IsPlayer && !FusionUtils.PlayerPed.IsAlive) || (!IsPlayer && !Ped.ExistsAndAlive()) || FusionUtils.CurrentTime < StartTime)
+            if ((IsPlayer && !FusionUtils.PlayerPed.IsAlive) || (!IsPlayer && !Ped.ExistsAndAlive()) || FusionUtils.CurrentTime < StartTime || Game.IsMissionActive)
             {
                 Stop();
                 return null;
@@ -179,6 +181,38 @@ namespace BackToTheFutureV
 
         private void Play()
         {
+            if ((Ped.NotNullAndExists() && Ped.IsDead && !Game.IsMissionActive && ModSettings.TimeParadox) || (Ped.NotNullAndExists() && Ped.LastVehicle.NotNullAndExists() && Ped.LastVehicle.IsConsideredDestroyed && !Game.IsMissionActive && ModSettings.TimeParadox))
+            {
+                if (FusionUtils.PlayerVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
+                {
+                    RemoteTimeMachineHandler.StopRemoteControl();
+                }
+                if (FusionUtils.PlayerPed.Model != Main.ResetPed.Model)
+                {
+                    Function.Call<Vector3>(Hash.GET_ENTITY_COORDS, Main.SwitchedPed, true).LoadScene();
+                    Function.Call(Hash.CHANGE_PLAYER_PED, Game.Player, Main.SwitchedPed, false, false);
+                }
+                if (FusionUtils.PlayerPed.IsInVehicle() && !FusionUtils.PlayerPed.IsLeavingVehicle())
+                {
+                    Game.Player.CanControlCharacter = false;
+                    FusionUtils.PlayerVehicle.IsPersistent = false;
+                    FusionUtils.PlayerPed.Task.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                    Main.SwitchedVehicle = null;
+                }
+                if (FusionUtils.PlayerPed.IsFullyOutVehicle())
+                {
+                    Script.Yield();
+                    FusionUtils.PlayerPed.Kill();
+                    Function.Call(Hash.TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME, "respawn_controller");
+                    Function.Call(Hash.IGNORE_NEXT_RESTART, true);
+                    Function.Call(Hash.PAUSE_DEATH_ARREST_RESTART, true);
+                    WaybackSystem.Paradox = true;
+                    WaybackSystem.paradoxDelay = Game.GameTime + 3600;
+                    ScreenFade.FadeOut(8000, 1000, 0);
+                    WaybackSystem.Abort();
+                }
+            }
+
             if (!Ped.ExistsAndAlive())
             {
                 return;
@@ -188,6 +222,18 @@ namespace BackToTheFutureV
             {
                 Ped?.Task.ClearAllImmediately();
                 Ped = CurrentRecord.Spawn(NextRecord);
+            }
+
+            if ((!CurrentRecord.Ped.Replica.Components.OfType<int>().SequenceEqual(PreviousRecord.Ped.Replica.Components.OfType<int>()) && !CurrentRecord.Ped.SwitchPed && !PreviousRecord.Ped.SwitchPed) || (!CurrentRecord.Ped.Replica.Props.OfType<int>().SequenceEqual(PreviousRecord.Ped.Replica.Props.OfType<int>()) && !CurrentRecord.Ped.SwitchPed && !PreviousRecord.Ped.SwitchPed))
+            {
+                for (int x = 0; x <= 11; x++)
+                {
+                    Function.Call(Hash.SET_PED_COMPONENT_VARIATION, Ped, x, CurrentRecord.Ped.Replica.Components[x, 0], CurrentRecord.Ped.Replica.Components[x, 1], CurrentRecord.Ped.Replica.Components[x, 2]);
+                }
+                for (int x = 0; x <= 12; x++)
+                {
+                    Function.Call(Hash.SET_PED_PROP_INDEX, Ped, x, CurrentRecord.Ped.Replica.Props[x, 0], CurrentRecord.Ped.Replica.Props[x, 1], true);
+                }
             }
 
             CurrentRecord.Apply(Ped, NextRecord);

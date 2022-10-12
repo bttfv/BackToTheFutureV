@@ -16,6 +16,7 @@ namespace BackToTheFutureV
         public static RCMenu RCMenu { get; } = new RCMenu();
         public static OverrideMenu OverrideMenu { get; } = new OverrideMenu();
         public static PhotoMenu PhotoMenu { get; } = new PhotoMenu();
+        public static DoorsMenu DoorsMenu { get; } = new DoorsMenu();
         public static CustomMenu CustomMenuMain { get; } = new CustomMenu() { ForceNew = true };
         public static CustomMenu CustomMenuPresets { get; } = new CustomMenu() { ForceNew = true };
         public static CustomMenu2 CustomMenuGarage { get; } = new CustomMenu2();
@@ -25,8 +26,20 @@ namespace BackToTheFutureV
         public static MainMenu MainMenu { get; } = new MainMenu();
         public static TimeMachineMenu TimeMachineMenu { get; } = new TimeMachineMenu();
 
-        public static bool UnlockPhotoMenu { get; private set; }
-        public static bool UnlockSpawnMenu { get; private set; }
+        public static bool UnlockPhotoMenu { get; private set; } = true;
+        public static bool UnlockSpawnMenu { get; private set; } = true;
+
+        public static bool IsAnyMenuOpen()
+        {
+            if (ControlsMenu.Visible || SoundsSettingsMenu.Visible || EventsSettingsMenu.Visible || TCDMenu.Visible || SettingsMenu.Visible || RCMenu.Visible || OverrideMenu.Visible || PhotoMenu.Visible || DoorsMenu.Visible || CustomMenuMain.Visible || CustomMenuPresets.Visible || CustomMenuGarage.Visible || GarageMenu.Visible || PresetsMenu.Visible || OutatimeMenu.Visible || MainMenu.Visible || TimeMachineMenu.Visible)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public static void Tick()
         {
@@ -98,10 +111,10 @@ namespace BackToTheFutureV
 
                 switch (hash)
                 {
-                    case "aea395fae83369ea0f4db57fac6e565f77fd5b9a204b2799350a053608ffd3bf":
+                    case "c3cca7029c38959a99b7aa57c37f0b05b663fd624a8f7dbc6424e44320b84206":
                         UnlockSpawnMenu = !UnlockSpawnMenu;
                         break;
-                    case "97a2a4ee69af4771b957df0780573f7263dbe46ccd4803300d62916e74f4f947":
+                    case "fbff03e5367d548c10cb18965f950df472a8dc408d003f557ce974ddc2658ade":
                         UnlockPhotoMenu = !UnlockPhotoMenu;
                         break;
                 }

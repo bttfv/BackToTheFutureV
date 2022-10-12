@@ -42,6 +42,7 @@ namespace BackToTheFutureV
         public static CustomModel WormholeVioletNight = new CustomModel("bttf_wormhole_violet_night");
         public static CustomModel FluxModel = new CustomModel("bttf_flux");
         public static CustomModel FluxBlueModel = new CustomModel("bttf_flux_blue");
+        public static CustomModel FluxOrangeModel = new CustomModel("bttf_flux_orange");
         public static CustomModel GaugeGlow = new CustomModel("bttf_gauges_glow");
         public static List<CustomModel> GaugeModels = new List<CustomModel>();
         public static Dictionary<string, CustomModel> TCDRTModels = new Dictionary<string, CustomModel>();
@@ -55,13 +56,13 @@ namespace BackToTheFutureV
         public static List<CustomModel> Lightnings = new List<CustomModel>() { new CustomModel("bolt_m0"), new CustomModel("bolt_m1"), new CustomModel("bolt_m2") };
         public static List<CustomModel> LightningsOnCar = new List<CustomModel>();
         public static CustomModel SID = new CustomModel("bttf_sid");
-        public static CustomModel BulovaClockHour = new CustomModel("clock_hour");
-        public static CustomModel BulovaClockMinute = new CustomModel("clock_minute");
-        public static CustomModel BulovaClockRing = new CustomModel("clock_ring");
         public static CustomModel SpeedoCover = new CustomModel("bttf_interior_speedo_cover");
 
         // BTTF1 CustomModels
         public static CustomModel BTTFReactorCap = new CustomModel("bttf_reactorcap");
+        public static CustomModel BulovaClockHour = new CustomModel("clock_hour");
+        public static CustomModel BulovaClockMinute = new CustomModel("clock_minute");
+        public static CustomModel BulovaClockRing = new CustomModel("clock_ring");
 
         // BTTF2 CustomModels
         public static CustomModel Strut = new CustomModel("bttf2_strut");

@@ -15,28 +15,28 @@ namespace BackToTheFutureV
         private static readonly Dictionary<int, double> _probabilities = new Dictionary<int, double>()
         {
             {
-                300, 0.1
+                990, 0.1
             },
             {
-                270, 0.2
+                980, 0.2
             },
             {
-                240, 0.3
+                970, 0.3
             },
             {
-                210, 0.4
+                960, 0.4
             },
             {
-                180, 0.5
+                950, 0.5
             },
             {
-                150, 0.6
+                940, 0.6
             },
             {
-                120, 0.7
+                930, 0.7
             },
             {
-                100, 0.8
+                920, 0.8
             }
         };
 
@@ -77,13 +77,14 @@ namespace BackToTheFutureV
 
             Events.OnSparksInterrupted += () => { Particles.LightningSparks?.Stop(); };
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
+            Events.OnTimeTravelEnded += OnTimeTravelEnded;
 
             Events.SetTimeCircuits += SetTimeCircuitsOn;
             Events.SetTimeCircuitsBroken += SetTimeCircuitsBroken;
 
             int _time = 0;
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 6; i++)
             {
                 glitchEvents.Add(0, 0, _time, 0, 0, _time + 499);
                 glitchEvents.Last.OnExecute += Blank_OnExecute;
@@ -232,6 +233,14 @@ namespace BackToTheFutureV
             Particles.LightningSparks?.Stop();
         }
 
+        private void OnTimeTravelEnded()
+        {
+            if (Vehicle != null)
+            {
+                presentSlot.SetDate(FusionUtils.CurrentTime);
+            }
+        }
+
         public void StartTimeCircuitsGlitch(bool softGlitch)
         {
             // Set TCD error stuff
@@ -353,23 +362,26 @@ namespace BackToTheFutureV
             {
                 nextCheckGlitch = Game.GameTime + 60000;
 
-                if (doGlitch || Properties.DestinationTime == errorDate || (Vehicle.Health > 300 && Properties.TimeTravelsCount < 5))
+                if (doGlitch || Properties.DestinationTime == errorDate || (Vehicle.Health > 990 && Properties.TimeTravelsCount < 5))
                 {
                     return;
                 }
 
-                if (Vehicle.Health < 300)
+                if (Properties.AreTimeCircuitsOn == true)
                 {
-                    if (FusionUtils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 100 ? 100 : Vehicle.Health)))
+                    if (Vehicle.Health < 991)
                     {
-                        StartTimeCircuitsGlitch(false);
+                        if (FusionUtils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 920 ? 920 : Vehicle.Health)))
+                        {
+                            StartTimeCircuitsGlitch(false);
+                        }
                     }
-                }
-                else if (Properties.TimeTravelsCount > 4)
-                {
-                    if (FusionUtils.Random.NextDouble() < 0.25f)
+                    else if (Properties.TimeTravelsCount > 4)
                     {
-                        StartTimeCircuitsGlitch(true);
+                        if (FusionUtils.Random.NextDouble() < 0.25f)
+                        {
+                            StartTimeCircuitsGlitch(true);
+                        }
                     }
                 }
             }

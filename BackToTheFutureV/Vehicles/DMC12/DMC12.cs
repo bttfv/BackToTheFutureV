@@ -49,6 +49,8 @@ namespace BackToTheFutureV
         public SetVoltValue SetVoltValue;
 
         private bool spawnSuspension;
+        private bool isDucking;
+        private bool duckEnded;
 
         private bool _isTimeMachine;
         public bool IsTimeMachine
@@ -123,15 +125,29 @@ namespace BackToTheFutureV
             spawnSuspension = state;
         }
 
+        private void HandleDucking()
+        {
+            if (Game.IsControlPressed(Control.VehicleDuck) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking)
+            {
+                FusionUtils.PlayerPed.Task?.PlayAnimation("veh@low@front_ds@idle_duck", "sit", -8f, 8f, -1, AnimationFlags.AllowRotation, 1f);
+                isDucking = true;
+                duckEnded = false;
+            }
+            else if (Game.IsControlPressed(Control.VehicleDuck) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && isDucking)
+            {
+                Function.Call(Hash.SET_ENTITY_ANIM_SPEED, FusionUtils.PlayerPed, "veh@low@front_ds@idle_duck", "sit", 0f);
+                Function.Call(Hash.SET_ENTITY_ANIM_CURRENT_TIME, FusionUtils.PlayerPed, "veh@low@front_ds@idle_duck", "sit", 0f);
+            }
+            else if (!duckEnded)
+            {
+                FusionUtils.PlayerPed.Task?.ClearAnimation("veh@low@front_ds@idle_duck", "sit");
+                isDucking = false;
+                duckEnded = true;
+            }
+        }
+
         public void Tick()
         {
-            //if (!Vehicle.Decorator().DrivenByPlayer && Vehicle.DistanceToSquared2D(FusionUtils.PlayerPed) > 200 * 200)
-            //{
-            //    DMC12Handler.RemoveDelorean(this);
-
-            //    return;
-            //}
-
             if (!Vehicle.IsFunctioning())
             {
                 DMC12Handler.RemoveDelorean(this, false);
@@ -142,6 +158,8 @@ namespace BackToTheFutureV
             if (FusionUtils.PlayerVehicle == Vehicle)
             {
                 Function.Call(Hash.DISABLE_CONTROL_ACTION, 31, 337, true);
+
+                HandleDucking();
             }
 
             if (!IsTimeMachine)

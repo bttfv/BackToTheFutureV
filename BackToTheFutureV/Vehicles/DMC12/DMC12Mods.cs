@@ -35,7 +35,7 @@ namespace BackToTheFutureV
                 Vehicle.ToggleExtra(10, true);
 
                 Vehicle.Mods.PrimaryColor = VehicleColor.BrushedAluminium;
-                vehicle.Mods.SecondaryColor = VehicleColor.MetallicBlackSteel;
+                Vehicle.Mods.SecondaryColor = VehicleColor.MetallicBlackSteel;
                 Vehicle.Mods.TrimColor = VehicleColor.PureWhite;
 
                 Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, 0f);

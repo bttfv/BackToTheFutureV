@@ -43,14 +43,6 @@ namespace BackToTheFutureV
 
         private readonly Dictionary<string, HandlerPrimitive> registeredHandlers = new Dictionary<string, HandlerPrimitive>();
 
-        //private readonly VehicleBone boneLf;
-        //private readonly VehicleBone boneRf;
-
-        //private Vector3 leftSuspesionOffset;
-        //private Vector3 rightSuspesionOffset;
-
-        //private bool _firstRedSetup = true;
-
         private Blip Blip;
 
         public bool IsReady { get; } = false;
@@ -75,7 +67,7 @@ namespace BackToTheFutureV
 
             Vehicle.Decorator().DoNotDelete = true;
             Vehicle.Decorator().RemoveFromUsed = true;
-            vehicle.Decorator().IgnoreForSwap = true;
+            Vehicle.Decorator().IgnoreForSwap = true;
 
             TimeMachineHandler.AddTimeMachine(this);
 
@@ -240,6 +232,7 @@ namespace BackToTheFutureV
 
             if (!Vehicle.IsFunctioning())
             {
+                Vehicle.Decorator().DoNotDelete = false;
                 TimeMachineHandler.RemoveTimeMachine(this, false);
 
                 return;
@@ -323,8 +316,9 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (FusionUtils.PlayerVehicle != Vehicle && Vehicle.IsVisible && !Properties.Story)
+            if (FusionUtils.PlayerVehicle != Vehicle && Vehicle.Exists() && !Properties.Story)
             {
+                Decorators.TorqueMultiplier = 1f;
                 if (Blip == null || !Blip.Exists())
                 {
                     Blip = Vehicle.AddBlip();
@@ -359,8 +353,6 @@ namespace BackToTheFutureV
             }
 
             PhotoMode();
-
-            CustomCameraManager.Tick();
         }
 
         private void UpdateBlip()
@@ -370,8 +362,16 @@ namespace BackToTheFutureV
                 switch (Mods.WormholeType)
                 {
                     case WormholeType.BTTF1:
-                        Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1");
-                        Blip.Color = BlipColor.NetPlayer22;
+                        if (Mods.Hook == HookState.On || Mods.Hook == HookState.OnDoor)
+                        {
+                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1H");
+                            Blip.Color = BlipColor.NetPlayer20;
+                        }
+                        else
+                        {
+                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1");
+                            Blip.Color = BlipColor.NetPlayer22;
+                        }
                         break;
 
                     case WormholeType.BTTF2:
@@ -418,15 +418,16 @@ namespace BackToTheFutureV
             {
                 if (FusionUtils.CurrentTime.Year >= 1985)
                 {
+                    if (Mods.Hoodbox == ModState.On)
+                    {
+                        Mods.Hoodbox = ModState.Off;
+                        Mods.WormholeType = WormholeType.BTTF2;
+                    }
                     Properties.AreTimeCircuitsBroken = false;
                 }
-                else if (FusionUtils.CurrentTime.Year >= 1947)
+                else if (FusionUtils.CurrentTime.Year >= 1952)
                 {
                     Mods.Hoodbox = ModState.On;
-                }
-                else
-                {
-                    TextHandler.Me.ShowSubtitle("UnableRepairTC");
                 }
 
                 return !Properties.AreTimeCircuitsBroken || Mods.Hoodbox == ModState.On;
@@ -438,10 +439,6 @@ namespace BackToTheFutureV
                 {
                     Properties.AreFlyingCircuitsBroken = false;
                 }
-                else
-                {
-                    TextHandler.Me.ShowSubtitle("UnableRepairFC");
-                }
 
                 return !Properties.AreFlyingCircuitsBroken;
             }
@@ -450,7 +447,7 @@ namespace BackToTheFutureV
             {
                 if (Mods.Wheels.Burst)
                 {
-                    if (FusionUtils.CurrentTime.Year < 1982)
+                    if (FusionUtils.CurrentTime.Year < 1981)
                     {
                         Mods.Wheel = WheelType.Red;
                         Mods.SuspensionsType = SuspensionsType.LiftFront;
@@ -500,12 +497,12 @@ namespace BackToTheFutureV
                 Props.Coils.Delete();
             }
 
-            if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingBlueAnim)
+            if (Properties.PhotoFluxCapacitorActive && !(Properties.IsFluxDoingBlueAnim || Properties.IsFluxDoingOrangeAnim))
             {
                 Events.OnWormholeStarted?.Invoke();
             }
 
-            if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingBlueAnim && Properties.IsPhotoModeOn)
+            if (!Properties.PhotoFluxCapacitorActive && (Properties.IsFluxDoingBlueAnim || Properties.IsFluxDoingOrangeAnim) && Properties.IsPhotoModeOn)
             {
                 Events.OnSparksInterrupted?.Invoke();
             }

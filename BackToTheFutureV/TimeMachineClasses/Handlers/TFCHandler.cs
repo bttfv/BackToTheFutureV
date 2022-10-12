@@ -137,11 +137,22 @@ namespace BackToTheFutureV
 
                 _gaugeNeedle1.On = true;
                 _gaugeNeedle2.On = true;
-                _gaugeNeedle3.On = true;
+                if (Properties.IsFueled)
+                {
+                    _gaugeNeedle3.On = true;
+                }
 
                 Props.GaugeGlow?.SpawnProp();
 
                 hasPlayed = true;
+            }
+            if (hasPlayed && Properties.AreTimeCircuitsOn && !Properties.IsFueled && _gaugeNeedle3.On)
+            {
+                _gaugeNeedle3.On = false;
+            }
+            if (hasPlayed && Properties.AreTimeCircuitsOn && Properties.IsFueled && !_gaugeNeedle3.On)
+            {
+                _gaugeNeedle3.On = true;
             }
 
             _gaugeNeedle1.Tick();

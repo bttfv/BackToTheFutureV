@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Native;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -110,9 +111,9 @@ namespace BackToTheFutureV
 
         public void ProcessInputEnter()
         {
-            if (Mods.IsDMC12)
+            if (Mods.IsDMC12 && Driver != null && Driver == FusionUtils.PlayerPed)
             {
-                Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.CancelableWithMovement);
+                Driver.Task.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.AllowRotation);
             }
 
             // If its not a valid length/mode
@@ -123,6 +124,11 @@ namespace BackToTheFutureV
                 _nextReset = 0;
                 _destinationTimeRaw = string.Empty;
                 return;
+            }
+            // If player tries to set Jan 1 0001 through Jan 3 0001 or year 9999 script breaks; set these dates to invalid to error out TCD input
+            if (_destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(0, 8) == "01010001" || _destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(0, 8) == "01020001" || _destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(0, 8) == "01030001" || _destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(4, 4) == "9999")
+            {
+                _destinationTimeRaw = "000000000000";
             }
 
             DateTime? dateTime = FusionUtils.ParseFromRawString(_destinationTimeRaw, Properties.DestinationTime, out InputType inputType);
@@ -147,6 +153,11 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
+            if (Driver != null && Function.Call<bool>(Hash.IS_ENTITY_PLAYING_ANIM, Driver, "veh@low@front_ds@base", "change_station", 3) && Game.IsControlJustPressed(GTA.Control.VehicleExit))
+            {
+                Driver.Task.ClearAnimation("veh@low@front_ds@base", "change_station");
+            }
+            
             if (lastInput != Keys.None && !Game.IsKeyPressed(lastInput))
             {
                 lastInput = Keys.None;

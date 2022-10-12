@@ -136,8 +136,9 @@ namespace BackToTheFutureV
 
         private void OnReenterEnded()
         {
-            if (Driver == FusionUtils.PlayerPed)
+            if (Driver == FusionUtils.PlayerPed && ModSettings.WaybackSystem)
             {
+                TimeMachine.LastDisplacementClone.Properties.IsWayback = true;
                 RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
             }
 
@@ -168,8 +169,6 @@ namespace BackToTheFutureV
 
             if (Properties.HasBeenStruckByLightning)
             {
-                Events.SetSIDLedsState?.Invoke(true, true);
-
                 Properties.HasBeenStruckByLightning = false;
 
                 Properties.PhotoFluxCapacitorActive = false;

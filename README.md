@@ -5,11 +5,9 @@
 ### Requirements:
 - .NET Framework 4.8
 - Script Hook V => https://www.dev-c.com/gtav/scripthookv/
-- Community Script Hook V .NET v3.1.0 => https://github.com/crosire/scripthookvdotnet
-- LemonUI v1.3.0 => https://github.com/justalemon/LemonUI
-- (*Optional*)  limitless gameconfig
-- (*Optional*)  PackfileLimitAdjuster
-- (*Optional*)  HeapAdjuster
+- Community Script Hook V .NET v3.5.1 => https://github.com/crosire/scripthookvdotnet
+- LemonUI v1.7+ => https://github.com/justalemon/LemonUI
+- HeapAdjuster
 
 ### Controls:
 - #### Keyboard / Controller
@@ -86,17 +84,15 @@ In order to open solution, you need Visual Studio 2017+ with Xamarin components 
 ### Credits:
 - Artist: ranstar74
 - DMC12 model updates: RetroGamer
-- Programmer: AHK1221 / MrFusion92
-- Tester: Nickumto255 / hugoraider / SBTx14 / MatchstickMan / Evonia / Victor / Adrien / RetroGamer / Dwurban / auron / Lordf84
+- Programmer: AHK1221 / MrFusion92 / Nomake Wan
+- Tester: Nickumto255 / hugoraider / SBTx14 / MatchstickMan / Evonia / Victor / Adrien / RetroGamer / auron / Lordf84 / Sockcat / Reon
 - Audio: BTTFV / BTTF Hill Valley Team
 - #### Translations:
   - English -> BTTFV Team
-  - French -> hugoraider
-  - German -> d3vk1ng / sole
+  - German -> DerLinkman
   - Italian -> MrFusion92
-  - Spanish -> SBTx14
+  - Japanese -> sintamago_1908
+  - Korean -> Mana Mana
   - Polish -> Mroczny Gracz
-  - Portuguese -> Victor
   - Russian -> ranstar74
-  - Japan -> Leaf
-- Special thanks to: SonicJoshua24 / 5dmc1 / dmc4708 / Carlos85G / Manghen
+- Special thanks to: SonicJoshua24 / 5dmc1 / dmc4708 / Carlos85G / Manghen / Dwurban

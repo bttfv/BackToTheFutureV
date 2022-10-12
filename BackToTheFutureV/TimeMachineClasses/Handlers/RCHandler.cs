@@ -78,7 +78,7 @@ namespace BackToTheFutureV
                 Sounds.RCBrake?.Play();
                 SetForcedHandbrake();
 
-                if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled)
+                if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled && Properties.AreTimeCircuitsOn)
                 {
                     Sounds.RCSomeSerious?.Play();
                 }
@@ -87,13 +87,17 @@ namespace BackToTheFutureV
 
         private void StopForcedHandbrake()
         {
-            if (Properties.IsRemoteControlled && _forcedHandbrake)
+            if (Properties.IsRemoteControlled && _forcedHandbrake && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
             {
                 SetForcedHandbrake();
             }
+            else if (Properties.IsRemoteControlled && _forcedHandbrake && !Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+            {
+                SetForcedHandbrake(false);
+            }
         }
 
-        private void SetForcedHandbrake()
+        private void SetForcedHandbrake(bool boost = true)
         {
             _forcedHandbrake = !_forcedHandbrake;
 
@@ -103,7 +107,10 @@ namespace BackToTheFutureV
             if (_forcedHandbrake)
             {
                 _boostStarted = false;
-                _handleBoost = true;
+                if (boost)
+                {
+                    _handleBoost = true;
+                }
 
                 SetSimulateSpeed(64.5f, 8);
             }
@@ -134,15 +141,19 @@ namespace BackToTheFutureV
                 _handleBoost = false;
             }
 
+            int StartHealth = FusionUtils.PlayerPed.Health;
+
             Clone = PlayerSwitch.CreatePedAndSwitch(out TimeMachine.OriginalPed, FusionUtils.PlayerPed.Position, FusionUtils.PlayerPed.Heading, true);
-
             Clone.SetIntoVehicle(Vehicle, VehicleSeat.Driver);
-
             Clone.CanFlyThroughWindscreen = false;
             Clone.CanBeDraggedOutOfVehicle = false;
             Clone.BlockPermanentEvents = true;
             Clone.AlwaysKeepTask = true;
             Clone.IsVisible = false;
+            Clone.Health = StartHealth;
+            TimeMachine.OriginalPed.Health = StartHealth;
+            Clone.IsInvincible = true;
+            Clone.IsExplosionProof = true;
 
             _blip = TimeMachine.OriginalPed.AddBlip();
             _blip.Sprite = (BlipSprite)480;
@@ -307,7 +318,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (TimeMachine.OriginalPed.HasCollided)
+            if (TimeMachine.OriginalPed.HasCollided || TimeMachine.Vehicle.Health <= 100 || TimeMachine.Vehicle.IsConsideredDestroyed || TimeMachine.Vehicle.IsDead)
             {
                 RemoteTimeMachineHandler.StopRemoteControl();
                 return;

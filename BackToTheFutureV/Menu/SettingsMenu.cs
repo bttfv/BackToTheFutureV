@@ -9,13 +9,15 @@ namespace BackToTheFutureV
     {
         private readonly NativeCheckboxItem cinematicSpawn;
         private readonly NativeCheckboxItem useInputToggle;
-        private readonly NativeCheckboxItem forceFlyMode;
+        //private readonly NativeCheckboxItem forceFlyMode;
         private readonly NativeCheckboxItem LandingSystem;
         private readonly NativeCheckboxItem InfiniteFuel;
         private readonly NativeCheckboxItem PersistenceSystem;
         private readonly NativeCheckboxItem WaybackSystem;
+        private readonly NativeCheckboxItem TimeParadox;
         private readonly NativeCheckboxItem RandomTrains;
         private readonly NativeCheckboxItem RealTime;
+        private readonly NativeCheckboxItem YearTraffic;
         private readonly NativeCheckboxItem GlowingWormholeEmitter;
         private readonly NativeCheckboxItem GlowingPlutoniumReactor;
 
@@ -23,13 +25,15 @@ namespace BackToTheFutureV
         {
             cinematicSpawn = NewCheckboxItem("CinematicSpawn", ModSettings.CinematicSpawn);
             useInputToggle = NewCheckboxItem("InputToggle", ModSettings.UseInputToggle);
-            forceFlyMode = NewCheckboxItem("ForceFly", ModSettings.ForceFlyMode);
+            //forceFlyMode = NewCheckboxItem("ForceFly", ModSettings.ForceFlyMode);
             LandingSystem = NewCheckboxItem("LandingSystem", ModSettings.LandingSystem);
             InfiniteFuel = NewCheckboxItem("InfinityReactor", ModSettings.InfiniteFuel);
             PersistenceSystem = NewCheckboxItem("Persistence", ModSettings.PersistenceSystem);
             WaybackSystem = NewCheckboxItem("Wayback", ModSettings.WaybackSystem);
+            TimeParadox = NewCheckboxItem("TimeParadox", ModSettings.TimeParadox);
             RandomTrains = NewCheckboxItem("RandomTrains", ModSettings.RandomTrains);
             RealTime = NewCheckboxItem("RealTime", ModSettings.RealTime);
+            YearTraffic = NewCheckboxItem("YearTraffic", ModSettings.YearTraffic);
             GlowingWormholeEmitter = NewCheckboxItem("GlowingWormhole", ModSettings.GlowingWormholeEmitter);
             GlowingPlutoniumReactor = NewCheckboxItem("GlowingReactor", ModSettings.GlowingPlutoniumReactor);
 
@@ -65,10 +69,10 @@ namespace BackToTheFutureV
                 ModSettings.UseInputToggle = Checked;
             }
 
-            if (sender == forceFlyMode)
+            /*if (sender == forceFlyMode)
             {
                 ModSettings.ForceFlyMode = Checked;
-            }
+            }*/
 
             if (sender == LandingSystem)
             {
@@ -78,6 +82,12 @@ namespace BackToTheFutureV
             if (sender == PersistenceSystem)
             {
                 ModSettings.PersistenceSystem = Checked;
+
+                if (!Checked)
+                {
+                    TimeMachineCloneHandler.Delete();
+                    RemoteTimeMachineHandler.DeleteAll();
+                }
             }
 
             if (sender == RandomTrains)
@@ -92,6 +102,18 @@ namespace BackToTheFutureV
                 ModSettings.RealTime = Checked;
 
                 TimeHandler.RealTime = Checked;
+            }
+
+            if (sender == YearTraffic)
+            {
+                ModSettings.YearTraffic = Checked;
+
+                TimeHandler.TrafficVolumeYearBased = Checked;
+            }
+
+            if (sender == TimeParadox)
+            {
+                ModSettings.TimeParadox = Checked;
             }
 
             if (sender == GlowingWormholeEmitter)
@@ -124,7 +146,9 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-
+            PersistenceSystem.Enabled = !WaybackSystem.Checked;
+            WaybackSystem.Enabled = !PersistenceSystem.Checked;
+            TimeParadox.Enabled = WaybackSystem.Checked;
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)

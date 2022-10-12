@@ -9,12 +9,14 @@ namespace BackToTheFutureV
         private readonly NativeCheckboxItem LightningStrikeEvent;
         private readonly NativeCheckboxItem EngineStallEvent;
         private readonly NativeCheckboxItem TurbulenceEvent;
+        private readonly NativeCheckboxItem TrainEvent;
 
         public EventsSettingsMenu() : base("Events")
         {
             LightningStrikeEvent = NewCheckboxItem("Lightning", ModSettings.LightningStrikeEvent);
             EngineStallEvent = NewCheckboxItem("Engine", ModSettings.EngineStallEvent);
             TurbulenceEvent = NewCheckboxItem("Turbulence", ModSettings.TurbulenceEvent);
+            TrainEvent = NewCheckboxItem("TrainEvent", ModSettings.TrainEvent);
         }
 
         public override void Menu_Closing(object sender, CancelEventArgs e)
@@ -42,6 +44,11 @@ namespace BackToTheFutureV
             if (sender == TurbulenceEvent)
             {
                 ModSettings.TurbulenceEvent = Checked;
+            }
+
+            if (sender == TrainEvent)
+            {
+                ModSettings.TrainEvent = Checked;
             }
 
             ModSettings.SaveSettings();

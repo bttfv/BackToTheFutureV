@@ -33,16 +33,20 @@ namespace BackToTheFutureV
         public static bool ForceFlyMode { get; set; } = true;
         public static bool GlowingWormholeEmitter { get; set; } = true;
         public static bool GlowingPlutoniumReactor { get; set; } = true;
-        public static bool InfiniteFuel { get; set; }
+        public static bool InfiniteFuel { get; set; } = false;
         public static bool LightningStrikeEvent { get; set; } = true;
         public static bool EngineStallEvent { get; set; } = true;
         public static bool TurbulenceEvent { get; set; } = true;
         public static bool TerroristsEvent { get; set; } = true;
+        public static bool TrainEvent { get; set; } = true;
         public static bool LandingSystem { get; set; } = true;
         public static bool PersistenceSystem { get; set; } = false;
         public static bool RandomTrains { get; set; } = true;
         public static bool WaybackSystem { get; set; } = false;
-        public static bool RealTime { get; set; } = false;
+        public static bool RealTime { get; set; } = true;
+        public static bool YearTraffic { get; set; } = false;
+        public static bool TimeParadox { get; set; } = false;
+        public static int MaxRecordedMachines { get; set; } = 5;
 
         private static ScriptSettings settings;
         private static readonly CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
@@ -104,8 +108,11 @@ namespace BackToTheFutureV
             InfiniteFuel = settings.GetValue("General", "InfiniteFuel", InfiniteFuel);
             PersistenceSystem = settings.GetValue("General", "PersistenceSystem", PersistenceSystem);
             WaybackSystem = settings.GetValue("General", "WaybackSystem", WaybackSystem);
+            TimeParadox = settings.GetValue("General", "TimeParadox", TimeParadox);
             RandomTrains = settings.GetValue("General", "RandomTrains", RandomTrains);
             RealTime = settings.GetValue("General", "RealTime", RealTime);
+            YearTraffic = settings.GetValue("General", "YearTraffic", YearTraffic);
+            MaxRecordedMachines = settings.GetValue("General", "MaxRemote", MaxRecordedMachines);
 
             ForceFlyMode = settings.GetValue("Hover", "ForceFly", ForceFlyMode);
             LandingSystem = settings.GetValue("Hover", "LandingSystem", LandingSystem);
@@ -114,6 +121,12 @@ namespace BackToTheFutureV
             EngineStallEvent = settings.GetValue("Events", "EngineStall", EngineStallEvent);
             TurbulenceEvent = settings.GetValue("Events", "Turbulence", TurbulenceEvent);
             TerroristsEvent = settings.GetValue("Events", "Terrorists", TerroristsEvent);
+            TrainEvent = settings.GetValue("Events", "Train", TrainEvent);
+
+            if (PersistenceSystem && WaybackSystem)
+            {
+                PersistenceSystem = false;
+            }
 
             ModControls.LoadControls(settings);
 
@@ -149,10 +162,13 @@ namespace BackToTheFutureV
 
             settings.SetValue("General", "PersistenceSystem", PersistenceSystem);
             settings.SetValue("General", "WaybackSystem", WaybackSystem);
+            settings.SetValue("General", "TimeParadox", TimeParadox);
             settings.SetValue("General", "InfiniteFuel", InfiniteFuel);
             settings.SetValue("General", "CinematicSpawn", CinematicSpawn);
             settings.SetValue("General", "RandomTrains", RandomTrains);
             settings.SetValue("General", "RealTime", RealTime);
+            settings.SetValue("General", "YearTraffic", YearTraffic);
+            settings.SetValue("General", "MaxRemote", MaxRecordedMachines);
 
             settings.SetValue("Hover", "ForceFly", ForceFlyMode);
             settings.SetValue("Hover", "LandingSystem", LandingSystem);
@@ -161,6 +177,7 @@ namespace BackToTheFutureV
             settings.SetValue("Events", "EngineStall", EngineStallEvent);
             settings.SetValue("Events", "Turbulence", TurbulenceEvent);
             settings.SetValue("Events", "Terrorists", TerroristsEvent);
+            settings.SetValue("Events", "Train", TrainEvent);
 
             settings.Save();
 
