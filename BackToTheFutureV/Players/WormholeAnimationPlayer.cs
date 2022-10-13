@@ -278,19 +278,19 @@ namespace BackToTheFutureV
 
             Mods.OffCoils = ModState.On;
 
-            Particles.Sparks?.Stop(true);
+            Particles?.Sparks?.Stop(true);
 
             _sparks?.ForEach(x => x?.Stop());
 
-            _wheSpark.Stop();
+            _wheSpark?.Stop();
 
-            _leftSpark.Stop();
+            _leftSpark?.Stop();
 
-            _rightSpark.Stop();
+            _rightSpark?.Stop();
 
-            Particles.WheelsFire?.Stop();
+            Particles?.WheelsFire?.Stop();
 
-            Particles.WheelsSparks?.Stop();
+            Particles?.WheelsSparks?.Stop();
 
             Scaleforms.WormholeRT?.DeleteProp();
         }
