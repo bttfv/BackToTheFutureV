@@ -34,7 +34,7 @@
 	BTTFV_Menu_Override_Item_SID_Title = SID Speed
 	BTTFV_Text_Clock_SetAlarm = Ustaw budzik
 	BTTFV_Menu_Custom_Item_Exhaust_Value_Stock_Title = Domyślne
-	BTTFV_Menu_Custom_Item_Plate_Value_Timeless_Title = PONADCZASOWY
+	BTTFV_Menu_Custom_Item_Plate_Value_Timeless_Title = TIMELESS
 	BTTFV_Text_Clock_Sync = Synchronizuj z aktualnym czasem
 	BTTFV_Menu_Override_Description = Allows overriding the time travel sequence's settings.
 	BTTFV_Menu_Garage_Subtitle = Menu garażu
@@ -68,7 +68,7 @@
 	BTTFV_Menu_Presets_Title = Niestandardowy wehikuł czasu
 	BTTFV_Menu_TimeMachine_Item_Altitude_Description = Pozwala na włączenie sterowania wysokością. Zapobiegnie to wznoszeniu lub opadaniu Twojej maszyny czasowej podczas trybu poduszkowca i utrzyma ją na określonej wysokości.
 	BTTFV_Menu_Main_Item_Spawn_Value_BTTF3_Description = Tworzy DeLoreana jako wehikuł czasu prezentowany w filmie Powrót do przyszłości III.
-	BTTFV_Menu_Custom_Item_Plate_Value_Timeless2_Title = PONADCZASOWY (alt)
+	BTTFV_Menu_Custom_Item_Plate_Value_Timeless2_Title = TIMELESS (alt)
 	BTTFV_Menu_Custom_Item_Wheel_Description = Wybierz rodzaj opon.
 	BTTFV_Menu_Controls_Item_HoverVTOL_Description = Przycisk VTOL w trybie poduszkowca.
 	BTTFV_Menu_Settings_Item_TCD_Title = Wyświetlanie obwodów czasowych
@@ -128,7 +128,7 @@
 	BTTFV_Text_Clock_AlarmDisabled = Budził wyłączony!
 	BTTFV_Menu_TCD_Item_External_Description = Włącz/wyłącz zewnętrzny interfejs HUD.
 	BTTFV_Menu_TCD_Item_Reset_Description = Resetuje pozycję i rozmiar wyświetlania obwodów czasowych do wartości domyślnych.
-	0x76F15B36 = DeLorean
+	0x76F15B36 = DeLoreana
 	BTTFV_Text_AltitudeHoldChange = Utrzymanie wysokości wynosi teraz {0}
 	BTTFV_Text_NotWarmed = Rury sterujące obwodami czasu nie są rozgrzane.
 	BTTFV_Text_ChipDamaged = Uszkodzenie mikroczipu sterującego obwodami czasowymi.
@@ -141,11 +141,11 @@
 	BTTFV_Menu_Custom_Item_Plate_Value_Outatime_Title = OUTATIME
 	BTTFV_Menu_Photo_Title = Menu Foto
 	BTTFV_Menu_Garage_Item_Custom_Title = Menu niestandardowe
-	BTTFV_Text_BTTF3RR = BTTF3 wariant kolejowy
+	BTTFV_Text_BTTF3RR = BTTF3RR
 	BTTFV_Menu_RC_Subtitle = Zdalne sterowanie
 	BTTFV_Menu_Custom_Item_Wormhole_Description = Wybierz rodzaj dziury czasoprzestrzennej.
 	BTTFV_Menu_Custom_Item_Hood_Title = Maska
-	BTTFV_Menu_TimeMachine_Title = Wehikuł czasu
+	BTTFV_Menu_TimeMachine_Title = Menu wehikuł czasu
 	BTTFV_Menu_Main_Description = Wysyła Cię do menu głównego moda.
 	BTTFV_Menu_Controls_Item_HoverAltitudeHold_Title = Utrzymywanie wysokości
 	BTTFV_Menu_Events_Item_Lightning_Description = Jeśli włączone, jest szansa na uderzenie pioruna podczas burzy.
@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = Usuwa wszystkie wehikuły czasu stworzone przez skrypt.
 	BTTFV_Menu_Custom_Item_Suspensions_Description = Zmień wysokość zawieszenia.
 	BTTFV_Text_Clock_CurSecond = Bieżące sekundy: {0}
-	BTTFV_Menu_RC_Item_List_Description = Naciśnij Enter, aby sterować zdalnie.
+	BTTFV_Menu_RC_Item_List_Description = Naciśnij ~INPUT_PHONE_SELECT~, aby sterować zdalnie.
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = Długie naciśnięcie jest wymagane do transformacji w poduszkowca.
 	BTTFV_Menu_Events_Item_Turbulence_Title = Turbulencje
@@ -230,7 +230,7 @@
 	BTTFV_Menu_Events_Item_TrainEvent_Description = If enabled, RR DeLorean may be destroyed after reentry.
 	BTTFV_Menu_Doors_Item_Hood_Description = Opens or closes the hood.
 	BTTFV_Menu_Custom_Item_Reactor_Value_Nuclear_Title = Reaktor jądrowy
-	BTTFV_Menu_Garage_Item_InstallMrFusion_Description = Zastąp reaktor jądrowy przenośną wersją Mr. Fusion's Home Energy.
+	BTTFV_Menu_Garage_Item_InstallMrFusion_Description = Zastąp reaktor jądrowy przenośną wersją Mr. Fusion.
 	BTTFV_Menu_Doors_Item_DriversDoor_Description = Opens or closes the driver's side door.
 	BTTFV_Menu_Settings_Item_TimeParadox_Description = *EXPERIMENTAL* If enabled, killing your past self will send you back in time.
 	BTTFV_Menu_Photo_Item_HideHUD_Title = Ukryj HUD
@@ -243,7 +243,7 @@
 	BTTFV_Menu_Settings_Item_Controls_Description = Otwiera menu do edycji skrótów klawiszowych i sterowania modem.
 	BTTFV_Menu_Override_Item_TTSfx_Description = Sets vehicle speed time travel SFX will start at.
 	BTTFV_Menu_Controls_Item_UseControlForMainMenu_Description = CTRL musi być wciśnięty razem z przyciskiem, aby Menu główne było otwarte.
-	BTTFV_Menu_TimeMachine_Subtitle = Wehikuł czasu
+	BTTFV_Menu_TimeMachine_Subtitle = Menu wehikuł czasu
 	BTTFV_Text_TCDEdit_MoveDown = Przesuń w dół
 	BTTFV_Text_Clock_SyncToggle = Synchronizacja z aktualnym czasem to {0}
 	BTTFV_Menu_Custom_Item_Hood_Description = Zmienia typ maski.
@@ -277,7 +277,7 @@
 	BTTFV_Text_WarmupComplete = Rury sterujące obwodami czasu nie są rozgrzane.
 	BTTFV_Text_TimeTravelModeChange = Tryb podróży w czasie ustawiony na {0}
 	BTTFV_Menu_Custom_Item_ControlTubes_Description = Dodaje przewody sterujące obwodami czasowymi do samochodu.
-	BTTFV_Menu_Main_Item_Spawn_Value_DMC12_Description = Tworzy fabryczny Delorean DMC-12.
+	BTTFV_Menu_Main_Item_Spawn_Value_DMC12_Description = Tworzy fabryczny DeLoreana DMC-12.
 	BTTFV_Menu_Photo_Description = Otwiera tryb foto.
 	BTTFV_Menu_Presets_Subtitle = Zapisz ustawienie
 	BTTFV_Text_Instant = Błyskawicznie
@@ -333,7 +333,7 @@
 	BTTFV_Text_Months = miesiące
 	BTTFV_Text_TCDEdit_MoveLeft = Przesuń w lewo
 	BTTFV_Text_NotEnoughMoney = Nie masz wystarczającej ilości pieniędzy!
-	BTTFV_Menu_TimeMachine_Description = Wehikuł czasu
+	BTTFV_Menu_TimeMachine_Description = Menu wehikuł czasu
 	BTTFV_Menu_Garage_Item_BuyPlutonium_Description = Kup pręt plutonowy, gotowy do użycia.
 	BTTFV_Menu_Garage_Description = Menu garażu
 	BTTFV_Menu_Events_Item_Turbulence_Description = Jeśli włączony samochód podczas latania w złej pogodzie wpadnie w turbulencje.

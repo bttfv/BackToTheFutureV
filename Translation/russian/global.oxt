@@ -30,7 +30,7 @@
 	BTTFV_Menu_Photo_Item_SIDMax_Title = Активировать панель временного контура
 	BTTFV_Menu_Settings_Item_InputToggle_Title = Использовать режим ввода
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = Отправляет вас в главное меню мода
-	BTTFV_Menu_Override_Item_WormholeLength_Description = Длительность червоточины от начала до перемещения в миллисекундах. 
+	BTTFV_Menu_Override_Item_WormholeLength_Description = Длительность червоточины от начала до перемещения в миллисекундах.
 	BTTFV_Menu_Override_Item_SID_Title = Срабатывание SID
 	BTTFV_Text_Clock_SetAlarm = Установить время будильника
 	BTTFV_Menu_Custom_Item_Exhaust_Value_Stock_Title = Оригинальная
@@ -56,7 +56,7 @@
 	BTTFV_Text_SignalStrength = Мощность сигнала
 	BTTFV_Menu_Settings_Item_Persistence_Title = Система устойчивости
 	BTTFV_Text_BTTF1 = BTTF1
-	BTTFV_Menu_Outatime_Item_Last_Description = Last time departed.
+	BTTFV_Menu_Outatime_Item_Last_Description = Tells you the current Time Machine's last time departed.
 	BTTFV_Menu_Override_Item_TT_Description = Устанавливает скорость машины необходимую для открытия червоточины.
 	BTTFV_Text_Clock_SubSeconds = Отнять секунды
 	BTTFV_Menu_Presets_Item_Delete_Title = Удалить
@@ -88,7 +88,7 @@
 	BTTFV_Menu_Custom_Item_Suspensions_Value_LiftRear_Title = Задняя ↑
 	BTTFV_Menu_Settings_Item_RealTime_Description = Когда эта функция включена, минута в игре будет длиться как минута в реальном мире.
 	BTTFV_Menu_Controls_Item_TCToggle_Description = Клавиша переключения временных контуров (клавиатура)
-	BTTFV_Menu_Outatime_Item_Blip_Description = Показывает точку на карте, где автомобиль появиться  вновь
+	BTTFV_Menu_Outatime_Item_Blip_Description = Показывает точку на карте, где автомобиль появиться вновь
 	BTTFV_Menu_Override_Title = Меню переопределения
 	BTTFV_Menu_Custom_Item_Plate_Description = Выберите номерной знак
 	BTTFV_Menu_TCD_Item_HideSID_Title = Убрать панель временного контура
@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = Удаляет все машины времени, созданные по скрипту
 	BTTFV_Menu_Custom_Item_Suspensions_Description = Изменить высоту подвески
 	BTTFV_Text_Clock_CurSecond = Текущее время: {0}
-	BTTFV_Menu_RC_Item_List_Description = Нажмите Enter для дистанционного управления
+	BTTFV_Menu_RC_Item_List_Description = Нажмите ~INPUT_PHONE_SELECT~ для дистанционного управления
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = Удерживать для перехода в режим полёта
 	BTTFV_Menu_Events_Item_Turbulence_Title = Турбулентность
@@ -197,7 +197,7 @@
 	BTTFV_Menu_TimeMachine_Item_Restore_Description = Восстановить машину времени до идеально рабочего состояния
 	BTTFV_Text_RemovedAllTimeMachines = Все машины времени удалены!
 	BTTFV_Menu_TimeMachine_Item_TC_Description = Позволяет вам включать/выключать временной контур
-	BTTFV_Menu_Sounds_Item_Engine_Title = Custom engine sounds
+	BTTFV_Menu_Sounds_Item_Engine_Title = Custom Engine Sounds
 	BTTFV_Menu_RC_Item_Fuel_Description = Сообщает вам: есть ли топливо в реакторе текущей машины времени
 	BTTFV_Menu_Controls_Subtitle = Меню управления
 	BTTFV_Text_BTTF2 = BTTF2
@@ -230,7 +230,7 @@
 	BTTFV_Menu_Events_Item_TrainEvent_Description = Если включено, ДеЛореан может быть уничтожен после перемещения на железной дороге.
 	BTTFV_Menu_Doors_Item_Hood_Description = Открывает или закрывает капот.
 	BTTFV_Menu_Custom_Item_Reactor_Value_Nuclear_Title = Плутониевый
-	BTTFV_Menu_Garage_Item_InstallMrFusion_Description = Заменить ядерный реактор портативной версией домашнего энергетического реактора Mr. Fusion's
+	BTTFV_Menu_Garage_Item_InstallMrFusion_Description = Заменить ядерный реактор портативной версией домашнего энергетического реактора Mr. Fusion
 	BTTFV_Menu_Doors_Item_DriversDoor_Description = Открывает или закрывает боковую водительскую дверь.
 	BTTFV_Menu_Settings_Item_TimeParadox_Description = *ЭКСПЕРИМЕНТАЛЬНО* Если включено, смерть вашего прошлого 'я' отправит вас назад во времени.
 	BTTFV_Menu_Photo_Item_HideHUD_Title = Скрыть интерфейс

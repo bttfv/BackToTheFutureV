@@ -60,7 +60,7 @@
 	BTTFV_Menu_Override_Item_TT_Description = Sets vehicle speed wormhole will open at.
 	BTTFV_Text_Clock_SubSeconds = Rimuovi secondi
 	BTTFV_Menu_Presets_Item_Delete_Title = Elimina
-	BTTFV_Text_UnableRepairTC = Impossibile riparare i tempo circuiti. I pezzi di ricambio non saranno disponibili fino al 1947.
+	BTTFV_Text_UnableRepairTC = Impossibile riparare i tempo circuiti. I pezzi di ricambio non saranno disponibili fino al 1952.
 	BTTFV_Menu_TimeMachine_Item_Restore_Title = Ripristina macchina del tempo
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = Menu personalizzazione
 	BTTFV_Menu_Main_Item_RC_Description = Permette di controllare da remoto una macchina del tempo.
@@ -183,7 +183,7 @@
 	BTTFV_Menu_Custom_Item_Hood_Value_Stock_Title = Originale
 	BTTFV_Menu_Controls_Item_InputToggle_Title = Modalità inserimento
 	BTTFV_Menu_Main_Item_Settings_Title = Impostazioni
-	BTTFV_Menu_Garage_Item_BuyPlutonium_Title = Acquista barra di plutonio (1.500 $)
+	BTTFV_Menu_Garage_Item_BuyPlutonium_Title = Acquista pellet di plutonio (1.500 $)
 	BTTFV_Text_TCDEdit_SaveButton = Salva
 	BTTFV_Menu_Photo_Item_Engine_Title = Problemi motore
 	BTTFV_Menu_Main_Item_Remove_Description = Elimina la macchina del tempo corrente.
@@ -223,7 +223,7 @@
 	BTTFV_Menu_Settings_Item_YearTraffic_Description = If enabled, traffic density will be affected by era.
 	BTTFV_Menu_Settings_Item_Wayback_Title = Sistema wayback
 	BTTFV_Menu_Doors_Item_Trunk_Title = Louvers
-	BTTFV_Text_UnableRepairEngine = There won't be a gas station until 1912.
+	BTTFV_Text_UnableRepairEngine = Unable to repair engine. There won't be a gas station until 1912.
 	BTTFV_Menu_Doors_Item_PassengerDoor_Title = Passenger Door
 	BTTFV_Menu_Settings_Item_YearTraffic_Title = Year-based Traffic
 	BTTFV_Menu_Custom_Item_Suspensions_Value_LiftFrontLowerRear_Title = ↑ ant. ↓ post.
@@ -262,7 +262,7 @@
 	BTTFV_Menu_TCD_Item_External_Title = HUD esterno
 	BTTFV_Text_ApplyHook = Premi ~INPUT_CONTEXT~ per applicare il gancio di connessione.
 	BTTFV_Menu_Garage_Item_RepairEngine_Description = Ripara il motore a combustione interna.
-	BTTFV_Text_FoundTrash = Hai trovato soltanto della spazzatura inutile… {0}
+	BTTFV_Text_FoundTrash = Hai trovato soltanto della spazzatura inutile… ({0})
 	0xAFD2DA44 = Macchina del tempo
 	BTTFV_Menu_Main_Item_RemoveOther_Title = Elimine le ALTRE macchine del tempo
 	BTTFV_Menu_Controls_Item_InteractionMenu2_Description = Secondo pulsante richiesto per aprire il menu contestuale.
@@ -320,8 +320,8 @@
 	BTTFV_Menu_Garage_Item_Custom_Description = Modifica la macchina del tempo corrente.
 	0xD6D415CE = DMC-12
 	BTTFV_Menu_Outatime_Item_List_Title = Macchine del tempo
-	0xD32CBE14 = Impostazioni
-	0xD36D7DA9 = Gestione eventi
+	BTTFV_Menu_Settings_Subtitle = Impostazioni
+	BTTFV_Menu_Events_Subtitle = Gestione eventi
 	BTTFV_Text_InputMode = Modalità inserimento è {0}
 	BTTFV_Text_TCDEdit_MoveUp = Sposta su
 	BTTFV_Menu_Main_Item_Remove_Title = Elimina macchina del tempo
@@ -359,7 +359,7 @@
 	BTTFV_Menu_Controls_Item_Hover_Title = Aerotrasformazione
 	BTTFV_Text_Clock_DisableAlarm = Spegni sveglia
 	BTTFV_Menu_Outatime_Subtitle = Menu OUTATIME
-	BTTFV_Menu_Garage_Item_InstallMrFusion_Title = Installa Mr. Fusion (100.000 €)
+	BTTFV_Menu_Garage_Item_InstallMrFusion_Title = Installa Mr. Fusion (100.000 $)
 	BTTFV_Menu_Main_Item_Settings_Description = Menu impostazioni dello script.
 	BTTFV_Menu_Outatime_Item_Spawned_Description = Se la macchina del tempo esiste nella mappa.
 	BTTFV_Menu_Custom_Item_Suspensions_Value_LowerRear_Title = ↓ post.

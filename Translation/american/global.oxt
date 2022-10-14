@@ -81,7 +81,7 @@
 	BTTFV_Menu_Photo_Item_Ice_Description = Enables ice on Time Machine.
 	BTTFV_Text_SelectButton = Selected Button: {0}
 	BTTFV_Menu_Outatime_Item_List_Description = List of Time Machines currently stuck in time.
-	BTTFV_Menu_TCD_Description = Change various settings related to the time circuits Display.
+	BTTFV_Menu_TCD_Description = Change various settings related to the time circuits display.
 	BTTFV_Menu_Photo_Item_Ice_Title = Ice
 	BTTFV_Menu_Controls_Item_TCToggle_Title = Time Circuits
 	BTTFV_Menu_Sounds_Title = Sound Effects
@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = Deletes all the Time Machines spawned by the script.
 	BTTFV_Menu_Custom_Item_Suspensions_Description = Change suspension height.
 	BTTFV_Text_Clock_CurSecond = Current Seconds: {0}
-	BTTFV_Menu_RC_Item_List_Description = Press Enter to remote control.
+	BTTFV_Menu_RC_Item_List_Description = Press ~INPUT_PHONE_SELECT~ to remote control.
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = Hover transformation requires holding the key.
 	BTTFV_Menu_Events_Item_Turbulence_Title = Turbulence

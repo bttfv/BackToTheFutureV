@@ -14,7 +14,7 @@
 	BTTFV_Menu_Main_Item_Outatime_Title = OUTATIME
 	BTTFV_Menu_Custom_Item_Hover_Description = Fügt dem aktuellen Fahrzeug den Hovermodus hinzu.
 	BTTFV_Menu_Settings_Item_RealTime_Title = Echtzeit
-	BTTFV_Menu_Settings_Item_ForceFly_Description = Erzwingt beim Fliegen mit dem Mark 2 den Schwebeflugmodus bzw. lässt diesen nicht zu.
+	BTTFV_Menu_Settings_Item_ForceFly_Description = Erzwingt beim Fliegen mit dem BTTF2 den Schwebeflugmodus bzw. lässt diesen nicht zu.
 	BTTFV_Menu_Custom_Item_Exhaust_Value_None_Title = Keine
 	BTTFV_Menu_Custom_Item_Confirm_Title = BESTÄTIGEN
 	BTTFV_Menu_Events_Title = Skriptbasierte Ereignisse
@@ -58,7 +58,7 @@
 	BTTFV_Text_BTTF1 = BTTF1
 	BTTFV_Menu_Outatime_Item_Last_Description = Letztes Mal abgereist.
 	BTTFV_Menu_Override_Item_TT_Description = Sets vehicle speed wormhole will open at.
-	BTTFV_Text_Clock_SubSeconds = Substract Seconds
+	BTTFV_Text_Clock_SubSeconds = Sekunden Abziehen
 	BTTFV_Menu_Presets_Item_Delete_Title = Löschen
 	BTTFV_Text_UnableRepairTC = Zeitkreise können nicht repariert werden. Geeignete Ersatzteile werden erst 1947 erfunden.
 	BTTFV_Menu_TimeMachine_Item_Restore_Title = Wiederherstellen
@@ -97,9 +97,9 @@
 	BTTFV_Menu_Events_Item_Engine_Description = Wenn aktiviert, kann der Fahrzeugmotor abgewürgt werden, wenn der Plutoniumreaktor leer ist.
 	BTTFV_Menu_Settings_Item_LandingSystem_Description = Wenn aktiviert, fällt das Auto nach Verlassen des Schwebemodus nicht herunter (verwende VTOL, um manuell zu landen).
 	BTTFV_Menu_Garage_Item_RepairFC_Title = Reparatur der Flugschaltkreise (1.000 $)
-	BTTFV_Text_Clock_AddSeconds = Sekunden hinzufügen
+	BTTFV_Text_Clock_AddSeconds = Sekunden Hinzufügen
 	BTTFV_Menu_Garage_Item_RepairTC_Description = Repariere die Zeitkreise mit der aktuell verfügbaren Technologie.
-	BTTFV_Text_Clock_AddMinutes = Minuten hinzufügen
+	BTTFV_Text_Clock_AddMinutes = Minuten Hinzufügen
 	BTTFV_Menu_RC_Item_Destination_Description = Zeigt das eingestellte Ziel der aktuellen Zeitmaschine an.
 	BTTFV_Text_DMC12 = DMC-12
 	BTTFV_Text_VTOLTip = Drücke {0} und ~INPUT_VEH_FLY_THROTTLE_DOWN~ zur Landung.
@@ -159,11 +159,11 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = Löscht alle vom Skript erzeugten Zeitmaschinen.
 	BTTFV_Menu_Custom_Item_Suspensions_Description = Höhe der Aufhängung ändern.
 	BTTFV_Text_Clock_CurSecond = Aktuelle Sekunde: {0}
-	BTTFV_Menu_RC_Item_List_Description = Drücke die Enter-Taste zur Fernsteuerung.
+	BTTFV_Menu_RC_Item_List_Description = Drücke die ~INPUT_PHONE_SELECT~ zur Fernsteuerung.
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = Langes Drücken ist für die Hover-Transformation erforderlich.
 	BTTFV_Menu_Events_Item_Turbulence_Title = Turbulenzen
-	BTTFV_Text_Clock_SubMinutes = Minuten abziehen
+	BTTFV_Text_Clock_SubMinutes = Minuten Abziehen
 	BTTFV_Menu_Custom_Subtitle = Benutzerdefiniertes Menü
 	BTTFV_Menu_Main_Item_Spawn_Value_BTTF2_Description = Spawnt eine DeLorean-Zeitmaschine, die im Film Zurück in die Zukunft II zu sehen ist.
 	BTTFV_Menu_Outatime_Item_Reenter_Description = Ein Notfallsystem, um den Wagen manuell wieder erscheinen zu lassen.
@@ -223,7 +223,7 @@
 	BTTFV_Menu_Settings_Item_YearTraffic_Description = If enabled, traffic density will be affected by era.
 	BTTFV_Menu_Settings_Item_Wayback_Title = Wayback-System
 	BTTFV_Menu_Doors_Item_Trunk_Title = Lamellen
-	BTTFV_Text_UnableRepairEngine = Eine Tankstelle wird es erst 1912 geben.
+	BTTFV_Text_UnableRepairEngine = Motor können nicht repariert werden. Eine Tankstelle wird es erst 1912 geben.
 	BTTFV_Menu_Doors_Item_PassengerDoor_Title = Beifahrertür
 	BTTFV_Menu_Settings_Item_YearTraffic_Title = Year-based Traffic
 	BTTFV_Menu_Custom_Item_Suspensions_Value_LiftFrontLowerRear_Title = ↑ Front ↓ Heck
@@ -259,7 +259,7 @@
 	BTTFV_Text_Warmup = Drücke ~INPUT_CONTEXT~, um das Aufwärmen der Zeitleitungs-Steuerrohre zu starten.
 	BTTFV_Menu_TCD_Item_HideHUD_Title = HUD im Spiel ausblenden
 	BTTFV_Menu_Doors_Item_DriversDoor_Title = Fahrertür
-	BTTFV_Menu_TCD_Item_External_Title = Externes HUD
+	BTTFV_Menu_TCD_Item_External_Title = Externe HUD
 	BTTFV_Text_ApplyHook = Drücke ~INPUT_CONTEXT~, um den Haken zu platzieren.
 	BTTFV_Menu_Garage_Item_RepairEngine_Description = Repariere den Motor.
 	BTTFV_Text_FoundTrash = Nur nutzlosen Müll gefunden... ({0})
