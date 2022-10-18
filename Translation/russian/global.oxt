@@ -341,6 +341,7 @@
 	BTTFV_Menu_Override_Item_WormholeLength_Title = Длительность червоточины
 	BTTFV_Menu_Custom_Item_Suspensions_Value_LowerFrontLiftRear_Title = Передняя ↓ задняя ↑
 	BTTFV_Menu_Outatime_Item_Spawned_Title = Появилась
+	BTTFV_Text_TCDEdit_SIDSelect = Hold to Edit SID
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = Редактировать машину времени
 	BTTFV_Menu_Controls_Item_CutsceneToggle_Title = Режим кинематографично/мгновенно
 	BTTFV_Menu_Main_Subtitle = Главное меню

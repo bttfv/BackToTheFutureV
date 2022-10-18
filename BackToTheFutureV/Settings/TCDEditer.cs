@@ -104,8 +104,10 @@ namespace BackToTheFutureV
             InstrumentalMenu.AddControl(Control.ReplayFOVIncrease, TextHandler.Me.GetLocalizedText("TCDEdit_ScaleUp"));
             InstrumentalMenu.AddControl(Control.ReplayFOVDecrease, TextHandler.Me.GetLocalizedText("TCDEdit_ScaleDown"));
 
-            InstrumentalMenu.AddControl(Control.PhoneCancel, TextHandler.Me.GetLocalizedText("TCDEdit_Cancel"));
-            InstrumentalMenu.AddControl(Control.PhoneSelect, TextHandler.Me.GetLocalizedText("TCDEdit_Save"));
+            InstrumentalMenu.AddControl(Control.VehicleSelectNextWeapon, TextHandler.Me.GetLocalizedText("TCDEdit_SIDSelect"));
+
+            InstrumentalMenu.AddControl(Control.PhoneCancel, TextHandler.Me.GetLocalizedText("TCDEdit_CancelButton"));
+            InstrumentalMenu.AddControl(Control.PhoneSelect, TextHandler.Me.GetLocalizedText("TCDEdit_SaveButton"));
         }
 
         public static void Tick()
@@ -127,7 +129,7 @@ namespace BackToTheFutureV
 
             float _posX, _posY, _scale;
 
-            if (Game.IsControlPressed(Control.VehicleHandbrake))
+            if (Game.IsControlPressed(Control.VehicleSelectNextWeapon))
             {
                 _posX = posSIDX;
                 _posY = posSIDY;
@@ -215,7 +217,7 @@ namespace BackToTheFutureV
                 _scale = 0.1f;
             }
 
-            if (Game.IsControlPressed(Control.VehicleHandbrake))
+            if (Game.IsControlPressed(Control.VehicleSelectNextWeapon))
             {
                 posSIDX = _posX;
                 posSIDY = _posY;

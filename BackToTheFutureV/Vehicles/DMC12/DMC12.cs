@@ -127,18 +127,18 @@ namespace BackToTheFutureV
 
         private void HandleDucking()
         {
-            if (Game.IsControlPressed(Control.VehicleDuck) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking)
+            if (Game.IsControlPressed(Control.VehicleDuck) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && !FusionUtils.IsCameraInFirstPerson())
             {
-                FusionUtils.PlayerPed.Task?.PlayAnimation("veh@low@front_ds@idle_duck", "sit", -8f, 8f, -1, AnimationFlags.AllowRotation, 1f);
+                FusionUtils.PlayerPed.Task?.PlayAnimation("veh@low@front_ds@idle_duck", "sit", -3.5f, 3.5f, -1, AnimationFlags.AllowRotation, 1f);
                 isDucking = true;
                 duckEnded = false;
             }
-            else if (Game.IsControlPressed(Control.VehicleDuck) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && isDucking)
+            else if (Game.IsControlPressed(Control.VehicleDuck) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && isDucking && !FusionUtils.IsCameraInFirstPerson())
             {
                 Function.Call(Hash.SET_ENTITY_ANIM_SPEED, FusionUtils.PlayerPed, "veh@low@front_ds@idle_duck", "sit", 0f);
                 Function.Call(Hash.SET_ENTITY_ANIM_CURRENT_TIME, FusionUtils.PlayerPed, "veh@low@front_ds@idle_duck", "sit", 0f);
             }
-            else if (!duckEnded)
+            else if (!duckEnded && !FusionUtils.IsCameraInFirstPerson())
             {
                 FusionUtils.PlayerPed.Task?.ClearAnimation("veh@low@front_ds@idle_duck", "sit");
                 isDucking = false;

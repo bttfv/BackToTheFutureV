@@ -305,7 +305,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Vehicle.GetMPHSpeed() >= SIDMaxAtSpeed && !OverSIDMaxAtSpeed)
+            if (Vehicle.GetMPHSpeed() >= SIDMaxAtSpeed && !OverSIDMaxAtSpeed && Vehicle.CurrentGear > 0)
             {
                 OverSIDMaxAtSpeed = true;
                 Events.OnSIDMaxSpeedReached?.Invoke(true);
@@ -320,7 +320,7 @@ namespace BackToTheFutureV
                 Events.OnSIDMaxSpeedReached?.Invoke(false);
             }
 
-            if (Vehicle.GetMPHSpeed() >= WormholeAtSpeed && !OverWormholeAtSpeed)
+            if (Vehicle.GetMPHSpeed() >= WormholeAtSpeed && !OverWormholeAtSpeed && Vehicle.CurrentGear > 0)
             {
                 OverWormholeAtSpeed = true;
                 Events.OnTimeTravelSpeedReached?.Invoke(true);
@@ -332,7 +332,7 @@ namespace BackToTheFutureV
                 Events.OnTimeTravelSpeedReached?.Invoke(false);
             }
 
-            if (Vehicle.GetMPHSpeed() >= TimeTravelAtSpeed && !OverTimeTravelAtSpeed)
+            if (Vehicle.GetMPHSpeed() >= TimeTravelAtSpeed && !OverTimeTravelAtSpeed && Vehicle.CurrentGear > 0)
             {
                 TimeTravelAtTime = Game.GameTime + WormholeLengthTime;
                 StabilizationSoundAtTime = Game.GameTime + 1000;

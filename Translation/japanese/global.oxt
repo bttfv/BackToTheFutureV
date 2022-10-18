@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = スクリプトによって生成されたすべてのタイムマシンを削除します。
 	BTTFV_Menu_Custom_Item_Suspensions_Description = サスペンションの高さを変更する。
 	BTTFV_Text_Clock_CurSecond = 現在の秒: {0}
-	BTTFV_Menu_RC_Item_List_Description = Enterを押して遠隔操作します。
+	BTTFV_Menu_RC_Item_List_Description = ~INPUT_PHONE_SELECT~を押して遠隔操作します。
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = ホバーモードになるのにキーの長押しを必要とするか。
 	BTTFV_Menu_Events_Item_Turbulence_Title = 乱気流
@@ -341,6 +341,7 @@
 	BTTFV_Menu_Override_Item_WormholeLength_Title = ワームホール時間
 	BTTFV_Menu_Custom_Item_Suspensions_Value_LowerFrontLiftRear_Title = ↓ フロント ↑ リアー
 	BTTFV_Menu_Outatime_Item_Spawned_Title = スポーンした
+	BTTFV_Text_TCDEdit_SIDSelect = 押したままSID変更
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = 現在のタイムマシンを編集
 	BTTFV_Menu_Controls_Item_CutsceneToggle_Title = カットシーン/インスタントモード
 	BTTFV_Menu_Main_Subtitle = メインメニュー

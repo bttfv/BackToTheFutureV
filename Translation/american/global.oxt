@@ -299,7 +299,7 @@
 	BTTFV_Menu_Main_Item_Presets_Description = Spawns a saved custom Time Machine.
 	BTTFV_Menu_Doors_Item_PassengerDoor_Description = Opens or closes the passenger's side door.
 	BTTFV_Menu_Custom_Item_Suspensions_Title = Suspension
-	BTTFV_Menu_Settings_Item_Persistence_Description = *EXPERIMENTAL* Enable (at your risk) a system that saves/restores current (and remote) Time Machines.
+	BTTFV_Menu_Settings_Item_Persistence_Description = *EXPERIMENTAL* Enable (at your own risk) a system that saves/restores current (and remote) Time Machines.
 	BTTFV_Menu_Custom_Item_Hood_Value_1983_Title = 1983
 	BTTFV_Menu_Settings_Item_RandomTrains_Description = Choose whether random trains are spawned or not.
 	BTTFV_Menu_TimeMachine_Item_Photo_Description = Opens the Photo Menu.
@@ -311,7 +311,7 @@
 	BTTFV_Menu_Controls_Item_InteractionMenu1_Description = First button to open Interaction Menu (only one if combination setting is off).
 	BTTFV_Menu_Outatime_Item_Reenter_Title = Force Time Machine Reentry
 	BTTFV_Menu_Settings_Item_Events_Description = Opens the Scripted Events Menu.
-	BTTFV_Menu_Settings_Item_Wayback_Description = *EXPERIMENTAL* Enable (at your risk) if you want see your past self (at the moment system records only Time Machines' actions).
+	BTTFV_Menu_Settings_Item_Wayback_Description = *EXPERIMENTAL* Enable (at your own risk) if you want see your past self (at the moment system records only Time Machines' actions).
 	BTTFV_Menu_Custom_Item_Plate_Title = License Plate
 	BTTFV_Text_SelectOption = SELECT AN OPTION
 	BTTFV_Menu_Controls_Item_InputToggle_Description = Key to toggle time circuits input (keyboard).
@@ -341,6 +341,7 @@
 	BTTFV_Menu_Override_Item_WormholeLength_Title = Wormhole Duration
 	BTTFV_Menu_Custom_Item_Suspensions_Value_LowerFrontLiftRear_Title = ↓ Front ↑ Rear
 	BTTFV_Menu_Outatime_Item_Spawned_Title = Spawned
+	BTTFV_Text_TCDEdit_SIDSelect = Hold to Edit SID
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = Edit current Time Machine.
 	BTTFV_Menu_Controls_Item_CutsceneToggle_Title = Cutscene/Instant Mode
 	BTTFV_Menu_Main_Subtitle = Main Menu

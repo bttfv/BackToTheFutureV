@@ -12,7 +12,7 @@ namespace BackToTheFutureV
         //private readonly NativeCheckboxItem forceFlyMode;
         private readonly NativeCheckboxItem LandingSystem;
         private readonly NativeCheckboxItem InfiniteFuel;
-        private readonly NativeCheckboxItem PersistenceSystem;
+        //private readonly NativeCheckboxItem PersistenceSystem;
         private readonly NativeCheckboxItem WaybackSystem;
         private readonly NativeCheckboxItem TimeParadox;
         private readonly NativeCheckboxItem RandomTrains;
@@ -28,7 +28,7 @@ namespace BackToTheFutureV
             //forceFlyMode = NewCheckboxItem("ForceFly", ModSettings.ForceFlyMode);
             LandingSystem = NewCheckboxItem("LandingSystem", ModSettings.LandingSystem);
             InfiniteFuel = NewCheckboxItem("InfinityReactor", ModSettings.InfiniteFuel);
-            PersistenceSystem = NewCheckboxItem("Persistence", ModSettings.PersistenceSystem);
+            //PersistenceSystem = NewCheckboxItem("Persistence", ModSettings.PersistenceSystem);
             WaybackSystem = NewCheckboxItem("Wayback", ModSettings.WaybackSystem);
             TimeParadox = NewCheckboxItem("TimeParadox", ModSettings.TimeParadox);
             RandomTrains = NewCheckboxItem("RandomTrains", ModSettings.RandomTrains);
@@ -79,7 +79,7 @@ namespace BackToTheFutureV
                 ModSettings.LandingSystem = Checked;
             }
 
-            if (sender == PersistenceSystem)
+            /*if (sender == PersistenceSystem)
             {
                 ModSettings.PersistenceSystem = Checked;
 
@@ -88,7 +88,7 @@ namespace BackToTheFutureV
                     TimeMachineCloneHandler.Delete();
                     RemoteTimeMachineHandler.DeleteAll();
                 }
-            }
+            }*/
 
             if (sender == RandomTrains)
             {
@@ -146,8 +146,8 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            PersistenceSystem.Enabled = !WaybackSystem.Checked;
-            WaybackSystem.Enabled = !PersistenceSystem.Checked;
+            /*PersistenceSystem.Enabled = !WaybackSystem.Checked;
+            WaybackSystem.Enabled = !PersistenceSystem.Checked;*/
             TimeParadox.Enabled = WaybackSystem.Checked;
         }
 

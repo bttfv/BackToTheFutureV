@@ -338,7 +338,10 @@ namespace BackToTheFutureV
             Vector3 carPos = Vehicle.Position;
             Function.Call(Hash.REQUEST_COLLISION_AT_COORD, origPos.X, origPos.Y, origPos.Z);
             Function.Call(Hash.REQUEST_COLLISION_AT_COORD, carPos.X, carPos.Y, carPos.Z);
-
+            if (!Driver.NotNullAndExists())
+            {
+                RemoteTimeMachineHandler.StopRemoteControl();
+            }
             Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Driver);
             Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Driver);
             Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, TimeMachine.OriginalPed);

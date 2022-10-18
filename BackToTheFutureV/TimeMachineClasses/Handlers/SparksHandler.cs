@@ -216,7 +216,7 @@ namespace BackToTheFutureV
 
         private void OnSparksEnded(int delay = 0)
         {
-            if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine && !Properties.HasBeenStruckByLightning)
+            if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine && !Properties.HasBeenStruckByLightning && WaybackSystem.CurrentPlayerRecording != null)
             {
                 WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.OnSparksEnded;
                 WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.TimeTravelDelay = delay;
