@@ -4,7 +4,7 @@
    <includedXmlFiles />
    <includedDataFiles />
    <dataFiles>
-	<!-- tuning -->
+      <!-- tuning -->
       <Item>
          <filename>dlc_bttf:/%PLATFORM%/tuning/dmc12_mods.rpf</filename>
          <fileType>RPF_FILE</fileType>
@@ -41,7 +41,7 @@
          <disabled value="true" />
          <persistent value="true" />
       </Item>
-	<!-- props -->
+      <!-- props -->
       <Item>
          <filename>dlc_bttf:/%PLATFORM%/props/bttf1_props.rpf</filename>
          <fileType>RPF_FILE</fileType>
@@ -57,7 +57,7 @@
          <persistent value="true" />
          <contents>CONTENTS_PROPS</contents>
       </Item>
-	  <Item>
+      <Item>
          <filename>dlc_bttf:/%PLATFORM%/props/bttf2_props.rpf</filename>
          <fileType>RPF_FILE</fileType>
          <overlay value="false" />
@@ -72,7 +72,7 @@
          <persistent value="true" />
          <contents>CONTENTS_PROPS</contents>
       </Item>
-	  <Item>
+      <Item>
          <filename>dlc_bttf:/%PLATFORM%/props/bttf3_props.rpf</filename>
          <fileType>RPF_FILE</fileType>
          <overlay value="false" />
@@ -87,7 +87,7 @@
          <persistent value="true" />
          <contents>CONTENTS_PROPS</contents>
       </Item>
-	  <Item>
+      <Item>
          <filename>dlc_bttf:/%PLATFORM%/props/bttf_common_props.rpf</filename>
          <fileType>RPF_FILE</fileType>
          <overlay value="false" />
@@ -102,7 +102,7 @@
          <persistent value="true" />
          <contents>CONTENTS_PROPS</contents>
       </Item>
-	  <Item>
+      <Item>
          <filename>dlc_bttf:/%PLATFORM%/props/dmc12_props.rpf</filename>
          <fileType>RPF_FILE</fileType>
          <overlay value="false" />
@@ -117,7 +117,7 @@
          <persistent value="true" />
          <contents>CONTENTS_PROPS</contents>
       </Item>
-	  <Item>
+      <Item>
          <filename>dlc_bttf:/%PLATFORM%/props/tcd_props.rpf</filename>
          <fileType>RPF_FILE</fileType>
          <overlay value="false" />
@@ -132,7 +132,7 @@
          <persistent value="true" />
          <contents>CONTENTS_PROPS</contents>
       </Item>
-	<!-- scaleform -->
+      <!-- scaleform -->
       <Item>
          <filename>dlc_bttf:/%PLATFORM%/scaleform/scaleform.rpf</filename>
          <fileType>RPF_FILE</fileType>
@@ -141,7 +141,7 @@
          <persistent value="true" />
          <overlay value="true" />
       </Item>
-	  <!-- bttf1 wormhole -->
+      <!-- bttf1 wormhole -->
       <Item>
          <filename>dlc_bttf:/%PLATFORM%/scaleform/wormhole_bttf1.rpf</filename>
          <fileType>RPF_FILE</fileType>
@@ -157,7 +157,7 @@
          <persistent value="true" />
          <contents>CONTENTS_PROPS</contents>
       </Item>
-	  <!-- bttf2 wormhole -->
+      <!-- bttf2 wormhole -->
       <Item>
          <filename>dlc_bttf:/%PLATFORM%/scaleform/wormhole_bttf2.rpf</filename>
          <fileType>RPF_FILE</fileType>
@@ -173,7 +173,7 @@
          <persistent value="true" />
          <contents>CONTENTS_PROPS</contents>
       </Item>
-	  <!-- bttf3 wormhole -->
+      <!-- bttf3 wormhole -->
       <Item>
          <filename>dlc_bttf:/%PLATFORM%/scaleform/wormhole_bttf3.rpf</filename>
          <fileType>RPF_FILE</fileType>
@@ -189,43 +189,43 @@
          <persistent value="true" />
          <contents>CONTENTS_PROPS</contents>
       </Item>
-	<!-- data -->
+      <!-- data -->
       <Item>
-	      <filename>dlc_bttfCRC:/common/data/levels/gta5/vehicles.meta</filename>
-	      <fileType>VEHICLE_METADATA_FILE</fileType>
-	      <overlay value="false" />
-	      <disabled value="true" />
-	      <persistent value="false" />
-	    </Item>
-	    <Item>
-	      <filename>dlc_bttfCRC:/common/data/carcols.meta</filename>
-	      <fileType>CARCOLS_FILE</fileType>
-	      <overlay value="false" />
-	      <disabled value="true" />
-	      <persistent value="false" />
-	    </Item>           
-	    <Item>
-	      <filename>dlc_bttfCRC:/common/data/carvariations.meta</filename>
-	      <fileType>VEHICLE_VARIATION_FILE</fileType>
-	      <overlay value="false" />
-	      <disabled value="true" />
-	      <persistent value="false" />
-	    </Item>
-	    <Item>
-	      <filename>dlc_bttfCRC:/common/data/dlctext.meta</filename>
-	      <fileType>TEXTFILE_METAFILE</fileType>
-	      <overlay value="false" />
-	      <disabled value="true" />
-	      <persistent value="true" />
-	    </Item>
-	    <Item>
-	      <filename>dlc_bttfCRC:/common/data/handling.meta</filename>
-	      <fileType>HANDLING_FILE</fileType>
-	      <overlay value="false" />
-	      <disabled value="true" />
-	      <persistent value="false" />
-	    </Item>
-	<!-- vehicles -->
+         <filename>dlc_bttfCRC:/common/data/levels/gta5/vehicles.meta</filename>
+         <fileType>VEHICLE_METADATA_FILE</fileType>
+         <overlay value="false" />
+         <disabled value="true" />
+         <persistent value="false" />
+      </Item>
+      <Item>
+         <filename>dlc_bttfCRC:/common/data/carcols.meta</filename>
+         <fileType>CARCOLS_FILE</fileType>
+         <overlay value="false" />
+         <disabled value="true" />
+         <persistent value="false" />
+      </Item>
+      <Item>
+         <filename>dlc_bttfCRC:/common/data/carvariations.meta</filename>
+         <fileType>VEHICLE_VARIATION_FILE</fileType>
+         <overlay value="false" />
+         <disabled value="true" />
+         <persistent value="false" />
+      </Item>
+      <Item>
+         <filename>dlc_bttfCRC:/common/data/dlctext.meta</filename>
+         <fileType>TEXTFILE_METAFILE</fileType>
+         <overlay value="false" />
+         <disabled value="true" />
+         <persistent value="true" />
+      </Item>
+      <Item>
+         <filename>dlc_bttfCRC:/common/data/handling.meta</filename>
+         <fileType>HANDLING_FILE</fileType>
+         <overlay value="false" />
+         <disabled value="true" />
+         <persistent value="false" />
+      </Item>
+      <!-- vehicles -->
       <Item>
          <filename>dlc_bttf:/%PLATFORM%/vehicles.rpf</filename>
          <fileType>RPF_FILE</fileType>
@@ -238,13 +238,13 @@
       <Item>
          <changeSetName>bttf_AUTOGEN</changeSetName>
          <filesToEnable>
-			<!-- tuning -->
+            <!-- tuning -->
             <Item>dlc_bttf:/%PLATFORM%/tuning/dmc12_mods.rpf</Item>
             <Item>dlc_bttf:/%PLATFORM%/tuning/bttf_mods.rpf</Item>
             <Item>dlc_bttf:/%PLATFORM%/tuning/bttf2_mods.rpf</Item>
             <Item>dlc_bttf:/%PLATFORM%/tuning/bttf3_mods.rpf</Item>
             <Item>dlc_bttf:/%PLATFORM%/tuning/wheels_mods.rpf</Item>
-			<!-- props -->
+            <!-- props -->
             <Item>dlc_bttf:/%PLATFORM%/props/bttf1_props.rpf</Item>
             <Item>dlc_bttf:/%PLATFORM%/props/bttf1_props.ityp</Item>
             <Item>dlc_bttf:/%PLATFORM%/props/bttf2_props.rpf</Item>
@@ -257,7 +257,7 @@
             <Item>dlc_bttf:/%PLATFORM%/props/dmc12_props.ityp</Item>
             <Item>dlc_bttf:/%PLATFORM%/props/tcd_props.rpf</Item>
             <Item>dlc_bttf:/%PLATFORM%/props/tcd_props.ityp</Item>
-			<!-- scaleform -->
+            <!-- scaleform -->
             <Item>dlc_bttf:/%PLATFORM%/scaleform/scaleform.rpf</Item>
             <Item>dlc_bttf:/%PLATFORM%/scaleform/wormhole_bttf1.rpf</Item>
             <Item>dlc_bttf:/%PLATFORM%/scaleform/wormhole_bttf1.ityp</Item>
@@ -265,13 +265,13 @@
             <Item>dlc_bttf:/%PLATFORM%/scaleform/wormhole_bttf2.ityp</Item>
             <Item>dlc_bttf:/%PLATFORM%/scaleform/wormhole_bttf3.rpf</Item>
             <Item>dlc_bttf:/%PLATFORM%/scaleform/wormhole_bttf3.ityp</Item>
-		 	<!-- data -->
-			<Item>dlc_bttfCRC:/common/data/handling.meta</Item>
+            <!-- data -->
+            <Item>dlc_bttfCRC:/common/data/handling.meta</Item>
             <Item>dlc_bttfCRC:/common/data/levels/gta5/vehicles.meta</Item>
             <Item>dlc_bttfCRC:/common/data/carcols.meta</Item>
             <Item>dlc_bttfCRC:/common/data/carvariations.meta</Item>
             <Item>dlc_bttfCRC:/common/data/dlctext.meta</Item>
-			<!-- vehicles -->
+            <!-- vehicles -->
             <Item>dlc_bttf:/%PLATFORM%/vehicles.rpf</Item>
          </filesToEnable>
          <txdToLoad />

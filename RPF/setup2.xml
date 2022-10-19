@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SSetupData>
-   <deviceName>dlc_bttf</deviceName>
-   <datFile>content.xml</datFile>
-   <timeStamp>10/21/1985 01:20:00</timeStamp>
-   <nameHash>bttf</nameHash>
+  <deviceName>dlc_bttf</deviceName>
+  <datFile>content.xml</datFile>
+  <timeStamp>10/21/1985 01:20:00</timeStamp>
+  <nameHash>bttf</nameHash>
   <contentChangeSets />
   <contentChangeSetGroups>
     <Item>
@@ -16,7 +16,7 @@
   <startupScript />
   <scriptCallstackSize value="0" />
   <type>EXTRACONTENT_COMPAT_PACK</type>
-  <order value="51" />
+  <order value="85" />
   <minorOrder value="0" />
   <isLevelPack value="false" />
   <dependencyPackHash />

@@ -193,7 +193,7 @@
 			<buoyancySphereSizeScale value="1.000000"/>
 			<pOverrideRagdollThreshold type="NULL"/>
 			<numSeatsOverride value="0"/>
-		</Item>				
+		</Item>
 	</InitDatas>
 	<txdRelationships>
 		<Item>
