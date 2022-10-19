@@ -217,7 +217,7 @@ namespace BackToTheFutureV
                 _scale = 0.1f;
             }
 
-            if (Game.IsControlPressed(Control.VehicleSelectNextWeapon))
+            if (Game.IsControlPressed(Control.PhoneExtraOption))
             {
                 posSIDX = _posX;
                 posSIDY = _posY;

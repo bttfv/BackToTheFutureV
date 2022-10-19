@@ -84,8 +84,8 @@ namespace BackToTheFutureV
             InstrumentalMenu.AddControl(Control.ReplayFOVIncrease, TextHandler.Me.GetLocalizedText("TCDEdit_ScaleUp"));
             InstrumentalMenu.AddControl(Control.ReplayFOVDecrease, TextHandler.Me.GetLocalizedText("TCDEdit_ScaleDown"));
 
-            InstrumentalMenu.AddControl(Control.PhoneCancel, TextHandler.Me.GetLocalizedText("TCDEdit_Cancel"));
-            InstrumentalMenu.AddControl(Control.PhoneSelect, TextHandler.Me.GetLocalizedText("TCDEdit_Save"));
+            InstrumentalMenu.AddControl(Control.PhoneCancel, TextHandler.Me.GetLocalizedText("TCDEdit_CancelButton"));
+            InstrumentalMenu.AddControl(Control.PhoneSelect, TextHandler.Me.GetLocalizedText("TCDEdit_SaveButton"));
         }
 
         public static void Tick()
