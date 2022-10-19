@@ -59,86 +59,56 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
-            if (sender == cinematicSpawn)
+            switch (sender)
             {
-                ModSettings.CinematicSpawn = Checked;
-            }
-
-            if (sender == useInputToggle)
-            {
-                ModSettings.UseInputToggle = Checked;
-            }
-
-            /*if (sender == forceFlyMode)
-            {
-                ModSettings.ForceFlyMode = Checked;
-            }*/
-
-            if (sender == LandingSystem)
-            {
-                ModSettings.LandingSystem = Checked;
-            }
-
-            /*if (sender == PersistenceSystem)
-            {
-                ModSettings.PersistenceSystem = Checked;
-
-                if (!Checked)
-                {
-                    TimeMachineCloneHandler.Delete();
-                    RemoteTimeMachineHandler.DeleteAll();
-                }
-            }*/
-
-            if (sender == RandomTrains)
-            {
-                ModSettings.RandomTrains = Checked;
-
-                FusionUtils.RandomTrains = Checked;
-            }
-
-            if (sender == RealTime)
-            {
-                ModSettings.RealTime = Checked;
-
-                TimeHandler.RealTime = Checked;
-            }
-
-            if (sender == YearTraffic)
-            {
-                ModSettings.YearTraffic = Checked;
-
-                TimeHandler.TrafficVolumeYearBased = Checked;
-            }
-
-            if (sender == TimeParadox)
-            {
-                ModSettings.TimeParadox = Checked;
-            }
-
-            if (sender == GlowingWormholeEmitter)
-            {
-                ModSettings.GlowingWormholeEmitter = Checked;
-            }
-
-            if (sender == GlowingPlutoniumReactor)
-            {
-                ModSettings.GlowingPlutoniumReactor = Checked;
-            }
-
-            if (sender == InfiniteFuel)
-            {
-                ModSettings.InfiniteFuel = Checked;
-            }
-
-            if (sender == WaybackSystem)
-            {
-                ModSettings.WaybackSystem = Checked;
-
-                if (!Checked)
-                {
-                    BackToTheFutureV.WaybackSystem.Abort();
-                }
+                case NativeCheckboxItem _ when sender == cinematicSpawn:
+                    ModSettings.CinematicSpawn = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == useInputToggle:
+                    ModSettings.UseInputToggle = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == LandingSystem:
+                    ModSettings.LandingSystem = Checked;
+                    break;
+                /*case NativeCheckboxItem _ when sender == PersistenceSystem:
+                    ModSettings.PersistenceSystem = Checked;
+                    if (!Checked)
+                    {
+                        TimeMachineCloneHandler.Delete();
+                        RemoteTimeMachineHandler.DeleteAll();
+                    }
+                    break;*/
+                case NativeCheckboxItem _ when sender == RandomTrains:
+                    ModSettings.RandomTrains = Checked;
+                    FusionUtils.RandomTrains = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == RealTime:
+                    ModSettings.RealTime = Checked;
+                    TimeHandler.RealTime = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == YearTraffic:
+                    ModSettings.YearTraffic = Checked;
+                    TimeHandler.TrafficVolumeYearBased = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == TimeParadox:
+                    ModSettings.TimeParadox = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == GlowingWormholeEmitter:
+                    ModSettings.GlowingWormholeEmitter = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == GlowingPlutoniumReactor:
+                    ModSettings.GlowingPlutoniumReactor = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == InfiniteFuel:
+                    ModSettings.InfiniteFuel = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == WaybackSystem:
+                    ModSettings.WaybackSystem = Checked;
+                    if (!Checked)
+                    {
+                        BackToTheFutureV.WaybackSystem.Abort();
+                    }
+                    break;
             }
 
             ModSettings.SaveSettings();

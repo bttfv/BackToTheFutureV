@@ -38,70 +38,68 @@ namespace BackToTheFutureV
         {
             Vehicle vehicle = FusionUtils.PlayerPed.GetClosestVehicle(5f);
 
-            if (sender == DriversDoor)
+            switch (sender)
             {
-                if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 0) > 0f)
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 0, false);
-                }
-                else
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 0, false, false);
-                }
-            }
-            if (sender == PassengerDoor)
-            {
-                if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 1) > 0f)
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 1, false);
-                }
-                else
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 1, false, false);
-                }
-            }
-            if (sender == Hood)
-            {
-                if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 4) > 0f)
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 4, false);
-                }
-                else
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 4, false, false);
-                }
-            }
-            if (sender == Trunk)
-            {
-                if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 5) > 0f && Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 3) == 0f)
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 5, false);
-                }
-                else if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 3) > 0f)
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 3, false);
-                    Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 5, false);
-                }
-                else
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 5, false, false);
-                }
-            }
-            if (sender == Engine)
-            {
-                if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 3) > 0f)
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 3, false);
-                }
-                else if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 5) > 0f && Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 3) == 0f)
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 3, false, false);
-                }
-                else if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 5) == 0f && Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 3) == 0f)
-                {
-                    Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 5, false, false);
-                    Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 3, false, false);
-                }
+                case NativeItem item when item == DriversDoor:
+                    if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 0) > 0f)
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 0, false);
+                    }
+                    else
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 0, false, false);
+                    }
+                    break;
+                case NativeItem item when item == PassengerDoor:
+                    if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 1) > 0f)
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 1, false);
+                    }
+                    else
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 1, false, false);
+                    }
+                    break;
+                case NativeItem item when item == Hood:
+                    if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 4) > 0f)
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 4, false);
+                    }
+                    else
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 4, false, false);
+                    }
+                    break;
+                case NativeItem item when item == Trunk:
+                    if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 5) > 0f && Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 3) == 0f)
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 5, false);
+                    }
+                    else if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 3) > 0f)
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 3, false);
+                        Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 5, false);
+                    }
+                    else
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 5, false, false);
+                    }
+                    break;
+                case NativeItem item when item == Engine:
+                    if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 3) > 0f)
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, vehicle, 3, false);
+                    }
+                    else if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 5) > 0f && Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 3) == 0f)
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 3, false, false);
+                    }
+                    else if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 5) == 0f && Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, vehicle, 3) == 0f)
+                    {
+                        Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 5, false, false);
+                        Function.Call(Hash.SET_VEHICLE_DOOR_OPEN, vehicle, 3, false, false);
+                    }
+                    break;
             }
         }
 

@@ -31,14 +31,14 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
-            if (sender == hideIngameTCD)
+            switch (sender)
             {
-                ModSettings.HideIngameTCDToggle = Checked;
-            }
-
-            if (sender == hideSID)
-            {
-                ModSettings.HideSID = Checked;
+                case NativeCheckboxItem _ when sender == hideSID:
+                    ModSettings.HideSID = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == hideIngameTCD:
+                    ModSettings.HideIngameTCDToggle = Checked;
+                    break;
             }
 
             ModSettings.SaveSettings();
@@ -46,28 +46,22 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
-            if (sender == changeTCD)
+            switch (sender)
             {
-                TcdEditer.SetEditMode(true);
-
-                Visible = false;
-            }
-
-            if (sender == resetToDefaultTCD)
-            {
-                RCGUIEditer.ResetToDefault();
-                TcdEditer.ResetToDefault();
-
-                ModSettings.HideIngameTCDToggle = false;
-
-                ModSettings.SaveSettings();
-            }
-
-            if (sender == changeRCGUI)
-            {
-                RCGUIEditer.SetEditMode(true);
-
-                Visible = false;
+                case NativeItem _ when sender == changeTCD:
+                    TcdEditer.SetEditMode(true);
+                    Visible = false;
+                    break;
+                case NativeItem _ when sender == changeRCGUI:
+                    RCGUIEditer.SetEditMode(true);
+                    Visible = false;
+                    break;
+                case NativeItem _ when sender == resetToDefaultTCD:
+                    RCGUIEditer.ResetToDefault();
+                    TcdEditer.ResetToDefault();
+                    ModSettings.HideIngameTCDToggle = false;
+                    ModSettings.SaveSettings();
+                    break;
             }
         }
 

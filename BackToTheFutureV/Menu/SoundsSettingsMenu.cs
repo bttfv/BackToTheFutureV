@@ -31,24 +31,20 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
-            if (sender == playFluxCapacitorSound)
+            switch (sender)
             {
-                ModSettings.PlayFluxCapacitorSound = Checked;
-            }
-
-            if (sender == playDiodeSound)
-            {
-                ModSettings.PlayDiodeBeep = Checked;
-            }
-
-            if (sender == playSpeedoBeep)
-            {
-                ModSettings.PlaySpeedoBeep = Checked;
-            }
-
-            if (sender == playEngineSounds)
-            {
-                ModSettings.PlayEngineSounds = Checked;
+                case NativeCheckboxItem _ when sender == playFluxCapacitorSound:
+                    ModSettings.PlayFluxCapacitorSound = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == playDiodeSound:
+                    ModSettings.PlayDiodeBeep = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == playSpeedoBeep:
+                    ModSettings.PlaySpeedoBeep = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == playEngineSounds:
+                    ModSettings.PlayEngineSounds = Checked;
+                    break;
             }
 
             ModSettings.SaveSettings();

@@ -52,118 +52,104 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
-            if (sender == transformInto)
+            switch (sender)
             {
-                if (Game.Player.Money < 500000)
-                {
-                    TextHandler.Me.ShowNotification("NotEnoughMoney");
-                    return;
-                }
+                case NativeItem item when item == transformInto:
+                    if (Game.Player.Money < 500000)
+                    {
+                        TextHandler.Me.ShowNotification("NotEnoughMoney");
+                        return;
+                    }
+                    Game.Player.Money -= 500000;
+                    GarageHandler.Transform = true;
+                    Visible = false;
+                    break;
 
-                //Create(FusionUtils.PlayerVehicle).Properties.ReactorCharge = 0;
-                Game.Player.Money -= 500000;
-                GarageHandler.Transform = true;
-                Visible = false;
-            }
+                case NativeItem item when item == hoverConvert:
+                    if (Game.Player.Money < 39995)
+                    {
+                        TextHandler.Me.ShowNotification("NotEnoughMoney");
+                        return;
+                    }
+                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HoverUnderbodyCustom, FusionEnums.CameraSwitchType.Instant, 1250);
+                    CurrentTimeMachine.Mods.HoverUnderbody = ModState.On;
+                    CurrentTimeMachine.Mods.Plate = PlateType.BTTF2;
+                    CurrentTimeMachine.Mods.WormholeType = WormholeType.BTTF2;
+                    Game.Player.Money -= 39995;
+                    break;
 
-            if (sender == hoverConvert)
-            {
-                if (Game.Player.Money < 39995)
-                {
-                    TextHandler.Me.ShowNotification("NotEnoughMoney");
-                    return;
-                }
+                case NativeItem item when item == installMrFusion:
+                    if (Game.Player.Money < 100000)
+                    {
+                        TextHandler.Me.ShowNotification("NotEnoughMoney");
+                        return;
+                    }
+                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.ReactorCustom, FusionEnums.CameraSwitchType.Instant, 1250);
+                    CurrentTimeMachine.Mods.Reactor = ReactorType.MrFusion;
+                    Game.Player.Money -= 100000;
+                    break;
 
-                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
-                CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HoverUnderbodyCustom, FusionEnums.CameraSwitchType.Instant, 1250);
-                CurrentTimeMachine.Mods.HoverUnderbody = ModState.On;
-                CurrentTimeMachine.Mods.Plate = PlateType.BTTF2;
-                CurrentTimeMachine.Mods.WormholeType = WormholeType.BTTF2;
-                Game.Player.Money -= 39995;
-            }
+                case NativeItem item when item == buyPlutonium:
+                    if (Game.Player.Money < 1500)
+                    {
+                        TextHandler.Me.ShowNotification("NotEnoughMoney");
+                        return;
+                    }
+                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    InternalInventory.Current.Plutonium++;
+                    Game.Player.Money -= 1500;
+                    break;
 
-            if (sender == installMrFusion)
-            {
-                if (Game.Player.Money < 100000)
-                {
-                    TextHandler.Me.ShowNotification("NotEnoughMoney");
-                    return;
-                }
+                case NativeItem item when item == repairTC:
+                    if (Game.Player.Money < 500)
+                    {
+                        TextHandler.Me.ShowNotification("NotEnoughMoney");
+                        return;
+                    }
+                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    if (CurrentTimeMachine.Repair(true, false, false))
+                    {
+                        Game.Player.Money -= 500;
+                    }
+                    break;
 
-                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
-                CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.ReactorCustom, FusionEnums.CameraSwitchType.Instant, 1250);
-                CurrentTimeMachine.Mods.Reactor = ReactorType.MrFusion;
-                Game.Player.Money -= 100000;
-            }
+                case NativeItem item when item == repairFC:
+                    if (Game.Player.Money < 1000)
+                    {
+                        TextHandler.Me.ShowNotification("NotEnoughMoney");
+                        return;
+                    }
+                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    if (CurrentTimeMachine.Repair(false, true, false))
+                    {
+                        Game.Player.Money -= 100;
+                    }
+                    break;
 
-            if (sender == buyPlutonium)
-            {
-                if (Game.Player.Money < 1500)
-                {
-                    TextHandler.Me.ShowNotification("NotEnoughMoney");
-                    return;
-                }
+                case NativeItem item when item == repairEngine:
+                    if (Game.Player.Money < 750)
+                    {
+                        TextHandler.Me.ShowNotification("NotEnoughMoney");
+                        return;
+                    }
+                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    if (CurrentTimeMachine.Repair(false, false, true))
+                    {
+                        Game.Player.Money -= 750;
+                    }
+                    break;
 
-                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
-                InternalInventory.Current.Plutonium++;
-                Game.Player.Money -= 1500;
-            }
-
-            if (sender == repairTC)
-            {
-                if (Game.Player.Money < 500)
-                {
-                    TextHandler.Me.ShowNotification("NotEnoughMoney");
-                    return;
-                }
-
-                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
-                if (CurrentTimeMachine.Repair(true, false, false))
-                {
-                    Game.Player.Money -= 500;
-                }
-            }
-
-            if (sender == repairFC)
-            {
-                if (Game.Player.Money < 1000)
-                {
-                    TextHandler.Me.ShowNotification("NotEnoughMoney");
-                    return;
-                }
-
-                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
-                if (CurrentTimeMachine.Repair(false, true, false))
-                {
-                    Game.Player.Money -= 100;
-                }
-            }
-
-            if (sender == repairEngine)
-            {
-                if (Game.Player.Money < 750)
-                {
-                    TextHandler.Me.ShowNotification("NotEnoughMoney");
-                    return;
-                }
-
-                GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
-                if (CurrentTimeMachine.Repair(false, false, true))
-                {
-                    Game.Player.Money -= 750;
-                }
-            }
-
-            if (sender == washCar)
-            {
-                if (Game.Player.Money < 10)
-                {
-                    TextHandler.Me.ShowNotification("NotEnoughMoney");
-                    return;
-                }
-
-                CurrentTimeMachine.Vehicle.Wash();
-                Game.Player.Money -= 10;
+                case NativeItem item when item == washCar:
+                    if (Game.Player.Money < 10)
+                    {
+                        TextHandler.Me.ShowNotification("NotEnoughMoney");
+                        return;
+                    }
+                    CurrentTimeMachine.Vehicle.Wash();
+                    Game.Player.Money -= 10;
+                    break;
             }
         }
 
@@ -174,19 +160,17 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemSelected(NativeItem sender, SelectedEventArgs e)
         {
-            if (sender == repairTC && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreTimeCircuitsBroken)
+            switch (sender)
             {
-                TextHandler.Me.ShowSubtitle("UnableRepairTC");
-            }
-
-            if (sender == repairFC && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken)
-            {
-                TextHandler.Me.ShowSubtitle("UnableRepairFC");
-            }
-
-            if (sender == repairEngine && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst)
-            {
-                TextHandler.Me.ShowSubtitle("UnableRepairEngine");
+                case NativeItem item when item == repairTC && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreTimeCircuitsBroken:
+                    TextHandler.Me.ShowSubtitle("UnableRepairTC");
+                    break;
+                case NativeItem item when item == repairFC && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken:
+                    TextHandler.Me.ShowSubtitle("UnableRepairFC");
+                    break;
+                case NativeItem item when item == repairEngine && !sender.Enabled && CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst:
+                    TextHandler.Me.ShowSubtitle("UnableRepairEngine");
+                    break;
             }
         }
 

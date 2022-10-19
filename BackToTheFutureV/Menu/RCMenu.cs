@@ -45,14 +45,15 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
-            if (sender == timeMachinesList)
+            switch (sender)
             {
-                if (CanBeSelected)
-                {
-                    Visible = false;
-
-                    RemoteTimeMachineHandler.StartRemoteControl(CurrentTimeMachine);
-                }
+                case NativeItem _ when sender == timeMachinesList:
+                    if (CanBeSelected)
+                    {
+                        Visible = false;
+                        RemoteTimeMachineHandler.StartRemoteControl(CurrentTimeMachine);
+                    }
+                    break;
             }
         }
 

@@ -63,41 +63,30 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
         {
-            if (sender == Wormhole)
+            switch (sender)
             {
-                CurrentTimeMachine.Properties.PhotoWormholeActive = Checked;
-            }
-
-            if (sender == Coils)
-            {
-                CurrentTimeMachine.Properties.PhotoGlowingCoilsActive = Checked;
-            }
-
-            if (sender == Ice)
-            {
-                CurrentTimeMachine.Events.SetFreeze(!CurrentTimeMachine.Properties.IsFreezed);
-            }
-
-            if (sender == FluxCapacitor)
-            {
-                CurrentTimeMachine.Properties.PhotoFluxCapacitorActive = Checked;
-            }
-
-            if (sender == EngineStall)
-            {
-                CurrentTimeMachine.Events.SetEngineStall?.Invoke(Checked);
-
-                CurrentTimeMachine.Properties.PhotoEngineStallActive = Checked;
-            }
-
-            if (sender == SIDMax)
-            {
-                CurrentTimeMachine.Properties.PhotoSIDMaxActive = Checked;
-            }
-
-            if (sender == HideHUD)
-            {
-                FusionUtils.HideGUI = Checked;
+                case NativeCheckboxItem _ when sender == Wormhole:
+                    CurrentTimeMachine.Properties.PhotoWormholeActive = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == Coils:
+                    CurrentTimeMachine.Properties.PhotoGlowingCoilsActive = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == Ice:
+                    CurrentTimeMachine.Events.SetFreeze(!CurrentTimeMachine.Properties.IsFreezed);
+                    break;
+                case NativeCheckboxItem _ when sender == FluxCapacitor:
+                    CurrentTimeMachine.Properties.PhotoFluxCapacitorActive = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == EngineStall:
+                    CurrentTimeMachine.Events.SetEngineStall?.Invoke(Checked);
+                    CurrentTimeMachine.Properties.PhotoEngineStallActive = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == SIDMax:
+                    CurrentTimeMachine.Properties.PhotoSIDMaxActive = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == HideHUD:
+                    FusionUtils.HideGUI = Checked;
+                    break;
             }
         }
 

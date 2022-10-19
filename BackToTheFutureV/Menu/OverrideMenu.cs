@@ -59,17 +59,17 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
         {
-            if (sender == SIDSpeed)
+            switch (sender)
             {
-                CurrentTimeMachine.Properties.OverrideSIDSpeed = SIDSpeed.Value;
-            }
-            else if (sender == TTSfxSpeed)
-            {
-                CurrentTimeMachine.Properties.OverrideTTSfxSpeed = TTSfxSpeed.Value;
-            }
-            else if (sender == TTSpeed)
-            {
-                CurrentTimeMachine.Properties.OverrideTTSpeed = TTSpeed.Value;
+                case NativeSliderItem _ when sender == SIDSpeed:
+                    CurrentTimeMachine.Properties.OverrideSIDSpeed = sender.Value;
+                    break;
+                case NativeSliderItem _ when sender == TTSfxSpeed:
+                    CurrentTimeMachine.Properties.OverrideTTSfxSpeed = sender.Value;
+                    break;
+                case NativeSliderItem _ when sender == TTSpeed:
+                    CurrentTimeMachine.Properties.OverrideTTSpeed = sender.Value;
+                    break;
             }
 
             CurrentTimeMachine.Properties.OverrideSet = true;

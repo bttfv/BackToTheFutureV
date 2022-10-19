@@ -67,15 +67,19 @@ namespace BackToTheFutureV
         public void Tick()
         {
             SuspensionsType suspensionsType = (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index;
-
             WormholeType wormholeType = (WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index;
+            WheelType wheelType = (WheelType)Vehicle.Mods[VehicleModType.FrontWheel].Index;
+            ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
+            PlateType plateType = (PlateType)Vehicle.Mods[VehicleModType.Ornaments].Index;
+            ExhaustType exhaustType = (ExhaustType)Vehicle.Mods[VehicleModType.Windows].Index;
+            HoodType hoodType = (HoodType)Vehicle.Mods[VehicleModType.Hood].Index;
+            ModState modState = (ModState)Vehicle.Mods[VehicleModType.Spoilers].Index;
+            HookState hookState = HookState.Unknown;
 
             if (wormholeType != WormholeType)
             {
                 WormholeType = wormholeType;
             }
-
-            WheelType wheelType = (WheelType)Vehicle.Mods[VehicleModType.FrontWheel].Index;
 
             if (wheelType != Wheel)
             {
@@ -87,35 +91,25 @@ namespace BackToTheFutureV
                 TimeMachine.Props?.RRWheels?.SpawnProp();
             }
 
-            ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
-
             if (reactorType != Reactor)
             {
                 Reactor = reactorType;
             }
-
-            PlateType plateType = (PlateType)Vehicle.Mods[VehicleModType.Ornaments].Index;
 
             if (plateType != Plate)
             {
                 Plate = plateType;
             }
 
-            ExhaustType exhaustType = (ExhaustType)Vehicle.Mods[VehicleModType.Windows].Index;
-
             if (exhaustType != Exhaust)
             {
                 Exhaust = exhaustType;
             }
 
-            HoodType hoodType = (HoodType)Vehicle.Mods[VehicleModType.Hood].Index;
-
             if (hoodType != Hood)
             {
                 Hood = hoodType;
             }
-
-            ModState modState = (ModState)Vehicle.Mods[VehicleModType.Spoilers].Index;
 
             if (modState != Components)
             {
@@ -156,8 +150,6 @@ namespace BackToTheFutureV
             {
                 Hoodbox = modState;
             }
-
-            HookState hookState = HookState.Unknown;
 
             if (Vehicle.Mods[VehicleModType.Roof].Index == 1 && Vehicle.Mods[VehicleModType.ArchCover].Index == -1 && Vehicle.Mods[VehicleModType.Grille].Index == -1)
             {
