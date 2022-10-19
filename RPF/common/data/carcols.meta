@@ -1,0 +1,3229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CVehicleModelInfoVarGlobal>
+	<Wheels>
+		<Item/>
+		<!-- VWT_SPORT -->
+		<Item/>
+		<!-- VWT_MUSCLE -->
+		<Item/>
+		<!-- VWT_LOWRIDER -->
+		<Item/>
+		<!-- VWT_SUV -->
+		<Item/>
+		<!-- VWT_OFFROAD -->
+		<Item/>
+		<!-- VWT_TUNER -->
+		<Item/>
+		<!-- VWT_BIKE -->
+		<Item/>
+		<!-- VWT_HIEND -->
+		<Item/>
+		<!-- VWT_SUPERMOD1 -->
+		<Item/>
+		<!-- VWT_SUPERMOD2 -->
+		<Item/>
+		<!-- VWT_SUPERMOD3 -->
+		<Item/>
+		<!-- VWT_SUPERMOD4 -->
+		<Item>
+			<!-- VWT_SUPERMOD5 -->
+			<Item>
+				<wheelName>wheel_5smod1a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_1</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod2a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_2</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod3a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_3</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod4a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_4</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod5a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_5</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod6a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_6</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod7a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_7</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod8a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_8</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod9a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_9</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod10a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_10</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod11a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_11</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod12a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_12</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod13a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_13</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod14a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_14</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod15a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_15</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod16a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_16</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod17a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_17</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod18a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_18</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod19a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_19</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod20a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_20</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod21a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_21</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod22a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_22</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod23a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_23</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod24a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_24</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod25a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_25</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod26a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_26</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod27a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_27</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod28a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_28</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod29a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_29</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod30a</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_30</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod1b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_1</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod2b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_2</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod3b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_3</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod4b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_4</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod5b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_5</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod6b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_6</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod7b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_7</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod8b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_8</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod9b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_9</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod10b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_10</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod11b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_11</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod12b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_12</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod13b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_13</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod14b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_14</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod15b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_15</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod16b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_16</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod17b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_17</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod18b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_18</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod19b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_19</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod20b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_20</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod21b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_21</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod22b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_22</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod23b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_23</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod24b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_24</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod25b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_25</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod26b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_26</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod27b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_27</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod28b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_28</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod29b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_29</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod30b</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_30</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod1c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_1</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod2c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_2</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod3c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_3</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod4c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_4</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod5c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_5</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod6c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_6</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod7c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_7</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod8c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_8</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod9c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_9</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod10c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_10</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod11c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_11</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod12c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_12</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod13c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_13</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod14c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_14</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod15c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_15</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod16c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_16</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod17c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_17</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod18c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_18</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod19c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_19</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod20c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_20</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod21c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_21</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod22c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_22</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod23c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_23</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod24c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_24</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod25c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_25</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod26c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_26</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod27c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_27</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod28c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_28</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod29c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_29</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod30c</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_30</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod1d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_1</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod2d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_2</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod3d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_3</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod4d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_4</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod5d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_5</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod6d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_6</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod7d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_7</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod8d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_8</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod9d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_9</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod10d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_10</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod11d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_11</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod12d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_12</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod13d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_13</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod14d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_14</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod15d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_15</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod16d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_16</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod17d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_17</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod18d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_18</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod19d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_19</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod20d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_20</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod21d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_21</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod22d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_22</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod23d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_23</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod24d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_24</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod25d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_25</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod26d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_26</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod27d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_27</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod28d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_28</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod29d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_29</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod30d</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_30</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod1e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_1</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod2e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_2</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod3e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_3</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod4e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_4</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod5e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_5</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod6e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_6</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod7e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_7</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod8e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_8</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod9e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_9</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod10e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_10</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod11e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_11</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod12e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_12</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod13e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_13</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod14e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_14</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod15e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_15</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod16e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_16</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod17e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_17</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod18e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_18</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod19e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_19</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod20e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_20</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod21e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_21</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod22e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_22</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod23e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_23</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod24e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_24</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod25e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_25</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod26e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_26</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod27e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_27</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod28e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_28</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod29e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_29</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod30e</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_30</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod1f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_1</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod2f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_2</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod3f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_3</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod4f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_4</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod5f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_5</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod6f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_6</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod7f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_7</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod8f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_8</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod9f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_9</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod10f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_10</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod11f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_11</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod12f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_12</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod13f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_13</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod14f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_14</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod15f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_15</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod16f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_16</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod17f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_17</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod18f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_18</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod19f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_19</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod20f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_20</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod21f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_21</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod22f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_22</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod23f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_23</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod24f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_24</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod25f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_25</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod26f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_26</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod27f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_27</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod28f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_28</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod29f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_29</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod30f</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_30</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod1g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_1</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod2g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_2</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod3g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_3</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod4g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_4</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod5g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_5</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod6g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_6</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod7g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_7</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod8g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_8</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod9g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_9</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod10g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_10</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod11g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_11</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod12g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_12</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod13g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_13</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod14g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_14</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod15g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_15</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod16g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_16</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod17g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_17</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod18g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_18</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod19g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_19</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod20g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_20</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod21g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_21</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod22g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_22</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod23g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_23</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod24g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_24</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod25g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_25</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod26g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_26</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod27g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_27</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod28g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_28</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod29g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_29</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_5smod30g</wheelName>
+				<wheelVariation/>
+				<modShopLabel>SMOD5_WHL_30</modShopLabel>
+				<rimRadius value="0.398000"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_trans</wheelName>
+				<wheelVariation/>
+				<modShopLabel>MNU_BUMF1</modShopLabel>
+				<rimRadius value="0.23"/>
+				<rear value="false"/>
+			</Item>
+			<!-- Transparent wheel used for RR Wheels (cuz they are actually props) -->
+			<Item>
+				<wheelName>wheel_trans2</wheelName>
+				<wheelVariation/>
+				<modShopLabel>MNU_BUMF1</modShopLabel>
+				<rimRadius value="0.23"/>
+				<rear value="false"/>
+			</Item>
+			<!-- Transparent wheel used for red wheel hover -->
+			<Item>
+				<wheelName>wheel_trans3</wheelName>
+				<wheelVariation/>
+				<modShopLabel>MNU_BUMF1</modShopLabel>
+				<rimRadius value="0.23"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>bttf3_redwheel</wheelName>
+				<wheelVariation/>
+				<modShopLabel>MNU_BUMF1</modShopLabel>
+				<rimRadius value="0.2"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>dmc12_stockwheel</wheelName>
+				<wheelVariation/>
+				<modShopLabel>MNU_BUMF1</modShopLabel>
+				<rimRadius value="0.2"/>
+				<rear value="false"/>
+			</Item>
+			<Item>
+				<wheelName>wheel_trans4</wheelName>
+				<wheelVariation/>
+				<modShopLabel>MNU_BUMF1</modShopLabel>
+				<rimRadius value="0.23"/>
+				<rear value="false"/>
+			</Item>
+		</Item>
+	</Wheels>
+	<Kits>
+		<Item>
+			<kitName>2228_bttf1_modkit</kitName>
+			<id value="2228"/>
+			<kitType>MKT_SPECIAL</kitType>
+			<visibleMods>
+				<Item>
+					<modelName>bttf_bulova_clock</modelName>
+					<modShopLabel>VMT_WING_R</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_WING_R</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf3_bumper</modelName>
+					<modShopLabel>MNU_BUMF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones>
+						<Item>misc_d</Item>
+					</turnOffBones>
+					<type>VMT_CHASSIS3</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf2_underbody</modelName>
+					<modShopLabel>MNU_BUMF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones>
+						<Item>misc_s</Item>
+					</turnOffBones>
+					<type>VMT_INTERIOR4</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_licenseplate</modelName>
+					<modShopLabel>MNU_BUMF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR2</type>
+					<bone>bumper_r</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf2_licenseplate</modelName>
+					<modShopLabel>MNU_BUMF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR2</type>
+					<bone>bumper_r</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>notime_licenseplate</modelName>
+					<modShopLabel>MNU_BUMF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR2</type>
+					<bone>bumper_r</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>timeless_licenseplate</modelName>
+					<modShopLabel>MNU_BUMF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR2</type>
+					<bone>bumper_r</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>timeless2_licenseplate</modelName>
+					<modShopLabel>MNU_BUMF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR2</type>
+					<bone>bumper_r</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>dmc_factory_plate</modelName>
+					<modShopLabel>MNU_BUMF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR2</type>
+					<bone>bumper_r</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>dmc_factory_plate2</modelName>
+					<modShopLabel>MNU_BUMF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR2</type>
+					<bone>bumper_r</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_coils_off</modelName>
+					<modShopLabel>MNU_BUMF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_BUMPER_F</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_emitter_glowing</modelName>
+					<modShopLabel>TOP_CAGE</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_CHASSIS</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_exhaust</modelName>
+					<modShopLabel>SLVAN3_NET</modShopLabel>
+					<linkedModels/>
+					<turnOffBones>
+						<Item>misc_x</Item>
+						<Item>exhaust</Item>
+						<Item>exhaust_2</Item>
+					</turnOffBones>
+					<type>VMT_DOOR_L</type>
+					<bone>misc_o</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>dmc12_seats</modelName>
+					<modShopLabel>SMOD_VPLT12</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_PLTVANITY</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_exterior</modelName>
+					<modShopLabel>MNU_WING10</modShopLabel>
+					<linkedModels/>
+					<turnOffBones>
+						<Item>misc_q</Item>
+					</turnOffBones>
+					<type>VMT_SPOILER</type>
+					<bone>chassis</bone>
+					<collisionBone>mod_col_2</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_interior</modelName>
+					<modShopLabel>MNU_SKIRT2</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_SKIRT</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_mrfusion_base</modelName>
+					<modShopLabel>MNU_BONV</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_PLAQUE</type>
+					<bone>chassis</bone>
+					<collisionBone>mod_col_4</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_hook_door</modelName>
+					<modShopLabel>SLVAN3_ROOF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_CHASSIS2</type>
+					<bone>door_pside_f</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_hook</modelName>
+					<modShopLabel>SLVAN3_ROOF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_CHASSIS2</type>
+					<bone>bobble_head</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_nohookwire</modelName>
+					<modShopLabel>SLVAN3_ROOF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_GRILL</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_hookwire</modelName>
+					<modShopLabel>SLVAN3_ROOF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_GRILL</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_lighting_box</modelName>
+					<modShopLabel>SLVAN3_ROOF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_ROOF</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_nohook</modelName>
+					<modShopLabel>SLVAN3_ROOF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_ROOF</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_reactor</modelName>
+					<modShopLabel>MNU_BONV</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_PLAQUE</type>
+					<bone>chassis</bone>
+					<collisionBone>mod_col_1</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_reactor_glowing</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_WING_L</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_steeringbutton</modelName>
+					<modShopLabel>SMOD_STEER1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_STEERING</type>
+					<bone>steeringwheel</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_vents</modelName>
+					<modShopLabel>SMOD_KNOB12</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_KNOB</type>
+					<bone>bumper_r</bone>
+					<collisionBone>mod_col_3</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf_exhaust2</modelName>
+					<modShopLabel>SLVAN3_NET</modShopLabel>
+					<linkedModels/>
+					<turnOffBones>
+						<Item>misc_x</Item>
+						<Item>exhaust</Item>
+						<Item>exhaust_2</Item>
+					</turnOffBones>
+					<type>VMT_DOOR_L</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>bttf3_hoodbox</modelName>
+					<modShopLabel>SLVAN3_ROOF1</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_LIVERY_MOD</type>
+					<bone>bonnet</bone>
+					<collisionBone>mod_col_5</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="true"/>
+					<allowBonnetSlide value="false"/>
+				</Item>
+				<Item>
+					<!-- DMC12 -->
+					<modelName>scriptDetector</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR1</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF 1 -->
+					<modelName>scriptDetector1</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR1</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF 2 -->
+					<modelName>scriptDetector2</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR1</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF 3 -->
+					<modelName>scriptDetector3</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR1</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF RR -->
+					<modelName>scriptDetector4</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR1</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- DMC12 -->
+					<modelName>hydroDetector</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_HYDRO</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF 1 -->
+					<modelName>hydroDetector1</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_HYDRO</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF 2 -->
+					<modelName>hydroDetector2</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_HYDRO</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF 3 -->
+					<modelName>hydroDetector3</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_HYDRO</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF RR -->
+					<modelName>hydroDetector4</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_HYDRO</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF 1 -->
+					<modelName>hydroDetector5</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_HYDRO</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF 2 -->
+					<modelName>hydroDetector6</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_HYDRO</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF 3 -->
+					<modelName>hydroDetector7</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_HYDRO</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<!-- BTTF 3 -->
+					<modelName>hydroDetector8</modelName>
+					<modShopLabel>MASS_WNGVNT</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_HYDRO</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>dmc12_hood1983</modelName>
+					<modShopLabel>MNU_BONV</modShopLabel>
+					<linkedModels/>
+					<turnOffBones>
+						<Item>bonnet</Item>
+					</turnOffBones>
+					<type>VMT_BONNET</type>
+					<bone>bonnet</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>dmc12_hoodearly1981</modelName>
+					<modShopLabel>MNU_BONV</modShopLabel>
+					<linkedModels/>
+					<turnOffBones>
+						<Item>bonnet</Item>
+					</turnOffBones>
+					<type>VMT_BONNET</type>
+					<bone>bonnet</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+			</visibleMods>
+			<linkMods/>
+			<statMods>
+				<Item>
+					<identifier/>
+					<modifier value="25"/>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<type>VMT_ENGINE</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="50"/>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<type>VMT_ENGINE</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="75"/>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<type>VMT_ENGINE</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="100"/>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<type>VMT_ENGINE</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="25"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_BRAKES</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="50"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_BRAKES</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="100"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_BRAKES</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="25"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_GEARBOX</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="50"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_GEARBOX</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="100"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_GEARBOX</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="20"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_ARMOUR</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="40"/>
+					<audioApply value="1.000000"/>
+					<weight value="10"/>
+					<type>VMT_ARMOUR</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="60"/>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<type>VMT_ARMOUR</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="80"/>
+					<audioApply value="1.000000"/>
+					<weight value="30"/>
+					<type>VMT_ARMOUR</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="100"/>
+					<audioApply value="1.000000"/>
+					<weight value="40"/>
+					<type>VMT_ARMOUR</type>
+				</Item>
+				<Item>
+					<identifier>HORN_TRUCK</identifier>
+					<modifier value="1766676233"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_COP</identifier>
+					<modifier value="2904189469"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_CLOWN</identifier>
+					<modifier value="2543206147"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_MUSICAL_1</identifier>
+					<modifier value="1732399718"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_MUSICAL_2</identifier>
+					<modifier value="2046162893"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_MUSICAL_3</identifier>
+					<modifier value="2194999691"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_MUSICAL_4</identifier>
+					<modifier value="2508304100"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_MUSICAL_5</identifier>
+					<modifier value="3707223535"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_SAD_TROMBONE</identifier>
+					<modifier value="632950117"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_1</identifier>
+					<modifier value="3628534289"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_2</identifier>
+					<modifier value="3892554122"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_3</identifier>
+					<modifier value="4112892878"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_4</identifier>
+					<modifier value="116877169"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_5</identifier>
+					<modifier value="2684983719"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_6</identifier>
+					<modifier value="2982690084"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_7</identifier>
+					<modifier value="3203290992"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_C0</identifier>
+					<modifier value="771284519"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_D0</identifier>
+					<modifier value="2586621229"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_E0</identifier>
+					<modifier value="283386134"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_F0</identifier>
+					<modifier value="3884502400"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_G0</identifier>
+					<modifier value="265723083"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_A0</identifier>
+					<modifier value="1746883687"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_B0</identifier>
+					<modifier value="1919870950"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_C1</identifier>
+					<modifier value="1085277077"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HIPSTER_HORN_1</identifier>
+					<modifier value="444549672"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HIPSTER_HORN_2</identifier>
+					<modifier value="1603064898"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HIPSTER_HORN_3</identifier>
+					<modifier value="240366033"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HIPSTER_HORN_4</identifier>
+					<modifier value="960137118"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>INDEP_HORN_1</identifier>
+					<modifier value="3572144790"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>INDEP_HORN_2</identifier>
+					<modifier value="3801396714"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>INDEP_HORN_3</identifier>
+					<modifier value="2843657151"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>INDEP_HORN_4</identifier>
+					<modifier value="3341811489"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="0"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_SUSPENSION</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="0"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_SUSPENSION</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="0"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_SUSPENSION</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="0"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_SUSPENSION</type>
+				</Item>
+				<!-- QUI -->
+				<Item>
+					<identifier/>
+					<modifier value="50"/>
+					<audioApply value="0.250000"/>
+					<weight value="0"/>
+					<type>VMT_WHEELS_REAR_OR_HYDRAULICS</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="100"/>
+					<audioApply value="0.500000"/>
+					<weight value="0"/>
+					<type>VMT_WHEELS_REAR_OR_HYDRAULICS</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="50"/>
+					<audioApply value="0.750000"/>
+					<weight value="0"/>
+					<type>VMT_WHEELS_REAR_OR_HYDRAULICS</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="100"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_WHEELS_REAR_OR_HYDRAULICS</type>
+				</Item>
+			</statMods>
+			<slotNames/>
+			<liveryNames/>
+		</Item>
+		<Item>
+			<kitName>2229_dmc12_modkit</kitName>
+			<id value="2229"/>
+			<kitType>MKT_SPECIAL</kitType>
+			<visibleMods>
+				<Item>
+					<modelName>dmc12_hood1983</modelName>
+					<modShopLabel>MNU_BONV</modShopLabel>
+					<linkedModels/>
+					<turnOffBones>
+						<Item>bonnet</Item>
+					</turnOffBones>
+					<type>VMT_BONNET</type>
+					<bone>bonnet</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>dmc12_hoodearly1981</modelName>
+					<modShopLabel>MNU_BONV</modShopLabel>
+					<linkedModels/>
+					<turnOffBones>
+						<Item>bonnet</Item>
+					</turnOffBones>
+					<type>VMT_BONNET</type>
+					<bone>bonnet</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>dmc12_engine1</modelName>
+					<modShopLabel>SMOD_VPLT12</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_PLTVANITY</type>
+					<bone>misc_o</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
+					<modelName>dmc12_engine2</modelName>
+					<modShopLabel>SMOD_VPLT12</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_PLTHOLDER</type>
+					<bone>misc_o</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+			</visibleMods>
+			<linkMods/>
+			<statMods>
+				<Item>
+					<identifier/>
+					<modifier value="25"/>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<type>VMT_ENGINE</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="50"/>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<type>VMT_ENGINE</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="75"/>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<type>VMT_ENGINE</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="100"/>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<type>VMT_ENGINE</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="25"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_BRAKES</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="50"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_BRAKES</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="100"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_BRAKES</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="25"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_GEARBOX</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="50"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_GEARBOX</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="100"/>
+					<audioApply value="1.000000"/>
+					<weight value="5"/>
+					<type>VMT_GEARBOX</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="20"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_ARMOUR</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="40"/>
+					<audioApply value="1.000000"/>
+					<weight value="10"/>
+					<type>VMT_ARMOUR</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="60"/>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<type>VMT_ARMOUR</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="80"/>
+					<audioApply value="1.000000"/>
+					<weight value="30"/>
+					<type>VMT_ARMOUR</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="100"/>
+					<audioApply value="1.000000"/>
+					<weight value="40"/>
+					<type>VMT_ARMOUR</type>
+				</Item>
+				<Item>
+					<identifier>HORN_TRUCK</identifier>
+					<modifier value="1766676233"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_COP</identifier>
+					<modifier value="2904189469"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_CLOWN</identifier>
+					<modifier value="2543206147"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_MUSICAL_1</identifier>
+					<modifier value="1732399718"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_MUSICAL_2</identifier>
+					<modifier value="2046162893"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_MUSICAL_3</identifier>
+					<modifier value="2194999691"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_MUSICAL_4</identifier>
+					<modifier value="2508304100"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_MUSICAL_5</identifier>
+					<modifier value="3707223535"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HORN_SAD_TROMBONE</identifier>
+					<modifier value="632950117"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_1</identifier>
+					<modifier value="3628534289"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_2</identifier>
+					<modifier value="3892554122"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_3</identifier>
+					<modifier value="4112892878"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_4</identifier>
+					<modifier value="116877169"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_5</identifier>
+					<modifier value="2684983719"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_6</identifier>
+					<modifier value="2982690084"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>MUSICAL_HORN_BUSINESS_7</identifier>
+					<modifier value="3203290992"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_C0</identifier>
+					<modifier value="771284519"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_D0</identifier>
+					<modifier value="2586621229"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_E0</identifier>
+					<modifier value="283386134"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_F0</identifier>
+					<modifier value="3884502400"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_G0</identifier>
+					<modifier value="265723083"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_A0</identifier>
+					<modifier value="1746883687"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_B0</identifier>
+					<modifier value="1919870950"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>DLC_BUSI2_C_MAJOR_NOTES_C1</identifier>
+					<modifier value="1085277077"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HIPSTER_HORN_1</identifier>
+					<modifier value="444549672"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HIPSTER_HORN_2</identifier>
+					<modifier value="1603064898"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HIPSTER_HORN_3</identifier>
+					<modifier value="240366033"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>HIPSTER_HORN_4</identifier>
+					<modifier value="960137118"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>INDEP_HORN_1</identifier>
+					<modifier value="3572144790"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>INDEP_HORN_2</identifier>
+					<modifier value="3801396714"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>INDEP_HORN_3</identifier>
+					<modifier value="2843657151"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier>INDEP_HORN_4</identifier>
+					<modifier value="3341811489"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_HORN</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="0"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_SUSPENSION</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="0"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_SUSPENSION</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="0"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_SUSPENSION</type>
+				</Item>
+				<Item>
+					<identifier/>
+					<modifier value="0"/>
+					<audioApply value="1.000000"/>
+					<weight value="0"/>
+					<type>VMT_SUSPENSION</type>
+				</Item>
+			</statMods>
+			<slotNames/>
+			<liveryNames/>
+		</Item>
+	</Kits>
+	<Lights>
+		<Item>
+			<id value="1985"/>
+			<indicator>
+				<intensity value="0.375000"/>
+				<falloffMax value="2.500000"/>
+				<falloffExponent value="8.000000"/>
+				<innerConeAngle value="30.000000"/>
+				<outerConeAngle value="80.000000"/>
+				<emmissiveBoost value="false"/>
+				<color value="0xFFFF8000"/>
+			</indicator>
+			<indicator>
+				<intensity value="0.375000"/>
+				<falloffMax value="2.500000"/>
+				<falloffExponent value="8.000000"/>
+				<innerConeAngle value="30.000000"/>
+				<outerConeAngle value="80.000000"/>
+				<emmissiveBoost value="false"/>
+				<color value="0xFFFFC700"/>
+			</indicator>
+			<rearIndicatorCorona>
+				<size value="0.000000"/>
+				<size_far value="1.000000"/>
+				<intensity value="0.500000"/>
+				<intensity_far value="0.050000"/>
+				<color value="0xFFFF8000"/>
+				<numCoronas value="1"/>
+				<distBetweenCoronas value="128"/>
+				<distBetweenCoronas_far value="255"/>
+				<xRotation value="0.000000"/>
+				<yRotation value="0.000000"/>
+				<zRotation value="0.000000"/>
+				<zBias value="0.250000"/>
+				<pullCoronaIn value="false"/>
+			</rearIndicatorCorona>
+			<frontIndicatorCorona>
+				<size value="0.500000"/>
+				<size_far value="1.000000"/>
+				<intensity value="0.200000"/>
+				<intensity_far value="0.050000"/>
+				<color value="0xFFFF8000"/>
+				<numCoronas value="1"/>
+				<distBetweenCoronas value="128"/>
+				<distBetweenCoronas_far value="255"/>
+				<xRotation value="0.000000"/>
+				<yRotation value="0.000000"/>
+				<zRotation value="0.000000"/>
+				<zBias value="0.250000"/>
+				<pullCoronaIn value="false"/>
+			</frontIndicatorCorona>
+			<tailLight>
+				<intensity value="0.250000"/>
+				<falloffMax value="4.000000"/>
+				<falloffExponent value="16.000000"/>
+				<innerConeAngle value="45.000000"/>
+				<outerConeAngle value="90.000000"/>
+				<emmissiveBoost value="false"/>
+				<color value="0xFFFF0000"/>
+			</tailLight>
+			<tailLightCorona>
+				<size value="0.500000"/>
+				<size_far value="2.000000"/>
+				<intensity value="0.500000"/>
+				<intensity_far value="0.2500000"/>
+				<color value="0xFFFF1E05"/>
+				<numCoronas value="1"/>
+				<distBetweenCoronas value="67"/>
+				<distBetweenCoronas_far value="20"/>
+				<xRotation value="0.000000"/>
+				<yRotation value="15.000000"/>
+				<zRotation value="0.000000"/>
+				<zBias value="0.232000"/>
+				<pullCoronaIn value="false"/>
+			</tailLightCorona>
+			<tailLightMiddleCorona>
+				<size value="0.200000"/>
+				<size_far value="0.500000"/>
+				<intensity value="0.2500000"/>
+				<intensity_far value="0.0500000"/>
+				<color value="0xFFFF1E05"/>
+				<numCoronas value="2"/>
+				<distBetweenCoronas value="40"/>
+				<distBetweenCoronas_far value="15"/>
+				<xRotation value="0.000000"/>
+				<yRotation value="0.000000"/>
+				<zRotation value="0.000000"/>
+				<zBias value="0.250000"/>
+				<pullCoronaIn value="false"/>
+			</tailLightMiddleCorona>
+			<headLight>
+				<intensity value="1.000000"/>
+				<falloffMax value="35.000000"/>
+				<falloffExponent value="16.000000"/>
+				<innerConeAngle value="0.000000"/>
+				<outerConeAngle value="60.209999"/>
+				<emmissiveBoost value="false"/>
+				<color value="0xFFFFFFCC"/>
+				<textureName>VehicleLight_car_oldsquare</textureName>
+				<mirrorTexture value="true"/>
+			</headLight>
+			<headLightCorona>
+				<size value="0.000000"/>
+				<size_far value="1.000000"/>
+				<intensity value="5.000000"/>
+				<intensity_far value="1.000000"/>
+				<color value="0xFFFFFFFF"/>
+				<numCoronas value="1"/>
+				<distBetweenCoronas value="1"/>
+				<distBetweenCoronas_far value="255"/>
+				<xRotation value="0.000000"/>
+				<yRotation value="0.000000"/>
+				<zRotation value="0.000000"/>
+				<zBias value="0.000000"/>
+				<pullCoronaIn value="false"/>
+			</headLightCorona>
+			<reversingLight>
+				<intensity value="0.500000"/>
+				<falloffMax value="4.000000"/>
+				<falloffExponent value="32.000000"/>
+				<innerConeAngle value="45.000000"/>
+				<outerConeAngle value="90.000000"/>
+				<emmissiveBoost value="false"/>
+				<color value="0xFFFFFFFF"/>
+			</reversingLight>
+			<reversingLightCorona>
+				<size value="0.000000"/>
+				<size_far value="2.000000"/>
+				<intensity value="1.500000"/>
+				<intensity_far value="1.000000"/>
+				<color value="0x00F7F7F7"/>
+				<numCoronas value="1"/>
+				<distBetweenCoronas value="128"/>
+				<distBetweenCoronas_far value="255"/>
+				<xRotation value="0.000000"/>
+				<yRotation value="0.000000"/>
+				<zRotation value="0.000000"/>
+				<zBias value="0.250000"/>
+				<pullCoronaIn value="false"/>
+			</reversingLightCorona>
+			<name>bttf1</name>
+		</Item>
+	</Lights>
+</CVehicleModelInfoVarGlobal>
