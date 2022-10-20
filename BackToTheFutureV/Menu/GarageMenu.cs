@@ -207,7 +207,7 @@ namespace BackToTheFutureV
             repairTC.Enabled = active && FusionUtils.CurrentTime.Year >= 1952 && (CurrentTimeMachine.Properties.AreTimeCircuitsBroken || (FusionUtils.CurrentTime.Year >= 1985 && CurrentTimeMachine.Mods.Hoodbox == ModState.On && CurrentTimeMachine.Mods.IsDMC12));
             repairFC.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
             repairEngine.Enabled = active && FusionUtils.CurrentTime.Year >= 1912 && (CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst);
-            washCar.Enabled = active && CurrentTimeMachine.Vehicle.DirtLevel > 0;
+            washCar.Enabled = active && CurrentTimeMachine.Mods.IsDMC12 && CurrentTimeMachine.Vehicle.DirtLevel > 0;
 
             buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 5 && FusionUtils.CurrentTime.Year > 1985 && FusionUtils.CurrentTime.Year < 2015;
             buyPlutonium.AltTitle = $"{InternalInventory.Current.Plutonium}/5";

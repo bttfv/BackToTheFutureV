@@ -38,6 +38,8 @@ namespace BackToTheFutureV
                 return;
             }
 
+            //GTA.UI.Screen.ShowSubtitle(Machines.Count.ToString());
+
             if (Paradox == true && FusionUtils.PlayerPed.IsAlive)
             {
                 Function.Call(Hash.FORCE_GAME_STATE_PLAYING);
@@ -175,9 +177,17 @@ namespace BackToTheFutureV
         {
             WaybackMachine wayback = new WaybackMachine(ped, guid);
 
-            Machines.Add(wayback);
+            wayback.Tick();
 
-            return wayback;
+            if (wayback.Status == WaybackStatus.Recording)
+            {
+                Machines.Add(wayback);
+                return wayback;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public static WaybackMachine GetFromGUID(Guid guid)
