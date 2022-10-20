@@ -190,7 +190,6 @@ namespace BackToTheFutureV
             _plate.Enabled = CurrentTimeMachine.Mods.IsDMC12;
             _exhaust.Enabled = CurrentTimeMachine.Mods.IsDMC12;
             _suspensions.Enabled = CurrentTimeMachine.Mods.IsDMC12;
-            _wheelsType.Enabled = CurrentTimeMachine.Mods.IsDMC12;
             _hood.Enabled = CurrentTimeMachine.Mods.IsDMC12;
             _threeDigits.Enabled = CurrentTimeMachine.Mods.IsDMC12;
 
