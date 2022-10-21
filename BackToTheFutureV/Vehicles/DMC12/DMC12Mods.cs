@@ -248,7 +248,7 @@ namespace BackToTheFutureV
 
                 if (IsDMC12)
                 {
-                    Vehicle.Mods[VehicleModType.Windows].Index = (int)value;
+                    Vehicle.Mods[VehicleModType.Exhaust].Index = (int)value;
                 }
             }
         }
