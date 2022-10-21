@@ -36,9 +36,10 @@ namespace BackToTheFutureV
 
                 Vehicle.Mods.PrimaryColor = VehicleColor.BrushedAluminium;
                 Vehicle.Mods.SecondaryColor = VehicleColor.MetallicBlackSteel;
-                Vehicle.Mods.TrimColor = VehicleColor.PureWhite;
+                Vehicle.Mods.TrimColor = VehicleColor.PureWhite; // Gray Interior
 
                 Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, 0f);
+                Vehicle.DirtLevel = 0f;
 
                 //Seats
                 Vehicle.Mods[VehicleModType.VanityPlates].Index = 0;
