@@ -102,7 +102,7 @@
 	BTTFV_Text_Clock_AddMinutes = Aggiungi minuto
 	BTTFV_Menu_RC_Item_Destination_Description = Mostra la data di destinazione della macchina del tempo.
 	BTTFV_Text_DMC12 = DMC-12
-	BTTFV_Text_VTOLTip = Premi {0} e ~INPUT_VEH_FLY_THROTTLE_DOWN~ per atterrare.
+	BTTFV_Text_VTOLTip = Tenere premuto {0} e ~INPUT_VEH_FLY_THROTTLE_DOWN~ per atterrare.
 	BTTFV_Menu_TCD_Item_Background_Description = Permette di cambiare lo stile dello sfondo dei tempo circuiti.
 	BTTFV_Menu_Settings_Item_ForceFly_Title = Forza volo
 	BTTFV_Menu_Controls_Item_GoToMainMenu_Description = Pulsante per aprire il menu principale.
@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = Elimina tutte le macchine del tempo.
 	BTTFV_Menu_Custom_Item_Suspensions_Description = Imposta l'altezza delle sospensioni.
 	BTTFV_Text_Clock_CurSecond = Secondi correnti: {0}
-	BTTFV_Menu_RC_Item_List_Description = Premi ~INPUT_PHONE_SELECT~ per controllare questa auto da remoto.
+	BTTFV_Menu_RC_Item_List_Description = Premi Enter per controllare questa auto da remoto.
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = Tenere premuto per aerotrasformare l'auto.
 	BTTFV_Menu_Events_Item_Turbulence_Title = Turbolenza

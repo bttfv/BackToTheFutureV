@@ -102,7 +102,7 @@
 	BTTFV_Text_Clock_AddMinutes = Добавить минуты
 	BTTFV_Menu_RC_Item_Destination_Description = Показывает текущее время назначения данной машины времени
 	BTTFV_Text_DMC12 = DMC-12
-	BTTFV_Text_VTOLTip = Нажмите {0} и ~INPUT_VEH_FLY_THROTTLE_DOWN~ для приземления
+	BTTFV_Text_VTOLTip = Удерживайте {0} и ~INPUT_VEH_FLY_THROTTLE_DOWN~, чтобы приземлиться.
 	BTTFV_Menu_TCD_Item_Background_Description = Позволяет изменить фон дисплея потокового накопителя
 	BTTFV_Menu_Settings_Item_ForceFly_Title = Принудительный режим полёта
 	BTTFV_Menu_Controls_Item_GoToMainMenu_Description = Клавиша открытия главного меню
@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = Удаляет все машины времени, созданные по скрипту
 	BTTFV_Menu_Custom_Item_Suspensions_Description = Изменить высоту подвески
 	BTTFV_Text_Clock_CurSecond = Текущее время: {0}
-	BTTFV_Menu_RC_Item_List_Description = Нажмите ~INPUT_PHONE_SELECT~ для дистанционного управления
+	BTTFV_Menu_RC_Item_List_Description = Нажмите Enter для дистанционного управления
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = Удерживать для перехода в режим полёта
 	BTTFV_Menu_Events_Item_Turbulence_Title = Турбулентность

@@ -102,7 +102,7 @@
 	BTTFV_Text_Clock_AddMinutes = 分を追加
 	BTTFV_Menu_RC_Item_Destination_Description = 現在のタイムマシーンに設定されている時間が表示されます。
 	BTTFV_Text_DMC12 = DMC-12
-	BTTFV_Text_VTOLTip = 着陸するには {0} と ~INPUT_VEH_FLY_THROTTLE_DOWN~ を押します。
+	BTTFV_Text_VTOLTip = 着陸するには、{0}を押しながら、~INPUT_VEH_FLY_THROTTLE_DOWN~をします。
 	BTTFV_Menu_TCD_Item_Background_Description = タイムサーキットディスプレイの背景を変更できます。
 	BTTFV_Menu_Settings_Item_ForceFly_Title = 強制飛行モード
 	BTTFV_Menu_Controls_Item_GoToMainMenu_Description = メインメニュー (キーボード) を開くキー。
@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = スクリプトによって生成されたすべてのタイムマシンを削除します。
 	BTTFV_Menu_Custom_Item_Suspensions_Description = サスペンションの高さを変更する。
 	BTTFV_Text_Clock_CurSecond = 現在の秒: {0}
-	BTTFV_Menu_RC_Item_List_Description = ~INPUT_PHONE_SELECT~を押して遠隔操作します。
+	BTTFV_Menu_RC_Item_List_Description = Enterを押して遠隔操作します。
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = ホバーモードになるのにキーの長押しを必要とするか。
 	BTTFV_Menu_Events_Item_Turbulence_Title = 乱気流

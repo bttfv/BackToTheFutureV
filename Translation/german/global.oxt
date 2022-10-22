@@ -102,7 +102,7 @@
 	BTTFV_Text_Clock_AddMinutes = Minuten Hinzufügen
 	BTTFV_Menu_RC_Item_Destination_Description = Zeigt das eingestellte Ziel der aktuellen Zeitmaschine an.
 	BTTFV_Text_DMC12 = DMC-12
-	BTTFV_Text_VTOLTip = Drücke {0} und ~INPUT_VEH_FLY_THROTTLE_DOWN~ zur Landung.
+	BTTFV_Text_VTOLTip = Halten {0} und ~INPUT_VEH_FLY_THROTTLE_DOWN~ zur Landung.
 	BTTFV_Menu_TCD_Item_Background_Description = Ermöglicht das Ändern des Hintergrunds für die Anzeige der Zeitleitungen.
 	BTTFV_Menu_Settings_Item_ForceFly_Title = Flugmodus erzwingen
 	BTTFV_Menu_Controls_Item_GoToMainMenu_Description = Taste zum Öffnen des Hauptmenüs (Tastatur).
@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = Löscht alle vom Skript erzeugten Zeitmaschinen.
 	BTTFV_Menu_Custom_Item_Suspensions_Description = Höhe der Aufhängung ändern.
 	BTTFV_Text_Clock_CurSecond = Aktuelle Sekunde: {0}
-	BTTFV_Menu_RC_Item_List_Description = Drücke die ~INPUT_PHONE_SELECT~ zur Fernsteuerung.
+	BTTFV_Menu_RC_Item_List_Description = Drücke die Enter-Taste zur Fernsteuerung.
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = Langes Drücken ist für die Hover-Transformation erforderlich.
 	BTTFV_Menu_Events_Item_Turbulence_Title = Turbulenzen

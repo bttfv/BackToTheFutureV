@@ -102,7 +102,7 @@
 	BTTFV_Text_Clock_AddMinutes = Add Minutes
 	BTTFV_Menu_RC_Item_Destination_Description = Tells you the current Time Machine's set destination time.
 	BTTFV_Text_DMC12 = DMC-12
-	BTTFV_Text_VTOLTip = Press {0} and ~INPUT_VEH_FLY_THROTTLE_DOWN~ for landing.
+	BTTFV_Text_VTOLTip = Hold {0} and ~INPUT_VEH_FLY_THROTTLE_DOWN~ to land.
 	BTTFV_Menu_TCD_Item_Background_Description = Allows you to change the background of your time circuits display.
 	BTTFV_Menu_Settings_Item_ForceFly_Title = Force Fly Mode
 	BTTFV_Menu_Controls_Item_GoToMainMenu_Description = Key to open Main Menu (keyboard).
@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = Deletes all the Time Machines spawned by the script.
 	BTTFV_Menu_Custom_Item_Suspensions_Description = Change suspension height.
 	BTTFV_Text_Clock_CurSecond = Current Seconds: {0}
-	BTTFV_Menu_RC_Item_List_Description = Press ~INPUT_PHONE_SELECT~ to remote control.
+	BTTFV_Menu_RC_Item_List_Description = Press Enter to remote control.
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = Hover transformation requires holding the key.
 	BTTFV_Menu_Events_Item_Turbulence_Title = Turbulence

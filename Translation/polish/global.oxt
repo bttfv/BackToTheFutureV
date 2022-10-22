@@ -102,7 +102,7 @@
 	BTTFV_Text_Clock_AddMinutes = Dodaj minuty
 	BTTFV_Menu_RC_Item_Destination_Description = Powiadamia cię o ustawieniu docelowym wehikułu czasu.
 	BTTFV_Text_DMC12 = DMC-12
-	BTTFV_Text_VTOLTip = Naciśnij {0} i ~INPUT_VEH_FLY_THROTTLE_DOWN~ aby wylądować.
+	BTTFV_Text_VTOLTip = Przytrzymaj {0} i ~INPUT_VEH_FLY_THROTTLE_DOWN~, aby wylądować.
 	BTTFV_Menu_TCD_Item_Background_Description = Pozwala na zmianę tła wyświetlania obwodów czasowych.
 	BTTFV_Menu_Settings_Item_ForceFly_Title = Wymuś tryb latania
 	BTTFV_Menu_Controls_Item_GoToMainMenu_Description = Klawisz do otwierania Menu głównego (klawiatura).
@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = Usuwa wszystkie wehikuły czasu stworzone przez skrypt.
 	BTTFV_Menu_Custom_Item_Suspensions_Description = Zmień wysokość zawieszenia.
 	BTTFV_Text_Clock_CurSecond = Bieżące sekundy: {0}
-	BTTFV_Menu_RC_Item_List_Description = Naciśnij ~INPUT_PHONE_SELECT~, aby sterować zdalnie.
+	BTTFV_Menu_RC_Item_List_Description = Naciśnij Enter, aby sterować zdalnie.
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = Długie naciśnięcie jest wymagane do transformacji w poduszkowca.
 	BTTFV_Menu_Events_Item_Turbulence_Title = Turbulencje

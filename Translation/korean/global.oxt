@@ -102,7 +102,7 @@
 	BTTFV_Text_Clock_AddMinutes = 분 추가
 	BTTFV_Menu_RC_Item_Destination_Description = 현재 타임머신의 설정된 목적지를 알려줍니다.
 	BTTFV_Text_DMC12 = DMC-12
-	BTTFV_Text_VTOLTip = 착륙하려면 {0} 및 ~INPUT_VEH_FLY_THROTTLE_DOWN~을 누르세요.
+	BTTFV_Text_VTOLTip = 착륙하려면 {0} 및 ~INPUT_VEH_FLY_THROTTLE_DOWN~을 길게 누릅니다.
 	BTTFV_Menu_TCD_Item_Background_Description = 시간 계기판 화면의 배경을 변경할 수 있습니다.
 	BTTFV_Menu_Settings_Item_ForceFly_Title = 강제 비행 모드
 	BTTFV_Menu_Controls_Item_GoToMainMenu_Description = 메인 메뉴 (키보드) 를 열기위한 키입니다.
@@ -159,7 +159,7 @@
 	BTTFV_Menu_Main_Item_RemoveAll_Description = 스크립트에 의해 생성 된 모든 타임머신을 삭제합니다.
 	BTTFV_Menu_Custom_Item_Suspensions_Description = 서스펜션 높이를 변경 합니다.
 	BTTFV_Text_Clock_CurSecond = 현재 초: {0}
-	BTTFV_Menu_RC_Item_List_Description = ~INPUT_PHONE_SELECT~ 눌러 원격 제어합니다.
+	BTTFV_Menu_RC_Item_List_Description = 엔터 키를 눌러 원격 제어합니다.
 	BTTFV_Text_BTTF3 = BTTF3
 	BTTFV_Menu_Controls_Item_LongPressForHover_Description = 호버 모드로 변환을하려면 버튼을 길게 눌러야합니다.
 	BTTFV_Menu_Events_Item_Turbulence_Title = 난기류
