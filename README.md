@@ -29,13 +29,8 @@ In order to open the solution, you need Visual Studio 2017+ with Xamarin compone
 
 ## Credits:
 - Artists: ranstar74 | killso | RetroGamer | Turn 10 Studios
-
 - Programmers: AHK1221 | MrFusion92 | Nomake Wan
-
 - Testers: Nickumto255 | hugoraider | SBTx14 | MatchstickMan | Evonia | GTArajgaming | Mr Boom Snook | Victor
-
 - Audio: BTTFV Team | BTTF Hill Valley Team
-
 - Translations: our [Discord community](https://discord.gg/rCae5uRtU3), join them!
-
-- Special thanks to SonicJoshua24 | 5dmc1 | dmc4708 | Carlos85G | Manghen | Joey Kovacs | Dwurban
+- Special thanks to SonicJoshua24, 5dmc1, dmc4708, Carlos85G, Manghen, Joey Kovacs, Dwurban, Sockcat, Reon, and The_Giz.
