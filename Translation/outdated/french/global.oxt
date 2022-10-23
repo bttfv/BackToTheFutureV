@@ -4,7 +4,7 @@
 	0xAFD2DA44 = Machine Temporelle
 	0xD6D415CE = DMC-12
 	BTTFV_AltitudeHoldingModeChange = Mode Hover
-	BTTFV_Apply_Hook = Appuyez sur ~INPUT_COTEXT~ pour mettre le crochet en place.
+	BTTFV_Apply_Hook = Appuyez sur ~INPUT_CONTEXT~ pour mettre le crochet en place.
 	BTTFV_Chip_Damaged = La puce de contrôle des circuits temporels est endommagée.
 	BTTFV_Cutscene = Cinématique
 	BTTFV_Hoodbox_Warmup_Error = Le circuit de régulation est chaud.
