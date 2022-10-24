@@ -71,7 +71,7 @@ namespace BackToTheFutureV
             WheelType wheelType = (WheelType)Vehicle.Mods[VehicleModType.FrontWheel].Index;
             ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
             PlateType plateType = (PlateType)Vehicle.Mods[VehicleModType.Ornaments].Index;
-            ExhaustType exhaustType = (ExhaustType)Vehicle.Mods[VehicleModType.Windows].Index;
+            ExhaustType exhaustType = (ExhaustType)Vehicle.Mods[VehicleModType.Exhaust].Index;
             HoodType hoodType = (HoodType)Vehicle.Mods[VehicleModType.Hood].Index;
             ModState modState = (ModState)Vehicle.Mods[VehicleModType.Spoilers].Index;
             HookState hookState = HookState.Unknown;

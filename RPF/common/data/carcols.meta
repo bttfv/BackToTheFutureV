@@ -259,7 +259,7 @@
 						<Item>exhaust</Item>
 						<Item>exhaust_2</Item>
 					</turnOffBones>
-					<type>VMT_DOOR_L</type>
+					<type>VMT_EXHAUST</type>
 					<bone>misc_o</bone>
 					<collisionBone>chassis</collisionBone>
 					<cameraPos>VMCP_DEFAULT</cameraPos>
@@ -490,7 +490,7 @@
 						<Item>exhaust</Item>
 						<Item>exhaust_2</Item>
 					</turnOffBones>
-					<type>VMT_DOOR_L</type>
+					<type>VMT_EXHAUST</type>
 					<bone>chassis</bone>
 					<collisionBone>chassis</collisionBone>
 					<cameraPos>VMCP_DEFAULT</cameraPos>
