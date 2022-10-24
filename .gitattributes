@@ -1,0 +1,4 @@
+# Use XML syntax highlighting for R* META files
+*.meta linguist-language=XML
+# PSO file support
+*.ymt linguist-language=XML
