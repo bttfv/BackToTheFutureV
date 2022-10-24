@@ -265,6 +265,12 @@ namespace BackToTheFutureV
 
                 if (value == WheelType.RailroadInvisible)
                 {
+                    if (Vehicle.IsVisible)
+                    {
+                        TimeMachine.Props?.RRWheels?.SpawnProp();
+                        Wheels.Burst = true;
+                    }
+
                     if (!IsDMC12)
                     {
                         return;
@@ -283,12 +289,6 @@ namespace BackToTheFutureV
                     if (WormholeType == WormholeType.BTTF3)
                     {
                         TimeMachine.Events?.OnWormholeTypeChanged?.Invoke();
-                    }
-
-                    if (Vehicle.IsVisible)
-                    {
-                        TimeMachine.Props?.RRWheels?.SpawnProp();
-                        Wheels.Burst = true;
                     }
                 }
                 else
