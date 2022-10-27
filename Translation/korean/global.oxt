@@ -35,6 +35,8 @@
 	BTTFV_Menu_Controls_Subtitle = 컨트롤 메뉴
 	BTTFV_Menu_Controls_Title = 컨트롤 메뉴
 	BTTFV_Menu_Custom_Description = 커스텀 드로리안을 만듭니다.
+	BTTFV_Menu_Custom_Item_Bulova_Description = Add a Bulova clock to the dashboard.
+	BTTFV_Menu_Custom_Item_Bulova_Title = Bulova Clock
 	BTTFV_Menu_Custom_Item_Confirm_Title = 확인
 	BTTFV_Menu_Custom_Item_ControlTubes_Description = 차에 시간 계기판 제어 튜브를 추가합니다.
 	BTTFV_Menu_Custom_Item_ControlTubes_Title = 시간 계기판 제어 튜브
@@ -358,6 +360,7 @@
 	BTTFV_Text_Off = OFF
 	BTTFV_Text_On = ON
 	BTTFV_Text_OpenReactor = ~INPUT_CONTEXT~를 길게 눌러 원자로를 엽니다.
+	BTTFV_Text_RCBrakeTip = Hold ~INPUT_VEH_DUCK~ then press {0} to activate RC handbrake.
 	BTTFV_Text_RefuelReactor = ~INPUT_CONTEXT~를 눌러 연료를 충전하거나 ~INPUT_CONTEXT~를 길게 눌러 원자로를 닫습니다.
 	BTTFV_Text_RemovedAllTimeMachines = 모든 타임머신을 제거했습니다!
 	BTTFV_Text_RemovedOtherTimeMachines = 다른 모든 타임머신을 제거했습니다!

@@ -12,6 +12,7 @@ namespace BackToTheFutureV
         private readonly NativeListItem<string> _wormholeType;
         private readonly NativeListItem<string> _wheelsType;
         private readonly NativeCheckboxItem _hook;
+        private readonly NativeCheckboxItem _bulova;
         private readonly NativeCheckboxItem _threeDigits;
         private readonly NativeListItem<string> _plate;
         private readonly NativeListItem<string> _exhaust;
@@ -27,6 +28,7 @@ namespace BackToTheFutureV
             _wheelsType.ItemChanged += ModList_ItemChanged;
 
             _hook = NewCheckboxItem("Hook");
+            _bulova = NewCheckboxItem("Bulova");
 
             _threeDigits = NewCheckboxItem("Speedo");
 
@@ -144,12 +146,12 @@ namespace BackToTheFutureV
             if (CurrentTimeMachine.Mods.IsDMC12)
             {
                 _hook.Checked = CurrentTimeMachine.Mods.Hook != HookState.Off;
+                _bulova.Checked = CurrentTimeMachine.Mods.Bulova == ModState.On;
                 _plate.SelectedIndex = (int)(CurrentTimeMachine.Mods.Plate) + 1;
                 _exhaust.SelectedIndex = (int)(CurrentTimeMachine.Mods.Exhaust) + 1;
                 _suspensions.SelectedIndex = (int)CurrentTimeMachine.Mods.SuspensionsType;
                 _hood.SelectedIndex = (int)CurrentTimeMachine.Mods.Hood + 1;
                 _threeDigits.Checked = CurrentTimeMachine.Properties.ThreeDigitsSpeedo;
-
                 _exhaust.Enabled = CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off;
                 _suspensions.Enabled = CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off;
             }
@@ -187,6 +189,7 @@ namespace BackToTheFutureV
             }
 
             _hook.Enabled = CurrentTimeMachine.Mods.IsDMC12;
+            _bulova.Enabled = CurrentTimeMachine.Mods.IsDMC12;
             _plate.Enabled = CurrentTimeMachine.Mods.IsDMC12;
             _exhaust.Enabled = CurrentTimeMachine.Mods.IsDMC12;
             _suspensions.Enabled = CurrentTimeMachine.Mods.IsDMC12;
@@ -221,6 +224,18 @@ namespace BackToTheFutureV
                 CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.DigitalSpeedo, FusionEnums.CameraSwitchType.Instant, 1250);
                 CurrentTimeMachine.Properties.ThreeDigitsSpeedo = !Checked;
                 CurrentTimeMachine.Properties.HUDProperties.ThreeDigitsSpeedo = !Checked;
+            }
+            else if (sender == _bulova)
+            {
+                CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.DigitalSpeedo, FusionEnums.CameraSwitchType.Instant, 1250);
+                if (Checked)
+                {
+                    CurrentTimeMachine.Mods.Bulova = ModState.On;
+                }
+                else
+                {
+                    CurrentTimeMachine.Mods.Bulova = ModState.Off;
+                }
             }
         }
 

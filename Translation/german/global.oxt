@@ -35,6 +35,8 @@
 	BTTFV_Menu_Controls_Subtitle = Steuerungsmenü
 	BTTFV_Menu_Controls_Title = Steuerungsmenü
 	BTTFV_Menu_Custom_Description = Einen individuellen DeLorean bauen.
+	BTTFV_Menu_Custom_Item_Bulova_Description = Add a Bulova clock to the dashboard.
+	BTTFV_Menu_Custom_Item_Bulova_Title = Bulova Clock
 	BTTFV_Menu_Custom_Item_Confirm_Title = BESTÄTIGEN
 	BTTFV_Menu_Custom_Item_ControlTubes_Description = Fügt dem Fahrzeug die Zeitschaltröhren hinzu.
 	BTTFV_Menu_Custom_Item_ControlTubes_Title = Zeitschaltröhren
@@ -358,6 +360,7 @@
 	BTTFV_Text_Off = AUS
 	BTTFV_Text_On = AN
 	BTTFV_Text_OpenReactor = Halte ~INPUT_CONTEXT~, um den Reaktor zu öffnen.
+	BTTFV_Text_RCBrakeTip = Hold ~INPUT_VEH_DUCK~ then press {0} to activate RC handbrake.
 	BTTFV_Text_RefuelReactor = Drücke ~INPUT_CONTEXT~ zum Tanken oder halte ~INPUT_CONTEXT~ zum Schließen des Reaktors.
 	BTTFV_Text_RemovedAllTimeMachines = Entfernt alle Zeitmaschinen!
 	BTTFV_Text_RemovedOtherTimeMachines = Entfernt alle anderen Zeitmaschinen!

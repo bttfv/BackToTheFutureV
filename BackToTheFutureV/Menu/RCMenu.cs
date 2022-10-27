@@ -29,7 +29,7 @@ namespace BackToTheFutureV
 
             FuelChamberDescription = NewCheckboxItem("Fuel");
             TimeCircuitsOnDescription = NewCheckboxItem("TC");
-            DestinationTimeDescription = NewCheckboxItem("Destination");
+            DestinationTimeDescription = NewItem("Destination");
 
             FuelChamberDescription.Enabled = false;
             TimeCircuitsOnDescription.Enabled = false;

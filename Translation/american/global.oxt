@@ -35,6 +35,8 @@
 	BTTFV_Menu_Controls_Subtitle = Controls Menu
 	BTTFV_Menu_Controls_Title = Controls Menu
 	BTTFV_Menu_Custom_Description = Build a custom DeLorean.
+	BTTFV_Menu_Custom_Item_Bulova_Description = Add a Bulova clock to the dashboard.
+	BTTFV_Menu_Custom_Item_Bulova_Title = Bulova Clock
 	BTTFV_Menu_Custom_Item_Confirm_Title = CONFIRM
 	BTTFV_Menu_Custom_Item_ControlTubes_Description = Installs the time circuit control tubes onto the hood of the car.
 	BTTFV_Menu_Custom_Item_ControlTubes_Title = Time Circuit Control Tubes
@@ -358,6 +360,7 @@
 	BTTFV_Text_Off = OFF
 	BTTFV_Text_On = ON
 	BTTFV_Text_OpenReactor = Hold ~INPUT_CONTEXT~ to open fuel chamber.
+	BTTFV_Text_RCBrakeTip = Hold ~INPUT_VEH_DUCK~ then press {0} to activate RC handbrake.
 	BTTFV_Text_RefuelReactor = Press ~INPUT_CONTEXT~ to refuel or hold ~INPUT_CONTEXT~ to close fuel chamber.
 	BTTFV_Text_RemovedAllTimeMachines = Removed all Time Machines!
 	BTTFV_Text_RemovedOtherTimeMachines = Removed all other Time Machines!

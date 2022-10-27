@@ -120,6 +120,7 @@ namespace BackToTheFutureV
                 {
                     timeMachine.Mods.Hook = HookState.OnDoor;
                     timeMachine.Mods.Plate = PlateType.Empty;
+                    timeMachine.Mods.Bulova = ModState.On;
 
                     timeMachine.Properties.ReactorCharge = 0;
                 }

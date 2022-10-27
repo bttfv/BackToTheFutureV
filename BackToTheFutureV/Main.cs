@@ -28,6 +28,12 @@ namespace BackToTheFutureV
 
         public static PropertiesHandler Properties { get; private set; }
 
+        public static DateTime NewGame { get; } = new DateTime(2003, 12, 15, 5, 0, 0);
+
+        public static bool TutorialMission { get; private set; }
+
+        public static bool StoryMode { get; private set; }
+
         public static int SwitchedPed { get; private set; }
 
         public static int? SwitchedVehicle { get; set; }
@@ -91,84 +97,128 @@ namespace BackToTheFutureV
 
                 if (FirstTick)
                 {
-                    Screen.ShowHelpText("BackToTheFutureV loading...", -1, true, true);
-
-                    ResetPed = new PedReplica(FusionUtils.PlayerPed);
-                    SwitchedPed = FusionUtils.PlayerPed.Handle;
-                    
-                    RemoteTimeMachineHandler.MAX_REMOTE_TIMEMACHINES = ModSettings.MaxRecordedMachines;
-
-                    ModelHandler.RequestModels();
-
-                    //Disable fake shake of the cars.
-                    Function.Call(Hash._​SET_​CAR_​HIGH_​SPEED_​BUMP_​SEVERITY_​MULTIPLIER, 0);
-
-                    if (ModSettings.PersistenceSystem)
+                    if (FusionUtils.CurrentTime == NewGame && Game.IsMissionActive)
                     {
-                        TimeMachineHandler.Load();
-                        RemoteTimeMachineHandler.Load();
+                        TutorialMission = true;
+                        StoryMode = true;
+                    }
+                    else
+                    {
+                        ResetPed = new PedReplica(FusionUtils.PlayerPed);
+                        SwitchedPed = FusionUtils.PlayerPed.Handle;
                     }
 
-                    FusionUtils.RandomTrains = ModSettings.RandomTrains;
-                    TimeHandler.RealTime = ModSettings.RealTime;
-                    TimeHandler.TrafficVolumeYearBased = ModSettings.YearTraffic;
+                    if (!TutorialMission)
+                    {
+                        Screen.ShowHelpText("BackToTheFutureV loading...", -1, true, true);
 
-                    DecoratorsHandler.Register();
-                    WeatherHandler.Register();
+                        RemoteTimeMachineHandler.MAX_REMOTE_TIMEMACHINES = ModSettings.MaxRecordedMachines;
+
+                        ModelHandler.RequestModels();
+
+                        //Disable fake shake of the cars.
+                        Function.Call(Hash._​SET_​CAR_​HIGH_​SPEED_​BUMP_​SEVERITY_​MULTIPLIER, 0);
+
+                        if (ModSettings.PersistenceSystem)
+                        {
+                            TimeMachineHandler.Load();
+                            RemoteTimeMachineHandler.Load();
+                        }
+
+                        FusionUtils.RandomTrains = ModSettings.RandomTrains;
+                        TimeHandler.RealTime = ModSettings.RealTime;
+                        TimeHandler.TrafficVolumeYearBased = ModSettings.YearTraffic;
+
+                        DecoratorsHandler.Register();
+                        WeatherHandler.Register();
+                    }
                 }
 
                 if (!FirstTick)
                 {
-                    WaybackSystem.Tick();
-                    if (ModSettings.TimeParadox)
+                    if (Game.IsMissionActive && !StoryMode)
                     {
-                        if (PlayerSwitch.IsInProgress && FusionUtils.PlayerPed.Model == ResetPed.Model)
-                        {
-                            SwitchedPed = FusionUtils.PlayerPed.Handle;
-                        }
-                        else if (FusionUtils.PlayerPed.Model != ResetPed.Model)
-                        {
-                            Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, SwitchedPed, 1, 1);
-                        }
+                        StoryMode = true;
+                    }
 
-                        if (FusionUtils.PlayerPed.Model == ResetPed.Model && FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle == null)
+                    if (!StoryMode)
+                    {
+                        WaybackSystem.Tick();
+                        if (ModSettings.TimeParadox)
                         {
-                            SwitchedVehicle = FusionUtils.PlayerVehicle.Handle;
+                            if (PlayerSwitch.IsInProgress && FusionUtils.PlayerPed.Model == ResetPed.Model)
+                            {
+                                SwitchedPed = FusionUtils.PlayerPed.Handle;
+                            }
+                            else if (FusionUtils.PlayerPed.Model != ResetPed.Model)
+                            {
+                                Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, SwitchedPed, 1, 1);
+                            }
+
+                            if (FusionUtils.PlayerPed.Model == ResetPed.Model && FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle == null)
+                            {
+                                SwitchedVehicle = FusionUtils.PlayerVehicle.Handle;
+                            }
+                            else if (FusionUtils.PlayerPed.Model == ResetPed.Model && !FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle != null && FusionUtils.PlayerPed.LastVehicle != null)
+                            {
+                                FusionUtils.PlayerPed.LastVehicle.IsPersistent = false;
+                                SwitchedVehicle = null;
+                            }
+                            else if (FusionUtils.PlayerPed.Model == ResetPed.Model && !FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle != null && FusionUtils.PlayerPed.LastVehicle == null)
+                            {
+                                SwitchedVehicle = null;
+                            }
+                            else if (FusionUtils.PlayerPed.Model != ResetPed.Model && SwitchedVehicle != null)
+                            {
+                                Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, SwitchedVehicle, 1, 1);
+                            }
                         }
-                        else if (FusionUtils.PlayerPed.Model == ResetPed.Model && !FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle != null && FusionUtils.PlayerPed.LastVehicle != null)
+                    }
+                    else
+                    {
+                        if (Function.Call<bool>(Hash.IS_MISSION_COMPLETE_PLAYING))
                         {
-                            FusionUtils.PlayerPed.LastVehicle.IsPersistent = false;
-                            SwitchedVehicle = null;
-                        }
-                        else if (FusionUtils.PlayerPed.Model == ResetPed.Model && !FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle != null && FusionUtils.PlayerPed.LastVehicle == null)
-                        {
-                            SwitchedVehicle = null;
-                        }
-                        else if (FusionUtils.PlayerPed.Model != ResetPed.Model && SwitchedVehicle != null)
-                        {
-                            Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, SwitchedVehicle, 1, 1);
+                            if (TutorialMission)
+                            {
+                                TutorialMission = false;
+                                StoryMode = false;
+                                FirstTick = true;
+                                return;
+                            }
+                            StoryMode = false;
                         }
                     }
                 }
 
-                CustomTrainHandler.Tick();
-                DMC12Handler.Tick();
-                TimeMachineHandler.Tick();
-                RemoteTimeMachineHandler.Tick();
-                FireTrailsHandler.Tick();
-                TcdEditer.Tick();
-                RCGUIEditer.Tick();
-                MissionHandler.Tick();
-                StoryTimeMachineHandler.Tick();
-                MenuHandler.Tick();
-                TrashHandler.Tick();
-                GarageHandler.Tick();
-                WeatherHandler.Tick();
+                if (!TutorialMission)
+                {
+                    CustomTrainHandler.Tick();
+                    DMC12Handler.Tick();
+                    TimeMachineHandler.Tick();
+                    RemoteTimeMachineHandler.Tick();
+                    FireTrailsHandler.Tick();
+                    TcdEditer.Tick();
+                    RCGUIEditer.Tick();
+                    MissionHandler.Tick();
+                    StoryTimeMachineHandler.Tick();
+                    MenuHandler.Tick();
+                    TrashHandler.Tick();
+                    GarageHandler.Tick();
+                    WeatherHandler.Tick();
+                }
 
                 if (FirstTick)
                 {
-                    ResetDate = FusionUtils.CurrentTime;
-                    WaybackSystem.Tick();
+                    if (!StoryMode)
+                    {
+                        ResetDate = FusionUtils.CurrentTime;
+                        WaybackSystem.Tick();
+                    }
+                    if (TutorialMission)
+                    {
+                        FirstTick = false;
+                        return;
+                    }
 
                     TrafficHandler.ModelSwaps.Add(new ModelSwap
                     {
@@ -184,7 +234,7 @@ namespace BackToTheFutureV
                         WaitBetweenSpawns = 10000
                     });
 
-                    if (FusionUtils.PlayerPed.IsInVehicle())
+                    if (FusionUtils.PlayerPed.IsInVehicle() && !StoryMode)
                     {
                         ResetVehicle = new VehicleReplica(FusionUtils.PlayerVehicle);
                         if (FusionUtils.PlayerVehicle.IsTimeMachine())

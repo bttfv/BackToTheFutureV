@@ -83,6 +83,11 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
+            if (!PropsHandler.BulovaReady)
+            {
+                return;
+            }
+
             if (Properties.SyncWithCurTime)
             {
                 Properties.ClockTime = FusionUtils.CurrentTime;

@@ -49,7 +49,7 @@ namespace BackToTheFutureV
                     Reactor = ReactorType.MrFusion;
                     Exhaust = ExhaustType.None;
                     Plate = PlateType.BTTF2;
-
+                    Bulova = ModState.On;
                     HoverUnderbody = ModState.On;
                     break;
                 case WormholeType.BTTF3:
@@ -114,6 +114,13 @@ namespace BackToTheFutureV
             if (modState != Components)
             {
                 Components = modState;
+            }
+
+            modState = (ModState)Vehicle.Mods[VehicleModType.RightFender].Index;
+
+            if (modState != Bulova)
+            {
+                Bulova = modState;
             }
 
             modState = (ModState)Vehicle.Mods[VehicleModType.FrontBumper].Index;

@@ -185,7 +185,8 @@ namespace BackToTheFutureV
                 case 0:
                     if (Driver.IsDead || Shooter.IsDead)
                     {
-                        End();
+                        //End();
+                        ExplodeVehicle();
                     }
 
                     break;

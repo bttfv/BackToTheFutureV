@@ -77,8 +77,8 @@ namespace BackToTheFutureV
 
             registeredHandlers.Add("ConstantsHandler", Constants = new ConstantsHandler(this));
             registeredHandlers.Add("SoundsHandler", Sounds = new SoundsHandler(this));
+            registeredHandlers.Add("PropsHandler", Props = new PropsHandler(this));
 
-            Props = new PropsHandler(this);
             Scaleforms = new ScaleformsHandler(this);
             Players = new PlayersHandler(this);
             Particles = new ParticlesHandler(this);

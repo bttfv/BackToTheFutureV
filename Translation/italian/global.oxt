@@ -35,6 +35,8 @@
 	BTTFV_Menu_Controls_Subtitle = Menu controlli
 	BTTFV_Menu_Controls_Title = Menu controlli
 	BTTFV_Menu_Custom_Description = Costruisci una macchina del tempo.
+	BTTFV_Menu_Custom_Item_Bulova_Description = Add a Bulova clock to the dashboard.
+	BTTFV_Menu_Custom_Item_Bulova_Title = Bulova Clock
 	BTTFV_Menu_Custom_Item_Confirm_Title = CONFERMA
 	BTTFV_Menu_Custom_Item_ControlTubes_Description = Applica i tempo circuiti di controllo sul cofano motore.
 	BTTFV_Menu_Custom_Item_ControlTubes_Title = Tempo circuiti di controllo
@@ -358,6 +360,7 @@
 	BTTFV_Text_Off = OFF
 	BTTFV_Text_On = ON
 	BTTFV_Text_OpenReactor = Tieni premuto ~INPUT_CONTEXT~ per aprire il reattore.
+	BTTFV_Text_RCBrakeTip = Hold ~INPUT_VEH_DUCK~ then press {0} to activate RC handbrake.
 	BTTFV_Text_RefuelReactor = Premi ~INPUT_CONTEXT~ per rifornire il reattore o ieni premuto ~INPUT_CONTEXT~ per chiuderlo.
 	BTTFV_Text_RemovedAllTimeMachines = Eliminate tutte le macchina del tempo!
 	BTTFV_Text_RemovedOtherTimeMachines = Rimosse tutte le macchine del tempo eccetto la corrente!

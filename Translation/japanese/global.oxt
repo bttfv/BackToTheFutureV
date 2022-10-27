@@ -35,6 +35,8 @@
 	BTTFV_Menu_Controls_Subtitle = コントロールメニュー
 	BTTFV_Menu_Controls_Title = コントロールメニュー
 	BTTFV_Menu_Custom_Description = カスタムデロリアンを作ります。
+	BTTFV_Menu_Custom_Item_Bulova_Description = ブローバ時計をダッシュボードに追加します。
+	BTTFV_Menu_Custom_Item_Bulova_Title = ブローバ時計
 	BTTFV_Menu_Custom_Item_Confirm_Title = 確認
 	BTTFV_Menu_Custom_Item_ControlTubes_Description = タイムサーキットを制御チューブを車に追加します。
 	BTTFV_Menu_Custom_Item_ControlTubes_Title = タイムサーキットを制御するチューブ
@@ -358,6 +360,7 @@
 	BTTFV_Text_Off = オフ
 	BTTFV_Text_On = オン
 	BTTFV_Text_OpenReactor = ~INPUT_CONTEXT~ を長押しするとリアクターを開きます。
+	BTTFV_Text_RCBrakeTip = ~INPUT_VEH_DUCK~ を押しながら {0} を押したらRCブレーキがセットします。
 	BTTFV_Text_RefuelReactor = ~INPUT_CONTEXT~を押すと燃料が補給され、~INPUT_CONTEXT~を押し続けるとリアクターが閉じます。
 	BTTFV_Text_RemovedAllTimeMachines = 全てのタイムマシンを削除しました！
 	BTTFV_Text_RemovedOtherTimeMachines = 他の全てのタイムマシンを削除しました！
@@ -383,7 +386,7 @@
 	BTTFV_Text_UnableRepairEngine = エンジンを治せません。1912年までガソリンスタンドはありません。
 	BTTFV_Text_UnableRepairFC = フライングサーキットを治せません。適切な交換部品は2015年まで発明されません。
 	BTTFV_Text_UnableRepairTC = タイムサーキットを治せません。適切な交換部品は1952年まで出回りません。
-	BTTFV_Text_VTOLTip = 着陸するには、{0}を押しながら、~INPUT_VEH_FLY_THROTTLE_DOWN~をします。
+	BTTFV_Text_VTOLTip = 着陸するには {0} と ~INPUT_VEH_FLY_THROTTLE_DOWN~ を同時長押します。
 	BTTFV_Text_Warmup = ~INPUT_CONTEXT~を押して、タイムサーキットを制御するチューブを起動します。
 	BTTFV_Text_WarmupComplete = タイムサーキットを制御するチューブが温まりました！
 	BTTFV_Text_Years = 年

@@ -181,7 +181,7 @@ namespace BackToTheFutureV
 
         private void Play()
         {
-            if ((Ped.NotNullAndExists() && Ped.IsDead && !Game.IsMissionActive && ModSettings.TimeParadox) || (Ped.NotNullAndExists() && Ped.LastVehicle.NotNullAndExists() && Ped.LastVehicle.IsConsideredDestroyed && !Game.IsMissionActive && ModSettings.TimeParadox))
+            if ((Ped.NotNullAndExists() && Ped.IsDead && ModSettings.TimeParadox) || (Ped.NotNullAndExists() && Ped.LastVehicle.NotNullAndExists() && Ped.LastVehicle.IsConsideredDestroyed && ModSettings.TimeParadox))
             {
                 if (FusionUtils.PlayerVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
                 {

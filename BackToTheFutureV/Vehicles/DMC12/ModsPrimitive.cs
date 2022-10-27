@@ -12,6 +12,7 @@ namespace BackToTheFutureV
         public SuspensionsType SuspensionsType { get; set; } = SuspensionsType.Stock;
         public WheelType Wheel { get; set; } = WheelType.Stock;
         public ModState Components { get; set; } = ModState.Off;
+        public ModState Bulova { get; set; } = ModState.Off;
         public ModState OffCoils { get; set; } = ModState.Off;
         public ModState GlowingEmitter { get; set; } = ModState.Off;
         public ModState GlowingReactor { get; set; } = ModState.Off;
@@ -32,6 +33,7 @@ namespace BackToTheFutureV
                 SuspensionsType = SuspensionsType,
                 Wheel = Wheel,
                 Components = Components,
+                Bulova = Bulova,
                 OffCoils = OffCoils,
                 GlowingEmitter = GlowingEmitter,
                 GlowingReactor = GlowingReactor,
@@ -58,6 +60,7 @@ namespace BackToTheFutureV
             ret.SuspensionsType = SuspensionsType;
             ret.Wheel = Wheel;
             ret.Components = Components;
+            ret.Bulova = Bulova;
             ret.OffCoils = OffCoils;
             ret.GlowingEmitter = GlowingEmitter;
             ret.GlowingReactor = GlowingReactor;
@@ -122,6 +125,11 @@ namespace BackToTheFutureV
             if (ret.Hood != Hood)
             {
                 ret.Hood = Hood;
+            }
+
+            if (ret.Bulova != Bulova)
+            {
+                ret.Bulova = Bulova;
             }
         }
     }

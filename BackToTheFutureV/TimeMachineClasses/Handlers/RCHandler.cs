@@ -73,6 +73,11 @@ namespace BackToTheFutureV
                 return;
             }
 
+            if (!Game.IsControlPressed(GTA.Control.VehicleDuck) && !_forcedHandbrake)
+            {
+                TextHandler.Me.ShowHelp("RCBrakeTip", 3000, true, false, new ControlInfo(ModControls.HoverBoost).Button);
+            }
+
             if (_forcedHandbrake || Game.IsControlPressed(GTA.Control.VehicleDuck))
             {
                 Sounds.RCBrake?.Play();
@@ -80,6 +85,7 @@ namespace BackToTheFutureV
 
                 if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled && Properties.AreTimeCircuitsOn)
                 {
+                    Sounds.RCSomeSerious?.Stop();
                     Sounds.RCSomeSerious?.Play();
                 }
             }
@@ -87,13 +93,9 @@ namespace BackToTheFutureV
 
         private void StopForcedHandbrake()
         {
-            if (Properties.IsRemoteControlled && _forcedHandbrake && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
+            if (Properties.IsRemoteControlled && _forcedHandbrake)
             {
                 SetForcedHandbrake();
-            }
-            else if (Properties.IsRemoteControlled && _forcedHandbrake && !Game.IsControlPressed(GTA.Control.VehicleAccelerate))
-            {
-                SetForcedHandbrake(false);
             }
         }
 
@@ -107,12 +109,13 @@ namespace BackToTheFutureV
             if (_forcedHandbrake)
             {
                 _boostStarted = false;
-                if (boost)
-                {
-                    _handleBoost = true;
-                }
+                _handleBoost = true;
 
                 SetSimulateSpeed(64.5f, 8);
+            }
+            else
+            {
+                SetSimulateSpeed(0, 0);
             }
         }
 
@@ -268,6 +271,7 @@ namespace BackToTheFutureV
                 if (mphSpeed >= maxSpeed)
                 {
                     simulateSpeed = false;
+                    _boostStarted = true;
                     StopForcedHandbrake();
                 }
             }
@@ -292,20 +296,19 @@ namespace BackToTheFutureV
 
             DrawGUI();
 
-            if (_handleBoost && !_boostStarted && Game.IsControlPressed(GTA.Control.VehicleAccelerate))
-            {
-                _boostStarted = true;
-            }
-
             if (_handleBoost && _boostStarted && !Game.IsControlPressed(GTA.Control.VehicleAccelerate))
             {
-                StopForcedHandbrake();
                 _handleBoost = false;
+                _boostStarted = false;
             }
 
             if (_handleBoost && _boostStarted && !_forcedHandbrake && Game.IsControlPressed(GTA.Control.VehicleAccelerate) && Vehicle.GetMPHSpeed() <= 90)
             {
                 Properties.Boost = 0.3f;
+            }
+            else
+            {
+                Properties.Boost = 0.0f;
             }
 
             if (PlayerSwitch.IsManualInProgress)

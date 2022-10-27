@@ -35,6 +35,8 @@
 	BTTFV_Menu_Controls_Subtitle = Menu Sterowania
 	BTTFV_Menu_Controls_Title = Menu Sterowania
 	BTTFV_Menu_Custom_Description = Zbuduj niestandardowego DeLoreana.
+	BTTFV_Menu_Custom_Item_Bulova_Description = Add a Bulova clock to the dashboard.
+	BTTFV_Menu_Custom_Item_Bulova_Title = Bulova Clock
 	BTTFV_Menu_Custom_Item_Confirm_Title = POTWIERDŹ
 	BTTFV_Menu_Custom_Item_ControlTubes_Description = Dodaje przewody sterujące obwodami czasowymi do samochodu.
 	BTTFV_Menu_Custom_Item_ControlTubes_Title = Przewody sterujące obwodami czasowymi
@@ -358,6 +360,7 @@
 	BTTFV_Text_Off = WYŁĄCZONE
 	BTTFV_Text_On = WŁĄCZONE
 	BTTFV_Text_OpenReactor = Przytrzymaj ~INPUT_CONTEXT~ aby otworzyć reaktor.
+	BTTFV_Text_RCBrakeTip = Hold ~INPUT_VEH_DUCK~ then press {0} to activate RC handbrake.
 	BTTFV_Text_RefuelReactor = Naciśnij ~INPUT_CONTEXT~ aby uzupełnić lub przytrzymaj ~INPUT_CONTEXT~ aby zamknąć reaktor.
 	BTTFV_Text_RemovedAllTimeMachines = Usunięto wszystkie wehikuły czasu!
 	BTTFV_Text_RemovedOtherTimeMachines = Usunięto całą resztę wehikułów czasu!
