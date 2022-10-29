@@ -46,7 +46,7 @@ namespace BackToTheFutureV
         public static bool RealTime { get; set; } = true;
         public static bool YearTraffic { get; set; } = false;
         public static bool TimeParadox { get; set; } = false;
-        public static int MaxRecordedMachines { get; set; } = 5;
+        public static int MaxRecordedMachines { get; set; } = 10;
 
         private static ScriptSettings settings;
         private static readonly CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");

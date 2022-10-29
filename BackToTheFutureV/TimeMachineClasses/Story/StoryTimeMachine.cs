@@ -74,6 +74,11 @@ namespace BackToTheFutureV
                 TimeMachine.Vehicle.DirtLevel = 15.0f;
             }
 
+            if (TimeMachine.Mods.WormholeType == WormholeType.BTTF2)
+            {
+                TimeMachine.Mods.Bulova = ModState.Off;
+            }
+
             TimeMachineHandler.AddStory(TimeMachine);
 
             return TimeMachine;
@@ -185,7 +190,7 @@ namespace BackToTheFutureV
                     Spawn();
                     delaySet = false;
                 }
-
+                return;
             }
         }
     }

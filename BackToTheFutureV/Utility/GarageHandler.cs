@@ -81,13 +81,15 @@ namespace BackToTheFutureV
 
                 DoorHandler.RemoveDoor(GarageDoor);
                 DoorHandler.RegisterDoor(GarageDoor, Model, Position);
-
-                DoorHandler.SetDoorState(GarageDoor, pendingState);
+                if (pendingState != DoorState.Unknown)
+                {
+                    DoorHandler.SetDoorState(GarageDoor, pendingState);
+                }
             }
 
-            if (DoorHandler.GetDoorState(GarageDoor) == DoorState.Unknown)
+            if (DoorHandler.GetDoorState(GarageDoor) == DoorState.Unknown || DoorHandler.GetDoorPendingState(GarageDoor) == DoorState.Unknown)
             {
-                if (IsPlayerNear && GarageHandler.Status != GarageStatus.Idle && GarageHandler.Status != GarageStatus.Opening)
+                if ((IsPlayerNear && GarageHandler.Status != GarageStatus.Idle && GarageHandler.Status != GarageStatus.Opening) || RemoteTimeMachineHandler.IsRemoteOn)
                 {
                     DoorHandler.SetDoorState(GarageDoor, DoorState.Locked);
                 }
@@ -167,9 +169,6 @@ namespace BackToTheFutureV
 
         public static void Tick()
         {
-            //GTA.UI.Screen.ShowSubtitle($"{World.GetClosestProp(FusionUtils.PlayerPed.Position, 5)?.Model.Hash} {World.GetClosestProp(FusionUtils.PlayerPed.Position, 5)?.Position}");
-            //GTA.UI.Screen.ShowSubtitle($"{FusionUtils.PlayerVehicle?.Position} {FusionUtils.PlayerVehicle?.Rotation}");
-
             if (!Vehicle.NotNullAndExists() || RemoteTimeMachineHandler.IsRemoteOn)
             {
                 if (Status != GarageStatus.Idle)
@@ -196,6 +195,7 @@ namespace BackToTheFutureV
                     if (timeMachine.NotNullAndExists())
                     {
                         World.DrawMarker(MarkerType.VerticalCylinder, garageInfo.OutsideCameraPosition.SetToGroundHeight(), Vector3.Zero, Vector3.Zero, new Vector3(3, 3, 3), Color.Red);
+                        garageInfo.SetDoorState(DoorState.Locked);
 
                         if (Vehicle.Position.DistanceToSquared2D(garageInfo.OutsideCameraPosition) <= 30)
                         {
@@ -211,6 +211,8 @@ namespace BackToTheFutureV
 
                                     FusionUtils.PlayerPed.PositionNoOffset = garageInfo.OutsideCameraPosition.SetToGroundHeight();
                                     FusionUtils.PlayerPed.Heading = FusionUtils.PlayerPed.Position.GetDirectionTo(timeMachine.Vehicle.Position).ToHeading();
+
+                                    garageInfo.SetDoorState(DoorState.Unlocked);
 
                                     _placeDamaged = false;
 

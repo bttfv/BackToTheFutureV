@@ -11,6 +11,8 @@ namespace BackToTheFutureV
     {
         //Hoodbox
         private int _warmUp = 0;
+        private int _coolDown = 0;
+        private bool _wasOn;
 
         private float _fluxBandsCooldown = -1;
 
@@ -130,6 +132,25 @@ namespace BackToTheFutureV
                 if (Vehicle.IsVisible != Props.HoodboxLights?.Visible)
                 {
                     Props.HoodboxLights.Visible = Vehicle.IsVisible;
+                }
+
+                if (Properties.AreTimeCircuitsOn)
+                {
+                    _coolDown = 0;
+                    _wasOn = true;
+                }
+
+                if (!Properties.AreTimeCircuitsOn && !Vehicle.IsEngineRunning && _wasOn && _coolDown == 0)
+                {
+                    _coolDown = Game.GameTime + 16000;
+                    _wasOn = false;
+                }
+
+                if (_coolDown > 0 && _coolDown < Game.GameTime)
+                {
+                    Props.HoodboxLights.Dispose();
+                    _coolDown = 0;
+                    Properties.AreHoodboxCircuitsReady = false;
                 }
 
                 return;

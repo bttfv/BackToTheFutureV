@@ -29,6 +29,11 @@ namespace BackToTheFutureV
             {
                 WaybackSystem.GetFromGUID(Properties.ReplicaGUID)?.StartOn(Driver, true);
             }
+
+            if (Driver != null && Driver == FusionUtils.PlayerPed)
+            {
+                Properties.PlayerUsed = true;
+            }
         }
 
         public override void Tick()

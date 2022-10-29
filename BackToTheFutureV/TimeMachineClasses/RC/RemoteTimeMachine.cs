@@ -13,7 +13,7 @@ namespace BackToTheFutureV
         public TimeMachineClone TimeMachineClone { get; }
         public TimeMachine TimeMachine { get; private set; }
         public Blip Blip { get; set; }
-        public bool Spawned => TimeMachine.IsFunctioning();
+        public bool Spawned => TimeMachine.IsFunctioning() && !TimeMachine.Properties.PlayerUsed;
 
         private int _timer;
         private bool _hasPlayedWarningSound;

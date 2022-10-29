@@ -27,11 +27,11 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            DriversDoor.Enabled = FusionUtils.PlayerPed.GetClosestVehicle(5f).NotNullAndExists() && FusionUtils.PlayerPed.GetClosestVehicle(5f).Model == ModelHandler.DMC12;
-            PassengerDoor.Enabled = FusionUtils.PlayerPed.GetClosestVehicle(5f).NotNullAndExists() && FusionUtils.PlayerPed.GetClosestVehicle(5f).Model == ModelHandler.DMC12;
-            Hood.Enabled = FusionUtils.PlayerPed.GetClosestVehicle(5f).NotNullAndExists() && FusionUtils.PlayerPed.GetClosestVehicle(5f).Model == ModelHandler.DMC12;
-            Trunk.Enabled = FusionUtils.PlayerPed.GetClosestVehicle(5f).NotNullAndExists() && FusionUtils.PlayerPed.GetClosestVehicle(5f).Model == ModelHandler.DMC12 && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsTimeMachine();
-            Engine.Enabled = FusionUtils.PlayerPed.GetClosestVehicle(5f).NotNullAndExists() && FusionUtils.PlayerPed.GetClosestVehicle(5f).Model == ModelHandler.DMC12 && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsTimeMachine();
+            DriversDoor.Enabled = FusionUtils.PlayerPed?.GetClosestVehicle(5f)?.Model == ModelHandler.DMC12 && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsConsideredDestroyed;
+            PassengerDoor.Enabled = FusionUtils.PlayerPed?.GetClosestVehicle(5f)?.Model == ModelHandler.DMC12 && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsConsideredDestroyed;
+            Hood.Enabled = FusionUtils.PlayerPed?.GetClosestVehicle(5f)?.Model == ModelHandler.DMC12 && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsConsideredDestroyed;
+            Trunk.Enabled = FusionUtils.PlayerPed?.GetClosestVehicle(5f)?.Model == ModelHandler.DMC12 && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsConsideredDestroyed && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsTimeMachine();
+            Engine.Enabled = FusionUtils.PlayerPed?.GetClosestVehicle(5f)?.Model == ModelHandler.DMC12 && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsConsideredDestroyed && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsTimeMachine();
         }
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)

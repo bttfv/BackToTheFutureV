@@ -34,6 +34,7 @@ namespace BackToTheFutureV
             WormholeType = wormholeType;
 
             Components = ModState.On;
+            Bulova = ModState.Off;
             OffCoils = ModState.On;
             Hook = HookState.Off;
             Hood = HoodType.Stock;

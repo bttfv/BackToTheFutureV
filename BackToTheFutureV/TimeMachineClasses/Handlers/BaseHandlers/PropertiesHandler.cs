@@ -82,6 +82,7 @@ namespace BackToTheFutureV
         public bool BlockSparks { get; set; }
         public float Boost { get; set; }
         public bool IsWayback { get; set; }
+        public bool PlayerUsed { get; set; }
 
         public HUDProperties HUDProperties { get; set; } = new HUDProperties();
         public bool ForceSIDMax { get; set; }

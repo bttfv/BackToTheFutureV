@@ -192,6 +192,13 @@ namespace BackToTheFutureV
             LicensePlate = new AnimateProp(ModelHandler.LicensePlate, Vehicle, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
             LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(true, true, 90, 360 * 2 + 90, 1, 1440, 1, false);
             LicensePlate.SaveAnimation();
+
+            //Bulova clock
+            BulovaClockHour = new AnimateProp(ModelHandler.BulovaClockHour, Vehicle, "bulova_clock_ring_hands");
+            BulovaClockHour.SetOffset(new Vector3(0, 0.001f, 0));
+            BulovaClockMinute = new AnimateProp(ModelHandler.BulovaClockMinute, Vehicle, "bulova_clock_ring_hands");
+            BulovaClockRing = new AnimateProp(ModelHandler.BulovaClockRing, Vehicle, "bulova_clock");
+            BulovaClockRing[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(false, true, -10, 10, 1, 360, 1, false);
         }
 
         public override void Dispose()
@@ -270,13 +277,8 @@ namespace BackToTheFutureV
             //Bulova clock
             if (Mods.Bulova == InternalEnums.ModState.On && !BulovaReady)
             {
-                BulovaClockHour = new AnimateProp(ModelHandler.BulovaClockHour, Vehicle, "bulova_clock_ring_hands");
-                BulovaClockHour.SetOffset(new Vector3(0, 0.001f, 0));
                 BulovaClockHour.SpawnProp();
-                BulovaClockMinute = new AnimateProp(ModelHandler.BulovaClockMinute, Vehicle, "bulova_clock_ring_hands");
                 BulovaClockMinute.SpawnProp();
-                BulovaClockRing = new AnimateProp(ModelHandler.BulovaClockRing, Vehicle, "bulova_clock");
-                BulovaClockRing[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(false, true, -10, 10, 1, 360, 1, false);
                 BulovaClockRing.SpawnProp();
                 BulovaReady = true;
             }

@@ -19,6 +19,7 @@ namespace BackToTheFutureV
 
         private readonly NativeSubmenuItem rcMenu;
         private readonly NativeSubmenuItem outatimeMenu;
+        private readonly NativeSubmenuItem doorsMenu;
 
         private readonly NativeItem deleteCurrent;
         private readonly NativeItem deleteOthers;
@@ -43,7 +44,7 @@ namespace BackToTheFutureV
             deleteOthers = NewItem("RemoveOther");
             deleteAll = NewItem("RemoveAll");
 
-            NewSubmenu(MenuHandler.DoorsMenu);
+            doorsMenu = NewSubmenu(MenuHandler.DoorsMenu);
             NewSubmenu(MenuHandler.SettingsMenu);
         }
 
@@ -75,6 +76,8 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             convertIntoTimeMachine.Enabled = FusionUtils.PlayerVehicle.IsFunctioning() && !FusionUtils.PlayerVehicle.IsTimeMachine();
+
+            doorsMenu.Enabled = FusionUtils.PlayerPed?.GetClosestVehicle(5f)?.Model == ModelHandler.DMC12 && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsConsideredDestroyed;
 
             outatimeMenu.Enabled = RemoteTimeMachineHandler.RemoteTimeMachineCount > 0;
 
@@ -201,6 +204,7 @@ namespace BackToTheFutureV
                 Add(7, deleteOthers);
                 Add(8, deleteAll);
             }
+
             if (!MenuHandler.UnlockSpawnMenu)
             {
                 Remove(spawnBTTF);

@@ -19,8 +19,7 @@ namespace BackToTheFutureV
         private static readonly TimerBarProgress SignalBar;
 
         public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
-        public static List<RemoteTimeMachine> WaybackTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
-        public static int RemoteTimeMachineCount => RemoteTimeMachines.Count;
+        public static int RemoteTimeMachineCount => RemoteTimeMachines.Where(x => x.TimeMachineClone.Properties.IsWayback == false).ToList().Count;
 
         public static int MAX_REMOTE_TIMEMACHINES;
 
@@ -80,22 +79,10 @@ namespace BackToTheFutureV
                 RemoteTimeMachines[0].Dispose();
                 RemoteTimeMachines.RemoveAt(0);
             }
-            else if (WaybackTimeMachines.Count > MAX_REMOTE_TIMEMACHINES && timeMachineClone.Properties.IsWayback)
-            {
-                WaybackTimeMachines[0].Dispose();
-                WaybackTimeMachines.RemoveAt(0);
-            }
 
             RemoteTimeMachine timeMachine;
 
-            if (timeMachineClone.Properties.IsWayback)
-            {
-                WaybackTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
-            }
-            else
-            {
-                RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
-            }
+            RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
 
             if (ModSettings.PersistenceSystem)
             {
@@ -113,7 +100,6 @@ namespace BackToTheFutureV
         public static void Tick()
         {
             RemoteTimeMachines.ForEach(x => x.Tick());
-            WaybackTimeMachines.ForEach(x => x.Tick());
 
             if (!IsRemoteOn)
             {
@@ -142,8 +128,6 @@ namespace BackToTheFutureV
         {
             RemoteTimeMachines.ForEach(x => x.Dispose());
             RemoteTimeMachines.Clear();
-            WaybackTimeMachines.ForEach(x => x.Dispose());
-            WaybackTimeMachines.Clear();
 
             if (File.Exists(_saveFile))
             {
@@ -191,10 +175,6 @@ namespace BackToTheFutureV
         public static void Abort()
         {
             foreach (RemoteTimeMachine x in RemoteTimeMachines)
-            {
-                x?.Dispose();
-            }
-            foreach (RemoteTimeMachine x in WaybackTimeMachines)
             {
                 x?.Dispose();
             }
