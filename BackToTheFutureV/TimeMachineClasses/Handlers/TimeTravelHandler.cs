@@ -74,7 +74,7 @@ namespace BackToTheFutureV
             if (FusionUtils.PlayerVehicle == Vehicle && !Properties.IsRemoteControlled && !FusionUtils.HideGUI)
             {
                 FusionUtils.HideGUI = true;
-                Function.Call(Hash.DISABLE_ALL_CONTROL_ACTIONS, 0);
+                Game.Player.CanControlCharacter = false;
             }
 
             if (FusionUtils.PlayerPed.IsInVehicle(Vehicle))

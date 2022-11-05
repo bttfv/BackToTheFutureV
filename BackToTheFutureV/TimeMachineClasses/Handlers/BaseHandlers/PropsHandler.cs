@@ -282,7 +282,7 @@ namespace BackToTheFutureV
                 BulovaClockRing.SpawnProp();
                 BulovaReady = true;
             }
-            else if (Mods.Bulova == InternalEnums.ModState.Off)
+            else if (Mods.Bulova == InternalEnums.ModState.Off && BulovaReady)
             {
                 BulovaReady = false;
                 BulovaClockHour?.Dispose();
