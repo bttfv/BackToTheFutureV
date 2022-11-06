@@ -20,6 +20,7 @@ namespace BackToTheFutureV
             List.Add(new GarageInfo(GarageDoor.MichaelBeverlyHills, new Vector3(-814.3945f, 183.2831f, 71.48192f), (Hash)30769481, new Vector3(-810.57f, 187.76f, 71.62f), new Vector3(-0.31f, 0.20f, 110.14f), new Vector3(-806.37f, 186.49f, 74.63f), new Vector3(-31f, 0, 72.63f), new Vector3(-821.42f, 183.65f, 72.34f), new Vector3(3.84f, 0, -70.04f)));
             List.Add(new GarageInfo(GarageDoor.FranklinHills, new Vector3(19.32741f, 545.967f, 177.6564f), (Hash)2052512905, new Vector3(22.4f, 544.26f, 175.17f), new Vector3(-0.26f, 0.16f, 60.97f), new Vector3(24.2f, 539.52f, 177.9f), new Vector3(-30.55f, 0, 14.05f), new Vector3(13.57f, 549.12f, 175.94f), new Vector3(1.76f, 0, -120f)));
             List.Add(new GarageInfo(GarageDoor.TrevorCountryside, new Vector3(1972.225f, 3824.236f, 33.78944f), (Hash)67910261, new Vector3(1968.75f, 3821.97f, 31.54f), new Vector3(-0.38f, 0.18f, -59.2f), new Vector3(1963.65f, 3821.06f, 33.63f), new Vector3(-20.47f, 0, -81.32f), new Vector3(1976.77f, 3826.86f, 32.45f), new Vector3(-2.46f, 0, 119.5f)));
+            List.Add(new GarageInfo(GarageDoor.FranklinAunt, new Vector3(-27.77285f, -1430.651f, 28.82552f), (Hash)703855057, new Vector3(-25.54566f, -1426.892f, 30.27997f), new Vector3(0f, 0f, -180f), new Vector3(-25.2972f, -1436.952f, 30.6545f), new Vector3(0, 0, 1.480996f), new Vector3(-25.2972f, -1436.952f, 30.6545f), new Vector3(0, 0, 1.480996f)));
         }
 
         public GarageDoor GarageDoor { get; }

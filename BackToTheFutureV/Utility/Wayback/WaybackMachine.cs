@@ -192,15 +192,26 @@ namespace BackToTheFutureV
                     Function.Call<Vector3>(Hash.GET_ENTITY_COORDS, Main.SwitchedPed, true).LoadScene();
                     Function.Call(Hash.CHANGE_PLAYER_PED, Game.Player, Main.SwitchedPed, false, false);
                 }
-                if (FusionUtils.PlayerPed.IsInVehicle() && !FusionUtils.PlayerPed.IsLeavingVehicle())
+                if (FusionUtils.PlayerPed.IsInVehicle() && !(FusionUtils.PlayerVehicle.IsInAir || FusionUtils.PlayerVehicle.IsInWater) && FusionUtils.PlayerVehicle.Speed > 5 && Game.Player.CanControlCharacter)
+                {
+                    Game.Player.CanControlCharacter = false;
+                    Function.Call(Hash.TASK_VEHICLE_TEMP_ACTION, FusionUtils.PlayerPed, FusionUtils.PlayerVehicle, 24, 5000);
+                }
+                if (FusionUtils.PlayerPed.IsInVehicle() && !(FusionUtils.PlayerVehicle.IsInAir || FusionUtils.PlayerVehicle.IsInWater) && !FusionUtils.PlayerPed.IsLeavingVehicle() && FusionUtils.PlayerVehicle.Speed < 5)
                 {
                     Game.Player.CanControlCharacter = false;
                     FusionUtils.PlayerVehicle.IsPersistent = false;
                     FusionUtils.PlayerPed.Task.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
                     Main.SwitchedVehicle = null;
                 }
-                if (FusionUtils.PlayerPed.IsFullyOutVehicle())
+                if (FusionUtils.PlayerPed.IsFullyOutVehicle() || (FusionUtils.PlayerPed.IsInVehicle() && (FusionUtils.PlayerVehicle.IsInAir || FusionUtils.PlayerVehicle.IsInWater)))
                 {
+                    if (FusionUtils.PlayerPed.IsInVehicle() && (FusionUtils.PlayerVehicle.IsInAir || FusionUtils.PlayerVehicle.IsInWater))
+                    {
+                        Game.Player.CanControlCharacter = false;
+                        FusionUtils.PlayerVehicle.IsPersistent = false;
+                        Main.SwitchedVehicle = null;
+                    }
                     Script.Yield();
                     FusionUtils.PlayerPed.Kill();
                     Function.Call(Hash.TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME, "respawn_controller");

@@ -68,7 +68,7 @@ namespace BackToTheFutureV
 
         private void RcHandbrake_OnControlJustPressed()
         {
-            if (!Properties.IsRemoteControlled || Properties.IsFlying)
+            if (!Properties.IsRemoteControlled || Properties.IsFlying || !Vehicle.IsAutomobile)
             {
                 return;
             }
@@ -83,7 +83,7 @@ namespace BackToTheFutureV
                 Sounds.RCBrake?.Play();
                 SetForcedHandbrake();
 
-                if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Properties.IsFueled && Properties.AreTimeCircuitsOn)
+                if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Mods.Hoodbox == ModState.Off && Mods.Hook == HookState.Off && Mods.HoverUnderbody == ModState.Off && Mods.WormholeType == WormholeType.BTTF1 && Properties.IsFueled && Properties.AreTimeCircuitsOn)
                 {
                     Sounds.RCSomeSerious?.Stop();
                     Sounds.RCSomeSerious?.Play();
@@ -99,7 +99,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void SetForcedHandbrake(bool boost = true)
+        private void SetForcedHandbrake()
         {
             _forcedHandbrake = !_forcedHandbrake;
 
@@ -157,6 +157,7 @@ namespace BackToTheFutureV
             TimeMachine.OriginalPed.Health = StartHealth;
             Clone.IsInvincible = true;
             Clone.IsExplosionProof = true;
+            Clone.CanBeKnockedOffBike = true;
 
             _blip = TimeMachine.OriginalPed.AddBlip();
             _blip.Sprite = (BlipSprite)480;
@@ -294,6 +295,8 @@ namespace BackToTheFutureV
                 return;
             }
 
+            Game.DisableControlThisFrame(GTA.Control.Phone);
+
             DrawGUI();
 
             if (_handleBoost && _boostStarted && !Game.IsControlPressed(GTA.Control.VehicleAccelerate))
@@ -343,7 +346,7 @@ namespace BackToTheFutureV
             Function.Call(Hash.REQUEST_COLLISION_AT_COORD, carPos.X, carPos.Y, carPos.Z);
             if (!Driver.NotNullAndExists())
             {
-                RemoteTimeMachineHandler.StopRemoteControl();
+                Clone.SetIntoVehicle(Vehicle, VehicleSeat.Driver);
             }
             Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Driver);
             Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Driver);

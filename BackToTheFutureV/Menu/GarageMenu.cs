@@ -40,6 +40,30 @@ namespace BackToTheFutureV
             customMenu.Activated += CustomMenu_Activated;
         }
 
+        private void DoorCheck()
+        {
+            if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, FusionUtils.PlayerVehicle, 0) > 0f && FusionUtils.PlayerVehicle.Model == ModelHandler.DMC12)
+            {
+                Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, FusionUtils.PlayerVehicle, 0, false);
+            }
+            if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, FusionUtils.PlayerVehicle, 1) > 0f && FusionUtils.PlayerVehicle.Model == ModelHandler.DMC12)
+            {
+                Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, FusionUtils.PlayerVehicle, 1, false);
+            }
+            if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, FusionUtils.PlayerVehicle, 3) > 0f && FusionUtils.PlayerVehicle.Model == ModelHandler.DMC12)
+            {
+                Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, FusionUtils.PlayerVehicle, 3, false);
+            }
+            if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, FusionUtils.PlayerVehicle, 4) > 0f && FusionUtils.PlayerVehicle.Model == ModelHandler.DMC12)
+            {
+                Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, FusionUtils.PlayerVehicle, 4, false);
+            }
+            if (Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, FusionUtils.PlayerVehicle, 5) > 0f && FusionUtils.PlayerVehicle.Model == ModelHandler.DMC12)
+            {
+                Function.Call(Hash.SET_VEHICLE_DOOR_SHUT, FusionUtils.PlayerVehicle, 5, false);
+            }
+        }
+
         private void CustomMenu_Activated(object sender, EventArgs e)
         {
             GarageHandler.WaitForCustomMenu = true;
@@ -181,6 +205,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
+            DoorCheck();
             GarageHandler.WaitForCustomMenu = false;
 
             foreach (AudioPlayer audioPlayer in GarageSounds)
