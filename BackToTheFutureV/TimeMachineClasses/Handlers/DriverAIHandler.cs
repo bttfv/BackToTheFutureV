@@ -62,7 +62,7 @@ namespace BackToTheFutureV
 
         private void TaskTimeTravel()
         {
-            GTA.UI.Screen.ShowSubtitle($"{Step}");
+            //GTA.UI.Screen.ShowSubtitle($"{Step}");
 
             switch (Step)
             {

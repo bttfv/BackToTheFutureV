@@ -20,6 +20,7 @@ namespace BackToTheFutureV
 
         private Camera CarCam { get; set; }
         private bool CanBeSelected { get; set; }
+        private bool IsClosing { get; set; }
 
         public RCMenu() : base("RC")
         {
@@ -38,6 +39,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
+            IsClosing = false;
             timeMachinesList.Items = TimeMachineHandler.TimeMachines;
 
             CanBeSelected = TrySelectCar();
@@ -59,12 +61,17 @@ namespace BackToTheFutureV
 
         public override void Menu_Closing(object sender, CancelEventArgs e)
         {
+            IsClosing = true;
             StopPreviewing();
+            timeMachinesList.SelectedIndex = 0;
         }
 
         private void TimeMachinesList_ItemChanged(object sender, ItemChangedEventArgs<TimeMachine> e)
         {
-            CanBeSelected = TrySelectCar();
+            if (!IsClosing)
+            {
+                CanBeSelected = TrySelectCar();
+            }
         }
 
         private bool TrySelectCar()
