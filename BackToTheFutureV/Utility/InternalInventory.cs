@@ -33,7 +33,7 @@ namespace BackToTheFutureV
 
             set
             {
-                if (value >= 0 && value <= 5)
+                if (value >= 0 && value <= 12)
                 {
                     _plutonium = value;
                 }

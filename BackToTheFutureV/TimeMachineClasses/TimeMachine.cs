@@ -328,7 +328,7 @@ namespace BackToTheFutureV
                 if (Blip == null || !Blip.Exists())
                 {
                     Blip = Vehicle.AddBlip();
-                    Blip.Sprite = Mods.IsDMC12 ? BlipSprite.Deluxo : BlipSprite.PersonalVehicleCar;
+                    Blip.Sprite = Mods.IsDMC12 ? BlipSprite.Deluxo : BlipSprite.Stopwatch;
 
                     UpdateBlip();
                 }
@@ -365,38 +365,46 @@ namespace BackToTheFutureV
         {
             if (Blip != null && Blip.Exists())
             {
-                switch (Mods.WormholeType)
+                if (Mods.IsDMC12)
                 {
-                    case WormholeType.BTTF1:
-                        if (Mods.Hook == HookState.On || Mods.Hook == HookState.OnDoor)
-                        {
-                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1H");
-                            Blip.Color = BlipColor.NetPlayer20;
-                        }
-                        else
-                        {
-                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1");
-                            Blip.Color = BlipColor.NetPlayer22;
-                        }
-                        break;
+                    switch (Mods.WormholeType)
+                    {
+                        case WormholeType.BTTF1:
+                            if (Mods.Hook == HookState.On || Mods.Hook == HookState.OnDoor)
+                            {
+                                Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1H");
+                                Blip.Color = BlipColor.NetPlayer20;
+                            }
+                            else
+                            {
+                                Blip.Name = TextHandler.Me.GetLocalizedText("BTTF1");
+                                Blip.Color = BlipColor.NetPlayer22;
+                            }
+                            break;
 
-                    case WormholeType.BTTF2:
-                        Blip.Name = TextHandler.Me.GetLocalizedText("BTTF2");
-                        Blip.Color = BlipColor.NetPlayer21;
-                        break;
+                        case WormholeType.BTTF2:
+                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF2");
+                            Blip.Color = BlipColor.NetPlayer21;
+                            break;
 
-                    case WormholeType.BTTF3:
-                        if (Mods.Wheel == WheelType.RailroadInvisible)
-                        {
-                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF3RR");
-                            Blip.Color = BlipColor.Orange;
-                        }
-                        else
-                        {
-                            Blip.Name = TextHandler.Me.GetLocalizedText("BTTF3");
-                            Blip.Color = BlipColor.Red;
-                        }
-                        break;
+                        case WormholeType.BTTF3:
+                            if (Mods.Wheel == WheelType.RailroadInvisible)
+                            {
+                                Blip.Name = TextHandler.Me.GetLocalizedText("BTTF3RR");
+                                Blip.Color = BlipColor.Orange;
+                            }
+                            else
+                            {
+                                Blip.Name = TextHandler.Me.GetLocalizedText("BTTF3");
+                                Blip.Color = BlipColor.Red;
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    Blip.Name = FusionUtils.AllVehiclesModels.Find(x => x.Hash == (Hash)Vehicle.Model.Hash).DisplayName;
+                    Blip.Color = BlipColor.Yellow;
                 }
             }
         }

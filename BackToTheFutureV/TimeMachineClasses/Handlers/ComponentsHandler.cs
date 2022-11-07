@@ -18,6 +18,7 @@ namespace BackToTheFutureV
 
         public ComponentsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
+            Events.OnReenterStarted += OnReenterStarted;
             Events.OnReenterEnded += OnReenterEnded;
             Events.OnVehicleSpawned += OnReenterEnded;
             Events.SetHoodboxWarmedUp += Instant;
@@ -26,21 +27,24 @@ namespace BackToTheFutureV
             OnDayNightChange();
         }
 
-        public void OnReenterEnded()
+        public void OnReenterStarted()
         {
-            if (Mods.HoverUnderbody == ModState.On)
-            {
-                Properties.CanConvert = true;
-            }
-
             if (Mods.Plate == PlateType.Outatime && !Properties.IsFlying)
             {
                 Mods.Plate = PlateType.Empty;
             }
 
-            if (Mods.Hook == HookState.On)
+            if (Mods.Hook == HookState.On && Properties.HasBeenStruckByLightning)
             {
                 Mods.Hook = HookState.Removed;
+            }
+        }
+
+        public void OnReenterEnded()
+        {
+            if (Mods.HoverUnderbody == ModState.On)
+            {
+                Properties.CanConvert = true;
             }
 
             if (Mods.IsDMC12 && Properties.IsFlying && Mods.Reactor == ReactorType.MrFusion)

@@ -30,16 +30,68 @@ namespace BackToTheFutureV
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
         {
-            if (sender == WormholeLength)
+            switch (sender)
             {
+                case NativeItem _ when sender == WormholeLength:
+                    bool ret = int.TryParse(Game.GetUserInput(WindowTitle.EnterMessage20, CurrentTimeMachine.Properties.OverrideWormholeLengthTime.ToString(), 4), out int num);
 
-                bool ret = int.TryParse(Game.GetUserInput(WindowTitle.EnterMessage20, CurrentTimeMachine.Properties.OverrideWormholeLengthTime.ToString(), 4), out int num);
+                    if (ret)
+                    {
+                        CurrentTimeMachine.Properties.OverrideWormholeLengthTime = num;
+                        CurrentTimeMachine.Properties.OverrideSet = true;
+                    }
+                    break;
+                case NativeSliderItem _ when sender == SIDSpeed:
+                    bool ret2 = int.TryParse(Game.GetUserInput(WindowTitle.EnterMessage20, CurrentTimeMachine.Properties.OverrideSIDSpeed.ToString(), 3), out int num2);
+                    if (num2 < 0)
+                    {
+                        num2 = 0;
+                    }
+                    else if (num2 > 200)
+                    {
+                        num2 = 200;
+                    }
 
-                if (ret)
-                {
-                    CurrentTimeMachine.Properties.OverrideWormholeLengthTime = num;
-                    CurrentTimeMachine.Properties.OverrideSet = true;
-                }
+                    if (ret2)
+                    {
+                        CurrentTimeMachine.Properties.OverrideSIDSpeed = num2;
+                        CurrentTimeMachine.Properties.OverrideSet = true;
+                    }
+                    break;
+                case NativeSliderItem _ when sender == TTSfxSpeed:
+                    bool ret3 = int.TryParse(Game.GetUserInput(WindowTitle.EnterMessage20, CurrentTimeMachine.Properties.OverrideTTSfxSpeed.ToString(), 3), out int num3);
+                    if (num3 < 0)
+                    {
+                        num3 = 0;
+                    }
+                    else if (num3 > 200)
+                    {
+                        num3 = 200;
+                    }
+
+                    if (ret3)
+                    {
+                        CurrentTimeMachine.Properties.OverrideTTSfxSpeed = num3;
+                        CurrentTimeMachine.Properties.OverrideSet = true;
+                    }
+                    break;
+                case NativeSliderItem _ when sender == TTSpeed:
+                    bool ret4 = int.TryParse(Game.GetUserInput(WindowTitle.EnterMessage20, CurrentTimeMachine.Properties.OverrideTTSpeed.ToString(), 3), out int num4);
+                    if (num4 < 0)
+                    {
+                        num4 = 0;
+                    }
+                    else if (num4 > 200)
+                    {
+                        num4 = 200;
+                    }
+
+                    if (ret4)
+                    {
+                        CurrentTimeMachine.Properties.OverrideTTSpeed = num4;
+                        CurrentTimeMachine.Properties.OverrideSet = true;
+                    }
+                    break;
             }
         }
 
@@ -78,14 +130,13 @@ namespace BackToTheFutureV
         public override void Menu_Shown(object sender, EventArgs e)
         {
             OverrideCheckbox.Checked = CurrentTimeMachine.Properties.OverrideTimeTravelConstants;
-
-            SIDSpeed.Value = CurrentTimeMachine.Properties.OverrideSIDSpeed;
-            TTSfxSpeed.Value = CurrentTimeMachine.Properties.OverrideTTSfxSpeed;
-            TTSpeed.Value = CurrentTimeMachine.Properties.OverrideTTSpeed;
         }
 
         public override void Tick()
         {
+            SIDSpeed.Value = CurrentTimeMachine.Properties.OverrideSIDSpeed;
+            TTSfxSpeed.Value = CurrentTimeMachine.Properties.OverrideTTSfxSpeed;
+            TTSpeed.Value = CurrentTimeMachine.Properties.OverrideTTSpeed;
             SIDSpeed.Title = $"{GetItemTitle("SID")}: {SIDSpeed.Value}";
             TTSfxSpeed.Title = $"{GetItemTitle("TTSfx")}: {TTSfxSpeed.Value}";
             TTSpeed.Title = $"{GetItemTitle("TT")}: {TTSpeed.Value}";

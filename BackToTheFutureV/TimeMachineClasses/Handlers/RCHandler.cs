@@ -158,6 +158,7 @@ namespace BackToTheFutureV
             Clone.IsInvincible = true;
             Clone.IsExplosionProof = true;
             Clone.CanBeKnockedOffBike = true;
+            Clone.CanWearHelmet = false;
 
             _blip = TimeMachine.OriginalPed.AddBlip();
             _blip.Sprite = (BlipSprite)480;
