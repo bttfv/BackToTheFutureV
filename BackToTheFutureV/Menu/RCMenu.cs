@@ -21,6 +21,7 @@ namespace BackToTheFutureV
         private Camera CarCam { get; set; }
         private bool CanBeSelected { get; set; }
         private bool IsClosing { get; set; }
+        private bool IsSelected { get; set; }
 
         public RCMenu() : base("RC")
         {
@@ -39,6 +40,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
+            IsSelected = false;
             IsClosing = false;
             timeMachinesList.Items = TimeMachineHandler.TimeMachines;
 
@@ -52,8 +54,10 @@ namespace BackToTheFutureV
                 case NativeItem _ when sender == timeMachinesList:
                     if (CanBeSelected)
                     {
+                        IsSelected = true;
                         Visible = false;
                         RemoteTimeMachineHandler.StartRemoteControl(CurrentTimeMachine);
+                        timeMachinesList.SelectedIndex = 0;
                     }
                     break;
             }
@@ -63,7 +67,10 @@ namespace BackToTheFutureV
         {
             IsClosing = true;
             StopPreviewing();
-            timeMachinesList.SelectedIndex = 0;
+            if (!IsSelected)
+            {
+                timeMachinesList.SelectedIndex = 0;
+            }
         }
 
         private void TimeMachinesList_ItemChanged(object sender, ItemChangedEventArgs<TimeMachine> e)
