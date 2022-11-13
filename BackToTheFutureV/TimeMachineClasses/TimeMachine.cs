@@ -276,10 +276,10 @@ namespace BackToTheFutureV
                 Vehicle.LockStatus = VehicleLockStatus.None;
             }
 
-            Vehicle.IsRadioEnabled = false;
-
             if (Mods.IsDMC12)
             {
+                Vehicle.IsRadioEnabled = false;
+
                 //In certain situations car can't be entered after hover transformation, here is forced enter task.
                 if (FusionUtils.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(FusionUtils.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
                 {

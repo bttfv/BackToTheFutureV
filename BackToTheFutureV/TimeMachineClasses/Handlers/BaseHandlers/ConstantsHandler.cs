@@ -284,7 +284,7 @@ namespace BackToTheFutureV
             {
                 TimeTravelCooldown += Game.LastFrameTime;
 
-                if (TimeTravelCooldown >= 30)
+                if (TimeTravelCooldown >= 30 && !Properties.IsFreezed)
                 {
                     if (Mods.IsDMC12)
                         DMC12.SetVoltValue?.Invoke(50);
@@ -305,10 +305,13 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Vehicle.GetMPHSpeed() >= SIDMaxAtSpeed && !OverSIDMaxAtSpeed && Vehicle.CurrentGear > 0)
+            if (Vehicle.GetMPHSpeed() >= SIDMaxAtSpeed && !OverSIDMaxAtSpeed)
             {
-                OverSIDMaxAtSpeed = true;
-                Events.OnSIDMaxSpeedReached?.Invoke(true);
+                if ((Vehicle == FusionUtils.PlayerVehicle && Vehicle.CurrentGear > 0) || Vehicle != FusionUtils.PlayerVehicle)
+                {
+                    OverSIDMaxAtSpeed = true;
+                    Events.OnSIDMaxSpeedReached?.Invoke(true);
+                }
             }
 
             if (Vehicle.GetMPHSpeed() < SIDMaxAtSpeed && OverSIDMaxAtSpeed)
@@ -320,10 +323,13 @@ namespace BackToTheFutureV
                 Events.OnSIDMaxSpeedReached?.Invoke(false);
             }
 
-            if (Vehicle.GetMPHSpeed() >= WormholeAtSpeed && !OverWormholeAtSpeed && Vehicle.CurrentGear > 0)
+            if (Vehicle.GetMPHSpeed() >= WormholeAtSpeed && !OverWormholeAtSpeed)
             {
-                OverWormholeAtSpeed = true;
-                Events.OnTimeTravelSpeedReached?.Invoke(true);
+                if ((Vehicle == FusionUtils.PlayerVehicle && Vehicle.CurrentGear > 0) || Vehicle != FusionUtils.PlayerVehicle)
+                {
+                    OverWormholeAtSpeed = true;
+                    Events.OnTimeTravelSpeedReached?.Invoke(true);
+                }
             }
 
             if (Vehicle.GetMPHSpeed() < WormholeAtSpeed && OverWormholeAtSpeed)
@@ -332,12 +338,15 @@ namespace BackToTheFutureV
                 Events.OnTimeTravelSpeedReached?.Invoke(false);
             }
 
-            if (Vehicle.GetMPHSpeed() >= TimeTravelAtSpeed && !OverTimeTravelAtSpeed && Vehicle.CurrentGear > 0)
+            if (Vehicle.GetMPHSpeed() >= TimeTravelAtSpeed && !OverTimeTravelAtSpeed)
             {
-                TimeTravelAtTime = Game.GameTime + WormholeLengthTime;
-                StabilizationSoundAtTime = Game.GameTime + 1000;
+                if ((Vehicle == FusionUtils.PlayerVehicle && Vehicle.CurrentGear > 0) || Vehicle != FusionUtils.PlayerVehicle)
+                {
+                    TimeTravelAtTime = Game.GameTime + WormholeLengthTime;
+                    StabilizationSoundAtTime = Game.GameTime + 1000;
 
-                OverTimeTravelAtSpeed = true;
+                    OverTimeTravelAtSpeed = true;
+                }
             }
 
             if (Vehicle.GetMPHSpeed() < TimeTravelAtSpeed && OverTimeTravelAtSpeed)
