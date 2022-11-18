@@ -163,8 +163,8 @@ namespace BackToTheFutureV
 
             if (FusionUtils.PlayerVehicle == Vehicle)
             {
-                Function.Call(Hash.DISABLE_CONTROL_ACTION, 31, 337, true);
-
+                Game.DisableControlThisFrame(Control.VehicleHydraulicsControlToggle);
+                Function.Call(Hash.ENABLE_VEHICLE_EXHAUST_POPS, Vehicle, false);
                 HandleDucking();
             }
 
