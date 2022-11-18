@@ -266,11 +266,11 @@
             <Item>dlc_bttf:/%PLATFORM%/scaleform/wormhole_bttf3.rpf</Item>
             <Item>dlc_bttf:/%PLATFORM%/scaleform/wormhole_bttf3.ityp</Item>
             <!-- data -->
-            <Item>dlc_bttfCRC:/common/data/handling.meta</Item>
             <Item>dlc_bttfCRC:/common/data/levels/gta5/vehicles.meta</Item>
             <Item>dlc_bttfCRC:/common/data/carcols.meta</Item>
             <Item>dlc_bttfCRC:/common/data/carvariations.meta</Item>
             <Item>dlc_bttfCRC:/common/data/dlctext.meta</Item>
+            <Item>dlc_bttfCRC:/common/data/handling.meta</Item>
             <!-- vehicles -->
             <Item>dlc_bttf:/%PLATFORM%/vehicles.rpf</Item>
          </filesToEnable>
