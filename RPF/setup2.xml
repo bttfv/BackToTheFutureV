@@ -2,7 +2,7 @@
 <SSetupData>
   <deviceName>dlc_bttf</deviceName>
   <datFile>content.xml</datFile>
-  <timeStamp>10/21/1985 01:20:00</timeStamp>
+  <timeStamp>11/17/2022 22:55:24</timeStamp> <!-- MM/DD, UTC -03 -->
   <nameHash>bttf</nameHash>
   <contentChangeSets />
   <contentChangeSetGroups>
@@ -20,6 +20,6 @@
   <minorOrder value="0" />
   <isLevelPack value="false" />
   <dependencyPackHash />
-  <requiredVersion />
+  <requiredVersion>2372</requiredVersion>
   <subPackCount value="0" />
 </SSetupData>

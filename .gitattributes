@@ -1,3 +1,5 @@
+# Auto detect text files and perform LF normalization
+* text=auto
 # Use XML syntax highlighting for R* META files
 *.meta linguist-language=XML
 # PSO file support

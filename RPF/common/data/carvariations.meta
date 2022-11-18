@@ -6,12 +6,12 @@
          <colors>
             <Item>
                <indices content="char_array">
-                  119
-				      3
-				      134
-				      24
-				      3
-				      0
+					119
+				    3
+				    134
+				    24
+				    3
+				    0
                </indices>
                <liveries>
                   <Item value="false" />
