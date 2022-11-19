@@ -31,7 +31,7 @@ namespace BackToTheFutureV
             InteractionMenu1 = Control.VehicleHandbrake;
             InteractionMenu2 = Control.CharacterWheel;
             LongPressForHover = true;
-            Hover = Control.VehicleFlyTransform;
+            Hover = Control.QuadLocoReverse;
             HoverBoost = Control.VehicleHandbrake;
             HoverVTOL = Control.VehicleAim;
             HoverAltitudeHold = Keys.G;
