@@ -34,6 +34,9 @@ namespace BackToTheFutureV
         private readonly AnimateProp suspensionRightFront;
         private readonly AnimateProp suspensionRightRear;
 
+        private Vector3 InteriorLightOnPose;
+        private Vector3 InteriorLightOffPose = new Vector3(0f, 0f, -2500f);
+
         private float voltLevel = 50f;
 
         private float rpmRotation;
@@ -76,6 +79,8 @@ namespace BackToTheFutureV
             Vehicle = vehicle;
 
             Mods = new DMC12Mods(Vehicle);
+
+            InteriorLightOnPose = Vehicle.Bones["interiorlight"].Pose;
 
             rpmNeedle = new AnimateProp(ModelHandler.RPMNeedle, Vehicle, "rpm_needle");
             speedNeedle = new AnimateProp(ModelHandler.SpeedNeedle, Vehicle, "speed_needle");
@@ -159,6 +164,15 @@ namespace BackToTheFutureV
                 DMC12Handler.RemoveDelorean(this, false);
 
                 return;
+            }
+
+            if (!Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen && !Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen && Vehicle.Bones["interiorlight"].Pose != InteriorLightOffPose)
+            {
+                Vehicle.Bones["interiorlight"].Pose = InteriorLightOffPose;
+            }
+            else if ((Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen || Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen) && Vehicle.Bones["interiorlight"].Pose != InteriorLightOnPose)
+            {
+                Vehicle.Bones["interiorlight"].Pose = InteriorLightOnPose;
             }
 
             if (FusionUtils.PlayerVehicle == Vehicle)
