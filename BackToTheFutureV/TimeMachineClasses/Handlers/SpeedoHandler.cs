@@ -34,13 +34,13 @@ namespace BackToTheFutureV
 
             if (Mods.IsDMC12)
             {
-                if (!Properties.ThreeDigitsSpeedo && !Props.SpeedoCover.IsSpawned)
+                if (Mods.Speedo == ModState.Off && !Props.SpeedoCover.IsSpawned)
                 {
                     Props.SpeedoCover.SpawnProp();
                     currentSpeed = -1;
                 }
 
-                if (Properties.ThreeDigitsSpeedo && Props.SpeedoCover.IsSpawned)
+                if (Mods.Speedo == ModState.On && Props.SpeedoCover.IsSpawned)
                 {
                     Props.SpeedoCover.Delete();
                     currentSpeed = -1;
@@ -100,7 +100,7 @@ namespace BackToTheFutureV
             scaleform.CallFunction("SET_DIGIT_1", digit1 == 0 ? 10 : digit1);
             scaleform.CallFunction("SET_DIGIT_2", digit2);
 
-            if (Properties.ThreeDigitsSpeedo)
+            if (Mods.Speedo == ModState.On)
             {
                 scaleform.CallFunction("SET_DIGIT_3", digit3);
             }

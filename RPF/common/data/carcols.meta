@@ -82,6 +82,21 @@
 					<allowBonnetSlide value="true"/>
 				</Item>
 				<Item>
+					<modelName>bttf_interior_speedo_cover</modelName>
+					<modShopLabel>VMT_INTERIOR3</modShopLabel>
+					<linkedModels/>
+					<turnOffBones/>
+					<type>VMT_INTERIOR3</type>
+					<bone>chassis</bone>
+					<collisionBone>chassis</collisionBone>
+					<cameraPos>VMCP_DEFAULT</cameraPos>
+					<audioApply value="1.000000"/>
+					<weight value="20"/>
+					<turnOffExtra value="false"/>
+					<disableBonnetCamera value="false"/>
+					<allowBonnetSlide value="true"/>
+				</Item>
+				<Item>
 					<modelName>bttf3_bumper</modelName>
 					<modShopLabel>MNU_BUMF1</modShopLabel>
 					<linkedModels/>

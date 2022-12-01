@@ -29,7 +29,6 @@ namespace BackToTheFutureV
 
             _hook = NewCheckboxItem("Hook");
             _bulova = NewCheckboxItem("Bulova");
-
             _threeDigits = NewCheckboxItem("Speedo");
 
             _plate = NewLocalizedListItem("Plate", "Empty", "Outatime", "Futuristic", "NoTime", "Timeless", "Timeless2", "DMCFactory", "DMCFactory2");
@@ -141,17 +140,17 @@ namespace BackToTheFutureV
 
         private void LoadVehicleMods()
         {
-            _wormholeType.SelectedIndex = (int)(CurrentTimeMachine.Mods.WormholeType) - 1;
+            _wormholeType.SelectedIndex = (int)CurrentTimeMachine.Mods.WormholeType - 1;
 
             if (CurrentTimeMachine.Mods.IsDMC12)
             {
                 _hook.Checked = CurrentTimeMachine.Mods.Hook != HookState.Off;
                 _bulova.Checked = CurrentTimeMachine.Mods.Bulova == ModState.On;
-                _plate.SelectedIndex = (int)(CurrentTimeMachine.Mods.Plate) + 1;
-                _exhaust.SelectedIndex = (int)(CurrentTimeMachine.Mods.Exhaust) + 1;
+                _plate.SelectedIndex = (int)CurrentTimeMachine.Mods.Plate + 1;
+                _exhaust.SelectedIndex = (int)CurrentTimeMachine.Mods.Exhaust + 1;
                 _suspensions.SelectedIndex = (int)CurrentTimeMachine.Mods.SuspensionsType;
                 _hood.SelectedIndex = (int)CurrentTimeMachine.Mods.Hood + 1;
-                _threeDigits.Checked = CurrentTimeMachine.Properties.ThreeDigitsSpeedo;
+                _threeDigits.Checked = CurrentTimeMachine.Mods.Speedo != ModState.Off;
                 _exhaust.Enabled = CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off;
                 _suspensions.Enabled = CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off;
             }
@@ -223,8 +222,14 @@ namespace BackToTheFutureV
             else if (sender == _threeDigits)
             {
                 CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.DigitalSpeedo, FusionEnums.CameraSwitchType.Instant, 1250);
-                CurrentTimeMachine.Properties.ThreeDigitsSpeedo = !Checked;
-                CurrentTimeMachine.Properties.HUDProperties.ThreeDigitsSpeedo = !Checked;
+                if (Checked)
+                {
+                    CurrentTimeMachine.Mods.Speedo = ModState.On;
+                }
+                else
+                {
+                    CurrentTimeMachine.Mods.Speedo = ModState.Off;
+                }
             }
             else if (sender == _bulova)
             {

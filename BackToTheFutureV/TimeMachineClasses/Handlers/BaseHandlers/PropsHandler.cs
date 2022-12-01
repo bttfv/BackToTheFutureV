@@ -285,9 +285,9 @@ namespace BackToTheFutureV
             else if (Mods.Bulova == InternalEnums.ModState.Off && BulovaReady)
             {
                 BulovaReady = false;
-                BulovaClockHour?.Dispose();
-                BulovaClockMinute?.Dispose();
-                BulovaClockRing?.Dispose();
+                BulovaClockHour?.Delete();
+                BulovaClockMinute?.Delete();
+                BulovaClockRing?.Delete();
             }
         }
 

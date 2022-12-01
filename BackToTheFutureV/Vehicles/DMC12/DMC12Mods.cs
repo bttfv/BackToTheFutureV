@@ -21,8 +21,58 @@ namespace BackToTheFutureV
 
             CVehicle = new CVehicle(vehicle);
 
+            bool wasReloaded = WheelStartOffsets.Count == 0 && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != (SuspensionsType.Unknown | SuspensionsType.Stock);
+
             foreach (KeyValuePair<VehicleWheelBoneId, CWheel> cWheel in CVehicle.Wheels)
                 WheelStartOffsets.Add(cWheel.Key, cWheel.Value.RelativePosition.Get());
+
+            if (wasReloaded)
+            {
+                switch ((SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index)
+                {
+                    case SuspensionsType.LiftFrontLowerRear:
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z - 0.05f);
+                        break;
+                    case SuspensionsType.LiftFront:
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z + 0.1f);
+                        break;
+                    case SuspensionsType.LiftRear:
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z + 0.1f);
+                        break;
+                    case SuspensionsType.LiftFrontAndRear:
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z + 0.1f);
+                        break;
+                    case SuspensionsType.LowerFrontLiftRear:
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z + 0.1f);
+                        break;
+                    case SuspensionsType.LowerFront:
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z - 0.05f);
+                        break;
+                    case SuspensionsType.LowerRear:
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z - 0.05f);
+                        break;
+                    case SuspensionsType.LowerFrontAndRear:
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z - 0.05f);
+                        break;
+
+                }
+            }
 
             IsDMC12 = Vehicle.Model == ModelHandler.DMC12;
 
@@ -155,7 +205,25 @@ namespace BackToTheFutureV
             {
                 base.Bulova = value;
 
-                Vehicle.Mods[VehicleModType.RightFender].Index = (int)value;
+                if (IsDMC12)
+                {
+                    Vehicle.Mods[VehicleModType.RightFender].Index = (int)value;
+                }
+            }
+        }
+
+        public new ModState Speedo
+        {
+            get => base.Speedo;
+
+            set
+            {
+                base.Speedo = value;
+
+                if (IsDMC12)
+                {
+                    Vehicle.Mods[VehicleModType.Dashboard].Index = (int)value;
+                }
             }
         }
 

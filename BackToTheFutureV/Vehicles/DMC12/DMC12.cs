@@ -275,7 +275,7 @@ namespace BackToTheFutureV
                 suspensionRightRear?.Delete();
             }
 
-            if (Vehicle.IsAnyDoorOpen())
+            if (Vehicle.IsEngineRunning && (Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen || Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen))
             {
                 doorIndicator.SpawnProp();
             }

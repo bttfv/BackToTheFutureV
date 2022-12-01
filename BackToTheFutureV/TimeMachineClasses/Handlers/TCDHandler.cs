@@ -386,6 +386,15 @@ namespace BackToTheFutureV
                 }
             }
         }
+        private bool ConvertFromModState(ModState value)
+        {
+            if (value == ModState.On)
+            {
+                return true;
+            }
+
+            return false;
+        }
 
         private void DrawGUI()
         {
@@ -394,7 +403,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            ScaleformsHandler.GUI.SetSpeedoBackground(Properties.ThreeDigitsSpeedo);
+            ScaleformsHandler.GUI.SetSpeedoBackground(ConvertFromModState(Mods.Speedo));
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
             ScaleformsHandler.GUI.SetEmpty(Properties.HUDProperties.Empty);
             ScaleformsHandler.GUI.Draw2D();

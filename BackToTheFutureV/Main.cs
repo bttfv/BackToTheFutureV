@@ -8,6 +8,7 @@ using Screen = GTA.UI.Screen;
 
 namespace BackToTheFutureV
 {
+    [ScriptAttributes(Author = "BTTFV Team", SupportURL = "https://discord.gg/MGpmPhSDYR")]
     internal class Main : Script
     {
         public static Version Version => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;

@@ -34,7 +34,6 @@ namespace BackToTheFutureV
         public bool HasBeenStruckByLightning { get; set; }
         public Vector3 TimeTravelDestPos { get; set; } = Vector3.Zero;
         public int TimeTravelsCount { get; set; }
-        public bool ThreeDigitsSpeedo { get; set; }
         public ReactorState ReactorState { get; set; } = ReactorState.Closed;
         public bool OverrideTimeTravelConstants { get; set; }
         public bool OverrideSet { get; set; }
@@ -127,7 +126,6 @@ namespace BackToTheFutureV
                 HasBeenStruckByLightning = HasBeenStruckByLightning,
                 TimeTravelDestPos = TimeTravelDestPos,
                 TimeTravelsCount = TimeTravelsCount,
-                ThreeDigitsSpeedo = ThreeDigitsSpeedo,
                 ReactorState = ReactorState,
                 OverrideTimeTravelConstants = OverrideTimeTravelConstants,
                 OverrideSet = OverrideSet,
@@ -167,7 +165,6 @@ namespace BackToTheFutureV
             timeMachine.Properties.HasBeenStruckByLightning = HasBeenStruckByLightning;
             timeMachine.Properties.TimeTravelDestPos = TimeTravelDestPos;
             timeMachine.Properties.TimeTravelsCount = TimeTravelsCount;
-            timeMachine.Properties.ThreeDigitsSpeedo = ThreeDigitsSpeedo;
             timeMachine.Properties.OverrideTimeTravelConstants = OverrideTimeTravelConstants;
             timeMachine.Properties.OverrideSet = OverrideSet;
             timeMachine.Properties.OverrideSIDSpeed = OverrideSIDSpeed;
@@ -200,11 +197,6 @@ namespace BackToTheFutureV
             if (ReactorCharge != timeMachine.Properties.ReactorCharge)
             {
                 timeMachine.Properties.ReactorCharge = ReactorCharge;
-            }
-
-            if (ThreeDigitsSpeedo != timeMachine.Properties.ThreeDigitsSpeedo)
-            {
-                timeMachine.Properties.ThreeDigitsSpeedo = ThreeDigitsSpeedo;
             }
 
             if (PreviousTime != timeMachine.Properties.PreviousTime)

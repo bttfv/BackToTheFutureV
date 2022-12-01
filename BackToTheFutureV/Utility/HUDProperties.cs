@@ -14,7 +14,6 @@ namespace BackToTheFutureV
         public bool IsTickVisible { get; set; } = false;
         public EmptyType Empty { get; set; } = EmptyType.Hide;
         public int Speed { get; set; } = 0;
-        public bool ThreeDigitsSpeedo { get; set; }
 
         public bool[] MonthVisible { get; set; } = new bool[3];
         public bool[] DayVisible { get; set; } = new bool[3];

@@ -50,12 +50,12 @@ namespace BackToTheFutureV
             new MomentReplica(new DateTime(2015, 10, 22, 7, 0, 0)) { Weather = Weather.Raining, TransitionWeather = true, MomentDuration = 23, ResetWanted = false };
             new MomentReplica(new DateTime(2015, 10, 22, 7, 26, 0)) { Weather = Weather.Clearing, TransitionWeather = true, MomentDuration = 3, ResetWanted = false };
 
-            _length = MomentReplica.MomentReplicas.Count - 1;
+            _length = MomentReplica.MomentReplicas.Count;
         }
 
         public static void Tick()
         {
-            for (int x = 0; x <= _length; x++)
+            for (int x = 0; x < _length; x++)
             {
                 if (MomentReplica.MomentReplicas[x].IsNow())
                 {

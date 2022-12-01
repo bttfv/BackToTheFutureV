@@ -195,7 +195,7 @@ namespace BackToTheFutureV
                 if (FusionUtils.PlayerPed.IsInVehicle() && !(FusionUtils.PlayerVehicle.IsInAir || FusionUtils.PlayerVehicle.IsInWater) && FusionUtils.PlayerVehicle.Speed > 5 && Game.Player.CanControlCharacter)
                 {
                     Game.Player.CanControlCharacter = false;
-                    Function.Call(Hash.TASK_VEHICLE_TEMP_ACTION, FusionUtils.PlayerPed, FusionUtils.PlayerVehicle, 24, 5000);
+                    Function.Call(Hash.TASK_VEHICLE_TEMP_ACTION, FusionUtils.PlayerPed, FusionUtils.PlayerVehicle, FusionEnums.DriveAction.BrakeStrong, 5000);
                 }
                 if (FusionUtils.PlayerPed.IsInVehicle() && !(FusionUtils.PlayerVehicle.IsInAir || FusionUtils.PlayerVehicle.IsInWater) && !FusionUtils.PlayerPed.IsLeavingVehicle() && FusionUtils.PlayerVehicle.Speed < 5)
                 {
@@ -212,6 +212,12 @@ namespace BackToTheFutureV
                         FusionUtils.PlayerVehicle.IsPersistent = false;
                         Main.SwitchedVehicle = null;
                     }
+                    Function.Call(Hash.SET_PED_DROPS_WEAPON, FusionUtils.PlayerPed);
+                    FusionUtils.PlayerPed.Weapons.RemoveAll();
+                    foreach (WeaponReplica x in Main.ResetPed.Weapons)
+                    {
+                        x.Give(FusionUtils.PlayerPed);
+                    }
                     Script.Yield();
                     FusionUtils.PlayerPed.Kill();
                     Function.Call(Hash.TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME, "respawn_controller");
@@ -219,7 +225,7 @@ namespace BackToTheFutureV
                     Function.Call(Hash.PAUSE_DEATH_ARREST_RESTART, true);
                     WaybackSystem.Paradox = true;
                     WaybackSystem.paradoxDelay = Game.GameTime + 3600;
-                    ScreenFade.FadeOut(8000, 1000, 0);
+                    GTA.UI.Screen.FadeOut(8000);
                     WaybackSystem.Abort();
                 }
             }

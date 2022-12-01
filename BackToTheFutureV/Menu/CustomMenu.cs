@@ -143,7 +143,7 @@ namespace BackToTheFutureV
 
         private void LoadVehicleMods()
         {
-            _wormholeType.SelectedIndex = (int)(CurrentTimeMachine.Mods.WormholeType) - 1;
+            _wormholeType.SelectedIndex = (int)CurrentTimeMachine.Mods.WormholeType - 1;
             _hoverUnderbody.Checked = ConvertFromModState(CurrentTimeMachine.Mods.HoverUnderbody);
 
             if (CurrentTimeMachine.Mods.IsDMC12)
@@ -153,11 +153,11 @@ namespace BackToTheFutureV
                 _hoodBox.Checked = ConvertFromModState(CurrentTimeMachine.Mods.Hoodbox);
                 _hook.Checked = CurrentTimeMachine.Mods.Hook != HookState.Off;
                 _bulova.Checked = CurrentTimeMachine.Mods.Bulova == ModState.On;
-                _plate.SelectedIndex = (int)(CurrentTimeMachine.Mods.Plate) + 1;
-                _exhaust.SelectedIndex = (int)(CurrentTimeMachine.Mods.Exhaust) + 1;
+                _plate.SelectedIndex = (int)CurrentTimeMachine.Mods.Plate + 1;
+                _exhaust.SelectedIndex = (int)CurrentTimeMachine.Mods.Exhaust + 1;
                 _suspensions.SelectedIndex = (int)CurrentTimeMachine.Mods.SuspensionsType;
                 _hood.SelectedIndex = (int)CurrentTimeMachine.Mods.Hood + 1;
-                _threeDigits.Checked = CurrentTimeMachine.Properties.ThreeDigitsSpeedo;
+                _threeDigits.Checked = CurrentTimeMachine.Mods.Speedo != ModState.Off;
                 _wheelsType.Enabled = !CurrentTimeMachine.Properties.IsFlying;
                 _exhaust.Enabled = !CurrentTimeMachine.Properties.IsFlying;
                 _suspensions.Enabled = !CurrentTimeMachine.Properties.IsFlying;
@@ -297,19 +297,11 @@ namespace BackToTheFutureV
             }
             else if (sender == _threeDigits)
             {
-                CurrentTimeMachine.Properties.ThreeDigitsSpeedo = !Checked;
-                CurrentTimeMachine.Properties.HUDProperties.ThreeDigitsSpeedo = !Checked;
+                CurrentTimeMachine.Mods.Speedo = ConvertFromBool(Checked);
             }
             else if (sender == _bulova)
             {
-                if (Checked)
-                {
-                    CurrentTimeMachine.Mods.Bulova = ModState.On;
-                }
-                else
-                {
-                    CurrentTimeMachine.Mods.Bulova = ModState.Off;
-                }
+                CurrentTimeMachine.Mods.Bulova = ConvertFromBool(Checked);
             }
         }
 
