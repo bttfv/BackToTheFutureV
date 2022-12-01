@@ -202,6 +202,9 @@ namespace BackToTheFutureV
             //SpeedoWithDestZoom
             CustomCameraManager.Add(Vehicle, new Vector3(-0.106f, -0.534f, 0.784f), new Vector3(-0.253f, 0.452f, 0.714f), 17, 2500).SetEnd(new Vector3(-0.027f, 0.014f, 0.687f), new Vector3(0.110f, 1.0f, 0.604f), 20, 500, 1500);
 
+            //BulovaSetup
+            CustomCameraManager.Add(Vehicle, Vehicle.Bones["Bulova_Clock"].RelativePosition + new Vector3(0f, -0.25f, 0f), Vehicle.Bones["Bulova_Clock"].RelativePosition, 50);
+
             IsReady = true;
         }
 

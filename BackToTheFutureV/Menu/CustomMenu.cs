@@ -152,7 +152,7 @@ namespace BackToTheFutureV
                 _reactorType.SelectedIndex = (int)CurrentTimeMachine.Mods.Reactor;
                 _hoodBox.Checked = ConvertFromModState(CurrentTimeMachine.Mods.Hoodbox);
                 _hook.Checked = CurrentTimeMachine.Mods.Hook != HookState.Off;
-                _bulova.Checked = CurrentTimeMachine.Mods.Bulova == ModState.On;
+                _bulova.Checked = CurrentTimeMachine.Mods.Bulova != ModState.Off;
                 _plate.SelectedIndex = (int)CurrentTimeMachine.Mods.Plate + 1;
                 _exhaust.SelectedIndex = (int)CurrentTimeMachine.Mods.Exhaust + 1;
                 _suspensions.SelectedIndex = (int)CurrentTimeMachine.Mods.SuspensionsType;

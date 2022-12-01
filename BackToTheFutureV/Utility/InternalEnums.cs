@@ -154,7 +154,8 @@ namespace BackToTheFutureV
             HookCustom,
             SuspensionsCustom,
             HoverUnderbodyCustom,
-            SpeedoWithDestZoom
+            SpeedoWithDestZoom,
+            BulovaSetup
         }
 
         internal enum WormholeType

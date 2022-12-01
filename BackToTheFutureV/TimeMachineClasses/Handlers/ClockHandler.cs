@@ -2,6 +2,7 @@
 using GTA;
 using System;
 using System.Windows.Forms;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 using Control = GTA.Control;
 
@@ -278,6 +279,7 @@ namespace BackToTheFutureV
 
             if (IsPlaying)
             {
+                TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.BulovaSetup, CameraSwitchType.Instant, 32);
                 Props.BulovaClockMinute.SetRotation(Coordinate.Y, tempTime.Minute * 6 + (TimeHandler.RealTime ? tempTime.Second * 0.1f : 0));
                 Props.BulovaClockHour.SetRotation(Coordinate.Y, tempTime.Hour * 30 + tempTime.Minute * 0.5f);
             }
