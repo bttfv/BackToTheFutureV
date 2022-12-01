@@ -1,4 +1,5 @@
 ﻿using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using System;
@@ -58,6 +59,7 @@ namespace BackToTheFutureV
         private readonly int _disappearTime;
 
         private float _currentStrength;
+        private readonly float baseOffset;
 
         private bool _fadeAway;
 
@@ -72,7 +74,15 @@ namespace BackToTheFutureV
                 Vector3 leftWheelOffset = vehicle.GetPositionOffset(vehicle.Bones["wheel_lr"].Position);
                 Vector3 rightWheelOffset = vehicle.GetPositionOffset(vehicle.Bones["wheel_rr"].Position);
 
-                float baseOffset = 0.3f;
+                if (vehicle.RunningDirection() == RunningDirection.Forward || vehicle.RunningDirection() == RunningDirection.Stop)
+                {
+                    baseOffset = 0.3f;
+                }
+                else
+                {
+                    baseOffset = -0.3f;
+                }
+                
                 for (int i = 0; i < maxLength; i++)
                 {
                     // Define fire offset on left and right wheels

@@ -307,11 +307,8 @@ namespace BackToTheFutureV
 
             if (Vehicle.GetMPHSpeed() >= SIDMaxAtSpeed && !OverSIDMaxAtSpeed)
             {
-                if ((Vehicle == FusionUtils.PlayerVehicle && Vehicle.CurrentGear > 0) || Vehicle != FusionUtils.PlayerVehicle)
-                {
-                    OverSIDMaxAtSpeed = true;
-                    Events.OnSIDMaxSpeedReached?.Invoke(true);
-                }
+                OverSIDMaxAtSpeed = true;
+                Events.OnSIDMaxSpeedReached?.Invoke(true);
             }
 
             if (Vehicle.GetMPHSpeed() < SIDMaxAtSpeed && OverSIDMaxAtSpeed)
@@ -325,11 +322,8 @@ namespace BackToTheFutureV
 
             if (Vehicle.GetMPHSpeed() >= WormholeAtSpeed && !OverWormholeAtSpeed)
             {
-                if ((Vehicle == FusionUtils.PlayerVehicle && Vehicle.CurrentGear > 0) || Vehicle != FusionUtils.PlayerVehicle)
-                {
-                    OverWormholeAtSpeed = true;
-                    Events.OnTimeTravelSpeedReached?.Invoke(true);
-                }
+                OverWormholeAtSpeed = true;
+                Events.OnTimeTravelSpeedReached?.Invoke(true);
             }
 
             if (Vehicle.GetMPHSpeed() < WormholeAtSpeed && OverWormholeAtSpeed)
@@ -340,13 +334,10 @@ namespace BackToTheFutureV
 
             if (Vehicle.GetMPHSpeed() >= TimeTravelAtSpeed && !OverTimeTravelAtSpeed)
             {
-                if ((Vehicle == FusionUtils.PlayerVehicle && Vehicle.CurrentGear > 0) || Vehicle != FusionUtils.PlayerVehicle)
-                {
-                    TimeTravelAtTime = Game.GameTime + WormholeLengthTime;
-                    StabilizationSoundAtTime = Game.GameTime + 1000;
+                TimeTravelAtTime = Game.GameTime + WormholeLengthTime;
+                StabilizationSoundAtTime = Game.GameTime + 1000;
 
-                    OverTimeTravelAtSpeed = true;
-                }
+                OverTimeTravelAtSpeed = true;
             }
 
             if (Vehicle.GetMPHSpeed() < TimeTravelAtSpeed && OverTimeTravelAtSpeed)
