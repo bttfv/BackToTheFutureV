@@ -268,7 +268,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Closing(object sender, CancelEventArgs e)
         {
-
+            FusionUtils.HideGUI = false;
         }
     }
 }

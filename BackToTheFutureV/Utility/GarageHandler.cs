@@ -250,7 +250,8 @@ namespace BackToTheFutureV
 
                         if (Game.IsControlJustPressed(Control.Context) && ((!Vehicle.IsEngineStarting && Vehicle.IsEngineRunning) && !Game.IsMissionActive || (Vehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged)))
                         {
-                            FusionUtils.HideGUI = true;
+                            //FusionUtils.HideGUI = true;
+                            GTA.UI.Hud.IsRadarVisible = false;
 
                             isTimeMachine = Vehicle.IsTimeMachine();
 
@@ -273,6 +274,7 @@ namespace BackToTheFutureV
                         }
 
                         FusionUtils.HideGUI = false;
+                        GTA.UI.Hud.IsRadarVisible = true;
                         TimeMachineHandler.CurrentTimeMachine?.Particles.IceSmoke?.Stop();
                         DestroyCamera();
 

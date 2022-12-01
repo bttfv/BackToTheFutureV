@@ -47,7 +47,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Closing(object sender, CancelEventArgs e)
         {
-
+            FusionUtils.HideGUI = true;
         }
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
@@ -97,7 +97,6 @@ namespace BackToTheFutureV
                         TextHandler.Me.ShowNotification("NotEnoughMoney");
                         return;
                     }
-                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                     InternalInventory.Current.Plutonium++;
                     Game.Player.Money -= 1500;
                     break;
@@ -124,7 +123,7 @@ namespace BackToTheFutureV
                     GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                     if (CurrentTimeMachine.Repair(false, true, false))
                     {
-                        Game.Player.Money -= 100;
+                        Game.Player.Money -= 1000;
                     }
                     break;
 
