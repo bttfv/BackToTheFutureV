@@ -4,6 +4,7 @@ using LemonUI.Menus;
 using System;
 using System.ComponentModel;
 using static BackToTheFutureV.InternalEnums;
+using static BackToTheFutureV.InternalExtensions;
 
 namespace BackToTheFutureV
 {
@@ -222,26 +223,12 @@ namespace BackToTheFutureV
             else if (sender == _threeDigits)
             {
                 CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.DigitalSpeedo, FusionEnums.CameraSwitchType.Instant, 1250);
-                if (Checked)
-                {
-                    CurrentTimeMachine.Mods.Speedo = ModState.On;
-                }
-                else
-                {
-                    CurrentTimeMachine.Mods.Speedo = ModState.Off;
-                }
+                CurrentTimeMachine.Mods.Speedo = ConvertFromBool(Checked);
             }
             else if (sender == _bulova)
             {
                 CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.DigitalSpeedo, FusionEnums.CameraSwitchType.Instant, 1250);
-                if (Checked)
-                {
-                    CurrentTimeMachine.Mods.Bulova = ModState.On;
-                }
-                else
-                {
-                    CurrentTimeMachine.Mods.Bulova = ModState.Off;
-                }
+                CurrentTimeMachine.Mods.Bulova = ConvertFromBool(Checked);
             }
         }
 

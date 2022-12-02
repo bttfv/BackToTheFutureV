@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
+using static BackToTheFutureV.InternalExtensions;
 using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
@@ -385,15 +386,6 @@ namespace BackToTheFutureV
                     }
                 }
             }
-        }
-        private bool ConvertFromModState(ModState value)
-        {
-            if (value == ModState.On)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         private void DrawGUI()

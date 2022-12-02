@@ -5,6 +5,7 @@ using LemonUI.Menus;
 using System;
 using System.ComponentModel;
 using static BackToTheFutureV.InternalEnums;
+using static BackToTheFutureV.InternalExtensions;
 using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
@@ -181,28 +182,6 @@ namespace BackToTheFutureV
                     _wheelsType.SelectedIndex = 3;
                     break;
             }
-        }
-
-        private ModState ConvertFromBool(bool value)
-        {
-            if (value)
-            {
-                return ModState.On;
-            }
-            else
-            {
-                return ModState.Off;
-            }
-        }
-
-        private bool ConvertFromModState(ModState value)
-        {
-            if (value == ModState.On)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         public override void Menu_Shown(object sender, EventArgs e)

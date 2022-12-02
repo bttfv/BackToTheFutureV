@@ -54,6 +54,28 @@ namespace BackToTheFutureV
             return TimeMachineHandler.Create(vehicle, SpawnFlags.Default, wormholeType);
         }
 
+        public static ModState ConvertFromBool(bool value)
+        {
+            if (value)
+            {
+                return ModState.On;
+            }
+            else
+            {
+                return ModState.Off;
+            }
+        }
+
+        public static bool ConvertFromModState(ModState value)
+        {
+            if (value == ModState.On)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public static WheelType GetVariantWheelType(this WheelType wheelType)
         {
             switch (wheelType)
