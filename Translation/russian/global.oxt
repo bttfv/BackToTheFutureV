@@ -35,8 +35,8 @@
 	BTTFV_Menu_Controls_Subtitle = Меню управления
 	BTTFV_Menu_Controls_Title = Меню управления
 	BTTFV_Menu_Custom_Description = Создать свою Делореан
-	BTTFV_Menu_Custom_Item_Bulova_Description = Add a Bulova clock to the dashboard.
-	BTTFV_Menu_Custom_Item_Bulova_Title = Bulova Clock
+	BTTFV_Menu_Custom_Item_Bulova_Description = Разместить часы 'Bulova' на приборной панели.
+	BTTFV_Menu_Custom_Item_Bulova_Title = Часы 'Bulova'
 	BTTFV_Menu_Custom_Item_Confirm_Title = ПОДТВЕРДИТЬ
 	BTTFV_Menu_Custom_Item_ControlTubes_Description = Добавляет лампы временного контура в машину
 	BTTFV_Menu_Custom_Item_ControlTubes_Title = Ламповая установка
@@ -137,7 +137,7 @@
 	BTTFV_Menu_Garage_Item_WashCar_Title = Помыть Машину Времени ($ 10)
 	BTTFV_Menu_Garage_Subtitle = Меню гаража
 	BTTFV_Menu_Garage_Title = Меню гаража
-	BTTFV_Menu_Main_Description = Отправляет вас в главное меню мода
+	BTTFV_Menu_Main_Description = Открывает главное меню мода.
 	BTTFV_Menu_Main_Item_Convert_Description = Преобразовать транспорт в машину времени
 	BTTFV_Menu_Main_Item_Convert_Title = Преобразовать в машину времени
 	BTTFV_Menu_Main_Item_Custom_Description = Создать свою Делореан
@@ -169,7 +169,7 @@
 	BTTFV_Menu_Outatime_Item_Blip_Title = Показать иконку на карте
 	BTTFV_Menu_Outatime_Item_Destination_Description = Показывает текущее время назначения машины времени
 	BTTFV_Menu_Outatime_Item_Destination_Title = Destination Time:
-	BTTFV_Menu_Outatime_Item_Last_Description = Tells you the current Time Machine's last time departed.
+	BTTFV_Menu_Outatime_Item_Last_Description = Последняя дата перемещения во времени.
 	BTTFV_Menu_Outatime_Item_Last_Title = Last Time:
 	BTTFV_Menu_Outatime_Item_List_Description = Список машин, застрявших во времени
 	BTTFV_Menu_Outatime_Item_List_Title = Машины времени
@@ -272,8 +272,8 @@
 	BTTFV_Menu_Sounds_Description = Открывает меню звуковых эффектов
 	BTTFV_Menu_Sounds_Item_CircuitsBeep_Description = Позволяет включить/отключить звук диода для заправки реактора
 	BTTFV_Menu_Sounds_Item_CircuitsBeep_Title = Звук диода для заправки реактора
-	BTTFV_Menu_Sounds_Item_Engine_Description = При включении скрипт будет использовать custom engine sounds system для Делореан
-	BTTFV_Menu_Sounds_Item_Engine_Title = Custom Engine Sounds
+	BTTFV_Menu_Sounds_Item_Engine_Description = Использовать звуки двигателя из фильма для Делориана.
+	BTTFV_Menu_Sounds_Item_Engine_Title = Звуки двигателя из фильма
 	BTTFV_Menu_Sounds_Item_FluxCapacitor_Description = Позволяет включать/выключать звук потокового накопителя
 	BTTFV_Menu_Sounds_Item_FluxCapacitor_Title = Звук потокового накопителя
 	BTTFV_Menu_Sounds_Item_SpeedoBeep_Description = Позволяет включать/выключать звук набора скорости
@@ -360,7 +360,7 @@
 	BTTFV_Text_Off = Выключено
 	BTTFV_Text_On = Включено
 	BTTFV_Text_OpenReactor = Удерживайте ~INPUT_CONTEXT~ чтобы открыть реактор
-	BTTFV_Text_RCBrakeTip = Hold ~INPUT_VEH_DUCK~ then press {0} to activate RC handbrake.
+	BTTFV_Text_RCBrakeTip = Зажмите ~INPUT_VEH_DUCK~ вместе с {0} для активации ручного тормоза в режиме удаленного управления.
 	BTTFV_Text_RefuelReactor = Нажмите ~INPUT_CONTEXT~ чтобы заправить или удерживайте ~INPUT_CONTEXT~ чтобы закрыть реактор
 	BTTFV_Text_RemovedAllTimeMachines = Все машины времени удалены!
 	BTTFV_Text_RemovedOtherTimeMachines = Другие машины времени удалены!
@@ -380,7 +380,7 @@
 	BTTFV_Text_TCDEdit_SaveButton = Сохранить
 	BTTFV_Text_TCDEdit_ScaleDown = Уменьшить размер
 	BTTFV_Text_TCDEdit_ScaleUp = Увеличить размер
-	BTTFV_Text_TCDEdit_SIDSelect = Hold to Edit SID
+	BTTFV_Text_TCDEdit_SIDSelect =  Зажмите для редактирования 'SID'
 	BTTFV_Text_TimeTravelModeChange = Режим путешествия во времени теперь {0}
 	BTTFV_Text_UnableRC = На данный момент вы не можете дистанционно контролировать эту машину времени
 	BTTFV_Text_UnableRepairEngine = Невозможно починить двигатель. Заправки не доступны до 1912 года.
