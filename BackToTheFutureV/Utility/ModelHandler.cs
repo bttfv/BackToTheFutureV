@@ -107,7 +107,7 @@ namespace BackToTheFutureV
             "yellow"
         };
 
-        public static void RequestModels()
+        public static bool RequestModels()
         {
             for (int i = 0; i <= 10; i++)
             {
@@ -137,6 +137,8 @@ namespace BackToTheFutureV
             }
 
             GetAllModels(typeof(ModelHandler)).ForEach(x => x.Request());
+
+            return true;
         }
     }
 }

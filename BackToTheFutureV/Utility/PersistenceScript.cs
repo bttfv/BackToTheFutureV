@@ -3,6 +3,7 @@ using System;
 
 namespace BackToTheFutureV
 {
+    [ScriptAttributes(NoDefaultInstance = true)]
     internal class PersistenceScript : Script
     {
         public PersistenceScript()

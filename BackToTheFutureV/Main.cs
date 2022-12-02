@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using GTA;
 using GTA.Native;
+using GTA.UI;
 using KlangRageAudioLibrary;
 using System;
 using System.Windows.Forms;
@@ -51,9 +52,131 @@ namespace BackToTheFutureV
 
             ModSettings.LoadSettings();
 
+            if (ModSettings.PersistenceSystem)
+            {
+                InstantiateScript<PersistenceScript>();
+            }
+
             Tick += Main_Tick;
             KeyDown += Main_KeyDown;
             Aborted += Main_Aborted;
+        }
+
+        private void TextIntro()
+        {
+            Game.Player.CanControlCharacter = false;
+            int textAlpha1 = 0;
+            int textAlpha2 = 0;
+            int textAlpha3 = 0;
+            DateTime openingDate = FusionUtils.CurrentTime;
+            AudioPlayer timeParadox = CommonAudioEngine.Create("story/bttf_subtitle2.wav", Presets.No3D);
+            timeParadox.SourceEntity = FusionUtils.PlayerPed;
+            timeParadox.Volume = 0.2f;
+            timeParadox.Play();
+            Function.Call(Hash.SETTIMERA, 0);
+            while (true)
+            {
+                Function.Call(Hash.HIDE_LOADING_ON_FADE_THIS_FRAME);
+                Function.Call(Hash.SET_TEXT_SCALE, 1.25f, 1.25f); // scale, size
+                var fVar1 = Function.Call<float>(Hash.GET_RENDERED_CHARACTER_HEIGHT, 1.25f, 0);
+                if (textAlpha1 * 8 < 252)
+                {
+                    Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, textAlpha1 * 8);
+                    textAlpha1++;
+                }
+                else
+                {
+                    textAlpha1 = 63;
+                    Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, 255);
+                }
+                Function.Call(Hash.SET_TEXT_CENTRE, true);
+                Function.Call(Hash.SET_SCRIPT_GFX_DRAW_ORDER, 7);
+                Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING"); // draw crap on screen
+                Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, $"{openingDate:dddd}");
+                Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, 0.5f, 0.62f - fVar1 / 2, 0);
+                // -1f to 1f.
+                // X - Horizontal
+                // Y - Vertical
+                Wait(1);
+                if (Function.Call<int>(Hash.TIMERA) > 1500)
+                {
+                    Function.Call(Hash.SET_TEXT_SCALE, 1.25f, 1.25f); // scale, size
+                    if (textAlpha2 * 8 < 252)
+                    {
+                        Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, textAlpha2 * 8);
+                        textAlpha2++;
+                    }
+                    else
+                    {
+                        textAlpha2 = 63;
+                        Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, 255);
+                    }
+                    Function.Call(Hash.SET_TEXT_CENTRE, true);
+                    Function.Call(Hash.SET_SCRIPT_GFX_DRAW_ORDER, 7);
+                    Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING"); // draw crap on screen
+                    Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, $"\n{openingDate:MMMM d, yyyy}");
+                    Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, 0.5f, 0.62f - fVar1 / 2, 0);
+                }
+                if (Function.Call<int>(Hash.TIMERA) > 3000)
+                {
+                    Function.Call(Hash.SET_TEXT_SCALE, 1.25f, 1.25f); // scale, size
+                    if (textAlpha3 * 8 < 252)
+                    {
+                        Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, textAlpha3 * 8);
+                        textAlpha3++;
+                    }
+                    else
+                    {
+                        textAlpha3 = 63;
+                        Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, 255);
+                    }
+                    Function.Call(Hash.SET_TEXT_CENTRE, true);
+                    Function.Call(Hash.SET_SCRIPT_GFX_DRAW_ORDER, 7);
+                    Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING"); // draw crap on screen
+                    Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, $"\n\n{openingDate:hh:mm tt}");
+                    Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, 0.5f, 0.62f - fVar1 / 2, 0);
+                }
+                if (Function.Call<int>(Hash.TIMERA) > 6000)
+                {
+                    break;
+                }
+            }
+            while (true)
+            {
+                Function.Call(Hash.HIDE_LOADING_ON_FADE_THIS_FRAME);
+                Function.Call(Hash.SET_TEXT_SCALE, 1.25f, 1.25f); // scale, size
+                var fVar1 = Function.Call<float>(Hash.GET_RENDERED_CHARACTER_HEIGHT, 1.25f, 0);
+                if (textAlpha1 * 4 > 0)
+                {
+                    Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, textAlpha1 * 4);
+                    textAlpha1--;
+                }
+                else
+                {
+                    Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, 0);
+                    textAlpha1 = 0;
+                }
+                Function.Call(Hash.SET_TEXT_CENTRE, true);
+                Function.Call(Hash.SET_SCRIPT_GFX_DRAW_ORDER, 7);
+                Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING"); // draw crap on screen
+                Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, $"{openingDate:dddd}\n{openingDate:MMMM d, yyyy}\n{openingDate:hh:mm tt}");
+                Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, 0.5f, 0.62f - fVar1 / 2, 0);
+                // -1f to 1f.
+                // X - Horizontal
+                // Y - Vertical
+                Wait(1);
+                if (Function.Call<int>(Hash.TIMERA) > 8000)
+                {
+                    break;
+                }
+            }
+            Function.Call(Hash.RESET_SCRIPT_GFX_ALIGN);
+            Function.Call(Hash.HIDE_LOADING_ON_FADE_THIS_FRAME);
+            if (Screen.IsFadedOut && !Screen.IsFadingIn)
+            {
+                Screen.FadeIn(1000);
+            }
+            Game.Player.CanControlCharacter = true;
         }
 
         private void Main_Aborted(object sender, EventArgs e)
@@ -95,6 +218,8 @@ namespace BackToTheFutureV
             {
                 if (Game.IsLoading || FusionUtils.FirstTick)
                 {
+                    LoadingPrompt.Show("Loading BTTFV");
+                    Screen.FadeOut(0);
                     return;
                 }
 
@@ -102,6 +227,8 @@ namespace BackToTheFutureV
                 {
                     if (FusionUtils.CurrentTime == NewGame && Game.IsMissionActive)
                     {
+                        LoadingPrompt.Hide();
+                        Screen.FadeIn(0);
                         TutorialMission = true;
                         StoryMode = true;
                     }
@@ -113,14 +240,18 @@ namespace BackToTheFutureV
 
                     if (!TutorialMission)
                     {
-                        Screen.ShowHelpText("BackToTheFutureV loading...", -1, true, true);
+                        //Screen.ShowHelpText("BackToTheFutureV loading...", -1, true, true);
 
                         RemoteTimeMachineHandler.MAX_REMOTE_TIMEMACHINES = ModSettings.MaxRecordedMachines;
 
-                        ModelHandler.RequestModels();
+                        while (!ModelHandler.RequestModels())
+                        {
+                            LoadingPrompt.Show("Loading BTTFV");
+                        }
+                        LoadingPrompt.Hide();
 
                         //Disable fake shake of the cars.
-                        Function.Call(Hash._​SET_​CAR_​HIGH_​SPEED_​BUMP_​SEVERITY_​MULTIPLIER, 0);
+                        Function.Call(Hash._SET_CAR_HIGH_SPEED_BUMP_SEVERITY_MULTIPLIER, 0);
 
                         if (ModSettings.PersistenceSystem)
                         {
@@ -251,7 +382,11 @@ namespace BackToTheFutureV
                         }
                     }
 
-                    Screen.ShowHelpText("BackToTheFutureV loaded correctly.");
+                    //Screen.ShowHelpText("BackToTheFutureV loaded correctly.");
+                    if (Screen.IsFadedOut)
+                    {
+                        TextIntro();
+                    }
                     FirstTick = false;
                 }
             }
