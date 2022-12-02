@@ -42,6 +42,8 @@ namespace BackToTheFutureV
 
         public static int? SwitchedVehicle { get; set; }
 
+        public static bool SwitchedPersist { get; set; }
+
         public static CustomStopwatch CustomStopwatch { get; } = new CustomStopwatch();
 
         public Main()
@@ -286,7 +288,10 @@ namespace BackToTheFutureV
                             }
                             else if (FusionUtils.PlayerPed.Model != ResetPed.Model)
                             {
-                                Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, SwitchedPed, 1, 1);
+                                if (!Function.Call<bool>(Hash.IS_ENTITY_A_MISSION_ENTITY, SwitchedPed))
+                                {
+                                    Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, SwitchedPed, 1, 1);
+                                }
                             }
 
                             if (FusionUtils.PlayerPed.Model == ResetPed.Model && FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle == null)
@@ -295,7 +300,11 @@ namespace BackToTheFutureV
                             }
                             else if (FusionUtils.PlayerPed.Model == ResetPed.Model && !FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle != null && FusionUtils.PlayerPed.LastVehicle != null)
                             {
-                                FusionUtils.PlayerPed.LastVehicle.IsPersistent = false;
+                                if (!FusionUtils.PlayerPed.LastVehicle.IsTimeMachine() && SwitchedPersist)
+                                {
+                                    FusionUtils.PlayerPed.LastVehicle.IsPersistent = false;
+                                    SwitchedPersist = false;
+                                }
                                 SwitchedVehicle = null;
                             }
                             else if (FusionUtils.PlayerPed.Model == ResetPed.Model && !FusionUtils.PlayerPed.IsSittingInVehicle() && SwitchedVehicle != null && FusionUtils.PlayerPed.LastVehicle == null)
@@ -304,7 +313,11 @@ namespace BackToTheFutureV
                             }
                             else if (FusionUtils.PlayerPed.Model != ResetPed.Model && SwitchedVehicle != null)
                             {
-                                Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, SwitchedVehicle, 1, 1);
+                                if (!Function.Call<bool>(Hash.IS_ENTITY_A_MISSION_ENTITY, SwitchedVehicle))
+                                {
+                                    Function.Call(Hash.SET_ENTITY_AS_MISSION_ENTITY, SwitchedVehicle, 1, 1);
+                                    SwitchedPersist = true;
+                                }
                             }
                         }
                     }
