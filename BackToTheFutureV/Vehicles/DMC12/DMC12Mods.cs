@@ -1,9 +1,11 @@
 ﻿using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
 using GTA.Native;
 using System.Collections.Generic;
 using static BackToTheFutureV.InternalEnums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -31,46 +33,45 @@ namespace BackToTheFutureV
                 switch ((SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index)
                 {
                     case SuspensionsType.LiftFrontLowerRear:
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z + 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z + 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z - 0.05f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
                         break;
                     case SuspensionsType.LiftFront:
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z + 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
                         break;
                     case SuspensionsType.LiftRear:
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z + 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
                         break;
                     case SuspensionsType.LiftFrontAndRear:
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z + 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z + 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z + 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
                         break;
                     case SuspensionsType.LowerFrontLiftRear:
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z - 0.05f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z - 0.05f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z + 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z + 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
                         break;
                     case SuspensionsType.LowerFront:
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z - 0.05f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
                         break;
                     case SuspensionsType.LowerRear:
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z - 0.05f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
                         break;
                     case SuspensionsType.LowerFrontAndRear:
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].Z - 0.05f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].Z - 0.05f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].Z - 0.05f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] = new Vector3(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].X, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Y, WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].Z - 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
                         break;
-
                 }
             }
 

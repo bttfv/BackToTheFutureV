@@ -228,7 +228,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Vehicle.IsVisible == false || !Vehicle.IsEngineRunning || !ModSettings.PlayEngineSounds)
+            if (Vehicle.IsVisible == false || !Vehicle.IsEngineRunning || !ModSettings.PlayEngineSounds || Main.FirstTick)
             {
                 Stop();
                 return;
@@ -335,7 +335,7 @@ namespace BackToTheFutureV
 
         private void HandleRegularSounds()
         {
-            if (Properties.IsFlying)
+            if (Properties.IsFlying || Properties.IsLanding)
             {
                 return;
             }
@@ -439,12 +439,12 @@ namespace BackToTheFutureV
 
         private void HandleAccelerationSound()
         {
-            if (Properties.IsFlying)
+            if (Properties.IsFlying || Properties.IsLanding)
             {
                 return;
             }
 
-            //Stop acceleration sounds if car is breaking / driving neutral
+            //Stop acceleration sounds if car is braking / driving neutral
             if (Acceleration < -10f || !Game.IsControlPressed(Control.VehicleAccelerate) ||
                 Game.IsControlPressed(Control.VehicleBrake) || Mods.Wheels.AnyBurst || Vehicle.IsInWater)
             {
