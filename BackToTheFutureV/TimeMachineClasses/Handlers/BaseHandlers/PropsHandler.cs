@@ -68,7 +68,6 @@ namespace BackToTheFutureV
         public AnimateProp BulovaClockHour;
         public AnimateProp BulovaClockMinute;
         public AnimateProp BulovaClockRing;
-        public static bool BulovaReady;
 
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -274,21 +273,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            //Bulova clock
-            if (Mods.Bulova == InternalEnums.ModState.On && !BulovaReady)
-            {
-                BulovaClockHour.SpawnProp();
-                BulovaClockMinute.SpawnProp();
-                BulovaClockRing.SpawnProp();
-                BulovaReady = true;
-            }
-            else if (Mods.Bulova == InternalEnums.ModState.Off && BulovaReady)
-            {
-                BulovaReady = false;
-                BulovaClockHour?.Delete();
-                BulovaClockMinute?.Delete();
-                BulovaClockRing?.Delete();
-            }
+            
         }
 
         public override void Stop()

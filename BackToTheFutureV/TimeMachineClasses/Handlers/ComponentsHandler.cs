@@ -118,6 +118,22 @@ namespace BackToTheFutureV
             }
         }
 
+        private void BulovaProcess()
+        {
+            if (Mods.Bulova == InternalEnums.ModState.On && !Props.BulovaClockRing.IsSpawned)
+            {
+                Props.BulovaClockHour.SpawnProp();
+                Props.BulovaClockMinute.SpawnProp();
+                Props.BulovaClockRing.SpawnProp();
+            }
+            else if (Mods.Bulova == InternalEnums.ModState.Off && Props.BulovaClockRing.IsSpawned)
+            {
+                Props.BulovaClockHour?.Delete();
+                Props.BulovaClockMinute?.Delete();
+                Props.BulovaClockRing?.Delete();
+            }
+        }
+
         private void HoodboxProcess()
         {
             if (Properties.AreHoodboxCircuitsReady)
@@ -152,7 +168,7 @@ namespace BackToTheFutureV
 
                 if (_coolDown > 0 && _coolDown < Game.GameTime)
                 {
-                    Props.HoodboxLights.Dispose();
+                    Props.HoodboxLights.Delete();
                     _coolDown = 0;
                     Properties.AreHoodboxCircuitsReady = false;
                 }
@@ -194,6 +210,8 @@ namespace BackToTheFutureV
             CompassProcess();
 
             HoodboxProcess();
+
+            BulovaProcess();
 
             if (_fluxBandsCooldown > -1)
             {

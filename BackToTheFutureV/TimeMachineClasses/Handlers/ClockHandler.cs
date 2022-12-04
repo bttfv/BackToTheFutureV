@@ -84,7 +84,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (!PropsHandler.BulovaReady)
+            if (!Props.BulovaClockRing.IsSpawned)
             {
                 return;
             }
