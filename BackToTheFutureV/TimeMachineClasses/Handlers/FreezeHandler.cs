@@ -11,6 +11,8 @@ namespace BackToTheFutureV
         private int _gameTimer;
         private int _currentStep;
 
+        private bool _wasStruck;
+
         private bool _doingFreezingSequence;
 
         private bool _fuelNotif;
@@ -24,6 +26,7 @@ namespace BackToTheFutureV
 
         public FreezeHandler(TimeMachine timeMachine) : base(timeMachine)
         {
+            Events.OnReenterStarted += OnReenterStarted;
             Events.OnReenterEnded += OnReenterEnded;
             Events.SetFreeze += SetFreeze;
         }
@@ -37,6 +40,18 @@ namespace BackToTheFutureV
             else
             {
                 Stop();
+            }
+        }
+
+        private void OnReenterStarted()
+        {
+            if (Properties.HasBeenStruckByLightning)
+            {
+                _wasStruck = true;
+            }
+            else
+            {
+                _wasStruck = false;
             }
         }
 
@@ -150,7 +165,7 @@ namespace BackToTheFutureV
                     break;
 
                 case 2:
-                    if (Mods.Reactor == ReactorType.Nuclear && !_resuming && Mods.Hook != HookState.Removed)
+                    if (Mods.Reactor == ReactorType.Nuclear && !_resuming && !_wasStruck)
                     {
                         Sounds.IceVents?.Play();
                     }
@@ -160,7 +175,7 @@ namespace BackToTheFutureV
                     break;
 
                 case 3:
-                    if (Mods.Reactor == ReactorType.Nuclear && Mods.Hook != HookState.Removed)
+                    if (Mods.Reactor == ReactorType.Nuclear && !_wasStruck)
                     {
                         for (; _smokeIndex < 7;)
                         {
@@ -181,7 +196,7 @@ namespace BackToTheFutureV
 
                 case 4:
 
-                    if (_fuelNotif && Mods.Hook != HookState.Removed)
+                    if (_fuelNotif && !_wasStruck)
                     {
                         Events.StartFuelBlink?.Invoke();
                     }

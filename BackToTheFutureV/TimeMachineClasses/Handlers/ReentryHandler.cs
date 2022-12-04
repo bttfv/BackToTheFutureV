@@ -161,9 +161,6 @@ namespace BackToTheFutureV
 
             Function.Call(Hash.ENABLE_ALL_CONTROL_ACTIONS, 0);
 
-            if (Decorators.TorqueMultiplier == Constants.TorqueForLightningRun)
-                Decorators.TorqueMultiplier = 1f;
-
             if (!Properties.WasOnTracks)
             {
                 Vehicle.Velocity = Properties.LastVelocity;

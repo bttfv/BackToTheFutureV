@@ -63,6 +63,7 @@ namespace BackToTheFutureV
         public static CustomModel BulovaClockHour = new CustomModel("clock_hour");
         public static CustomModel BulovaClockMinute = new CustomModel("clock_minute");
         public static CustomModel BulovaClockRing = new CustomModel("clock_ring");
+        public static CustomModel HookProp = new CustomModel("bttf_hook_prop");
 
         // BTTF2 CustomModels
         public static CustomModel Strut = new CustomModel("bttf2_strut");

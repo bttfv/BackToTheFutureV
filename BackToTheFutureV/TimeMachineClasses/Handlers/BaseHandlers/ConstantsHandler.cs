@@ -221,11 +221,7 @@ namespace BackToTheFutureV
 
         public CustomModel WheelRearModel => IsStockWheel ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
 
-        public bool ReadyForLightningRun => FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 22, 3, 0), new DateTime(1955, 11, 12, 22, 4, 10)) && !Properties.IsFlying && Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet;
-
-        public bool ReadyForLightningRunFromStartLine => ReadyForLightningRun && Vehicle.GetStreetInfo().Crossing == LightningRun.StartLine;
-
-        public float TorqueForLightningRun { get; } = 0.65f;
+        public bool ReadyForLightningRun => FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 22, 3, 0), new DateTime(1955, 11, 12, 22, 4, 10)) && !Properties.IsFlying && (Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet || Vehicle.GetStreetInfo().Crossing == LightningRun.LightningRunStreet);
 
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {

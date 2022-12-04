@@ -34,6 +34,10 @@ namespace BackToTheFutureV
             {
                 _wasStruck = true;
             }
+            else
+            {
+                _wasStruck = false;
+            }
         }
 
         public void OnReenterEnded()

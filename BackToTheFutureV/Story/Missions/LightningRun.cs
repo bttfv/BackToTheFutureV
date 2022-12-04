@@ -21,11 +21,13 @@ namespace BackToTheFutureV
         private static Model streetPoleModel = new Model("prop_streetlight_09");
         private static Model mastModel = new Model("prop_air_mast_01");
         private static Model poleModel = new Model("prop_flagpole_1a");
+        private static Model hookModel = new Model("bttf_hook_prop");
 
         private Prop LeftStreetPole;
         private Prop RightStreetPole;
         private Prop Mast;
         private Prop Pole;
+        private Prop Hook;
 
         private Rope StreetRope;
         private Rope MastRope;
@@ -35,8 +37,21 @@ namespace BackToTheFutureV
         private readonly ParticlePlayerHandler sparkRope = new ParticlePlayerHandler();
         private readonly ParticlePlayerHandler fireRope = new ParticlePlayerHandler();
 
+        private Vector3 _springBase;
+        private Vector3 _springOrigin;
+        private Vector3 _springPosition;
+        private Vector3 _springVelocity;
+        private Vector3 _springDirection;
+        private const float _springStiffness = 0.3f; // Smaller values make spring harder to bend
+        private const float _springDamping = 0.3f; // Friction, resistance. Smaller values will make spring stall faster
+        private const float _springWindFactor = 0.01f; // How much of the game wind will affect spring
+        private const float _springLength = 2.54f; // Matched to prop height for accuracy
+        private const int _springIterations = 4; // More iterations will make simulation look faster
+        private bool _firstTick = true;
+
         private int step = 0;
         private int gameTime;
+        private bool struck;
 
         private TimeMachine CurrentTimeMachine => TimeMachineHandler.CurrentTimeMachine;
 
@@ -45,15 +60,14 @@ namespace BackToTheFutureV
         private AudioPlayer Thunder;
 
         public const Hash LightningRunStreet = unchecked((Hash)4174973413);
-        public const Hash StartLine = unchecked((Hash)2593489231);
 
         private Vector3 checkPos = new Vector3(-143.6626f, 6390.0047f, 30.7007f);
 
+        public static DateTime StartTime { get; } = new DateTime(1955, 11, 12, 20, 0, 0);
+        public static DateTime EndTime { get; } = new DateTime(1955, 11, 12, 22, 4, 30);
         public static DateTime StrikeTime { get; } = new DateTime(1955, 11, 12, 22, 4, 0);
 
         private bool setup;
-
-        //private int testTime;
 
         static LightningRun()
         {
@@ -75,29 +89,74 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs key)
         {
-            //if (key.KeyCode == Keys.U)
-            //{
-            //    IsPlaying = true;
-            //}
+            if (key.KeyCode == Keys.U && !struck)
+            {
+                /*HookSetup(CurrentTimeMachine.Vehicle.Position);
+                struck = true;*/
+            }
+            else if (key.KeyCode == Keys.U && struck)
+            {
+                /*Hook?.Delete();
+                _firstTick = true;
+                struck = false;*/
+            }
 
-            //if (key.KeyCode == Keys.O)
-            //{
-            //    FusionUtils.CurrentTime = StrikeTime.AddMinutes(-1);
-            //}
+            /*if (key.KeyCode == Keys.O)
+            {
+                FusionUtils.CurrentTime = StrikeTime.AddMinutes(-1);
+            }*/
+        }
+
+        private void HookSetup(Vector3 position)
+        {
+            Hook = World.CreateProp(hookModel, new Vector3(position.X, position.Y, LeftStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.88f)).Z), false, false);
+            Hook.IsCollisionEnabled = false;
+            Hook.IsPositionFrozen = true;
+            Hook.HasGravity = false;
+            Hook.IsInvincible = true;
+        }
+
+        private Vector3 GetWindForce()
+        {
+            Vector3 dir = Function.Call<Vector3>(Hash.GET_WIND_DIRECTION);
+            float scalar = Function.Call<float>(Hash.GET_WIND_SPEED);
+
+            return dir * scalar;
+        }
+
+        private void ResetSpringPosition()
+        {
+            _springPosition = _springOrigin;
+            _springVelocity = FusionUtils.PlayerPed.LastVehicle.Velocity * 0.1f;
+        }
+
+        private void UpdateSpringPosition()
+        {
+            _springBase = Hook.Position;
+            _springOrigin = _springBase - Vector3.WorldUp * _springLength;
+        }
+
+        private void UpdateSpringPhysics()
+        {
+            for (int i = 0; i < _springIterations; i++)
+            {
+                // Making simulation less artifical
+                float randomScalar = FusionUtils.Random
+                    .Next(-3, 10) / 10f;
+
+                Vector3 acceleration = Vector3.Zero;
+                acceleration += (_springOrigin - _springPosition) * _springStiffness;
+                acceleration -= _springVelocity * _springDamping * randomScalar;
+                acceleration += GetWindForce() * _springWindFactor * randomScalar;
+
+                _springVelocity += acceleration * Game.LastFrameTime;
+                _springPosition += _springVelocity * Game.LastFrameTime;
+            }
+            _springDirection = (_springPosition - _springBase).Normalized;
         }
 
         public override void Tick()
         {
-            //if (Game.IsControlJustPressed(GTA.Control.VehicleAccelerate) && testTime == 0)
-            //    testTime = Game.GameTime;
-
-            //if (Game.IsControlJustPressed(GTA.Control.VehicleHandbrake) && testTime != 0)
-            //{                
-            //    GTA.UI.Screen.ShowSubtitle($"{Game.GameTime - testTime}");
-
-            //    testTime = 0;
-            //}
-
             if (!TimeHandler.RealTime || FusionUtils.PlayerPed.Position.DistanceToSquared2D(checkPos) > 150000)
             {
                 if (setup)
@@ -108,10 +167,31 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!setup)
+            if (!setup || (FusionUtils.CurrentTime >= StartTime && FusionUtils.CurrentTime <= EndTime && StreetRope == null))
             {
                 OnEnd();
                 Setup();
+            }
+
+            if (Hook != null && Hook.IsVisible && IsPlaying)
+            {
+
+                UpdateSpringPosition();
+                if (_firstTick)
+                {
+                    _firstTick = false;
+                    ResetSpringPosition();
+                }
+                UpdateSpringPhysics();
+
+                Vector3 springUp = _springDirection;
+                Vector3 springForward = FusionUtils.PlayerPed.LastVehicle.ForwardVector;
+
+                // Align spring forward with spring up to make right angle
+                springForward = Vector3.Cross(springForward, Vector3.WorldUp);
+                springForward = Vector3.Cross(springForward, springUp);
+                Hook.Position = _springBase;
+                Hook.Quaternion = Quaternion.LookRotation(springForward, -springUp);
             }
 
             if (FusionUtils.CurrentTime == StrikeTime && !IsPlaying)
@@ -133,6 +213,11 @@ namespace BackToTheFutureV
                         }
 
                         CurrentTimeMachine.Events.StartLightningStrike?.Invoke(-1);
+                        if (!struck && sparkRope.SequenceComplete)
+                        {
+                            HookSetup(CurrentTimeMachine.Vehicle.Position);
+                            struck = true;
+                        }
                     }
                 }
             }
@@ -200,7 +285,6 @@ namespace BackToTheFutureV
 
                     break;
                 case 4:
-                    MastRope?.Delete();
                     fireRope.StopInSequence();
 
                     step++;
@@ -215,23 +299,14 @@ namespace BackToTheFutureV
 
                     CustomCamera.Stop();
 
-                    if (!FusionUtils.IsTrafficAlive)
-                    {
-                        FusionUtils.IsTrafficAlive = true;
-                        TimeHandler.MissionTraffic = false;
-                        Function.Call(Hash.SET_PED_PATHS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
-                        Function.Call(Hash.SET_PED_POPULATION_BUDGET, 3);
-                    }
-
                     step = 0;
+                    struck = false;
                     break;
             }
         }
 
         private void Setup()
         {
-            //GTA.UI.Screen.ShowSubtitle($"Setup", 1000);
-
             LeftStreetPole = World.CreateProp(streetPoleModel, new Vector3(50.4339f, 6576.8843f, 30.3620f), true, false);
             RightStreetPole = World.CreateProp(streetPoleModel, new Vector3(41.5676f, 6585.7378f, 30.3686f), true, false);
 
@@ -241,7 +316,7 @@ namespace BackToTheFutureV
             Pole = World.CreateProp(poleModel, polePosition, true, false);
             Pole.IsPositionFrozen = true;
 
-            if (FusionUtils.CurrentTime >= new DateTime(1955, 11, 12, 20, 0, 0) && FusionUtils.CurrentTime <= new DateTime(1955, 11, 12, 22, 4, 30))
+            if (FusionUtils.CurrentTime >= StartTime && FusionUtils.CurrentTime <= EndTime)
             {
                 if (FusionUtils.IsTrafficAlive)
                 {
@@ -335,6 +410,7 @@ namespace BackToTheFutureV
             Pole?.Delete();
             StreetRope?.Delete();
             MastRope?.Delete();
+            Hook?.Delete();
 
             sparkRope?.Stop();
             fireRope?.Stop();
@@ -348,6 +424,8 @@ namespace BackToTheFutureV
             }
 
             IsPlaying = false;
+            struck = false;
+            _firstTick = true;
             setup = false;
         }
 
