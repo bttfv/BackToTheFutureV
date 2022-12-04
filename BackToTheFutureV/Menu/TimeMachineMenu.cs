@@ -1,4 +1,6 @@
-﻿using LemonUI.Menus;
+﻿using FusionLibrary;
+using FusionLibrary.Extensions;
+using LemonUI.Menus;
 using System;
 using System.ComponentModel;
 using static BackToTheFutureV.InternalEnums;
@@ -12,9 +14,6 @@ namespace BackToTheFutureV
         public NativeCheckboxItem FlyMode { get; }
         public NativeCheckboxItem AltitudeHold { get; }
         public NativeCheckboxItem RemoteControl { get; }
-        //public NativeCheckboxItem EscapeMission { get; }
-
-        //public NativeSubmenuItem CustomMenu { get; }
         public NativeSubmenuItem PhotoMenu { get; }
 
         public TimeMachineMenu() : base("TimeMachine")
@@ -24,9 +23,6 @@ namespace BackToTheFutureV
             FlyMode = NewCheckboxItem("Hover");
             AltitudeHold = NewCheckboxItem("Altitude");
             RemoteControl = NewCheckboxItem("RC");
-            //EscapeMission = NewCheckboxItem("Escape Mission");
-
-            //CustomMenu = NewSubmenu(MenuHandler.CustomMenu, "Custom");
 
             PhotoMenu = NewSubmenu(MenuHandler.PhotoMenu);
 
@@ -40,7 +36,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
-            if (CurrentTimeMachine == null)
+            if (CurrentTimeMachine == null || !FusionUtils.PlayerPed.IsFullyInVehicle())
             {
                 Visible = false;
                 return;
@@ -49,7 +45,6 @@ namespace BackToTheFutureV
             FlyMode.Enabled = CurrentTimeMachine.Mods.HoverUnderbody == ModState.On && !CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
             AltitudeHold.Enabled = FlyMode.Enabled;
             RemoteControl.Enabled = CurrentTimeMachine.Properties.IsRemoteControlled;
-            //CustomMenu.Enabled = !CurrentTimeMachine.Properties.IsRemoteControlled;
             TimeCircuitsOn.Enabled = !RemoteControl.Enabled;
             CutsceneMode.Enabled = !RemoteControl.Enabled;
 
@@ -78,19 +73,6 @@ namespace BackToTheFutureV
                 case NativeCheckboxItem item when item == RemoteControl && !Checked && CurrentTimeMachine.Properties.IsRemoteControlled:
                     RemoteTimeMachineHandler.StopRemoteControl();
                     break;
-                /*case NativeCheckboxItem item when item == EscapeMission:
-                    if (Checked)
-                    {
-                        MissionHandler.EscapeMission.Start();
-                    }
-                    else
-                    {
-                        MissionHandler.EscapeMission.End();
-                    }
-
-                    Visible = false;
-
-                    break;*/
             }
         }
 
@@ -108,13 +90,8 @@ namespace BackToTheFutureV
             AltitudeHold.Checked = CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = CurrentTimeMachine.Properties.IsRemoteControlled;
 
-            //CustomMenu.Enabled = !CurrentTimeMachine.Constants.FullDamaged && !CurrentTimeMachine.Properties.IsRemoteControlled;
-
             if (MenuHandler.UnlockPhotoMenu)
                 PhotoMenu.Enabled = !CurrentTimeMachine.Constants.FullDamaged && !CurrentTimeMachine.Properties.IsRemoteControlled;
-
-            //EscapeMission.Enabled = !CurrentTimeMachine.Properties.IsFlying;
-            //EscapeMission.Checked = MissionHandler.Escape.IsPlaying;
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)

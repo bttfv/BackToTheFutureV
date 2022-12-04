@@ -401,9 +401,9 @@ namespace BackToTheFutureV
                         TextIntro();
                     }
                     //For some reason applying impulse doesn't work while faded out, so try again
-                    if (FusionUtils.PlayerVehicle != null && FusionUtils.PlayerVehicle.Model == ModelHandler.DMC12)
+                    foreach (TimeMachine x in TimeMachineHandler.TimeMachines)
                     {
-                        FusionUtils.PlayerVehicle.Velocity += GTA.Math.Vector3.UnitY * 0.3f;
+                        x.Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.3f;
                     }
                     FirstTick = false;
                 }
