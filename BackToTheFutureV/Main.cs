@@ -135,7 +135,7 @@ namespace BackToTheFutureV
                     Function.Call(Hash.SET_TEXT_CENTRE, true);
                     Function.Call(Hash.SET_SCRIPT_GFX_DRAW_ORDER, 7);
                     Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING"); // draw crap on screen
-                    Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, $"\n\n{openingDate:hh:mm tt}");
+                    Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, $"\n\n{openingDate:h:mm tt}");
                     Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, 0.5f, 0.62f - fVar1 / 2, 0);
                 }
                 if (Function.Call<int>(Hash.TIMERA) > 6000)
@@ -161,7 +161,7 @@ namespace BackToTheFutureV
                 Function.Call(Hash.SET_TEXT_CENTRE, true);
                 Function.Call(Hash.SET_SCRIPT_GFX_DRAW_ORDER, 7);
                 Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING"); // draw crap on screen
-                Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, $"{openingDate:dddd}\n{openingDate:MMMM d, yyyy}\n{openingDate:hh:mm tt}");
+                Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, $"{openingDate:dddd}\n{openingDate:MMMM d, yyyy}\n{openingDate:h:mm tt}");
                 Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, 0.5f, 0.62f - fVar1 / 2, 0);
                 // -1f to 1f.
                 // X - Horizontal

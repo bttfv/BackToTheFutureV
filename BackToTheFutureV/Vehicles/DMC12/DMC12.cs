@@ -53,7 +53,14 @@ namespace BackToTheFutureV
 
         private bool spawnSuspension;
         private bool isDucking;
+        public bool forcedDucking;
         private bool duckEnded;
+        private Camera steeringCamera;
+        private Camera duckCameraStart;
+        private Camera duckCameraEnd;
+        private bool fpsEnded;
+        private bool fpsSetup;
+        private int duckTime;
 
         private bool _isTimeMachine;
         public bool IsTimeMachine
@@ -138,22 +145,56 @@ namespace BackToTheFutureV
             Finally, we make sure that no ingame menus are open since the duck key on controller is also the select button in menus.
             We also check to see if the player is in first-person since these animations are only for third-person viewing as of right now.*/
 
-            if (Game.IsControlPressed(Control.VehicleDuck) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && !FusionUtils.IsCameraInFirstPerson())
+            if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && !FusionUtils.IsCameraInFirstPerson())
             {
                 FusionUtils.PlayerPed.Task?.PlayAnimation("veh@low@front_ds@idle_duck", "sit", -3.5f, 3.5f, -1, AnimationFlags.AllowRotation, 1f);
                 isDucking = true;
                 duckEnded = false;
             }
-            else if (Game.IsControlPressed(Control.VehicleDuck) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && isDucking && !FusionUtils.IsCameraInFirstPerson())
+            else if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && isDucking && !FusionUtils.IsCameraInFirstPerson())
             {
                 Function.Call(Hash.SET_ENTITY_ANIM_SPEED, FusionUtils.PlayerPed, "veh@low@front_ds@idle_duck", "sit", 0f);
                 Function.Call(Hash.SET_ENTITY_ANIM_CURRENT_TIME, FusionUtils.PlayerPed, "veh@low@front_ds@idle_duck", "sit", 0f);
             }
-            else if (!duckEnded && !FusionUtils.IsCameraInFirstPerson())
+            else if (!duckEnded && !(Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && !FusionUtils.IsCameraInFirstPerson())
             {
                 FusionUtils.PlayerPed.Task?.ClearAnimation("veh@low@front_ds@idle_duck", "sit");
                 isDucking = false;
                 duckEnded = true;
+            }
+
+            if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && FusionUtils.IsCameraInFirstPerson())
+            {
+                if (!fpsSetup)
+                {
+                    duckCameraStart = World.CreateCamera(FusionUtils.PlayerPed.Bones[Bone.IKHead].Position + new Vector3(0f, 0.03f, 0.12f), GameplayCamera.Rotation, GameplayCamera.FieldOfView);
+                    duckCameraEnd = World.CreateCamera(FusionUtils.PlayerPed.Bones[Bone.IKHead].Position + new Vector3(0f, 0.03f, 0.12f), GameplayCamera.Rotation, GameplayCamera.FieldOfView);
+                    steeringCamera = World.CreateCamera(Vehicle.Position, Vehicle.Rotation, 50);
+                    steeringCamera.AttachToVehicle(Vehicle, "", Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), FusionUtils.DirectionToRotation(Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), Vehicle.Bones["steeringwheel"].RelativePosition, 0));
+                    World.RenderingCamera = duckCameraStart;
+                    duckCameraStart.InterpTo(steeringCamera, 50, 0, 0);
+                    isDucking = true;
+                    fpsSetup = true;
+                }
+            }
+            else if (isDucking && !(Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.IsCameraInFirstPerson())
+            {
+                if (!fpsEnded)
+                {
+                    steeringCamera.InterpTo(duckCameraEnd, 50, 0, 0);
+                    duckTime = Game.GameTime + 50;
+                    fpsEnded = true;
+                }
+                if (Game.GameTime > duckTime && fpsEnded)
+                {
+                    World.RenderingCamera = null;
+                    duckCameraStart?.Delete();
+                    duckCameraEnd?.Delete();
+                    steeringCamera?.Delete();
+                    fpsSetup = false;
+                    fpsEnded = false;
+                    isDucking = false;
+                }
             }
         }
 

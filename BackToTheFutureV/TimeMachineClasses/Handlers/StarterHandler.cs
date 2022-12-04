@@ -121,6 +121,15 @@ namespace BackToTheFutureV
                 }
             }
 
+            if (Sounds.HeadHorn.IsAnyInstancePlaying && !DMC12.forcedDucking)
+            {
+                DMC12.forcedDucking = true;
+            }
+            else if (!Sounds.HeadHorn.IsAnyInstancePlaying && DMC12.forcedDucking)
+            {
+                DMC12.forcedDucking = false;
+            }
+
             if (Mods.Reactor != ReactorType.Nuclear && IsPlaying && !Properties.PhotoEngineStallActive)
             {
                 if (Properties.IsEngineStalling)
@@ -183,6 +192,7 @@ namespace BackToTheFutureV
 
                     if (!_isRestarting)
                     {
+                        //Would be cool to loop this animation at the key-turning step...
                         Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop | AnimationFlags.CancelableWithMovement);
 
                         Sounds.EngineRestarter?.Play();
@@ -216,11 +226,10 @@ namespace BackToTheFutureV
                 else
                 {
                     _lightsBrightness = 1;
-
                     timedEventManager.ResetExecution();
-
                     _isRestarting = false;
                     Sounds.EngineRestarter?.Stop();
+                    Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
                 }
             }
 
@@ -242,7 +251,6 @@ namespace BackToTheFutureV
         public override void Stop()
         {
             Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
-
             Properties.IsEngineStalling = false;
             Properties.PhotoEngineStallActive = false;
             Properties.BlockEngineRecover = false;

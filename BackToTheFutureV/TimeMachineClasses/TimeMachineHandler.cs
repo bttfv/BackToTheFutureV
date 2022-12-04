@@ -139,6 +139,7 @@ namespace BackToTheFutureV
             vehicle?.Dispose(deleteVeh);
 
             AllTimeMachines.Remove(vehicle);
+            World.RenderingCamera = null;
         }
 
         public static void RemoveAllTimeMachines(bool noCurrent = false)

@@ -159,7 +159,7 @@ namespace BackToTheFutureV
 
             Game.Player.IgnoredByPolice = false;
 
-            Game.Player.CanControlCharacter = true;
+            Function.Call(Hash.ENABLE_ALL_CONTROL_ACTIONS, 0);
 
             if (Decorators.TorqueMultiplier == Constants.TorqueForLightningRun)
                 Decorators.TorqueMultiplier = 1f;

@@ -390,7 +390,7 @@ namespace BackToTheFutureV
 
         private void DrawGUI()
         {
-            if (FusionUtils.HideGUI || FusionUtils.PlayerVehicle != Vehicle || FusionUtils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled || MenuHandler.GarageMenu.Visible)
+            if (FusionUtils.HideGUI || FusionUtils.PlayerVehicle != Vehicle || (FusionUtils.IsCameraInFirstPerson() && Mods.IsDMC12) || TcdEditer.IsEditing || RCGUIEditer.IsEditing || Properties.IsRemoteControlled || MenuHandler.GarageMenu.Visible)
             {
                 return;
             }

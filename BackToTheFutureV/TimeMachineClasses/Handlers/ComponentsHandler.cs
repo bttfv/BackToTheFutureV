@@ -13,6 +13,7 @@ namespace BackToTheFutureV
         private int _warmUp = 0;
         private int _coolDown = 0;
         private bool _wasOn;
+        private bool _wasStruck;
 
         private float _fluxBandsCooldown = -1;
 
@@ -29,14 +30,9 @@ namespace BackToTheFutureV
 
         public void OnReenterStarted()
         {
-            if (Mods.Plate == PlateType.Outatime && !Properties.IsFlying)
+            if (Properties.HasBeenStruckByLightning)
             {
-                Mods.Plate = PlateType.Empty;
-            }
-
-            if (Mods.Hook == HookState.On && Properties.HasBeenStruckByLightning)
-            {
-                Mods.Hook = HookState.Removed;
+                _wasStruck = true;
             }
         }
 
@@ -45,6 +41,17 @@ namespace BackToTheFutureV
             if (Mods.HoverUnderbody == ModState.On)
             {
                 Properties.CanConvert = true;
+            }
+
+            if (Mods.Plate == PlateType.Outatime && !Properties.IsFlying)
+            {
+                Mods.Plate = PlateType.Empty;
+            }
+
+            if (Mods.Hook == HookState.On && _wasStruck)
+            {
+                Mods.Hook = HookState.Removed;
+                _wasStruck = false;
             }
 
             if (Mods.IsDMC12 && Properties.IsFlying && Mods.Reactor == ReactorType.MrFusion)
@@ -120,13 +127,13 @@ namespace BackToTheFutureV
 
         private void BulovaProcess()
         {
-            if (Mods.Bulova == InternalEnums.ModState.On && !Props.BulovaClockRing.IsSpawned)
+            if (Mods.Bulova == ModState.On && !Props.BulovaClockRing.IsSpawned)
             {
                 Props.BulovaClockHour.SpawnProp();
                 Props.BulovaClockMinute.SpawnProp();
                 Props.BulovaClockRing.SpawnProp();
             }
-            else if (Mods.Bulova == InternalEnums.ModState.Off && Props.BulovaClockRing.IsSpawned)
+            else if (Mods.Bulova == ModState.Off && Props.BulovaClockRing.IsSpawned)
             {
                 Props.BulovaClockHour?.Delete();
                 Props.BulovaClockMinute?.Delete();
@@ -168,9 +175,7 @@ namespace BackToTheFutureV
 
                 if (_coolDown > 0 && _coolDown < Game.GameTime)
                 {
-                    Props.HoodboxLights.Delete();
-                    _coolDown = 0;
-                    Properties.AreHoodboxCircuitsReady = false;
+                    Stop();
                 }
 
                 return;

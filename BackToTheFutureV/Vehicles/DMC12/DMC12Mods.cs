@@ -23,7 +23,7 @@ namespace BackToTheFutureV
 
             CVehicle = new CVehicle(vehicle);
 
-            bool wasReloaded = WheelStartOffsets.Count == 0 && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != (SuspensionsType.Unknown | SuspensionsType.Stock);
+            bool wasReloaded = WheelStartOffsets.Count == 0 && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != SuspensionsType.Unknown && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != SuspensionsType.Stock;
 
             foreach (KeyValuePair<VehicleWheelBoneId, CWheel> cWheel in CVehicle.Wheels)
                 WheelStartOffsets.Add(cWheel.Key, cWheel.Value.RelativePosition.Get());
