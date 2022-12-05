@@ -1,8 +1,7 @@
 ﻿Version 2 30
 {
-	0x76F15B36 = Делориан
-	0xAFD2DA44 = Машина времени
-	0xD6D415CE = DMC-12
+	delorean = Делориан
+	dmc12 = DMC-12
 	BTTFV_Menu_Controls_Description = Открывает меню редактирования горячих клавиш мода
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Description = Если для открытия меню взаимодействия нужна комбинация двух клавиш.
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Title = Требуется комбинация

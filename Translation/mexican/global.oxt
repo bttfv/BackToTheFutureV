@@ -1,8 +1,7 @@
 Version 2 30
 {
-	0x76F15B36 = DeLorean
-	0xAFD2DA44 = Maquina del tiempo
-	0xD6D415CE = DMC-12
+	delorean = DeLorean
+	dmc12 = DMC-12
 	BTTFV_Menu_Controls_Description = Abre el menú para editar las teclas de acceso rápido y los controles del mod.
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Description = Requiere de la combinación de dos botones para abrir el menú de interacción.
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Title = Combinación requerida

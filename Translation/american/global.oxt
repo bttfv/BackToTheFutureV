@@ -1,8 +1,7 @@
 ﻿Version 2 30
 {
-	0x76F15B36 = DeLorean
-	0xAFD2DA44 = Time Machine
-	0xD6D415CE = DMC-12
+	delorean = DeLorean
+	dmc12 = DMC-12
 	BTTFV_Menu_Controls_Description = Opens menu for editing the mod's hotkeys and controls.
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Description = If a two button combination is required for opening the Interaction Menu.
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Title = Combination Required
@@ -205,7 +204,7 @@
 	BTTFV_Menu_Photo_Item_HideHUD_Title = Hide HUD
 	BTTFV_Menu_Photo_Item_Ice_Description = Enables ice on Time Machine.
 	BTTFV_Menu_Photo_Item_Ice_Title = Ice
-	BTTFV_Menu_Photo_Item_LightningStrike_Description = Forces a lightning strike upon car.
+	BTTFV_Menu_Photo_Item_LightningStrike_Description = Forces the car to be struck by lighting.
 	BTTFV_Menu_Photo_Item_LightningStrike_Title = Lightning Strike
 	BTTFV_Menu_Photo_Item_SIDMax_Description = Enable/disable SID.
 	BTTFV_Menu_Photo_Item_SIDMax_Title = Activate SID

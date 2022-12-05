@@ -1,8 +1,7 @@
 ﻿Version 2 30
 {
-	0x76F15B36 = デロリアン
-	0xAFD2DA44 = タイムマシン
-	0xD6D415CE = DMC-12
+	delorean = デロリアン
+	dmc12 = DMC-12
 	BTTFV_Menu_Controls_Description = ホットキーを編集するためのメニューを開きます。
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Description = インタラクションメニューを開くのに2つのキーが必要になる。
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Title = キーの組み合わせ必要

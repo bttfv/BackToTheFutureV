@@ -330,9 +330,11 @@ namespace BackToTheFutureV
                     }
                 }
 
+                bool newSuspension = false;
+
                 if (TimeMachine.Mods != null && TimeMachine.Mods.SuspensionsType != value)
                 {
-                    TimeMachine.Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.3f;
+                    newSuspension = true;
                 }
 
                 base.SuspensionsType = value;
@@ -360,6 +362,11 @@ namespace BackToTheFutureV
                     {
                         TimeMachine.Decorators.TorqueMultiplier = 1f;
                     }
+                }
+
+                if (newSuspension)
+                {
+                    TimeMachine.Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.3f;
                 }
             }
         }

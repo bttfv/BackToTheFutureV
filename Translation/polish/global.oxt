@@ -1,8 +1,7 @@
 ﻿Version 2 30
 {
-	0x76F15B36 = DeLoreana
-	0xAFD2DA44 = Wehikuł czasu
-	0xD6D415CE = DMC-12
+	delorean = DeLoreana
+	dmc12 = DMC-12
 	BTTFV_Menu_Controls_Description = Otwiera menu do edycji skrótów klawiszowych i sterowania modem.
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Description = Do otwarcia menu interakcji wymagana jest kombinacja dwóch przycisków.
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Title = Wymagana kombinacja

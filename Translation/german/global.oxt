@@ -1,8 +1,7 @@
 ﻿Version 2 30
 {
-	0x76F15B36 = DeLorean
-	0xAFD2DA44 = Zeitmaschine
-	0xD6D415CE = DMC-12
+	delorean = DeLorean
+	dmc12 = DMC-12
 	BTTFV_Menu_Controls_Description = Öffnet das Menü zum Bearbeiten von Hotkeys und Steuerungen der Mod.
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Description = Soll eine Tastenkombination zum Öffnen des Interaktionsmenüs verwendet werden.
 	BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Title = Kombination erforderlich

@@ -67,7 +67,7 @@ namespace BackToTheFutureV
 
         private void OnReenterEnded()
         {
-            if (ModSettings.EngineStallEvent && Mods.Reactor == ReactorType.Nuclear)
+            if (ModSettings.EngineStallEvent && Mods.Reactor == ReactorType.Nuclear && !Properties.IsRemoteControlled && !Properties.IsWayback && Driver != null)
             {
                 IsPlaying = true;
             }
@@ -157,7 +157,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled && !Properties.IsRemoteControlled && Driver != null && !FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 20, 0, 0), new DateTime(1955, 11, 12, 22, 4, 10)) && Vehicle.GetStreetInfo().Street != LightningRun.LightningRunStreet)
+            if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled && !Properties.IsRemoteControlled && Driver != null && !FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 20, 0, 0), new DateTime(1955, 11, 12, 22, 4, 10)) && (Vehicle.GetStreetInfo().Street != LightningRun.LightningRunStreet || Vehicle.GetStreetInfo().Crossing != LightningRun.LightningRunStreet))
             {
                 if (FusionUtils.Random.NextDouble() < 0.25)
                 {

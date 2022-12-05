@@ -251,6 +251,10 @@ namespace BackToTheFutureV
             {
                 Properties.HasScaleformPriority = Constants.HasScaleformPriority;
                 Events.OnScaleformPriority?.Invoke();
+                if (Mods.SuspensionsType != SuspensionsType.Stock)
+                {
+                    Vehicle.Velocity += Vector3.UnitY * 0.3f;
+                }
             }
 
             if (!Vehicle.IsVisible)
