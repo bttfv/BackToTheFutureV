@@ -75,13 +75,13 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            convertIntoTimeMachine.Enabled = FusionUtils.PlayerVehicle.IsFunctioning() && !FusionUtils.PlayerVehicle.IsTimeMachine();
+            convertIntoTimeMachine.Enabled = FusionUtils.PlayerVehicle.IsFunctioning() && !FusionUtils.PlayerVehicle.IsTimeMachine() && !Game.IsMissionActive;
 
             doorsMenu.Enabled = FusionUtils.PlayerPed?.GetClosestVehicle(5f)?.Model == ModelHandler.DMC12 && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsConsideredDestroyed;
 
-            outatimeMenu.Enabled = RemoteTimeMachineHandler.RemoteTimeMachineCount > 0;
+            outatimeMenu.Enabled = RemoteTimeMachineHandler.RemoteTimeMachineCount > 0 && !Game.IsMissionActive;
 
-            rcMenu.Enabled = FusionUtils.PlayerVehicle == null && TimeMachineHandler.TimeMachineCount > 0;
+            rcMenu.Enabled = FusionUtils.PlayerVehicle == null && TimeMachineHandler.TimeMachineCount > 0 && !Game.IsMissionActive;
         }
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)
@@ -205,7 +205,7 @@ namespace BackToTheFutureV
                 Add(8, deleteAll);
             }
 
-            if (!MenuHandler.UnlockSpawnMenu)
+            if (!MenuHandler.UnlockSpawnMenu || Game.IsMissionActive)
             {
                 Remove(spawnBTTF);
                 Remove(presetsMenu);

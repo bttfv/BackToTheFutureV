@@ -16,6 +16,7 @@ namespace BackToTheFutureV
         private bool save;
 
         private DateTime tempTime;
+        public static int finishTime;
 
         private static readonly InstrumentalMenu InstrumentalMenu;
 
@@ -87,6 +88,11 @@ namespace BackToTheFutureV
             if (!Props.BulovaClockRing.IsSpawned)
             {
                 return;
+            }
+
+            if (Game.GameTime < finishTime)
+            {
+                Game.DisableControlThisFrame(GTA.Control.VehicleCinCam);
             }
 
             if (Properties.SyncWithCurTime)
@@ -282,6 +288,7 @@ namespace BackToTheFutureV
                 TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.BulovaSetup, CameraSwitchType.Instant, 32);
                 Props.BulovaClockMinute.SetRotation(Coordinate.Y, tempTime.Minute * 6 + (TimeHandler.RealTime ? tempTime.Second * 0.1f : 0));
                 Props.BulovaClockHour.SetRotation(Coordinate.Y, tempTime.Hour * 30 + tempTime.Minute * 0.5f);
+                finishTime = Game.GameTime + 256;
             }
             else
             {

@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
+using GTA;
 using LemonUI.Menus;
 using System;
 using System.ComponentModel;
@@ -45,7 +46,7 @@ namespace BackToTheFutureV
             FlyMode.Enabled = CurrentTimeMachine.Mods.HoverUnderbody == ModState.On && !CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
             AltitudeHold.Enabled = FlyMode.Enabled;
             RemoteControl.Enabled = CurrentTimeMachine.Properties.IsRemoteControlled;
-            TimeCircuitsOn.Enabled = !RemoteControl.Enabled;
+            TimeCircuitsOn.Enabled = !RemoteControl.Enabled && !Game.IsMissionActive;
             CutsceneMode.Enabled = !RemoteControl.Enabled;
 
             if (!MenuHandler.UnlockPhotoMenu)
@@ -90,7 +91,7 @@ namespace BackToTheFutureV
             AltitudeHold.Checked = CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = CurrentTimeMachine.Properties.IsRemoteControlled;
 
-            if (MenuHandler.UnlockPhotoMenu)
+            if (MenuHandler.UnlockPhotoMenu && !Game.IsMissionActive)
                 PhotoMenu.Enabled = !CurrentTimeMachine.Constants.FullDamaged && !CurrentTimeMachine.Properties.IsRemoteControlled;
         }
 

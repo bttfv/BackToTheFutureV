@@ -273,7 +273,7 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs e)
         {
-            if (e.KeyCode == ModControls.TCToggle && !Properties.IsRemoteControlled)
+            if (e.KeyCode == ModControls.TCToggle && !Properties.IsRemoteControlled && !Game.IsMissionActive)
             {
                 SetTimeCircuitsOn(!Properties.AreTimeCircuitsOn);
             }
@@ -334,6 +334,11 @@ namespace BackToTheFutureV
             if (!Properties.AreTimeCircuitsOn)
             {
                 return;
+            }
+
+            if (Properties.AreTimeCircuitsOn && Game.IsMissionActive)
+            {
+                SetTimeCircuitsOn(false);
             }
 
             UpdateCurrentTimeDisplay();

@@ -25,6 +25,7 @@ namespace BackToTheFutureV
         public static OutatimeMenu OutatimeMenu { get; } = new OutatimeMenu();
         public static MainMenu MainMenu { get; } = new MainMenu();
         public static TimeMachineMenu TimeMachineMenu { get; } = new TimeMachineMenu();
+        public static int closingTime;
 
         public static bool UnlockPhotoMenu { get; private set; } = true;
         public static bool UnlockSpawnMenu { get; private set; } = true;
@@ -80,6 +81,16 @@ namespace BackToTheFutureV
                         MainMenu.Visible = true;
                     }
                 }
+
+                if ((MainMenu.Visible || TimeMachineMenu.Visible || GarageMenu.Visible || CustomMenuMain.Visible || CustomMenuPresets.Visible || PresetsMenu.Visible || PhotoMenu.Visible) && FusionUtils.PlayerVehicle.NotNullAndExists() && (Game.IsControlJustPressed(GTA.Control.VehicleCinCam) || Game.IsControlJustPressed(GTA.Control.VehicleDuck)))
+                {
+                    closingTime = Game.GameTime + 256;
+                }
+            }
+
+            if (Game.GameTime < closingTime)
+            {
+                Game.DisableControlThisFrame(GTA.Control.VehicleCinCam);
             }
         }
 

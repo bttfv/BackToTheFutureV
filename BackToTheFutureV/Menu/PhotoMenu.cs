@@ -78,7 +78,6 @@ namespace BackToTheFutureV
                     CurrentTimeMachine.Properties.PhotoFluxCapacitorActive = Checked;
                     break;
                 case NativeCheckboxItem _ when sender == EngineStall:
-                    CurrentTimeMachine.Events.SetEngineStall?.Invoke(Checked);
                     CurrentTimeMachine.Properties.PhotoEngineStallActive = Checked;
                     break;
                 case NativeCheckboxItem _ when sender == SIDMax:
@@ -103,7 +102,7 @@ namespace BackToTheFutureV
             Coils.Checked = CurrentTimeMachine.Properties.PhotoGlowingCoilsActive;
             Ice.Checked = CurrentTimeMachine.Properties.IsFreezed;
             FluxCapacitor.Checked = CurrentTimeMachine.Properties.PhotoFluxCapacitorActive;
-            EngineStall.Checked = CurrentTimeMachine.Properties.IsEngineStalling;
+            EngineStall.Checked = CurrentTimeMachine.Properties.PhotoEngineStallActive;
             SIDMax.Checked = CurrentTimeMachine.Properties.PhotoSIDMaxActive;
 
             LightningStrike.Enabled = !CurrentTimeMachine.Properties.IsPhotoModeOn;

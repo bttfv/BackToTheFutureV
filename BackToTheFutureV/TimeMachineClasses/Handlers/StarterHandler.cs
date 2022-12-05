@@ -84,6 +84,10 @@ namespace BackToTheFutureV
 
                 return;
             }
+            else
+            {
+                Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
+            }
 
             if (Properties.IsFlying)
             {

@@ -127,7 +127,7 @@ namespace BackToTheFutureV
         private void ResetSpringPosition()
         {
             _springPosition = _springOrigin;
-            _springVelocity = FusionUtils.PlayerPed.LastVehicle.Velocity * 0.1f;
+            _springVelocity = CurrentTimeMachine.Vehicle.Velocity * 0.1f;
         }
 
         private void UpdateSpringPosition()
@@ -185,7 +185,7 @@ namespace BackToTheFutureV
                 UpdateSpringPhysics();
 
                 Vector3 springUp = _springDirection;
-                Vector3 springForward = FusionUtils.PlayerPed.LastVehicle.ForwardVector;
+                Vector3 springForward = CurrentTimeMachine.Vehicle.ForwardVector;
 
                 // Align spring forward with spring up to make right angle
                 springForward = Vector3.Cross(springForward, Vector3.WorldUp);
@@ -235,7 +235,14 @@ namespace BackToTheFutureV
                         CustomCamera.Show(0);
                     }
 
-                    Thunder.SourceEntity = FusionUtils.PlayerPed;
+                    if (FusionUtils.PlayerPed.NotNullAndExists())
+                    {
+                        Thunder.SourceEntity = FusionUtils.PlayerPed;
+                    }
+                    else
+                    {
+                        Thunder.SourceEntity = Pole;
+                    }
                     Thunder.Play();
 
                     Lightnings.Play();
