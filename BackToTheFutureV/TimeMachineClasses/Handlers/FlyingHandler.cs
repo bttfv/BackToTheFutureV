@@ -390,12 +390,12 @@ namespace BackToTheFutureV
 
                     switch (World.Weather)
                     {
-                        /*case Weather.Clearing:
-                            _force = 0.5f;
+                        case Weather.Clearing:
+                            _force = 0.25f;
                             break;
                         case Weather.Raining:
-                            _force = 0.75f;
-                            break;*/
+                            _force = 0.5f;
+                            break;
                         case Weather.ThunderStorm:
                         case Weather.Blizzard:
                             _force = 1;

@@ -167,7 +167,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!setup || (FusionUtils.CurrentTime >= StartTime && FusionUtils.CurrentTime <= EndTime && StreetRope == null))
+            if (!setup || (FusionUtils.CurrentTime >= StartTime && FusionUtils.CurrentTime <= EndTime && Thunder == null))
             {
                 OnEnd();
                 Setup();
@@ -235,14 +235,7 @@ namespace BackToTheFutureV
                         CustomCamera.Show(0);
                     }
 
-                    if (FusionUtils.PlayerPed.NotNullAndExists())
-                    {
-                        Thunder.SourceEntity = FusionUtils.PlayerPed;
-                    }
-                    else
-                    {
-                        Thunder.SourceEntity = Pole;
-                    }
+                    Thunder.SourceEntity = FusionUtils.PlayerPed;
                     Thunder.Play();
 
                     Lightnings.Play();

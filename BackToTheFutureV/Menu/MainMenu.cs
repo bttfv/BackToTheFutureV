@@ -39,13 +39,12 @@ namespace BackToTheFutureV
 
             rcMenu = NewSubmenu(MenuHandler.RCMenu);
             outatimeMenu = NewSubmenu(MenuHandler.OutatimeMenu);
+            doorsMenu = NewSubmenu(MenuHandler.DoorsMenu);
+            NewSubmenu(MenuHandler.SettingsMenu);
 
             deleteCurrent = NewItem("Remove");
             deleteOthers = NewItem("RemoveOther");
             deleteAll = NewItem("RemoveAll");
-
-            doorsMenu = NewSubmenu(MenuHandler.DoorsMenu);
-            NewSubmenu(MenuHandler.SettingsMenu);
         }
 
         private void SpawnBTTF_ItemChanged(object sender, ItemChangedEventArgs<string> e)
@@ -194,15 +193,15 @@ namespace BackToTheFutureV
             }
             else if (!Items.Contains(deleteAll) && !Items.Contains(spawnBTTF))
             {
-                Add(2, deleteCurrent);
-                Add(3, deleteOthers);
-                Add(4, deleteAll);
+                Add(4, deleteCurrent);
+                Add(5, deleteOthers);
+                Add(6, deleteAll);
             }
             else if (!Items.Contains(deleteAll) && Items.Contains(spawnBTTF))
             {
-                Add(6, deleteCurrent);
-                Add(7, deleteOthers);
-                Add(8, deleteAll);
+                Add(8, deleteCurrent);
+                Add(9, deleteOthers);
+                Add(10, deleteAll);
             }
 
             if (!MenuHandler.UnlockSpawnMenu || Game.IsMissionActive)
