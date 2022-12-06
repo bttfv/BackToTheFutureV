@@ -173,6 +173,7 @@
     <Compile Include="Players\WheelAnimationPlayer.cs" />
     <Compile Include="Players\WormholeAnimationPlayer.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="TimeText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\ModSettings.cs" />
     <Compile Include="Settings\TCDEditer.cs" />
