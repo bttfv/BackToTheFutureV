@@ -280,7 +280,7 @@ namespace BackToTheFutureV
             {
                 TimeTravelCooldown += Game.LastFrameTime;
 
-                if (TimeTravelCooldown >= 30 && !Properties.IsFreezed)
+                if ((TimeTravelCooldown >= 30 && Mods.Reactor != ReactorType.Nuclear) || (Mods.Reactor == ReactorType.Nuclear && TimeTravelCooldown >= 60 && Properties.IsFreezed) || (TimeTravelCooldown >= 30 && !Properties.IsFreezed))
                 {
                     if (Mods.IsDMC12)
                         DMC12.SetVoltValue?.Invoke(50);

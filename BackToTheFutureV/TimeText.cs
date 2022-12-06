@@ -129,6 +129,9 @@ namespace BackToTheFutureV
             {
                 GTA.UI.Screen.FadeIn(1000);
             }
+            textAlpha1 = 0;
+            textAlpha2 = 0;
+            textAlpha3 = 0;
         }
     }
 }
