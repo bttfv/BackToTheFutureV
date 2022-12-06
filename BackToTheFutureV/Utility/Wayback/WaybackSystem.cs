@@ -10,7 +10,8 @@ using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
-    internal class WaybackSystem
+    [ScriptAttributes(NoDefaultInstance = true)]
+    internal class WaybackSystem : Script
     {
         private static readonly List<WaybackMachine> Machines = new List<WaybackMachine>();
 
@@ -33,13 +34,8 @@ namespace BackToTheFutureV
             TimeHandler.OnTimeChanged += (DateTime dateTime) => Stop();
         }
 
-        public static void Tick()
+        public static new void Tick()
         {
-            if (!ModSettings.WaybackSystem)
-            {
-                return;
-            }
-
             if (ParadoxText == true)
             {
                 TimeText.DisplayText(Main.ResetDate);
@@ -187,7 +183,7 @@ namespace BackToTheFutureV
             Machines.ForEach(x => x.Stop());
         }
 
-        public static void Abort()
+        public static new void Abort()
         {
             Stop();
             Machines.Clear();

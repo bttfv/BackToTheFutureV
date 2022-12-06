@@ -18,6 +18,8 @@ namespace BackToTheFutureV
 
         public static bool FirstTick { get; private set; } = true;
 
+        public static bool WaybackStarted { get; private set; } = false;
+
         public static DateTime ResetDate { get; private set; }
 
         public static PedReplica ResetPed { get; private set; }
@@ -57,6 +59,12 @@ namespace BackToTheFutureV
             if (ModSettings.PersistenceSystem)
             {
                 InstantiateScript<PersistenceScript>();
+            }
+
+            if (ModSettings.WaybackSystem)
+            {
+                InstantiateScript<WaybackSystem>();
+                WaybackStarted = true;
             }
 
             Tick += Main_Tick;
@@ -102,14 +110,14 @@ namespace BackToTheFutureV
             DMC12Handler.Abort();
         }
 
-        private unsafe void Main_KeyDown(object sender, KeyEventArgs e)
+        private void Main_KeyDown(object sender, KeyEventArgs e)
         {
             TimeMachineHandler.KeyDown(e);
             MissionHandler.KeyDown(e);
             MenuHandler.KeyDown(e);
         }
 
-        private unsafe void Main_Tick(object sender, EventArgs e)
+        private void Main_Tick(object sender, EventArgs e)
         {
             if (Game.Version >= GameVersion.v1_0_2372_0_Steam)
             {
@@ -174,7 +182,15 @@ namespace BackToTheFutureV
 
                     if (!StoryMode)
                     {
-                        WaybackSystem.Tick();
+                        if (ModSettings.WaybackSystem && !WaybackStarted)
+                        {
+                            InstantiateScript<WaybackSystem>();
+                            WaybackStarted = true;
+                        }
+                        else if (ModSettings.WaybackSystem && WaybackStarted)
+                        {
+                            WaybackSystem.Tick();
+                        }
                         if (ModSettings.TimeParadox)
                         {
                             if (PlayerSwitch.IsInProgress && FusionUtils.PlayerPed.Model == ResetPed.Model)
@@ -254,7 +270,10 @@ namespace BackToTheFutureV
                     if (!StoryMode)
                     {
                         ResetDate = FusionUtils.CurrentTime;
-                        WaybackSystem.Tick();
+                        if (WaybackStarted)
+                        {
+                            WaybackSystem.Tick();
+                        }
                     }
                     if (TutorialMission)
                     {
