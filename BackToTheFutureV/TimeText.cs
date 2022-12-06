@@ -116,7 +116,7 @@ namespace BackToTheFutureV
             {
                 Function.Call(Hash.HIDE_LOADING_ON_FADE_THIS_FRAME);
                 FadeTextOut();
-                TextBlock($"{date:dddd}\n{date:MMMM d, yyyy}\n{date:hh:mm tt}");
+                TextBlock($"{date:dddd}\n{date:MMMM d, yyyy}\n{date:h:mm tt}");
                 Script.Wait(1);
                 if (Function.Call<int>(Hash.TIMERA) > 8000)
                 {
