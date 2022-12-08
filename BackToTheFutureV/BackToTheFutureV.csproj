@@ -173,11 +173,11 @@
     <Compile Include="Players\WheelAnimationPlayer.cs" />
     <Compile Include="Players\WormholeAnimationPlayer.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="TimeText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\ModSettings.cs" />
     <Compile Include="Settings\TCDEditer.cs" />
     <Compile Include="Utility\TextHandler.cs" />
+    <Compile Include="Utility\TimeText.cs" />
     <Compile Include="Utility\TrashHandler.cs" />
     <Compile Include="Utility\Wayback\WaybackRecord.cs" />
     <Compile Include="Utility\Wayback\WaybackMachine.cs" />

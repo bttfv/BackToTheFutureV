@@ -329,6 +329,37 @@ namespace BackToTheFutureV
                 }
             }
 
+            if (Constants.DeluxoProto)
+            {
+                if (Mods.HoverUnderbody != ModState.On)
+                {
+                    Mods.HoverUnderbody = ModState.On;
+                    Mods.Wheel = WheelType.DMC;
+                }
+
+                if (Vehicle.IsExtraOn(1) && Properties.ReactorCharge != 0)
+                {
+                    Properties.ReactorCharge = 0;
+                }
+                else if (!Vehicle.IsExtraOn(1) && Properties.ReactorCharge != 1)
+                {
+                    Properties.ReactorCharge = 1;
+                }
+
+                if (Vehicle.IsExtraOn(2) && Mods.WormholeType != WormholeType.BTTF3)
+                {
+                    Mods.WormholeType = WormholeType.BTTF3;
+                }
+                else if (!Vehicle.IsExtraOn(2) && Vehicle.IsExtraOn(3) && Mods.WormholeType != WormholeType.BTTF2)
+                {
+                    Mods.WormholeType = WormholeType.BTTF2;
+                }
+                else if (!Vehicle.IsExtraOn(2) && !Vehicle.IsExtraOn(3) && Mods.WormholeType != WormholeType.BTTF1)
+                {
+                    Mods.WormholeType = WormholeType.BTTF1;
+                }
+            }
+
             if (FusionUtils.PlayerVehicle != Vehicle && Vehicle.Exists() && !Properties.Story)
             {
                 Decorators.TorqueMultiplier = 1f;
@@ -512,10 +543,20 @@ namespace BackToTheFutureV
                 Props.Coils.SpawnProp();
             }
 
+            if (Properties.PhotoGlowingCoilsActive && Constants.DeluxoProto && Vehicle.Mods.DashboardColor != (VehicleColor)70)
+            {
+                Vehicle.Mods.DashboardColor = (VehicleColor)70;
+            }
+
             if (!Properties.PhotoGlowingCoilsActive && Props.Coils != null && Props.Coils.IsSpawned && Properties.TimeTravelPhase != TimeTravelPhase.OpeningWormhole)
             {
                 Mods.OffCoils = ModState.On;
                 Props.Coils.Delete();
+            }
+
+            if (!Properties.PhotoGlowingCoilsActive && Constants.DeluxoProto && Vehicle.Mods.DashboardColor != (VehicleColor)12 && Properties.TimeTravelPhase != TimeTravelPhase.OpeningWormhole)
+            {
+                Vehicle.Mods.DashboardColor = (VehicleColor)12;
             }
 
             if (Properties.PhotoFluxCapacitorActive && !(Properties.IsFluxDoingBlueAnim || Properties.IsFluxDoingOrangeAnim))

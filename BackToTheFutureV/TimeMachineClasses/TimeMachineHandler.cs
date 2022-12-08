@@ -86,6 +86,38 @@ namespace BackToTheFutureV
                 return null;
             }
 
+            if (Main.DeluxoProtoSupport && vehicle.Model == ModelHandler.DeluxoModel)
+            {
+                Vector3 spawnPos = vehicle.Position;
+                float spawnHeading = vehicle.Heading;
+                FusionUtils.PlayerPed.IsVisible = false;
+                vehicle.DeleteCompletely();
+                vehicle = World.CreateVehicle("dproto", spawnPos, spawnHeading);
+                FusionUtils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+                vehicle.Mods.PrimaryColor = (VehicleColor)117;
+                vehicle.Mods.SecondaryColor = (VehicleColor)13;
+                vehicle.Mods.TrimColor = (VehicleColor)22;
+                vehicle.Mods.DashboardColor = (VehicleColor)12;
+                vehicle.Mods.LicensePlateStyle = LicensePlateStyle.YellowOnBlue;
+                vehicle.Mods.LicensePlate = " NOTIME ";
+                vehicle.ToggleExtra(1, false);
+                vehicle.ToggleExtra(2, false);
+                vehicle.ToggleExtra(3, false);
+                FusionUtils.PlayerPed.IsVisible = true;
+            }
+            else if (Main.DeluxoProtoSupport && vehicle.Model == "dproto")
+            {
+                vehicle.Mods.PrimaryColor = (VehicleColor)117;
+                vehicle.Mods.SecondaryColor = (VehicleColor)13;
+                vehicle.Mods.TrimColor = (VehicleColor)22;
+                vehicle.Mods.DashboardColor = (VehicleColor)12;
+                vehicle.Mods.LicensePlateStyle = LicensePlateStyle.YellowOnBlue;
+                vehicle.Mods.LicensePlate = " NOTIME ";
+                vehicle.ToggleExtra(1, false);
+                vehicle.ToggleExtra(2, false);
+                vehicle.ToggleExtra(3, false);
+            }
+
             TimeMachine timeMachine = GetTimeMachineFromVehicle(vehicle);
 
             if (timeMachine.NotNullAndExists())

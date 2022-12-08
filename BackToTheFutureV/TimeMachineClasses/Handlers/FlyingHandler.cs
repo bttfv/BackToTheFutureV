@@ -49,6 +49,7 @@ namespace BackToTheFutureV
             Events.SetFlyMode += SetFlyMode;
             Events.SetAltitudeHold += SetHoverMode;
             Events.OnHoverUnderbodyToggle += OnHoverUnderbodyToggle;
+            Events.OnReenterEnded += OnReenterEnded;
 
             Events.SimulateHoverBoost += SimulateHoverBoost;
             Events.SimulateHoverGoingUpDown += SpawnHoverGlow;
@@ -61,6 +62,14 @@ namespace BackToTheFutureV
             TimeHandler.OnDayNightChange += OnDayNightChange;
 
             OnDayNightChange();
+        }
+
+        private void OnReenterEnded()
+        {
+            if (Mods.HoverUnderbody == ModState.On)
+            {
+                Properties.CanConvert = true;
+            }
         }
 
         private void OnDayNightChange()

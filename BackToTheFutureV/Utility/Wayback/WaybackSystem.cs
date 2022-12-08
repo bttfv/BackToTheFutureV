@@ -90,8 +90,6 @@ namespace BackToTheFutureV
                 if (Main.ResetVehicle != null)
                 {
                     Vehicle vehicle = Main.ResetVehicle.Spawn(FusionEnums.SpawnFlags.NoOccupants, Main.ResetVehicle.Position, Main.ResetVehicle.Heading);
-                    vehicle.Mods.LicensePlate = Main.ResetVehiclePlate;
-                    vehicle.Mods.LicensePlateStyle = Main.ResetVehiclePlateStyle;
                     FusionUtils.PlayerPed.SetIntoVehicle(vehicle, VehicleSeat.Driver);
                     if (Main.IsTimeMachine)
                     {

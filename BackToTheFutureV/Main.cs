@@ -25,8 +25,6 @@ namespace BackToTheFutureV
         public static PedReplica ResetPed { get; private set; }
 
         public static VehicleReplica ResetVehicle { get; private set; }
-        public static string ResetVehiclePlate { get; private set; }
-        public static LicensePlateStyle ResetVehiclePlateStyle { get; private set; }
 
         public static bool IsTimeMachine { get; private set; } = false;
 
@@ -45,6 +43,8 @@ namespace BackToTheFutureV
         public static int? SwitchedVehicle { get; set; }
 
         public static bool SwitchedPersist { get; set; }
+
+        public static bool DeluxoProtoSupport { get; set; } = false;
 
         public static CustomStopwatch CustomStopwatch { get; } = new CustomStopwatch();
 
@@ -65,6 +65,11 @@ namespace BackToTheFutureV
             {
                 InstantiateScript<WaybackSystem>();
                 WaybackStarted = true;
+            }
+
+            if (ModSettings.DeluxoProto && new Model("dproto").IsInCdImage)
+            {
+                DeluxoProtoSupport = true;
             }
 
             Tick += Main_Tick;
@@ -298,8 +303,6 @@ namespace BackToTheFutureV
                     if (FusionUtils.PlayerPed.IsInVehicle() && !StoryMode)
                     {
                         ResetVehicle = new VehicleReplica(FusionUtils.PlayerVehicle);
-                        ResetVehiclePlate = FusionUtils.PlayerVehicle.Mods.LicensePlate;
-                        ResetVehiclePlateStyle = FusionUtils.PlayerVehicle.Mods.LicensePlateStyle;
                         if (FusionUtils.PlayerVehicle.IsTimeMachine())
                         {
                             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);

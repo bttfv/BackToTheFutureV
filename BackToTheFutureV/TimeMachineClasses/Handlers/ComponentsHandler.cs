@@ -42,11 +42,6 @@ namespace BackToTheFutureV
 
         public void OnReenterEnded()
         {
-            if (Mods.HoverUnderbody == ModState.On)
-            {
-                Properties.CanConvert = true;
-            }
-
             if (Mods.Plate == PlateType.Outatime && !Properties.IsFlying)
             {
                 Mods.Plate = PlateType.Empty;
