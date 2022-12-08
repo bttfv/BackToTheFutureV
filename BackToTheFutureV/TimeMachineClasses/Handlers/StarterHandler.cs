@@ -161,7 +161,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Vehicle.Speed == 0 && !Properties.IsEngineStalling && !Properties.IsFueled && !Properties.IsRemoteControlled && Driver != null && !FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 20, 0, 0), new DateTime(1955, 11, 12, 22, 4, 10)) && (Vehicle.GetStreetInfo().Street != LightningRun.LightningRunStreet || Vehicle.GetStreetInfo().Crossing != LightningRun.LightningRunStreet))
+            if (Vehicle.Speed == 0 && !(Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && Constants.TimeTravelCooldown == -1 && !Properties.IsEngineStalling && !Properties.IsFueled && !Properties.IsRemoteControlled && Driver != null && !(FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 20, 0, 0), new DateTime(1955, 11, 12, 22, 4, 10)) && (Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet || Vehicle.GetStreetInfo().Crossing == LightningRun.LightningRunStreet)))
             {
                 if (FusionUtils.Random.NextDouble() < 0.25)
                 {
@@ -204,7 +204,7 @@ namespace BackToTheFutureV
                         _isRestarting = true;
                     }
 
-                    if ((!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (!Properties.BlockEngineRecover && Game.IsControlPressed(GTA.Control.VehicleDuck) && FusionUtils.Random.NextDouble() >= 0.8f && !Properties.IsRemoteControlled))
+                    if ((!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (!Properties.BlockEngineRecover && Game.IsControlPressed(GTA.Control.VehicleDuck) && !Properties.IsRemoteControlled))
                     {
                         if (Game.IsControlPressed(GTA.Control.VehicleDuck) && !Properties.IsRemoteControlled)
                         {

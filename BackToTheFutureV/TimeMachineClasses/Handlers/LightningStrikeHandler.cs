@@ -102,6 +102,7 @@ namespace BackToTheFutureV
 
                 Properties.PhotoFluxCapacitorActive = true;
                 Properties.PhotoGlowingCoilsActive = true;
+                WaypointScript.LoadWaypointPosition(true);
 
                 if (Mods.Hook == HookState.On && !Properties.IsFlying)
                 {
