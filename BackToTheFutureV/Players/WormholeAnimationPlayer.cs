@@ -263,10 +263,10 @@ namespace BackToTheFutureV
                 Props.Coils?.SpawnProp();
             }
 
-            if (Constants.DeluxoProto)
-            {
-                Vehicle.Mods.DashboardColor = (VehicleColor)70;
-            }
+            //if (Constants.DeluxoProto)
+            //{
+            //    Vehicle.Mods.DashboardColor = (VehicleColor)70;
+            //}
 
             Events.OnWormholeStarted?.Invoke();
         }
@@ -299,10 +299,10 @@ namespace BackToTheFutureV
 
             Scaleforms.WormholeRT?.DeleteProp();
 
-            if (Constants.DeluxoProto)
-            {
-                Vehicle.Mods.DashboardColor = (VehicleColor)12;
-            }
+            //if (Constants.DeluxoProto)
+            //{
+            //    Vehicle.Mods.DashboardColor = (VehicleColor)12;
+            //}
         }
 
         public override void Tick()

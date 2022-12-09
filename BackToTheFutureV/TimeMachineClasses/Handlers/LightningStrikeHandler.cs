@@ -55,7 +55,8 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= Constants.TimeTravelAtSpeed && !Properties.IsFlying) || (Constants.DeluxoProto && Vehicle.IsExtraOn(1) && Vehicle.Mods.DashboardColor == (VehicleColor)70 && !Properties.IsFlying) || (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
+            //if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= Constants.TimeTravelAtSpeed && !Properties.IsFlying) || (Constants.DeluxoProto && Vehicle.IsExtraOn(1) && Vehicle.Mods.DashboardColor == (VehicleColor)70 && !Properties.IsFlying) || (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
+            if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= Constants.TimeTravelAtSpeed && !Properties.IsFlying) || (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
             {
                 if (FusionUtils.Random.NextDouble() < 0.3)
                 {
@@ -104,7 +105,8 @@ namespace BackToTheFutureV
                 Properties.PhotoGlowingCoilsActive = true;
                 WaypointScript.LoadWaypointPosition(true);
 
-                if ((Mods.Hook == HookState.On && !Properties.IsFlying) || (Constants.DeluxoProto && Vehicle.IsExtraOn(1) && !Properties.IsFlying))
+                //if ((Mods.Hook == HookState.On && !Properties.IsFlying) || (Constants.DeluxoProto && Vehicle.IsExtraOn(1) && !Properties.IsFlying))
+                if (Mods.Hook == HookState.On && !Properties.IsFlying)
                 {
                     Events.OnSparksEnded?.Invoke(_instant ? 250 : 500);
                 }

@@ -46,7 +46,7 @@ namespace BackToTheFutureV
         public static bool RealTime { get; set; } = true;
         public static bool YearTraffic { get; set; } = false;
         public static bool TimeParadox { get; set; } = false;
-        public static bool DeluxoProto { get; set; } = true;
+        //public static bool DeluxoProto { get; set; } = true;
         public static int MaxRecordedMachines { get; set; } = 10;
 
         private static ScriptSettings settings;
@@ -113,7 +113,7 @@ namespace BackToTheFutureV
             RandomTrains = settings.GetValue("General", "RandomTrains", RandomTrains);
             RealTime = settings.GetValue("General", "RealTime", RealTime);
             YearTraffic = settings.GetValue("General", "YearTraffic", YearTraffic);
-            DeluxoProto = settings.GetValue("General", "DeluxoProto", DeluxoProto);
+            //DeluxoProto = settings.GetValue("General", "DeluxoProto", DeluxoProto);
             MaxRecordedMachines = settings.GetValue("General", "MaxRemote", MaxRecordedMachines);
 
             ForceFlyMode = settings.GetValue("Hover", "ForceFly", ForceFlyMode);
@@ -170,7 +170,7 @@ namespace BackToTheFutureV
             settings.SetValue("General", "RandomTrains", RandomTrains);
             settings.SetValue("General", "RealTime", RealTime);
             settings.SetValue("General", "YearTraffic", YearTraffic);
-            settings.SetValue("General", "DeluxoProto", DeluxoProto);
+            //settings.SetValue("General", "DeluxoProto", DeluxoProto);
             settings.SetValue("General", "MaxRemote", MaxRecordedMachines);
 
             settings.SetValue("Hover", "ForceFly", ForceFlyMode);

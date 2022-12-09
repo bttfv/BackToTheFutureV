@@ -44,7 +44,7 @@ namespace BackToTheFutureV
 
         public static bool SwitchedPersist { get; set; }
 
-        public static bool DeluxoProtoSupport { get; set; } = false;
+        //public static bool DeluxoProtoSupport { get; set; } = false;
 
         public static CustomStopwatch CustomStopwatch { get; } = new CustomStopwatch();
 
@@ -67,10 +67,10 @@ namespace BackToTheFutureV
                 WaybackStarted = true;
             }
 
-            if (ModSettings.DeluxoProto && new Model("dproto").IsInCdImage)
-            {
-                DeluxoProtoSupport = true;
-            }
+            //if (ModSettings.DeluxoProto && new Model("dproto").IsInCdImage)
+            //{
+            //    DeluxoProtoSupport = true;
+            //}
 
             Tick += Main_Tick;
             KeyDown += Main_KeyDown;

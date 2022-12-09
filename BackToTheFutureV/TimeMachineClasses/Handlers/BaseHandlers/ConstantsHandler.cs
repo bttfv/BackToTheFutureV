@@ -223,7 +223,7 @@ namespace BackToTheFutureV
 
         public bool ReadyForLightningRun => FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 22, 3, 0), new DateTime(1955, 11, 12, 22, 4, 10)) && !Properties.IsFlying && (Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet || Vehicle.GetStreetInfo().Crossing == LightningRun.LightningRunStreet);
 
-        public bool DeluxoProto => Main.DeluxoProtoSupport && Vehicle.Model == "dproto";
+        //public bool DeluxoProto => Main.DeluxoProtoSupport && Vehicle.Model == "dproto";
 
         public ConstantsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
