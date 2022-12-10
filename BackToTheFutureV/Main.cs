@@ -67,10 +67,10 @@ namespace BackToTheFutureV
                 WaybackStarted = true;
             }
 
-            //if (ModSettings.DeluxoProto && new Model("dproto").IsInCdImage)
-            //{
-            //    DeluxoProtoSupport = true;
-            //}
+            /*if (ModSettings.DeluxoProto && new Model("dproto").IsInCdImage)
+            {
+                DeluxoProtoSupport = true;
+            }*/
 
             Tick += Main_Tick;
             KeyDown += Main_KeyDown;

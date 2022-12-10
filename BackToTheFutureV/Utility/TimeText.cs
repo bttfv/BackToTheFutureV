@@ -1,11 +1,13 @@
 ﻿using GTA.Native;
 using GTA;
 using System;
+using System.Globalization;
 
 namespace BackToTheFutureV
 {
     internal class TimeText
     {
+        private static readonly CultureInfo dateFormat = CultureInfo.CreateSpecificCulture("en-US");
         private static int textAlpha1 = 0;
         private static int textAlpha2 = 0;
         private static int textAlpha3 = 0;
@@ -95,17 +97,17 @@ namespace BackToTheFutureV
             {
                 Function.Call(Hash.HIDE_LOADING_ON_FADE_THIS_FRAME);
                 FadeTextIn(1);
-                TextBlock($"{date:dddd}");
+                TextBlock(date.ToString("dddd", dateFormat));
                 Script.Wait(1);
                 if (Function.Call<int>(Hash.TIMERA) > 1500)
                 {
                     FadeTextIn(2);
-                    TextBlock($"\n{date:MMMM d, yyyy}");
+                    TextBlock("\n" + date.ToString("MMMM d, yyyy", dateFormat));
                 }
                 if (Function.Call<int>(Hash.TIMERA) > 3000)
                 {
                     FadeTextIn(3);
-                    TextBlock($"\n\n{date:h:mm tt}");
+                    TextBlock("\n\n" + date.ToString("h:mm tt", dateFormat));
                 }
                 if (Function.Call<int>(Hash.TIMERA) > 6000)
                 {
@@ -116,7 +118,7 @@ namespace BackToTheFutureV
             {
                 Function.Call(Hash.HIDE_LOADING_ON_FADE_THIS_FRAME);
                 FadeTextOut();
-                TextBlock($"{date:dddd}\n{date:MMMM d, yyyy}\n{date:h:mm tt}");
+                TextBlock(date.ToString("dddd", dateFormat) + "\n" + date.ToString("MMMM d, yyyy", dateFormat) + "\n" + date.ToString("h:mm tt", dateFormat));
                 Script.Wait(1);
                 if (Function.Call<int>(Hash.TIMERA) > 8000)
                 {
