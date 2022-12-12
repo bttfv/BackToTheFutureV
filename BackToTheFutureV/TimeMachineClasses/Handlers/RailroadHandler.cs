@@ -264,7 +264,9 @@ namespace BackToTheFutureV
             Properties.IsOnTracks = false;
 
             if (Mods.Wheel == WheelType.RailroadInvisible)
+            {
                 Mods.Wheels.Burst = true;
+            }
 
             if (delay > 0)
             {

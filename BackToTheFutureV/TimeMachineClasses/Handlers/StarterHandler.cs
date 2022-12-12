@@ -247,7 +247,7 @@ namespace BackToTheFutureV
                 _lightsBrightness = 1;
             }
 
-            _lightsBrightness += timedEvent.CurrentFloat;
+            _lightsBrightness = timedEvent.CurrentFloat;
         }
 
         public override void KeyDown(KeyEventArgs e) { }

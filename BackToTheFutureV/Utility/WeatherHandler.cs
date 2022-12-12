@@ -21,11 +21,11 @@ namespace BackToTheFutureV
             new MomentReplica(new DateTime(1955, 11, 6, 10, 38, 0)) { Weather = Weather.Clear, TransitionWeather = true, MomentDuration = 810, ResetWanted = false };
             new MomentReplica(new DateTime(1955, 11, 7, 16, 5, 0)) { Weather = Weather.ExtraSunny, TransitionWeather = true, MomentDuration = 837, ResetWanted = false };
             new MomentReplica(new DateTime(1955, 11, 8, 4, 54, 0)) { Weather = Weather.Clear, TransitionWeather = true, MomentDuration = 52, ResetWanted = false };
-            new MomentReplica(new DateTime(1955, 11, 8, 9, 1, 0)) { Weather = Weather.Clouds, TransitionWeather = true, MomentDuration = 195 , ResetWanted = false };
-            new MomentReplica(new DateTime(1955, 11, 8, 13, 33, 0)) { Weather = Weather.Raining, TransitionWeather = true, MomentDuration = 77 , ResetWanted = false };
-            new MomentReplica(new DateTime(1955, 11, 8, 15, 2, 0)) { Weather = Weather.Clearing, TransitionWeather = true, PuddleLevel = 0.5f, MomentDuration = 12 , ResetWanted = false };
-            new MomentReplica(new DateTime(1955, 11, 8, 15, 30, 0)) { Weather = Weather.Clear, TransitionWeather = true, PuddleLevel = 0.5f, MomentDuration = 16 , ResetWanted = false };
-            new MomentReplica(new DateTime(1955, 11, 8, 22, 46, 0)) { Weather = Weather.Clear, TransitionWeather = true, MomentDuration = 420 , ResetWanted = false };
+            new MomentReplica(new DateTime(1955, 11, 8, 9, 1, 0)) { Weather = Weather.Clouds, TransitionWeather = true, MomentDuration = 195, ResetWanted = false };
+            new MomentReplica(new DateTime(1955, 11, 8, 13, 33, 0)) { Weather = Weather.Raining, TransitionWeather = true, MomentDuration = 77, ResetWanted = false };
+            new MomentReplica(new DateTime(1955, 11, 8, 15, 2, 0)) { Weather = Weather.Clearing, TransitionWeather = true, PuddleLevel = 0.5f, MomentDuration = 12, ResetWanted = false };
+            new MomentReplica(new DateTime(1955, 11, 8, 15, 30, 0)) { Weather = Weather.Clear, TransitionWeather = true, PuddleLevel = 0.5f, MomentDuration = 16, ResetWanted = false };
+            new MomentReplica(new DateTime(1955, 11, 8, 22, 46, 0)) { Weather = Weather.Clear, TransitionWeather = true, MomentDuration = 420, ResetWanted = false };
             new MomentReplica(new DateTime(1955, 11, 9, 14, 56, 0)) { Weather = Weather.ExtraSunny, TransitionWeather = true, MomentDuration = 550, ResetWanted = false };
             new MomentReplica(new DateTime(1955, 11, 12, 9, 58, 0)) { Weather = Weather.Clear, TransitionWeather = true, MomentDuration = 598, ResetWanted = false };
             new MomentReplica(new DateTime(1955, 11, 12, 20, 50, 0)) { Weather = Weather.Clouds, TransitionWeather = true, MomentDuration = 54, ResetWanted = false };

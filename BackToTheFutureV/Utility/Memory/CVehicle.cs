@@ -27,7 +27,9 @@ namespace BackToTheFutureV
             Wheels = new Dictionary<VehicleWheelBoneId, CWheel>();
 
             foreach (VehicleWheel wheel in vehicle.Wheels)
+            {
                 Wheels.Add(wheel.BoneId, new CWheel(wheel.MemoryAddress));
+            }
         }
     }
 }

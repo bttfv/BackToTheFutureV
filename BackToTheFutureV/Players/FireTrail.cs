@@ -82,7 +82,7 @@ namespace BackToTheFutureV
                 {
                     baseOffset = -0.3f;
                 }
-                
+
                 for (int i = 0; i < maxLength; i++)
                 {
                     // Define fire offset on left and right wheels

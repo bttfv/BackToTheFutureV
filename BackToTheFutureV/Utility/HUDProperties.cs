@@ -58,42 +58,66 @@ namespace BackToTheFutureV
             if (toggle)
             {
                 if (!month)
+                {
                     MonthVisible[row] = false;
+                }
 
                 if (!day)
+                {
                     DayVisible[row] = false;
+                }
 
                 if (!year)
+                {
                     YearVisible[row] = false;
+                }
 
                 if (!hour)
+                {
                     HourVisible[row] = false;
+                }
 
                 if (!minute)
+                {
                     MinuteVisible[row] = false;
+                }
 
                 if (!amPm)
+                {
                     AmPmVisible[row] = false;
+                }
             }
             else
             {
                 if (month)
+                {
                     MonthVisible[row] = false;
+                }
 
                 if (day)
+                {
                     DayVisible[row] = false;
+                }
 
                 if (year)
+                {
                     YearVisible[row] = false;
+                }
 
                 if (hour)
+                {
                     HourVisible[row] = false;
+                }
 
                 if (minute)
+                {
                     MinuteVisible[row] = false;
+                }
 
                 if (amPm)
+                {
                     AmPmVisible[row] = false;
+                }
             }
         }
     }

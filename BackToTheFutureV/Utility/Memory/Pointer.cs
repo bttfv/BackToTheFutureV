@@ -57,30 +57,46 @@ namespace BackToTheFutureV
         public T Get()
         {
             if (!MemoryAddress.MayBeValid())
+            {
                 return default;
+            }
 
             Type type = typeof(T);
 
             if (type == typeof(byte))
+            {
                 return (T)Convert.ChangeType(NativeMemory.ReadByte(MemoryAddress), type);
+            }
 
             if (type == typeof(bool))
+            {
                 return (T)Convert.ChangeType(NativeMemory.ReadByte(MemoryAddress), type);
+            }
 
             if (type == typeof(short))
+            {
                 return (T)Convert.ChangeType(NativeMemory.ReadInt16(MemoryAddress), type);
+            }
 
             if (type == typeof(int))
+            {
                 return (T)Convert.ChangeType(NativeMemory.ReadInt32(MemoryAddress), type);
+            }
 
             if (type == typeof(long))
+            {
                 return (T)Convert.ChangeType(NativeMemory.ReadAddress(MemoryAddress).ToInt64(), type);
+            }
 
             if (type == typeof(float))
+            {
                 return (T)Convert.ChangeType(NativeMemory.ReadFloat(MemoryAddress), type);
+            }
 
             if (type == typeof(string))
+            {
                 return (T)Convert.ChangeType(NativeMemory.ReadString(MemoryAddress), type);
+            }
 
             if (type == typeof(Vector3))
             {
@@ -105,7 +121,9 @@ namespace BackToTheFutureV
         public T GetPointer()
         {
             if (!MemoryAddress.MayBeValid())
+            {
                 return default;
+            }
 
             Type type = typeof(T);
 
@@ -121,23 +139,33 @@ namespace BackToTheFutureV
         public void Set(T value)
         {
             if (!MemoryAddress.MayBeValid())
+            {
                 return;
+            }
 
             Type type = typeof(T);
 
             // TODO: Support for long and string
 
             if (type == typeof(byte))
+            {
                 NativeMemory.WriteByte(MemoryAddress, (byte)Convert.ChangeType(value, type));
+            }
 
             if (type == typeof(short))
+            {
                 NativeMemory.WriteInt16(MemoryAddress, (short)Convert.ChangeType(value, type));
+            }
 
             if (type == typeof(int))
+            {
                 NativeMemory.WriteInt32(MemoryAddress, (int)Convert.ChangeType(value, type));
+            }
 
             if (type == typeof(float))
+            {
                 NativeMemory.WriteFloat(MemoryAddress, (float)Convert.ChangeType(value, type));
+            }
 
             if (type == typeof(Vector3))
             {

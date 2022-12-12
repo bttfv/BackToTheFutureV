@@ -99,16 +99,24 @@ namespace BackToTheFutureV
                 if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
                 {
                     if (Mods.Hook == HookState.OnDoor)
+                    {
                         TextHandler.Me.ShowHelp("ApplyHook");
+                    }
                     else
+                    {
                         TextHandler.Me.ShowHelp("RemoveHook");
+                    }
 
                     if (Game.IsControlJustPressed(GTA.Control.Context))
                     {
                         if (Mods.Hook == HookState.OnDoor)
+                        {
                             Mods.Hook = HookState.On;
+                        }
                         else
+                        {
                             Mods.Hook = HookState.OnDoor;
+                        }
                     }
                 }
             }

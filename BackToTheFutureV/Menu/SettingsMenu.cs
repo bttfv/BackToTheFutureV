@@ -9,10 +9,8 @@ namespace BackToTheFutureV
     {
         private readonly NativeCheckboxItem cinematicSpawn;
         private readonly NativeCheckboxItem useInputToggle;
-        //private readonly NativeCheckboxItem forceFlyMode;
         private readonly NativeCheckboxItem LandingSystem;
         private readonly NativeCheckboxItem InfiniteFuel;
-        //private readonly NativeCheckboxItem PersistenceSystem;
         private readonly NativeCheckboxItem WaybackSystem;
         private readonly NativeCheckboxItem TimeParadox;
         private readonly NativeCheckboxItem RandomTrains;
@@ -25,10 +23,8 @@ namespace BackToTheFutureV
         {
             cinematicSpawn = NewCheckboxItem("CinematicSpawn", ModSettings.CinematicSpawn);
             useInputToggle = NewCheckboxItem("InputToggle", ModSettings.UseInputToggle);
-            //forceFlyMode = NewCheckboxItem("ForceFly", ModSettings.ForceFlyMode);
             LandingSystem = NewCheckboxItem("LandingSystem", ModSettings.LandingSystem);
             InfiniteFuel = NewCheckboxItem("InfinityReactor", ModSettings.InfiniteFuel);
-            //PersistenceSystem = NewCheckboxItem("Persistence", ModSettings.PersistenceSystem);
             WaybackSystem = NewCheckboxItem("Wayback", ModSettings.WaybackSystem);
             TimeParadox = NewCheckboxItem("TimeParadox", ModSettings.TimeParadox);
             RandomTrains = NewCheckboxItem("RandomTrains", ModSettings.RandomTrains);
@@ -70,14 +66,6 @@ namespace BackToTheFutureV
                 case NativeCheckboxItem _ when sender == LandingSystem:
                     ModSettings.LandingSystem = Checked;
                     break;
-                /*case NativeCheckboxItem _ when sender == PersistenceSystem:
-                    ModSettings.PersistenceSystem = Checked;
-                    if (!Checked)
-                    {
-                        TimeMachineCloneHandler.Delete();
-                        RemoteTimeMachineHandler.DeleteAll();
-                    }
-                    break;*/
                 case NativeCheckboxItem _ when sender == RandomTrains:
                     ModSettings.RandomTrains = Checked;
                     FusionUtils.RandomTrains = Checked;
@@ -116,8 +104,6 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            /*PersistenceSystem.Enabled = !WaybackSystem.Checked;
-            WaybackSystem.Enabled = !PersistenceSystem.Checked;*/
             TimeParadox.Enabled = WaybackSystem.Checked;
         }
 

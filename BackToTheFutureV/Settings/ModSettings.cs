@@ -30,7 +30,6 @@ namespace BackToTheFutureV
         public static bool PlayEngineSounds { get; set; } = true;
         public static bool CinematicSpawn { get; set; } = true;
         public static bool UseInputToggle { get; set; } = false;
-        public static bool ForceFlyMode { get; set; } = true;
         public static bool GlowingWormholeEmitter { get; set; } = true;
         public static bool GlowingPlutoniumReactor { get; set; } = true;
         public static bool InfiniteFuel { get; set; } = false;
@@ -40,7 +39,6 @@ namespace BackToTheFutureV
         public static bool TerroristsEvent { get; set; } = true;
         public static bool TrainEvent { get; set; } = true;
         public static bool LandingSystem { get; set; } = true;
-        public static bool PersistenceSystem { get; set; } = false;
         public static bool RandomTrains { get; set; } = true;
         public static bool WaybackSystem { get; set; } = false;
         public static bool RealTime { get; set; } = true;
@@ -107,7 +105,6 @@ namespace BackToTheFutureV
 
             CinematicSpawn = settings.GetValue("General", "CinematicSpawn", CinematicSpawn);
             InfiniteFuel = settings.GetValue("General", "InfiniteFuel", InfiniteFuel);
-            PersistenceSystem = settings.GetValue("General", "PersistenceSystem", PersistenceSystem);
             WaybackSystem = settings.GetValue("General", "WaybackSystem", WaybackSystem);
             TimeParadox = settings.GetValue("General", "TimeParadox", TimeParadox);
             RandomTrains = settings.GetValue("General", "RandomTrains", RandomTrains);
@@ -116,7 +113,6 @@ namespace BackToTheFutureV
             //DeluxoProto = settings.GetValue("General", "DeluxoProto", DeluxoProto);
             MaxRecordedMachines = settings.GetValue("General", "MaxRemote", MaxRecordedMachines);
 
-            ForceFlyMode = settings.GetValue("Hover", "ForceFly", ForceFlyMode);
             LandingSystem = settings.GetValue("Hover", "LandingSystem", LandingSystem);
 
             LightningStrikeEvent = settings.GetValue("Events", "LightningStrike", LightningStrikeEvent);
@@ -124,11 +120,6 @@ namespace BackToTheFutureV
             TurbulenceEvent = settings.GetValue("Events", "Turbulence", TurbulenceEvent);
             TerroristsEvent = settings.GetValue("Events", "Terrorists", TerroristsEvent);
             TrainEvent = settings.GetValue("Events", "Train", TrainEvent);
-
-            if (PersistenceSystem && WaybackSystem)
-            {
-                PersistenceSystem = false;
-            }
 
             ModControls.LoadControls(settings);
 
@@ -162,7 +153,6 @@ namespace BackToTheFutureV
             settings.SetValue("Sounds", "CustomEngine", PlayEngineSounds);
             settings.SetValue("Sounds", "SpeedoBeep", PlaySpeedoBeep);
 
-            settings.SetValue("General", "PersistenceSystem", PersistenceSystem);
             settings.SetValue("General", "WaybackSystem", WaybackSystem);
             settings.SetValue("General", "TimeParadox", TimeParadox);
             settings.SetValue("General", "InfiniteFuel", InfiniteFuel);
@@ -173,7 +163,6 @@ namespace BackToTheFutureV
             //settings.SetValue("General", "DeluxoProto", DeluxoProto);
             settings.SetValue("General", "MaxRemote", MaxRecordedMachines);
 
-            settings.SetValue("Hover", "ForceFly", ForceFlyMode);
             settings.SetValue("Hover", "LandingSystem", LandingSystem);
 
             settings.SetValue("Events", "LightningStrike", LightningStrikeEvent);

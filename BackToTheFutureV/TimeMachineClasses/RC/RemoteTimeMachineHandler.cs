@@ -3,7 +3,6 @@ using FusionLibrary.Extensions;
 using LemonUI.TimerBars;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace BackToTheFutureV
@@ -20,8 +19,6 @@ namespace BackToTheFutureV
 
         public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
         public static int RemoteTimeMachineCount => RemoteTimeMachines.Where(x => x.TimeMachineClone.Properties.IsWayback == false).ToList().Count;
-
-        public static int MAX_REMOTE_TIMEMACHINES;
 
         static RemoteTimeMachineHandler()
         {
@@ -74,7 +71,7 @@ namespace BackToTheFutureV
 
         public static RemoteTimeMachine AddRemote(TimeMachineClone timeMachineClone)
         {
-            if (RemoteTimeMachines.Count > MAX_REMOTE_TIMEMACHINES && !timeMachineClone.Properties.IsWayback)
+            if (RemoteTimeMachines.Count > ModSettings.MaxRecordedMachines && !timeMachineClone.Properties.IsWayback)
             {
                 RemoteTimeMachines[0].Dispose();
                 RemoteTimeMachines.RemoveAt(0);
@@ -83,11 +80,6 @@ namespace BackToTheFutureV
             RemoteTimeMachine timeMachine;
 
             RemoteTimeMachines.Add(timeMachine = new RemoteTimeMachine(timeMachineClone));
-
-            if (ModSettings.PersistenceSystem)
-            {
-                Save();
-            }
 
             return timeMachine;
         }
@@ -128,48 +120,6 @@ namespace BackToTheFutureV
         {
             RemoteTimeMachines.ForEach(x => x.Dispose());
             RemoteTimeMachines.Clear();
-
-            if (File.Exists(_saveFile))
-            {
-                File.Delete(_saveFile);
-            }
-        }
-
-        private static readonly string _saveFile = "./scripts/BackToTheFutureV/RemoteTimeMachines.dmc12";
-
-        public static void Save()
-        {
-            using (Stream stream = new FileStream(_saveFile, FileMode.Create, FileAccess.Write, FileShare.Read))
-            {
-                FusionUtils.BinaryFormatter.Serialize(stream, RemoteTimeMachines.Select(x => x.TimeMachineClone).ToList());
-            }
-        }
-
-        public static void Load()
-        {
-            try
-            {
-                if (!File.Exists(_saveFile))
-                {
-                    return;
-                }
-                using (Stream stream = new FileStream(_saveFile, FileMode.Open, FileAccess.Read, FileShare.Write))
-                {
-                    List<TimeMachineClone> timeMachineClones = (List<TimeMachineClone>)FusionUtils.BinaryFormatter.Deserialize(stream);
-
-                    foreach (TimeMachineClone x in timeMachineClones)
-                    {
-                        RemoteTimeMachines.Add(new RemoteTimeMachine(x));
-                    }
-                }
-            }
-            catch
-            {
-                if (File.Exists(_saveFile))
-                {
-                    File.Delete(_saveFile);
-                }
-            }
         }
 
         public static void Abort()

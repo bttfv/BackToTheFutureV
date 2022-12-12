@@ -50,9 +50,13 @@ namespace BackToTheFutureV
             CutsceneMode.Enabled = !RemoteControl.Enabled;
 
             if (!MenuHandler.UnlockPhotoMenu)
+            {
                 Remove(PhotoMenu);
+            }
             else if (!Items.Contains(PhotoMenu))
+            {
                 Add(5, PhotoMenu);
+            }
         }
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -92,7 +96,9 @@ namespace BackToTheFutureV
             RemoteControl.Checked = CurrentTimeMachine.Properties.IsRemoteControlled;
 
             if (MenuHandler.UnlockPhotoMenu && !Game.IsMissionActive)
+            {
                 PhotoMenu.Enabled = !CurrentTimeMachine.Constants.FullDamaged && !CurrentTimeMachine.Properties.IsRemoteControlled;
+            }
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)

@@ -157,7 +157,7 @@ namespace BackToTheFutureV
             {
                 Driver.Task.ClearAnimation("veh@low@front_ds@base", "change_station");
             }
-            
+
             if (lastInput != Keys.None && !Game.IsKeyPressed(lastInput))
             {
                 lastInput = Keys.None;

@@ -118,27 +118,45 @@ namespace BackToTheFutureV
             }
 
             if (baseAddr == IntPtr.Zero)
+            {
                 return defaultValue;
+            }
 
             if (baseAddr == null)
+            {
                 return defaultValue;
+            }
 
             // Addresses below 0x1000 most likely are NullPtr
             if (baseAddr.ToInt64() <= 0x1000)
+            {
                 return defaultValue;
+            }
 
             if (tType == typeof(byte))
+            {
                 return (T)Convert.ChangeType(Marshal.ReadByte(addr), typeof(byte));
+            }
             else if (tType == typeof(short))
+            {
                 return (T)Convert.ChangeType(Marshal.ReadInt16(addr), typeof(short));
+            }
             else if (tType == typeof(int))
+            {
                 return (T)Convert.ChangeType(Marshal.ReadInt32(addr), typeof(int));
+            }
             else if (tType == typeof(long))
+            {
                 return (T)Convert.ChangeType(Marshal.ReadInt64(addr), typeof(long));
+            }
             else if (tType == typeof(float))
+            {
                 return (T)Convert.ChangeType(*(float*)addr, tType);
+            }
             else if (tType == typeof(bool))
+            {
                 return (T)Convert.ChangeType(*(bool*)addr, tType);
+            }
             else if (tType == typeof(Vector3))
             {
                 float x = Get<float>(baseAddr);
@@ -148,7 +166,9 @@ namespace BackToTheFutureV
                 return (T)Convert.ChangeType(new Vector3(x, y, z), typeof(Vector3));
             }
             else
+            {
                 return defaultValue;
+            }
         }
 
         /// <summary>
@@ -275,7 +295,9 @@ namespace BackToTheFutureV
         {
             float* data = (float*)(address.ToPointer());
             for (int i = 0; i < value.Length; i++)
+            {
                 data[i] = value[i];
+            }
         }
         /// <summary>
         /// Writes a 3-component floating-point to the specified <paramref name="address"/>.
@@ -298,7 +320,9 @@ namespace BackToTheFutureV
         public static void SetBit(IntPtr address, int bit)
         {
             if (bit < 0 || bit > 31)
+            {
                 throw new ArgumentOutOfRangeException(nameof(bit), "The bit index has to be between 0 and 31");
+            }
 
             int* data = (int*)address.ToPointer();
             *data |= (1 << bit);
@@ -311,7 +335,9 @@ namespace BackToTheFutureV
         public static void ClearBit(IntPtr address, int bit)
         {
             if (bit < 0 || bit > 31)
+            {
                 throw new ArgumentOutOfRangeException(nameof(bit), "The bit index has to be between 0 and 31");
+            }
 
             int* data = (int*)address.ToPointer();
             *data &= ~(1 << bit);
@@ -325,7 +351,9 @@ namespace BackToTheFutureV
         public static bool IsBitSet(IntPtr address, int bit)
         {
             if (bit < 0 || bit > 31)
+            {
                 throw new ArgumentOutOfRangeException(nameof(bit), "The bit index has to be between 0 and 31");
+            }
 
             int* data = (int*)address.ToPointer();
             return (*data & (1 << bit)) != 0;
@@ -334,14 +362,18 @@ namespace BackToTheFutureV
         public static string PtrToStringUTF8(IntPtr ptr)
         {
             if (ptr == IntPtr.Zero)
+            {
                 return string.Empty;
+            }
 
             byte* data = (byte*)ptr.ToPointer();
 
             // Calculate length of null-terminated string
             int len = 0;
             while (data[len] != 0)
+            {
                 ++len;
+            }
 
             return PtrToStringUTF8(ptr, len);
         }
@@ -349,12 +381,19 @@ namespace BackToTheFutureV
         public static string PtrToStringUTF8(IntPtr ptr, int len)
         {
             if (len < 0)
+            {
                 throw new ArgumentException(null, nameof(len));
+            }
 
             if (ptr == IntPtr.Zero)
+            {
                 return null;
+            }
+
             if (len == 0)
+            {
                 return string.Empty;
+            }
 
             return Encoding.UTF8.GetString((byte*)ptr.ToPointer(), len);
         }

@@ -496,10 +496,7 @@ namespace BackToTheFutureV
             Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
 
             // Force fly mode
-            if (ModSettings.ForceFlyMode && FusionUtils.PlayerVehicle == Vehicle)
-            {
-                VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
-            }
+            VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
 
             // Force brake lights on if flying
             if (Properties.IsFlying)

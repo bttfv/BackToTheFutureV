@@ -56,11 +56,6 @@ namespace BackToTheFutureV
 
             ModSettings.LoadSettings();
 
-            if (ModSettings.PersistenceSystem)
-            {
-                InstantiateScript<PersistenceScript>();
-            }
-
             if (ModSettings.WaybackSystem)
             {
                 InstantiateScript<WaybackSystem>();
@@ -98,11 +93,6 @@ namespace BackToTheFutureV
             if (RemoteTimeMachineHandler.IsRemoteOn)
             {
                 RemoteTimeMachineHandler.StopRemoteControl(true);
-            }
-
-            if (ModSettings.PersistenceSystem)
-            {
-                TimeMachineHandler.Save();
             }
 
             GarageHandler.Abort();
@@ -152,8 +142,6 @@ namespace BackToTheFutureV
                     {
                         //Screen.ShowHelpText("BackToTheFutureV loading...", -1, true, true);
 
-                        RemoteTimeMachineHandler.MAX_REMOTE_TIMEMACHINES = ModSettings.MaxRecordedMachines;
-
                         while (!ModelHandler.RequestModels())
                         {
                             LoadingPrompt.Show("Loading BTTFV");
@@ -162,12 +150,6 @@ namespace BackToTheFutureV
 
                         //Disable fake shake of the cars.
                         Function.Call(Hash._SET_CAR_HIGH_SPEED_BUMP_SEVERITY_MULTIPLIER, 0);
-
-                        if (ModSettings.PersistenceSystem)
-                        {
-                            TimeMachineHandler.Load();
-                            RemoteTimeMachineHandler.Load();
-                        }
 
                         FusionUtils.RandomTrains = ModSettings.RandomTrains;
                         TimeHandler.RealTime = ModSettings.RealTime;
