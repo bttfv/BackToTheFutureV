@@ -35,7 +35,14 @@ namespace BackToTheFutureV
 
         public WaybackVehicle(Vehicle vehicle)
         {
-            Replica = new VehicleReplica(vehicle, SpawnFlags.NoOccupants);
+            SpawnFlags spawnFlags = SpawnFlags.NoOccupants;
+
+            if (vehicle.Model == ModelHandler.DMC12)
+            {
+                spawnFlags |= SpawnFlags.NoMods;
+            }
+
+            Replica = new VehicleReplica(vehicle, spawnFlags);
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 

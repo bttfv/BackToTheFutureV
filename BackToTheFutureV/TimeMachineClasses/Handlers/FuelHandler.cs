@@ -195,6 +195,11 @@ namespace BackToTheFutureV
                 }
             }
 
+            if (Mods.Reactor == ReactorType.MrFusion && Properties.ReactorState == ReactorState.Closed && FusionUtils.IsBulletPresent(Vehicle.Bones["mr_fusion_handle"].Position, 0.085f) && FusionUtils.Random.NextDouble() < 0.2)
+            {
+                SetReactorState(ReactorState.Opened);
+            }
+
             // Pulsing animation while refueling for plutonium (bttf1) delorean
             if (Mods.Reactor == ReactorType.Nuclear && ModSettings.GlowingPlutoniumReactor)
             {

@@ -349,7 +349,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Mods.IsDMC12 && Properties.ReactorState != ReactorState.Closed && Properties.TimeTravelPhase == TimeTravelPhase.OpeningWormhole)
+            if (Mods.IsDMC12 && Mods.Reactor == ReactorType.MrFusion && Properties.ReactorState != ReactorState.Closed && Properties.TimeTravelPhase == TimeTravelPhase.OpeningWormhole)
             {
                 if (!doGlitch)
                 {
