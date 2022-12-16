@@ -107,7 +107,6 @@
     <Compile Include="Utility\Memory\Pointer.cs" />
     <Compile Include="Utility\Memory\PointerExtensions.cs" />
     <Compile Include="Utility\Memory\Win32Native.cs" />
-    <Compile Include="Utility\PersistenceScript.cs" />
     <Compile Include="Settings\RCGUIEditer.cs" />
     <Compile Include="Story\Missions\EscapeMission.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ConstantsHandler.cs" />
