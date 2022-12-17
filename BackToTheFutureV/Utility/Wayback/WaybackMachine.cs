@@ -5,13 +5,11 @@ using GTA.Math;
 using GTA.Native;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
-    [Serializable]
     internal class WaybackMachine
     {
         private List<WaybackRecord> Records { get; } = new List<WaybackRecord>();
@@ -277,30 +275,6 @@ namespace BackToTheFutureV
             PedHandle = 0;
             IsPlayer = false;
             Status = WaybackStatus.Idle;
-        }
-
-        public static WaybackMachine FromData(byte[] data)
-        {
-            using (MemoryStream stream = new MemoryStream(data))
-            {
-                try
-                {
-                    return (WaybackMachine)FusionUtils.BinaryFormatter.Deserialize(stream);
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
-
-        public static implicit operator byte[](WaybackMachine command)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                FusionUtils.BinaryFormatter.Serialize(stream, command);
-                return stream.ToArray();
-            }
         }
     }
 }

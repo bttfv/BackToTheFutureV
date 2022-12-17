@@ -74,7 +74,7 @@ namespace BackToTheFutureV
 
             Vehicle.AddBlip();
 
-            Vehicle.MaxSpeed = (70f).ToMS();
+            Vehicle.MaxSpeed = 70f.ToMS();
 
             Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
 

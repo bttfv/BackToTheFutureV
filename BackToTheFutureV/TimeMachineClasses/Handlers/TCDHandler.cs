@@ -377,7 +377,7 @@ namespace BackToTheFutureV
                 {
                     if (Vehicle.Health < 991)
                     {
-                        if (FusionUtils.Random.NextDouble() < GetProbabilityForDamage((Vehicle.Health < 920 ? 920 : Vehicle.Health)))
+                        if (FusionUtils.Random.NextDouble() < GetProbabilityForDamage(Vehicle.Health < 920 ? 920 : Vehicle.Health))
                         {
                             StartTimeCircuitsGlitch(false);
                         }

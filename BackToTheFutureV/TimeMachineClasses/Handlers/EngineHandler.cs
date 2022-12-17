@@ -356,7 +356,7 @@ namespace BackToTheFutureV
             // Play revving sound
             if (IsRevving)
             {
-                if (!_engineRevvingSound.IsAnyInstancePlaying || _engineRevvingSound.Last?.PlayPosition > 1000 && !_isRevPlayed)
+                if (!_engineRevvingSound.IsAnyInstancePlaying || (_engineRevvingSound.Last?.PlayPosition > 1000 && !_isRevPlayed))
                 {
                     _engineRevvingSound.Play();
                     _isRevPlayed = true;
@@ -620,10 +620,10 @@ namespace BackToTheFutureV
 
             if (accountHandbrake)
             {
-                return (Game.IsControlPressed(Control.VehicleBrake) || Game.IsControlPressed(Control.VehicleHandbrake));
+                return Game.IsControlPressed(Control.VehicleBrake) || Game.IsControlPressed(Control.VehicleHandbrake);
             }
 
-            return (Game.IsControlPressed(Control.VehicleBrake) && !Game.IsControlPressed(Control.VehicleAccelerate));
+            return Game.IsControlPressed(Control.VehicleBrake) && !Game.IsControlPressed(Control.VehicleAccelerate);
         }
 
         private static bool IsPlayerRevving(Vehicle vehicle)

@@ -106,7 +106,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            float percentage = ((MAX_DIST * MAX_DIST - squareDist) / (MAX_DIST * MAX_DIST)) * 100;
+            float percentage = ((MAX_DIST * MAX_DIST) - squareDist) / (MAX_DIST * MAX_DIST) * 100;
 
             if (!TimerBarCollection.Visible)
             {

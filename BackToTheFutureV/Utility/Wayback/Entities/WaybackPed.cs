@@ -1,13 +1,11 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using System;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
-    [Serializable]
     internal class WaybackPed
     {
         public PedReplica Replica { get; }

@@ -256,11 +256,11 @@ namespace BackToTheFutureV
             {
                 if (Game.IsControlPressed(GTA.Control.VehicleAccelerate))
                 {
-                    currentSimSpeed += (maxSpeed / maxSeconds) * Game.LastFrameTime;
+                    currentSimSpeed += maxSpeed / maxSeconds * Game.LastFrameTime;
                 }
                 else
                 {
-                    currentSimSpeed -= (maxSpeed / (maxSeconds / 2)) * Game.LastFrameTime;
+                    currentSimSpeed -= maxSpeed / (maxSeconds / 2) * Game.LastFrameTime;
 
                     if (currentSimSpeed < 0)
                     {

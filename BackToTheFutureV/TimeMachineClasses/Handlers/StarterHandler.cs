@@ -176,7 +176,7 @@ namespace BackToTheFutureV
 
             if (Properties.IsEngineStalling)
             {
-                if (!ModSettings.EngineStallEvent && !Properties.PhotoEngineStallActive || Constants.ReadyForLightningRun && !Properties.PhotoEngineStallActive && !Properties.BlockEngineRecover)
+                if ((!ModSettings.EngineStallEvent && !Properties.PhotoEngineStallActive) || (Constants.ReadyForLightningRun && !Properties.PhotoEngineStallActive && !Properties.BlockEngineRecover))
                 {
                     Stop();
                     Vehicle.FuelLevel = _deloreanMaxFuelLevel;

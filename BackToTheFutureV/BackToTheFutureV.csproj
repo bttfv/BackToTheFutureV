@@ -91,7 +91,6 @@
     <Compile Include="Story\Missions\LightningRun.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\DecoratorsHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\TCD3DRowHandler.cs" />
-    <Compile Include="TimeMachineClasses\Clone\TimeMachineCloneHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\ClockHandler.cs" />
     <Compile Include="TimeMachineClasses\Story\StoryTimeMachineHandler.cs" />
     <Compile Include="Utility\GarageHandler.cs" />
@@ -159,7 +158,7 @@
     <Compile Include="TimeMachineClasses\RC\RemoteTimeMachine.cs" />
     <Compile Include="TimeMachineClasses\RC\RemoteTimeMachineHandler.cs" />
     <Compile Include="TimeMachineClasses\Story\StoryTimeMachine.cs" />
-    <Compile Include="TimeMachineClasses\Clone\TimeMachineClone.cs" />
+    <Compile Include="TimeMachineClasses\TimeMachineClone.cs" />
     <Compile Include="TimeMachineClasses\TimeMachineHandler.cs" />
     <Compile Include="TimeMachineClasses\TimeMachine.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PropsHandler.cs" />

@@ -7,7 +7,7 @@ namespace BackToTheFutureV
     /// <summary>
     /// Represents CVehicle structure.
     /// </summary>
-    public class CVehicle : INativeMemory
+    internal class CVehicle : INativeMemory
     {
         /// <summary>
         /// Gets the memory address where the <see cref="CVehicle"/> is stored in memory.

@@ -12,7 +12,7 @@ namespace BackToTheFutureV
         public bool HasScaleformPriority => TimeMachineHandler.ClosestTimeMachine == TimeMachine;
 
         public bool OverTimeTravelAtSpeed { get; private set; }
-        public int TimeTravelAtSpeed => (Properties.OverrideTimeTravelConstants ? Properties.OverrideTTSpeed : 88);
+        public int TimeTravelAtSpeed => Properties.OverrideTimeTravelConstants ? Properties.OverrideTTSpeed : 88;
 
         public bool OverWormholeAtSpeed { get; private set; }
         public int WormholeAtSpeed

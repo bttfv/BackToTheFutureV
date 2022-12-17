@@ -223,7 +223,7 @@ namespace BackToTheFutureV
         /// <returns>The value at the address.</returns>
         public static IntPtr ReadAddress(IntPtr address)
         {
-            return new IntPtr(*(void**)(address.ToPointer()));
+            return new IntPtr(*(void**)address.ToPointer());
         }
         /// <summary>
         /// Reads a 4x4 floating-point matrix from the specified <paramref name="address"/>.
@@ -293,7 +293,7 @@ namespace BackToTheFutureV
         /// <param name="value">The elements of the matrix in row major arrangement to write.</param>
         public static void WriteMatrix(IntPtr address, float[] value)
         {
-            float* data = (float*)(address.ToPointer());
+            float* data = (float*)address.ToPointer();
             for (int i = 0; i < value.Length; i++)
             {
                 data[i] = value[i];
@@ -325,7 +325,7 @@ namespace BackToTheFutureV
             }
 
             int* data = (int*)address.ToPointer();
-            *data |= (1 << bit);
+            *data |= 1 << bit;
         }
         /// <summary>
         /// Clears a single bit in the 32-bit value at the specified <paramref name="address"/>.

@@ -2,7 +2,7 @@
 
 namespace BackToTheFutureV
 {
-    public class TextHandler : CustomText
+    internal class TextHandler : CustomText
     {
         public static TextHandler Me { get; } = new TextHandler();
 

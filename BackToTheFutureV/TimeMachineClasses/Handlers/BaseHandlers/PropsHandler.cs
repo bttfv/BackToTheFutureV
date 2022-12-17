@@ -189,7 +189,7 @@ namespace BackToTheFutureV
 
             //License plate
             LicensePlate = new AnimateProp(ModelHandler.LicensePlate, Vehicle, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
-            LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(true, true, 90, 360 * 2 + 90, 1, 1440, 1, false);
+            LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].Setup(true, true, 90, (360 * 2) + 90, 1, 1440, 1, false);
             LicensePlate.SaveAnimation();
 
             //Bulova clock

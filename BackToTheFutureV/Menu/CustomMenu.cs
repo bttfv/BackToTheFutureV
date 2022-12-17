@@ -196,7 +196,7 @@ namespace BackToTheFutureV
                 MenuHandler.TimeMachineMenu.Visible = false;
             }
 
-            if (ForceNew || (FusionUtils.PlayerVehicle == null || !FusionUtils.PlayerVehicle.IsTimeMachine()))
+            if (ForceNew || FusionUtils.PlayerVehicle == null || !FusionUtils.PlayerVehicle.IsTimeMachine())
             {
                 if (ForceNew || FusionUtils.PlayerVehicle == null)
                 {

@@ -2,11 +2,9 @@
 using FusionLibrary.Extensions;
 using GTA;
 using System;
-using System.IO;
 
 namespace BackToTheFutureV
 {
-    [Serializable]
     internal class WaybackRecord
     {
         public DateTime Time { get; }
@@ -58,30 +56,6 @@ namespace BackToTheFutureV
             }
 
             return Ped.Replica.Spawn(FusionUtils.Lerp(Ped.Replica.Position, nextRecord.Ped.Replica.Position, adjustedRatio), FusionUtils.Lerp(Ped.Replica.Heading, nextRecord.Ped.Replica.Heading, adjustedRatio));
-        }
-
-        public static WaybackRecord FromData(byte[] data)
-        {
-            using (MemoryStream stream = new MemoryStream(data))
-            {
-                try
-                {
-                    return (WaybackRecord)FusionUtils.BinaryFormatter.Deserialize(stream);
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
-
-        public static implicit operator byte[](WaybackRecord command)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                FusionUtils.BinaryFormatter.Serialize(stream, command);
-                return stream.ToArray();
-            }
         }
     }
 }

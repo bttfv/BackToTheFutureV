@@ -29,7 +29,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            _delay = Game.GameTime + delay * 1000;
+            _delay = Game.GameTime + (delay * 1000);
         }
 
         public override void Tick()

@@ -192,7 +192,7 @@ namespace BackToTheFutureV
                 audioPlayer.SourceEntity = CurrentTimeMachine;
             }
 
-            if (CurrentTimeMachine.NotNullAndExists() && (CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst) && !Items.Contains(repairEngine))
+            if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst && !Items.Contains(repairEngine))
             {
                 Add(6, repairEngine);
             }
@@ -232,7 +232,7 @@ namespace BackToTheFutureV
             installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && CurrentTimeMachine.Mods.IsDMC12;
             repairTC.Enabled = active && ((FusionUtils.CurrentTime.Year >= 1952 && CurrentTimeMachine.Properties.AreTimeCircuitsBroken && CurrentTimeMachine.Mods.Hoodbox == ModState.Off) || (FusionUtils.CurrentTime.Year >= 1985 && CurrentTimeMachine.Mods.Hoodbox == ModState.On));
             repairFC.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
-            repairEngine.Enabled = active && FusionUtils.CurrentTime.Year >= 1912 && (CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst);
+            repairEngine.Enabled = active && FusionUtils.CurrentTime.Year >= 1912 && CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst;
             washCar.Enabled = active && CurrentTimeMachine.Mods.IsDMC12 && CurrentTimeMachine.Vehicle.DirtLevel >= 1f;
 
             buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 12 && FusionUtils.CurrentTime.Year > 1985 && FusionUtils.CurrentTime.Year < 2015;

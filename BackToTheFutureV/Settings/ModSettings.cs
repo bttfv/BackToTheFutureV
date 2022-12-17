@@ -63,7 +63,6 @@ namespace BackToTheFutureV
             if (savedStringVersion == default || savedVersion < LastCompatibleVersion)
             {
                 RemoteTimeMachineHandler.DeleteAll();
-                TimeMachineCloneHandler.Delete();
                 TimeMachineClone.DeleteAll();
 
                 File.Delete(path);

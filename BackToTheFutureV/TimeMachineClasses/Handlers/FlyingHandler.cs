@@ -391,7 +391,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Properties.HasBeenStruckByLightning || (ModSettings.TurbulenceEvent))
+            if (Properties.HasBeenStruckByLightning || ModSettings.TurbulenceEvent)
             {
                 if (Game.GameTime > _nextForce)
                 {
@@ -416,7 +416,7 @@ namespace BackToTheFutureV
                         _force = 1;
                     }
 
-                    _force *= (Vehicle.HeightAboveGround / 20f);
+                    _force *= Vehicle.HeightAboveGround / 20f;
 
                     if (_force > 1)
                     {

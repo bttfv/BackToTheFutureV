@@ -28,33 +28,7 @@ namespace BackToTheFutureV
 
         public static int TimeMachineCount => TimeMachines.Count();
 
-        private static bool _savedEmpty;
-
         private static Vehicle _checkVehicle;
-
-        public static void Save()
-        {
-            if (TimeMachineCount == 0 && _savedEmpty)
-            {
-                return;
-            }
-
-            TimeMachineCloneHandler.Save(TimeMachines);
-
-            _savedEmpty = TimeMachineCount == 0;
-        }
-
-        public static void Load()
-        {
-            try
-            {
-                TimeMachineCloneHandler.Load()?.SpawnAll();
-            }
-            catch
-            {
-                TimeMachineCloneHandler.Delete();
-            }
-        }
 
         public static void AddStory(TimeMachine timeMachine)
         {

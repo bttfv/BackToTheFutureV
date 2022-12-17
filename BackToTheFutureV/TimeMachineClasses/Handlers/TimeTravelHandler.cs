@@ -317,6 +317,7 @@ namespace BackToTheFutureV
                 case 4:
                     gameTimer = Game.GameTime + 2000;
                     Screen.FadeIn(1000);
+                    GameplayCamera.RelativeHeading = 0f;
 
                     _currentStep++;
                     break;

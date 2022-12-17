@@ -69,7 +69,7 @@ namespace BackToTheFutureV
             _lastDirection = _spark.CurrentOffset.GetDirectionTo(_frames[_currentFrame]);
             _lastRotation = FusionUtils.DirectionToRotation(_frames[_currentFrame], _spark.CurrentOffset, 0);
 
-            _spark.MoveProp(_spark.CurrentOffset + _lastDirection * Speed * Game.LastFrameTime, Vector3.Lerp(_spark.CurrentRotation, _lastRotation, Game.LastFrameTime * Speed));
+            _spark.MoveProp(_spark.CurrentOffset + (_lastDirection * Speed * Game.LastFrameTime), Vector3.Lerp(_spark.CurrentRotation, _lastRotation, Game.LastFrameTime * Speed));
         }
 
         public override void Stop()

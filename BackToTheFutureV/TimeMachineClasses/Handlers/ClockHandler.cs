@@ -286,14 +286,14 @@ namespace BackToTheFutureV
             if (IsPlaying)
             {
                 TimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.BulovaSetup, CameraSwitchType.Instant, 32);
-                Props.BulovaClockMinute.SetRotation(Coordinate.Y, tempTime.Minute * 6 + (TimeHandler.RealTime ? tempTime.Second * 0.1f : 0));
-                Props.BulovaClockHour.SetRotation(Coordinate.Y, tempTime.Hour * 30 + tempTime.Minute * 0.5f);
+                Props.BulovaClockMinute.SetRotation(Coordinate.Y, (tempTime.Minute * 6) + (TimeHandler.RealTime ? tempTime.Second * 0.1f : 0));
+                Props.BulovaClockHour.SetRotation(Coordinate.Y, (tempTime.Hour * 30) + (tempTime.Minute * 0.5f));
                 finishTime = Game.GameTime + 256;
             }
             else
             {
-                Props.BulovaClockMinute.SetRotation(Coordinate.Y, Properties.ClockTime.Minute * 6 + (TimeHandler.RealTime ? Properties.ClockTime.Second * 0.1f : 0));
-                Props.BulovaClockHour.SetRotation(Coordinate.Y, Properties.ClockTime.Hour * 30 + Properties.ClockTime.Minute * 0.5f);
+                Props.BulovaClockMinute.SetRotation(Coordinate.Y, (Properties.ClockTime.Minute * 6) + (TimeHandler.RealTime ? Properties.ClockTime.Second * 0.1f : 0));
+                Props.BulovaClockHour.SetRotation(Coordinate.Y, (Properties.ClockTime.Hour * 30) + (Properties.ClockTime.Minute * 0.5f));
             }
         }
 

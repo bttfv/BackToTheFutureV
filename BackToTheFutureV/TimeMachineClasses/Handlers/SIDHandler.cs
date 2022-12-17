@@ -200,7 +200,7 @@ namespace BackToTheFutureV
                 speed = 88;
             }
 
-            int height = (int)((speed / 88) * 15);
+            int height = (int)(speed / 88 * 15);
 
             int min = height - 2;
             int max = height + 5;

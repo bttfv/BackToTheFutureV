@@ -50,7 +50,7 @@ namespace BackToTheFutureV
 
             for (; address < end; address++)
             {
-                if (BCompare((byte*)(address), _bytes, _mask))
+                if (BCompare((byte*)address, _bytes, _mask))
                 {
                     return new IntPtr(address + offset);
                 }

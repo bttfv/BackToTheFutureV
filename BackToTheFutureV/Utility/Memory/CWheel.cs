@@ -6,7 +6,7 @@ namespace BackToTheFutureV
     /// <summary>
     /// Wrapper for CWheel structure.
     /// </summary>
-    public class CWheel : INativeMemory
+    internal class CWheel : INativeMemory
     {
         /// <summary>
         /// Gets the memory address where the <see cref="CWheel"/> is stored in memory.
