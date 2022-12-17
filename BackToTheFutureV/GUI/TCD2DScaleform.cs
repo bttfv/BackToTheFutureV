@@ -140,9 +140,13 @@ namespace BackToTheFutureV
 
         private string GetStringFromBackgroundType(TCDBackground background)
         {
-            if (background == TCDBackground.Metal)
+            if (background == TCDBackground.BTTF1)
             {
-                return "metal";
+                return "bttf1";
+            }
+            else if (background == TCDBackground.BTTF3)
+            {
+                return "bttf3";
             }
             else
             {

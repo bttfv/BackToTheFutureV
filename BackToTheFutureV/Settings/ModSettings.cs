@@ -11,7 +11,7 @@ namespace BackToTheFutureV
 
     internal class ModSettings
     {
-        private static readonly Version LastCompatibleVersion = new Version(2, 0, 0, 0);
+        private static readonly Version LastCompatibleVersion = new Version(2, 4, 0, 0);
         public static OnGUIChange OnGUIChange { get; set; }
 
         public static PointF RCGUIPosition { get; set; } = new PointF(0.901f, 0.879f);
@@ -22,7 +22,7 @@ namespace BackToTheFutureV
         public static bool HideSID { get; set; } = false;
         public static PointF TCDPosition { get; set; } = new PointF(0.88f, 0.75f);
         public static float TCDScale { get; set; } = 0.3f;
-        public static TCDBackground TCDBackground { get; set; } = TCDBackground.Metal;
+        public static TCDBackground TCDBackground { get; set; } = TCDBackground.BTTF1;
         public static bool HideIngameTCDToggle { get; set; } = false;
         public static bool PlayFluxCapacitorSound { get; set; } = true;
         public static bool PlayDiodeBeep { get; set; } = true;
@@ -92,7 +92,7 @@ namespace BackToTheFutureV
 
             TCDScale = float.Parse(settings.GetValue("TimeCircuits", "Scale", TCDScale.ToString("G", info)), info);
             TCDPosition = new PointF(float.Parse(settings.GetValue("TimeCircuits", "PositionX", TCDPosition.X.ToString("G", info)), info), float.Parse(settings.GetValue("TimeCircuits", "PositionY", TCDPosition.Y.ToString("G", info)), info));
-            TCDBackground = (TCDBackground)Enum.Parse(typeof(TCDBackground), settings.GetValue("TimeCircuits", "Background", "Metal"));
+            TCDBackground = (TCDBackground)Enum.Parse(typeof(TCDBackground), settings.GetValue("TimeCircuits", "Background", "BTTF1"));
             UseInputToggle = settings.GetValue("TimeCircuits", "InputMode", UseInputToggle);
             HideIngameTCDToggle = settings.GetValue("TimeCircuits", "HideIngameTCDToggle", HideIngameTCDToggle);
             GlowingWormholeEmitter = settings.GetValue("TimeCircuits", "GlowingWormholeEmitter", GlowingWormholeEmitter);

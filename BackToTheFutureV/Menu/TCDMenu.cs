@@ -18,7 +18,7 @@ namespace BackToTheFutureV
 
         public TCDMenu() : base("TCD")
         {
-            tcdBackground = NewListItem("Background", TCDBackground.Metal, TCDBackground.Transparent);
+            tcdBackground = NewListItem("Background", TCDBackground.BTTF1, TCDBackground.BTTF3, TCDBackground.Transparent);
             tcdBackground.ItemChanged += TcdBackground_ItemChanged;
 
             changeTCD = NewItem("Edit");

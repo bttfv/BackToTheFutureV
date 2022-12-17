@@ -80,7 +80,7 @@ namespace BackToTheFutureV
 
         internal enum TCDBackground
         {
-            Metal, Transparent
+            BTTF1, BTTF3, Transparent
         }
 
         internal enum DriverTaskType
