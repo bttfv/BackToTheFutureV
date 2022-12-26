@@ -53,8 +53,6 @@ namespace BackToTheFutureV
             WaybackMachine wayback = new WaybackMachine(ped, guid);
 
             Machines.Add(wayback);
-
-            Screen.ShowSubtitle("Wayback created");
         }
 
         public static WaybackMachine GetFromGUID(Guid guid)

@@ -22,8 +22,6 @@ namespace BackToTheFutureV
 
     internal static class InternalExtensions
     {
-        public static PropertyInfo[] Properties = new PropertiesHandler(Guid.Empty).GetType().GetProperties();
-
         public static bool NotNullAndExists(this TimeMachine timeMachine)
         {
             return timeMachine != null && timeMachine.Vehicle.NotNullAndExists();
