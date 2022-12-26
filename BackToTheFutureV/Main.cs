@@ -120,6 +120,8 @@ namespace BackToTheFutureV
             GarageHandler.Tick();
             WeatherHandler.Tick();
 
+            WaybackSystem.Tick();
+
             if (FirstTick)
             {
                 TrafficHandler.ModelSwaps.Add(new ModelSwap

@@ -10,9 +10,8 @@ namespace BackToTheFutureV
     {
         public VehicleReplica Replica { get; }
 
-        public bool IsTimeMachine { get; }
+        public bool IsTimeMachine { get; private set; }
 
-        //public ModsPrimitive Mods { get; }
         public PropertiesHandler Properties { get; }
 
         public WaybackVehicleEvent Event { get; set; } = WaybackVehicleEvent.None;
@@ -44,12 +43,11 @@ namespace BackToTheFutureV
             IsTimeMachine = true;
 
             Properties = timeMachine.Properties.Clone();
-            //Mods = timeMachine.Mods.Clone();
         }
 
         private Vehicle Spawn()
         {
-            Vehicle vehicle = Replica.Spawn(SpawnFlags.NoVelocity);
+            Vehicle vehicle = Replica.Spawn(SpawnFlags.Default);
 
             vehicle.SetPlayerLights(true);
 
@@ -100,7 +98,7 @@ namespace BackToTheFutureV
                 return null;
             }
 
-            SpawnFlags spawnFlags = SpawnFlags.NoVelocity;
+            SpawnFlags spawnFlags = SpawnFlags.Default;
 
             if (ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle()))
             {
@@ -132,17 +130,17 @@ namespace BackToTheFutureV
                 return vehicle;
             }
 
-            if (Event.HasFlag(WaybackVehicleEvent.Transform))
+            timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
+
+            if (timeMachine == null)
             {
                 timeMachine = TimeMachineHandler.Create(vehicle);
+
+                timeMachine.Properties.IsWayback = true;
 
                 Properties.ApplyTo(timeMachine);
 
                 return vehicle;
-            }
-            else
-            {
-                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
             }
 
             if (!timeMachine.NotNullAndExists())
@@ -155,31 +153,6 @@ namespace BackToTheFutureV
             if (Event == WaybackVehicleEvent.None)
             {
                 return vehicle;
-            }
-
-            if (Event.HasFlag(WaybackVehicleEvent.OnSparksEnded))
-            {
-                timeMachine.Events.OnSparksEnded?.Invoke(TimeTravelDelay);
-            }
-
-            if (Event.HasFlag(WaybackVehicleEvent.LightningStrike))
-            {
-                timeMachine.Events.StartLightningStrike?.Invoke(0);
-            }
-
-            if (Event.HasFlag(WaybackVehicleEvent.LightningRun))
-            {
-                timeMachine.Events.StartLightningStrike?.Invoke(-1);
-            }
-
-            if (Event.HasFlag(WaybackVehicleEvent.OpenCloseReactor))
-            {
-                timeMachine.Events.SetReactorState?.Invoke(timeMachine.Properties.ReactorState == ReactorState.Closed ? ReactorState.Opened : ReactorState.Closed);
-            }
-
-            if (Event.HasFlag(WaybackVehicleEvent.RefuelReactor))
-            {
-                timeMachine.Events.SetReactorState?.Invoke(ReactorState.Refueling);
             }
 
             return vehicle;

@@ -24,10 +24,14 @@ namespace BackToTheFutureV
         {
             if (delay == -1)
             {
+                Properties.StruckByLightningInstant = true;
+
                 _instant = true;
                 Strike();
                 return;
             }
+
+            Properties.StruckByLightning = true;
 
             _delay = Game.GameTime + (delay * 1000);
         }
@@ -102,19 +106,22 @@ namespace BackToTheFutureV
                 {
                     Events.OnSparksEnded?.Invoke(_instant ? 250 : 2000);
 
-                    TimeMachineClone timeMachineClone = TimeMachine.Clone();
-
-                    if (FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year == 0)
+                    if (!Properties.IsWayback)
                     {
-                        timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
-                    }
-                    else
-                    {
-                        timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears((FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year) * 2);
-                    }
+                        TimeMachineClone timeMachineClone = TimeMachine.Clone();
 
-                    timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
-                    RemoteTimeMachineHandler.AddRemote(timeMachineClone);
+                        if (FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year == 0)
+                        {
+                            timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
+                        }
+                        else
+                        {
+                            timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears((FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year) * 2);
+                        }
+
+                        timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
+                        RemoteTimeMachineHandler.AddRemote(timeMachineClone);
+                    }
                 }
 
                 Events.OnLightningStrike?.Invoke();
@@ -145,6 +152,9 @@ namespace BackToTheFutureV
             {
                 return;
             }
+
+            Properties.StruckByLightning = false;
+            Properties.StruckByLightningInstant = false;
 
             Sounds.LightningStrike?.Stop();
             Sounds.Thunder?.Stop();

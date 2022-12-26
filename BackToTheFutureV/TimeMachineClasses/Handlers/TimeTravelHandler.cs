@@ -185,7 +185,7 @@ namespace BackToTheFutureV
                         Vehicle.SetMPHSpeed(0);
 
                         // Add to time travelled list
-                        if (Properties.TimeTravelType == TimeTravelType.RC)
+                        if (Properties.TimeTravelType == TimeTravelType.RC && !Properties.IsWayback)
                         {
                             RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone());
                         }

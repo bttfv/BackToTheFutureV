@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using GTA.Math;
 using System;
+using System.Security.Permissions;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -19,7 +20,7 @@ namespace BackToTheFutureV
         public Vector3 LastVelocity { get; set; }
         public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;
         public bool AreTimeCircuitsBroken { get; set; }
-        private int reactorCharge = 3;
+        private int reactorCharge =2;
         public bool CutsceneMode { get; set; } = true;
         public bool IsFreezed { get; set; }
         public bool IsDefrosting { get; set; }
@@ -79,16 +80,15 @@ namespace BackToTheFutureV
         public bool BlockSparks { get; set; }
         public float Boost { get; set; }
         public bool PlayerUsed { get; set; }
+        public bool StruckByLightning { get; set; }
+        public bool StruckByLightningInstant { get; set; }
+        public bool IsWayback { get; set; }
 
         public HUDProperties HUDProperties { get; set; } = new HUDProperties();
         public bool ForceSIDMax { get; set; }
         public int[] CurrentHeight { get; set; } = new int[10];
         public int[] NewHeight { get; set; } = new int[10];
         public int[] LedDelay { get; set; } = new int[10];
-
-        public PropertiesHandler()
-        {
-        }
 
         public PropertiesHandler Clone()
         {
@@ -126,7 +126,7 @@ namespace BackToTheFutureV
                 OverrideSIDSpeed = OverrideSIDSpeed,
                 OverrideTTSfxSpeed = OverrideTTSfxSpeed,
                 OverrideTTSpeed = OverrideTTSpeed,
-                OverrideWormholeLengthTime = OverrideWormholeLengthTime
+                OverrideWormholeLengthTime = OverrideWormholeLengthTime                
             };
 
             return ret;
@@ -184,7 +184,7 @@ namespace BackToTheFutureV
 
         public void ApplyToWayback(TimeMachine timeMachine)
         {
-            //timeMachine.Properties.IsWayback = true;
+            timeMachine.Properties.IsWayback = true;
 
             if (ReactorCharge != timeMachine.Properties.ReactorCharge)
             {
@@ -224,6 +224,21 @@ namespace BackToTheFutureV
             if (IsHoverGoingUpDown != timeMachine.Properties.IsHoverGoingUpDown)
             {
                 timeMachine.Events.SimulateHoverGoingUpDown?.Invoke(IsHoverGoingUpDown);
+            }
+
+            if (ReactorState != timeMachine.Properties.ReactorState)
+            {
+                timeMachine.Events.SetReactorState?.Invoke(ReactorState);
+            }
+
+            if (StruckByLightning && StruckByLightning != timeMachine.Properties.StruckByLightning)
+            {
+                timeMachine.Events.StartLightningStrike?.Invoke(0);
+            }
+
+            if (StruckByLightningInstant && StruckByLightningInstant != timeMachine.Properties.StruckByLightningInstant)
+            {
+                timeMachine.Events.StartLightningStrike?.Invoke(-1);
             }
         }
     }

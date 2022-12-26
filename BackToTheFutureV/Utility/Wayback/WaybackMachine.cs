@@ -80,8 +80,6 @@ namespace BackToTheFutureV
 
         public bool IsPlayer { get; private set; }
 
-        public bool WaitForReentry { get; private set; }
-
         public WaybackMachine(Ped ped, Guid guid)
         {
             Ped = ped;
@@ -94,15 +92,6 @@ namespace BackToTheFutureV
             {
                 WaybackSystem.CurrentPlayerRecording?.Stop();
             }
-        }
-
-        public void StartOn(Ped ped, bool waitForReentry = false)
-        {
-            Ped = ped;
-            WaitForReentry = waitForReentry;
-
-            CurrentIndex = 0;
-            Status = WaybackStatus.Playing;
         }
 
         public void Tick()
@@ -128,16 +117,6 @@ namespace BackToTheFutureV
                     Record();
                     break;
                 case WaybackStatus.Playing:
-                    if (WaitForReentry)
-                    {
-                        //if (TimeMachineHandler.GetTimeMachineFromReplicaGUID(GUID).Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
-                        //{
-                        //    return;
-                        //}
-
-                        WaitForReentry = false;
-                    }
-
                     Play();
                     break;
             }

@@ -177,12 +177,12 @@
     <Compile Include="Settings\TCDEditer.cs" />
     <Compile Include="Utility\TextHandler.cs" />
     <Compile Include="Utility\TrashHandler.cs" />
-    <Compile Include="Utility\Wayback\TimeParadox.cs" />
-    <Compile Include="Utility\Wayback\WaybackRecord.cs" />
-    <Compile Include="Utility\Wayback\WaybackMachine.cs" />
-    <Compile Include="Utility\Wayback\WaybackSystem.cs" />
-    <Compile Include="Utility\Wayback\Entities\WaybackVehicle.cs" />
     <Compile Include="Utility\Wayback\Entities\WaybackPed.cs" />
+    <Compile Include="Utility\Wayback\Entities\WaybackVehicle.cs" />
+    <Compile Include="Utility\Wayback\TimeParadox.cs" />
+    <Compile Include="Utility\Wayback\WaybackMachine.cs" />
+    <Compile Include="Utility\Wayback\WaybackRecord.cs" />
+    <Compile Include="Utility\Wayback\WaybackSystem.cs" />
     <Compile Include="Utility\WeatherHandler.cs" />
     <Compile Include="Vehicles\DMC12\ModsPrimitive.cs" />
     <Compile Include="Vehicles\DMC12\DMC12.cs" />
@@ -196,9 +196,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="FusionLibrary.SHVDN3">
-      <Version>1.5.7</Version>
-    </PackageReference>
     <PackageReference Include="LemonUI.SHVDN3">
       <Version>1.9.1</Version>
     </PackageReference>
@@ -206,6 +203,13 @@
       <Version>3.5.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FusionLibrary\FusionLibrary.csproj">
+      <Project>{f5aad1bd-63ca-4a12-97a8-f0d876ab4462}</Project>
+      <Name>FusionLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT "%25GTAPath%25" == "" (
