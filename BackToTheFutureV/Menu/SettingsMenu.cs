@@ -92,10 +92,10 @@ namespace BackToTheFutureV
                     break;
                 case NativeCheckboxItem _ when sender == WaybackSystem:
                     ModSettings.WaybackSystem = Checked;
-                    if (!Checked)
-                    {
-                        BackToTheFutureV.WaybackSystem.Abort();
-                    }
+                    //if (!Checked)
+                    //{
+                    //    BackToTheFutureV.WaybackSystem.Abort();
+                    //}
                     break;
             }
 

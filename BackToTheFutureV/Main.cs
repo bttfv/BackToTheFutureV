@@ -106,11 +106,6 @@ namespace BackToTheFutureV
                 WeatherHandler.Register();
             }
 
-            if (!FirstTick)
-            {
-                WaybackSystem.Tick();
-            }
-
             CustomTrainHandler.Tick();
             DMC12Handler.Tick();
             TimeMachineHandler.Tick();
@@ -127,8 +122,6 @@ namespace BackToTheFutureV
 
             if (FirstTick)
             {
-                WaybackSystem.Tick();
-
                 TrafficHandler.ModelSwaps.Add(new ModelSwap
                 {
                     Enabled = true,

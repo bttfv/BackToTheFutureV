@@ -300,11 +300,6 @@ namespace BackToTheFutureV
                                 timeMachine.Properties.ReactorCharge = 1;
                             }
 
-                            if (ModSettings.WaybackSystem)
-                            {
-                                WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle = new WaybackVehicle(timeMachine, WaybackVehicleEvent.Transform);
-                            }
-
                             Transform = false;
                         }
 

@@ -118,8 +118,7 @@ namespace BackToTheFutureV
         {
             Cutscene,
             Instant,
-            RC,
-            Wayback
+            RC
         }
 
         internal enum MissionType

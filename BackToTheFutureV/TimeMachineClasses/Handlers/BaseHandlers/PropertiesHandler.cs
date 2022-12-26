@@ -9,8 +9,6 @@ namespace BackToTheFutureV
     internal class PropertiesHandler
     {
         //Persistent properties
-        public Guid GUID { get; set; }
-        public Guid ReplicaGUID { get; set; }
         public bool AreTimeCircuitsOn { get; set; }
         public DateTime AlarmTime { get; set; }
         public bool AlarmSet { get; set; } = false;
@@ -21,7 +19,7 @@ namespace BackToTheFutureV
         public Vector3 LastVelocity { get; set; }
         public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;
         public bool AreTimeCircuitsBroken { get; set; }
-        private int reactorCharge = 1;
+        private int reactorCharge = 3;
         public bool CutsceneMode { get; set; } = true;
         public bool IsFreezed { get; set; }
         public bool IsDefrosting { get; set; }
@@ -80,7 +78,6 @@ namespace BackToTheFutureV
         public bool Story { get; set; }
         public bool BlockSparks { get; set; }
         public float Boost { get; set; }
-        public bool IsWayback { get; set; }
         public bool PlayerUsed { get; set; }
 
         public HUDProperties HUDProperties { get; set; } = new HUDProperties();
@@ -89,17 +86,14 @@ namespace BackToTheFutureV
         public int[] NewHeight { get; set; } = new int[10];
         public int[] LedDelay { get; set; } = new int[10];
 
-        public PropertiesHandler(Guid guid)
+        public PropertiesHandler()
         {
-            GUID = guid;
-            ReplicaGUID = Guid.NewGuid();
         }
 
         public PropertiesHandler Clone()
         {
-            PropertiesHandler ret = new PropertiesHandler(GUID)
+            PropertiesHandler ret = new PropertiesHandler()
             {
-                ReplicaGUID = ReplicaGUID,
                 AreTimeCircuitsOn = AreTimeCircuitsOn,
                 AlarmSet = AlarmSet,
                 AlarmTime = AlarmTime,
@@ -140,8 +134,6 @@ namespace BackToTheFutureV
 
         public void ApplyTo(TimeMachine timeMachine)
         {
-            timeMachine.Properties.GUID = GUID;
-            timeMachine.Properties.ReplicaGUID = ReplicaGUID;
             timeMachine.Properties.AreTimeCircuitsOn = AreTimeCircuitsOn;
             timeMachine.Properties.AlarmTime = AlarmTime;
             timeMachine.Properties.AlarmSet = AlarmSet;
@@ -192,7 +184,7 @@ namespace BackToTheFutureV
 
         public void ApplyToWayback(TimeMachine timeMachine)
         {
-            timeMachine.Properties.IsWayback = true;
+            //timeMachine.Properties.IsWayback = true;
 
             if (ReactorCharge != timeMachine.Properties.ReactorCharge)
             {

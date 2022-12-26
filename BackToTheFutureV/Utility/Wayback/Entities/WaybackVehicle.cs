@@ -25,7 +25,6 @@ namespace BackToTheFutureV
             IsTimeMachine = true;
 
             Properties = timeMachine.Properties.Clone();
-            //Mods = timeMachine.Mods.Clone();
 
             Event |= waybackVehicleEvent;
             TimeTravelDelay = timeTravelDelay;
@@ -61,7 +60,6 @@ namespace BackToTheFutureV
 
             TimeMachine timeMachine = TimeMachineHandler.Create(vehicle);
 
-            //Mods.ApplyTo(timeMachine);
             Properties.ApplyTo(timeMachine);
 
             return vehicle;
@@ -137,7 +135,7 @@ namespace BackToTheFutureV
             if (Event.HasFlag(WaybackVehicleEvent.Transform))
             {
                 timeMachine = TimeMachineHandler.Create(vehicle);
-                //Mods.ApplyTo(timeMachine);
+
                 Properties.ApplyTo(timeMachine);
 
                 return vehicle;
@@ -152,7 +150,6 @@ namespace BackToTheFutureV
                 return vehicle;
             }
 
-            //Mods.ApplyToWayback(timeMachine);
             Properties.ApplyToWayback(timeMachine);
 
             if (Event == WaybackVehicleEvent.None)

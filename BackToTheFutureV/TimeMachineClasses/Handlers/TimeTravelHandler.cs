@@ -43,11 +43,7 @@ namespace BackToTheFutureV
         public static void TimeChanged(DateTime time)
         {
             TimeMachineHandler.ExistenceCheck(time);
-
-            if (!ModSettings.WaybackSystem)
-            {
-                RemoteTimeMachineHandler.ExistenceCheck(time);
-            }
+            RemoteTimeMachineHandler.ExistenceCheck(time);
         }
 
         public void SetCutsceneMode(bool cutsceneOn)
@@ -96,10 +92,6 @@ namespace BackToTheFutureV
                     {
                         Properties.TimeTravelType = TimeTravelType.RC;
                     }
-                    else if (Properties.IsWayback)
-                    {
-                        Properties.TimeTravelType = TimeTravelType.Wayback;
-                    }
                     else
                     {
                         if (Vehicle.GetPedOnSeat(VehicleSeat.Driver) != FusionUtils.PlayerPed)
@@ -130,8 +122,6 @@ namespace BackToTheFutureV
                     Properties.TimeTravelDestPos = WaypointScript.WaypointPosition;
 
                     Properties.TimeTravelsCount++;
-
-                    Properties.ReplicaGUID = Guid.NewGuid();
 
                     if (Properties.TimeTravelType == TimeTravelType.Instant)
                     {
@@ -184,7 +174,7 @@ namespace BackToTheFutureV
                     trails = FireTrailsHandler.SpawnForTimeMachine(TimeMachine);
 
                     // If the Vehicle is remote controlled or the player is not the one in the driver seat
-                    if (Properties.TimeTravelType == TimeTravelType.RC || Properties.TimeTravelType == TimeTravelType.Wayback)
+                    if (Properties.TimeTravelType == TimeTravelType.RC)
                     {
                         if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime)
                         {
@@ -243,7 +233,7 @@ namespace BackToTheFutureV
 
                     Particles.TimeTravelEffect?.Stop();
 
-                    if (Properties.TimeTravelType == TimeTravelType.RC || Properties.TimeTravelType == TimeTravelType.Wayback)
+                    if (Properties.TimeTravelType == TimeTravelType.RC)
                     {
                         // Stop remote controlling
                         if (Properties.IsRemoteControlled)

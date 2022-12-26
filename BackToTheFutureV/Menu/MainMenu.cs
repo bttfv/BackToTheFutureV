@@ -78,7 +78,7 @@ namespace BackToTheFutureV
 
             doorsMenu.Enabled = FusionUtils.PlayerPed?.GetClosestVehicle(5f)?.Model == ModelHandler.DMC12 && !FusionUtils.PlayerPed.GetClosestVehicle(5f).IsConsideredDestroyed;
 
-            outatimeMenu.Enabled = RemoteTimeMachineHandler.RemoteTimeMachineCount > 0 && !Game.IsMissionActive;
+            outatimeMenu.Enabled = RemoteTimeMachineHandler.RemoteTimeMachines.Count > 0 && !Game.IsMissionActive;
 
             rcMenu.Enabled = FusionUtils.PlayerVehicle == null && TimeMachineHandler.TimeMachineCount > 0 && !Game.IsMissionActive;
         }

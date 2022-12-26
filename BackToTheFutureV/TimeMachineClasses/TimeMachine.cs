@@ -73,7 +73,7 @@ namespace BackToTheFutureV
 
             Events = new EventsHandler(this);
             Mods = new ModsHandler(this, wormholeType);
-            Properties = new PropertiesHandler(Guid.NewGuid());
+            Properties = new PropertiesHandler();
 
             registeredHandlers.Add("ConstantsHandler", Constants = new ConstantsHandler(this));
             registeredHandlers.Add("SoundsHandler", Sounds = new SoundsHandler(this));
@@ -260,11 +260,6 @@ namespace BackToTheFutureV
             if (!Vehicle.IsVisible)
             {
                 Vehicle.IsEngineRunning = false;
-            }
-
-            if (Properties.IsWayback && TimeMachineHandler.CurrentTimeMachine == this)
-            {
-                Properties.IsWayback = false;
             }
 
             Function.Call(Hash.SET_VEHICLE_CHEAT_POWER_INCREASE, Vehicle, Decorators.TorqueMultiplier);

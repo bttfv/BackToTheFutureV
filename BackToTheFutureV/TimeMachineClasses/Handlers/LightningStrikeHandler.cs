@@ -36,11 +36,6 @@ namespace BackToTheFutureV
         {
             if (_delay > -1 && Game.GameTime > _delay)
             {
-                if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                {
-                    WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.LightningStrike;
-                }
-
                 Strike();
             }
 
@@ -59,11 +54,6 @@ namespace BackToTheFutureV
             {
                 if (FusionUtils.Random.NextDouble() < 0.3)
                 {
-                    if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine)
-                    {
-                        WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.LightningStrike;
-                    }
-
                     Strike();
                 }
                 else
@@ -111,21 +101,20 @@ namespace BackToTheFutureV
                 else
                 {
                     Events.OnSparksEnded?.Invoke(_instant ? 250 : 2000);
-                    if (!Properties.IsWayback)
+
+                    TimeMachineClone timeMachineClone = TimeMachine.Clone();
+
+                    if (FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year == 0)
                     {
-                        TimeMachineClone timeMachineClone = TimeMachine.Clone();
-                        timeMachineClone.Properties.ReplicaGUID = Guid.NewGuid();
-                        if (FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year == 0)
-                        {
-                            timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
-                        }
-                        else
-                        {
-                            timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears((FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year) * 2);
-                        }
-                        timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
-                        RemoteTimeMachineHandler.AddRemote(timeMachineClone);
+                        timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
                     }
+                    else
+                    {
+                        timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears((FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year) * 2);
+                    }
+
+                    timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
+                    RemoteTimeMachineHandler.AddRemote(timeMachineClone);
                 }
 
                 Events.OnLightningStrike?.Invoke();

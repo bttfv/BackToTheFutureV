@@ -38,6 +38,9 @@ namespace BackToTheFutureV
 
         private void UpdateInfos()
         {
+            if (CurrentRemoteTimeMachine == null)
+                return;
+
             TypeDescription.Title = $"{GetItemTitle("Type")}: {CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType}";
             DestinationTimeDescription.Title = GetItemTitle("Destination") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt");
             LastTimeDescription.Title = GetItemTitle("Last") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy hh:mm tt");
@@ -111,7 +114,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
-            TimeMachines.Items = RemoteTimeMachineHandler.RemoteTimeMachines.Where(x => x.TimeMachineClone.Properties.IsWayback == false).ToList();
+            TimeMachines.Items = RemoteTimeMachineHandler.RemoteTimeMachines;
         }
 
         public override void Tick()

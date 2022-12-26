@@ -67,7 +67,7 @@ namespace BackToTheFutureV
 
         private void OnReenterEnded()
         {
-            if (ModSettings.EngineStallEvent && Mods.Reactor == ReactorType.Nuclear && !Properties.IsRemoteControlled && !Properties.IsWayback && Driver != null)
+            if (ModSettings.EngineStallEvent && Mods.Reactor == ReactorType.Nuclear && !Properties.IsRemoteControlled && Driver != null)
             {
                 IsPlaying = true;
             }

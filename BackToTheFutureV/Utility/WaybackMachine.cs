@@ -130,10 +130,10 @@ namespace BackToTheFutureV
                 case WaybackStatus.Playing:
                     if (WaitForReentry)
                     {
-                        //if (TimeMachineHandler.GetTimeMachineFromReplicaGUID(GUID).Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
-                        //{
-                        //    return;
-                        //}
+                        if (TimeMachineHandler.GetTimeMachineFromReplicaGUID(GUID).Properties.TimeTravelPhase == TimeTravelPhase.Reentering)
+                        {
+                            return;
+                        }
 
                         WaitForReentry = false;
                     }

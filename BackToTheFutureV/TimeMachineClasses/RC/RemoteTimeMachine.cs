@@ -46,7 +46,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!TimeMachineClone.Properties.IsWayback && !TimeMachineClone.Properties.HasBeenStruckByLightning)
+            if (!TimeMachineClone.Properties.HasBeenStruckByLightning)
             {
                 if (!_hasPlayedWarningSound && ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-45), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-3))))
                 {
@@ -62,17 +62,13 @@ namespace BackToTheFutureV
                 }
             }
 
-            if ((!TimeHandler.RealTime && !TimeMachineClone.Properties.IsWayback && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && !TimeMachineClone.Properties.IsWayback && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-2)))
+            if ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-2)))
             {
                 Spawn(ReenterType.Normal);
 
                 _hasPlayedWarningSound = false;
                 _timer = Game.GameTime + 10000;
             }
-            //else if ((!TimeHandler.RealTime && TimeMachineClone.Properties.IsWayback && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && TimeMachineClone.Properties.IsWayback && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-1)))
-            //{
-            //    Spawn(ReenterType.Normal);
-            //}
         }
 
         public TimeMachine Spawn(ReenterType reenterType)
@@ -123,7 +119,7 @@ namespace BackToTheFutureV
 
         public void ExistenceCheck(DateTime time)
         {
-            if (TimeMachineClone.Properties.DestinationTime < time && !TimeMachineClone.Properties.IsWayback && !Spawned)
+            if (TimeMachineClone.Properties.DestinationTime < time && !Spawned)
             {
                 Spawn(ReenterType.Spawn);
             }

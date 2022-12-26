@@ -133,7 +133,7 @@ namespace BackToTheFutureV
                         }
                     }
 
-                    if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.OverTimeTravelAtSpeed && !Properties.IsWayback)
+                    if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.OverTimeTravelAtSpeed)
                     {
                         Events.OnSparksEnded?.Invoke();
                     }
@@ -216,12 +216,6 @@ namespace BackToTheFutureV
 
         private void OnSparksEnded(int delay = 0)
         {
-            if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine && !Properties.HasBeenStruckByLightning && WaybackSystem.CurrentPlayerRecording != null)
-            {
-                WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.OnSparksEnded;
-                WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.TimeTravelDelay = delay;
-            }
-
             Stop();
 
             Properties.TimeTravelPhase = TimeTravelPhase.InTime;

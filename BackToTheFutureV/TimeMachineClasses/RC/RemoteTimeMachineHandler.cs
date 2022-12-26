@@ -18,7 +18,6 @@ namespace BackToTheFutureV
         private static readonly TimerBarProgress SignalBar;
 
         public static List<RemoteTimeMachine> RemoteTimeMachines { get; private set; } = new List<RemoteTimeMachine>();
-        public static int RemoteTimeMachineCount => RemoteTimeMachines.Where(x => x.TimeMachineClone.Properties.IsWayback == false).ToList().Count;
 
         static RemoteTimeMachineHandler()
         {
@@ -71,7 +70,7 @@ namespace BackToTheFutureV
 
         public static RemoteTimeMachine AddRemote(TimeMachineClone timeMachineClone)
         {
-            if (RemoteTimeMachines.Count > ModSettings.MaxRecordedMachines && !timeMachineClone.Properties.IsWayback)
+            if (RemoteTimeMachines.Count > ModSettings.MaxRecordedMachines)
             {
                 RemoteTimeMachines[0].Dispose();
                 RemoteTimeMachines.RemoveAt(0);

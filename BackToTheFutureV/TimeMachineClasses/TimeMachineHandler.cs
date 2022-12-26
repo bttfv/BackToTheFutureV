@@ -295,23 +295,19 @@ namespace BackToTheFutureV
                 timeMachine.Vehicle.SetVisible(false);
 
                 timeMachine.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
-                if (timeMachine.Mods.WormholeType == WormholeType.BTTF2 && spawnFlags.HasFlag(SpawnFlags.New))
-                {
-                    timeMachine.Properties.PreviousTime = new DateTime(2015, 10, 22, 19, 45, 0);
-                }
-                if (timeMachine.Mods.WormholeType == WormholeType.BTTF3 && spawnFlags.HasFlag(SpawnFlags.New))
-                {
-                    timeMachine.Properties.PreviousTime = new DateTime(1955, 11, 16, 10, 20, 0);
-                }
+
+                //if (timeMachine.Mods.WormholeType == WormholeType.BTTF2 && spawnFlags.HasFlag(SpawnFlags.New))
+                //{
+                //    timeMachine.Properties.PreviousTime = new DateTime(2015, 10, 22, 19, 45, 0);
+                //}
+
+                //if (timeMachine.Mods.WormholeType == WormholeType.BTTF3 && spawnFlags.HasFlag(SpawnFlags.New))
+                //{
+                //    timeMachine.Properties.PreviousTime = new DateTime(1955, 11, 16, 10, 20, 0);
+                //}
+
                 timeMachine.Properties.AreTimeCircuitsOn = true;
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);
-
-                if (ModSettings.WaybackSystem && spawnFlags.HasFlag(SpawnFlags.New))
-                {
-                    TimeMachineClone _new = timeMachine.Clone();
-                    _new.Properties.IsWayback = true;
-                    RemoteTimeMachineHandler.AddRemote(_new);
-                }
 
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }
@@ -406,22 +402,22 @@ namespace BackToTheFutureV
             return timeMachine;
         }
 
-        public static TimeMachine GetTimeMachineFromReplicaGUID(Guid guid)
-        {
-            TimeMachine timeMachine = AllTimeMachines.SingleOrDefault(x => x.Properties.ReplicaGUID == guid);
+        //public static TimeMachine GetTimeMachineFromReplicaGUID(Guid guid)
+        //{
+        //    TimeMachine timeMachine = AllTimeMachines.SingleOrDefault(x => x.Properties.ReplicaGUID == guid);
 
-            if (timeMachine == default)
-            {
-                timeMachine = _timeMachinesToAdd.SingleOrDefault(x => x.Properties.ReplicaGUID == guid);
+        //    if (timeMachine == default)
+        //    {
+        //        timeMachine = _timeMachinesToAdd.SingleOrDefault(x => x.Properties.ReplicaGUID == guid);
 
-                if (timeMachine == default)
-                {
-                    return null;
-                }
-            }
+        //        if (timeMachine == default)
+        //        {
+        //            return null;
+        //        }
+        //    }
 
-            return timeMachine;
-        }
+        //    return timeMachine;
+        //}
 
         public static bool IsVehicleATimeMachine(Vehicle vehicle)
         {

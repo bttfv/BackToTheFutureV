@@ -207,11 +207,6 @@ namespace BackToTheFutureV
                 {
                     if ((CurrentTimeMachine.Mods.Hook == HookState.On /*|| (CurrentTimeMachine.Constants.DeluxoProto && CurrentTimeMachine.Vehicle.IsExtraOn(1))*/) && CurrentTimeMachine.Properties.AreTimeCircuitsOn && CurrentTimeMachine.Constants.OverTimeTravelAtSpeed && !CurrentTimeMachine.Properties.HasBeenStruckByLightning && sparkRope.ParticlePlayers.Count(x => x.IsPlaying) >= 100)
                     {
-                        if (ModSettings.WaybackSystem)
-                        {
-                            WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackVehicleEvent.LightningRun;
-                        }
-
                         CurrentTimeMachine.Events.StartLightningStrike?.Invoke(-1);
                         if (!struck && sparkRope.SequenceComplete)
                         {
