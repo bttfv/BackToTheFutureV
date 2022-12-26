@@ -92,42 +92,41 @@ namespace BackToTheFutureV
 
         public PropertiesHandler Clone()
         {
-            PropertiesHandler ret = new PropertiesHandler()
-            {
-                AreTimeCircuitsOn = AreTimeCircuitsOn,
-                AlarmSet = AlarmSet,
-                AlarmTime = AlarmTime,
-                SyncWithCurTime = SyncWithCurTime,
-                ClockTime = ClockTime,
-                DestinationTime = DestinationTime,
-                PreviousTime = PreviousTime,
-                LastVelocity = LastVelocity,
-                TimeTravelType = TimeTravelType,
-                AreTimeCircuitsBroken = AreTimeCircuitsBroken,
-                reactorCharge = reactorCharge,
-                CutsceneMode = CutsceneMode,
-                IsFreezed = IsFreezed,
-                IsDefrosting = IsDefrosting,
-                IceValue = IceValue,
-                IsFlying = IsFlying,
-                IsHoverBoosting = IsHoverBoosting,
-                IsHoverGoingUpDown = IsHoverGoingUpDown,
-                CanConvert = CanConvert,
-                AreFlyingCircuitsBroken = AreFlyingCircuitsBroken,
-                AreHoodboxCircuitsReady = AreHoodboxCircuitsReady,
-                IsOnTracks = IsOnTracks,
-                WasOnTracks = WasOnTracks,
-                HasBeenStruckByLightning = HasBeenStruckByLightning,
-                TimeTravelDestPos = TimeTravelDestPos,
-                TimeTravelsCount = TimeTravelsCount,
-                ReactorState = ReactorState,
-                OverrideTimeTravelConstants = OverrideTimeTravelConstants,
-                OverrideSet = OverrideSet,
-                OverrideSIDSpeed = OverrideSIDSpeed,
-                OverrideTTSfxSpeed = OverrideTTSfxSpeed,
-                OverrideTTSpeed = OverrideTTSpeed,
-                OverrideWormholeLengthTime = OverrideWormholeLengthTime                
-            };
+            PropertiesHandler ret = new PropertiesHandler();
+
+            ret.AreTimeCircuitsOn = AreTimeCircuitsOn;
+            ret.AlarmSet = AlarmSet;
+            ret.AlarmTime = AlarmTime;
+            ret.SyncWithCurTime = SyncWithCurTime;
+            ret.ClockTime = ClockTime;
+            ret.DestinationTime = DestinationTime;
+            ret.PreviousTime = PreviousTime;
+            ret.LastVelocity = LastVelocity;
+            ret.TimeTravelType = TimeTravelType;
+            ret.AreTimeCircuitsBroken = AreTimeCircuitsBroken;
+            ret.ReactorCharge = ReactorCharge;
+            ret.CutsceneMode = CutsceneMode;
+            ret.IsFreezed = IsFreezed;
+            ret.IsDefrosting = IsDefrosting;
+            ret.IceValue = IceValue;
+            ret.IsFlying = IsFlying;
+            ret.IsHoverBoosting = IsHoverBoosting;
+            ret.IsHoverGoingUpDown = IsHoverGoingUpDown;
+            ret.CanConvert = CanConvert;
+            ret.AreFlyingCircuitsBroken = AreFlyingCircuitsBroken;
+            ret.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;
+            ret.IsOnTracks = IsOnTracks;
+            ret.WasOnTracks = WasOnTracks;
+            ret.HasBeenStruckByLightning = HasBeenStruckByLightning;
+            ret.TimeTravelDestPos = TimeTravelDestPos;
+            ret.TimeTravelsCount = TimeTravelsCount;
+            ret.ReactorState = ReactorState;
+            ret.OverrideTimeTravelConstants = OverrideTimeTravelConstants;
+            ret.OverrideSet = OverrideSet;
+            ret.OverrideSIDSpeed = OverrideSIDSpeed;
+            ret.OverrideTTSfxSpeed = OverrideTTSfxSpeed;
+            ret.OverrideTTSpeed = OverrideTTSpeed;
+            ret.OverrideWormholeLengthTime = OverrideWormholeLengthTime;
 
             return ret;
         }

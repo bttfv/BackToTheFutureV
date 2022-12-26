@@ -103,6 +103,9 @@ namespace BackToTheFutureV
 
             Properties.ReactorState = reactorState;
 
+            if (WaybackSystem.CurrentPlayerRecording != default && !Properties.IsWayback)
+                WaybackSystem.CurrentPlayerRecording.OverrideVehicle = Vehicle;
+
             switch (reactorState)
             {
                 case ReactorState.Opened:

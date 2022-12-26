@@ -13,14 +13,15 @@ namespace BackToTheFutureV
         public WaybackPed Ped { get; set; }
         public WaybackVehicle Vehicle { get; set; }
 
-        public WaybackRecord(Ped ped)
+        public WaybackRecord(Ped ped, Vehicle vehicle = null)
         {
             Time = FusionUtils.CurrentTime;
             FrameTime = Game.LastFrameTime;
 
             Ped = new WaybackPed(ped);
 
-            Vehicle vehicle = ped.GetUsingVehicle();
+            if (!vehicle.NotNullAndExists())
+                vehicle = ped.GetUsingVehicle();
 
             if (!vehicle.NotNullAndExists())
             {

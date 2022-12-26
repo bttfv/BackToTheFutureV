@@ -3,6 +3,7 @@ using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -80,6 +81,8 @@ namespace BackToTheFutureV
 
         public bool IsPlayer { get; private set; }
 
+        public Vehicle OverrideVehicle { get; set; }
+
         public WaybackMachine(Ped ped, Guid guid)
         {
             Ped = ped;
@@ -134,12 +137,14 @@ namespace BackToTheFutureV
 
             if (IsPlayer)
             {
-                waybackRecord = new WaybackRecord(FusionUtils.PlayerPed);
+                waybackRecord = new WaybackRecord(FusionUtils.PlayerPed, OverrideVehicle);
             }
             else
             {
-                waybackRecord = new WaybackRecord(Ped);
+                waybackRecord = new WaybackRecord(Ped, OverrideVehicle);
             }
+
+            OverrideVehicle = null;
 
             if (IsPlayer && PedHandle != FusionUtils.PlayerPed.Handle)
             {
