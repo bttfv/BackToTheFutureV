@@ -1,6 +1,5 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
-using FusionLibrary.Memory;
 using GTA;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -13,7 +12,7 @@ namespace BackToTheFutureV
 
         public bool IsTimeMachine { get; }
 
-        public ModsPrimitive Mods { get; }
+        //public ModsPrimitive Mods { get; }
         public PropertiesHandler Properties { get; }
 
         public WaybackVehicleEvent Event { get; set; } = WaybackVehicleEvent.None;
@@ -74,11 +73,11 @@ namespace BackToTheFutureV
 
             if (nextReplica == null)
             {
-                vehicle = World.GetClosestVehicle(Replica.Position, 5f, Replica.Model);
+                vehicle = World.GetClosestVehicle(Replica.Position, 1f, Replica.Model);
             }
             else
             {
-                vehicle = World.GetClosestVehicle(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), 5f, Replica.Model);
+                vehicle = World.GetClosestVehicle(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), 1f, Replica.Model);
             }
 
             if (!vehicle.NotNullAndExists() || FusionUtils.PlayerPed == vehicle)

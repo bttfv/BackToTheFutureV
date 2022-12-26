@@ -72,7 +72,7 @@ namespace BackToTheFutureV
 
                 return;
             }
-            
+
             if (Game.IsLoading || FusionUtils.FirstTick)
             {
                 return;
@@ -86,7 +86,7 @@ namespace BackToTheFutureV
             if (FirstMission && Game.IsMissionActive)
             {
                 return;
-            } 
+            }
             else if (FirstMission)
             {
                 FirstMission = false;
