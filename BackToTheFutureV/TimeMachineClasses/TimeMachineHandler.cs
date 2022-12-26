@@ -243,7 +243,7 @@ namespace BackToTheFutureV
 
             if (timeMachineClone != default && timeMachineClone.Properties.TimeTravelType == TimeTravelType.RC)
             {
-                spawnFlags |= SpawnFlags.NoOccupants;
+                spawnFlags |= SpawnFlags.NoDriver;
             }
 
             if (veh == null)
@@ -316,7 +316,7 @@ namespace BackToTheFutureV
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }
 
-            if (spawnFlags.HasFlag(SpawnFlags.NoOccupants) && timeMachine.Properties.IsFlying)
+            if (timeMachine.Vehicle.Occupants.Length == 0 && timeMachine.Properties.IsFlying)
             {
                 timeMachine.Events.SetFlyMode.Invoke(false);
             }

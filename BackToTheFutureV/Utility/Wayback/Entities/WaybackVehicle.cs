@@ -21,19 +21,12 @@ namespace BackToTheFutureV
 
         public WaybackVehicle(TimeMachine timeMachine, WaybackVehicleEvent waybackVehicleEvent, int timeTravelDelay = 0)
         {
-            SpawnFlags spawnFlags = SpawnFlags.NoOccupants;
-
-            if (timeMachine.Vehicle.Model == ModelHandler.DMC12)
-            {
-                spawnFlags |= SpawnFlags.NoMods;
-            }
-
-            Replica = new VehicleReplica(timeMachine, spawnFlags);
+            Replica = new VehicleReplica(timeMachine, SpawnFlags.NoDriver);
 
             IsTimeMachine = true;
 
             Properties = timeMachine.Properties.Clone();
-            Mods = timeMachine.Mods.Clone();
+            //Mods = timeMachine.Mods.Clone();
 
             Event |= waybackVehicleEvent;
             TimeTravelDelay = timeTravelDelay;
@@ -41,14 +34,7 @@ namespace BackToTheFutureV
 
         public WaybackVehicle(Vehicle vehicle)
         {
-            SpawnFlags spawnFlags = SpawnFlags.NoOccupants;
-
-            if (vehicle.Model == ModelHandler.DMC12)
-            {
-                spawnFlags |= SpawnFlags.NoMods;
-            }
-
-            Replica = new VehicleReplica(vehicle, spawnFlags);
+            Replica = new VehicleReplica(vehicle, SpawnFlags.NoDriver);
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
@@ -60,12 +46,12 @@ namespace BackToTheFutureV
             IsTimeMachine = true;
 
             Properties = timeMachine.Properties.Clone();
-            Mods = timeMachine.Mods.Clone();
+            //Mods = timeMachine.Mods.Clone();
         }
 
         private Vehicle Spawn()
         {
-            Vehicle vehicle = Replica.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants);
+            Vehicle vehicle = Replica.Spawn(SpawnFlags.NoVelocity);
 
             vehicle.SetPlayerLights(true);
 
@@ -76,7 +62,7 @@ namespace BackToTheFutureV
 
             TimeMachine timeMachine = TimeMachineHandler.Create(vehicle);
 
-            Mods.ApplyTo(timeMachine);
+            //Mods.ApplyTo(timeMachine);
             Properties.ApplyTo(timeMachine);
 
             return vehicle;
@@ -117,7 +103,7 @@ namespace BackToTheFutureV
                 return null;
             }
 
-            SpawnFlags spawnFlags = SpawnFlags.NoOccupants;
+            SpawnFlags spawnFlags = SpawnFlags.NoVelocity;
 
             if (ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle()))
             {
@@ -152,7 +138,7 @@ namespace BackToTheFutureV
             if (Event.HasFlag(WaybackVehicleEvent.Transform))
             {
                 timeMachine = TimeMachineHandler.Create(vehicle);
-                Mods.ApplyTo(timeMachine);
+                //Mods.ApplyTo(timeMachine);
                 Properties.ApplyTo(timeMachine);
 
                 return vehicle;
@@ -167,7 +153,7 @@ namespace BackToTheFutureV
                 return vehicle;
             }
 
-            Mods.ApplyToWayback(timeMachine);
+            //Mods.ApplyToWayback(timeMachine);
             Properties.ApplyToWayback(timeMachine);
 
             if (Event == WaybackVehicleEvent.None)
