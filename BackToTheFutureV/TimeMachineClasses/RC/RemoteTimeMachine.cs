@@ -46,9 +46,9 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-45), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-3)))
+            if (!TimeMachineClone.Properties.IsWayback && !TimeMachineClone.Properties.HasBeenStruckByLightning)
             {
-                if (!_hasPlayedWarningSound && !TimeMachineClone.Properties.IsWayback && !TimeMachineClone.Properties.HasBeenStruckByLightning)
+                if (!_hasPlayedWarningSound && ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-45), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-3))))
                 {
                     if (!FusionUtils.PlayerPed.IsInVehicle())
                     {
@@ -69,10 +69,10 @@ namespace BackToTheFutureV
                 _hasPlayedWarningSound = false;
                 _timer = Game.GameTime + 10000;
             }
-            else if ((!TimeHandler.RealTime && TimeMachineClone.Properties.IsWayback && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && TimeMachineClone.Properties.IsWayback && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-1)))
-            {
-                Spawn(ReenterType.Normal);
-            }
+            //else if ((!TimeHandler.RealTime && TimeMachineClone.Properties.IsWayback && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && TimeMachineClone.Properties.IsWayback && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-1)))
+            //{
+            //    Spawn(ReenterType.Normal);
+            //}
         }
 
         public TimeMachine Spawn(ReenterType reenterType)
@@ -87,17 +87,17 @@ namespace BackToTheFutureV
                 case ReenterType.Normal:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
                     TimeMachine.Properties.DestinationTime = TimeMachineClone.Properties.DestinationTime;
-                    //TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     break;
                 case ReenterType.Forced:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry | SpawnFlags.NoOccupants);
-                    //TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     break;
                 case ReenterType.Spawn:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity | SpawnFlags.NoOccupants);
-                    //TimeMachine.LastDisplacementClone = TimeMachineClone;
+                    TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     if (!TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12)
                     {

@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
+using FusionLibrary.Memory;
 using GTA;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -20,7 +21,14 @@ namespace BackToTheFutureV
 
         public WaybackVehicle(TimeMachine timeMachine, WaybackVehicleEvent waybackVehicleEvent, int timeTravelDelay = 0)
         {
-            Replica = new VehicleReplica(timeMachine.Vehicle, SpawnFlags.NoOccupants);
+            SpawnFlags spawnFlags = SpawnFlags.NoOccupants;
+
+            if (timeMachine.Vehicle.Model == ModelHandler.DMC12)
+            {
+                spawnFlags |= SpawnFlags.NoMods;
+            }
+
+            Replica = new VehicleReplica(timeMachine, spawnFlags);
 
             IsTimeMachine = true;
 

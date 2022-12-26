@@ -97,6 +97,7 @@
     <Compile Include="Utility\HUDProperties.cs" />
     <Compile Include="Utility\InternalEnums.cs" />
     <Compile Include="Utility\InternalInventory.cs" />
+    <Compile Include="Utility\IntroHandler.cs" />
     <Compile Include="Utility\Memory\CVehicle.cs" />
     <Compile Include="Utility\Memory\CWheel.cs" />
     <Compile Include="Utility\Memory\INativeMemory.cs" />
@@ -175,8 +176,8 @@
     <Compile Include="Settings\ModSettings.cs" />
     <Compile Include="Settings\TCDEditer.cs" />
     <Compile Include="Utility\TextHandler.cs" />
-    <Compile Include="Utility\TimeText.cs" />
     <Compile Include="Utility\TrashHandler.cs" />
+    <Compile Include="Utility\Wayback\TimeParadox.cs" />
     <Compile Include="Utility\Wayback\WaybackRecord.cs" />
     <Compile Include="Utility\Wayback\WaybackMachine.cs" />
     <Compile Include="Utility\Wayback\WaybackSystem.cs" />

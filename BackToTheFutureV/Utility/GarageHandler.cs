@@ -170,7 +170,7 @@ namespace BackToTheFutureV
 
         public static void Tick()
         {
-            if (!Vehicle.NotNullAndExists() || RemoteTimeMachineHandler.IsRemoteOn)
+            if (Game.IsMissionActive || !Vehicle.NotNullAndExists() || RemoteTimeMachineHandler.IsRemoteOn)
             {
                 if (Status != GarageStatus.Idle)
                 {
@@ -246,27 +246,24 @@ namespace BackToTheFutureV
                 switch (Status)
                 {
                     case GarageStatus.Idle:
-                        if (!Game.IsMissionActive)
+                        GTA.UI.Screen.ShowHelpTextThisFrame("Press ~INPUT_CONTEXT~ to open garage menu.");
+
+                        if (Game.IsControlJustPressed(Control.Context))
                         {
-                            GTA.UI.Screen.ShowHelpTextThisFrame("Press ~INPUT_CONTEXT~ to open garage menu.");
+                            //FusionUtils.HideGUI = true;
+                            GTA.UI.Hud.IsRadarVisible = false;
 
-                            if (Game.IsControlJustPressed(Control.Context) && ((!Vehicle.IsEngineStarting && Vehicle.IsEngineRunning && !Game.IsMissionActive) || (Vehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Constants.FullDamaged)))
-                            {
-                                //FusionUtils.HideGUI = true;
-                                GTA.UI.Hud.IsRadarVisible = false;
+                            isTimeMachine = Vehicle.IsTimeMachine();
 
-                                isTimeMachine = Vehicle.IsTimeMachine();
+                            Vehicle.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 2000).Start();
+                            Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, false, false, true);
 
-                                Vehicle.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 2000).Start();
-                                Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, false, false, true);
+                            //SetupCamera(garageInfo.CreateInsideCamera());
+                            MenuHandler.GarageMenu.Visible = true;
+                            MenuHandler.CustomMenuGarage.CloseOnInvalidClick = false;
 
-                                //SetupCamera(garageInfo.CreateInsideCamera());
-                                MenuHandler.GarageMenu.Visible = true;
-                                MenuHandler.CustomMenuGarage.CloseOnInvalidClick = false;
-
-                                garageInfo.Lock();
-                                Status = GarageStatus.Busy;
-                            }
+                            garageInfo.Lock();
+                            Status = GarageStatus.Busy;
                         }
 
                         break;

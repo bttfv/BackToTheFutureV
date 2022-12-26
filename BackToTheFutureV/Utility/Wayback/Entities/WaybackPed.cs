@@ -28,10 +28,10 @@ namespace BackToTheFutureV
                 Event = WaybackPedEvent.Jump;
             }
 
-            /*if (ped.IsInMeleeCombat)
+            if (ped.IsInMeleeCombat)
             {
                 Event = WaybackPedEvent.MeleeAttack;
-            }*/
+            }
 
             if (ped.IsClimbing)
             {
