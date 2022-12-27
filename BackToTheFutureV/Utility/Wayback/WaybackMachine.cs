@@ -74,6 +74,8 @@ namespace BackToTheFutureV
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; private set; }
 
+        public Guid WaitForTimeMachineGUID { get; }
+
         public WaybackStatus Status { get; private set; } = WaybackStatus.Idle;
 
         public bool IsPlayer { get; private set; }
@@ -91,6 +93,15 @@ namespace BackToTheFutureV
             {
                 WaybackSystem.CurrentPlayerRecording?.Stop();
             }
+
+            if (TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine == Ped.CurrentVehicle && TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase == TimeTravelPhase.InTime)
+            {
+                WaitForTimeMachineGUID = TimeMachineHandler.CurrentTimeMachine.Properties.GUID;
+            }
+            else
+            {
+                WaitForTimeMachineGUID = Guid.Empty;
+            }
         }
 
         public void Tick()
@@ -100,6 +111,14 @@ namespace BackToTheFutureV
                 case WaybackStatus.Idle:
                     if (FusionUtils.CurrentTime.Between(StartTime, EndTime))
                     {
+                        if (WaitForTimeMachineGUID != Guid.Empty)
+                        {
+                            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromOriginalGUID(WaitForTimeMachineGUID);
+
+                            if (!timeMachine.NotNullAndExists() || timeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
+                                return;
+                        }
+
                         CurrentIndex = Records.FindIndex(x => x.Time >= FusionUtils.CurrentTime);
 
                         Status = WaybackStatus.Playing;

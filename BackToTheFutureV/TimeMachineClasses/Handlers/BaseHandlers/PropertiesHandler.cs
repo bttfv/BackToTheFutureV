@@ -9,6 +9,8 @@ namespace BackToTheFutureV
     internal class PropertiesHandler
     {
         //Persistent properties
+        public Guid GUID { get; } = Guid.NewGuid();
+        public Guid OriginalGUID { get; private set; } = Guid.Empty;
         public bool AreTimeCircuitsOn { get; set; }
         public DateTime AlarmTime { get; set; }
         public bool AlarmSet { get; set; } = false;
@@ -93,6 +95,7 @@ namespace BackToTheFutureV
         {
             PropertiesHandler ret = new PropertiesHandler();
 
+            ret.OriginalGUID = GUID;
             ret.AreTimeCircuitsOn = AreTimeCircuitsOn;
             ret.AlarmSet = AlarmSet;
             ret.AlarmTime = AlarmTime;
@@ -132,6 +135,7 @@ namespace BackToTheFutureV
 
         public void ApplyTo(TimeMachine timeMachine)
         {
+            timeMachine.Properties.OriginalGUID = OriginalGUID;
             timeMachine.Properties.AreTimeCircuitsOn = AreTimeCircuitsOn;
             timeMachine.Properties.AlarmTime = AlarmTime;
             timeMachine.Properties.AlarmSet = AlarmSet;

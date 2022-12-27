@@ -402,22 +402,22 @@ namespace BackToTheFutureV
             return timeMachine;
         }
 
-        //public static TimeMachine GetTimeMachineFromReplicaGUID(Guid guid)
-        //{
-        //    TimeMachine timeMachine = AllTimeMachines.SingleOrDefault(x => x.Properties.ReplicaGUID == guid);
+        public static TimeMachine GetTimeMachineFromOriginalGUID(Guid guid)
+        {
+            TimeMachine timeMachine = AllTimeMachines.SingleOrDefault(x => x.Properties.OriginalGUID == guid);
 
-        //    if (timeMachine == default)
-        //    {
-        //        timeMachine = _timeMachinesToAdd.SingleOrDefault(x => x.Properties.ReplicaGUID == guid);
+            if (timeMachine == default)
+            {
+                timeMachine = _timeMachinesToAdd.SingleOrDefault(x => x.Properties.OriginalGUID == guid);
 
-        //        if (timeMachine == default)
-        //        {
-        //            return null;
-        //        }
-        //    }
+                if (timeMachine == default)
+                {
+                    return null;
+                }
+            }
 
-        //    return timeMachine;
-        //}
+            return timeMachine;
+        }
 
         public static bool IsVehicleATimeMachine(Vehicle vehicle)
         {

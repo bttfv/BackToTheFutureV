@@ -244,7 +244,7 @@ namespace BackToTheFutureV
 
                         TimeMachineHandler.RemoveTimeMachine(TimeMachine, true, true);
 
-                        Properties.TimeTravelPhase = TimeTravelPhase.Completed;
+                        //Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
                         return;
                     }
