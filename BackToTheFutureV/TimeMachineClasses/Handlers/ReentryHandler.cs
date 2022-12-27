@@ -141,8 +141,6 @@ namespace BackToTheFutureV
                 RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
             }
 
-            Properties.TimeTravelPhase = TimeTravelPhase.Completed;
-
             Vehicle.SetVisible(true);
 
             DMC12?.SetVoltValue?.Invoke(50);
@@ -208,6 +206,8 @@ namespace BackToTheFutureV
             {
                 Driver.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 10000).Start();
             }
+
+            Properties.TimeTravelPhase = TimeTravelPhase.Completed;
         }
 
         public override void Stop()

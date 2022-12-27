@@ -69,11 +69,11 @@ namespace BackToTheFutureV
 
             if (nextReplica == null)
             {
-                vehicle = World.GetClosestVehicle(Replica.Position, 1f, Replica.Model);
+                vehicle = World.GetClosestVehicle(Replica.Position, 3f, Replica.Model);
             }
             else
             {
-                vehicle = World.GetClosestVehicle(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), 1f, Replica.Model);
+                vehicle = World.GetClosestVehicle(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), 3f, Replica.Model);
             }
 
             if (!vehicle.NotNullAndExists() || FusionUtils.PlayerPed == vehicle)
@@ -105,9 +105,13 @@ namespace BackToTheFutureV
                 spawnFlags |= SpawnFlags.NoPosition;
             }
 
-            TimeMachine timeMachine;
+            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
-            if (!IsTimeMachine || !Properties.IsOnTracks)
+            if (IsTimeMachine && timeMachine.NotNullAndExists() && Properties.IsOnTracks)
+            {
+                timeMachine.Events.SetTrainSpeed?.Invoke(Replica.Speed * (Replica.RunningDirection != RunningDirection.Backward ? 1 : -1));
+            }
+            else
             {
                 if (nextReplica == null)
                 {
@@ -118,34 +122,17 @@ namespace BackToTheFutureV
                     Replica.ApplyTo(vehicle, spawnFlags, nextReplica, adjustedRatio);
                 }
             }
-            else if (Properties.IsOnTracks)
-            {
-                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
-
-                timeMachine.Events.SetTrainSpeed?.Invoke(Replica.Speed * (Replica.RunningDirection != RunningDirection.Backward ? 1 : -1));
-            }
 
             if (!IsTimeMachine)
             {
                 return vehicle;
             }
 
-            timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
-
             if (timeMachine == null)
             {
                 timeMachine = TimeMachineHandler.Create(vehicle);
 
-                timeMachine.Properties.IsWayback = true;
-
                 Properties.ApplyTo(timeMachine);
-
-                return vehicle;
-            }
-
-            if (!timeMachine.NotNullAndExists())
-            {
-                return vehicle;
             }
 
             Properties.ApplyToWayback(timeMachine);

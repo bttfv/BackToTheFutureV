@@ -251,10 +251,6 @@ namespace BackToTheFutureV
             {
                 Properties.HasScaleformPriority = Constants.HasScaleformPriority;
                 Events.OnScaleformPriority?.Invoke();
-                if (Mods.SuspensionsType != SuspensionsType.Stock)
-                {
-                    Vehicle.Velocity += Vector3.UnitY * 0.3f;
-                }
             }
 
             if (!Vehicle.IsVisible)
@@ -355,9 +351,8 @@ namespace BackToTheFutureV
                 }
             }*/
 
-            if (FusionUtils.PlayerVehicle != Vehicle && Vehicle.Exists() && !Properties.Story)
+            if (FusionUtils.PlayerVehicle != Vehicle && Vehicle.Exists() && !Properties.Story && Vehicle.IsVisible)
             {
-                Decorators.TorqueMultiplier = 1f;
                 if (Blip == null || !Blip.Exists())
                 {
                     Blip = Vehicle.AddBlip();
@@ -370,9 +365,6 @@ namespace BackToTheFutureV
             {
                 Blip.Delete();
             }
-
-            //if (TimeMachineHandler.CurrentTimeMachine == this)
-            //    Main.CustomStopwatch.StartNewRecord();
 
             foreach (KeyValuePair<string, HandlerPrimitive> entry in registeredHandlers)
             {

@@ -3,7 +3,6 @@ using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -11,8 +10,6 @@ namespace BackToTheFutureV
     internal class WaybackMachine
     {
         private List<WaybackRecord> Records { get; } = new List<WaybackRecord>();
-
-        public Guid GUID { get; private set; } = Guid.Empty;
 
         private int PedHandle { get; set; }
         public Ped Ped
@@ -83,10 +80,9 @@ namespace BackToTheFutureV
 
         public Vehicle OverrideVehicle { get; set; }
 
-        public WaybackMachine(Ped ped, Guid guid)
+        public WaybackMachine(Ped ped)
         {
             Ped = ped;
-            GUID = guid;
 
             IsPlayer = Ped == FusionUtils.PlayerPed;
             Status = WaybackStatus.Recording;
@@ -187,7 +183,7 @@ namespace BackToTheFutureV
             if (Status == WaybackStatus.Recording && Records.Count > 0)
             {
                 StartTime = Records[0].Time;
-                EndTime = LastRecord.Time.AddMinutes(-1);
+                EndTime = LastRecord.Time;
             }
 
             CurrentIndex = 0;

@@ -1,6 +1,6 @@
 ﻿using FusionLibrary;
+using FusionLibrary.Extensions;
 using GTA;
-using GTA.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +28,9 @@ namespace BackToTheFutureV
 
             if (CurrentPlayerRecording == default && FusionUtils.PlayerPed.IsAlive && !FusionUtils.PlayerPed.IsDead)
             {
-                if (!TimeMachineHandler.CurrentTimeMachine.IsFunctioning() || (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase != TimeTravelPhase.InTime && TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase != TimeTravelPhase.Reentering))
+                if (!TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() || (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase <= TimeTravelPhase.OpeningWormhole))
                 {
-                    Create(FusionUtils.PlayerPed, Guid.NewGuid());
+                    Create(FusionUtils.PlayerPed);
                 }
             }
 
@@ -48,16 +48,14 @@ namespace BackToTheFutureV
             Machines.Clear();
         }
 
-        public static void Create(Ped ped, Guid guid)
+        public static void Create(Ped ped)
         {
-            WaybackMachine wayback = new WaybackMachine(ped, guid);
-
-            Machines.Add(wayback);
+            Machines.Add(new WaybackMachine(ped));
         }
 
-        public static WaybackMachine GetFromGUID(Guid guid)
+        public static WaybackMachine GetWaybackMachineFromVehicle(Vehicle vehicle)
         {
-            return Machines.SingleOrDefault(x => x.GUID == guid);
+            return Machines.SingleOrDefault(x => x.Ped.NotNullAndExists() && x.Ped.CurrentVehicle == vehicle);
         }
     }
 }

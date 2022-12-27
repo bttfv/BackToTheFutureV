@@ -62,7 +62,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            if ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-30), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-2)))
+            if ((!TimeHandler.RealTime && FusionUtils.CurrentTime.Between(TimeMachineClone.Properties.DestinationTime.AddSeconds(-30), TimeMachineClone.Properties.DestinationTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-2)))
             {
                 Spawn(ReenterType.Normal);
 

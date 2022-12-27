@@ -3,7 +3,6 @@ using GTA.Math;
 using LemonUI.Menus;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -49,7 +48,8 @@ namespace BackToTheFutureV
                 ShowBlip.Checked = CurrentRemoteTimeMachine.Blip != null && CurrentRemoteTimeMachine.Blip.Exists();
 
                 ForceReenter.Enabled = !CurrentRemoteTimeMachine.TimeMachine.Properties.AreTimeCircuitsBroken;
-            } catch(Exception ex) { }
+            }
+            catch (Exception ex) { }
         }
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)

@@ -2,7 +2,6 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Native;
-using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
