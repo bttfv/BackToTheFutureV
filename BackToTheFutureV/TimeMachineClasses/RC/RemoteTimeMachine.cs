@@ -82,12 +82,6 @@ namespace BackToTheFutureV
             {
                 case ReenterType.Normal:
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
-                    TimeMachine.Properties.DestinationTime = TimeMachineClone.Properties.DestinationTime;
-                    TimeMachine.LastDisplacementClone = TimeMachineClone;
-
-                    break;
-                case ReenterType.Forced:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     break;
@@ -95,17 +89,19 @@ namespace BackToTheFutureV
                     TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
-                    if (!TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12)
+                    if (TimeMachine.Mods.IsDMC12)
                     {
-                        TimeMachine.Properties.ReactorCharge--;
-                    }
-
-                    if (TimeMachine.Properties.HasBeenStruckByLightning && TimeMachine.Mods.IsDMC12 && TimeMachine.Properties.IsFlying)
-                    {
-                        TimeMachine.Properties.AreTimeCircuitsOn = false;
-                        TimeMachine.Properties.AreFlyingCircuitsBroken = true;
-                        TimeMachine.Properties.AreTimeCircuitsBroken = true;
-                        TimeMachine.Properties.HasBeenStruckByLightning = false;
+                        if (TimeMachine.Properties.HasBeenStruckByLightning)
+                        {
+                            TimeMachine.Properties.AreTimeCircuitsOn = false;
+                            TimeMachine.Properties.AreTimeCircuitsBroken = true;
+                            TimeMachine.Properties.HasBeenStruckByLightning = false;
+                            TimeMachine.Properties.AreFlyingCircuitsBroken = TimeMachine.Properties.IsFlying;
+                        }
+                        else
+                        {
+                            TimeMachine.Properties.ReactorCharge--;
+                        }
                     }
 
                     TimeMachine.Events.OnVehicleSpawned?.Invoke();

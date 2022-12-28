@@ -56,7 +56,7 @@ namespace BackToTheFutureV
         {
             if (sender == ForceReenter && !CurrentRemoteTimeMachine.Spawned)
             {
-                CurrentRemoteTimeMachine.Spawn(ReenterType.Forced);
+                CurrentRemoteTimeMachine.Spawn(ReenterType.Normal);
             }
         }
 

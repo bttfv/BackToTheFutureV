@@ -1,5 +1,4 @@
 ﻿using FusionLibrary;
-using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
@@ -51,11 +50,6 @@ namespace BackToTheFutureV
         public static void Create(Ped ped)
         {
             Machines.Add(new WaybackMachine(ped));
-        }
-
-        public static WaybackMachine GetWaybackMachineFromVehicle(Vehicle vehicle)
-        {
-            return Machines.SingleOrDefault(x => x.Ped.NotNullAndExists() && x.Ped.CurrentVehicle == vehicle);
         }
     }
 }

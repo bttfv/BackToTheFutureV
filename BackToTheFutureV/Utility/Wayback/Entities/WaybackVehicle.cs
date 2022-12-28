@@ -65,18 +65,25 @@ namespace BackToTheFutureV
 
         public Vehicle TryFindOrSpawn(VehicleReplica nextReplica, float adjustedRatio)
         {
-            Vehicle vehicle;
+            Vehicle vehicle = null;
 
-            if (nextReplica == null)
+            if (IsTimeMachine)
             {
-                vehicle = World.GetClosestVehicle(Replica.Position, 3f, Replica.Model);
+                TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromOriginalGUID(Properties.OriginalGUID);
+
+                if (timeMachine.NotNullAndExists())
+                    vehicle = timeMachine.Vehicle;
+            }
+            else if (nextReplica == null)
+            {
+                vehicle = World.GetClosestVehicle(Replica.Position, 1f, Replica.Model);
             }
             else
             {
-                vehicle = World.GetClosestVehicle(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), 3f, Replica.Model);
+                vehicle = World.GetClosestVehicle(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), 1f, Replica.Model);
             }
 
-            if (!vehicle.NotNullAndExists() || FusionUtils.PlayerPed == vehicle)
+            if (!vehicle.NotNullAndExists())
             {
                 vehicle = Spawn();
             }

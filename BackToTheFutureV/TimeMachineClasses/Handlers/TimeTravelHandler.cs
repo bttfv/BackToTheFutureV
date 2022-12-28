@@ -57,6 +57,8 @@ namespace BackToTheFutureV
         {
             Properties.TimeTravelPhase = TimeTravelPhase.InTime;
 
+            Properties.GUID = Guid.NewGuid();
+
             gameTimer = Game.GameTime + delay;
             _currentStep = 0;
         }
@@ -243,8 +245,6 @@ namespace BackToTheFutureV
                         }
 
                         TimeMachineHandler.RemoveTimeMachine(TimeMachine, true, true);
-
-                        //Properties.TimeTravelPhase = TimeTravelPhase.Completed;
 
                         return;
                     }

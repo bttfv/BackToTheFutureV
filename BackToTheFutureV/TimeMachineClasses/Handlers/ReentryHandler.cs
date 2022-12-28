@@ -138,7 +138,13 @@ namespace BackToTheFutureV
         {
             if (Driver == FusionUtils.PlayerPed)
             {
+                if (ModSettings.WaybackSystem)
+                    TimeMachine.LastDisplacementClone.Properties.IsWayback = true;
+
                 RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
+
+                if (ModSettings.WaybackSystem)
+                    TimeMachine.LastDisplacementClone.Properties.IsWayback = false;
             }
 
             Vehicle.SetVisible(true);

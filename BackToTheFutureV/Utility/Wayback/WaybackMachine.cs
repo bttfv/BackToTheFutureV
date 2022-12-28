@@ -94,7 +94,7 @@ namespace BackToTheFutureV
                 WaybackSystem.CurrentPlayerRecording?.Stop();
             }
 
-            if (TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine == Ped.CurrentVehicle && TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase == TimeTravelPhase.InTime)
+            if (TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine == Ped.CurrentVehicle && TimeMachineHandler.CurrentTimeMachine.Constants.TimeTravelCooldown > -1)
             {
                 WaitForTimeMachineGUID = TimeMachineHandler.CurrentTimeMachine.Properties.GUID;
             }
@@ -117,6 +117,8 @@ namespace BackToTheFutureV
 
                             if (!timeMachine.NotNullAndExists() || timeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                                 return;
+
+                            Ped = timeMachine.Vehicle.Driver;
                         }
 
                         CurrentIndex = Records.FindIndex(x => x.Time >= FusionUtils.CurrentTime);

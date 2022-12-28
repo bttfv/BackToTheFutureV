@@ -104,8 +104,7 @@ namespace BackToTheFutureV
         internal enum ReenterType
         {
             Normal,
-            Spawn,
-            Forced
+            Spawn
         }
 
         internal enum TimeTravelType
