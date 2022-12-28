@@ -10,24 +10,9 @@ namespace BackToTheFutureV
     {
         public VehicleReplica Replica { get; }
 
-        public bool IsTimeMachine { get; private set; }
+        public bool IsTimeMachine { get; }
 
         public PropertiesHandler Properties { get; }
-
-        public WaybackVehicleEvent Event { get; set; } = WaybackVehicleEvent.None;
-        public int TimeTravelDelay { get; set; }
-
-        public WaybackVehicle(TimeMachine timeMachine, WaybackVehicleEvent waybackVehicleEvent, int timeTravelDelay = 0)
-        {
-            Replica = new VehicleReplica(timeMachine, SpawnFlags.NoDriver);
-
-            IsTimeMachine = true;
-
-            Properties = timeMachine.Properties.Clone();
-
-            Event |= waybackVehicleEvent;
-            TimeTravelDelay = timeTravelDelay;
-        }
 
         public WaybackVehicle(Vehicle vehicle)
         {
@@ -146,11 +131,6 @@ namespace BackToTheFutureV
             }
 
             Properties.ApplyToWayback(timeMachine);
-
-            if (Event == WaybackVehicleEvent.None)
-            {
-                return vehicle;
-            }
 
             return vehicle;
         }

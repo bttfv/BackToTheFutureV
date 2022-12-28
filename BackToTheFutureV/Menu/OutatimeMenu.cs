@@ -37,19 +37,15 @@ namespace BackToTheFutureV
 
         private void UpdateInfos()
         {
-            try
-            {
-                TypeDescription.Title = $"{GetItemTitle("Type")}: {CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType}";
-                DestinationTimeDescription.Title = GetItemTitle("Destination") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt");
-                LastTimeDescription.Title = GetItemTitle("Last") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy hh:mm tt");
+            TypeDescription.Title = $"{GetItemTitle("Type")}: {CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType}";
+            DestinationTimeDescription.Title = GetItemTitle("Destination") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt");
+            LastTimeDescription.Title = GetItemTitle("Last") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy hh:mm tt");
 
-                Spawned.Checked = CurrentRemoteTimeMachine.Spawned;
+            Spawned.Checked = CurrentRemoteTimeMachine.Spawned;
 
-                ShowBlip.Checked = CurrentRemoteTimeMachine.Blip != null && CurrentRemoteTimeMachine.Blip.Exists();
+            ShowBlip.Checked = CurrentRemoteTimeMachine.Blip != null && CurrentRemoteTimeMachine.Blip.Exists();
 
-                ForceReenter.Enabled = !CurrentRemoteTimeMachine.TimeMachine.Properties.AreTimeCircuitsBroken;
-            }
-            catch (Exception ex) { }
+            ForceReenter.Enabled = !CurrentRemoteTimeMachine.Spawned;
         }
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)

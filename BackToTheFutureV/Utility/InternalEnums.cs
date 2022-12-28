@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BackToTheFutureV
+﻿namespace BackToTheFutureV
 {
     internal class InternalEnums
     {
@@ -43,12 +41,6 @@ namespace BackToTheFutureV
             Jump,
             MeleeAttack,
             Climb
-        }
-
-        [Flags]
-        internal enum WaybackVehicleEvent
-        {
-            None = 0
         }
 
         internal enum GarageStatus

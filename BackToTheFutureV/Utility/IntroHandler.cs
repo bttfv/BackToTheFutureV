@@ -13,7 +13,7 @@ namespace BackToTheFutureV
     {
         public static IntroHandler Me { get; private set; }
 
-        private bool startUp = false;
+        private bool startUp = true;
         public bool IsPlaying { get; private set; }
 
         private readonly CultureInfo dateFormat = CultureInfo.CreateSpecificCulture("en-US");
@@ -158,6 +158,8 @@ namespace BackToTheFutureV
             if (IsPlaying)
                 return;
 
+            FusionUtils.HideGUI = true;
+
             Game.TimeScale = 1;
 
             Screen.FadeOut(0);
@@ -196,6 +198,7 @@ namespace BackToTheFutureV
             IsPlaying = false;
 
             FusionUtils.CurrentTime = date;
+            FusionUtils.HideGUI = false;
         }
 
         private AlphaLevel TextFade(float value)
