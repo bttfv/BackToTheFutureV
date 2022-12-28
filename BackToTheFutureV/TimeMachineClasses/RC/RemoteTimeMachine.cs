@@ -46,9 +46,9 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!TimeMachineClone.Properties.HasBeenStruckByLightning)
+            if (!TimeMachineClone.Properties.HasBeenStruckByLightning && !TimeMachineClone.Properties.IsWayback)
             {
-                if (!_hasPlayedWarningSound && ((!TimeHandler.RealTime && TimeMachineClone.Properties.DestinationTime.Between(FusionUtils.CurrentTime.AddSeconds(-45), FusionUtils.CurrentTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-3))))
+                if (!_hasPlayedWarningSound && ((!TimeHandler.RealTime && IsTimeBeforeSeconds(60)) || (TimeHandler.RealTime && IsTimeBeforeMilliseconds(2500))))
                 {
                     if (!FusionUtils.PlayerPed.IsInVehicle())
                     {
@@ -62,13 +62,23 @@ namespace BackToTheFutureV
                 }
             }
 
-            if ((!TimeHandler.RealTime && FusionUtils.CurrentTime.Between(TimeMachineClone.Properties.DestinationTime.AddSeconds(-30), TimeMachineClone.Properties.DestinationTime)) || (TimeHandler.RealTime && FusionUtils.CurrentTime == TimeMachineClone.Properties.DestinationTime.AddSeconds(-2)))
+            if ((!TimeHandler.RealTime && IsTimeBeforeSeconds(37)) || (TimeHandler.RealTime && IsTimeBeforeMilliseconds(1250)))
             {
                 Spawn(ReenterType.Normal);
 
                 _hasPlayedWarningSound = false;
                 _timer = Game.GameTime + 10000;
             }
+        }
+
+        private bool IsTimeBeforeSeconds(int value)
+        {
+            return FusionUtils.CurrentTime.Between(TimeMachineClone.Properties.DestinationTime.AddSeconds(-value), TimeMachineClone.Properties.DestinationTime);
+        }
+
+        private bool IsTimeBeforeMilliseconds(int value)
+        {
+            return FusionUtils.CurrentTime.Between(TimeMachineClone.Properties.DestinationTime.AddMilliseconds(-value), TimeMachineClone.Properties.DestinationTime);
         }
 
         public TimeMachine Spawn(ReenterType reenterType)

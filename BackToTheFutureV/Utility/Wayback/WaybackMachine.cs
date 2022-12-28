@@ -181,6 +181,18 @@ namespace BackToTheFutureV
                 return;
             }
 
+            if (CurrentRecord.Vehicle != null && CurrentRecord.Vehicle.IsTimeMachine && Ped.CurrentVehicle.NotNullAndExists())
+            {
+                TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Ped.CurrentVehicle);
+
+                if (timeMachine.Properties.TimeTravelPhase >= TimeTravelPhase.InTime)
+                {
+                    Stop();
+
+                    return;
+                }                    
+            }
+
             if (CurrentRecord.Ped.SwitchPed)
             {
                 Ped?.Task.ClearAllImmediately();
@@ -191,7 +203,7 @@ namespace BackToTheFutureV
 
             if (CurrentIndex >= LastRecordedIndex)
             {
-                Status = WaybackStatus.Idle;
+                Stop();
             }
             else
             {

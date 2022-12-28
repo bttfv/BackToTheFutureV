@@ -99,9 +99,6 @@ namespace BackToTheFutureV
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
-            if (timeMachine.NotNullAndExists() && timeMachine.Properties.TimeTravelPhase >= TimeTravelPhase.InTime)
-                return vehicle;
-
             if (IsTimeMachine && timeMachine.NotNullAndExists() && Properties.IsOnTracks)
             {
                 timeMachine.Events.SetTrainSpeed?.Invoke(Replica.Speed * (Replica.RunningDirection != RunningDirection.Backward ? 1 : -1));

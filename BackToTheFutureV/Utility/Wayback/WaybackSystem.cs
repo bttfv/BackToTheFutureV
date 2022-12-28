@@ -22,7 +22,7 @@ namespace BackToTheFutureV
 
         public static void Tick()
         {
-            if (!ModSettings.WaybackSystem || TimeParadox.ParadoxInProgress)
+            if (FusionUtils.FirstTick || !ModSettings.WaybackSystem || TimeParadox.ParadoxInProgress || IntroHandler.Me.IsPlaying)
                 return;
 
             if (CurrentPlayerRecording == default && FusionUtils.PlayerPed.IsAlive && !FusionUtils.PlayerPed.IsDead)

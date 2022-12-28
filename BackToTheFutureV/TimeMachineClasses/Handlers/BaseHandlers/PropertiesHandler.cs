@@ -21,7 +21,7 @@ namespace BackToTheFutureV
         public Vector3 LastVelocity { get; set; }
         public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;
         public bool AreTimeCircuitsBroken { get; set; }
-        private int reactorCharge = 2;
+        private int reactorCharge = 1;
         public bool CutsceneMode { get; set; } = true;
         public bool IsFreezed { get; set; }
         public bool IsDefrosting { get; set; }
