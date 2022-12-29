@@ -190,7 +190,7 @@ namespace BackToTheFutureV
                     Stop();
 
                     return;
-                }                    
+                }
             }
 
             if (CurrentRecord.Ped.SwitchPed)

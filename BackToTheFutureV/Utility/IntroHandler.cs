@@ -13,7 +13,7 @@ namespace BackToTheFutureV
     {
         public static IntroHandler Me { get; private set; }
 
-        private bool startUp = true;
+        private bool startUp = false;
         public bool IsPlaying { get; private set; }
 
         private readonly CultureInfo dateFormat = CultureInfo.CreateSpecificCulture("en-US");

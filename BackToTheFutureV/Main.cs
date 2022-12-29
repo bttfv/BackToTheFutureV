@@ -23,11 +23,16 @@ namespace BackToTheFutureV
 
         public static bool FirstMission { get; private set; }
 
+        public static void Log(string message)
+        {
+            System.IO.File.AppendAllText($"./ScriptHookVDotNet.log", $"BackToTheFutureV - {message}" + Environment.NewLine);
+        }
+
         public Main()
         {
             DateTime buildDate = new DateTime(2000, 1, 1).AddDays(Version.Build).AddSeconds(Version.Revision * 2);
 
-            System.IO.File.AppendAllText($"./ScriptHookVDotNet.log", $"BackToTheFutureV - {Version} ({buildDate})" + Environment.NewLine);
+            Log($"{Version} ({buildDate})");
 
             ModSettings.LoadSettings();
 
@@ -47,6 +52,7 @@ namespace BackToTheFutureV
                 RemoteTimeMachineHandler.StopRemoteControl(true);
             }
 
+            HookHandler.Abort();
             GarageHandler.Abort();
             MissionHandler.Abort();
             StoryTimeMachineHandler.Abort();
@@ -94,6 +100,8 @@ namespace BackToTheFutureV
 
             if (FirstTick)
             {
+                HookHandler.Setup();
+
                 ModelHandler.RequestModels();
 
                 //Disable fake shake of the cars.
