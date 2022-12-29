@@ -14,7 +14,7 @@ namespace BackToTheFutureV
         public static Control InteractionMenu2 { get; set; } = Control.CharacterWheel;
 
         public static bool LongPressForHover { get; set; } = true;
-        public static Control Hover { get; set; } = Control.QuadLocoReverse;
+        public static Control Hover { get; set; } = Control.VehicleFlyTransform;
         public static Control HoverBoost { get; set; } = Control.VehicleHandbrake;
         public static Control HoverVTOL { get; set; } = Control.VehicleAim;
         public static Keys HoverAltitudeHold { get; set; } = Keys.G;
@@ -31,7 +31,7 @@ namespace BackToTheFutureV
             InteractionMenu1 = Control.VehicleHandbrake;
             InteractionMenu2 = Control.CharacterWheel;
             LongPressForHover = true;
-            Hover = Control.QuadLocoReverse;
+            Hover = Control.VehicleFlyTransform;
             HoverBoost = Control.VehicleHandbrake;
             HoverVTOL = Control.VehicleAim;
             HoverAltitudeHold = Keys.G;

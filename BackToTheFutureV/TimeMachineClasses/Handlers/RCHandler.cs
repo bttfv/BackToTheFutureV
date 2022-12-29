@@ -157,7 +157,7 @@ namespace BackToTheFutureV
             TimeMachine.OriginalPed.Health = StartHealth;
             Clone.IsInvincible = true;
             Clone.IsExplosionProof = true;
-            Clone.CanBeKnockedOffBike = true;
+            Clone.CanBeKnockedOffBike = false;
             Clone.CanWearHelmet = false;
 
             _blip = TimeMachine.OriginalPed.AddBlip();
