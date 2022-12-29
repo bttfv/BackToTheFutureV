@@ -5,7 +5,7 @@
 ## Requirements:
 - [.NET Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer)
 - [Script Hook V](https://www.dev-c.com/gtav/scripthookv/)
-- [Community Script Hook V .NET v3.5.1](https://github.com/crosire/scripthookvdotnet/releases)
+- [Community Script Hook V .NET v3.6.0](https://github.com/crosire/scripthookvdotnet/releases)
 - [LemonUI v1.9.1](https://github.com/justalemon/LemonUI)
 - [HeapAdjuster](https://www.gta5-mods.com/tools/heapadjuster)
 
