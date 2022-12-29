@@ -1,6 +1,8 @@
 ﻿using GTA;
+using GTA.Math;
 using MinHook;
 using System;
+using System.Runtime.InteropServices;
 
 namespace BackToTheFutureV
 {
@@ -19,6 +21,9 @@ namespace BackToTheFutureV
         private static IntPtr deluxo_1;
         private static IntPtr deluxo_2;
         private static IntPtr deluxo_3;
+        private static IntPtr handling_GetSubHandling;
+
+        private static CSpecialFlightHandlingData m_CustomFlightData = new CSpecialFlightHandlingData();
 
         public static void Setup()
         {
@@ -26,9 +31,51 @@ namespace BackToTheFutureV
             deluxo_2 = Game.FindPattern("48 83 EC 48 83 FA");
             deluxo_3 = Game.FindPattern("48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 56 48 81 EC C0 00 00 00 0F 29 70 E8 0F 29 78 D8 44 0F 29 40 C8 44 0F 29 48 B8 44 0F 29 50 A8 44 0F 29 58 98 44 0F 29 60 88 44 0F 29 6C 24 40 66");
 
+            handling_GetSubHandling = Game.FindPattern("E8 ?? ?? ?? ?? 66 3B 70 48");
+
+            handling_GetSubHandling = handling_GetSubHandling + 0x1;
+            unsafe
+            {
+                handling_GetSubHandling = handling_GetSubHandling + 4 + *(int*)handling_GetSubHandling;
+            }            
+
+            // From handling.meta
+            m_CustomFlightData.mode = 1;
+            m_CustomFlightData.fLiftCoefficient = 50.0f;
+            m_CustomFlightData.fMinLiftVelocity = 0.0f;
+            m_CustomFlightData.fDragCoefficient = 0.0f;
+            m_CustomFlightData.fMaxPitchTorque = 500.0f;
+            m_CustomFlightData.fMaxSteeringRollTorque = 50.0f;
+            m_CustomFlightData.fMaxThrust = 20.0f;
+            m_CustomFlightData.fYawTorqueScale = -4.0f;
+            m_CustomFlightData.fRollTorqueScale = 7.5f;
+            m_CustomFlightData.fTransitionDuration = 1.0f;
+            m_CustomFlightData.fPitchTorqueScale = 8.0f;
+            m_CustomFlightData.vecAngularDamping = new Quaternion(3.0f, 2.0f, 1.2f, 3.0f); // W component repeats X
+            m_CustomFlightData.vecLinearDamping = new Quaternion(0.9f, 0.1f, 0.7f, 0.9f); // W component repeats X
+
+            // From in game (defaults)
+            m_CustomFlightData.fCriticalLiftAngle = 45.0f;
+            m_CustomFlightData.fInitialLiftAngle = 1.5f;
+            m_CustomFlightData.fMaxLiftAngle = 25.0f;
+            m_CustomFlightData.fBrakingDrag = 10.0f;
+            m_CustomFlightData.fMaxLiftVelocity = 2000.0f;
+            m_CustomFlightData.fRollTorqueScale = 7.5f;
+            m_CustomFlightData.fMaxTorqueVelocity = 100.0f;
+            m_CustomFlightData.fMinTorqueVelocity = 40000.0f;
+            m_CustomFlightData.fYawTorqueScale = -4.0f;
+            m_CustomFlightData.fSelfLevelingPitchTorqueScale = -5.0f;
+            m_CustomFlightData.fInitalOverheadAssist = -5.0f;
+            m_CustomFlightData.fSteeringTorqueScale = 1000.0f;
+            m_CustomFlightData.fMaxThrust = 20.0f;
+            m_CustomFlightData.fHoverVelocityScale = 1.0f;
+            m_CustomFlightData.fStabilityAssist = 10.0f;
+            m_CustomFlightData.fMinSpeedForThrustFalloff = 0.0f;
+            m_CustomFlightData.fBrakingThrustScale = 0.0f;
+
             Engine.CreateHook(deluxo_1, new DeluxoNullsubDelegate1(DeluxoNullsub1));
             Engine.CreateHook(deluxo_2, new DeluxoNullsubDelegate2(DeluxoNullsub2));
-            Engine.CreateHook(deluxo_3, new DeluxoNullsubDelegate3(DeluxoNullsub3));
+            //Engine.CreateHook(deluxo_3, new DeluxoNullsubDelegate3(DeluxoNullsub3));
 
             Engine.EnableHooks();
         }
@@ -36,6 +83,44 @@ namespace BackToTheFutureV
         public static void Abort()
         {
             Engine.DisableHooks();
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct CSpecialFlightHandlingData
+        {
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+            public uint[] pad0;
+            public Quaternion vecAngularDamping;
+            public Quaternion vecAngularDampingMin;
+            public Quaternion vecLinearDamping;
+            public Quaternion vecLinearDampingMin;
+            public float fLiftCoefficient;
+            public float fCriticalLiftAngle;
+            public float fInitialLiftAngle;
+            public float fMaxLiftAngle;
+            public float fDragCoefficient;
+            public float fBrakingDrag;
+            public float fMaxLiftVelocity;
+            public float fMinLiftVelocity;
+            public float fRollTorqueScale;
+            public float fMaxTorqueVelocity;
+            public float fMinTorqueVelocity;
+            public float fYawTorqueScale;
+            public float fSelfLevelingPitchTorqueScale;
+            public float fInitalOverheadAssist;
+            public float fMaxPitchTorque;
+            public float fMaxSteeringRollTorque;
+            public float fPitchTorqueScale;
+            public float fSteeringTorqueScale;
+            public float fMaxThrust;
+            public float fTransitionDuration;
+            public float fHoverVelocityScale;
+            public float fStabilityAssist;
+            public float fMinSpeedForThrustFalloff;
+            public float fBrakingThrustScale;
+            public int mode;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 12)]
+            public int[] strFlags; // TODO: Actual AtFinalHashString
         }
     }
 }
