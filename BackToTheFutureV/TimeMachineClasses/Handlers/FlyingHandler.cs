@@ -252,7 +252,7 @@ namespace BackToTheFutureV
 
             if (!Properties.IsLanding)
             {
-                Function.Call(Hash._SET_VEHICLE_HOVER_TRANSFORM_PERCENTAGE, Vehicle, Properties.IsFlying ? 1f : 0f);
+                Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_TARGET_RATIO, Vehicle, Properties.IsFlying ? 1f : 0f);
             }
             else
             {
@@ -281,7 +281,7 @@ namespace BackToTheFutureV
 
             if (Mods.IsDMC12)
             {
-                Function.Call(Hash._FORCE_VEHICLE_ENGINE_AUDIO, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
+                Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
             }
 
             if (Mods.IsDMC12)

@@ -201,7 +201,7 @@ namespace BackToTheFutureV
 
             if (IsPlaying && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && LeftStreetPole.NotNullAndExists() && RightStreetPole.NotNullAndExists())
             {
-                RaycastResult raycastResult = World.Raycast(LeftStreetPole.Position.GetSingleOffset(Coordinate.Z, 0.75f), RightStreetPole.Position.GetSingleOffset(Coordinate.Z, 0.75f), IntersectFlags.MissionEntities);
+                RaycastResult raycastResult = World.Raycast(LeftStreetPole.Position.GetSingleOffset(Coordinate.Z, 0.75f), RightStreetPole.Position.GetSingleOffset(Coordinate.Z, 0.75f), IntersectFlags.Vehicles);
 
                 if (raycastResult.DidHit && raycastResult.HitEntity == CurrentTimeMachine)
                 {

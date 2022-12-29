@@ -83,7 +83,7 @@ namespace BackToTheFutureV
 
             if (IsDMC12)
             {
-                Function.Call(Hash._SET_HYDRAULIC_RAISED, Vehicle, false);
+                Function.Call(Hash.SET_HYDRAULICS_CONTROL, Vehicle, false);
 
                 Vehicle.ToggleExtra(10, true);
 

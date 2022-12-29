@@ -97,7 +97,7 @@ namespace BackToTheFutureV
                 ModelHandler.RequestModels();
 
                 //Disable fake shake of the cars.
-                Function.Call(Hash._​SET_​CAR_​HIGH_​SPEED_​BUMP_​SEVERITY_​MULTIPLIER, 0);
+                Function.Call(Hash.SET_CAR_HIGH_SPEED_BUMP_SEVERITY_MULTIPLIER, 0);
 
                 FusionUtils.RandomTrains = ModSettings.RandomTrains;
                 TimeHandler.RealTime = ModSettings.RealTime;

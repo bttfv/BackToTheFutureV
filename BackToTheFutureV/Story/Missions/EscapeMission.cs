@@ -81,7 +81,7 @@ namespace BackToTheFutureV
             Driver.AlwaysKeepTask = true;
 
             Function.Call(Hash.TASK_VEHICLE_CHASE, Driver, TargetPed);
-            Function.Call(Hash.SET_TASK_VEHICLE_CHASE_BEHAVIOR_FLAG, Driver, VehicleDrivingFlags.IgnorePathFinding | VehicleDrivingFlags.AvoidVehicles | VehicleDrivingFlags.DriveBySight | VehicleDrivingFlags.AllowGoingWrongWay | VehicleDrivingFlags.AllowMedianCrossing, true);
+            Function.Call(Hash.SET_TASK_VEHICLE_CHASE_BEHAVIOR_FLAG, Driver, VehicleDrivingFlags.ForceStraightLine | VehicleDrivingFlags.SwerveAroundAllVehicles | VehicleDrivingFlags.PreferNavmeshRoute | VehicleDrivingFlags.AllowGoingWrongWay | VehicleDrivingFlags.UseShortCutLinks, true);
             Function.Call(Hash.SET_TASK_VEHICLE_CHASE_IDEAL_PURSUIT_DISTANCE, Driver, 0f);
             Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, Driver, 1.0f);
 

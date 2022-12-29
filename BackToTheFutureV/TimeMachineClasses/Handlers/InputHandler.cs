@@ -113,7 +113,7 @@ namespace BackToTheFutureV
         {
             if (Mods.IsDMC12 && Driver != null && Driver == FusionUtils.PlayerPed)
             {
-                Driver.Task.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.AllowRotation);
+                Driver.Task.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.Secondary);
             }
 
             // If its not a valid length/mode
