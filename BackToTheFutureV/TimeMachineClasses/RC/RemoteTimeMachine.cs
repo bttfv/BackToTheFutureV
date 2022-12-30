@@ -11,9 +11,9 @@ namespace BackToTheFutureV
     internal class RemoteTimeMachine
     {
         public TimeMachineClone TimeMachineClone { get; }
-        public TimeMachine TimeMachine { get; private set; }
+        public TimeMachine TimeMachine => TimeMachineHandler.GetTimeMachineFromOriginalGUID(TimeMachineClone.Properties.OriginalGUID);
         public Blip Blip { get; set; }
-        public bool Spawned => TimeMachine.IsFunctioning() && !TimeMachine.Properties.PlayerUsed;
+        public bool Spawned => TimeMachine.NotNullAndExists();
 
         private int _timer;
         private bool _hasPlayedWarningSound;
@@ -36,11 +36,6 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
-            if (!Spawned && TimeMachine != null)
-            {
-                TimeMachine = null;
-            }
-
             if (Spawned || Game.GameTime < _timer)
             {
                 return;
@@ -91,12 +86,12 @@ namespace BackToTheFutureV
             switch (reenterType)
             {
                 case ReenterType.Normal:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
+                    TimeMachineClone.Spawn(SpawnFlags.ForceReentry);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     break;
                 case ReenterType.Spawn:
-                    TimeMachine = TimeMachineClone.Spawn(SpawnFlags.NoVelocity);
+                    TimeMachineClone.Spawn(SpawnFlags.NoVelocity);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
                     if (TimeMachine.Mods.IsDMC12)

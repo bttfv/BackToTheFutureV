@@ -55,9 +55,7 @@ namespace BackToTheFutureV
 
         public void StartTimeTravel(int delay = 0)
         {
-            Properties.TimeTravelPhase = TimeTravelPhase.InTime;
-
-            Properties.GUID = Guid.NewGuid();
+            Properties.TimeTravelPhase = TimeTravelPhase.InTime;        
 
             gameTimer = Game.GameTime + delay;
             _currentStep = 0;
@@ -156,6 +154,8 @@ namespace BackToTheFutureV
                         }
 
                         Properties.TimeTravelDestPos = Vector3.Zero;
+
+                        Properties.SwapGUID();
 
                         TimeHandler.TimeTravelTo(Properties.DestinationTime);
 
@@ -275,6 +275,8 @@ namespace BackToTheFutureV
                     FireTrailsHandler.RemoveTrail(trails);
 
                     World.RenderingCamera = null;
+
+                    Properties.SwapGUID();
 
                     if (TimeHandler.RealTime)
                     {

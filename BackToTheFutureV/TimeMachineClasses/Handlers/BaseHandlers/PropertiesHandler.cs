@@ -9,7 +9,7 @@ namespace BackToTheFutureV
     internal class PropertiesHandler
     {
         //Persistent properties
-        public Guid GUID { get; set; }
+        public Guid GUID { get; private set; }
         public Guid OriginalGUID { get; private set; }
         public bool AreTimeCircuitsOn { get; set; }
         public DateTime AlarmTime { get; set; }
@@ -95,6 +95,12 @@ namespace BackToTheFutureV
         {
             GUID = Guid.NewGuid();
             OriginalGUID = Guid.NewGuid();
+        }
+
+        public void SwapGUID()
+        {
+            OriginalGUID = GUID;
+            GUID = Guid.NewGuid();
         }
 
         public PropertiesHandler Clone()

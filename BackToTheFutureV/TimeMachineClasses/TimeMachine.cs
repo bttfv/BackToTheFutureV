@@ -241,6 +241,9 @@ namespace BackToTheFutureV
                 return;
             }
 
+            if (TimeMachineHandler.CurrentTimeMachine == this && Properties.IsWayback)
+                Properties.IsWayback = false;
+
             //After reentry, story time machines spawn in an odd state. This code fixes the inability for player to enter the time machine from the mineshaft
             if (!TimeMachineHandler.ClosestTimeMachine.IsFunctioning() && Vehicle.IsFunctioning() && FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, 4.47f) && Constants.FullDamaged && Game.IsControlJustPressed(GTA.Control.Enter))
             {
