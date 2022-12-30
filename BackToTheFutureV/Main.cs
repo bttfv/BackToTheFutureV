@@ -23,6 +23,8 @@ namespace BackToTheFutureV
 
         public static bool FirstMission { get; private set; }
 
+        //public static bool DeluxoProtoSupport { get; set; } = false;
+
         public static void Log(string message)
         {
             System.IO.File.AppendAllText($"./ScriptHookVDotNet.log", $"BackToTheFutureV - {message}" + Environment.NewLine);
@@ -36,6 +38,17 @@ namespace BackToTheFutureV
 
             ModSettings.LoadSettings();
 
+            if (ModSettings.Potato)
+            {
+                Potato.AddIgnoreType(typeof(Main));
+                Potato.Start();
+            }
+
+            /*if (ModSettings.DeluxoProto && new Model("dproto").IsInCdImage)
+            {
+                DeluxoProtoSupport = true;
+            }*/
+
             Tick += Main_Tick;
             KeyDown += Main_KeyDown;
             Aborted += Main_Aborted;
@@ -43,6 +56,11 @@ namespace BackToTheFutureV
 
         private void Main_Aborted(object sender, EventArgs e)
         {
+            if (ModSettings.Potato)
+            {
+                Potato.Stop();
+            }
+
             World.RenderingCamera = null;
 
             Screen.FadeIn(1000);

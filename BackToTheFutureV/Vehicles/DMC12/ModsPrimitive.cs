@@ -51,94 +51,94 @@ namespace BackToTheFutureV
             return ret;
         }
 
-        //public void ApplyTo(TimeMachine timeMachine)
-        //{
-        //    ModsHandler ret = timeMachine.Mods;
+        /*public void ApplyTo(TimeMachine timeMachine)
+        {
+            ModsHandler ret = timeMachine.Mods;
 
-        //    timeMachine.Vehicle.Mods.InstallModKit();
+            timeMachine.Vehicle.Mods.InstallModKit();
 
-        //    ret.IsDMC12 = IsDMC12;
-        //    ret.WormholeType = WormholeType;
-        //    ret.SuspensionsType = SuspensionsType;
-        //    ret.Wheel = Wheel;
-        //    ret.Components = Components;
-        //    ret.Bulova = Bulova;
-        //    ret.Speedo = Speedo;
-        //    ret.OffCoils = OffCoils;
-        //    ret.GlowingEmitter = GlowingEmitter;
-        //    ret.GlowingReactor = GlowingReactor;
-        //    ret.HoverUnderbody = HoverUnderbody;
-        //    ret.Reactor = Reactor;
-        //    ret.Plate = Plate;
-        //    ret.Exhaust = Exhaust;
-        //    ret.Hoodbox = Hoodbox;
-        //    ret.Hook = Hook;
-        //    ret.Hood = Hood;
-        //}
+            ret.IsDMC12 = IsDMC12;
+            ret.WormholeType = WormholeType;
+            ret.SuspensionsType = SuspensionsType;
+            ret.Wheel = Wheel;
+            ret.Components = Components;
+            ret.Bulova = Bulova;
+            ret.Speedo = Speedo;
+            ret.OffCoils = OffCoils;
+            ret.GlowingEmitter = GlowingEmitter;
+            ret.GlowingReactor = GlowingReactor;
+            ret.HoverUnderbody = HoverUnderbody;
+            ret.Reactor = Reactor;
+            ret.Plate = Plate;
+            ret.Exhaust = Exhaust;
+            ret.Hoodbox = Hoodbox;
+            ret.Hook = Hook;
+            ret.Hood = Hood;
+        }
 
-        //public void ApplyToWayback(TimeMachine timeMachine)
-        //{
-        //    ModsHandler ret = timeMachine.Mods;
+        public void ApplyToWayback(TimeMachine timeMachine)
+        {
+            ModsHandler ret = timeMachine.Mods;
 
-        //    if (ret.WormholeType != WormholeType)
-        //    {
-        //        ret.WormholeType = WormholeType;
-        //    }
+            if (ret.WormholeType != WormholeType)
+            {
+                ret.WormholeType = WormholeType;
+            }
 
-        //    if (ret.SuspensionsType != SuspensionsType)
-        //    {
-        //        ret.SuspensionsType = SuspensionsType;
-        //    }
+            if (ret.SuspensionsType != SuspensionsType)
+            {
+                ret.SuspensionsType = SuspensionsType;
+            }
 
-        //    if (ret.HoverUnderbody != HoverUnderbody)
-        //    {
-        //        ret.HoverUnderbody = HoverUnderbody;
-        //    }
+            if (ret.HoverUnderbody != HoverUnderbody)
+            {
+                ret.HoverUnderbody = HoverUnderbody;
+            }
 
-        //    if (ret.Wheel != Wheel)
-        //    {
-        //        ret.Wheel = Wheel;
-        //    }
+            if (ret.Wheel != Wheel)
+            {
+                ret.Wheel = Wheel;
+            }
 
-        //    if (ret.Reactor != Reactor)
-        //    {
-        //        ret.Reactor = Reactor;
-        //    }
+            if (ret.Reactor != Reactor)
+            {
+                ret.Reactor = Reactor;
+            }
 
-        //    if (ret.Plate != Plate)
-        //    {
-        //        ret.Plate = Plate;
-        //    }
+            if (ret.Plate != Plate)
+            {
+                ret.Plate = Plate;
+            }
 
-        //    if (ret.Exhaust != Exhaust)
-        //    {
-        //        ret.Exhaust = Exhaust;
-        //    }
+            if (ret.Exhaust != Exhaust)
+            {
+                ret.Exhaust = Exhaust;
+            }
 
-        //    if (ret.Hoodbox != Hoodbox)
-        //    {
-        //        ret.Hoodbox = Hoodbox;
-        //    }
+            if (ret.Hoodbox != Hoodbox)
+            {
+                ret.Hoodbox = Hoodbox;
+            }
 
-        //    if (ret.Hook != Hook)
-        //    {
-        //        ret.Hook = Hook;
-        //    }
+            if (ret.Hook != Hook)
+            {
+                ret.Hook = Hook;
+            }
 
-        //    if (ret.Hood != Hood)
-        //    {
-        //        ret.Hood = Hood;
-        //    }
+            if (ret.Hood != Hood)
+            {
+                ret.Hood = Hood;
+            }
 
-        //    if (ret.Bulova != Bulova)
-        //    {
-        //        ret.Bulova = Bulova;
-        //    }
+            if (ret.Bulova != Bulova)
+            {
+                ret.Bulova = Bulova;
+            }
 
-        //    if (ret.Speedo != Speedo)
-        //    {
-        //        ret.Speedo = Speedo;
-        //    }
-        //}
+            if (ret.Speedo != Speedo)
+            {
+                ret.Speedo = Speedo;
+            }
+        }*/
     }
 }

@@ -296,15 +296,15 @@ namespace BackToTheFutureV
 
                 timeMachine.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
 
-                //if (timeMachine.Mods.WormholeType == WormholeType.BTTF2 && spawnFlags.HasFlag(SpawnFlags.New))
-                //{
-                //    timeMachine.Properties.PreviousTime = new DateTime(2015, 10, 22, 19, 45, 0);
-                //}
+                if (timeMachine.Mods.WormholeType == WormholeType.BTTF2 && spawnFlags.HasFlag(SpawnFlags.ForceReentry | SpawnFlags.New))
+                {
+                    timeMachine.Properties.PreviousTime = new DateTime(2015, 10, 22, 19, 45, 0);
+                }
 
-                //if (timeMachine.Mods.WormholeType == WormholeType.BTTF3 && spawnFlags.HasFlag(SpawnFlags.New))
-                //{
-                //    timeMachine.Properties.PreviousTime = new DateTime(1955, 11, 16, 10, 20, 0);
-                //}
+                if (timeMachine.Mods.WormholeType == WormholeType.BTTF3 && spawnFlags.HasFlag(SpawnFlags.ForceReentry | SpawnFlags.New))
+                {
+                    timeMachine.Properties.PreviousTime = new DateTime(1955, 11, 16, 10, 20, 0);
+                }
 
                 timeMachine.Properties.AreTimeCircuitsOn = true;
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);

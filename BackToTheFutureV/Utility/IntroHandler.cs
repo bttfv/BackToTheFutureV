@@ -19,11 +19,11 @@ namespace BackToTheFutureV
         private readonly CultureInfo dateFormat = CultureInfo.CreateSpecificCulture("en-US");
 
         private TimedEventHandler TimedEventHandler { get; } = new TimedEventHandler();
-        private AudioPlayer timeParadox = Main.CommonAudioEngine.Create("story/bttf_subtitle2.wav", Presets.No3D);
-        private AudioPlayer timeParadoxShort = Main.CommonAudioEngine.Create("story/bttf_subtitle2short.wav", Presets.No3D);
+        private readonly AudioPlayer timeParadox = Main.CommonAudioEngine.Create("story/bttf_subtitle2.wav", Presets.No3D);
+        private readonly AudioPlayer timeParadoxShort = Main.CommonAudioEngine.Create("story/bttf_subtitle2short.wav", Presets.No3D);
 
-        private string FirstBlock = $"BTTF V TEAM\nPresents";
-        private string SecondBlock = $"A\nBACK TO THE FUTURE\nMod";
+        private readonly string FirstBlock = $"BTTF V TEAM\nPresents";
+        private readonly string SecondBlock = $"A\nBACK TO THE FUTURE\nMod";
 
         private DateTime date;
         private string DayBlock => date.ToString("dddd", dateFormat);
