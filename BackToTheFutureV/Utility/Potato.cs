@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Text;
+﻿using HarmonyLib;
 using System;
-using HarmonyLib;
-using System.Linq;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
 
 public static class Potato
 {
