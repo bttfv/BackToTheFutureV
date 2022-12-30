@@ -118,7 +118,7 @@ namespace BackToTheFutureV
 
             if (FirstTick)
             {
-                HookHandler.Setup();
+                //HookHandler.Setup();
 
                 ModelHandler.RequestModels();
 
