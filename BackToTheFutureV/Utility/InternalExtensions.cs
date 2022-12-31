@@ -1,7 +1,9 @@
 ﻿using BackToTheFutureV;
 using FusionLibrary;
 using FusionLibrary.Extensions;
+using FusionLibrary.Memory;
 using GTA;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
 using static BackToTheFutureV.InternalEnums;
@@ -23,7 +25,7 @@ namespace BackToTheFutureV
     {
         public static bool IsHoverModeAllowed(this Vehicle vehicle)
         {
-            if (!vehicle.NotNullAndExists())
+            if (!vehicle.NotNullAndExists() || vehicle.IsBoat)
                 return false;
 
             if (vehicle.Model == ModelHandler.DMC12 || vehicle.Model == ModelHandler.Deluxo)
@@ -34,17 +36,35 @@ namespace BackToTheFutureV
             return decorator.Exists(BTTFVDecors.AllowHoverMode) && decorator.GetBool(BTTFVDecors.AllowHoverMode);
         }
 
-        public static void SetHoverMode(this Vehicle vehicle, bool toogle)
+        public static void SetHoverModeAllowed(this Vehicle vehicle, bool toggle)
         {
-            if (!vehicle.NotNullAndExists())
-                return;
-
-            if (vehicle.Model == ModelHandler.DMC12 || vehicle.Model == ModelHandler.Deluxo)
+            if (!vehicle.NotNullAndExists() || vehicle.Model == ModelHandler.DMC12 || vehicle.Model == ModelHandler.Deluxo || vehicle.IsBoat)
                 return;
 
             Decorator decorator = vehicle.Decorator();
 
-            decorator.SetBool(BTTFVDecors.AllowHoverMode, toogle);
+            decorator.SetBool(BTTFVDecors.AllowHoverMode, toggle);
+
+            Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_ALLOWED, vehicle, toggle);
+
+            if (!toggle && VehicleControl.GetDeluxoTransformation(vehicle) > 0f)
+                VehicleControl.SetDeluxoTransformation(vehicle, 0f);
+        }
+
+        public static bool IsInHoverMode(this Vehicle vehicle)
+        {
+            if (!vehicle.NotNullAndExists() || vehicle.IsBoat)
+                return false;
+
+            return VehicleControl.GetDeluxoTransformation(vehicle) > 0f;
+        }
+
+        public static void SetHoverMode(this Vehicle vehicle, bool toggle)
+        {
+            if (!vehicle.NotNullAndExists() || !vehicle.IsHoverModeAllowed())
+                return;
+
+            VehicleControl.SetDeluxoTransformation(vehicle, toggle ? 1f : 0f);
         }
 
         public static bool NotNullAndExists(this TimeMachine timeMachine)

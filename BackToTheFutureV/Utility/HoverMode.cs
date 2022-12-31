@@ -7,6 +7,7 @@ using MinHook;
 using System;
 using System.Runtime.InteropServices;
 using static BackToTheFutureV.InternalEnums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -103,9 +104,21 @@ namespace BackToTheFutureV
 
         private void HoverMode_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            if (e.KeyCode == System.Windows.Forms.Keys.Q)
+            if (e.KeyCode == System.Windows.Forms.Keys.Q && FusionUtils.PlayerVehicle.NotNullAndExists())
             {
-                FusionUtils.PlayerVehicle.SetHoverMode(!FusionUtils.PlayerVehicle.IsHoverModeAllowed());
+                FusionUtils.PlayerVehicle.SetHoverModeAllowed(!FusionUtils.PlayerVehicle.IsHoverModeAllowed());
+            }
+
+            if (e.KeyCode == System.Windows.Forms.Keys.L)
+            {
+                foreach(Vehicle vehicle in World.GetAllVehicles())
+                {
+                    if (vehicle.IsBoat)
+                        continue;
+
+                    vehicle.SetHoverModeAllowed(true);
+                    vehicle.SetHoverMode(true);
+                }
             }
         }
 
@@ -157,19 +170,15 @@ namespace BackToTheFutureV
                     if (!vehicle.NotNullAndExists())
                         return;
 
-                    bool value = vehicle.IsHoverModeAllowed();
-
-                    Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_ALLOWED, vehicle, value);
-
-                    if (!value && VehicleControl.GetDeluxoTransformation(vehicle) > 0f)
-                        VehicleControl.SetDeluxoTransformation(vehicle, 0f);
+                    if (!vehicle.Decorator().Exists(BTTFVDecors.AllowHoverMode))
+                        vehicle.SetHoverModeAllowed(false);
                 }
             }
 
             if (Game.IsLoading || !_firstTick)
                 return;
 
-            Decorator.Register(BTTFVDecors.AllowHoverMode, FusionEnums.DecorType.Bool);
+            Decorator.Register(BTTFVDecors.AllowHoverMode, DecorType.Bool);
             Decorator.Lock();
 
             CreateSubHandling();
