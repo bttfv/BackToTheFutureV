@@ -98,7 +98,7 @@ namespace BackToTheFutureV
         public static CustomModel FreightCarModel = new CustomModel("freightcar");
         public static CustomModel TankerCarModel = new CustomModel("tankercar");
 
-        public static CustomModel DeluxoModel = new CustomModel("deluxo");
+        public static CustomModel Deluxo = new CustomModel("deluxo");
 
         private static readonly string[] tcdTypes = new string[3]
         {

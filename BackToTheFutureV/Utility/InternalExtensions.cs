@@ -21,6 +21,32 @@ namespace BackToTheFutureV
 
     internal static class InternalExtensions
     {
+        public static bool IsHoverModeAllowed(this Vehicle vehicle)
+        {
+            if (!vehicle.NotNullAndExists())
+                return false;
+
+            if (vehicle.Model == ModelHandler.DMC12 || vehicle.Model == ModelHandler.Deluxo)
+                return true;
+
+            Decorator decorator = vehicle.Decorator();
+
+            return decorator.Exists(BTTFVDecors.AllowHoverMode) && decorator.GetBool(BTTFVDecors.AllowHoverMode);
+        }
+
+        public static void SetHoverMode(this Vehicle vehicle, bool toogle)
+        {
+            if (!vehicle.NotNullAndExists())
+                return;
+
+            if (vehicle.Model == ModelHandler.DMC12 || vehicle.Model == ModelHandler.Deluxo)
+                return;
+
+            Decorator decorator = vehicle.Decorator();
+
+            decorator.SetBool(BTTFVDecors.AllowHoverMode, toogle);
+        }
+
         public static bool NotNullAndExists(this TimeMachine timeMachine)
         {
             return timeMachine != null && timeMachine.Vehicle.NotNullAndExists();

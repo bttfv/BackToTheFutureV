@@ -126,7 +126,7 @@ namespace BackToTheFutureV
 
             Events.OnWormholeTypeChanged += UpdateBlip;
 
-            if (Vehicle.Model == ModelHandler.DeluxoModel)
+            if (Vehicle.Model == ModelHandler.Deluxo)
             {
                 Mods.HoverUnderbody = ModState.On;
             }

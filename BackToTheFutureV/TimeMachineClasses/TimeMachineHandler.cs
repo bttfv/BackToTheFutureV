@@ -306,9 +306,7 @@ namespace BackToTheFutureV
                     timeMachine.Properties.PreviousTime = new DateTime(1955, 11, 16, 10, 20, 0);
                 }
 
-                timeMachine.Properties.AreTimeCircuitsOn = true;
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);
-
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }
 

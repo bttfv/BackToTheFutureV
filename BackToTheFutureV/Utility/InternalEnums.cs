@@ -22,6 +22,7 @@
             public const string TimeCircuitsOn = "BTTFV_TCOn";
             public const string CutsceneMode = "BTTFV_TimeTravelType";
             public const string TorqueMultiplier = "BTTFV_TorqueMultiplier";
+            public const string AllowHoverMode = "BTTFV_AllowHoverMode";
         }
 
         internal enum WaybackStatus

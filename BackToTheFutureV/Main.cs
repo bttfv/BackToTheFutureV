@@ -70,7 +70,6 @@ namespace BackToTheFutureV
                 RemoteTimeMachineHandler.StopRemoteControl(true);
             }
 
-            HookHandler.Abort();
             GarageHandler.Abort();
             MissionHandler.Abort();
             StoryTimeMachineHandler.Abort();
@@ -118,8 +117,6 @@ namespace BackToTheFutureV
 
             if (FirstTick)
             {
-                //HookHandler.Setup();
-
                 ModelHandler.RequestModels();
 
                 //Disable fake shake of the cars.
