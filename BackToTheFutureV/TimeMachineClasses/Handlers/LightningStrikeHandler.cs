@@ -109,13 +109,40 @@ namespace BackToTheFutureV
                     {
                         TimeMachineClone timeMachineClone = TimeMachine.Clone();
 
-                        if (FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year == 0)
+                        int _cloneYears = FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year;
+
+                        if (_cloneYears == 0)
                         {
-                            timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
+                            try
+                            {
+                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
+                            }
+                            catch (System.ArgumentOutOfRangeException)
+                            {
+                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(-70);
+                            }
                         }
-                        else
+                        else if (_cloneYears > 0)
                         {
-                            timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears((FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year) * 2);
+                            try
+                            {
+                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(_cloneYears * 2);
+                            }
+                            catch (System.ArgumentOutOfRangeException)
+                            {
+                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(_cloneYears / 2);
+                            }
+                        }
+                        else if (_cloneYears < 0)
+                        {
+                            try
+                            {
+                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(_cloneYears * 2);
+                            }
+                            catch (System.ArgumentOutOfRangeException)
+                            {
+                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(_cloneYears / 2);
+                            }
                         }
 
                         timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;

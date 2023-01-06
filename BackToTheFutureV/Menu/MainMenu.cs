@@ -183,35 +183,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Shown(object sender, EventArgs e)
         {
-            //if (RemoteTimeMachineHandler.IsRemoteOn && Items.Contains(deleteAll))
-            //{
-            //    Remove(deleteCurrent);
-            //    Remove(deleteOthers);
-            //    Remove(deleteAll);
-            //}
-            //else if (!Items.Contains(deleteAll) && !Items.Contains(spawnBTTF))
-            //{
-            //    Add(4, deleteCurrent);
-            //    Add(5, deleteOthers);
-            //    Add(6, deleteAll);
-            //}
-            //else if (!Items.Contains(deleteAll) && Items.Contains(spawnBTTF))
-            //{
-            //    Add(8, deleteCurrent);
-            //    Add(9, deleteOthers);
-            //    Add(10, deleteAll);
-            //}
 
-            //if (!MenuHandler.UnlockSpawnMenu || Game.IsMissionActive)
-            //{
-            //    Remove(spawnBTTF);
-            //    Remove(convertIntoTimeMachine);
-            //}
-            //else if (!Items.Contains(spawnBTTF))
-            //{
-            //    Add(0, spawnBTTF);
-            //    Add(3, convertIntoTimeMachine);
-            //}
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
