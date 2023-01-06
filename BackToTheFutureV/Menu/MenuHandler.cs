@@ -17,11 +17,8 @@ namespace BackToTheFutureV
         public static OverrideMenu OverrideMenu { get; } = new OverrideMenu();
         public static PhotoMenu PhotoMenu { get; } = new PhotoMenu();
         public static DoorsMenu DoorsMenu { get; } = new DoorsMenu();
-        public static CustomMenu CustomMenuMain { get; } = new CustomMenu() { ForceNew = true };
-        public static CustomMenu CustomMenuPresets { get; } = new CustomMenu() { ForceNew = true };
         public static CustomMenu2 CustomMenuGarage { get; } = new CustomMenu2();
         public static GarageMenu GarageMenu { get; } = new GarageMenu();
-        public static PresetsMenu PresetsMenu { get; } = new PresetsMenu();
         public static OutatimeMenu OutatimeMenu { get; } = new OutatimeMenu();
         public static MainMenu MainMenu { get; } = new MainMenu();
         public static TimeMachineMenu TimeMachineMenu { get; } = new TimeMachineMenu();
@@ -32,7 +29,7 @@ namespace BackToTheFutureV
 
         public static bool IsAnyMenuOpen()
         {
-            if (ControlsMenu.Visible || SoundsSettingsMenu.Visible || EventsSettingsMenu.Visible || TCDMenu.Visible || SettingsMenu.Visible || RCMenu.Visible || OverrideMenu.Visible || PhotoMenu.Visible || DoorsMenu.Visible || CustomMenuMain.Visible || CustomMenuPresets.Visible || CustomMenuGarage.Visible || GarageMenu.Visible || PresetsMenu.Visible || OutatimeMenu.Visible || MainMenu.Visible || TimeMachineMenu.Visible)
+            if (ControlsMenu.Visible || SoundsSettingsMenu.Visible || EventsSettingsMenu.Visible || TCDMenu.Visible || SettingsMenu.Visible || RCMenu.Visible || OverrideMenu.Visible || PhotoMenu.Visible || DoorsMenu.Visible || CustomMenuGarage.Visible || GarageMenu.Visible || OutatimeMenu.Visible || MainMenu.Visible || TimeMachineMenu.Visible)
             {
                 return true;
             }
@@ -82,7 +79,7 @@ namespace BackToTheFutureV
                     }
                 }
 
-                if ((MainMenu.Visible || TimeMachineMenu.Visible || GarageMenu.Visible || CustomMenuMain.Visible || CustomMenuPresets.Visible || PresetsMenu.Visible || PhotoMenu.Visible) && FusionUtils.PlayerVehicle.NotNullAndExists() && (Game.IsControlJustPressed(GTA.Control.VehicleCinCam) || Game.IsControlJustPressed(GTA.Control.VehicleDuck)))
+                if ((MainMenu.Visible || TimeMachineMenu.Visible || GarageMenu.Visible || PhotoMenu.Visible) && FusionUtils.PlayerVehicle.NotNullAndExists() && (Game.IsControlJustPressed(GTA.Control.VehicleCinCam) || Game.IsControlJustPressed(GTA.Control.VehicleDuck)))
                 {
                     closingTime = Game.GameTime + 256;
                 }

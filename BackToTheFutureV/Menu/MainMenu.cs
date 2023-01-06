@@ -13,9 +13,7 @@ namespace BackToTheFutureV
     internal class MainMenu : BTTFVMenu
     {
         private readonly NativeListItem<string> spawnBTTF;
-        private readonly NativeSubmenuItem presetsMenu;
         private readonly NativeItem convertIntoTimeMachine;
-        private readonly NativeSubmenuItem customMenu;
 
         private readonly NativeSubmenuItem rcMenu;
         private readonly NativeSubmenuItem outatimeMenu;
@@ -31,11 +29,7 @@ namespace BackToTheFutureV
             spawnBTTF.ItemChanged += SpawnBTTF_ItemChanged;
             spawnBTTF.Description = GetItemValueDescription("Spawn", "DMC12");
 
-            presetsMenu = NewSubmenu(MenuHandler.PresetsMenu);
-
             convertIntoTimeMachine = NewItem("Convert");
-
-            customMenu = NewSubmenu(MenuHandler.CustomMenuMain);
 
             rcMenu = NewSubmenu(MenuHandler.RCMenu);
             outatimeMenu = NewSubmenu(MenuHandler.OutatimeMenu);
@@ -209,15 +203,11 @@ namespace BackToTheFutureV
             if (!MenuHandler.UnlockSpawnMenu || Game.IsMissionActive)
             {
                 Remove(spawnBTTF);
-                Remove(presetsMenu);
-                Remove(customMenu);
                 Remove(convertIntoTimeMachine);
             }
             else if (!Items.Contains(spawnBTTF))
             {
                 Add(0, spawnBTTF);
-                Add(1, presetsMenu);
-                Add(2, customMenu);
                 Add(3, convertIntoTimeMachine);
             }
         }

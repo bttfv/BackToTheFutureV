@@ -114,10 +114,8 @@
     <Compile Include="TimeMachineClasses\Handlers\SIDHandler.cs" />
     <Compile Include="GUI\TCD3DRowScaleform.cs" />
     <Compile Include="GUI\TCD2DScaleform.cs" />
-    <Compile Include="Menu\CustomMenu.cs" />
     <Compile Include="Menu\ControlsMenu.cs" />
     <Compile Include="Menu\OutatimeMenu.cs" />
-    <Compile Include="Menu\PresetsMenu.cs" />
     <Compile Include="Menu\TCDMenu.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\MenuHandler.cs" />
