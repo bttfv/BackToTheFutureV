@@ -1,0 +1,360 @@
+0x76F15B36,DeLorean
+0xAFD2DA44,Time Machine
+0xD6D415CE,DMC-12
+BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Description,If a two button combination is required for opening the Interaction Menu.
+BTTFV_Menu_Controls_Item_CombinationsForInteractionMenu_Title,Combination Required
+BTTFV_Menu_Controls_Item_CutsceneToggle_Description,Key to toggle cutscene/instant mode (keyboard).
+BTTFV_Menu_Controls_Item_CutsceneToggle_Title,Cutscene/Instant Mode
+BTTFV_Menu_Controls_Item_GoToMainMenu_Description,Key to open Main Menu (keyboard).
+BTTFV_Menu_Controls_Item_GoToMainMenu_Title,Main Menu
+BTTFV_Menu_Controls_Item_HoverAltitudeHold_Description,Key to toggle altitude holding in hover mode (keyboard).
+BTTFV_Menu_Controls_Item_HoverAltitudeHold_Title,Altitude Holding
+BTTFV_Menu_Controls_Item_HoverBoost_Description,Button to enable hover boost.
+BTTFV_Menu_Controls_Item_HoverBoost_Title,Hover Boost
+BTTFV_Menu_Controls_Item_HoverVTOL_Description,Button to toggle VTOL in hover mode.
+BTTFV_Menu_Controls_Item_HoverVTOL_Title,VTOL
+BTTFV_Menu_Controls_Item_Hover_Description,Button to toggle hover transformation (NEEDS SCRIPT RELOAD).
+BTTFV_Menu_Controls_Item_Hover_Title,Hover Transformation
+BTTFV_Menu_Controls_Item_InputToggle_Description,Key to toggle time circuits input (keyboard).
+BTTFV_Menu_Controls_Item_InputToggle_Title,Input Toggle
+BTTFV_Menu_Controls_Item_InteractionMenu1_Description,First button to open Interaction Menu (only one if combination setting is off).
+BTTFV_Menu_Controls_Item_InteractionMenu1_Title,Interaction Menu (1)
+BTTFV_Menu_Controls_Item_InteractionMenu2_Description,Second button to open Interaction Menu (not used if combination setting is off).
+BTTFV_Menu_Controls_Item_InteractionMenu2_Title,Interaction Menu (2)
+BTTFV_Menu_Controls_Item_LongPressForHover_Description,Hover transformation requires holding the key.
+BTTFV_Menu_Controls_Item_LongPressForHover_Title,Long Press
+BTTFV_Menu_Controls_Item_Reset_Description,Reset settings to default.
+BTTFV_Menu_Controls_Item_Reset_Title,Reset
+BTTFV_Menu_Controls_Item_TCToggle_Description,Key to toggle time circuits (keyboard).
+BTTFV_Menu_Controls_Item_TCToggle_Title,Time Circuits
+BTTFV_Menu_Controls_Item_UseControlForMainMenu_Description,CTRL key must be pressed along with Main Menu key to open it.
+BTTFV_Menu_Controls_Item_UseControlForMainMenu_Title,CTRL Key Required
+BTTFV_Menu_Controls_Title,Controls Menu
+BTTFV_Menu_Custom_Item_Confirm_Title,CONFIRM
+BTTFV_Menu_Custom_Item_ControlTubes_Description,Installs the time circuit control tubes onto the hood of the car.
+BTTFV_Menu_Custom_Item_ControlTubes_Title,Time Circuit Control Tubes
+BTTFV_Menu_Custom_Item_Exhaust_Description,Choose an exhaust type.
+BTTFV_Menu_Custom_Item_Exhaust_Title,Exhaust Type
+BTTFV_Menu_Custom_Item_Exhaust_Value_BTTF_Title,BTTF
+BTTFV_Menu_Custom_Item_Exhaust_Value_None_Title,None
+BTTFV_Menu_Custom_Item_Exhaust_Value_Stock_Title,Stock
+BTTFV_Menu_Custom_Item_Hood_Description,Changes hood type.
+BTTFV_Menu_Custom_Item_Hood_Title,Hood
+BTTFV_Menu_Custom_Item_Hood_Value_1981_Title,1981 w/ gas cap
+BTTFV_Menu_Custom_Item_Hood_Value_1983_Title,1983
+BTTFV_Menu_Custom_Item_Hood_Value_Stock_Title,Stock
+BTTFV_Menu_Custom_Item_Hook_Description,Adds the hook to the car.
+BTTFV_Menu_Custom_Item_Hook_Title,Hook On The Door
+BTTFV_Menu_Custom_Item_Hover_Description,Adds hover mode to the current car.
+BTTFV_Menu_Custom_Item_Hover_Title,Hover Mode
+BTTFV_Menu_Custom_Item_Plate_Description,Choose a plate style.
+BTTFV_Menu_Custom_Item_Plate_Title,License Plate
+BTTFV_Menu_Custom_Item_Plate_Value_DMCFactory2_Title,Factory DMC (alt)
+BTTFV_Menu_Custom_Item_Plate_Value_DMCFactory_Title,Factory DMC
+BTTFV_Menu_Custom_Item_Plate_Value_Empty_Title,Empty
+BTTFV_Menu_Custom_Item_Plate_Value_Futuristic_Title,Futuristic
+BTTFV_Menu_Custom_Item_Plate_Value_NoTime_Title,NO TIME
+BTTFV_Menu_Custom_Item_Plate_Value_Outatime_Title,OUTATIME
+BTTFV_Menu_Custom_Item_Plate_Value_Timeless2_Title,TIMELESS (alt)
+BTTFV_Menu_Custom_Item_Plate_Value_Timeless_Title,TIMELESS
+BTTFV_Menu_Custom_Item_Reactor_Description,Choose a power source.
+BTTFV_Menu_Custom_Item_Reactor_Title,Power Source
+BTTFV_Menu_Custom_Item_Reactor_Value_MrFusion_Title,Mr. Fusion
+BTTFV_Menu_Custom_Item_Reactor_Value_Nuclear_Title,Nuclear Reactor
+BTTFV_Menu_Custom_Item_Save_Description,Saves current configuration.
+BTTFV_Menu_Custom_Item_Save_Title,Save Custom
+BTTFV_Menu_Custom_Item_Speedo_Description,Enable/disable the three digit speedometer.
+BTTFV_Menu_Custom_Item_Speedo_Title,Three-digit Speedo
+BTTFV_Menu_Custom_Item_Suspensions_Description,Change suspension height.
+BTTFV_Menu_Custom_Item_Suspensions_Title,Suspension
+BTTFV_Menu_Custom_Item_Suspensions_Value_LiftFrontAndRear_Title,↑ Front ↑ Rear
+BTTFV_Menu_Custom_Item_Suspensions_Value_LiftFrontLowerRear_Title,↑ Front ↓ Rear
+BTTFV_Menu_Custom_Item_Suspensions_Value_LiftFront_Title,↑ Front
+BTTFV_Menu_Custom_Item_Suspensions_Value_LiftRear_Title,↑ Rear
+BTTFV_Menu_Custom_Item_Suspensions_Value_LowerFrontAndRear_Title,↓ Front ↓ Rear
+BTTFV_Menu_Custom_Item_Suspensions_Value_LowerFrontLiftRear_Title,↓ Front ↑ Rear
+BTTFV_Menu_Custom_Item_Suspensions_Value_LowerFront_Title,↓ Front
+BTTFV_Menu_Custom_Item_Suspensions_Value_LowerRear_Title,↓ Rear
+BTTFV_Menu_Custom_Item_Suspensions_Value_Stock_Title,Stock
+BTTFV_Menu_Custom_Item_Wheel_Description,Choose a wheel type.
+BTTFV_Menu_Custom_Item_Wheel_Title,Wheel Type
+BTTFV_Menu_Custom_Item_Wheel_Value_DMC_Title,DMC
+BTTFV_Menu_Custom_Item_Wheel_Value_Rail_Title,Railroad
+BTTFV_Menu_Custom_Item_Wheel_Value_Red_Title,50's Wheels
+BTTFV_Menu_Custom_Item_Wheel_Value_Stock_Title,Stock
+BTTFV_Menu_Custom_Item_Wormhole_Description,Choose a wormhole type.
+BTTFV_Menu_Custom_Item_Wormhole_Title,Wormhole Type
+BTTFV_Menu_Custom_Title,Custom Menu
+BTTFV_Menu_Events_Item_Engine_Description,If enabled car engine may stall when the plutonium chamber is empty.
+BTTFV_Menu_Events_Item_Engine_Title,Engine Stall
+BTTFV_Menu_Events_Item_Lightning_Description,If enabled there is a chance of being struck by lightning during a thunderstorm.
+BTTFV_Menu_Events_Item_Lightning_Title,Lightning Strike
+BTTFV_Menu_Events_Item_Turbulence_Description,If enabled you will experience turbulence while hovering in bad weather.
+BTTFV_Menu_Events_Item_Turbulence_Title,Turbulence
+BTTFV_Menu_Events_Title,Scripted Events
+BTTFV_Menu_Main_Item_Convert_Description,Transform current vehicle into a Time Machine.
+BTTFV_Menu_Main_Item_Convert_Title,Transform into a Time Machine
+BTTFV_Menu_Main_Item_Custom_Description,Build a custom DeLorean.
+BTTFV_Menu_Main_Item_Custom_Title,Build Custom DeLorean
+BTTFV_Menu_Main_Item_Outatime_Description,A brief history of time. Shows Time Machines currently waiting to reenter.
+BTTFV_Menu_Main_Item_Outatime_Title,OUTATIME
+BTTFV_Menu_Main_Item_Presets_Description,Spawns a saved custom Time Machine.
+BTTFV_Menu_Main_Item_Presets_Title,Spawn Preset
+BTTFV_Menu_Main_Item_RC_Description,Allows you to remotely control nearby Time Machines.
+BTTFV_Menu_Main_Item_RC_Title,Remote Control
+BTTFV_Menu_Main_Item_RemoveAll_Description,Deletes all the Time Machines spawned by the script.
+BTTFV_Menu_Main_Item_RemoveAll_Title,Delete ALL Time Machines
+BTTFV_Menu_Main_Item_RemoveOther_Description,Deletes all Time Machines except the current one.
+BTTFV_Menu_Main_Item_RemoveOther_Title,Delete OTHER Time Machines
+BTTFV_Menu_Main_Item_Remove_Description,Deletes the Time Machine you are currently sitting in.
+BTTFV_Menu_Main_Item_Remove_Title,Delete Time Machine
+BTTFV_Menu_Main_Item_Settings_Description,Change various mod settings.
+BTTFV_Menu_Main_Item_Settings_Title,Settings
+BTTFV_Menu_Main_Item_Spawn_Title,Spawn
+BTTFV_Menu_Main_Item_Spawn_Value_BTTF1_Description,Spawns a DeLorean Time Machine from the movie Back To The Future I.
+BTTFV_Menu_Main_Item_Spawn_Value_BTTF2_Description,Spawns a DeLorean Time Machine from the movie Back To The Future II.
+BTTFV_Menu_Main_Item_Spawn_Value_BTTF3RR_Description,Spawns a railroad DeLorean Time Machine from the movie Back To The Future III.
+BTTFV_Menu_Main_Item_Spawn_Value_BTTF3_Description,Spawns a DeLorean Time Machine from the movie Back To The Future III.
+BTTFV_Menu_Main_Item_Spawn_Value_DMC12_Description,Spawns a stock DeLorean DMC-12.
+BTTFV_Menu_Outatime_Item_Blip_Description,Shows a blip on the map where the Time Machine will reenter.
+BTTFV_Menu_Outatime_Item_Blip_Title,Show Blip On Map
+BTTFV_Menu_Outatime_Item_Destination_Description,Tells you the current Time Machine's destination time.
+BTTFV_Menu_Outatime_Item_Destination_Title,Destination Time:
+BTTFV_Menu_Outatime_Item_Last_Description,Tells you the current Time Machine's last time departed.
+BTTFV_Menu_Outatime_Item_Last_Title,Last Time:
+BTTFV_Menu_Outatime_Item_List_Description,List of Time Machines currently stuck in time.
+BTTFV_Menu_Outatime_Item_List_Title,Time Machines
+BTTFV_Menu_Outatime_Item_Reenter_Description,An emergency system to make the car reenter manually.
+BTTFV_Menu_Outatime_Item_Reenter_Title,Force Time Machine Reentry
+BTTFV_Menu_Outatime_Item_Type_Description,Type of Time Machine.
+BTTFV_Menu_Outatime_Item_Type_Title,Type
+BTTFV_Menu_Outatime_Title,OUTATIME Menu
+BTTFV_Menu_Photo_Item_Coils_Description,Enables glowing coils on Time Machine.
+BTTFV_Menu_Photo_Item_Coils_Title,Glowing Coils
+BTTFV_Menu_Photo_Item_Engine_Description,Makes the engine stall.
+BTTFV_Menu_Photo_Item_Engine_Title,Engine Stall
+BTTFV_Menu_Photo_Item_FluxCapacitor_Description,Enables flux capacitor on Time Machine.
+BTTFV_Menu_Photo_Item_FluxCapacitor_Title,Flux Capacitor
+BTTFV_Menu_Photo_Item_HideHUD_Description,Hides all game and mod HUDs.
+BTTFV_Menu_Photo_Item_HideHUD_Title,Hide HUD
+BTTFV_Menu_Photo_Item_Ice_Description,Enables ice on Time Machine.
+BTTFV_Menu_Photo_Item_Ice_Title,Ice
+BTTFV_Menu_Photo_Item_LightningStrike_Description,Forces a lightning strike upon car.
+BTTFV_Menu_Photo_Item_LightningStrike_Title,Lightning Strike
+BTTFV_Menu_Photo_Item_SIDMax_Description,Enable/disable SID.
+BTTFV_Menu_Photo_Item_SIDMax_Title,Activate SID
+BTTFV_Menu_Photo_Item_StrikeDelay_Description,Sets the delay for the lightning strike in seconds (max 60).
+BTTFV_Menu_Photo_Item_StrikeDelay_Title,Strike Delay
+BTTFV_Menu_Photo_Item_Wormhole_Description,Enables time travel effects on the Time Machine.
+BTTFV_Menu_Photo_Item_Wormhole_Title,Time Travel Effects
+BTTFV_Menu_Photo_Title,Photo Menu
+BTTFV_Menu_Presets_Item_Delete_Title,Delete
+BTTFV_Menu_Presets_Item_New_Title,New
+BTTFV_Menu_Presets_Item_Rename_Title,Rename
+BTTFV_Menu_Presets_Title,Custom Time Machine
+BTTFV_Menu_RC_Item_Destination_Description,Tells you the current Time Machine's set destination time.
+BTTFV_Menu_RC_Item_Destination_Title,Destination Time:
+BTTFV_Menu_RC_Item_Fuel_Description,Tells you if the current Time Machine's fuel chamber is full or not.
+BTTFV_Menu_RC_Item_Fuel_Title,Fuel Chamber Filled
+BTTFV_Menu_RC_Item_List_Description,Press Enter to remote control.
+BTTFV_Menu_RC_Item_List_Title,Time Machines
+BTTFV_Menu_RC_Item_TC_Description,Tells you if the current Time Machine's time circuits are on or not.
+BTTFV_Menu_RC_Item_TC_Title,Time Circuits On
+BTTFV_Menu_RC_Title,Remote Control
+BTTFV_Menu_Settings_Item_CinematicSpawn_Description,If enabled spawned Time Machines will appear reentering from time travel.
+BTTFV_Menu_Settings_Item_CinematicSpawn_Title,Cinematic Spawn
+BTTFV_Menu_Settings_Item_Controls_Description,Opens menu for editing the mod's hotkeys and controls.
+BTTFV_Menu_Settings_Item_Controls_Title,Controls Menu
+BTTFV_Menu_Settings_Item_Events_Description,Opens the Scripted Events Menu.
+BTTFV_Menu_Settings_Item_Events_Title,Scripted Events
+BTTFV_Menu_Settings_Item_ForceFly_Description,Forces fly mode/doesn't allow you to hover whenever you fly with the BTTF2 DeLorean.
+BTTFV_Menu_Settings_Item_ForceFly_Title,Force Fly Mode
+BTTFV_Menu_Settings_Item_GlowingReactor_Description,Allows you to turn on/off the glow for the plutonium chamber.
+BTTFV_Menu_Settings_Item_GlowingReactor_Title,Glowing Plutonium Chamber
+BTTFV_Menu_Settings_Item_GlowingWormhole_Description,Allows you to turn on/off the glow for the wormhole emitter.
+BTTFV_Menu_Settings_Item_GlowingWormhole_Title,Glowing Wormhole Emitter
+BTTFV_Menu_Settings_Item_InfinityReactor_Description,"When enabled player doesn't have to collect trash/plutonium. You must still refuel the Time Machine, however!"
+BTTFV_Menu_Settings_Item_InfinityReactor_Title,Infinite Fuel 
+BTTFV_Menu_Settings_Item_InputToggle_Description,Allows you to enable/disable the key for toggling input mode.
+BTTFV_Menu_Settings_Item_InputToggle_Title,Use Input Toggle
+BTTFV_Menu_Settings_Item_LandingSystem_Description,If enabled after exiting hover mode car will not fall down (use VTOL to land manually).
+BTTFV_Menu_Settings_Item_LandingSystem_Title,Landing System
+BTTFV_Menu_Settings_Item_Persistence_Description,*EXPERIMENTAL* Enable (at your risk) a system that saves/restores current (and remote) Time Machines.
+BTTFV_Menu_Settings_Item_Persistence_Title,Persistence System
+BTTFV_Menu_Settings_Item_RandomTrains_Description,Choose whether random trains are spawned or not.
+BTTFV_Menu_Settings_Item_RandomTrains_Title,Random Trains
+BTTFV_Menu_Settings_Item_Sounds_Description,Opens the Sound Effects Menu.
+BTTFV_Menu_Settings_Item_Sounds_Title,Sound Effects
+BTTFV_Menu_Settings_Item_TCD_Description,Change various settings related to the time circuits display.
+BTTFV_Menu_Settings_Item_TCD_Title,Time Circuits Display
+BTTFV_Menu_Settings_Item_Wayback_Description,*EXPERIMENTAL* Enable (at your risk) if you want see your past self (at the moment system records only Time Machines' actions).
+BTTFV_Menu_Settings_Item_Wayback_Title,Wayback System
+BTTFV_Menu_Settings_Title,Settings Menu
+BTTFV_Menu_Sounds_Item_CircuitsBeep_Description,Allows you to enable/disable the time circuits diode beep sound.
+BTTFV_Menu_Sounds_Item_CircuitsBeep_Title,Time Circuits Diode Beep
+BTTFV_Menu_Sounds_Item_Engine_Description,If enabled a custom engine sound system for BTTF DeLoreans will be used.
+BTTFV_Menu_Sounds_Item_Engine_Title,Custom Engine Sounds
+BTTFV_Menu_Sounds_Item_FluxCapacitor_Description,Allows you to enable/disable the flux capacitor sound.
+BTTFV_Menu_Sounds_Item_FluxCapacitor_Title,Flux Capacitor Sound
+BTTFV_Menu_Sounds_Item_SpeedoBeep_Description,Allows you to enable/disable the speedo beep sound.
+BTTFV_Menu_Sounds_Item_SpeedoBeep_Title,Speedo Beep
+BTTFV_Menu_Sounds_Title,Sound Effects
+BTTFV_Menu_TCD_Item_Background_Description,Allows you to change the background of your time circuits display.
+BTTFV_Menu_TCD_Item_Background_Title,Background
+BTTFV_Menu_TCD_Item_EditRC_Description,Enters edit mode allowing you to change the position and size of the RC HUD on your screen.
+BTTFV_Menu_TCD_Item_EditRC_Title,Edit RC HUD
+BTTFV_Menu_TCD_Item_Edit_Description,Enters edit mode allowing you to change the position and size of the time circuits display on your screen.
+BTTFV_Menu_TCD_Item_Edit_Title,Edit HUD
+BTTFV_Menu_TCD_Item_External_Description,Enable/disable external HUD.
+BTTFV_Menu_TCD_Item_External_Title,External HUD
+BTTFV_Menu_TCD_Item_HideHUD_Description,Hide/unhide in-game HUD.
+BTTFV_Menu_TCD_Item_HideHUD_Title,Hide in-game HUD
+BTTFV_Menu_TCD_Item_HideSID_Description,Hide/unhide SID on in-game HUD.
+BTTFV_Menu_TCD_Item_HideSID_Title,Hide SID
+BTTFV_Menu_TCD_Item_Remote_Description,Enable/disable remote HUD.
+BTTFV_Menu_TCD_Item_Remote_Title,Remote HUD
+BTTFV_Menu_TCD_Item_Reset_Description,Resets the position and size of the time circuits display to default.
+BTTFV_Menu_TCD_Item_Reset_Title,Reset To Default
+BTTFV_Menu_TCD_Title,Time Circuits Display
+BTTFV_Menu_TimeMachine_Item_Altitude_Description,If enabled it will prevent your Time Machine from going up or down while hovering.
+BTTFV_Menu_TimeMachine_Item_Altitude_Title,Altitude Control
+BTTFV_Menu_TimeMachine_Item_Custom_Description,Edit current Time Machine.
+BTTFV_Menu_TimeMachine_Item_Custom_Title,Custom Menu
+BTTFV_Menu_TimeMachine_Item_Cutscene_Description,Allows you to turn on/off cutscene mode while time traveling.
+BTTFV_Menu_TimeMachine_Item_Cutscene_Title,Cutscene Mode
+BTTFV_Menu_TimeMachine_Item_GoToMain_Description,Sends you to the Main Menu of the mod.
+BTTFV_Menu_TimeMachine_Item_GoToMain_Title,Go to Main Menu
+BTTFV_Menu_TimeMachine_Item_Hover_Description,Allows you to turn on/off hover mode.
+BTTFV_Menu_TimeMachine_Item_Hover_Title,Hover Mode
+BTTFV_Menu_TimeMachine_Item_Photo_Description,Opens the Photo Menu.
+BTTFV_Menu_TimeMachine_Item_Photo_Title,Photo Menu
+BTTFV_Menu_TimeMachine_Item_RC_Description,Allows you to turn off remote control. In order to remote control this Time Machine step out of the car and open the Interaction menu.
+BTTFV_Menu_TimeMachine_Item_RC_Title,Remote Control
+BTTFV_Menu_TimeMachine_Item_Restore_Description,Restore the Time Machine to perfect working order.
+BTTFV_Menu_TimeMachine_Item_Restore_Title,Restore
+BTTFV_Menu_TimeMachine_Item_TC_Description,Allows you to switch on/off the time circuits.
+BTTFV_Menu_TimeMachine_Item_TC_Title,Time Circuits
+BTTFV_Menu_TimeMachine_Title,Time Machine Menu
+BTTFV_Text_AltitudeHoldChange,Altitude holding is now {0}
+BTTFV_Text_And,and
+BTTFV_Text_ApplyHook,Press ~INPUT_CONTEXT~ to apply hook.
+BTTFV_Text_BTTF1,BTTF1
+BTTFV_Text_BTTF1H,BTTF1 with Hook
+BTTFV_Text_BTTF2,BTTF2
+BTTFV_Text_BTTF3,BTTF3
+BTTFV_Text_BTTF3RR,BTTF3RR
+BTTFV_Text_Buried,It's been buried here for {0}. Astounding.
+BTTFV_Text_ChipDamaged,Time circuit control microchip is damaged.
+BTTFV_Text_CloseReactor,Hold ~INPUT_CONTEXT~ to close fuel chamber.
+BTTFV_Text_Cutscene,Cutscene
+BTTFV_Text_DMC12,DMC-12
+BTTFV_Text_Days,days
+BTTFV_Text_FoundMe,Oh my God. They found me. I don't know how but they found me.
+BTTFV_Text_FoundTrash,Found some useless trash... ({0})
+BTTFV_Text_HoverDamaged,Flying circuits are too heavily damaged.
+BTTFV_Text_InputMode,Input mode is {0}
+BTTFV_Text_Instant,Instant
+BTTFV_Text_Months,months
+BTTFV_Text_NotEnoughGarbage,You don't have enough trash.
+BTTFV_Text_NotEnoughPlutonium,You don't have enough plutonium.
+BTTFV_Text_NotSeated,You are not seated inside a Time Machine!
+BTTFV_Text_NotWarmed,Time circuit control tubes aren't warmed up.
+BTTFV_Text_Off,OFF
+BTTFV_Text_On,ON
+BTTFV_Text_OpenReactor,Hold ~INPUT_CONTEXT~ to open fuel chamber.
+BTTFV_Text_RefuelReactor,Press ~INPUT_CONTEXT~ to refuel or hold ~INPUT_CONTEXT~ to close fuel chamber.
+BTTFV_Text_RemovedAllTimeMachines,Removed all Time Machines!
+BTTFV_Text_RemovedOtherTimeMachines,Removed all other Time Machines!
+BTTFV_Text_RepairTC,Press ~INPUT_CONTEXT~ to repair time circuits.
+BTTFV_Text_RestoreDamaged,"Select ""{0}"" in ""{1}"" menu to restore the Time Machine to perfect working order."
+BTTFV_Text_SelectButton,Selected button: {0}
+BTTFV_Text_SelectOption,SELECT AN OPTION
+BTTFV_Text_SignalStrength,Signal Strength
+BTTFV_Text_TCDEdit_Cancel,Canceled changes!
+BTTFV_Text_TCDEdit_CancelButton,Cancel
+BTTFV_Text_TCDEdit_MoveDown,Move Down
+BTTFV_Text_TCDEdit_MoveLeft,Move Left
+BTTFV_Text_TCDEdit_MoveRight,Move Right
+BTTFV_Text_TCDEdit_MoveUp,Move Up
+BTTFV_Text_TCDEdit_Save,Settings saved!
+BTTFV_Text_TCDEdit_SaveButton,Save
+BTTFV_Text_TCDEdit_ScaleDown,Scale Down
+BTTFV_Text_TCDEdit_ScaleUp,Scale Up
+BTTFV_Text_TimeTravelModeChange,Time travel mode now set to {0}
+BTTFV_Text_UnableRC,You can't remote control this Time Machine at the moment.
+BTTFV_Text_VTOLTip,Press {0} and ~INPUT_VEH_FLY_THROTTLE_DOWN~ for landing.
+BTTFV_Text_Warmup,Press ~INPUT_CONTEXT~ to warm up the time circuit control tubes.
+BTTFV_Text_WarmupComplete,Time circuit control tubes are warmed up.
+BTTFV_Text_Years,years
+BTTFV_Text_Clock_DisableAlarm,Disable Alarm
+BTTFV_Text_Clock_SetAlarm,Set Alarm Time
+BTTFV_Text_Clock_SubMinutes,Subtract Minutes
+BTTFV_Text_Clock_AddMinutes,Add Minutes
+BTTFV_Text_Clock_AlarmSetTo,Alarm set to {0}
+BTTFV_Text_Clock_AlarmSet,Alarm set!
+BTTFV_Text_Clock_AlarmDisabled,Alarm disabled!
+BTTFV_Menu_Outatime_Item_Spawned_Title,Spawned
+BTTFV_Menu_Outatime_Item_Spawned_Description,If this Time Machine is currently spawned on the map.
+BTTFV_Text_NotEnoughMoney,You don't have enough money!
+BTTFV_Text_UnableRepairTC,Unable to repair time circuits. Suitable replacement parts will not be available until 1952.
+BTTFV_Text_UnableRepairFC,Unable to repair flying circuits. Suitable replacement parts will not be available until 2015.
+BTTFV_Menu_Garage_Title,Garage Menu
+BTTFV_Menu_Garage_Item_Transform_Description,Convert current car into a Time Machine. Great Scott!
+BTTFV_Menu_Garage_Item_Transform_Title,"Convert Into A Time Machine ($ 500,000)"
+BTTFV_Menu_Garage_Item_InstallHover_Description,"Hover-convert current car. Now, you don't have to worry about traffic!"
+BTTFV_Menu_Garage_Item_InstallHover_Title,"Hover-convert Car ($ 39,995)"
+BTTFV_Menu_Garage_Item_InstallMrFusion_Description,Replace the nuclear reactor with Mr. Fusion's Home Energy Reactor.
+BTTFV_Menu_Garage_Item_InstallMrFusion_Title,"Install Mr. Fusion ($ 100,000)"
+BTTFV_Menu_Garage_Item_BuyPlutonium_Description,"Buy a plutonium pellet, ready to be used."
+BTTFV_Menu_Garage_Item_BuyPlutonium_Title,"Buy Plutonium Pellet ($ 1,500)"
+BTTFV_Menu_Garage_Item_RepairTC_Description,Repair the time circuits with currently available techonology.
+BTTFV_Menu_Garage_Item_RepairTC_Title,Repair Time Circuits ($ 500)
+BTTFV_Menu_Garage_Item_RepairFC_Description,Repair the flying circuits.
+BTTFV_Menu_Garage_Item_RepairFC_Title,"Repair Flying Circuits ($ 1,000)"
+BTTFV_Menu_Garage_Item_RepairEngine_Description,Repair the internal combustion engine.
+BTTFV_Menu_Garage_Item_RepairEngine_Title,Repair Engine ($ 750)
+BTTFV_Menu_Garage_Item_Custom_Description,Edit current Time Machine.
+BTTFV_Menu_Garage_Item_Custom_Title,Custom Menu
+BTTFV_Menu_Settings_Item_RealTime_Title,Real Time
+BTTFV_Menu_Settings_Item_RealTime_Description,When enabled an in-game minute will last a real world minute.
+BTTFV_Text_Clock_CurSecond,Current seconds: {0}
+BTTFV_Text_Clock_Sync,Sync With Current Time
+BTTFV_Text_Clock_SubSeconds,Subtract Seconds
+BTTFV_Text_Clock_AddSeconds,Add Seconds
+BTTFV_Text_Clock_SyncToggle,Sync with current time is {0}
+BTTFV_Text_RemoveHook,Press ~INPUT_CONTEXT~ to remove hook.
+BTTFV_Menu_Override_Subtitle,Override Menu
+BTTFV_Menu_Override_Description,Allows overriding the time travel sequence's settings.
+BTTFV_Menu_Override_Item_Set_Title,Enabled
+BTTFV_Menu_Override_Item_Set_Description,Enables override settings for time travel sequence.
+BTTFV_Menu_Override_Item_SID_Title,SID Speed
+BTTFV_Menu_Override_Item_SID_Description,Sets vehicle speed SID will max out at.
+BTTFV_Menu_Override_Item_TTSfx_Title,SFX Speed
+BTTFV_Menu_Override_Item_TTSfx_Description,Sets vehicle speed time travel SFX will start at.
+BTTFV_Menu_Override_Item_TT_Title,Wormhole Speed
+BTTFV_Menu_Override_Item_TT_Description,Sets vehicle speed wormhole will open at.
+BTTFV_Menu_Override_Item_WormholeLength_Title,Wormhole Duration
+BTTFV_Menu_Override_Item_WormholeLength_Description,Milliseconds from start of wormhole to time travel.
+BTTFV_Menu_TimeMachine_Subtitle,Time Machine Menu
+BTTFV_Menu_TimeMachine_Description,Time Machine Menu
+BTTFV_Menu_Doors_Subtitle,DeLorean Door Controls
+BTTFV_Menu_Doors_Description,Lets you open and close doors on a DeLorean.
+BTTFV_Menu_Doors_Item_DriversDoor_Title,Driver's Door
+BTTFV_Menu_Doors_Item_DriversDoor_Description,Opens or closes the driver's side door.
+BTTFV_Menu_Doors_Item_PassengerDoor_Title,Passenger Door
+BTTFV_Menu_Doors_Item_PassengerDoor_Description,Opens or closes the passenger's side door.
+BTTFV_Menu_Doors_Item_Hood_Title,Hood
+BTTFV_Menu_Doors_Item_Hood_Description,Opens or closes the hood.
+BTTFV_Menu_Doors_Item_Trunk_Title,Louvers
+BTTFV_Menu_Doors_Item_Trunk_Description,Raises or lowers the rear louvers.
+BTTFV_Menu_Doors_Item_Engine_Title,Engine Cover
+BTTFV_Menu_Doors_Item_Engine_Description,Opens or closes the engine cover.
+BTTFV_Menu_Garage_Item_WashCar_Title,Wash Time Machine ($ 10)
+BTTFV_Menu_Garage_Item_WashCar_Description,Cleans the Time Machine.
+BTTFV_Text_UnableRepairEngine,Unable to repair engine. There won't be a gas station until 1912.
+BTTFV_Menu_Settings_Item_YearTraffic_Title,Year-based Traffic
+BTTFV_Menu_Settings_Item_YearTraffic_Description,"If enabled, traffic density will be affected by era."
+BTTFV_Menu_Events_Item_TrainEvent_Title,Freight Train
+BTTFV_Menu_Events_Item_TrainEvent_Description,"If enabled, RR DeLorean may be destroyed after reentry."
+BTTFV_Menu_Settings_Item_TimeParadox_Title,Time Paradox
+BTTFV_Menu_Settings_Item_TimeParadox_Description,"*EXPERIMENTAL* If enabled, killing your past self will send you back in time."

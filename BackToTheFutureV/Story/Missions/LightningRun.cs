@@ -133,7 +133,7 @@ namespace BackToTheFutureV
         private void UpdateSpringPosition()
         {
             _springBase = Hook.Position;
-            _springOrigin = _springBase - Vector3.WorldUp * _springLength;
+            _springOrigin = _springBase - (Vector3.WorldUp * _springLength);
         }
 
         private void UpdateSpringPhysics()

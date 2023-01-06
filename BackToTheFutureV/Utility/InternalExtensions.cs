@@ -25,21 +25,27 @@ namespace BackToTheFutureV
     {
         public static bool IsHoverModeAllowed(this Vehicle vehicle)
         {
-            if (!vehicle.NotNullAndExists() || vehicle.IsBoat)
+            if (!vehicle.NotNullAndExists())
                 return false;
-
-            if (vehicle.Model == ModelHandler.DMC12 || vehicle.Model == ModelHandler.Deluxo)
-                return true;
 
             Decorator decorator = vehicle.Decorator();
 
-            return decorator.Exists(BTTFVDecors.AllowHoverMode) && decorator.GetBool(BTTFVDecors.AllowHoverMode);
+            if (!decorator.Exists(BTTFVDecors.AllowHoverMode))
+                vehicle.SetHoverModeAllowed(false);
+
+            return decorator.GetBool(BTTFVDecors.AllowHoverMode);
         }
 
         public static void SetHoverModeAllowed(this Vehicle vehicle, bool toggle)
         {
-            if (!vehicle.NotNullAndExists() || vehicle.Model == ModelHandler.DMC12 || vehicle.Model == ModelHandler.Deluxo || vehicle.IsBoat)
+            if (!vehicle.NotNullAndExists())
                 return;
+
+            if (vehicle.Model == ModelHandler.DMC12 || vehicle.Model == ModelHandler.Deluxo)
+                toggle = true;
+
+            if (vehicle.IsBoat)
+                toggle = false;
 
             Decorator decorator = vehicle.Decorator();
 
@@ -65,6 +71,16 @@ namespace BackToTheFutureV
                 return;
 
             VehicleControl.SetDeluxoTransformation(vehicle, toggle ? 1f : 0f);
+
+            if (toggle)
+            {
+                VehicleControl.SetDeluxoFlyMode(vehicle, 1f);
+                Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, vehicle, "DELUXO");
+            }
+            else
+            {
+                Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, vehicle, vehicle.Model.ToString());
+            }
         }
 
         public static bool NotNullAndExists(this TimeMachine timeMachine)

@@ -71,11 +71,20 @@ namespace BackToTheFutureV
                         TextHandler.Me.ShowNotification("NotEnoughMoney");
                         return;
                     }
+
                     GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
-                    CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HoverUnderbodyCustom, FusionEnums.CameraSwitchType.Instant, 1250);
-                    CurrentTimeMachine.Mods.HoverUnderbody = ModState.On;
-                    CurrentTimeMachine.Mods.Plate = PlateType.BTTF2;
-                    CurrentTimeMachine.Mods.WormholeType = WormholeType.BTTF2;
+
+                    if (CurrentTimeMachine.NotNullAndExists())
+                    {
+                        CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HoverUnderbodyCustom, FusionEnums.CameraSwitchType.Instant, 1250);
+                        CurrentTimeMachine.Mods.HoverUnderbody = ModState.On;
+                    }
+
+                    if (FusionUtils.PlayerVehicle.Model != ModelHandler.DMC12)
+                    {
+                        FusionUtils.PlayerVehicle.SetHoverModeAllowed(true);
+                    }
+
                     Game.Player.Money -= 39995;
                     break;
 
@@ -88,6 +97,7 @@ namespace BackToTheFutureV
                     GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
                     CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.ReactorCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                     CurrentTimeMachine.Mods.Reactor = ReactorType.MrFusion;
+                    CurrentTimeMachine.Mods.WormholeType = WormholeType.BTTF2;
                     Game.Player.Money -= 100000;
                     break;
 
@@ -228,7 +238,17 @@ namespace BackToTheFutureV
             bool active = CurrentTimeMachine.NotNullAndExists();
 
             transformInto.Enabled = !active && FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
-            hoverConvert.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((CurrentTimeMachine.Mods.IsDMC12 && !CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || CurrentTimeMachine.Vehicle.CanHoverTransform());
+            //hoverConvert.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((CurrentTimeMachine.Mods.IsDMC12 && !CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || CurrentTimeMachine.Vehicle.CanHoverTransform());
+            hoverConvert.Enabled = FusionUtils.CurrentTime.Year >= 2015;
+
+            if (hoverConvert.Enabled)
+            {
+                if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Mods.IsDMC12 && CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
+                    hoverConvert.Enabled = false;
+                else if (FusionUtils.PlayerVehicle.IsHoverModeAllowed())
+                    hoverConvert.Enabled = false;
+            }
+
             installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && CurrentTimeMachine.Mods.IsDMC12;
             repairTC.Enabled = active && ((FusionUtils.CurrentTime.Year >= 1952 && CurrentTimeMachine.Properties.AreTimeCircuitsBroken && CurrentTimeMachine.Mods.Hoodbox == ModState.Off) || (FusionUtils.CurrentTime.Year >= 1985 && CurrentTimeMachine.Mods.Hoodbox == ModState.On));
             repairFC.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;

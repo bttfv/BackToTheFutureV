@@ -2,7 +2,6 @@ using FusionLibrary;
 using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
 using GTA;
-using GTA.Native;
 using MinHook;
 using System;
 using System.Runtime.InteropServices;
@@ -99,7 +98,7 @@ namespace BackToTheFutureV
         {
             Tick += HoverMode_Tick;
             Aborted += HoverMode_Aborted;
-            KeyDown += HoverMode_KeyDown;
+            //KeyDown += HoverMode_KeyDown;
         }
 
         private void HoverMode_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -111,7 +110,7 @@ namespace BackToTheFutureV
 
             if (e.KeyCode == System.Windows.Forms.Keys.L)
             {
-                foreach(Vehicle vehicle in World.GetAllVehicles())
+                foreach (Vehicle vehicle in World.GetAllVehicles())
                 {
                     if (vehicle.IsBoat)
                         continue;
@@ -168,7 +167,7 @@ namespace BackToTheFutureV
                 foreach (Vehicle vehicle in World.GetAllVehicles())
                 {
                     if (!vehicle.NotNullAndExists())
-                        return;
+                        continue;
 
                     if (!vehicle.Decorator().Exists(BTTFVDecors.AllowHoverMode))
                         vehicle.SetHoverModeAllowed(false);
@@ -231,12 +230,10 @@ namespace BackToTheFutureV
 
         private void SwitchHover(Vehicle vehicle)
         {
-            if (_nextModeChangeAllowed > Game.GameTime || !vehicle.NotNullAndExists() || !vehicle.IsHoverModeAllowed())
+            if (_nextModeChangeAllowed > Game.GameTime || !vehicle.NotNullAndExists() || !vehicle.IsHoverModeAllowed() || vehicle.Model == ModelHandler.DMC12)
                 return;
 
-            float value = VehicleControl.GetDeluxoTransformation(vehicle);
-
-            VehicleControl.SetDeluxoTransformation(vehicle, value > 0f ? 0f : 1f);
+            vehicle.SetHoverMode(!vehicle.IsInHoverMode());
 
             _nextModeChangeAllowed = Game.GameTime + 2000;
         }

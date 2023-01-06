@@ -97,7 +97,7 @@ namespace BackToTheFutureV
                 Properties.PhotoGlowingCoilsActive = true;
                 WaypointScript.LoadWaypointPosition(true);
 
-                if ((Mods.Hook == HookState.On && !Properties.IsFlying) /*|| (Constants.DeluxoProto && Vehicle.IsExtraOn(1) && !Properties.IsFlying)*/)
+                if (Mods.Hook == HookState.On && !Properties.IsFlying /*|| (Constants.DeluxoProto && Vehicle.IsExtraOn(1) && !Properties.IsFlying)*/)
                 {
                     Events.OnSparksEnded?.Invoke(_instant ? 250 : 500);
                 }
