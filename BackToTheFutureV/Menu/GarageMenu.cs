@@ -36,7 +36,7 @@ namespace BackToTheFutureV
             repairEngine = NewItem("RepairEngine");
             washCar = NewItem("WashCar");
 
-            customMenu = NewSubmenu(MenuHandler.CustomMenuGarage);
+            customMenu = NewSubmenu(MenuHandler.CustomMenu);
             customMenu.Activated += CustomMenu_Activated;
         }
 

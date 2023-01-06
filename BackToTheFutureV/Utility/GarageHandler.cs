@@ -260,7 +260,7 @@ namespace BackToTheFutureV
 
                             //SetupCamera(garageInfo.CreateInsideCamera());
                             MenuHandler.GarageMenu.Visible = true;
-                            MenuHandler.CustomMenuGarage.CloseOnInvalidClick = false;
+                            MenuHandler.CustomMenu.CloseOnInvalidClick = false;
 
                             garageInfo.Lock();
                             Status = GarageStatus.Busy;

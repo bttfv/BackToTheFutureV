@@ -8,7 +8,7 @@ using static BackToTheFutureV.InternalExtensions;
 
 namespace BackToTheFutureV
 {
-    internal class CustomMenu2 : BTTFVMenu
+    internal class CustomMenu : BTTFVMenu
     {
         private readonly NativeListItem<string> _wormholeType;
         private readonly NativeListItem<string> _wheelsType;
@@ -20,7 +20,7 @@ namespace BackToTheFutureV
         private readonly NativeListItem<string> _suspensions;
         private readonly NativeListItem<string> _hood;
 
-        public CustomMenu2() : base("Custom")
+        public CustomMenu() : base("Custom")
         {
             _wormholeType = NewListItem("Wormhole", TextHandler.Me.GetLocalizedText("BTTF1", "BTTF2", "BTTF3"));
             _wormholeType.ItemChanged += ModList_ItemChanged;
