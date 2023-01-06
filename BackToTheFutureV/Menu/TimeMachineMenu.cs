@@ -48,15 +48,6 @@ namespace BackToTheFutureV
             RemoteControl.Enabled = CurrentTimeMachine.Properties.IsRemoteControlled;
             TimeCircuitsOn.Enabled = !RemoteControl.Enabled && !Game.IsMissionActive;
             CutsceneMode.Enabled = !RemoteControl.Enabled;
-
-            if (!MenuHandler.UnlockPhotoMenu)
-            {
-                Remove(PhotoMenu);
-            }
-            else if (!Items.Contains(PhotoMenu))
-            {
-                Add(5, PhotoMenu);
-            }
         }
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -94,11 +85,7 @@ namespace BackToTheFutureV
             FlyMode.Checked = CurrentTimeMachine.Properties.IsFlying;
             AltitudeHold.Checked = CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = CurrentTimeMachine.Properties.IsRemoteControlled;
-
-            if (MenuHandler.UnlockPhotoMenu && !Game.IsMissionActive)
-            {
-                PhotoMenu.Enabled = !CurrentTimeMachine.Constants.FullDamaged && !CurrentTimeMachine.Properties.IsRemoteControlled;
-            }
+            PhotoMenu.Enabled = !CurrentTimeMachine.Constants.FullDamaged && !CurrentTimeMachine.Properties.IsRemoteControlled && !Game.IsMissionActive;
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
