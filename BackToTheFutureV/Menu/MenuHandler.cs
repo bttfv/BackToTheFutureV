@@ -6,7 +6,7 @@ using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
-    internal class MenuHandler
+    internal static class MenuHandler
     {
         public static ControlsMenu ControlsMenu { get; } = new ControlsMenu();
         public static SoundsSettingsMenu SoundsSettingsMenu { get; } = new SoundsSettingsMenu();

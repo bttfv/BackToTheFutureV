@@ -216,7 +216,7 @@ namespace BackToTheFutureV
                 }
 
                 _reactorType.Enabled = CurrentTimeMachine.Mods.IsDMC12;
-                _hoverUnderbody.Enabled = CurrentTimeMachine.Vehicle.CanHoverTransform() || CurrentTimeMachine.Vehicle.Model == ModelHandler.Deluxo || CurrentTimeMachine.Vehicle.Model == ModelHandler.DMC12;
+                _hoverUnderbody.Enabled = CurrentTimeMachine.Vehicle.Model == ModelHandler.Deluxo || CurrentTimeMachine.Vehicle.Model == ModelHandler.DMC12;
                 _hoodBox.Enabled = CurrentTimeMachine.Mods.IsDMC12;
                 _hook.Enabled = CurrentTimeMachine.Mods.IsDMC12;
                 _bulova.Enabled = CurrentTimeMachine.Mods.IsDMC12;

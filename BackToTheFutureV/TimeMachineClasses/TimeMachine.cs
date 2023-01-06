@@ -91,16 +91,12 @@ namespace BackToTheFutureV
             registeredHandlers.Add("ReentryHandler", new ReentryHandler(this));
             registeredHandlers.Add("SparksHandler", new SparksHandler(this));
 
-            registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));
-
-            if (Mods.IsDMC12 || Vehicle.CanHoverTransform())
-            {
-                registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
-                registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
-            }
+            registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));            
 
             if (Mods.IsDMC12)
             {
+                registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
+                registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
                 registeredHandlers.Add("FuelHandler", new FuelHandler(this));
                 registeredHandlers.Add("SIDHandler", new SIDHandler(this));
                 registeredHandlers.Add("FluxCapacitorHandler", new FluxCapacitorHandler(this));
