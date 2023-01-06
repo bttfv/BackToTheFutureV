@@ -393,11 +393,6 @@ namespace BackToTheFutureV
                         Wheel = WheelType.Stock;
                     }
 
-                    if (!IsDMC12 && Wheel != WheelType.DMC && Wheel != WheelType.Red)
-                    {
-                        Wheel = WheelType.DMC;
-                    }
-
                     reload = SuspensionsType != SuspensionsType.Stock;
 
                     if (SuspensionsType != SuspensionsType.Stock)

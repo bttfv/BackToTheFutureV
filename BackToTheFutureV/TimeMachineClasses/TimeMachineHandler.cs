@@ -400,13 +400,13 @@ namespace BackToTheFutureV
             return timeMachine;
         }
 
-        public static TimeMachine GetTimeMachineFromOriginalGUID(Guid guid)
+        public static TimeMachine GetTimeMachineFromGUID(Guid guid)
         {
-            TimeMachine timeMachine = AllTimeMachines.SingleOrDefault(x => x.Properties.OriginalGUID == guid);
+            TimeMachine timeMachine = AllTimeMachines.SingleOrDefault(x => x.Properties.GUID == guid);
 
             if (timeMachine == default)
             {
-                timeMachine = _timeMachinesToAdd.SingleOrDefault(x => x.Properties.OriginalGUID == guid);
+                timeMachine = _timeMachinesToAdd.SingleOrDefault(x => x.Properties.GUID == guid);
 
                 if (timeMachine == default)
                 {

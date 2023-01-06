@@ -113,7 +113,7 @@ namespace BackToTheFutureV
                     {
                         if (WaitForTimeMachineGUID != Guid.Empty)
                         {
-                            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromOriginalGUID(WaitForTimeMachineGUID);
+                            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromGUID(WaitForTimeMachineGUID);
 
                             if (!timeMachine.NotNullAndExists() || timeMachine.Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole)
                                 return;

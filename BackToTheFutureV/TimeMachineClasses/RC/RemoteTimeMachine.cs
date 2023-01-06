@@ -11,7 +11,7 @@ namespace BackToTheFutureV
     internal class RemoteTimeMachine
     {
         public TimeMachineClone TimeMachineClone { get; }
-        public TimeMachine TimeMachine => TimeMachineHandler.GetTimeMachineFromOriginalGUID(TimeMachineClone.Properties.OriginalGUID);
+        public TimeMachine TimeMachine => TimeMachineHandler.GetTimeMachineFromGUID(TimeMachineClone.Properties.GUID);
         public Blip Blip { get; set; }
         public bool Spawned => TimeMachine.NotNullAndExists();
 

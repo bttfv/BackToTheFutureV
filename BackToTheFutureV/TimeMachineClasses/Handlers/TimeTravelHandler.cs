@@ -155,7 +155,7 @@ namespace BackToTheFutureV
 
                         Properties.TimeTravelDestPos = Vector3.Zero;
 
-                        Properties.SwapGUID();
+                        Properties.NewGUID();
 
                         TimeHandler.TimeTravelTo(Properties.DestinationTime);
 
@@ -276,7 +276,7 @@ namespace BackToTheFutureV
 
                     World.RenderingCamera = null;
 
-                    Properties.SwapGUID();
+                    Properties.NewGUID();
 
                     if (TimeHandler.RealTime)
                     {

@@ -74,7 +74,7 @@ namespace BackToTheFutureV
 
                     GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
 
-                    if (CurrentTimeMachine.NotNullAndExists())
+                    if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Mods.IsDMC12)
                     {
                         CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HoverUnderbodyCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                         CurrentTimeMachine.Mods.HoverUnderbody = ModState.On;

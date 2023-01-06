@@ -53,7 +53,7 @@ namespace BackToTheFutureV
 
             if (IsTimeMachine)
             {
-                TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromOriginalGUID(Properties.OriginalGUID);
+                TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromGUID(Properties.GUID);
 
                 if (timeMachine.NotNullAndExists())
                     vehicle = timeMachine.Vehicle;
