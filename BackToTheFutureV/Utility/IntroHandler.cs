@@ -135,7 +135,7 @@ namespace BackToTheFutureV
             Me = this;
         }
 
-        private void TimeText_Tick(object sender, System.EventArgs e)
+        private void TimeText_Tick(object sender, EventArgs e)
         {
             if (Game.IsLoading || Main.FirstMission)
                 return;

@@ -122,18 +122,7 @@ namespace BackToTheFutureV
                                 timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(-70);
                             }
                         }
-                        else if (_cloneYears > 0)
-                        {
-                            try
-                            {
-                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(_cloneYears * 2);
-                            }
-                            catch (System.ArgumentOutOfRangeException)
-                            {
-                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(_cloneYears / 2);
-                            }
-                        }
-                        else if (_cloneYears < 0)
+                        else
                         {
                             try
                             {
