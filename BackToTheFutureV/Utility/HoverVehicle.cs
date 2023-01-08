@@ -14,7 +14,7 @@ namespace BackToTheFutureV
     internal delegate void OnSwitchHoverMode(bool state);
     internal delegate void OnHoverBoost(bool state);
     internal delegate void OnVerticalBoost(bool state, bool up);
-    internal delegate void OnHoverLanding();
+    internal delegate void OnHoverLanding(bool state);
 
     internal class HoverVehicle
     {
@@ -36,7 +36,7 @@ namespace BackToTheFutureV
 
         public static void Clean()
         {
-            GlobalHoverVehicles.ForEach(x => 
+            GlobalHoverVehicles.ForEach(x =>
             {
                 if (!x.Vehicle.IsFunctioning())
                     _hoverVehiclesToRemove.Add(x);
@@ -55,9 +55,8 @@ namespace BackToTheFutureV
         public static event OnHoverLanding OnHoverLanding;
 
         public Vehicle Vehicle { get; }
-        private Decorator decorator { get; }
-        private ParticlePlayerHandler HoverLandingSmoke;
-        private CVehicleWheels cVehicleWheels { get; }
+        private Decorator Decorator { get; }
+        private ParticlePlayerHandler HoverLandingSmoke { get; set; }
 
         private int _nextForce;
 
@@ -68,10 +67,10 @@ namespace BackToTheFutureV
                 if (!Vehicle.IsFunctioning())
                     return false;
 
-                if (!decorator.Exists(BTTFVDecors.AllowHoverMode))
+                if (!Decorator.Exists(BTTFVDecors.AllowHoverMode))
                     IsHoverModeAllowed = false;
 
-                return decorator.GetBool(BTTFVDecors.AllowHoverMode);
+                return Decorator.GetBool(BTTFVDecors.AllowHoverMode);
             }
 
             set
@@ -79,18 +78,15 @@ namespace BackToTheFutureV
                 if (!Vehicle.IsFunctioning())
                     return;
 
-                if (Vehicle.Model == ModelHandler.DMC12 || Vehicle.Model == ModelHandler.Deluxo)
-                    value = true;
-
                 if (Vehicle.IsBoat || Vehicle.IsBicycle || Vehicle.IsBike || Vehicle.IsBlimp || Vehicle.IsAircraft || Vehicle.IsHelicopter || Vehicle.IsMotorcycle)
                     value = false;
 
-                decorator.SetBool(BTTFVDecors.AllowHoverMode, value);
+                if (Vehicle.Model == ModelHandler.Deluxo || Vehicle.Model == ModelHandler.DMC12)
+                    value = true;
+
+                Decorator.SetBool(BTTFVDecors.AllowHoverMode, value);
 
                 Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_ALLOWED, Vehicle, value);
-
-                if (!value && IsInHoverMode)
-                    SwitchMode();
             }
         }
 
@@ -98,59 +94,60 @@ namespace BackToTheFutureV
         {
             get
             {
-                bool value = decorator.GetBool(BTTFVDecors.IsInHoverMode);
+                bool value = Decorator.GetBool(BTTFVDecors.IsInHoverMode);
                 bool realValue = VehicleControl.GetDeluxoTransformation(Vehicle) > 0f;
 
                 if (value == realValue)
                     return value;
 
-                SetMode(realValue);
+                SetMode(realValue, true);
 
                 return realValue;
             }
 
-            private set => decorator.SetBool(BTTFVDecors.IsInHoverMode, value);
+            private set => Decorator.SetBool(BTTFVDecors.IsInHoverMode, value);
         }
 
         public bool IsHoverBoosting
         {
-            get => decorator.GetBool(BTTFVDecors.IsHoverBoosting);
-            set => decorator.SetBool(BTTFVDecors.IsHoverBoosting, value);
+            get => Decorator.GetBool(BTTFVDecors.IsHoverBoosting);
+            private set => Decorator.SetBool(BTTFVDecors.IsHoverBoosting, value);
         }
 
         public bool IsVerticalBoosting
         {
-            get => decorator.GetBool(BTTFVDecors.IsVerticalBoosting);
-            set => decorator.SetBool(BTTFVDecors.IsVerticalBoosting, value);
+            get => Decorator.GetBool(BTTFVDecors.IsVerticalBoosting);
+            private set => Decorator.SetBool(BTTFVDecors.IsVerticalBoosting, value);
         }
 
         public bool IsHoverLanding
         {
-            get => decorator.GetBool(BTTFVDecors.IsHoverLanding);
-            set => decorator.SetBool(BTTFVDecors.IsHoverLanding, value);
+            get => Decorator.GetBool(BTTFVDecors.IsHoverLanding);
+            private set => Decorator.SetBool(BTTFVDecors.IsHoverLanding, value);
         }
 
         public bool IsWaitForLanding
         {
-            get => decorator.GetBool(BTTFVDecors.IsWaitForLanding);
-            set => decorator.SetBool(BTTFVDecors.IsWaitForLanding, value);
+            get => Decorator.GetBool(BTTFVDecors.IsWaitForLanding);
+            private set => Decorator.SetBool(BTTFVDecors.IsWaitForLanding, value);
         }
 
         public bool IsAltitudeHolding
         {
-            get => decorator.GetBool(BTTFVDecors.IsAltitudeHolding);
-            set => decorator.SetBool(BTTFVDecors.IsAltitudeHolding, value);
+            get => Decorator.GetBool(BTTFVDecors.IsAltitudeHolding);
+            set => Decorator.SetBool(BTTFVDecors.IsAltitudeHolding, value);
         }
+
+        public bool SoftLock { get; set; }
 
         private HoverVehicle(Vehicle vehicle)
         {
             Vehicle = vehicle;
-            decorator = Vehicle.Decorator();
-            cVehicleWheels = new CVehicleWheels(Vehicle);
+            Decorator = Vehicle.Decorator();
 
             GlobalHoverVehicles.Add(this);
 
-            if (decorator.Exists(BTTFVDecors.AllowHoverMode))
+            if (Decorator.Exists(BTTFVDecors.AllowHoverMode))
                 return;
 
             IsHoverModeAllowed = false;
@@ -163,11 +160,16 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
-            if (!IsInHoverMode)
+            if (!IsInHoverMode || SoftLock)
                 return;
 
             if (Vehicle.GetMPHSpeed() >= 3f)
                 VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
+
+            //if (FusionUtils.PlayerVehicle == Vehicle)
+            //{
+            //    GTA.UI.Screen.ShowSubtitle(IsHoverLanding.ToString());
+            //}
 
             if (ModSettings.TurbulenceEvent)
             {
@@ -217,13 +219,17 @@ namespace BackToTheFutureV
                     HoverLandingSmoke.Play();
 
                     IsWaitForLanding = true;
+                    OnHoverLanding?.Invoke(true);
                 }
 
                 if (Vehicle.HeightAboveGround > 5 && IsWaitForLanding)
+                {
                     IsWaitForLanding = false;
-
+                    OnHoverLanding?.Invoke(false);
+                }
+                    
                 if (Vehicle.IsUpsideDown || Vehicle.HeightAboveGround <= 0.5f || Vehicle.HeightAboveGround >= 20 || Vehicle.GetMPHSpeed() > 30f)
-                {                    
+                {
                     IsHoverLanding = false;
                     IsWaitForLanding = false;
 
@@ -324,48 +330,34 @@ namespace BackToTheFutureV
             Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
         }
 
-        public void SetMode(bool state)
+        public void SetMode(bool state, bool forceNoLanding = false)
         {
             if (!IsHoverModeAllowed)
                 return;
 
-            if (ModSettings.LandingSystem)
+            if (TimeMachineHandler.CurrentTimeMachine == Vehicle && TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase >= TimeTravelPhase.OpeningWormhole)
+                return;
+
+            if (!state && !forceNoLanding && ModSettings.LandingSystem && !Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 0.5f && Vehicle.HeightAboveGround < 20 && Vehicle.GetMPHSpeed() <= 30f && VehicleControl.GetDeluxoTransformation(Vehicle) > 0f)
             {
-                if (state)
+                IsHoverLanding = true;
+                IsWaitForLanding = false;
+                
+                if (FusionUtils.PlayerVehicle == Vehicle)
                 {
-                    if (IsHoverLanding)
-                    {
-                        IsHoverLanding = false;
-                        IsWaitForLanding = false;
-                        OnSwitchHoverMode?.Invoke(true);
-
-                        return;
-                    }
+                    TextHandler.Me.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
                 }
-                else
-                {
-                    if (IsHoverLanding)
-                    {
-                        IsHoverLanding = false;
-                        IsWaitForLanding = false;
-                        OnSwitchHoverMode?.Invoke(true);
 
-                        return;
-                    }
-                    else if (!Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 0.5f && Vehicle.HeightAboveGround < 20 && Vehicle.GetMPHSpeed() <= 30f)
-                    {
-                        IsHoverLanding = true;
-                        IsWaitForLanding = false;
-                        OnHoverLanding?.Invoke();
+                return;
+            }
 
-                        if (FusionUtils.PlayerVehicle == Vehicle)
-                        {
-                            TextHandler.Me.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
-                        }
+            if (state && IsHoverLanding)
+            {
+                IsHoverLanding = false;
+                IsWaitForLanding = false;
+                OnHoverLanding?.Invoke(false);
 
-                        return;
-                    }
-                }
+                return;
             }
 
             VehicleControl.SetDeluxoTransformation(Vehicle, state ? 1f : 0f);
@@ -384,8 +376,13 @@ namespace BackToTheFutureV
         }
 
         public void SwitchMode()
-        {            
-            SetMode(!IsInHoverMode);
+        {
+            bool force = IsInHoverMode && IsHoverLanding;
+
+            if (force)
+                SetMode(true);
+            else
+                SetMode(!IsInHoverMode);
         }
 
         public static implicit operator Vehicle(HoverVehicle hoverVehicle)

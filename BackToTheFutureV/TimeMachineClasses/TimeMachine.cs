@@ -55,6 +55,8 @@ namespace BackToTheFutureV
             Vehicle = vehicle;
             HoverVehicle = HoverVehicle.GetFromVehicle(vehicle);
 
+            HoverVehicle.SoftLock = true;
+
             if (vehicle.Model == ModelHandler.DMC12)
             {
                 DMC12 = DMC12Handler.GetDeloreanFromVehicle(vehicle);
@@ -97,7 +99,7 @@ namespace BackToTheFutureV
 
             if (Mods.IsDMC12)
             {
-                //registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
+                registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
                 registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
                 registeredHandlers.Add("FuelHandler", new FuelHandler(this));
                 registeredHandlers.Add("SIDHandler", new SIDHandler(this));

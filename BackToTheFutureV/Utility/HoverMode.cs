@@ -1,17 +1,14 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
-using FusionLibrary.Memory;
 using GTA;
-using GTA.Math;
 using MinHook;
 using System;
 using System.Runtime.InteropServices;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
-using EasyHook;
 
 namespace BackToTheFutureV
-{    
+{
     internal class HoverMode : Script
     {
         [StructLayout(LayoutKind.Explicit)]
@@ -76,8 +73,8 @@ namespace BackToTheFutureV
         private NativeInput _flyModeInput;
         private static int _nextModeChangeAllowed;
 
-        private LocalHook hook1;
-        private LocalHook hook2;
+        //private LocalHook hook1;
+        //private LocalHook hook2;
 
         IntPtr IntPtrCHandling_GetSubHandlingByType_Internal(IntPtr inst, int type)
         {

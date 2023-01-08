@@ -1,9 +1,7 @@
 ﻿using BackToTheFutureV;
 using FusionLibrary;
 using FusionLibrary.Extensions;
-using FusionLibrary.Memory;
 using GTA;
-using GTA.Native;
 using System;
 using System.Collections.Generic;
 using static BackToTheFutureV.InternalEnums;
