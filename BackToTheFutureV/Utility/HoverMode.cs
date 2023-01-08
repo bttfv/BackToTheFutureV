@@ -127,6 +127,14 @@ namespace BackToTheFutureV
             {
 
             }
+
+            if (e.KeyCode == ModControls.HoverAltitudeHold && FusionUtils.PlayerVehicle.NotNullAndExists() && HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle).IsInHoverMode)
+            {
+                HoverVehicle hoverVehicle = HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle);
+                hoverVehicle.IsAltitudeHolding = !hoverVehicle.IsAltitudeHolding;
+
+                TextHandler.Me.ShowHelp("AltitudeHoldChange", true, TextHandler.Me.GetOnOff(hoverVehicle.IsAltitudeHolding));
+            }
         }
 
         private void HoverMode_Aborted(object sender, EventArgs e)
@@ -193,10 +201,12 @@ namespace BackToTheFutureV
                 return;
 
             Decorator.Register(BTTFVDecors.AllowHoverMode, DecorType.Bool);
+            Decorator.Register(BTTFVDecors.IsInHoverMode, DecorType.Bool);
             Decorator.Register(BTTFVDecors.IsHoverBoosting, DecorType.Bool);
             Decorator.Register(BTTFVDecors.IsHoverLanding, DecorType.Bool);
             Decorator.Register(BTTFVDecors.IsVerticalBoosting, DecorType.Bool);
             Decorator.Register(BTTFVDecors.IsWaitForLanding, DecorType.Bool);
+            Decorator.Register(BTTFVDecors.IsAltitudeHolding, DecorType.Bool);
             Decorator.Lock();
 
             CreateSubHandling();

@@ -17,6 +17,7 @@ namespace BackToTheFutureV
     {
         public Vehicle Vehicle { get; }
         public DMC12 DMC12 { get; }
+        public HoverVehicle HoverVehicle { get; }
 
         public EventsHandler Events { get; private set; }
         public PropertiesHandler Properties { get; private set; }
@@ -52,6 +53,7 @@ namespace BackToTheFutureV
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
             Vehicle = vehicle;
+            HoverVehicle = HoverVehicle.GetFromVehicle(vehicle);
 
             if (vehicle.Model == ModelHandler.DMC12)
             {

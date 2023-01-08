@@ -57,6 +57,8 @@ namespace BackToTheFutureV
         public Vehicle Vehicle { get; }
         private Decorator decorator { get; }
         private ParticlePlayerHandler HoverLandingSmoke;
+        private CVehicleWheels cVehicleWheels { get; }
+
         private int _nextForce;
 
         public bool IsHoverModeAllowed
@@ -96,13 +98,18 @@ namespace BackToTheFutureV
         {
             get
             {
-                if (!Vehicle.IsFunctioning() || Vehicle.IsBoat)
-                    return false;
+                bool value = decorator.GetBool(BTTFVDecors.IsInHoverMode);
+                bool realValue = VehicleControl.GetDeluxoTransformation(Vehicle) > 0f;
 
-                return VehicleControl.GetDeluxoTransformation(Vehicle) > 0f;
+                if (value == realValue)
+                    return value;
+
+                SetMode(realValue);
+
+                return realValue;
             }
 
-            set => SetMode(value);
+            private set => decorator.SetBool(BTTFVDecors.IsInHoverMode, value);
         }
 
         public bool IsHoverBoosting
@@ -129,10 +136,17 @@ namespace BackToTheFutureV
             set => decorator.SetBool(BTTFVDecors.IsWaitForLanding, value);
         }
 
-        public HoverVehicle(Vehicle vehicle)
+        public bool IsAltitudeHolding
+        {
+            get => decorator.GetBool(BTTFVDecors.IsAltitudeHolding);
+            set => decorator.SetBool(BTTFVDecors.IsAltitudeHolding, value);
+        }
+
+        private HoverVehicle(Vehicle vehicle)
         {
             Vehicle = vehicle;
             decorator = Vehicle.Decorator();
+            cVehicleWheels = new CVehicleWheels(Vehicle);
 
             GlobalHoverVehicles.Add(this);
 
@@ -144,6 +158,7 @@ namespace BackToTheFutureV
             IsVerticalBoosting = false;
             IsHoverLanding = false;
             IsWaitForLanding = false;
+            IsAltitudeHolding = false;
         }
 
         public void Tick()
@@ -211,20 +226,21 @@ namespace BackToTheFutureV
                 {                    
                     IsHoverLanding = false;
                     IsWaitForLanding = false;
-                    IsInHoverMode = false;
+
+                    SetMode(false);
 
                     return;
                 }
             }
 
-            if (Vehicle != FusionUtils.PlayerVehicle)
-                return;
-            
             Vector3 _forceToBeApplied = Vector3.Zero;
+
+            if (IsAltitudeHolding)
+                _forceToBeApplied.Z += -Vehicle.Velocity.Z;
 
             // If the Handbrake control is pressed
             // Using this so that controllers are also supported
-            if (!IsHoverLanding && Game.IsControlPressed(ModControls.HoverBoost) && Game.IsControlPressed(Control.VehicleAccelerate) && Vehicle.IsEngineRunning)
+            if (Vehicle == FusionUtils.PlayerVehicle && !IsHoverLanding && Game.IsControlPressed(ModControls.HoverBoost) && Game.IsControlPressed(Control.VehicleAccelerate) && Vehicle.IsEngineRunning)
             {
                 if (Game.IsControlJustPressed(ModControls.HoverBoost))
                 {
@@ -249,7 +265,7 @@ namespace BackToTheFutureV
                 OnHoverBoost?.Invoke(false);
             }
 
-            if (Game.IsControlPressed(Control.VehicleHandbrake) && !Game.IsControlPressed(Control.VehicleAccelerate) && !Game.IsControlPressed(Control.VehicleBrake) && Vehicle.GetMPHSpeed() > 1)
+            if (Vehicle == FusionUtils.PlayerVehicle && Game.IsControlPressed(Control.VehicleHandbrake) && !Game.IsControlPressed(Control.VehicleAccelerate) && !Game.IsControlPressed(Control.VehicleBrake) && Vehicle.GetMPHSpeed() > 1)
             {
                 _forceToBeApplied += Vehicle.ForwardVector * (Vehicle.RunningDirection() == RunningDirection.Forward ? -0.4f : 0.4f);
             }
@@ -257,7 +273,7 @@ namespace BackToTheFutureV
             // Get how much value is moved up/down
             int upNormal = 0;
 
-            if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleUp))
+            if (Vehicle == FusionUtils.PlayerVehicle && !IsAltitudeHolding && Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleUp))
             {
                 if (Vehicle.DecreaseSpeedAndWait(Vehicle.RunningDirection() == RunningDirection.Forward ? 20 : 10))
                 {
@@ -271,7 +287,7 @@ namespace BackToTheFutureV
                     FusionUtils.SetPadShake(100, 80);
                 }
             }
-            else if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
+            else if (Vehicle == FusionUtils.PlayerVehicle && !IsAltitudeHolding && Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
             {
                 if (Vehicle.DecreaseSpeedAndWait(Vehicle.RunningDirection() == RunningDirection.Forward ? 10 : 20))
                 {
@@ -363,6 +379,7 @@ namespace BackToTheFutureV
                 Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, Vehicle, Vehicle.Model.ToString());
             }
 
+            IsInHoverMode = state;
             OnSwitchHoverMode?.Invoke(state);
         }
 

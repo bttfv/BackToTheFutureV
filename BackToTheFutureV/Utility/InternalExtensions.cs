@@ -23,22 +23,6 @@ namespace BackToTheFutureV
 
     internal static class InternalExtensions
     {
-        public static HoverVehicle HoverVehicle(this Vehicle vehicle)
-        {
-            if (!vehicle.NotNullAndExists())
-                return null;
-
-            return new HoverVehicle(vehicle);
-        }
-
-        public static HoverVehicle HoverVehicle(this TimeMachine timeMachine)
-        {
-            if (!timeMachine.NotNullAndExists())
-                return null;
-
-            return new HoverVehicle(timeMachine.Vehicle);
-        }
-
         public static bool NotNullAndExists(this TimeMachine timeMachine)
         {
             return timeMachine != null && timeMachine.Vehicle.NotNullAndExists();
