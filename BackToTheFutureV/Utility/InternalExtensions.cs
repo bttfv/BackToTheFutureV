@@ -11,7 +11,7 @@ using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
-    internal class BTTFImportantDates
+    internal static class BTTFImportantDates
     {
         public static readonly List<DateTime> Dates = new List<DateTime>() { new DateTime(1985, 10, 26, 1, 21, 0), new DateTime(1885, 1, 1, 0, 0, 0), new DateTime(1955, 11, 5, 6, 15, 0), new DateTime(1985, 10, 26, 1, 24, 0), new DateTime(1985, 10, 26, 1, 24, 0), new DateTime(2015, 10, 21, 16, 29, 0), new DateTime(1955, 11, 12, 13, 40, 0), new DateTime(1985, 10, 26, 21, 0, 0), new DateTime(1955, 11, 12, 6, 0, 0), new DateTime(1885, 9, 2, 8, 0, 0), new DateTime(1985, 10, 27, 11, 0, 0) };
 
@@ -23,69 +23,30 @@ namespace BackToTheFutureV
 
     internal static class InternalExtensions
     {
-        public static bool IsHoverModeAllowed(this Vehicle vehicle)
+        public static HoverVehicle HoverVehicle(this Vehicle vehicle)
         {
             if (!vehicle.NotNullAndExists())
-                return false;
+                return null;
 
-            Decorator decorator = vehicle.Decorator();
-
-            if (!decorator.Exists(BTTFVDecors.AllowHoverMode))
-                vehicle.SetHoverModeAllowed(false);
-
-            return decorator.GetBool(BTTFVDecors.AllowHoverMode);
+            return new HoverVehicle(vehicle);
         }
 
-        public static void SetHoverModeAllowed(this Vehicle vehicle, bool toggle)
+        public static HoverVehicle HoverVehicle(this TimeMachine timeMachine)
         {
-            if (!vehicle.NotNullAndExists())
-                return;
+            if (!timeMachine.NotNullAndExists())
+                return null;
 
-            if (vehicle.Model == ModelHandler.DMC12 || vehicle.Model == ModelHandler.Deluxo)
-                toggle = true;
-
-            if (vehicle.IsBoat)
-                toggle = false;
-
-            Decorator decorator = vehicle.Decorator();
-
-            decorator.SetBool(BTTFVDecors.AllowHoverMode, toggle);
-
-            Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_ALLOWED, vehicle, toggle);
-
-            if (!toggle && VehicleControl.GetDeluxoTransformation(vehicle) > 0f)
-                VehicleControl.SetDeluxoTransformation(vehicle, 0f);
-        }
-
-        public static bool IsInHoverMode(this Vehicle vehicle)
-        {
-            if (!vehicle.NotNullAndExists() || vehicle.IsBoat)
-                return false;
-
-            return VehicleControl.GetDeluxoTransformation(vehicle) > 0f;
-        }
-
-        public static void SetHoverMode(this Vehicle vehicle, bool toggle)
-        {
-            if (!vehicle.NotNullAndExists() || !vehicle.IsHoverModeAllowed())
-                return;
-
-            VehicleControl.SetDeluxoTransformation(vehicle, toggle ? 1f : 0f);
-
-            if (toggle)
-            {
-                VehicleControl.SetDeluxoFlyMode(vehicle, 1f);
-                Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, vehicle, "DELUXO");
-            }
-            else
-            {
-                Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, vehicle, vehicle.Model.ToString());
-            }
+            return new HoverVehicle(timeMachine.Vehicle);
         }
 
         public static bool NotNullAndExists(this TimeMachine timeMachine)
         {
             return timeMachine != null && timeMachine.Vehicle.NotNullAndExists();
+        }
+
+        public static bool IsFunctioning(this HoverVehicle hoverVehicle)
+        {
+            return hoverVehicle != null && hoverVehicle.Vehicle.IsFunctioning();
         }
 
         public static bool IsFunctioning(this TimeMachine timeMachine)

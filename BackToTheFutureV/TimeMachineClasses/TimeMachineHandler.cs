@@ -13,7 +13,7 @@ using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
-    internal class TimeMachineHandler
+    internal static class TimeMachineHandler
     {
         public static TimeMachine ClosestTimeMachine { get; private set; }
         public static TimeMachine CurrentTimeMachine { get; private set; }

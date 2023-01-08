@@ -97,7 +97,7 @@ namespace BackToTheFutureV
 
         public void NewGUID()
         {
-            GUID = Guid.NewGuid();            
+            GUID = Guid.NewGuid();
         }
 
         public PropertiesHandler Clone()

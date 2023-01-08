@@ -23,6 +23,10 @@
             public const string CutsceneMode = "BTTFV_TimeTravelType";
             public const string TorqueMultiplier = "BTTFV_TorqueMultiplier";
             public const string AllowHoverMode = "BTTFV_AllowHoverMode";
+            public const string IsHoverBoosting = "BTTFV_IsHoverBoosting";
+            public const string IsVerticalBoosting = "BTTFV_IsVerticalBoosting";
+            public const string IsHoverLanding = "BTTFV_IsHoverLanding";
+            public const string IsWaitForLanding = "BTTFV_IsWaitForLanding";
         }
 
         internal enum WaybackStatus

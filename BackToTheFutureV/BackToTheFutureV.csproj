@@ -95,6 +95,7 @@
     <Compile Include="TimeMachineClasses\Story\StoryTimeMachineHandler.cs" />
     <Compile Include="Utility\GarageHandler.cs" />
     <Compile Include="Utility\HoverMode.cs" />
+    <Compile Include="Utility\HoverVehicle.cs" />
     <Compile Include="Utility\HUDProperties.cs" />
     <Compile Include="Utility\InternalEnums.cs" />
     <Compile Include="Utility\InternalInventory.cs" />

@@ -82,7 +82,7 @@ namespace BackToTheFutureV
 
                     if (FusionUtils.PlayerVehicle.Model != ModelHandler.DMC12)
                     {
-                        FusionUtils.PlayerVehicle.SetHoverModeAllowed(true);
+                        FusionUtils.PlayerVehicle.HoverVehicle().IsHoverModeAllowed = true;
                     }
 
                     Game.Player.Money -= 39995;
@@ -245,7 +245,7 @@ namespace BackToTheFutureV
             {
                 if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Mods.IsDMC12 && CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
                     hoverConvert.Enabled = false;
-                else if (FusionUtils.PlayerVehicle.IsHoverModeAllowed())
+                else if (FusionUtils.PlayerVehicle.HoverVehicle().IsHoverModeAllowed)
                     hoverConvert.Enabled = false;
             }
 

@@ -1,124 +1,131 @@
-using FusionLibrary;
+﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
 using GTA;
+using GTA.Math;
 using MinHook;
 using System;
 using System.Runtime.InteropServices;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
-
 namespace BackToTheFutureV
 {
-    [StructLayout(LayoutKind.Explicit)]
-    public struct Vec3V
+    internal class HoverMode : Script
     {
-        [FieldOffset(0)] public float X;
-        [FieldOffset(4)] public float Y;
-        [FieldOffset(8)] public float Z;
-        [FieldOffset(12)] public float W;
-
-        public Vec3V(float x, float y, float z)
+        [StructLayout(LayoutKind.Explicit)]
+        public struct Vec3V
         {
-            X = x;
-            Y = y;
-            Z = z;
+            [FieldOffset(0)] public float X;
+            [FieldOffset(4)] public float Y;
+            [FieldOffset(8)] public float Z;
+            [FieldOffset(12)] public float W;
 
-            W = x;
+            public Vec3V(float x, float y, float z)
+            {
+                X = x;
+                Y = y;
+                Z = z;
+
+                W = x;
+            }
         }
-    }
 
-    [StructLayout(LayoutKind.Explicit)]
-    public struct CSpecialFlightHandlingData
-    {
-        [FieldOffset(16)] public Vec3V vecAngularDamping;
-        [FieldOffset(32)] public Vec3V vecAngularDampingMin;
-        [FieldOffset(48)] public Vec3V vecLinearDamping;
-        [FieldOffset(64)] public Vec3V vecLinearDampingMin;
-        [FieldOffset(80)] public float fLiftCoefficient;
-        [FieldOffset(84)] public float fCriticalLiftAngle;
-        [FieldOffset(88)] public float fInitialLiftAngle;
-        [FieldOffset(92)] public float fMaxLiftAngle;
-        [FieldOffset(96)] public float fDragCoefficient;
-        [FieldOffset(100)] public float fBrakingDrag;
-        [FieldOffset(104)] public float fMaxLiftVelocity;
-        [FieldOffset(108)] public float fMinLiftVelocity;
-        [FieldOffset(112)] public float fRollTorqueScale;
-        [FieldOffset(116)] public float fMaxTorqueVelocity;
-        [FieldOffset(120)] public float fMinTorqueVelocity;
-        [FieldOffset(124)] public float fYawTorqueScale;
-        [FieldOffset(128)] public float fSelfLevelingPitchTorqueScale;
-        [FieldOffset(132)] public float fInitalOverheadAssist;
-        [FieldOffset(136)] public float fMaxPitchTorque;
-        [FieldOffset(140)] public float fMaxSteeringRollTorque;
-        [FieldOffset(144)] public float fPitchTorqueScale;
-        [FieldOffset(148)] public float fSteeringTorqueScale;
-        [FieldOffset(152)] public float fMaxThrust;
-        [FieldOffset(156)] public float fTransitionDuration;
-        [FieldOffset(160)] public float fHoverVelocityScale;
-        [FieldOffset(164)] public float fStabilityAssist;
-        [FieldOffset(168)] public float fMinSpeedForThrustFalloff;
-        [FieldOffset(172)] public float fBrakingThrustScale;
-        [FieldOffset(176)] public int mode;
-        [FieldOffset(180)] public long strFlags1;
-        [FieldOffset(188)] public long strFlags2;
-    }
+        [StructLayout(LayoutKind.Explicit)]
+        public struct CSpecialFlightHandlingData
+        {
+            [FieldOffset(16)] public Vec3V vecAngularDamping;
+            [FieldOffset(32)] public Vec3V vecAngularDampingMin;
+            [FieldOffset(48)] public Vec3V vecLinearDamping;
+            [FieldOffset(64)] public Vec3V vecLinearDampingMin;
+            [FieldOffset(80)] public float fLiftCoefficient;
+            [FieldOffset(84)] public float fCriticalLiftAngle;
+            [FieldOffset(88)] public float fInitialLiftAngle;
+            [FieldOffset(92)] public float fMaxLiftAngle;
+            [FieldOffset(96)] public float fDragCoefficient;
+            [FieldOffset(100)] public float fBrakingDrag;
+            [FieldOffset(104)] public float fMaxLiftVelocity;
+            [FieldOffset(108)] public float fMinLiftVelocity;
+            [FieldOffset(112)] public float fRollTorqueScale;
+            [FieldOffset(116)] public float fMaxTorqueVelocity;
+            [FieldOffset(120)] public float fMinTorqueVelocity;
+            [FieldOffset(124)] public float fYawTorqueScale;
+            [FieldOffset(128)] public float fSelfLevelingPitchTorqueScale;
+            [FieldOffset(132)] public float fInitalOverheadAssist;
+            [FieldOffset(136)] public float fMaxPitchTorque;
+            [FieldOffset(140)] public float fMaxSteeringRollTorque;
+            [FieldOffset(144)] public float fPitchTorqueScale;
+            [FieldOffset(148)] public float fSteeringTorqueScale;
+            [FieldOffset(152)] public float fMaxThrust;
+            [FieldOffset(156)] public float fTransitionDuration;
+            [FieldOffset(160)] public float fHoverVelocityScale;
+            [FieldOffset(164)] public float fStabilityAssist;
+            [FieldOffset(168)] public float fMinSpeedForThrustFalloff;
+            [FieldOffset(172)] public float fBrakingThrustScale;
+            [FieldOffset(176)] public int mode;
+            [FieldOffset(180)] public long strFlags1;
+            [FieldOffset(188)] public long strFlags2;
+        }
 
-    public class HoverMode : Script
-    {
         private readonly HookEngine _hook = new HookEngine();
         private CSpecialFlightHandlingData _customFlightData = new CSpecialFlightHandlingData();
         private GCHandle _customFlightData_Handle;
         private IntPtr pSubHandling;
         private bool _firstTick = true;
         private NativeInput _flyModeInput;
-        private int _nextModeChangeAllowed;
+        private static int _nextModeChangeAllowed;
 
-        [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        IntPtr IntPtrCHandling_GetSubHandlingByType_Internal(IntPtr inst, int type)
+        {
+            IntPtr result = CHandling_GetSubHandlingByType_Original(inst, type);
+            if (result == IntPtr.Zero)
+            {
+                // No default subhandling. Return custom one.
+                if (type == 10) // rage::par::SUB_HANDLING_SPECIAL_FLIGHT
+                    return _customFlightData_Handle.AddrOfPinnedObject();
+            }
+            return result;
+        }
+
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         delegate IntPtr CHandling_GetSubHandlingByType_Delegate(IntPtr inst, int type);
         CHandling_GetSubHandlingByType_Delegate CHandling_GetSubHandlingByType_Original;
         unsafe IntPtr CHandling_GetSubHandlingByType_Detour(IntPtr inst, int type)
         {
-            if (type == 10) // rage::par::SUB_HANDLING_SPECIAL_FLIGHT
-            {
-                return pSubHandling;
-            }
-
-            return CHandling_GetSubHandlingByType_Original(inst, type);
+            // Use another method because otherwise .NET corrupts the stack
+            return IntPtrCHandling_GetSubHandlingByType_Internal(inst, type);
         }
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         unsafe delegate void DeluxoSubHandling_UpdateAnimationBones1_Delegate(long pVehicle, uint a2, float a3, float* a4, float* a5, float a6);
-        unsafe void DeluxoSubHandling_UpdateAnimationBones1_Detour(long pVehicle, uint a2, float a3, float* a4, float* a5, float a6)
+        static unsafe void DeluxoSubHandling_UpdateAnimationBones1_Detour(long pVehicle, uint a2, float a3, float* a4, float* a5, float a6)
         {
-
+            // Void
         }
 
         public HoverMode()
         {
-            Tick += HoverMode_Tick;
             Aborted += HoverMode_Aborted;
-            //KeyDown += HoverMode_KeyDown;
+            Tick += HoverMode_Tick;
+            KeyDown += HoverMode_KeyDown;
         }
 
         private void HoverMode_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == System.Windows.Forms.Keys.Q && FusionUtils.PlayerVehicle.NotNullAndExists())
             {
-                FusionUtils.PlayerVehicle.SetHoverModeAllowed(!FusionUtils.PlayerVehicle.IsHoverModeAllowed());
+
             }
 
             if (e.KeyCode == System.Windows.Forms.Keys.L)
             {
-                foreach (Vehicle vehicle in World.GetAllVehicles())
-                {
-                    if (vehicle.IsBoat)
-                        continue;
 
-                    vehicle.SetHoverModeAllowed(true);
-                    vehicle.SetHoverMode(true);
-                }
             }
+        }
+
+        private void HoverMode_Aborted(object sender, EventArgs e)
+        {
+            _hook.DisableHooks();
+            _customFlightData_Handle.Free();
         }
 
         private void CreateSubHandling()
@@ -166,18 +173,22 @@ namespace BackToTheFutureV
             {
                 foreach (Vehicle vehicle in World.GetAllVehicles())
                 {
-                    if (!vehicle.NotNullAndExists())
+                    if (!vehicle.IsFunctioning())
                         continue;
 
-                    if (!vehicle.Decorator().Exists(BTTFVDecors.AllowHoverMode))
-                        vehicle.SetHoverModeAllowed(false);
+                    HoverVehicle.GetFromVehicle(vehicle)?.Tick();
                 }
+
+                HoverVehicle.Clean();
             }
 
             if (Game.IsLoading || !_firstTick)
                 return;
 
             Decorator.Register(BTTFVDecors.AllowHoverMode, DecorType.Bool);
+            Decorator.Register(BTTFVDecors.IsHoverBoosting, DecorType.Bool);
+            Decorator.Register(BTTFVDecors.IsHoverLanding, DecorType.Bool);
+            Decorator.Register(BTTFVDecors.IsVerticalBoosting, DecorType.Bool);
             Decorator.Lock();
 
             CreateSubHandling();
@@ -203,38 +214,29 @@ namespace BackToTheFutureV
             }
 
             _hook.EnableHooks();
-            _firstTick = false;
-
+            
             _flyModeInput = new NativeInput(ModControls.Hover);
             _flyModeInput.OnControlLongPressed += OnFlyModeControlJustLongPressed;
             _flyModeInput.OnControlPressed += OnFlyModeControlJustPressed;
-        }
 
-        private void HoverMode_Aborted(object sender, EventArgs e)
-        {
-            _hook.DisableHooks();
-            _customFlightData_Handle.Free();
+            _firstTick = false;
         }
 
         private void OnFlyModeControlJustLongPressed()
         {
-            if (ModControls.LongPressForHover)
-                SwitchHover(FusionUtils.PlayerVehicle);
+            if (!ModControls.LongPressForHover || _nextModeChangeAllowed > Game.GameTime)
+                return;
+
+            HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle)?.SwitchMode();
+            _nextModeChangeAllowed = Game.GameTime + 2000;
         }
 
         private void OnFlyModeControlJustPressed()
         {
-            if (!ModControls.LongPressForHover)
-                SwitchHover(FusionUtils.PlayerVehicle);
-        }
-
-        private void SwitchHover(Vehicle vehicle)
-        {
-            if (_nextModeChangeAllowed > Game.GameTime || !vehicle.NotNullAndExists() || !vehicle.IsHoverModeAllowed() || vehicle.Model == ModelHandler.DMC12)
+            if (ModControls.LongPressForHover || _nextModeChangeAllowed > Game.GameTime)
                 return;
 
-            vehicle.SetHoverMode(!vehicle.IsInHoverMode());
-
+            HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle)?.SwitchMode();
             _nextModeChangeAllowed = Game.GameTime + 2000;
         }
     }
