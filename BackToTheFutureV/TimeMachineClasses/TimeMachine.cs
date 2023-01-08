@@ -95,7 +95,7 @@ namespace BackToTheFutureV
 
             if (Mods.IsDMC12)
             {
-                registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
+                //registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
                 registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
                 registeredHandlers.Add("FuelHandler", new FuelHandler(this));
                 registeredHandlers.Add("SIDHandler", new SIDHandler(this));

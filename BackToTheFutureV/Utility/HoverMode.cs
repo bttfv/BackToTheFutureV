@@ -8,8 +8,10 @@ using System;
 using System.Runtime.InteropServices;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
+using EasyHook;
+
 namespace BackToTheFutureV
-{
+{    
     internal class HoverMode : Script
     {
         [StructLayout(LayoutKind.Explicit)]
@@ -74,6 +76,9 @@ namespace BackToTheFutureV
         private NativeInput _flyModeInput;
         private static int _nextModeChangeAllowed;
 
+        private LocalHook hook1;
+        private LocalHook hook2;
+
         IntPtr IntPtrCHandling_GetSubHandlingByType_Internal(IntPtr inst, int type)
         {
             IntPtr result = CHandling_GetSubHandlingByType_Original(inst, type);
@@ -81,7 +86,7 @@ namespace BackToTheFutureV
             {
                 // No default subhandling. Return custom one.
                 if (type == 10) // rage::par::SUB_HANDLING_SPECIAL_FLIGHT
-                    return _customFlightData_Handle.AddrOfPinnedObject();
+                    return pSubHandling;
             }
             return result;
         }
@@ -97,7 +102,7 @@ namespace BackToTheFutureV
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         unsafe delegate void DeluxoSubHandling_UpdateAnimationBones1_Delegate(long pVehicle, uint a2, float a3, float* a4, float* a5, float a6);
-        static unsafe void DeluxoSubHandling_UpdateAnimationBones1_Detour(long pVehicle, uint a2, float a3, float* a4, float* a5, float a6)
+        unsafe void DeluxoSubHandling_UpdateAnimationBones1_Detour(long pVehicle, uint a2, float a3, float* a4, float* a5, float a6)
         {
             // Void
         }
@@ -113,7 +118,9 @@ namespace BackToTheFutureV
         {
             if (e.KeyCode == System.Windows.Forms.Keys.Q && FusionUtils.PlayerVehicle.NotNullAndExists())
             {
+                HoverVehicle hoverVehicle = HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle);
 
+                hoverVehicle.IsHoverModeAllowed = !hoverVehicle.IsHoverModeAllowed;
             }
 
             if (e.KeyCode == System.Windows.Forms.Keys.L)
@@ -124,7 +131,7 @@ namespace BackToTheFutureV
 
         private void HoverMode_Aborted(object sender, EventArgs e)
         {
-            _hook.DisableHooks();
+            //_hook.DisableHooks();
             _customFlightData_Handle.Free();
         }
 
@@ -189,6 +196,7 @@ namespace BackToTheFutureV
             Decorator.Register(BTTFVDecors.IsHoverBoosting, DecorType.Bool);
             Decorator.Register(BTTFVDecors.IsHoverLanding, DecorType.Bool);
             Decorator.Register(BTTFVDecors.IsVerticalBoosting, DecorType.Bool);
+            Decorator.Register(BTTFVDecors.IsWaitForLanding, DecorType.Bool);
             Decorator.Lock();
 
             CreateSubHandling();
@@ -196,30 +204,35 @@ namespace BackToTheFutureV
             _customFlightData_Handle = GCHandle.Alloc(_customFlightData, GCHandleType.Pinned);
             pSubHandling = _customFlightData_Handle.AddrOfPinnedObject();
 
-            unsafe
-            {
-                // DeluxoSubHandling::UpdateBoneAnimations1
-                IntPtr addr = Game.FindPattern("E8 ? ? ? ? EB 30 49 63 0F");
-                addr += 1;
-                addr = addr + 4 + *(int*)addr;
+            // DeluxoSubHandling::UpdateBoneAnimations1
+            IntPtr addr = GetAddr(Game.FindPattern("E8 ? ? ? ? EB 30 49 63 0F"));
 
-                _hook.CreateHook(addr, new DeluxoSubHandling_UpdateAnimationBones1_Delegate(DeluxoSubHandling_UpdateAnimationBones1_Detour));
+            unsafe { _hook.CreateHook(addr, new DeluxoSubHandling_UpdateAnimationBones1_Delegate(DeluxoSubHandling_UpdateAnimationBones1_Detour)); }
 
-                // CHandling::GetSubHandlingByType
-                addr = Game.FindPattern("E8 ?? ?? ?? ?? 66 3B 70 48");
-                addr += 1;
-                addr = addr + 4 + *(int*)addr;
+            //unsafe { hook1 = LocalHook.Create(addr, new DeluxoSubHandling_UpdateAnimationBones1_Delegate(DeluxoSubHandling_UpdateAnimationBones1_Detour), this); }            
+            //hook1.ThreadACL.SetInclusiveACL(new int[] { 0 });
 
-                CHandling_GetSubHandlingByType_Original = _hook.CreateHook(addr, new CHandling_GetSubHandlingByType_Delegate(CHandling_GetSubHandlingByType_Detour));
-            }
+            // CHandling::GetSubHandlingByType
+            addr = GetAddr(Game.FindPattern("E8 ?? ?? ?? ?? 66 3B 70 48"));
+
+            CHandling_GetSubHandlingByType_Original = _hook.CreateHook(addr, new CHandling_GetSubHandlingByType_Delegate(CHandling_GetSubHandlingByType_Detour));
+
+            //hook2 = LocalHook.Create(addr, new CHandling_GetSubHandlingByType_Delegate(CHandling_GetSubHandlingByType_Detour), this);
+            //hook2.ThreadACL.SetInclusiveACL(new int[] { 0 });
 
             _hook.EnableHooks();
-            
+
             _flyModeInput = new NativeInput(ModControls.Hover);
             _flyModeInput.OnControlLongPressed += OnFlyModeControlJustLongPressed;
             _flyModeInput.OnControlPressed += OnFlyModeControlJustPressed;
 
             _firstTick = false;
+        }
+
+        private unsafe IntPtr GetAddr(IntPtr addr)
+        {
+            addr += 1;
+            return addr + 4 + *(int*)addr;
         }
 
         private void OnFlyModeControlJustLongPressed()

@@ -197,6 +197,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EasyHook">
+      <Version>2.7.7097</Version>
+    </PackageReference>
     <PackageReference Include="FusionLibrary.SHVDN3">
       <Version>1.6.3</Version>
     </PackageReference>

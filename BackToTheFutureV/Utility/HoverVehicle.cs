@@ -57,6 +57,7 @@ namespace BackToTheFutureV
         public Vehicle Vehicle { get; }
         private Decorator decorator { get; }
         private ParticlePlayerHandler HoverLandingSmoke;
+        private int _nextForce;
 
         public bool IsHoverModeAllowed
         {
@@ -150,13 +151,56 @@ namespace BackToTheFutureV
             if (!IsInHoverMode)
                 return;
 
-            VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
+            if (Vehicle.GetMPHSpeed() >= 3f)
+                VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
+
+            if (ModSettings.TurbulenceEvent)
+            {
+                if (Game.GameTime > _nextForce)
+                {
+                    float _force = 0;
+
+                    switch (World.Weather)
+                    {
+                        case Weather.Clearing:
+                            _force = 0.1f;
+                            break;
+                        case Weather.Raining:
+                            _force = 0.2f;
+                            break;
+                        case Weather.ThunderStorm:
+                        case Weather.Blizzard:
+                            _force = 1;
+                            break;
+                    }
+
+                    _force *= Vehicle.HeightAboveGround / 20f;
+
+                    if (_force > 1)
+                        _force = 1;
+
+                    Vehicle.ApplyForce(Vector3.RandomXYZ() * _force, Vector3.RandomXYZ() * _force);
+
+                    _nextForce = Game.GameTime + 100;
+                }
+            }
 
             if (IsHoverLanding)
             {
                 if (Vehicle.HeightAboveGround < 2 && !IsWaitForLanding)
                 {
-                    StartLandingSmoke();
+                    if (HoverLandingSmoke == null)
+                    {
+                        HoverLandingSmoke = new ParticlePlayerHandler();
+
+                        foreach (CVehicleWheel wheel in new CVehicleWheels(Vehicle))
+                        {
+                            HoverLandingSmoke.Add("cut_trevor1", "cs_meth_pipe_smoke", ParticleType.NonLooped, Vehicle, wheel.Position, new Vector3(-90, 0, 0), 5f);
+                        }
+                    }
+
+                    HoverLandingSmoke.Play();
+
                     IsWaitForLanding = true;
                 }
 
@@ -175,9 +219,7 @@ namespace BackToTheFutureV
 
             if (Vehicle != FusionUtils.PlayerVehicle)
                 return;
-
-            GTA.UI.Screen.ShowSubtitle(IsInHoverMode.ToString());
-
+            
             Vector3 _forceToBeApplied = Vector3.Zero;
 
             // If the Handbrake control is pressed
@@ -327,21 +369,6 @@ namespace BackToTheFutureV
         public void SwitchMode()
         {            
             SetMode(!IsInHoverMode);
-        }
-
-        public void StartLandingSmoke()
-        {            
-            if (HoverLandingSmoke == null)
-            {
-                HoverLandingSmoke = new ParticlePlayerHandler();
-
-                foreach (CVehicleWheel wheel in new CVehicleWheels(Vehicle))
-                {
-                    HoverLandingSmoke.Add("cut_trevor1", "cs_meth_pipe_smoke", ParticleType.NonLooped, Vehicle, wheel.Position, new Vector3(-90, 0, 0), 7f);
-                }
-            }
-
-            HoverLandingSmoke.Play();
         }
 
         public static implicit operator Vehicle(HoverVehicle hoverVehicle)
