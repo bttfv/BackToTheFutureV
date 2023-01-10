@@ -22,13 +22,13 @@ namespace BackToTheFutureV
             //KeyDown += TimeParadox_KeyDown;
         }
 
-        //private void TimeParadox_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
-        //{
-        //    if (e.KeyCode != System.Windows.Forms.Keys.E)
-        //        return;
+        /*private void TimeParadox_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyCode != System.Windows.Forms.Keys.E)
+                return;
 
-        //    StartParadox();
-        //}
+            StartParadox();
+        }*/
 
         public void TimeParadox_Tick(object sender, EventArgs e)
         {
@@ -49,7 +49,7 @@ namespace BackToTheFutureV
 
             foreach (WaybackMachine waybackMachine in WaybackSystem.CurrentReplaying)
             {
-                if (waybackMachine.Ped == null || waybackMachine.Ped.Model != StartRecord.Ped.Replica.Model || waybackMachine.Ped.IsAlive)
+                if ((waybackMachine.Ped == null || waybackMachine.Ped.Model != StartRecord.Ped.Replica.Model || waybackMachine.Ped.IsAlive) && !(waybackMachine.Ped.LastVehicle.NotNullAndExists() && waybackMachine.Ped.LastVehicle.IsConsideredDestroyed))
                     continue;
 
                 StartParadox();
@@ -59,6 +59,12 @@ namespace BackToTheFutureV
         private void StartParadox()
         {
             ParadoxInProgress = true;
+            Game.Player.CanControlCharacter = false;
+
+            if (FusionUtils.PlayerVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
+            {
+                RemoteTimeMachineHandler.StopRemoteControl();
+            }
 
             if (LastRecord.Ped.Replica.Model != FusionUtils.PlayerPed.Model)
             {
@@ -81,8 +87,15 @@ namespace BackToTheFutureV
         {
             PlayerSwitch.OnSwitchingComplete -= KillPlayer;
 
-            if (FusionUtils.PlayerPed.IsInVehicle())
+            if (FusionUtils.PlayerPed.IsInVehicle() && !(FusionUtils.PlayerVehicle.IsInAir || FusionUtils.PlayerVehicle.IsInWater))
             {
+                if (FusionUtils.PlayerVehicle.Speed > 5)
+                {
+                    Function.Call(Hash.TASK_VEHICLE_TEMP_ACTION, FusionUtils.PlayerPed, FusionUtils.PlayerVehicle, FusionEnums.DriveAction.BrakeStrong, 5000);
+                    while (FusionUtils.PlayerVehicle.Speed > 5)
+                        Yield();
+                }
+
                 FusionUtils.PlayerPed.Task.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
 
                 while (FusionUtils.PlayerPed.IsInVehicle())
@@ -140,6 +153,8 @@ namespace BackToTheFutureV
             PlayerSwitch.Switch(newPed, true, true);
 
             oldPed.Delete();
+
+            Game.Player.CanControlCharacter = true;
 
             ParadoxInProgress = false;
         }

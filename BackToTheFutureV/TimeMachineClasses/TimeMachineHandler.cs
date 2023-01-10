@@ -307,6 +307,14 @@ namespace BackToTheFutureV
                 }
 
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);
+
+                if (ModSettings.WaybackSystem && spawnFlags.HasFlag(SpawnFlags.ForceReentry | SpawnFlags.New))
+                {
+                    TimeMachineClone _new = timeMachine.Clone();
+                    _new.Properties.IsWayback = true;
+                    RemoteTimeMachineHandler.AddRemote(_new);
+                }
+
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }
 

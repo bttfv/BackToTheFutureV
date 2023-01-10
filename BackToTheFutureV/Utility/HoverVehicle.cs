@@ -19,7 +19,7 @@ namespace BackToTheFutureV
     internal class HoverVehicle
     {
         private static List<HoverVehicle> GlobalHoverVehicles { get; } = new List<HoverVehicle>();
-        private static List<HoverVehicle> _hoverVehiclesToRemove { get; } = new List<HoverVehicle>();
+        private static List<HoverVehicle> HoverVehiclesToRemove { get; } = new List<HoverVehicle>();
 
         public static HoverVehicle GetFromVehicle(Vehicle vehicle)
         {
@@ -39,13 +39,13 @@ namespace BackToTheFutureV
             GlobalHoverVehicles.ForEach(x =>
             {
                 if (!x.Vehicle.IsFunctioning())
-                    _hoverVehiclesToRemove.Add(x);
+                    HoverVehiclesToRemove.Add(x);
             });
 
-            if (_hoverVehiclesToRemove.Count > 0)
+            if (HoverVehiclesToRemove.Count > 0)
             {
-                _hoverVehiclesToRemove.ForEach(x => GlobalHoverVehicles.Remove(x));
-                _hoverVehiclesToRemove.Clear();
+                HoverVehiclesToRemove.ForEach(x => GlobalHoverVehicles.Remove(x));
+                HoverVehiclesToRemove.Clear();
             }
         }
 
