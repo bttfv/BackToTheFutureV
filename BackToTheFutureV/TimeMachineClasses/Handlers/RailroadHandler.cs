@@ -201,7 +201,7 @@ namespace BackToTheFutureV
 
                 if (FusionUtils.PlayerVehicle == Vehicle)
                 {
-                    Function.Call(Hash.DISABLE_CONTROL_ACTION, 27, 59, true);
+                    Game.DisableControlThisFrame(GTA.Control.VehicleMoveLeftRight);
                 }
 
                 if (_isReentryOn && customTrain.AttachedToTarget && customTrain.SpeedMPH == 0)

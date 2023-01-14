@@ -30,7 +30,6 @@ namespace BackToTheFutureV
 
                 Properties.TimeTravelPhase = TimeTravelPhase.OpeningWormhole;
 
-                //Function.Call(Hash.SPECIAL_ABILITY_LOCK, CommonSettings.PlayerPed.Model);
                 Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
                 Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
 

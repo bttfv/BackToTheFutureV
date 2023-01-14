@@ -101,7 +101,7 @@ namespace BackToTheFutureV
                         }
                         else
                         {
-                            if (!Properties.CutsceneMode || FusionUtils.IsCameraInFirstPerson())
+                            if ((!Properties.CutsceneMode && !Properties.HasBeenStruckByLightning) || FusionUtils.IsCameraInFirstPerson())
                             {
                                 Properties.TimeTravelType = TimeTravelType.Instant;
                             }
