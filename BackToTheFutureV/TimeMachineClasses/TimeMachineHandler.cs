@@ -165,7 +165,7 @@ namespace BackToTheFutureV
 
         public static TimeMachine Create(Vehicle vehicle, SpawnFlags spawnFlags = SpawnFlags.Default, WormholeType wormholeType = WormholeType.BTTF1)
         {
-            return Create(spawnFlags, wormholeType, default, default, default, default, vehicle);
+            return Create(spawnFlags, wormholeType, default, default, default, vehicle);
         }
 
         public static TimeMachine Create(TimeMachineClone timeMachineClone, SpawnFlags spawnFlags = SpawnFlags.Default)
@@ -173,12 +173,7 @@ namespace BackToTheFutureV
             return Create(spawnFlags, WormholeType.BTTF1, default, default, timeMachineClone);
         }
 
-        public static TimeMachine Create(string presetName, SpawnFlags spawnFlags = SpawnFlags.Default)
-        {
-            return Create(spawnFlags, WormholeType.BTTF1, default, default, default, presetName);
-        }
-
-        public static TimeMachine Create(SpawnFlags spawnFlags = SpawnFlags.Default, WormholeType wormholeType = WormholeType.BTTF1, Vector3 position = default, float heading = default, TimeMachineClone timeMachineClone = default, string presetName = default, Vehicle vehicle = default)
+        public static TimeMachine Create(SpawnFlags spawnFlags = SpawnFlags.Default, WormholeType wormholeType = WormholeType.BTTF1, Vector3 position = default, float heading = default, TimeMachineClone timeMachineClone = default, Vehicle vehicle = default)
         {
             TimeMachine timeMachine = null;
 
@@ -211,7 +206,7 @@ namespace BackToTheFutureV
                 spawnPos = ped.Position;
             }
 
-            if (spawnFlags.HasFlag(SpawnFlags.NoPosition) && presetName == default)
+            if (spawnFlags.HasFlag(SpawnFlags.NoPosition))
             {
                 spawnPos = position;
             }
@@ -224,11 +219,6 @@ namespace BackToTheFutureV
             {
                 spawnPos = ped.GetOffsetPosition(new Vector3(0, 25, 0));
                 heading = ped.Heading + 180;
-            }
-
-            if (presetName != default)
-            {
-                timeMachineClone = TimeMachineClone.Load(presetName);
             }
 
             if (spawnFlags.HasFlag(SpawnFlags.CheckExists) && timeMachineClone != default)
