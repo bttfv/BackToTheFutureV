@@ -194,8 +194,8 @@
 	BTTFV_Menu_Override_Subtitle = Override Menu
 	BTTFV_Menu_Override_Title = Override Menu
 	BTTFV_Menu_Photo_Description = Opens the Photo Menu.
-	BTTFV_Menu_Photo_Item_Coils_Description = Enables glowing coils on Time Machine.
-	BTTFV_Menu_Photo_Item_Coils_Title = Glowing Coils
+	BTTFV_Menu_Photo_Item_Coils_Description = Enables flux band glow on Time Machine.
+	BTTFV_Menu_Photo_Item_Coils_Title = Flux Bands
 	BTTFV_Menu_Photo_Item_Engine_Description = Makes the engine stall.
 	BTTFV_Menu_Photo_Item_Engine_Title = Engine Stall
 	BTTFV_Menu_Photo_Item_FluxCapacitor_Description = Enables flux capacitor on Time Machine.
