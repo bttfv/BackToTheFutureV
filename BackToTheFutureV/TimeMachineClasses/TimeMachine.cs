@@ -95,7 +95,7 @@ namespace BackToTheFutureV
             registeredHandlers.Add("ReentryHandler", new ReentryHandler(this));
             registeredHandlers.Add("SparksHandler", new SparksHandler(this));
 
-            registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));            
+            registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));
 
             if (Mods.IsDMC12)
             {
@@ -254,6 +254,10 @@ namespace BackToTheFutureV
             {
                 Properties.HasScaleformPriority = Constants.HasScaleformPriority;
                 Events.OnScaleformPriority?.Invoke();
+                if (Mods.SuspensionsType != SuspensionsType.Stock)
+                {
+                    Vehicle.Velocity += Vector3.UnitY * 0.3f;
+                }
             }
 
             if (!Vehicle.IsVisible)

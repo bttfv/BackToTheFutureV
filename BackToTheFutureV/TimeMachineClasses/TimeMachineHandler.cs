@@ -303,6 +303,7 @@ namespace BackToTheFutureV
 
                 if (timeMachine.Mods.WormholeType == WormholeType.BTTF3 && spawnFlags.HasFlag(SpawnFlags.ForceReentry | SpawnFlags.New))
                 {
+                    timeMachine.Properties.AreHoodboxCircuitsReady = true;
                     timeMachine.Properties.PreviousTime = new DateTime(1955, 11, 16, 10, 20, 0);
                 }
 
