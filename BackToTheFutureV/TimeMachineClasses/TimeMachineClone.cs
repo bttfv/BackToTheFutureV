@@ -3,9 +3,6 @@ using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA.Math;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
@@ -38,7 +35,6 @@ namespace BackToTheFutureV
         public void ApplyTo(TimeMachine timeMachine, SpawnFlags spawnFlags)
         {
             Vehicle.ApplyTo(timeMachine.Vehicle, spawnFlags);
-            //Mods.ApplyTo(timeMachine);
 
             if (!spawnFlags.HasFlag(SpawnFlags.NoProperties))
             {

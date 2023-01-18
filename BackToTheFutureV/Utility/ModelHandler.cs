@@ -83,9 +83,6 @@ namespace BackToTheFutureV
         public static List<CustomModel> CoilSeparated = new List<CustomModel>();
         public static CustomModel RedWheelProp = new CustomModel("bttf3_redwheel_prop");
         public static CustomModel RRWheelProp = new CustomModel("wheel_rr_prop");
-        public static CustomModel GreenPrestoLogProp = new CustomModel("presto_log1");
-        public static CustomModel YellowPrestoLogProp = new CustomModel("presto_log3");
-        public static CustomModel RedPrestoLogProp = new CustomModel("presto_log2");
         public static CustomModel SparkRedModel = new CustomModel("bttf_spark_red");
         public static CustomModel SparkRedNightModel = new CustomModel("bttf_spark_red_night");
         public static CustomModel WormholeRed = new CustomModel("bttf_wormhole_red");
@@ -93,7 +90,7 @@ namespace BackToTheFutureV
         public static CustomModel HoodboxLights = new CustomModel("bttf3_hoodbox_light");
         public static CustomModel HoodboxLightsNight = new CustomModel("bttf3_hoodbox_light_night");
 
-        public static CustomModel DMCDebugModel = new CustomModel("dmc_debug");
+        //public static CustomModel DMCDebugModel = new CustomModel("dmc_debug");
         public static CustomModel FreightModel = new CustomModel("freight");
         public static CustomModel FreightCarModel = new CustomModel("freightcar");
         public static CustomModel TankerCarModel = new CustomModel("tankercar");

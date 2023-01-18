@@ -127,6 +127,22 @@ namespace BackToTheFutureV
 
                 DecoratorsHandler.Register();
                 WeatherHandler.Register();
+
+                TrafficHandler.ModelSwaps.Add(new ModelSwap
+                {
+                    Enabled = true,
+                    Model = ModelHandler.DMC12,
+                    VehicleType = VehicleType.Automobile,
+                    VehicleClass = VehicleClass.Sports,
+                    DateBased = true,
+                    StartProductionDate = new DateTime(1981, 1, 21, 0, 0, 0),
+                    EndProductionDate = new DateTime(1982, 12, 24, 23, 59, 59),
+                    MaxInWorld = 25,
+                    MaxSpawned = 3,
+                    WaitBetweenSpawns = 10000
+                });
+
+                FirstTick = false;
             }
 
             CustomTrainHandler.Tick();
@@ -144,25 +160,6 @@ namespace BackToTheFutureV
             WeatherHandler.Tick();
 
             WaybackSystem.Tick();
-
-            if (FirstTick)
-            {
-                TrafficHandler.ModelSwaps.Add(new ModelSwap
-                {
-                    Enabled = true,
-                    Model = ModelHandler.DMC12,
-                    VehicleType = VehicleType.Automobile,
-                    VehicleClass = VehicleClass.Sports,
-                    DateBased = true,
-                    StartProductionDate = new DateTime(1981, 1, 21, 0, 0, 0),
-                    EndProductionDate = new DateTime(1982, 12, 24, 23, 59, 59),
-                    MaxInWorld = 25,
-                    MaxSpawned = 3,
-                    WaitBetweenSpawns = 10000
-                });
-
-                FirstTick = false;
-            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
 using GTA;
+using GTA.Math;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
@@ -58,7 +59,6 @@ namespace BackToTheFutureV
                     Reactor = ReactorType.MrFusion;
                     Exhaust = ExhaustType.BTTF;
                     Plate = PlateType.BTTF2;
-
                     Hoodbox = ModState.On;
                     Wheel = WheelType.Red;
                     SuspensionsType = SuspensionsType.LiftFront;
@@ -88,8 +88,9 @@ namespace BackToTheFutureV
                 Wheel = wheelType;
             }
 
-            if (Wheel == WheelType.RailroadInvisible && Vehicle.IsVisible && !TimeMachine.Props.RRWheels.IsSpawned)
+            if (Wheel == WheelType.RailroadInvisible && Vehicle.IsVisible && TimeMachine.Props != null && !TimeMachine.Props.RRWheels.IsSpawned)
             {
+                TimeMachine.Mods.Wheels.Burst = true;
                 TimeMachine.Props?.RRWheels?.SpawnProp();
             }
 
@@ -195,11 +196,13 @@ namespace BackToTheFutureV
             if (suspensionsType != SuspensionsType)
             {
                 SuspensionsType = suspensionsType;
+                Vehicle.Velocity += Vector3.UnitY * 0.3f;
             }
 
             if (Wheel == WheelType.Red && VehicleControl.GetWheelSize(Vehicle) != 1.1f)
             {
                 VehicleControl.SetWheelSize(Vehicle, 1.1f);
+                Vehicle.Velocity += Vector3.UnitY * 0.3f;
             }
 
             switch (SuspensionsType)
@@ -281,12 +284,6 @@ namespace BackToTheFutureV
 
                 if (value == WheelType.RailroadInvisible)
                 {
-                    if (Vehicle.IsVisible)
-                    {
-                        TimeMachine.Props?.RRWheels?.SpawnProp();
-                        Wheels.Burst = true;
-                    }
-
                     if (!IsDMC12)
                     {
                         return;
