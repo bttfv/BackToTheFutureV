@@ -21,7 +21,7 @@ namespace BackToTheFutureV
 
         public static CustomTrain CreateInvisibleTrain(Vehicle vehicle, bool direction)
         {
-            trainHandlers.Add(new CustomTrain(vehicle.GetOffsetPosition(new Vector3(0, -10, 0)), direction, 27, 1));
+            trainHandlers.Add(new CustomTrain(vehicle.GetOffsetPosition(new Vector3(0, -10, 0)), direction, 26, 1));
 
             trainHandlers.Last().SetCollision(false);
 

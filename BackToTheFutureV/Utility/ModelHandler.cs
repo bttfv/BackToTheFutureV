@@ -90,7 +90,7 @@ namespace BackToTheFutureV
         public static CustomModel HoodboxLights = new CustomModel("bttf3_hoodbox_light");
         public static CustomModel HoodboxLightsNight = new CustomModel("bttf3_hoodbox_light_night");
 
-        //public static CustomModel DMCDebugModel = new CustomModel("dmc_debug");
+        public static CustomModel DMCDebugModel = new CustomModel("dmc_debug");
         public static CustomModel FreightModel = new CustomModel("freight");
         public static CustomModel FreightCarModel = new CustomModel("freightcar");
         public static CustomModel TankerCarModel = new CustomModel("tankercar");
