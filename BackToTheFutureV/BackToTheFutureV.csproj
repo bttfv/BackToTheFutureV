@@ -197,9 +197,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EasyHook">
-      <Version>2.7.7097</Version>
-    </PackageReference>
     <PackageReference Include="FusionLibrary.SHVDN3">
       <Version>1.6.3</Version>
     </PackageReference>
@@ -208,9 +205,6 @@
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
       <Version>2.2.2</Version>
-    </PackageReference>
-    <PackageReference Include="MinHook.NET">
-      <Version>1.1.1</Version>
     </PackageReference>
     <PackageReference Include="ScriptHookVDotNet3">
       <Version>3.6.0</Version>

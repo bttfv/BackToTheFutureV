@@ -227,7 +227,7 @@ namespace BackToTheFutureV
                     IsWaitForLanding = false;
                     OnHoverLanding?.Invoke(false);
                 }
-                    
+
                 if (Vehicle.IsUpsideDown || Vehicle.HeightAboveGround <= 0.5f || Vehicle.HeightAboveGround >= 20 || Vehicle.GetMPHSpeed() > 30f)
                 {
                     IsHoverLanding = false;
@@ -342,7 +342,7 @@ namespace BackToTheFutureV
             {
                 IsHoverLanding = true;
                 IsWaitForLanding = false;
-                
+
                 if (FusionUtils.PlayerVehicle == Vehicle)
                 {
                     TextHandler.Me.ShowHelp("VTOLTip", true, new ControlInfo(ModControls.HoverVTOL).Button);
