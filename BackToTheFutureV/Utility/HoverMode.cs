@@ -3,6 +3,8 @@ using FusionLibrary.Extensions;
 using GTA;
 //using MinHook;
 using System;
+using System.IO;
+using System.Linq;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
@@ -71,7 +73,8 @@ namespace BackToTheFutureV
 
         private bool _firstTick = true;
         private NativeInput _flyModeInput;
-        private static int _nextModeChangeAllowed;
+        private int _nextModeChangeAllowed;
+        private bool _hoverTraffic;
 
         //private LocalHook hook1;
         //private LocalHook hook2;
@@ -122,7 +125,7 @@ namespace BackToTheFutureV
 
             if (e.KeyCode == System.Windows.Forms.Keys.L)
             {
-
+                _hoverTraffic = !_hoverTraffic;
             }
 
             if (e.KeyCode == ModControls.HoverAltitudeHold && FusionUtils.PlayerVehicle.NotNullAndExists() && HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle).IsInHoverMode)
@@ -183,12 +186,32 @@ namespace BackToTheFutureV
         {
             if (!_firstTick)
             {
-                foreach (Vehicle vehicle in World.GetAllVehicles())
+                foreach (Vehicle Vehicle in World.GetAllVehicles())
                 {
-                    if (!vehicle.IsFunctioning())
+                    if (!Vehicle.IsFunctioning())
                         continue;
 
-                    HoverVehicle.GetFromVehicle(vehicle)?.Tick();
+                    if (_hoverTraffic)
+                    {
+                        if (Vehicle.IsBoat || Vehicle.IsBicycle || Vehicle.IsBike || Vehicle.IsBlimp || Vehicle.IsAircraft || Vehicle.IsHelicopter || Vehicle.IsMotorcycle)
+                            continue;
+
+                        if (Vehicle.Model == ModelHandler.Deluxo || Vehicle.Model == ModelHandler.DMC12)
+                            continue;
+
+                        if (Vehicle.Driver.ExistsAndAlive() && Vehicle != FusionUtils.PlayerVehicle)
+                        {
+                            HoverVehicle hoverVehicle = HoverVehicle.GetFromVehicle(Vehicle);
+
+                            if (!hoverVehicle.IsHoverModeAllowed)
+                            {
+                                hoverVehicle.IsHoverModeAllowed = true;
+                                hoverVehicle.SetMode(true);
+                            }
+                        }
+                    }
+
+                    HoverVehicle.GetFromVehicle(Vehicle)?.Tick();
                 }
 
                 HoverVehicle.Clean();

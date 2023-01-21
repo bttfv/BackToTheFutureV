@@ -53,12 +53,12 @@ namespace BackToTheFutureV
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
             Vehicle = vehicle;
-            HoverVehicle = HoverVehicle.GetFromVehicle(vehicle);
-
-            HoverVehicle.SoftLock = true;
+            HoverVehicle = HoverVehicle.GetFromVehicle(vehicle);            
 
             if (vehicle.Model == ModelHandler.DMC12)
             {
+                HoverVehicle.SoftLock = true;
+
                 DMC12 = DMC12Handler.GetDeloreanFromVehicle(vehicle);
 
                 if (DMC12 == null)
