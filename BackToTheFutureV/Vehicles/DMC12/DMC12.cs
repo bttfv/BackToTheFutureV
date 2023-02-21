@@ -144,11 +144,11 @@ namespace BackToTheFutureV
             Then, we check to see if the DMC-12 is a time machine, is not null and exists, and make sure it doesn't have hover since hover conversion also uses the duck key.
             Finally, we make sure that no ingame menus are open since the duck key on controller is also the select button in menus.
             We also check to see if the player is in first-person since the required animations are completely different.*/
-            if (MenuHandler.closingTime < Game.GameTime && ClockHandler.finishTime < Game.GameTime && Vehicle.Driver != null && Vehicle.Driver.IsVisible)
+            if (ClockHandler.finishTime < Game.GameTime && Vehicle.Driver != null && Vehicle.Driver.IsVisible)
             {
                 if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && !FusionUtils.IsCameraInFirstPerson())
                 {
-                    FusionUtils.PlayerPed.Task?.PlayAnimation("veh@low@front_ds@idle_duck", "sit", -3.5f, 3.5f, -1, AnimationFlags.Secondary, 1f);
+                    FusionUtils.PlayerPed.Task?.PlayAnimation("veh@low@front_ds@idle_duck", "sit", 3.5f, 3.5f, -1, AnimationFlags.Secondary, 1f);
                     isDucking = true;
                     duckEnded = false;
                 }
