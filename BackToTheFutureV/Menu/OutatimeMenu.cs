@@ -125,7 +125,7 @@ namespace BackToTheFutureV
 
         public override void Menu_Closing(object sender, CancelEventArgs e)
         {
-
+            TimeMachines.SelectedIndex = 0;
         }
 
         public override void Menu_OnItemValueChanged(NativeSliderItem sender, EventArgs e)
