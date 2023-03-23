@@ -170,7 +170,7 @@ namespace BackToTheFutureV
             if (FirstTick)
             {
                 LoadingPrompt.Hide();
-                IntroHandler.Me.Start();
+                IntroHandler.Me.Start(true);
                 FirstTick = false;
             }
         }
