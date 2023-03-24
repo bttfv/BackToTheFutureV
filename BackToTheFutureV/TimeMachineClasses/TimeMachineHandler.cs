@@ -131,7 +131,6 @@ namespace BackToTheFutureV
                 _timeMachinesToRemove.Add(vehicle, deleteVeh);
                 Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
                 PlayerSwitch.Disable = false;
-                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
             }
         }
 
@@ -159,7 +158,6 @@ namespace BackToTheFutureV
                 RemoveTimeMachine(veh);
                 Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
                 PlayerSwitch.Disable = false;
-                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
             }
         }
 
@@ -464,7 +462,6 @@ namespace BackToTheFutureV
 
             if (CurrentTimeMachine != null && !FusionUtils.PlayerVehicle.IsFunctioning())
             {
-                Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, true);
                 Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
                 PlayerSwitch.Disable = false;
                 CurrentTimeMachine = null;
@@ -499,7 +496,7 @@ namespace BackToTheFutureV
 
                     if (CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
                     {
-                        Function.Call(Hash.SET_PLAYER_CAN_DO_DRIVE_BY, Game.Player, false);
+                        Game.DisableControlThisFrame(GTA.Control.VehicleAim);
                     }
 
                     return;
