@@ -235,6 +235,15 @@ namespace BackToTheFutureV
                         Vehicle.Explode();
                         _exploded = true;
                     }
+                    else if ((Math.Abs(_train.Heading - Vehicle.Heading) > 90f) && _train.GetMPHSpeed() + Vehicle.GetMPHSpeed() > 33 && !_exploded)
+                    {
+                        if (TimeMachine.Properties.IsRemoteControlled)
+                        {
+                            RemoteTimeMachineHandler.StopRemoteControl();
+                        }
+                        Vehicle.Explode();
+                        _exploded = true;
+                    }
 
                     _attachDelay = Game.GameTime + 3000;
                 }

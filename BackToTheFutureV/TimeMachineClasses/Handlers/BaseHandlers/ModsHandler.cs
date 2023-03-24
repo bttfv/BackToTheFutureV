@@ -88,12 +88,6 @@ namespace BackToTheFutureV
                 Wheel = wheelType;
             }
 
-            if (Wheel == WheelType.RailroadInvisible && Vehicle.IsVisible && TimeMachine.Props != null && !TimeMachine.Props.RRWheels.IsSpawned)
-            {
-                TimeMachine.Mods.Wheels.Burst = true;
-                TimeMachine.Props?.RRWheels?.SpawnProp();
-            }
-
             if (reactorType != Reactor)
             {
                 Reactor = reactorType;

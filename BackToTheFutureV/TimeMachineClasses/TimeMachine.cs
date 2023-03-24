@@ -281,6 +281,12 @@ namespace BackToTheFutureV
                 Vehicle.LockStatus = VehicleLockStatus.None;
             }
 
+            if (Mods.Wheel == WheelType.RailroadInvisible && Vehicle.IsVisible && Props != null && !Props.RRWheels.IsSpawned)
+            {
+                Mods.Wheels.Burst = true;
+                Props?.RRWheels?.SpawnProp();
+            }
+
             if (Mods.IsDMC12)
             {
                 Vehicle.IsRadioEnabled = false;
