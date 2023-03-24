@@ -273,7 +273,7 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs e)
         {
-            if (e.KeyCode == ModControls.TCToggle && !Properties.IsRemoteControlled && !Game.IsMissionActive)
+            if ((e.KeyCode == ModControls.TCToggle || e.KeyCode == Keys.Oemplus && ModControls.TCToggle == Keys.Add) && !Properties.IsRemoteControlled && !Game.IsMissionActive)
             {
                 SetTimeCircuitsOn(!Properties.AreTimeCircuitsOn);
             }

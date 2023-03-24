@@ -46,7 +46,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (ModSettings.UseInputToggle && e.KeyCode == ModControls.InputToggle)
+            if (ModSettings.UseInputToggle && (e.KeyCode == ModControls.InputToggle || e.KeyCode == Keys.OemQuestion && ModControls.InputToggle == Keys.Divide))
             {
                 InputMode = !InputMode;
                 _nextReset = 0;
