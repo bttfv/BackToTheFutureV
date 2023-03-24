@@ -215,11 +215,6 @@ namespace BackToTheFutureV
                     return;
                 }
 
-                if (Properties.MissionType == MissionType.Train)
-                {
-                    return;
-                }
-
                 Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.TankerCarModel);
 
                 if (Vehicle.IsVisible && _train != null && Vehicle.IsTouching(_train))
@@ -235,7 +230,7 @@ namespace BackToTheFutureV
                         Vehicle.Explode();
                         _exploded = true;
                     }
-                    else if ((Math.Abs(_train.Heading - Vehicle.Heading) > 90f) && _train.GetMPHSpeed() + Vehicle.GetMPHSpeed() > 33 && !_exploded)
+                    else if (!Vehicle.SameDirection(_train) && _train.GetMPHSpeed() + Vehicle.GetMPHSpeed() > 33 && !_exploded)
                     {
                         if (TimeMachine.Properties.IsRemoteControlled)
                         {

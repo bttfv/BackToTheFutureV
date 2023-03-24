@@ -117,8 +117,7 @@
         internal enum MissionType
         {
             None,
-            Escape,
-            Train
+            Escape
         }
 
         internal enum TimeMachineCamera
