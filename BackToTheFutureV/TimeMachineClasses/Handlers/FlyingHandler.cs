@@ -27,6 +27,8 @@ namespace BackToTheFutureV
 
         private bool _landingSmoke;
 
+        private bool _inVTOL;
+
         private Vector3 _forceToBeApplied = Vector3.Zero;
 
         private bool _reload;
@@ -549,6 +551,9 @@ namespace BackToTheFutureV
 
         private void HandleAltitudeHolding()
         {
+            if (_inVTOL)
+                return;
+
             Vector3 velocity = Vehicle.Velocity;
             float zVel = velocity.Z;
 
@@ -569,6 +574,9 @@ namespace BackToTheFutureV
 
             if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleUp))
             {
+                if (!_inVTOL)
+                    _inVTOL = true;
+
                 if (Vehicle.DecreaseSpeedAndWait(Vehicle.RunningDirection() == RunningDirection.Forward ? 20 : 10))
                 {
                     Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
@@ -588,6 +596,9 @@ namespace BackToTheFutureV
             }
             else if (Game.IsControlPressed(ModControls.HoverVTOL) && Game.IsControlPressed(Control.VehicleFlyThrottleDown))
             {
+                if (!_inVTOL)
+                    _inVTOL = true;
+
                 if (Vehicle.DecreaseSpeedAndWait(Vehicle.RunningDirection() == RunningDirection.Forward ? 10 : 20))
                 {
                     Game.DisableControlThisFrame(Control.VehicleSelectNextWeapon);
@@ -599,6 +610,11 @@ namespace BackToTheFutureV
                 {
                     FusionUtils.SetPadShake(100, 80);
                 }
+            }
+            else
+            {
+                if (_inVTOL)
+                    _inVTOL = false;
             }
 
             if (upNormal == 0 && Properties.IsHoverGoingUpDown)
