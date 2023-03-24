@@ -281,6 +281,8 @@ namespace BackToTheFutureV
 
             Props.SeparatedCoils?.Delete();
 
+            Mods.GlowingEmitter = ModState.Off;
+
             Mods.OffCoils = ModState.On;
 
             Particles?.Sparks?.Stop(true);
@@ -320,6 +322,10 @@ namespace BackToTheFutureV
 
             if (Properties.IsFueled || Properties.PhotoWormholeActive)
             {
+                if (ModSettings.GlowingWormholeEmitter)
+                {
+                    Mods.GlowingEmitter = ModState.On;
+                }
                 HandleSparks();
             }
 

@@ -105,11 +105,6 @@ namespace BackToTheFutureV
                     if (!Players.Wormhole.IsPlaying)
                     {
                         Players.Wormhole?.Play(true);
-
-                        if (ModSettings.GlowingWormholeEmitter)
-                        {
-                            Mods.GlowingEmitter = ModState.On;
-                        }
                     }
 
                     if (!Sounds.Sparks.IsAnyInstancePlaying && !Sounds.SparkStabilized.IsAnyInstancePlaying)
@@ -184,8 +179,6 @@ namespace BackToTheFutureV
             Sounds.SparkStabilized?.Stop(true);
             Sounds.SparksEmpty?.Stop(true);
             Sounds.DiodesGlowing?.Stop(true);
-
-            Mods.GlowingEmitter = ModState.Off;
 
             if (Players.Wormhole.IsPlaying)
             {
