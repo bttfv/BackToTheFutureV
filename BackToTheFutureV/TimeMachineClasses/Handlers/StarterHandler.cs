@@ -204,12 +204,8 @@ namespace BackToTheFutureV
                         _isRestarting = true;
                     }
 
-                    if ((!Properties.BlockEngineRecover && Game.GameTime > _restartAt) || (!Properties.BlockEngineRecover && Game.IsControlPressed(GTA.Control.VehicleDuck) && !Properties.IsRemoteControlled))
+                    if ((!Properties.BlockEngineRecover && Game.GameTime > _restartAt))
                     {
-                        if (Game.IsControlPressed(GTA.Control.VehicleDuck) && !Properties.IsRemoteControlled)
-                        {
-                            Sounds.HeadHorn?.Play();
-                        }
                         Stop();
                         Vehicle.FuelLevel = _deloreanMaxFuelLevel;
                         Vehicle.IsEngineRunning = true;

@@ -164,7 +164,7 @@ namespace BackToTheFutureV
                     duckEnded = true;
                 }
 
-                if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && FusionUtils.IsCameraInFirstPerson())
+                if (forcedDucking && FusionUtils.PlayerPed.IsFullyInVehicle() && ((_isTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !_isTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && FusionUtils.IsCameraInFirstPerson())
                 {
                     if (!fpsSetup)
                     {
@@ -178,7 +178,7 @@ namespace BackToTheFutureV
                         fpsSetup = true;
                     }
                 }
-                else if (isDucking && !(Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.IsCameraInFirstPerson())
+                else if (isDucking && !forcedDucking && FusionUtils.IsCameraInFirstPerson())
                 {
                     if (!fpsEnded)
                     {

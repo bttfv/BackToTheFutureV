@@ -239,7 +239,7 @@ namespace BackToTheFutureV
                 Visible = false;
                 return;
             }
-
+            // Maybe have to do another check to make sure there are no nulls in time machine properties too?
             LoadVehicleMods();
         }
 
