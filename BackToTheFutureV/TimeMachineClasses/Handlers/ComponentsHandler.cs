@@ -242,6 +242,7 @@ namespace BackToTheFutureV
             Props.HoodboxLights?.Delete();
             Properties.AreHoodboxCircuitsReady = false;
             _warmUp = 0;
+            _coolDown = 0;
         }
 
         public override void Dispose()
