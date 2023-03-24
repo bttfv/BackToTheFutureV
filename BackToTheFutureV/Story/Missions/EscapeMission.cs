@@ -15,7 +15,6 @@ namespace BackToTheFutureV
         public Vehicle Vehicle { get; private set; }
         public Ped Driver { get; private set; }
         public Ped Shooter { get; private set; }
-        public Ped TargetPed => TimeMachine.Vehicle.GetPedOnSeat(VehicleSeat.Driver);
 
         private TimeMachine TimeMachine;
 
@@ -29,6 +28,7 @@ namespace BackToTheFutureV
         {
             if (TimeMachine != null)
             {
+                TimeMachine.Vehicle.IsInvincible = false;
                 TimeMachine.Properties.MissionType = MissionType.None;
                 TimeMachine.Events.OnTimeTravelStarted -= OnTimeTravelStarted;
             }
@@ -61,14 +61,14 @@ namespace BackToTheFutureV
         {
             if (TimeMachine == null)
             {
-                TimeMachine = TimeMachineHandler.CurrentTimeMachine;
+                TimeMachine = TimeMachineHandler.ClosestTimeMachine;
             }
 
             Model model = new Model("surfer");
 
             FusionUtils.LoadAndRequestModel(model);
 
-            Vehicle = World.CreateVehicle(model, TargetPed.GetOffsetPosition(new Vector3(0, -10, 0)));
+            Vehicle = World.CreateVehicle(model, FusionUtils.PlayerPed.GetOffsetPosition(new Vector3(0, -10, 0)));
             Vehicle.PlaceOnNextStreet();
             Vehicle.IsPersistent = true;
 
@@ -80,14 +80,14 @@ namespace BackToTheFutureV
 
             Driver.AlwaysKeepTask = true;
 
-            Function.Call(Hash.TASK_VEHICLE_CHASE, Driver, TargetPed);
+            Function.Call(Hash.TASK_VEHICLE_CHASE, Driver, FusionUtils.PlayerPed);
             Function.Call(Hash.SET_TASK_VEHICLE_CHASE_BEHAVIOR_FLAG, Driver, VehicleDrivingFlags.ForceStraightLine | VehicleDrivingFlags.SwerveAroundAllVehicles | VehicleDrivingFlags.PreferNavmeshRoute | VehicleDrivingFlags.AllowGoingWrongWay | VehicleDrivingFlags.UseShortCutLinks, true);
             Function.Call(Hash.SET_TASK_VEHICLE_CHASE_IDEAL_PURSUIT_DISTANCE, Driver, 0f);
             Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, Driver, 1.0f);
 
             Shooter = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Passenger);
             Shooter.Weapons.Give(WeaponHash.Pistol, 999, true, true);
-            Shooter.Task.VehicleShootAtPed(TargetPed);
+            Shooter.Task.VehicleShootAtPed(FusionUtils.PlayerPed);
 
             PedGroup peds = new PedGroup
             {
@@ -97,6 +97,7 @@ namespace BackToTheFutureV
 
             TimeMachine.Events.OnTimeTravelStarted += OnTimeTravelStarted;
             TimeMachine.Properties.MissionType = MissionType.Escape;
+            TimeMachine.Vehicle.IsInvincible = true;
 
             gameTimer = Game.GameTime + 90000;
             step = 0;
@@ -142,7 +143,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (FusionUtils.CurrentTime.Year == 1985 && InternalInventory.Current.Plutonium <= 0 && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && !IsPlaying)
+            if (FusionUtils.CurrentTime.Year == 1985 && InternalInventory.Current.Plutonium <= 0 && !IsPlaying)
             {
                 World.DrawMarker(MarkerType.VerticalCylinder, plutoniumPos, Vector3.Zero, Vector3.Zero, new Vector3(1, 1, 1), Color.Yellow);
 
@@ -156,13 +157,13 @@ namespace BackToTheFutureV
                     plutoniumBlip.IsFriendly = false;
                 }
 
-                if (!TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() || TimeMachineHandler.CurrentTimeMachine.Vehicle.Position.DistanceToSquared2D(plutoniumPos) > 0.679f)
+                if (!(TimeMachineHandler.ClosestTimeMachine.NotNullAndExists() && TimeMachineHandler.ClosestTimeMachine.Vehicle.Position.DistanceToSquared2D(plutoniumPos) < 500f) || FusionUtils.PlayerPed.Position.DistanceToSquared2D(plutoniumPos) > 0.679f)
                 {
                     return;
                 }
 
-                InternalInventory.Current.Plutonium = 5;
-                StartOn(TimeMachineHandler.CurrentTimeMachine);
+                InternalInventory.Current.Plutonium = 12;
+                StartOn(TimeMachineHandler.ClosestTimeMachine);
             }
 
             if (!IsPlaying)
@@ -191,7 +192,7 @@ namespace BackToTheFutureV
 
                     break;
                 case 1:
-                    if (Vehicle.DistanceToSquared2D(TargetPed, 2) || gameTimer < Game.GameTime)
+                    if (Vehicle.DistanceToSquared2D(FusionUtils.PlayerPed, 2) || gameTimer < Game.GameTime)
                     {
                         StopVehicle();
                     }
