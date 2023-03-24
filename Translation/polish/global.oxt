@@ -236,6 +236,8 @@
 	BTTFV_Menu_Settings_Item_CinematicSpawn_Title = Tworzenie kinowe
 	BTTFV_Menu_Settings_Item_Controls_Description = Otwiera menu do edycji skrótów klawiszowych i sterowania modem.
 	BTTFV_Menu_Settings_Item_Controls_Title = Menu Sterowania
+	BTTFV_Menu_Settings_Item_Cutscene_Description = Pozwala na włączanie/wyłączanie trybu przerywniku filmowego podczas podróży w czasie.
+	BTTFV_Menu_Settings_Item_Cutscene_Title = Tryb przerywniku filmowego
 	BTTFV_Menu_Settings_Item_Events_Description = Otwiera menu zdarzeń skryptowych.
 	BTTFV_Menu_Settings_Item_Events_Title = Skryptowane wydarzenia
 	BTTFV_Menu_Settings_Item_ForceFly_Description = Wymusza tryb lotu/nie pozwala Ci na tryb poduszkowca za każdym razem, gdy latasz z Wersją 2.
@@ -303,8 +305,6 @@
 	BTTFV_Menu_TimeMachine_Item_Altitude_Title = Kontrola wysokości
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = Edytuj aktualny wehikuł czasu.
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = Menu niestandardowe
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Description = Pozwala na włączanie/wyłączanie trybu przerywniku filmowego podczas podróży w czasie.
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Title = Tryb przerywniku filmowego
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = Wysyła Cię do menu głównego moda.
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Title = Powrót do Menu Głównego
 	BTTFV_Menu_TimeMachine_Item_Hover_Description = Pozwala na włączanie/wyłączanie trybu poduszkowca.

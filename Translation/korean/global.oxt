@@ -236,6 +236,8 @@
 	BTTFV_Menu_Settings_Item_CinematicSpawn_Title = 시네마틱 소환
 	BTTFV_Menu_Settings_Item_Controls_Description = 모드의 단축키 및 컨트롤을 변경할 수 있는 메뉴를 엽니다.
 	BTTFV_Menu_Settings_Item_Controls_Title = 컨트롤 메뉴
+	BTTFV_Menu_Settings_Item_Cutscene_Description = 시간 여행 중에 컷신 모드를 켜거나 끌 수 있습니다.
+	BTTFV_Menu_Settings_Item_Cutscene_Title = 컷신모드
 	BTTFV_Menu_Settings_Item_Events_Description = 스크립트된 이벤트 메뉴를 엽니다.
 	BTTFV_Menu_Settings_Item_Events_Title = 스크립트 이벤트
 	BTTFV_Menu_Settings_Item_ForceFly_Description = 강제 비행 모드 / 마크 2로 비행 할 때마다 호버링을 허용하지 않습니다.
@@ -303,8 +305,6 @@
 	BTTFV_Menu_TimeMachine_Item_Altitude_Title = 고도 제어
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = 현재 타임머신을 수정 합니다.
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = 사용자 지정 메뉴
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Description = 시간 여행 중에 컷신 모드를 켜거나 끌 수 있습니다.
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Title = 컷신모드
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = 모드의 메인 메뉴로 이동합니다.
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Title = 메인 메뉴로 돌아가기
 	BTTFV_Menu_TimeMachine_Item_Hover_Description = 호버 모드를 켜거나 끌 수 있습니다.

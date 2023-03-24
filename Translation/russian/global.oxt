@@ -236,6 +236,8 @@
 	BTTFV_Menu_Settings_Item_CinematicSpawn_Title = Кинематографическое появление
 	BTTFV_Menu_Settings_Item_Controls_Description = Открывает меню редактирования горячих клавиш мода
 	BTTFV_Menu_Settings_Item_Controls_Title = Меню управления
+	BTTFV_Menu_Settings_Item_Cutscene_Description = Позволяет вам включать/отключать кинематографическое перемещение во времени
+	BTTFV_Menu_Settings_Item_Cutscene_Title = Кинематографический режим
 	BTTFV_Menu_Settings_Item_Events_Description = Открывает меню событий сценария
 	BTTFV_Menu_Settings_Item_Events_Title = События по сценарию
 	BTTFV_Menu_Settings_Item_ForceFly_Description = При нахождении в версии машины из 2 фильма не позволяет вам использовать ховер-режим в режиме полёта
@@ -303,8 +305,6 @@
 	BTTFV_Menu_TimeMachine_Item_Altitude_Title = Контроль высоты
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = Редактировать машину времени
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = Пользовательские меню
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Description = Позволяет вам включать/отключать кинематографическое перемещение во времени
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Title = Кинематографический режим
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = Отправляет вас в главное меню мода
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Title = Вернуться в главное меню
 	BTTFV_Menu_TimeMachine_Item_Hover_Description = Позволяет включить/выключить режим полёта

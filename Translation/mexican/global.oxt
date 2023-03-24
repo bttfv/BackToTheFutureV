@@ -236,6 +236,8 @@ Version 2 30
 	BTTFV_Menu_Settings_Item_CinematicSpawn_Title = Aparición cinemática
 	BTTFV_Menu_Settings_Item_Controls_Description = Abre el menú para editar las teclas de acceso rápido y los controles del mod.
 	BTTFV_Menu_Settings_Item_Controls_Title = Menú de controles
+	BTTFV_Menu_Settings_Item_Cutscene_Description = Te permite activar/desactivar el modo escena mientras viajas el tiempo.
+	BTTFV_Menu_Settings_Item_Cutscene_Title = Modo escena
 	BTTFV_Menu_Settings_Item_Events_Description = Abre el Menú de Eventos Programados.
 	BTTFV_Menu_Settings_Item_Events_Title = Eventos Programados
 	BTTFV_Menu_Settings_Item_ForceFly_Description = Forza modo de vuelo/no permite levitar cuando vuelas con el DeLorean VAF2.
@@ -303,8 +305,6 @@ Version 2 30
 	BTTFV_Menu_TimeMachine_Item_Altitude_Title = Control de Altitud
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = Editar Máquina de Tiempo actual.
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = Menú de personalizado
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Description = Te permite activar/desactivar el modo escena mientras viajas el tiempo.
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Title = Modo escena
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = Te envía al menú principal del mod.
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Title = Ir al menú principal
 	BTTFV_Menu_TimeMachine_Item_Hover_Description = Te permite activar/desactivar el modo levitación.

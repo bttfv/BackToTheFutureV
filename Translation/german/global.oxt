@@ -236,6 +236,8 @@
 	BTTFV_Menu_Settings_Item_CinematicSpawn_Title = Cinematischer Spawn
 	BTTFV_Menu_Settings_Item_Controls_Description = Öffnet das Menü zum Bearbeiten von Hotkeys und Steuerungen der Mod.
 	BTTFV_Menu_Settings_Item_Controls_Title = Steuerungsmenü
+	BTTFV_Menu_Settings_Item_Cutscene_Description = Ermöglicht es dir, den Zwischensequenz-Modus während der Zeitreise ein-/auszuschalten.
+	BTTFV_Menu_Settings_Item_Cutscene_Title = Zwischensequenz-Modus
 	BTTFV_Menu_Settings_Item_Events_Description = Öffnet das Skript-Event-Menü.
 	BTTFV_Menu_Settings_Item_Events_Title = Skriptbasierte Ereignisse
 	BTTFV_Menu_Settings_Item_ForceFly_Description = Erzwingt beim Fliegen mit dem BTTF2 den Schwebeflugmodus bzw. lässt diesen nicht zu.
@@ -303,8 +305,6 @@
 	BTTFV_Menu_TimeMachine_Item_Altitude_Title = Höhensteuerung
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = Aktuelle Zeitmaschine bearbeiten.
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = Benutzerdefiniertes Menü
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Description = Ermöglicht es dir, den Zwischensequenz-Modus während der Zeitreise ein-/auszuschalten.
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Title = Zwischensequenz-Modus
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = Schickt dich zum Hauptmenü des Mods.
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Title = Zum Hauptmenü
 	BTTFV_Menu_TimeMachine_Item_Hover_Description = Ermöglicht es dir, den Hover-Modus ein-/auszuschalten.

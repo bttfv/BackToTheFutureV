@@ -236,6 +236,8 @@
 	BTTFV_Menu_Settings_Item_CinematicSpawn_Title = シネマティックスポーン
 	BTTFV_Menu_Settings_Item_Controls_Description = ホットキーを編集するためのメニューを開きます。
 	BTTFV_Menu_Settings_Item_Controls_Title = コントロールメニュー
+	BTTFV_Menu_Settings_Item_Cutscene_Description = タイムタイムトラベル中のカットシーンモードのオン/オフを設定できます。
+	BTTFV_Menu_Settings_Item_Cutscene_Title = カットシーンモード
 	BTTFV_Menu_Settings_Item_Events_Description = スクリプトイベントメニューを開きます。
 	BTTFV_Menu_Settings_Item_Events_Title = スクリプトイベント
 	BTTFV_Menu_Settings_Item_ForceFly_Description = BTTF2で飛行するたびにホバーモードを強制する/ホバーを許可しません。
@@ -303,8 +305,6 @@
 	BTTFV_Menu_TimeMachine_Item_Altitude_Title = 高度コントロール
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = 現在のタイムマシンを編集
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = カスタムメニュー
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Description = タイムタイムトラベル中のカットシーンモードのオン/オフを設定できます。
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Title = カットシーンモード
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = Modのメインメニューにもどります。
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Title = メインメニューに戻る
 	BTTFV_Menu_TimeMachine_Item_Hover_Description = ホバーモードのオン/オフを切り替えます。

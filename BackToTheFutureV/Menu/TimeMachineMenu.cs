@@ -11,7 +11,6 @@ namespace BackToTheFutureV
     internal class TimeMachineMenu : BTTFVMenu
     {
         public NativeCheckboxItem TimeCircuitsOn { get; }
-        public NativeCheckboxItem CutsceneMode { get; }
         public NativeCheckboxItem FlyMode { get; }
         public NativeCheckboxItem AltitudeHold { get; }
         public NativeCheckboxItem RemoteControl { get; }
@@ -20,7 +19,6 @@ namespace BackToTheFutureV
         public TimeMachineMenu() : base("TimeMachine")
         {
             TimeCircuitsOn = NewCheckboxItem("TC");
-            CutsceneMode = NewCheckboxItem("Cutscene");
             FlyMode = NewCheckboxItem("Hover");
             AltitudeHold = NewCheckboxItem("Altitude");
             RemoteControl = NewCheckboxItem("RC");
@@ -47,7 +45,6 @@ namespace BackToTheFutureV
             AltitudeHold.Enabled = FlyMode.Enabled;
             RemoteControl.Enabled = CurrentTimeMachine.Properties.IsRemoteControlled;
             TimeCircuitsOn.Enabled = !RemoteControl.Enabled && !Game.IsMissionActive;
-            CutsceneMode.Enabled = !RemoteControl.Enabled;
         }
 
         public override void Menu_OnItemCheckboxChanged(NativeCheckboxItem sender, EventArgs e, bool Checked)
@@ -56,9 +53,6 @@ namespace BackToTheFutureV
             {
                 case NativeCheckboxItem item when item == TimeCircuitsOn:
                     CurrentTimeMachine.Events.SetTimeCircuits?.Invoke(Checked);
-                    break;
-                case NativeCheckboxItem item when item == CutsceneMode:
-                    CurrentTimeMachine.Events.SetCutsceneMode?.Invoke(Checked);
                     break;
                 case NativeCheckboxItem item when item == FlyMode:
                     CurrentTimeMachine.Events.SetFlyMode?.Invoke(Checked);
@@ -81,7 +75,6 @@ namespace BackToTheFutureV
             }
 
             TimeCircuitsOn.Checked = CurrentTimeMachine.Properties.AreTimeCircuitsOn;
-            CutsceneMode.Checked = CurrentTimeMachine.Properties.CutsceneMode;
             FlyMode.Checked = CurrentTimeMachine.Properties.IsFlying;
             AltitudeHold.Checked = CurrentTimeMachine.Properties.IsAltitudeHolding;
             RemoteControl.Checked = CurrentTimeMachine.Properties.IsRemoteControlled;

@@ -20,7 +20,6 @@ namespace BackToTheFutureV
         public TimeTravelHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.StartTimeTravel += StartTimeTravel;
-            Events.SetCutsceneMode += SetCutsceneMode;
 
             if (Mods.IsDMC12)
             {
@@ -44,13 +43,6 @@ namespace BackToTheFutureV
         {
             TimeMachineHandler.ExistenceCheck(time);
             RemoteTimeMachineHandler.ExistenceCheck(time);
-        }
-
-        public void SetCutsceneMode(bool cutsceneOn)
-        {
-            Properties.CutsceneMode = cutsceneOn;
-
-            TextHandler.Me.ShowHelp("TimeTravelModeChange", true, Properties.CutsceneMode ? TextHandler.Me.GetLocalizedText("Cutscene") : TextHandler.Me.GetLocalizedText("Instant"));
         }
 
         public void StartTimeTravel(int delay = 0)
@@ -101,7 +93,7 @@ namespace BackToTheFutureV
                         }
                         else
                         {
-                            if ((!Properties.CutsceneMode && !Properties.HasBeenStruckByLightning) || FusionUtils.IsCameraInFirstPerson())
+                            if ((!ModSettings.CutsceneMode && !Properties.HasBeenStruckByLightning) || FusionUtils.IsCameraInFirstPerson())
                             {
                                 Properties.TimeTravelType = TimeTravelType.Instant;
                             }
@@ -337,7 +329,8 @@ namespace BackToTheFutureV
         {
             if (e.KeyCode == ModControls.CutsceneToggle)
             {
-                Events.SetCutsceneMode?.Invoke(!Properties.CutsceneMode);
+                ModSettings.CutsceneMode = !ModSettings.CutsceneMode;
+                TextHandler.Me.ShowHelp("TimeTravelModeChange", true, ModSettings.CutsceneMode ? TextHandler.Me.GetLocalizedText("Cutscene") : TextHandler.Me.GetLocalizedText("Instant"));
             }
         }
     }

@@ -21,7 +21,6 @@ namespace BackToTheFutureV
         public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;
         public bool AreTimeCircuitsBroken { get; set; }
         private int reactorCharge = 1;
-        public bool CutsceneMode { get; set; } = true;
         public bool IsFreezed { get; set; }
         public bool IsDefrosting { get; set; }
         public float IceValue { get; set; }
@@ -116,7 +115,6 @@ namespace BackToTheFutureV
             ret.TimeTravelType = TimeTravelType;
             ret.AreTimeCircuitsBroken = AreTimeCircuitsBroken;
             ret.ReactorCharge = ReactorCharge;
-            ret.CutsceneMode = CutsceneMode;
             ret.IsFreezed = IsFreezed;
             ret.IsDefrosting = IsDefrosting;
             ret.IceValue = IceValue;
@@ -156,7 +154,6 @@ namespace BackToTheFutureV
             timeMachine.Properties.TimeTravelType = TimeTravelType;
             timeMachine.Properties.AreTimeCircuitsBroken = AreTimeCircuitsBroken;
             timeMachine.Properties.reactorCharge = reactorCharge;
-            timeMachine.Properties.CutsceneMode = CutsceneMode;
             timeMachine.Properties.IsFreezed = IsFreezed;
             timeMachine.Properties.IsDefrosting = IsDefrosting;
             timeMachine.Properties.IceValue = IceValue;

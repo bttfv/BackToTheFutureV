@@ -236,6 +236,8 @@ Version 2 30
 	BTTFV_Menu_Settings_Item_CinematicSpawn_Title = 电影风格的生成
 	BTTFV_Menu_Settings_Item_Controls_Description = 进入此子菜单以更改模组的按键绑定及操作方式。
 	BTTFV_Menu_Settings_Item_Controls_Title = 操作设置菜单
+	BTTFV_Menu_Settings_Item_Cutscene_Description = 允许您开/关时光穿越时的过场动画。
+	BTTFV_Menu_Settings_Item_Cutscene_Title = 过场动画开关
 	BTTFV_Menu_Settings_Item_Events_Description = 进入此子菜单可更改影响游戏性的一些脚本事件。
 	BTTFV_Menu_Settings_Item_Events_Title = 脚本事件菜单
 	BTTFV_Menu_Settings_Item_ForceFly_Description = 强制《回到未来2》的德罗宁以飞行模式代替悬浮模式。
@@ -303,8 +305,6 @@ Version 2 30
 	BTTFV_Menu_TimeMachine_Item_Altitude_Title = 飞行高度维持
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = 编辑当前时光机。
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = 改装菜单
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Description = 允许您开/关时光穿越时的过场动画。
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Title = 过场动画开关
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = 返回到模组的主菜单。
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Title = 返回到主菜单
 	BTTFV_Menu_TimeMachine_Item_Hover_Description = 允许您启用/禁用时光机悬浮模式。

@@ -28,7 +28,6 @@ namespace BackToTheFutureV
     internal delegate void SetRCMode(bool state, bool instant = false);
     internal delegate void SetTimeCircuits(bool state);
     internal delegate void SetTimeCircuitsBroken();
-    internal delegate void SetCutsceneMode(bool state);
     internal delegate void SetFlyMode(bool state, bool instant = false);
     internal delegate void SetAltitudeHold(bool state);
     internal delegate void SetHoodboxWarmedUp();
@@ -72,7 +71,6 @@ namespace BackToTheFutureV
         public SetRCMode SetRCMode;
         public SetTimeCircuits SetTimeCircuits;
         public SetTimeCircuitsBroken SetTimeCircuitsBroken;
-        public SetCutsceneMode SetCutsceneMode;
         public SetFlyMode SetFlyMode;
         public SetAltitudeHold SetAltitudeHold;
         public SetHoodboxWarmedUp SetHoodboxWarmedUp;

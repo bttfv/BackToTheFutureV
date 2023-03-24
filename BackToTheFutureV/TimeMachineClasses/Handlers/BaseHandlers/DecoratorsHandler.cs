@@ -43,14 +43,12 @@ namespace BackToTheFutureV
             Events.OnDestinationDateChange += OnDestinationDateChange;
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
-            Events.SetCutsceneMode += SetCutsceneMode;
 
             if (!Mods.IsDMC12 && CheckVehicle())
             {
                 Mods.WormholeType = (WormholeType)Decorator.GetInt(BTTFVDecors.WormholeType);
                 Properties.DestinationTime = ConvertIntToDate(Decorator.GetInt(BTTFVDecors.DestDate1), Decorator.GetInt(BTTFVDecors.DestDate2));
                 Properties.PreviousTime = ConvertIntToDate(Decorator.GetInt(BTTFVDecors.LastDate1), Decorator.GetInt(BTTFVDecors.LastDate2));
-                Properties.CutsceneMode = Decorator.GetBool(BTTFVDecors.CutsceneMode);
 
                 if (Properties.AreTimeCircuitsOn != Decorator.GetBool(BTTFVDecors.TimeCircuitsOn))
                 {
@@ -66,7 +64,6 @@ namespace BackToTheFutureV
             OnDestinationDateChange(InputType.Full);
             OnTimeTravelStarted();
             OnTimeCircuitsToggle();
-            SetCutsceneMode(Properties.CutsceneMode);
 
             if (!Decorator.Exists(BTTFVDecors.TorqueMultiplier))
             {
@@ -108,11 +105,6 @@ namespace BackToTheFutureV
         private void OnTimeCircuitsToggle()
         {
             Decorator.SetBool(BTTFVDecors.TimeCircuitsOn, Properties.AreTimeCircuitsOn);
-        }
-
-        private void SetCutsceneMode(bool cutsceneOn)
-        {
-            Decorator.SetBool(BTTFVDecors.CutsceneMode, cutsceneOn);
         }
 
         public static int[] ConvertDateToInt(DateTime dateTime)

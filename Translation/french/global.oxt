@@ -236,6 +236,8 @@ Version 2 30
 	BTTFV_Menu_Settings_Item_CinematicSpawn_Title = Apparition cinématique
 	BTTFV_Menu_Settings_Item_Controls_Description = Ouvre le menu pour modifier les raccourcis et les commandes du mod.
 	BTTFV_Menu_Settings_Item_Controls_Title = Menu Contrôles
+	BTTFV_Menu_Settings_Item_Cutscene_Description = Active/désactive le mode cinématique pour le voyage temporel.
+	BTTFV_Menu_Settings_Item_Cutscene_Title = Mode cinématique
 	BTTFV_Menu_Settings_Item_Events_Description = Ouvre le menu Événements Scriptés.
 	BTTFV_Menu_Settings_Item_Events_Title = Événements scriptés
 	BTTFV_Menu_Settings_Item_ForceFly_Description = Force le mode vol/empêche le vol stationnaire avec la DeLorean de RVLF2.
@@ -303,8 +305,6 @@ Version 2 30
 	BTTFV_Menu_TimeMachine_Item_Altitude_Title = Contrôle de l'altitude
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = Modifie la machine temporelle actuelle.
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = Menu Personnaliser
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Description = Active/désactive le mode cinématique pour le voyage temporel.
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Title = Mode cinématique
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = Renvoie au menu principal du mod.
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Title = Aller au menu principal
 	BTTFV_Menu_TimeMachine_Item_Hover_Description = Active/désactive le mode vol.

@@ -29,6 +29,7 @@ namespace BackToTheFutureV
         public static bool PlaySpeedoBeep { get; set; } = true;
         public static bool PlayEngineSounds { get; set; } = true;
         public static bool CinematicSpawn { get; set; } = true;
+        public static bool CutsceneMode { get; set; } = true;
         public static bool UseInputToggle { get; set; } = false;
         public static bool GlowingWormholeEmitter { get; set; } = true;
         public static bool GlowingPlutoniumReactor { get; set; } = true;
@@ -101,6 +102,7 @@ namespace BackToTheFutureV
             PlaySpeedoBeep = settings.GetValue("Sounds", "SpeedoBeep", PlaySpeedoBeep);
 
             CinematicSpawn = settings.GetValue("General", "CinematicSpawn", CinematicSpawn);
+            CutsceneMode = settings.GetValue("General", "CutsceneMode", CutsceneMode);
             InfiniteFuel = settings.GetValue("General", "InfiniteFuel", InfiniteFuel);
             WaybackSystem = settings.GetValue("General", "WaybackSystem", WaybackSystem);
             TimeParadox = settings.GetValue("General", "TimeParadox", TimeParadox);
@@ -155,6 +157,7 @@ namespace BackToTheFutureV
             settings.SetValue("General", "TimeParadox", TimeParadox);
             settings.SetValue("General", "InfiniteFuel", InfiniteFuel);
             settings.SetValue("General", "CinematicSpawn", CinematicSpawn);
+            settings.SetValue("General", "CutsceneMode", CutsceneMode);
             settings.SetValue("General", "RandomTrains", RandomTrains);
             settings.SetValue("General", "RealTime", RealTime);
             settings.SetValue("General", "YearTraffic", YearTraffic);

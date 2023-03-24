@@ -236,6 +236,8 @@
 	BTTFV_Menu_Settings_Item_CinematicSpawn_Title = Crea con rientro cinematico
 	BTTFV_Menu_Settings_Item_Controls_Description = Apre il menu per impostare i controlli dello script.
 	BTTFV_Menu_Settings_Item_Controls_Title = Menu controlli
+	BTTFV_Menu_Settings_Item_Cutscene_Description = Imposta la modalità di viaggio nel tempo cinematica.
+	BTTFV_Menu_Settings_Item_Cutscene_Title = Modalità cinematica
 	BTTFV_Menu_Settings_Item_Events_Description = Apre il menu per impostare gli eventi controllati dallo script.
 	BTTFV_Menu_Settings_Item_Events_Title = Gestione eventi
 	BTTFV_Menu_Settings_Item_ForceFly_Description = Forza la modalità volante.
@@ -303,8 +305,6 @@
 	BTTFV_Menu_TimeMachine_Item_Altitude_Title = Mantenimento altitudine
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = Modifica la macchina del tempo.
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = Menu personalizzazione
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Description = Imposta la modalità di viaggio nel tempo cinematica.
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Title = Modalità cinematica
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = Apre il menu principale dello script.
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Title = Menu principale
 	BTTFV_Menu_TimeMachine_Item_Hover_Description = Abilita la modalità aerotrasformata.

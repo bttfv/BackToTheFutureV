@@ -236,6 +236,8 @@ Version 2 30
 	BTTFV_Menu_Settings_Item_CinematicSpawn_Title = 電影感刷出
 	BTTFV_Menu_Settings_Item_Controls_Description = 此選單可更變模組的熱鍵綁定及操作方式。
 	BTTFV_Menu_Settings_Item_Controls_Title = 操控選項菜單
+	BTTFV_Menu_Settings_Item_Cutscene_Description = 啟用或关闭時空穿越時的過場動畫。
+	BTTFV_Menu_Settings_Item_Cutscene_Title = 過場穿越模式
 	BTTFV_Menu_Settings_Item_Events_Description = 此選單可開關一些影響游戲性的脚本事件。
 	BTTFV_Menu_Settings_Item_Events_Title = 脚本事件選單
 	BTTFV_Menu_Settings_Item_ForceFly_Description = 强制使《回到未來2》的時光機無法憑空懸浮
@@ -303,8 +305,6 @@ Version 2 30
 	BTTFV_Menu_TimeMachine_Item_Altitude_Title = 飛行高度維持
 	BTTFV_Menu_TimeMachine_Item_Custom_Description = 編輯當前時光機。
 	BTTFV_Menu_TimeMachine_Item_Custom_Title = 自定義選單
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Description = 啟用或关闭時空穿越時的過場動畫。
-	BTTFV_Menu_TimeMachine_Item_Cutscene_Title = 過場穿越模式
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Description = 前往模組的主選單。
 	BTTFV_Menu_TimeMachine_Item_GoToMain_Title = 前往主選單
 	BTTFV_Menu_TimeMachine_Item_Hover_Description = 啓用或禁用時光機的飛行模式。
