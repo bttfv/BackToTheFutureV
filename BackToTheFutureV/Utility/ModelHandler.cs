@@ -93,6 +93,9 @@ namespace BackToTheFutureV
         public static CustomModel DMCDebugModel = new CustomModel("dmc_debug");
         public static CustomModel FreightModel = new CustomModel("freight");
         public static CustomModel FreightCarModel = new CustomModel("freightcar");
+        public static CustomModel FreightContModel1 = new CustomModel("freightcont1");
+        public static CustomModel FreightContModel2 = new CustomModel("freightcont2");
+        public static CustomModel GrainCarModel = new CustomModel("freightgrain");
         public static CustomModel TankerCarModel = new CustomModel("tankercar");
 
         public static CustomModel Deluxo = new CustomModel("deluxo");
