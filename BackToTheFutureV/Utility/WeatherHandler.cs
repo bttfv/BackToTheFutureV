@@ -57,11 +57,11 @@ namespace BackToTheFutureV
         {
             for (int x = 0; x < _length; x++)
             {
-                if (GTA.UI.Screen.IsFadedOut)
+                if (GTA.UI.Screen.IsFadingOut)
                 {
                     MomentReplica.MomentReplicas[x].Applied = false;
                 }
-                if (MomentReplica.MomentReplicas[x].IsNow() && !GTA.UI.Screen.IsFadedOut)
+                else if (MomentReplica.MomentReplicas[x].IsNow() && !GTA.UI.Screen.IsFadedOut)
                 {
                     MomentReplica.MomentReplicas[x].Apply();
                 }

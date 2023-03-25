@@ -373,7 +373,7 @@ namespace BackToTheFutureV
                     return;
                 }
 
-                if (Properties.AreTimeCircuitsOn == true)
+                if (Properties.AreTimeCircuitsOn == true && !Properties.IsRemoteControlled)
                 {
                     if (Vehicle.Health < 991)
                     {
