@@ -50,7 +50,10 @@ namespace BackToTheFutureV
             CallFunction("SET_" + type.ToUpper() + "_HOUR", ((date.Hour + 11) % 12) + 1);
             CallFunction("SET_" + type.ToUpper() + "_MINUTE", date.Minute);
 
-            CallFunction("SET_AM_PM", type.ToLower(), date.ToString("tt", CultureInfo.InvariantCulture) == "AM" ? 1 : 2);
+            if (ModSettings.TCDBackground != TCDBackground.BTTF3)
+                CallFunction("SET_AM_PM", type.ToLower(), date.ToString("tt", CultureInfo.InvariantCulture) == "AM" ? 1 : 2);
+            else
+                CallFunction("SET_AM_PM", type.ToLower(), date.ToString("tt", CultureInfo.InvariantCulture) == "AM" ? 2 : 1);
         }
 
         public void SetSpeedoBackground(bool state)
