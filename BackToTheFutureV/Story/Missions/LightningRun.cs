@@ -64,7 +64,7 @@ namespace BackToTheFutureV
         private Vector3 checkPos = new Vector3(-143.6626f, 6390.0047f, 30.7007f);
 
         public static DateTime StartTime { get; } = new DateTime(1955, 11, 12, 20, 0, 0);
-        public static DateTime EndTime { get; } = new DateTime(1955, 11, 12, 22, 4, 30);
+        public static DateTime EndTime { get; } = new DateTime(1955, 11, 13, 6, 0, 0);
         public static DateTime StrikeTime { get; } = new DateTime(1955, 11, 12, 22, 4, 0);
 
         private bool setup;
@@ -167,7 +167,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!setup || (FusionUtils.CurrentTime >= StartTime && FusionUtils.CurrentTime <= EndTime && Thunder == null))
+            if (!setup || (FusionUtils.CurrentTime >= StartTime && FusionUtils.CurrentTime <= EndTime && Thunder == null) || (FusionUtils.CurrentTime < StartTime || FusionUtils.CurrentTime > EndTime) && Thunder != null)
             {
                 OnEnd();
                 Setup();
