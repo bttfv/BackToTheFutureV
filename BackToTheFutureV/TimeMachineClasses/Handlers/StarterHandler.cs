@@ -179,8 +179,6 @@ namespace BackToTheFutureV
                 if ((!ModSettings.EngineStallEvent && !Properties.PhotoEngineStallActive) || (Constants.ReadyForLightningRun && !Properties.PhotoEngineStallActive && !Properties.BlockEngineRecover))
                 {
                     Stop();
-                    Vehicle.FuelLevel = _deloreanMaxFuelLevel;
-                    Vehicle.IsEngineRunning = true;
                     _nextCheck = Game.GameTime + 10000;
                     return;
                 }
@@ -197,8 +195,7 @@ namespace BackToTheFutureV
                     if (!_isRestarting)
                     {
                         //Would be cool to loop this animation at the key-turning step...
-                        Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop | AnimationFlags.AbortOnPedMovement);
-
+                        Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop);
                         Sounds.EngineRestarter?.Play();
                         _restartAt = Game.GameTime + FusionUtils.Random.Next(3000, 10000);
                         _isRestarting = true;
@@ -207,8 +204,6 @@ namespace BackToTheFutureV
                     if ((!Properties.BlockEngineRecover && Game.GameTime > _restartAt))
                     {
                         Stop();
-                        Vehicle.FuelLevel = _deloreanMaxFuelLevel;
-                        Vehicle.IsEngineRunning = true;
                         _nextCheck = Game.GameTime + 10000;
                         return;
                     }
@@ -217,19 +212,17 @@ namespace BackToTheFutureV
                     {
                         Sounds.HeadHorn?.Play();
                         Stop();
-                        Vehicle.FuelLevel = _deloreanMaxFuelLevel;
-                        Vehicle.IsEngineRunning = true;
                         _nextCheck = Game.GameTime + 10000;
                         return;
                     }
                 }
                 else
                 {
+                    Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
                     _lightsBrightness = 1;
                     timedEventManager.ResetExecution();
                     _isRestarting = false;
                     Sounds.EngineRestarter?.Stop();
-                    Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
                 }
             }
 
@@ -250,7 +243,6 @@ namespace BackToTheFutureV
 
         public override void Stop()
         {
-            Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
             Properties.IsEngineStalling = false;
             Properties.PhotoEngineStallActive = false;
             Properties.BlockEngineRecover = false;
@@ -271,6 +263,9 @@ namespace BackToTheFutureV
 
                 Vehicle.AreHighBeamsOn = _highbeamsOn;
             }
+
+            Vehicle.IsEngineRunning = true;
+            Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
         }
 
         public override void Dispose()
