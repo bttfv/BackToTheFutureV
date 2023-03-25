@@ -89,17 +89,17 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs key)
         {
-            if (key.KeyCode == Keys.U && !struck)
+            /*if (key.KeyCode == Keys.U && !struck)
             {
-                /*HookSetup(CurrentTimeMachine.Vehicle.Position);
-                struck = true;*/
+                HookSetup(TimeMachineHandler.ClosestTimeMachine.Vehicle.Position);
+                struck = true;
             }
             else if (key.KeyCode == Keys.U && struck)
             {
-                /*Hook?.Delete();
+                Hook?.Delete();
                 _firstTick = true;
-                struck = false;*/
-            }
+                struck = false;
+            }*/
 
             /*if (key.KeyCode == Keys.O)
             {
@@ -175,7 +175,6 @@ namespace BackToTheFutureV
 
             if (Hook != null && Hook.IsVisible && IsPlaying)
             {
-
                 UpdateSpringPosition();
                 if (_firstTick)
                 {
@@ -192,6 +191,9 @@ namespace BackToTheFutureV
                 springForward = Vector3.Cross(springForward, springUp);
                 Hook.Position = _springBase;
                 Hook.Quaternion = Quaternion.LookRotation(springForward, -springUp);
+
+                Vector3 _lightPos = new Vector3(Hook.Position.X, Hook.Position.Y, Hook.Position.Z + 0.50f);
+                World.DrawSpotLight(_lightPos, springUp, System.Drawing.Color.Yellow, 3.05f, 5f, 0f, 10f, 0f);
             }
 
             if (FusionUtils.CurrentTime == StrikeTime && !IsPlaying)
