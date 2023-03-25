@@ -45,7 +45,8 @@ namespace BackToTheFutureV
 
             ShowBlip.Checked = CurrentRemoteTimeMachine.Blip != null && CurrentRemoteTimeMachine.Blip.Exists();
 
-            ForceReenter.Enabled = !CurrentRemoteTimeMachine.TimeMachineClone.Properties.AreTimeCircuitsBroken && !CurrentRemoteTimeMachine.Spawned && !CurrentRemoteTimeMachine.TimeMachineClone.Properties.IsWayback && CurrentRemoteTimeMachine.TimeMachine.Vehicle.Driver == null;
+            ForceReenter.Enabled = !CurrentRemoteTimeMachine.TimeMachineClone.Properties.AreTimeCircuitsBroken && !CurrentRemoteTimeMachine.Spawned &&
+                CurrentRemoteTimeMachine.TimeMachineClone.Properties.TimeTravelType == TimeTravelType.RC;
         }
 
         public override void Menu_OnItemActivated(NativeItem sender, EventArgs e)

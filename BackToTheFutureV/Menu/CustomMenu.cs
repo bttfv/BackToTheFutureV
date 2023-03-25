@@ -151,7 +151,7 @@ namespace BackToTheFutureV
                 _exhaust.SelectedIndex = (int)CurrentTimeMachine.Mods.Exhaust + 1;
                 _suspensions.SelectedIndex = (int)CurrentTimeMachine.Mods.SuspensionsType;
                 _hood.SelectedIndex = (int)CurrentTimeMachine.Mods.Hood + 1;
-                _threeDigits.Checked = CurrentTimeMachine.Mods.Speedo != ModState.Off;
+                _threeDigits.Checked = CurrentTimeMachine.Mods.Speedo != ModState.Off || CurrentTimeMachine.Properties.ThreeDigit2D;
                 _exhaust.Enabled = CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off;
                 _suspensions.Enabled = CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off;
             }
@@ -195,7 +195,6 @@ namespace BackToTheFutureV
             _suspensions.Enabled = CurrentTimeMachine.Mods.IsDMC12;
             _wheelsType.Enabled = CurrentTimeMachine.Vehicle.IsAutomobile;
             _hood.Enabled = CurrentTimeMachine.Mods.IsDMC12;
-            _threeDigits.Enabled = CurrentTimeMachine.Mods.IsDMC12;
 
             LoadVehicleMods();
         }
@@ -222,8 +221,15 @@ namespace BackToTheFutureV
             }
             else if (sender == _threeDigits)
             {
-                CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.DigitalSpeedo, FusionEnums.CameraSwitchType.Instant, 1250);
-                CurrentTimeMachine.Mods.Speedo = ConvertFromBool(Checked);
+                if (CurrentTimeMachine.Mods.IsDMC12)
+                {
+                    CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.DigitalSpeedo, FusionEnums.CameraSwitchType.Instant, 1250);
+                    CurrentTimeMachine.Mods.Speedo = ConvertFromBool(Checked);
+                }
+                else
+                {
+                    CurrentTimeMachine.Properties.ThreeDigit2D = Checked;
+                }
             }
             else if (sender == _bulova)
             {

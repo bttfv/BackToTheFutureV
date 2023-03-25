@@ -100,7 +100,7 @@ namespace BackToTheFutureV
             scaleform.CallFunction("SET_DIGIT_1", digit1 == 0 ? 10 : digit1);
             scaleform.CallFunction("SET_DIGIT_2", digit2);
 
-            if (Mods.Speedo == ModState.On)
+            if (Mods.Speedo == ModState.On || Properties.ThreeDigit2D)
             {
                 scaleform.CallFunction("SET_DIGIT_3", digit3);
             }

@@ -400,7 +400,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            ScaleformsHandler.GUI.SetSpeedoBackground(ConvertFromModState(Mods.Speedo));
+            ScaleformsHandler.GUI.SetSpeedoBackground(ConvertFromModState(Mods.Speedo) || Properties.ThreeDigit2D);
             ScaleformsHandler.GUI.SetBackground(ModSettings.TCDBackground);
             ScaleformsHandler.GUI.SetEmpty(Properties.HUDProperties.Empty);
             ScaleformsHandler.GUI.Draw2D();

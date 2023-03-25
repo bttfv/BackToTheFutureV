@@ -39,6 +39,7 @@ namespace BackToTheFutureV
         public int OverrideTTSfxSpeed { get; set; }
         public int OverrideTTSpeed { get; set; }
         public int OverrideWormholeLengthTime { get; set; }
+        public bool ThreeDigit2D { get; set; }
 
 
         //Temporary properties
@@ -136,6 +137,7 @@ namespace BackToTheFutureV
             ret.OverrideTTSfxSpeed = OverrideTTSfxSpeed;
             ret.OverrideTTSpeed = OverrideTTSpeed;
             ret.OverrideWormholeLengthTime = OverrideWormholeLengthTime;
+            ret.ThreeDigit2D = ThreeDigit2D;
 
             return ret;
         }
@@ -171,6 +173,7 @@ namespace BackToTheFutureV
             timeMachine.Properties.OverrideTTSfxSpeed = OverrideTTSfxSpeed;
             timeMachine.Properties.OverrideTTSpeed = OverrideTTSpeed;
             timeMachine.Properties.OverrideWormholeLengthTime = OverrideWormholeLengthTime;
+            timeMachine.Properties.ThreeDigit2D = ThreeDigit2D;
 
             if (IsFlying)
             {
