@@ -11,6 +11,7 @@ namespace BackToTheFutureV
     internal class TimeParadox : Script
     {
         private WaybackRecord StartRecord;
+        private ModsPrimitive StartMods;
         private WaybackRecord LastRecord;
 
         public static bool ParadoxInProgress { get; private set; }
@@ -37,6 +38,9 @@ namespace BackToTheFutureV
 
             if (StartRecord == null)
                 StartRecord = new WaybackRecord(FusionUtils.PlayerPed);
+
+            if (FusionUtils.PlayerVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.IsTimeMachine() && TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).Mods.IsDMC12)
+                StartMods = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).Mods.Clone();
 
             if (!ModSettings.WaybackSystem || !ModSettings.TimeParadox)
                 return;
@@ -158,6 +162,29 @@ namespace BackToTheFutureV
             PlayerSwitch.Switch(newPed, true, true);
 
             oldPed.Delete();
+
+            if (StartRecord.Vehicle != null && StartRecord.Vehicle.IsTimeMachine)
+            {
+                SpawnFlags flag;
+                bool isDMC12 = false;
+
+                if (StartRecord.Vehicle.Replica.Model == ModelHandler.DMC12 || StartRecord.Vehicle.Replica.Model == ModelHandler.DMCDebugModel)
+                {
+                    flag = SpawnFlags.NoVelocity | SpawnFlags.NoMods;
+                    isDMC12 = true;
+                }
+                else
+                {
+                    flag = SpawnFlags.NoVelocity;
+                }
+                TimeMachine timeMachine = StartRecord.Vehicle.Replica.Spawn(flag).TransformIntoTimeMachine();
+
+                if (isDMC12)
+                    StartMods.ApplyTo(timeMachine);
+
+                StartRecord.Vehicle.Properties.ApplyTo(timeMachine);
+                FusionUtils.PlayerPed.SetIntoVehicle(timeMachine.Vehicle, StartRecord.Ped.Replica.Seat);
+            }
 
             Game.Player.CanControlCharacter = true;
 

@@ -10,7 +10,6 @@ namespace BackToTheFutureV
         private readonly NativeCheckboxItem cinematicSpawn;
         private readonly NativeCheckboxItem cutsceneMode;
         private readonly NativeCheckboxItem useInputToggle;
-        private readonly NativeCheckboxItem LandingSystem;
         private readonly NativeCheckboxItem InfiniteFuel;
         private readonly NativeCheckboxItem WaybackSystem;
         private readonly NativeCheckboxItem TimeParadox;
@@ -25,7 +24,6 @@ namespace BackToTheFutureV
             cinematicSpawn = NewCheckboxItem("CinematicSpawn", ModSettings.CinematicSpawn);
             cutsceneMode = NewCheckboxItem("Cutscene", ModSettings.CutsceneMode);
             useInputToggle = NewCheckboxItem("InputToggle", ModSettings.UseInputToggle);
-            LandingSystem = NewCheckboxItem("LandingSystem", ModSettings.LandingSystem);
             InfiniteFuel = NewCheckboxItem("InfinityReactor", ModSettings.InfiniteFuel);
             WaybackSystem = NewCheckboxItem("Wayback", ModSettings.WaybackSystem);
             TimeParadox = NewCheckboxItem("TimeParadox", ModSettings.TimeParadox);
@@ -67,9 +65,6 @@ namespace BackToTheFutureV
                     break;
                 case NativeCheckboxItem _ when sender == useInputToggle:
                     ModSettings.UseInputToggle = Checked;
-                    break;
-                case NativeCheckboxItem _ when sender == LandingSystem:
-                    ModSettings.LandingSystem = Checked;
                     break;
                 case NativeCheckboxItem _ when sender == RandomTrains:
                     ModSettings.RandomTrains = Checked;

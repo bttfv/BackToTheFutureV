@@ -338,7 +338,7 @@ namespace BackToTheFutureV
             if (TimeMachineHandler.CurrentTimeMachine == Vehicle && TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase >= TimeTravelPhase.OpeningWormhole)
                 return;
 
-            if (!state && !forceNoLanding && ModSettings.LandingSystem && !Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 0.5f && Vehicle.HeightAboveGround < 20 && Vehicle.GetMPHSpeed() <= 30f && VehicleControl.GetDeluxoTransformation(Vehicle) > 0f)
+            if (!state && !forceNoLanding && !Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 0.5f && Vehicle.HeightAboveGround < 20 && Vehicle.GetMPHSpeed() <= 30f && VehicleControl.GetDeluxoTransformation(Vehicle) > 0f)
             {
                 IsHoverLanding = true;
                 IsWaitForLanding = false;

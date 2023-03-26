@@ -50,5 +50,29 @@ namespace BackToTheFutureV
 
             return ret;
         }
+
+        public void ApplyTo(TimeMachine timeMachine)
+        {
+            ModsHandler ret = timeMachine.Mods;
+
+            timeMachine.Vehicle.Mods.InstallModKit();
+
+            ret.IsDMC12 = IsDMC12;
+            ret.WormholeType = WormholeType;
+            ret.SuspensionsType = SuspensionsType;
+            ret.Wheel = Wheel;
+            ret.Components = Components;
+            ret.Bulova = Bulova;
+            ret.OffCoils = OffCoils;
+            ret.GlowingEmitter = GlowingEmitter;
+            ret.GlowingReactor = GlowingReactor;
+            ret.HoverUnderbody = HoverUnderbody;
+            ret.Reactor = Reactor;
+            ret.Plate = Plate;
+            ret.Exhaust = Exhaust;
+            ret.Hoodbox = Hoodbox;
+            ret.Hook = Hook;
+            ret.Hood = Hood;
+        }
     }
 }

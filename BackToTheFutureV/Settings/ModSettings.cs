@@ -39,7 +39,6 @@ namespace BackToTheFutureV
         public static bool TurbulenceEvent { get; set; } = true;
         public static bool TerroristsEvent { get; set; } = true;
         public static bool TrainEvent { get; set; } = true;
-        public static bool LandingSystem { get; set; } = true;
         public static bool RandomTrains { get; set; } = true;
         public static bool WaybackSystem { get; set; } = false;
         public static bool RealTime { get; set; } = true;
@@ -113,8 +112,6 @@ namespace BackToTheFutureV
             MaxRecordedMachines = settings.GetValue("General", "MaxRemote", MaxRecordedMachines);
             Potato = settings.GetValue("General", "Potato", Potato);
 
-            LandingSystem = settings.GetValue("Hover", "LandingSystem", LandingSystem);
-
             LightningStrikeEvent = settings.GetValue("Events", "LightningStrike", LightningStrikeEvent);
             EngineStallEvent = settings.GetValue("Events", "EngineStall", EngineStallEvent);
             TurbulenceEvent = settings.GetValue("Events", "Turbulence", TurbulenceEvent);
@@ -164,8 +161,6 @@ namespace BackToTheFutureV
             //settings.SetValue("General", "DeluxoProto", DeluxoProto);
             settings.SetValue("General", "MaxRemote", MaxRecordedMachines);
             settings.SetValue("General", "Potato", Potato);
-
-            settings.SetValue("Hover", "LandingSystem", LandingSystem);
 
             settings.SetValue("Events", "LightningStrike", LightningStrikeEvent);
             settings.SetValue("Events", "EngineStall", EngineStallEvent);

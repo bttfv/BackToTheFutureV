@@ -241,7 +241,7 @@ namespace BackToTheFutureV
 
             Properties.IsFlying = open;
 
-            Properties.IsLanding = ModSettings.LandingSystem && !Properties.IsFlying && !Properties.AreFlyingCircuitsBroken && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
+            Properties.IsLanding = !Properties.IsFlying && !Properties.AreFlyingCircuitsBroken && !instant && Vehicle.HeightAboveGround < 20 && Vehicle.HeightAboveGround > 0.5f && !Vehicle.IsUpsideDown && VehicleControl.GetDeluxoTransformation(Vehicle) > 0;
 
             if (instant)
             {
