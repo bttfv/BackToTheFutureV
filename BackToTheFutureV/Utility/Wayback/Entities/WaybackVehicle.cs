@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
@@ -8,6 +9,10 @@ namespace BackToTheFutureV
     internal class WaybackVehicle
     {
         public VehicleReplica Replica { get; }
+
+        public WaybackPedEvent Event { get; set; } = WaybackPedEvent.None;
+
+        public int TimeTravelDelay { get; set; }
 
         public bool IsTimeMachine { get; }
 
@@ -127,6 +132,11 @@ namespace BackToTheFutureV
             }
 
             Properties.ApplyToWayback(timeMachine);
+
+            if (Event.HasFlag(WaybackPedEvent.TimeTravel))
+            {
+                timeMachine.Events.OnSparksEnded?.Invoke(TimeTravelDelay);
+            }
 
             return vehicle;
         }

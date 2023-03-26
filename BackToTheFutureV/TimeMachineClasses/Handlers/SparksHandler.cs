@@ -36,7 +36,8 @@ namespace BackToTheFutureV
                 if (Properties.IsFueled)
                 {
                     DMC12?.SetVoltValue?.Invoke(100);
-                    WaypointScript.LoadWaypointPosition(true);
+                    if (Driver == FusionUtils.PlayerPed)
+                        WaypointScript.LoadWaypointPosition(true);
                 }
             }
             else
@@ -127,7 +128,7 @@ namespace BackToTheFutureV
                         }
                     }
 
-                    if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.OverTimeTravelAtSpeed)
+                    if (Game.GameTime >= Constants.TimeTravelAtTime && Constants.OverTimeTravelAtSpeed && !Properties.IsWayback)
                     {
                         Events.OnSparksEnded?.Invoke();
                     }
@@ -208,6 +209,13 @@ namespace BackToTheFutureV
 
         private void OnSparksEnded(int delay = 0)
         {
+            if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine && !Properties.HasBeenStruckByLightning && WaybackSystem.CurrentPlayerRecording != null)
+            {
+                WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackPedEvent.TimeTravel;
+                WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.TimeTravelDelay = delay;
+                WaybackSystem.CurrentPlayerRecording.Stop();
+            }
+
             Stop();
 
             Properties.TimeTravelPhase = TimeTravelPhase.InTime;

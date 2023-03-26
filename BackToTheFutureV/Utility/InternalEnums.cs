@@ -48,7 +48,8 @@
             DrivingVehicle,
             Jump,
             MeleeAttack,
-            Climb
+            Climb,
+            TimeTravel
         }
 
         internal enum GarageStatus
