@@ -96,6 +96,10 @@ namespace BackToTheFutureV
                 return;
             }
 
+            // If a savegame is loaded while RC is active it can cause the load process to malfunction, so force RC to exit first
+            if (GTA.Game.IsControlJustPressed(GTA.Control.FrontendPause))
+                StopRemoteControl();
+
             float squareDist = RemoteControlling.OriginalPed.DistanceToSquared2D(RemoteControlling.Vehicle);
 
             if (squareDist > MAX_DIST * MAX_DIST)

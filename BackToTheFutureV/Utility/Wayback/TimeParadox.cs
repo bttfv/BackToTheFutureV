@@ -32,17 +32,20 @@ namespace BackToTheFutureV
 
         public void TimeParadox_Tick(object sender, EventArgs e)
         {
+            if (Game.IsLoading || Main.FirstTick || Game.IsMissionActive)
+                return;
+
+            if (StartRecord == null)
+                StartRecord = new WaybackRecord(FusionUtils.PlayerPed);
+
+            if (!ModSettings.WaybackSystem || !ModSettings.TimeParadox)
+                return;
+
             if (ParadoxInProgress)
             {
                 Process();
                 return;
             }
-
-            if (Game.IsLoading || Main.FirstTick || !ModSettings.WaybackSystem || !ModSettings.TimeParadox || Game.IsMissionActive)
-                return;
-
-            if (StartRecord == null)
-                StartRecord = new WaybackRecord(FusionUtils.PlayerPed);
 
             if (FusionUtils.PlayerPed.Model == StartRecord.Ped.Replica.Model)
                 LastRecord = new WaybackRecord(FusionUtils.PlayerPed);
