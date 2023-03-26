@@ -38,7 +38,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Game.IsLoading || Main.FirstTick || !ModSettings.WaybackSystem || !ModSettings.TimeParadox)
+            if (Game.IsLoading || Main.FirstTick || !ModSettings.WaybackSystem || !ModSettings.TimeParadox || Game.IsMissionActive)
                 return;
 
             if (StartRecord == null)
@@ -138,6 +138,8 @@ namespace BackToTheFutureV
             RemoteTimeMachineHandler.DeleteAll();
 
             TimeHandler.TimeTravelTo(StartRecord.Time);
+            MomentReplica.MomentReplicas.Clear();
+            WeatherHandler.Register();
 
             Function.Call(Hash.NETWORK_REQUEST_CONTROL_OF_ENTITY, FusionUtils.PlayerPed);
             Function.Call(Hash.NETWORK_RESURRECT_LOCAL_PLAYER, FusionUtils.PlayerPed.Position.X, FusionUtils.PlayerPed.Position.Y, FusionUtils.PlayerPed.Position.Z, FusionUtils.PlayerPed.Heading, false, false);

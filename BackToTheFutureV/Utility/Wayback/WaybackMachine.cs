@@ -144,7 +144,7 @@ namespace BackToTheFutureV
 
         private void Record()
         {
-            if ((IsPlayer && !FusionUtils.PlayerPed.IsAlive) || (!IsPlayer && !Ped.ExistsAndAlive()) || FusionUtils.CurrentTime < StartTime)
+            if ((IsPlayer && !FusionUtils.PlayerPed.IsAlive) || (!IsPlayer && !Ped.ExistsAndAlive()) || FusionUtils.CurrentTime < StartTime || Game.IsMissionActive)
             {
                 Stop();
                 return;
@@ -216,7 +216,10 @@ namespace BackToTheFutureV
             if (Status == WaybackStatus.Recording && Records.Count > 0)
             {
                 StartTime = Records[0].Time;
-                EndTime = LastRecord.Time;
+                if (ModSettings.RealTime)
+                    EndTime = LastRecord.Time.AddSeconds(-2);
+                else
+                    EndTime = LastRecord.Time.AddMinutes(-1);
             }
 
             CurrentIndex = 0;

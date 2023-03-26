@@ -25,7 +25,7 @@ namespace BackToTheFutureV
             if (FusionUtils.FirstTick || !ModSettings.WaybackSystem || TimeParadox.ParadoxInProgress || IntroHandler.Me.IsPlaying)
                 return;
 
-            if (CurrentPlayerRecording == default && FusionUtils.PlayerPed.IsAlive && !FusionUtils.PlayerPed.IsDead)
+            if (CurrentPlayerRecording == default && FusionUtils.PlayerPed.IsAlive && !FusionUtils.PlayerPed.IsDead && !Game.IsMissionActive)
             {
                 if (!TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() || (TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase <= TimeTravelPhase.OpeningWormhole))
                 {
