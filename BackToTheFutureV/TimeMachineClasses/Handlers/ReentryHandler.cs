@@ -59,6 +59,12 @@ namespace BackToTheFutureV
             {
                 case 0:
 
+                    if (TimeMachine.Properties.DestinationTime <= FusionUtils.CurrentTime)
+                    {
+                        _currentStep = 3;
+                        break;
+                    }
+
                     Sounds.Reenter?.Play();
 
                     Particles?.Flash?.Play();
@@ -148,13 +154,13 @@ namespace BackToTheFutureV
 
             DMC12?.SetVoltValue?.Invoke(50);
 
-            FusionUtils.HideGUI = false;
-
-            PlayerSwitch.Disable = false;
-
-            Game.Player.IgnoredByPolice = false;
-
-            Function.Call(Hash.ENABLE_ALL_CONTROL_ACTIONS, 0);
+            if (Driver == FusionUtils.PlayerPed)
+            {
+                FusionUtils.HideGUI = false;
+                PlayerSwitch.Disable = false;
+                Game.Player.IgnoredByPolice = false;
+                Function.Call(Hash.ENABLE_ALL_CONTROL_ACTIONS, 0);
+            }
 
             if (!Properties.WasOnTracks)
             {
@@ -202,8 +208,8 @@ namespace BackToTheFutureV
                 _handbrakeTimer = 0;
             }
 
-            //Function.Call(Hash.SPECIAL_ABILITY_UNLOCK, CommonSettings.PlayerPed.Model);
-            Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+            if (Driver == FusionUtils.PlayerPed)
+                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
 
             if (Driver != null && Driver != FusionUtils.PlayerPed)
             {

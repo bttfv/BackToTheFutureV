@@ -282,7 +282,8 @@ namespace BackToTheFutureV
             {
                 timeMachine.Vehicle.SetVisible(false);
 
-                timeMachine.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
+                if (timeMachine.Properties.DestinationTime > FusionUtils.CurrentTime)
+                    timeMachine.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
 
                 if (timeMachine.Mods.WormholeType == WormholeType.BTTF2 && spawnFlags.HasFlag(SpawnFlags.ForceReentry | SpawnFlags.New))
                 {

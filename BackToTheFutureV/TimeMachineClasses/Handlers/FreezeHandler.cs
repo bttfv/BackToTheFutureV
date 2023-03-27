@@ -57,7 +57,8 @@ namespace BackToTheFutureV
 
         public void OnReenterEnded()
         {
-            StartFreezeHandling();
+            if (Properties.DestinationTime > FusionUtils.CurrentTime)
+                StartFreezeHandling();
         }
 
         public void StartFreezeHandling(bool fuelNotify = true, bool resume = false)

@@ -64,6 +64,12 @@ namespace BackToTheFutureV
                 _hasPlayedWarningSound = false;
                 _timer = Game.GameTime + 10000;
             }
+
+            if (TimeMachineClone.Properties.DestinationTime <= FusionUtils.CurrentTime)
+            {
+                Spawn(ReenterType.Normal);
+                _hasPlayedWarningSound = false;
+            }
         }
 
         private bool IsTimeBeforeSeconds(int value)
