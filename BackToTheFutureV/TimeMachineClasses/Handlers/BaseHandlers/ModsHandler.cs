@@ -384,10 +384,10 @@ namespace BackToTheFutureV
                         Wheel = WheelType.Stock;
                     }
 
-                    if (TimeMachine.Vehicle.Model == ModelHandler.Deluxo /*|| TimeMachine.Vehicle.Model == "dproto"*/ && Wheel != WheelType.DMC && Wheel != WheelType.Red)
+                    /*if (TimeMachine.Vehicle.Model == "dproto" && Wheel != WheelType.DMC && Wheel != WheelType.Red)
                     {
                         Wheel = WheelType.DMC;
-                    }
+                    }*/
 
                     reload = SuspensionsType != SuspensionsType.Stock;
 

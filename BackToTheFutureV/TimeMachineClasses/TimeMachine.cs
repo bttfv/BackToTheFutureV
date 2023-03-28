@@ -96,11 +96,11 @@ namespace BackToTheFutureV
             registeredHandlers.Add("SparksHandler", new SparksHandler(this));
 
             registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));
+            registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
 
             if (Mods.IsDMC12)
             {
                 registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
-                registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
                 registeredHandlers.Add("FuelHandler", new FuelHandler(this));
                 registeredHandlers.Add("SIDHandler", new SIDHandler(this));
                 registeredHandlers.Add("FluxCapacitorHandler", new FluxCapacitorHandler(this));
@@ -126,10 +126,10 @@ namespace BackToTheFutureV
 
             Events.OnWormholeTypeChanged += UpdateBlip;
 
-            if (Vehicle.Model == ModelHandler.Deluxo /*|| (Main.DeluxoProtoSupport && vehicle.Model == "dproto")*/)
+            /*if (Main.DeluxoProtoSupport && vehicle.Model == "dproto")
             {
                 Mods.HoverUnderbody = ModState.On;
-            }
+            }*/
 
             CustomCameraManager = new CustomCameraHandler();
 
@@ -376,13 +376,7 @@ namespace BackToTheFutureV
             foreach (KeyValuePair<string, HandlerPrimitive> entry in registeredHandlers)
             {
                 entry.Value.Tick();
-
-                //if (TimeMachineHandler.CurrentTimeMachine == this)
-                //    Main.CustomStopwatch.WriteAndReset(entry.Key);
             }
-
-            //if (TimeMachineHandler.CurrentTimeMachine == this)
-            //    Main.CustomStopwatch.Stop();
 
             if (Properties.Boost != 0)
             {

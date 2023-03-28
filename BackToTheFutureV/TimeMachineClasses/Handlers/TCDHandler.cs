@@ -273,7 +273,7 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs e)
         {
-            if ((e.KeyCode == ModControls.TCToggle || e.KeyCode == Keys.Oemplus && ModControls.TCToggle == Keys.Add) && !Properties.IsRemoteControlled && !Game.IsMissionActive)
+            if ((e.KeyCode == ModControls.TCToggle || e.KeyCode == Keys.Oemplus && ModControls.TCToggle == Keys.Add) && !Properties.IsRemoteControlled && !Game.IsMissionActive && Properties.TimeTravelPhase <= TimeTravelPhase.OpeningWormhole)
             {
                 SetTimeCircuitsOn(!Properties.AreTimeCircuitsOn);
             }
@@ -435,7 +435,7 @@ namespace BackToTheFutureV
 
         public void SetTimeCircuitsOn(bool on)
         {
-            if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole | TcdEditer.IsEditing | RCGUIEditer.IsEditing)
+            if (TcdEditer.IsEditing || RCGUIEditer.IsEditing)
             {
                 return;
             }

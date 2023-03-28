@@ -76,7 +76,7 @@ public static class Potato
     {
         //_log.AppendLine("Stopping profiler session.\n");
 
-        _harmony.UnpatchAll();
+        _harmony?.UnpatchAll();
         _harmony = null;
     }
 

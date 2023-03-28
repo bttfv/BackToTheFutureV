@@ -75,14 +75,11 @@ namespace BackToTheFutureV
 
             set
             {
-                if (!Vehicle.IsFunctioning())
+                if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12 || Vehicle.Model == ModelHandler.Deluxo)
                     return;
 
                 if (Vehicle.IsBoat || Vehicle.IsBicycle || Vehicle.IsBike || Vehicle.IsBlimp || Vehicle.IsAircraft || Vehicle.IsHelicopter || Vehicle.IsMotorcycle)
                     value = false;
-
-                if (Vehicle.Model == ModelHandler.Deluxo || Vehicle.Model == ModelHandler.DMC12)
-                    value = true;
 
                 Decorator.SetBool(BTTFVDecors.AllowHoverMode, value);
 
@@ -160,16 +157,30 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
+            // Disable VehicleRoof and VehicleSpecial as they interfere with flight parameters
+            if (IsHoverModeAllowed && FusionUtils.PlayerVehicle == Vehicle)
+            {
+                Game.DisableControlThisFrame(Control.VehicleRoof);
+                Game.DisableControlThisFrame(Control.VehicleSpecial);
+            }
+
+            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Vehicle);
+
+            if (timeMachine != null && timeMachine.Properties.IsFlying && !IsInHoverMode)
+                timeMachine.Properties.IsFlying = false;
+
             if (!IsInHoverMode || SoftLock)
                 return;
 
+            // Disable radio as the Deluxo transformation messes with it
+            Vehicle.IsRadioEnabled = false;
+
+            // Disable vehicle weapon/drive-by in favor of VTOL controls while flying
+            if (FusionUtils.PlayerVehicle == Vehicle)
+                Game.DisableControlThisFrame(Control.VehicleAim);
+
             if (Vehicle.GetMPHSpeed() >= 3f)
                 VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
-
-            //if (FusionUtils.PlayerVehicle == Vehicle)
-            //{
-            //    GTA.UI.Screen.ShowSubtitle(IsHoverLanding.ToString());
-            //}
 
             if (ModSettings.TurbulenceEvent)
             {
@@ -204,7 +215,7 @@ namespace BackToTheFutureV
 
             if (IsHoverLanding)
             {
-                if (Vehicle.HeightAboveGround < 2 && !IsWaitForLanding)
+                if (Vehicle.HeightAboveGround < 2f && !IsWaitForLanding)
                 {
                     if (HoverLandingSmoke == null)
                     {
@@ -222,13 +233,13 @@ namespace BackToTheFutureV
                     OnHoverLanding?.Invoke(true);
                 }
 
-                if (Vehicle.HeightAboveGround > 5 && IsWaitForLanding)
+                if (Vehicle.HeightAboveGround > 5f && IsWaitForLanding)
                 {
                     IsWaitForLanding = false;
                     OnHoverLanding?.Invoke(false);
                 }
 
-                if (Vehicle.IsUpsideDown || Vehicle.HeightAboveGround <= 0.5f || Vehicle.HeightAboveGround >= 20 || Vehicle.GetMPHSpeed() > 30f)
+                if (Vehicle.IsUpsideDown || Vehicle.HeightAboveGround <= 1f || Vehicle.HeightAboveGround >= 20f || Vehicle.GetMPHSpeed() > 30f)
                 {
                     IsHoverLanding = false;
                     IsWaitForLanding = false;
@@ -237,6 +248,37 @@ namespace BackToTheFutureV
 
                     return;
                 }
+            }
+
+            if (FusionUtils.CurrentTime.Year >= 2015)
+            {
+                Function.Call(Hash.SUPPRESS_SHOCKING_EVENTS_NEXT_FRAME);
+            }
+
+            if (timeMachine != null && !timeMachine.Properties.IsFlying)
+                timeMachine.Properties.IsFlying = true;
+
+            if (timeMachine != null && timeMachine.Properties.AreFlyingCircuitsBroken)
+            {
+                IsHoverBoosting = false;
+
+                Vector3 force = Vehicle.UpVector;
+
+                if (!Vehicle.IsUpsideDown)
+                {
+                    force.Z = -force.Z;
+                }
+
+                force *= 18 * Game.LastFrameTime;
+
+                Vehicle.ApplyForce(force, Vector3.Zero);
+
+                if (Vehicle.HeightAboveGround < 2f)
+                {
+                    HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle)?.SetMode(false, true);
+                }
+
+                return;
             }
 
             Vector3 _forceToBeApplied = Vector3.Zero;
@@ -338,7 +380,7 @@ namespace BackToTheFutureV
             if (TimeMachineHandler.CurrentTimeMachine == Vehicle && TimeMachineHandler.CurrentTimeMachine.Properties.TimeTravelPhase >= TimeTravelPhase.OpeningWormhole)
                 return;
 
-            if (!state && !forceNoLanding && !Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 0.5f && Vehicle.HeightAboveGround < 20 && Vehicle.GetMPHSpeed() <= 30f && VehicleControl.GetDeluxoTransformation(Vehicle) > 0f)
+            if (!state && !forceNoLanding && !Vehicle.IsUpsideDown && Vehicle.HeightAboveGround > 1f && Vehicle.HeightAboveGround < 20 && Vehicle.GetMPHSpeed() <= 30f && VehicleControl.GetDeluxoTransformation(Vehicle) > 0f)
             {
                 IsHoverLanding = true;
                 IsWaitForLanding = false;

@@ -326,11 +326,6 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (FusionUtils.CurrentTime.Year >= 2015 && Properties.IsFlying)
-            {
-                Function.Call(Hash.SUPPRESS_SHOCKING_EVENTS_NEXT_FRAME);
-            }
-
             // Automatically fold wheels in if fly mode is exited in any other way
             // Example: getting out of vehicle, flipping vehicle over, etc
             if (Properties.IsFlying && VehicleControl.GetDeluxoTransformation(Vehicle) <= 0)
@@ -343,6 +338,10 @@ namespace BackToTheFutureV
             {
                 SetFlyMode(true);
             }
+
+            // Disable vehicle weapon/drive-by in favor of VTOL controls while flying
+            if ((Properties.IsFlying || Properties.IsLanding) && Vehicle == FusionUtils.PlayerVehicle)
+                Game.DisableControlThisFrame(Control.VehicleAim);
 
             // Process the wheel animations
             Players.HoverModeWheels?.Tick();
@@ -374,7 +373,7 @@ namespace BackToTheFutureV
                 // Apply force
                 Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
 
-                if (Vehicle.HeightAboveGround < 2 && !_landingSmoke)
+                if (Vehicle.HeightAboveGround < 2f && !_landingSmoke)
                 {
                     Particles?.HoverModeSmoke?.Play();
                     _landingSmoke = true;
@@ -391,6 +390,11 @@ namespace BackToTheFutureV
             if (!Properties.IsFlying)
             {
                 return;
+            }
+
+            if (FusionUtils.CurrentTime.Year >= 2015)
+            {
+                Function.Call(Hash.SUPPRESS_SHOCKING_EVENTS_NEXT_FRAME);
             }
 
             if (Properties.HasBeenStruckByLightning || ModSettings.TurbulenceEvent)
@@ -457,7 +461,7 @@ namespace BackToTheFutureV
 
                 Vehicle.ApplyForce(force, Vector3.Zero);
 
-                if (Vehicle.HeightAboveGround < 2)
+                if (Vehicle.HeightAboveGround < 2f)
                 {
                     SetFlyMode(false);
                 }
@@ -468,8 +472,8 @@ namespace BackToTheFutureV
             // Reset force to be applied
             _forceToBeApplied = Vector3.Zero;
 
-            //Provide initial upwards thrust to match prop and sound on hover mode entry, unless player is already trying to fly up/forward
-            if (!Game.IsControlPressed(Control.VehicleFlyThrottleUp) && Game.GameTime < _initialUp)
+            // Provide initial upwards thrust to match prop and sound on hover mode entry, unless player is already trying to fly up/forward
+            if (!(Game.IsControlPressed(Control.VehicleFlyThrottleUp) && Vehicle == FusionUtils.PlayerVehicle) && Game.GameTime < _initialUp)
             {
                 _forceToBeApplied.Z = 0.2f;
             }
@@ -488,7 +492,7 @@ namespace BackToTheFutureV
                     HandleAltitudeHolding();
                 }
 
-                if (Game.IsControlPressed(Control.VehicleHandbrake) && !Game.IsControlPressed(Control.VehicleAccelerate) && !Game.IsControlPressed(Control.VehicleBrake) && Vehicle.GetMPHSpeed() > 1)
+                if (Vehicle == FusionUtils.PlayerVehicle && Game.IsControlPressed(Control.VehicleHandbrake) && !Game.IsControlPressed(Control.VehicleAccelerate) && !Game.IsControlPressed(Control.VehicleBrake) && Vehicle.GetMPHSpeed() > 1)
                 {
                     Properties.Boost = Vehicle.RunningDirection() == RunningDirection.Forward ? -0.4f : 0.4f;
                 }

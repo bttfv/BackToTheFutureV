@@ -8,6 +8,7 @@
 - [Community Script Hook V .NET v3.6.0](https://github.com/crosire/scripthookvdotnet/releases)
 - [LemonUI v1.9.4](https://github.com/justalemon/LemonUI)
 - [HeapAdjuster](https://www.gta5-mods.com/tools/heapadjuster)
+- [RageAm](https://github.com/ranstar74/rageAm)
 
 ## For developers:
 In order to open the solution, you need Visual Studio 2017+ with Xamarin components installed.

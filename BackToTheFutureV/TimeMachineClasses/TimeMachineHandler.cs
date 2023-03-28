@@ -234,6 +234,11 @@ namespace BackToTheFutureV
                 spawnFlags |= SpawnFlags.NoDriver;
             }
 
+            if (timeMachineClone != default && timeMachineClone.Properties.HasBeenStruckByLightning)
+            {
+                spawnFlags |= SpawnFlags.NoOccupants;
+            }
+
             if (veh == null)
             {
                 if (timeMachineClone != default)
@@ -308,7 +313,7 @@ namespace BackToTheFutureV
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }
 
-            if (timeMachine.Vehicle.Occupants.Length == 0 && timeMachine.Properties.IsFlying)
+            if (timeMachine.Vehicle.IsSeatFree(VehicleSeat.Driver) && timeMachine.Properties.IsFlying)
             {
                 timeMachine.Events.SetFlyMode.Invoke(false);
             }
@@ -493,11 +498,6 @@ namespace BackToTheFutureV
                     if (!CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible)
                     {
                         CurrentTimeMachine.Properties.HUDProperties.IsHUDVisible = true;
-                    }
-
-                    if (CurrentTimeMachine.Mods.HoverUnderbody == ModState.On)
-                    {
-                        Game.DisableControlThisFrame(GTA.Control.VehicleAim);
                     }
 
                     return;

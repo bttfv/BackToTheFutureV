@@ -134,6 +134,7 @@ namespace BackToTheFutureV
                             }
                         }
 
+                        timeMachineClone.Vehicle.Position = timeMachineClone.Vehicle.Position.InvertCoordinate(FusionEnums.Coordinate.X).InvertCoordinate(FusionEnums.Coordinate.Y).SetToGroundHeight();
                         timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
                         RemoteTimeMachineHandler.AddRemote(timeMachineClone);
                     }

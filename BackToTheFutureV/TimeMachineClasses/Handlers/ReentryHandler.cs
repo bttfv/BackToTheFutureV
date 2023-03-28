@@ -178,14 +178,12 @@ namespace BackToTheFutureV
 
                 Properties.PhotoFluxCapacitorActive = false;
 
+                if (Mods.Hook != HookState.On && Mods.Hoodbox != ModState.On)
+                    Events.SetTimeCircuitsBroken?.Invoke();
+
                 if (Properties.IsFlying)
                 {
                     Properties.AreFlyingCircuitsBroken = true;
-
-                    if (!Mods.IsDMC12 || Mods.Hoodbox == ModState.Off)
-                    {
-                        Events.SetTimeCircuitsBroken?.Invoke();
-                    }
                 }
                 else
                 {

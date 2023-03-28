@@ -79,8 +79,7 @@ namespace BackToTheFutureV
                         CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HoverUnderbodyCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                         CurrentTimeMachine.Mods.HoverUnderbody = ModState.On;
                     }
-
-                    if (FusionUtils.PlayerVehicle.Model != ModelHandler.DMC12)
+                    else if (FusionUtils.PlayerVehicle.Model != ModelHandler.DMC12 || FusionUtils.PlayerVehicle.Model != ModelHandler.Deluxo)
                     {
                         HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle).IsHoverModeAllowed = true;
                     }
@@ -238,7 +237,6 @@ namespace BackToTheFutureV
             bool active = CurrentTimeMachine.NotNullAndExists();
 
             transformInto.Enabled = !active && FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
-            //hoverConvert.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.HoverUnderbody == ModState.Off && ((CurrentTimeMachine.Mods.IsDMC12 && !CurrentTimeMachine.Properties.AreFlyingCircuitsBroken) || CurrentTimeMachine.Vehicle.CanHoverTransform());
             hoverConvert.Enabled = FusionUtils.CurrentTime.Year >= 2015;
 
             if (hoverConvert.Enabled)

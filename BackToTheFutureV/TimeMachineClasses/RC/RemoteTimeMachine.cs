@@ -100,6 +100,9 @@ namespace BackToTheFutureV
                     TimeMachineClone.Spawn(SpawnFlags.NoVelocity);
                     TimeMachine.LastDisplacementClone = TimeMachineClone;
 
+                    if (TimeMachine.Properties.DestinationTime < FusionUtils.CurrentTime && !TimeMachine.Properties.IsWayback)
+                        TimeMachine.Vehicle.IsEngineRunning = false;
+
                     if (TimeMachine.Mods.IsDMC12)
                     {
                         if (TimeMachine.Properties.HasBeenStruckByLightning)

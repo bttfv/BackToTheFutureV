@@ -417,9 +417,8 @@ namespace BackToTheFutureV
             sparkRope?.Stop();
             fireRope?.Stop();
 
-            if (!FusionUtils.IsTrafficAlive)
+            if (TimeHandler.MissionTraffic)
             {
-                FusionUtils.IsTrafficAlive = true;
                 TimeHandler.MissionTraffic = false;
                 Function.Call(Hash.SET_PED_PATHS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
                 Function.Call(Hash.SET_PED_POPULATION_BUDGET, 3);
