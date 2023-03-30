@@ -26,6 +26,8 @@ namespace BackToTheFutureV
         private readonly AnimateProp oilNeedle;
         private readonly AnimateProp voltNeedle;
         private readonly AnimateProp doorIndicator;
+        private readonly AnimateProp domeLightOff;
+        private readonly AnimateProp domeLightOn;
         private readonly AnimateProp leftFan;
         private readonly AnimateProp rightFan;
 
@@ -96,6 +98,8 @@ namespace BackToTheFutureV
             oilNeedle = new AnimateProp(ModelHandler.OilNeedle, Vehicle, "oil_needle");
             voltNeedle = new AnimateProp(ModelHandler.VoltageNeedle, Vehicle, "voltage_needle");
             doorIndicator = new AnimateProp(ModelHandler.DoorIndicator, Vehicle, Vector3.Zero, Vector3.Zero);
+            domeLightOff = new AnimateProp(ModelHandler.DomeLightOff, Vehicle, "chassis");
+            domeLightOn = new AnimateProp(ModelHandler.DomeLightOn, Vehicle, "chassis");
             leftFan = new AnimateProp(ModelHandler.RadiatorFan, Vehicle, "radiator_fan_l");
             rightFan = new AnimateProp(ModelHandler.RadiatorFan, Vehicle, "radiator_fan_r");
 
@@ -111,6 +115,7 @@ namespace BackToTheFutureV
             oilNeedle.SpawnProp();
             voltNeedle.SpawnProp();
             doorIndicator.SpawnProp();
+            domeLightOff.SpawnProp();
             leftFan.SpawnProp();
             rightFan.SpawnProp();
 
@@ -212,10 +217,20 @@ namespace BackToTheFutureV
             if (!Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen && !Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen && Vehicle.Bones["interiorlight"].Pose != InteriorLightOffPose)
             {
                 Vehicle.Bones["interiorlight"].Pose = InteriorLightOffPose;
+                if (!domeLightOff.IsSpawned)
+                {
+                    domeLightOn.Delete();
+                    domeLightOff.SpawnProp();
+                }
             }
             else if ((Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen || Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen) && Vehicle.Bones["interiorlight"].Pose != InteriorLightOnPose)
             {
                 Vehicle.Bones["interiorlight"].Pose = InteriorLightOnPose;
+                if (!domeLightOn.IsSpawned)
+                {
+                    domeLightOff.Delete();
+                    domeLightOn.SpawnProp();
+                }
             }
 
             if (FusionUtils.PlayerVehicle == Vehicle)

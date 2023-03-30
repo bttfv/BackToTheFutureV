@@ -24,11 +24,6 @@ namespace BackToTheFutureV
         public void OnReenterStarted()
         {
             Properties.TimeTravelPhase = TimeTravelPhase.Reentering;
-
-            if (Driver != null && Driver == FusionUtils.PlayerPed)
-            {
-                Properties.PlayerUsed = true;
-            }
         }
 
         public override void Tick()
@@ -59,7 +54,7 @@ namespace BackToTheFutureV
             {
                 case 0:
 
-                    if (TimeMachine.Properties.DestinationTime <= FusionUtils.CurrentTime)
+                    if ((FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second) - Properties.DestinationTime).TotalMinutes > 0)
                     {
                         _currentStep = 3;
                         break;

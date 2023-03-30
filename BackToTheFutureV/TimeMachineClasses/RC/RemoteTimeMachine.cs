@@ -3,6 +3,7 @@ using FusionLibrary.Extensions;
 using GTA;
 using KlangRageAudioLibrary;
 using System;
+using System.Linq;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
@@ -67,8 +68,12 @@ namespace BackToTheFutureV
 
             if (TimeMachineClone.Properties.DestinationTime <= FusionUtils.CurrentTime)
             {
-                Spawn(ReenterType.Normal);
-                _hasPlayedWarningSound = false;
+                if (RemoteTimeMachineHandler.RemoteTimeMachines.FindLast(x => x.TimeMachineClone.Properties.GUID == TimeMachineClone.Properties.GUID) == this &&
+                    !TimeMachineClone.Properties.PlayerUsed)
+                {
+                    Spawn(ReenterType.Normal);
+                    _hasPlayedWarningSound = false;
+                }
             }
         }
 

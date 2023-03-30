@@ -162,8 +162,8 @@ namespace BackToTheFutureV
             InputEnter = AudioEngine.Create("general/timeCircuits/tfcEnter.wav", Presets.Interior);
             InputEnterError = AudioEngine.Create("general/timeCircuits/tfcError.wav", Presets.Interior);
 
-            InputEnter.SourceBone = "bttf_tcd_green";
-            InputEnterError.SourceBone = "bttf_tcd_green";
+            InputEnter.SourceBone = "bttf_tcd";
+            InputEnterError.SourceBone = "bttf_tcd";
 
             Keypad = new Dictionary<int, AudioPlayer>();
 
@@ -175,23 +175,23 @@ namespace BackToTheFutureV
             foreach (KeyValuePair<int, AudioPlayer> keypad in Keypad)
             {
                 keypad.Value.Volume = 0.45f;
-                keypad.Value.SourceBone = "bttf_tcd_green";
+                keypad.Value.SourceBone = "bttf_tcd";
             }
 
             InputOn = AudioEngine.Create("general/timeCircuits/tfcOn.wav", Presets.Interior);
             InputOff = AudioEngine.Create("general/timeCircuits/tfcOff.wav", Presets.Interior);
 
-            InputOn.SourceBone = "bttf_tcd_green";
-            InputOff.SourceBone = "bttf_tcd_green";
+            InputOn.SourceBone = "bttf_tcd";
+            InputOff.SourceBone = "bttf_tcd";
 
             //TCD
             TCDBeep = AudioEngine.Create("general/timeCircuits/beep.wav", Presets.Interior);
             TCDBeep.MinimumDistance = 0.3f;
-            TCDBeep.SourceBone = "bttf_tcd_green";
+            TCDBeep.SourceBone = "bttf_tcd";
 
             //TCD Glitch
             TCDGlitch = AudioEngine.Create("bttf2/timeCircuits/glitch.wav", Presets.Interior);
-            TCDGlitch.SourceBone = "bttf_tcd_green";
+            TCDGlitch.SourceBone = "bttf_tcd";
 
             //Ligtning strike
             LightningStrike = AudioEngine.Create("bttf2/timeTravel/lightingStrike.wav", Presets.ExteriorLoud);
@@ -209,13 +209,13 @@ namespace BackToTheFutureV
 
             //Fuel
             FuelEmpty = AudioEngine.Create("bttf1/timeCircuits/plutoniumEmpty.wav", Presets.Interior);
-            FuelEmpty.SourceBone = "bttf_tcd_green";
+            FuelEmpty.SourceBone = "bttf_tcd";
             PlutoniumRefuel = AudioEngine.Create("bttf1/plutonium_refuel.wav", Presets.Exterior);
             PlutoniumRefuel.SourceBone = "bttf_reactorcap";
 
             //Plutonium gauge
             PlutoniumGauge = AudioEngine.Create("bttf1/timeCircuits/plutoniumGauges.wav", Presets.Interior);
-            PlutoniumGauge.SourceBone = "bttf_tcd_green";
+            PlutoniumGauge.SourceBone = "bttf_tcd";
 
             //Car sounds
             _doorOpenSound = AudioEngine.Create("general/doorOpen.wav", Presets.Exterior);

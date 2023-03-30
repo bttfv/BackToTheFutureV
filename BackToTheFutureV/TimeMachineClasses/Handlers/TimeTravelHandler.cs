@@ -118,6 +118,7 @@ namespace BackToTheFutureV
 
                     if (Properties.TimeTravelType == TimeTravelType.Instant)
                     {
+                        Properties.PlayerUsed = true;
                         // Create a copy of the current status of the time machine
                         TimeMachine.LastDisplacementClone = TimeMachine.Clone();
 
@@ -172,6 +173,8 @@ namespace BackToTheFutureV
                     // If the Vehicle is remote controlled or the player is not the one in the driver seat
                     if (Properties.TimeTravelType == TimeTravelType.RC)
                     {
+                        Properties.PlayerUsed = false;
+
                         if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime)
                         {
                             Sounds.Plate?.Play();
@@ -197,6 +200,7 @@ namespace BackToTheFutureV
                         return;
                     }
 
+                    Properties.PlayerUsed = true;
                     // Create a copy of the current status of the time machine
                     TimeMachine.LastDisplacementClone = TimeMachine.Clone();
 
