@@ -85,7 +85,7 @@ namespace BackToTheFutureV
 
                     break;
                 case WaybackPedEvent.Jump:
-                    if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.ScriptedAnimation) | ped.IsClimbing)
+                    if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.ScriptedAnimation) || ped.IsClimbing)
                     {
                         break;
                     }
@@ -93,7 +93,7 @@ namespace BackToTheFutureV
                     ped.Task.Jump();
                     break;
                 case WaybackPedEvent.MeleeAttack:
-                    if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.ScriptedAnimation) | ped.IsClimbing)
+                    if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.ScriptedAnimation) || ped.IsClimbing)
                     {
                         break;
                     }
@@ -101,7 +101,7 @@ namespace BackToTheFutureV
                     ped.Task.PlayAnimation("melee@unarmed@streamed_core_fps", MeleeAttacks.SelectRandomElement());
                     break;
                 case WaybackPedEvent.Climb:
-                    if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.ScriptedAnimation) | ped.IsClimbing)
+                    if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.ScriptedAnimation) || ped.IsClimbing)
                     {
                         break;
                     }
@@ -109,7 +109,7 @@ namespace BackToTheFutureV
                     ped.Task.Climb();
                     break;
                 case WaybackPedEvent.Walking:
-                    if (ped.IsTaskActive(TaskType.Jump) | ped.IsTaskActive(TaskType.ScriptedAnimation) | ped.IsClimbing)
+                    if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.ScriptedAnimation) || ped.IsClimbing)
                     {
                         break;
                     }

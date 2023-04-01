@@ -196,7 +196,7 @@ namespace BackToTheFutureV
 
         private void HandleCoilFlicker()
         {
-            if (numOfProps == 11 | Game.GameTime < _nextFlicker)
+            if (numOfProps == 11 || Game.GameTime < _nextFlicker)
             {
                 return;
             }

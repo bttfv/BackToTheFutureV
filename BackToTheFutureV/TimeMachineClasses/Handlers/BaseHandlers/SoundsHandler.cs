@@ -348,7 +348,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (Game.GameTime < _gameTimer | !Vehicle.IsVisible | !Mods.IsDMC12)
+            if (Game.GameTime < _gameTimer || !Vehicle.IsVisible || !Mods.IsDMC12)
             {
                 return;
             }

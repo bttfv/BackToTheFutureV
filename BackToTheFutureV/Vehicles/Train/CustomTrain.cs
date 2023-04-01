@@ -146,7 +146,7 @@ namespace BackToTheFutureV
 
         private void Brake()
         {
-            if (IsAccelerationOn && (Game.IsControlPressed(Control.VehicleAccelerate) | Game.IsControlPressed(Control.VehicleBrake)))
+            if (IsAccelerationOn && (Game.IsControlPressed(Control.VehicleAccelerate) || Game.IsControlPressed(Control.VehicleBrake)))
             {
                 return;
             }

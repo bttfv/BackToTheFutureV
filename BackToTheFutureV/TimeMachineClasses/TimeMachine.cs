@@ -272,7 +272,7 @@ namespace BackToTheFutureV
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
             }
 
-            if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole | Properties.IsRemoteControlled)
+            if (Properties.TimeTravelPhase > TimeTravelPhase.OpeningWormhole || Properties.IsRemoteControlled)
             {
                 Vehicle.LockStatus = VehicleLockStatus.PlayerCannotLeaveCanBeBrokenIntoPersist;
             }
@@ -580,7 +580,7 @@ namespace BackToTheFutureV
                 }
             }*/
 
-            Properties.IsPhotoModeOn = Properties.PhotoWormholeActive | Properties.PhotoGlowingCoilsActive | Properties.PhotoFluxCapacitorActive | Properties.IsEngineStalling | Properties.PhotoSIDMaxActive;
+            Properties.IsPhotoModeOn = Properties.PhotoWormholeActive || Properties.PhotoGlowingCoilsActive || Properties.PhotoFluxCapacitorActive || Properties.PhotoEngineStallActive || Properties.PhotoSIDMaxActive;
         }
 
         public void KeyDown(KeyEventArgs e)
