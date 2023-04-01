@@ -17,6 +17,8 @@ namespace BackToTheFutureV
         private readonly CultureInfo dateFormat = CultureInfo.CreateSpecificCulture("en-US");
 
         private TimedEventHandler TimedEventHandler { get; } = new TimedEventHandler();
+        SoundPlayer timeParadoxShort = new SoundPlayer("scripts\\BackToTheFutureV\\Sounds\\story\\bttf_subtitle1.wav");
+        SoundPlayer timeParadox = new SoundPlayer("scripts\\BackToTheFutureV\\Sounds\\story\\bttf_subtitle3.wav");
         /*private readonly AudioPlayer timeParadox = Main.CommonAudioEngine.Create("story/bttf_subtitle3.wav", Presets.No3D);
         private readonly AudioPlayer timeParadoxShort = Main.CommonAudioEngine.Create("story/bttf_subtitle1.wav", Presets.No3D);*/
 
@@ -160,18 +162,14 @@ namespace BackToTheFutureV
                 TimedEventHandler.CurrentTime = new TimeSpan(0, 0, 0, 12, 762);
 
                 /*timeParadoxShort.SourceEntity = FusionUtils.PlayerPed;
-                timeParadoxShort.Volume = 0.2f;
-                timeParadoxShort.Play();*/
-                SoundPlayer tp = new SoundPlayer("scripts\\BackToTheFutureV\\Sounds\\story\\bttf_subtitle1.wav");
-                tp.Play();
+                timeParadoxShort.Volume = 0.2f;*/
+                timeParadoxShort.Play();
             }
             else
             {
                 /*timeParadox.SourceEntity = FusionUtils.PlayerPed;
-                timeParadox.Volume = 0.2f;
-                timeParadox.Play();*/
-                SoundPlayer tp = new SoundPlayer("scripts\\BackToTheFutureV\\Sounds\\story\\bttf_subtitle3.wav");
-                tp.Play();
+                timeParadox.Volume = 0.2f;*/
+                timeParadox.Play();
             }
 
             IsPlaying = true;
