@@ -118,7 +118,7 @@ namespace BackToTheFutureV
 
                     if (Properties.TimeTravelType == TimeTravelType.Instant)
                     {
-                        Properties.PlayerUsed = true;
+                        RemoteTimeMachineHandler.RemoteTimeMachines.FindAll(x => x.TimeMachineClone.Properties.GUID == Properties.GUID).ForEach(x => x.TimeMachineClone.Properties.PlayerUsed = true);
                         // Create a copy of the current status of the time machine
                         TimeMachine.LastDisplacementClone = TimeMachine.Clone();
 
@@ -173,7 +173,15 @@ namespace BackToTheFutureV
                     // If the Vehicle is remote controlled or the player is not the one in the driver seat
                     if (Properties.TimeTravelType == TimeTravelType.RC)
                     {
-                        Properties.PlayerUsed = false;
+                        /*if (!Properties.IsWayback)
+                        {
+                            Properties.NewGUID();
+                        }*/
+
+                        if (Driver.NotNullAndExists() && Driver.IsVisible)
+                            RemoteTimeMachineHandler.RemoteTimeMachines.FindAll(x => x.TimeMachineClone.Properties.GUID == Properties.GUID).FindLast(x => x.TimeMachineClone.Properties.PlayerUsed = true);
+                        else
+                            RemoteTimeMachineHandler.RemoteTimeMachines.FindAll(x => x.TimeMachineClone.Properties.GUID == Properties.GUID).FindLast(x => x.TimeMachineClone.Properties.PlayerUsed = false);
 
                         if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime)
                         {
@@ -200,7 +208,7 @@ namespace BackToTheFutureV
                         return;
                     }
 
-                    Properties.PlayerUsed = true;
+                    RemoteTimeMachineHandler.RemoteTimeMachines.FindAll(x => x.TimeMachineClone.Properties.GUID == Properties.GUID).ForEach(x => x.TimeMachineClone.Properties.PlayerUsed = true);
                     // Create a copy of the current status of the time machine
                     TimeMachine.LastDisplacementClone = TimeMachine.Clone();
 

@@ -170,6 +170,8 @@ namespace BackToTheFutureV
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
             {
                 FusionUtils.StopPadShake();
+                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+                PlayerSwitch.Disable = false;
             }
 
             Players.Wormhole?.Stop();
@@ -191,9 +193,6 @@ namespace BackToTheFutureV
                 Properties.CanConvert = true;
             }
 
-            Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
-            PlayerSwitch.Disable = false;
-
             Properties.TimeTravelPhase = TimeTravelPhase.Completed;
         }
 
@@ -209,7 +208,7 @@ namespace BackToTheFutureV
 
         private void OnSparksEnded(int delay = 0)
         {
-            if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine && !Properties.HasBeenStruckByLightning && WaybackSystem.CurrentPlayerRecording != null)
+            if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine && !Properties.HasBeenStruckByLightning && WaybackSystem.CurrentPlayerRecording != default)
             {
                 WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackPedEvent.TimeTravel;
                 WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.TimeTravelDelay = delay;
@@ -220,9 +219,11 @@ namespace BackToTheFutureV
 
             Properties.TimeTravelPhase = TimeTravelPhase.InTime;
 
-            PlayerSwitch.Disable = true;
-
-            Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
+            if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
+            {
+                PlayerSwitch.Disable = true;
+                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
+            }
 
             Function.Call(Hash.DETACH_VEHICLE_FROM_ANY_TOW_TRUCK, Vehicle.Handle);
 

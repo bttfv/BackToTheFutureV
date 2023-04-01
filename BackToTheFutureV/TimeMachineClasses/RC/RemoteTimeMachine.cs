@@ -37,7 +37,7 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
-            if (Spawned || Game.GameTime < _timer)
+            if (Spawned || Game.GameTime < _timer || TimeParadox.ParadoxInProgress)
             {
                 return;
             }
@@ -134,7 +134,7 @@ namespace BackToTheFutureV
 
         public void ExistenceCheck(DateTime time)
         {
-            if (TimeMachineClone.Properties.DestinationTime < time && !Spawned)
+            if (TimeMachineClone.Properties.DestinationTime < time && !Spawned && !TimeMachineClone.Properties.PlayerUsed)
             {
                 Spawn(ReenterType.Spawn);
             }
