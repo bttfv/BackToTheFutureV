@@ -188,12 +188,15 @@ namespace BackToTheFutureV
                 Players.Wormhole?.Stop();
             }
 
-            if (Mods.HoverUnderbody == ModState.On)
+            if (Properties.TimeTravelPhase != TimeTravelPhase.InTime)
             {
-                Properties.CanConvert = true;
-            }
+                if (Mods.HoverUnderbody == ModState.On)
+                {
+                    Properties.CanConvert = true;
+                }
 
-            Properties.TimeTravelPhase = TimeTravelPhase.Completed;
+                Properties.TimeTravelPhase = TimeTravelPhase.Completed;
+            }
         }
 
         public override void Dispose()
@@ -215,9 +218,9 @@ namespace BackToTheFutureV
                 WaybackSystem.CurrentPlayerRecording.Stop();
             }
 
-            Stop();
-
             Properties.TimeTravelPhase = TimeTravelPhase.InTime;
+
+            Stop();
 
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
             {

@@ -47,8 +47,6 @@ namespace BackToTheFutureV
 
         public void StartTimeTravel(int delay = 0)
         {
-            Properties.TimeTravelPhase = TimeTravelPhase.InTime;
-
             gameTimer = Game.GameTime + delay;
             _currentStep = 0;
         }
