@@ -336,11 +336,6 @@ namespace BackToTheFutureV
                 RemoteTimeMachineHandler.StopRemoteControl();
             }
 
-            //// When u go too far from clone ped, game removes collision under him and 
-            ////  he falls through the ground, so if player is 50 we freeze clone
-            //var isCloneFreezed = CommonSettings.PlayerPed.Position.DistanceToSquared(OriginalPed.Position) >= 50*50;
-            //Function.Call(Hash.FREEZE_ENTITY_POSITION, OriginalPed, isCloneFreezed);
-
             Vector3 origPos = TimeMachine.OriginalPed.Position;
             Vector3 carPos = Vehicle.Position;
             Function.Call(Hash.REQUEST_COLLISION_AT_COORD, origPos.X, origPos.Y, origPos.Z);

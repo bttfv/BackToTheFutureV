@@ -223,6 +223,9 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
+            // Show engine information on screen
+            Debug(-1);
+
             if (_engineSounds.Any(x => x == null))
             {
                 return;
@@ -299,9 +302,6 @@ namespace BackToTheFutureV
             }
 
             HandleAccelerationSound();
-
-            // Show engine information on screen
-            Debug(-1);
 
             // Re-check acceleration and reset timer
             if (Game.GameTime <= _check)
@@ -633,8 +633,8 @@ namespace BackToTheFutureV
                 return false;
             }
 
-            return Game.IsControlPressed(Control.VehicleAccelerate) && Game.IsControlPressed(Control.VehicleHandbrake)
-                && !Game.IsControlPressed(Control.VehicleBrake);
+            return Game.IsControlPressed(Control.VehicleHandbrake) && (Game.IsControlPressed(Control.VehicleAccelerate)
+                || Game.IsControlPressed(Control.VehicleBrake));
         }
 
         private float VehicleAcceleration()
@@ -729,11 +729,11 @@ namespace BackToTheFutureV
                 case 0:
                     Screen.ShowSubtitle($"WSpeed: {Math.Round(WheelSpeed)} " +
                                         $"RPM: {Math.Round(EngineRpm, 2)} " +
-                                        $"Breaking: {IsBraking} " +
+                                        $"Braking: {IsBraking} " +
                                         $"Idle: {IsIdle} " +
                                         $"Neutral: {IsNeutral} " +
                                         $"Accel: {IsAccelerating} " +
-                                        $"Revers: {IsReversing} " +
+                                        $"Reverse: {IsReversing} " +
                                         $"Revving: {IsRevving}");
                     break;
                 case 1:
@@ -746,7 +746,20 @@ namespace BackToTheFutureV
                     break;
                 case 2:
                     Screen.ShowSubtitle($"WSpeed: {Math.Round(WheelSpeed, 2)} Accel: {Math.Round(Acceleration, 2)} IsAccel: {IsAccelerating} " +
-                                        $"RPM: {Math.Round(EngineRpm, 2)} ");
+                                        $"RPM: {Math.Round(EngineRpm, 2)} Gear: {CurrentGear} MPH: {Speed}");
+                    break;
+                case 3:
+                    if (WaybackSystem.CurrentPlayerRecording?.CurrentRecord?.Vehicle?.Replica == null)
+                        break;
+                    Screen.ShowSubtitle($"Player RPM: {Math.Round(EngineRpm, 2)} Player Gear: {CurrentGear}" + Environment.NewLine +
+                        $"Wayback RPM: {Math.Round(WaybackSystem.CurrentPlayerRecording.CurrentRecord.Vehicle.Replica.RPM, 2)} Wayback Gear: {WaybackSystem.CurrentPlayerRecording.CurrentRecord.Vehicle.Replica.Gear}");
+                    break;
+                case 4:
+                    if (WaybackSystem.CurrentReplaying?.FirstOrDefault(x => x.CurrentRecord?.Vehicle?.Replica != null) != null)
+                    {
+                        Screen.ShowSubtitle($"Actual RPM: {Math.Round(EngineRpm, 2)} Actual Gear: {CurrentGear}" + Environment.NewLine +
+                        $"Wayback RPM: {Math.Round(WaybackSystem.CurrentReplaying.FirstOrDefault(x => x.CurrentRecord.Vehicle.Replica != null).CurrentRecord.Vehicle.Replica.RPM, 2)} Wayback Gear: {WaybackSystem.CurrentReplaying.FirstOrDefault(x => x.CurrentRecord.Vehicle.Replica != null).CurrentRecord.Vehicle.Replica.Gear}");
+                    }
                     break;
             }
         }

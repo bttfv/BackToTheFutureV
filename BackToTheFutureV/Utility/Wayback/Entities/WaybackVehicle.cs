@@ -94,12 +94,7 @@ namespace BackToTheFutureV
                 return null;
             }
 
-            SpawnFlags spawnFlags = SpawnFlags.Default;
-
-            if (ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle()))
-            {
-                spawnFlags |= SpawnFlags.NoPosition;
-            }
+            SpawnFlags spawnFlags = SpawnFlags.NoPosition | SpawnFlags.SetRotation;
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 

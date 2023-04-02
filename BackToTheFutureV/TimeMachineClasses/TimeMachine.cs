@@ -241,7 +241,9 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (TimeMachineHandler.CurrentTimeMachine == this && Properties.IsWayback)
+            // TODO: Figure out how to iterate WaybackMachines to find the one using this and stop it/time paradox it
+            // If we don't, then the ApplyToWayback check will just override this and we'll end up in a huge loop
+            if (TimeMachineHandler.CurrentTimeMachine == this && FusionUtils.PlayerPed.SeatIndex == VehicleSeat.Driver && Properties.IsWayback)
                 Properties.IsWayback = false;
 
             //After reentry, story time machines spawn in an odd state. This code fixes the inability for player to enter the time machine from the mineshaft
