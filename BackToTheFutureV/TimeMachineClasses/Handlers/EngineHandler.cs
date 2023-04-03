@@ -9,11 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AudioPlayer = KlangRageAudioLibrary.AudioPlayer;
-using Control = GTA.Control;
 using Screen = GTA.UI.Screen;
 
 // TODO: Improve acceleration sound handling (first sound plays only when u burst tires)
-// TODO: Fix reverse prediction
 // TODO: Reverse based on real acceleration
 
 namespace BackToTheFutureV
@@ -368,7 +366,7 @@ namespace BackToTheFutureV
             }
 
             // Play deceleration sound
-            if (IsBraking && Speed > 30 && !Mods.Wheels.AnyBurst && !Game.IsControlPressed(Control.VehicleAccelerate) &&
+            if (IsBraking && Speed > 30 && !Mods.Wheels.AnyBurst && Vehicle.ThrottlePower == 0 &&
                 !Vehicle.IsInWater)
             {
                 if (!_engineDecelSound.IsAnyInstancePlaying || _engineDecelSound.Last?.PlayPosition > 1000)
@@ -424,7 +422,7 @@ namespace BackToTheFutureV
             }
 
             // Play deceleration sound
-            if (Game.IsControlPressed(Control.VehicleBrake) && Speed > 15 && Vehicle.RelativeVelocity().Y > 0)
+            if (Vehicle.BrakePower > 0 && Speed > 15 && Vehicle.RelativeVelocity().Y > 0)
             {
                 if (!_engineDecelSound.IsAnyInstancePlaying || _engineDecelSound.Last?.PlayPosition > 1000)
                 {
@@ -445,8 +443,7 @@ namespace BackToTheFutureV
             }
 
             //Stop acceleration sounds if car is braking / driving neutral
-            if (Acceleration < -10f || !Game.IsControlPressed(Control.VehicleAccelerate) ||
-                Game.IsControlPressed(Control.VehicleBrake) || Mods.Wheels.AnyBurst || Vehicle.IsInWater)
+            if (Acceleration < -10f || Vehicle.ThrottlePower == 0 || Vehicle.BrakePower > 0 || Mods.Wheels.AnyBurst || Vehicle.IsInWater)
             {
                 _accelSounds.ForEach(x => x.Stop());
                 return;
@@ -589,7 +586,7 @@ namespace BackToTheFutureV
 
         private void CheckReverse()
         {
-            if (Vehicle.RelativeVelocity().Y < 0 && WheelSpeed < 0 && Game.IsControlPressed(Control.VehicleBrake))
+            if (Vehicle.CurrentGear == 0 && WheelSpeed < 0 && Vehicle.ThrottlePower < 0)
             {
                 IsReversing = true;
             }
@@ -611,30 +608,19 @@ namespace BackToTheFutureV
 
         #region UTILS
 
-        private static bool IsPlayerBraking(Vehicle vehicle, bool accountHandbrake = true)
+        private static bool IsPlayerBraking(Vehicle vehicle, bool handbrakeValid = true)
         {
-            if (FusionUtils.PlayerVehicle != vehicle)
+            if (handbrakeValid)
             {
-                return false;
+                return vehicle.BrakePower > 0 || VehicleControl.GetHandbrake(vehicle) != 0;
             }
 
-            if (accountHandbrake)
-            {
-                return Game.IsControlPressed(Control.VehicleBrake) || Game.IsControlPressed(Control.VehicleHandbrake);
-            }
-
-            return Game.IsControlPressed(Control.VehicleBrake) && !Game.IsControlPressed(Control.VehicleAccelerate);
+            return vehicle.BrakePower > 0 && vehicle.ThrottlePower == 0;
         }
 
         private static bool IsPlayerRevving(Vehicle vehicle)
         {
-            if (FusionUtils.PlayerVehicle != vehicle)
-            {
-                return false;
-            }
-
-            return Game.IsControlPressed(Control.VehicleHandbrake) && (Game.IsControlPressed(Control.VehicleAccelerate)
-                || Game.IsControlPressed(Control.VehicleBrake));
+            return VehicleControl.GetHandbrake(vehicle) != 0 && vehicle.ThrottlePower != 0;
         }
 
         private float VehicleAcceleration()
