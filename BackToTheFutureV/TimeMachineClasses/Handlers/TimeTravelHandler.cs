@@ -171,12 +171,7 @@ namespace BackToTheFutureV
                     // If the Vehicle is remote controlled or the player is not the one in the driver seat
                     if (Properties.TimeTravelType == TimeTravelType.RC)
                     {
-                        /*if (!Properties.IsWayback)
-                        {
-                            Properties.NewGUID();
-                        }*/
-
-                        if (Driver.NotNullAndExists() && Driver.IsVisible)
+                        if (!Properties.IsRemoteControlled)
                             RemoteTimeMachineHandler.RemoteTimeMachines.FindAll(x => x.TimeMachineClone.Properties.GUID == Properties.GUID).FindLast(x => x.TimeMachineClone.Properties.PlayerUsed = true);
                         else
                             RemoteTimeMachineHandler.RemoteTimeMachines.FindAll(x => x.TimeMachineClone.Properties.GUID == Properties.GUID).FindLast(x => x.TimeMachineClone.Properties.PlayerUsed = false);
@@ -242,7 +237,7 @@ namespace BackToTheFutureV
                     if (Properties.TimeTravelType == TimeTravelType.RC)
                     {
                         // Stop remote controlling
-                        if (Properties.IsRemoteControlled)
+                        if (Properties.IsRemoteControlled && !Properties.IsWayback)
                         {
                             RemoteTimeMachineHandler.StopRemoteControl();
                         }

@@ -224,7 +224,7 @@ namespace BackToTheFutureV
 
                     if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 33 && !_exploded)
                     {
-                        if (TimeMachine.Properties.IsRemoteControlled)
+                        if (TimeMachine.Properties.IsRemoteControlled && !TimeMachine.Properties.IsWayback)
                         {
                             RemoteTimeMachineHandler.StopRemoteControl();
                         }
@@ -233,7 +233,7 @@ namespace BackToTheFutureV
                     }
                     else if (!Vehicle.SameDirection(_train, 90f) && _train.GetMPHSpeed() + Vehicle.GetMPHSpeed() > 33 && !_exploded)
                     {
-                        if (TimeMachine.Properties.IsRemoteControlled)
+                        if (TimeMachine.Properties.IsRemoteControlled && !TimeMachine.Properties.IsWayback)
                         {
                             RemoteTimeMachineHandler.StopRemoteControl();
                         }

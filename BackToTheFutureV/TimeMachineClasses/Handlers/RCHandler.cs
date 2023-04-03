@@ -68,7 +68,7 @@ namespace BackToTheFutureV
 
         private void RcHandbrake_OnControlJustPressed()
         {
-            if (!Properties.IsRemoteControlled || Properties.IsFlying || !Vehicle.IsAutomobile)
+            if (!Properties.IsRemoteControlled || Properties.IsFlying || !Vehicle.IsAutomobile || Properties.IsWayback)
             {
                 return;
             }
@@ -206,8 +206,6 @@ namespace BackToTheFutureV
         {
             if (Properties.IsRemoteControlled)
             {
-                Properties.IsRemoteControlled = false;
-
                 if (TimeMachine.OriginalPed == null)
                 {
                     return;
@@ -249,6 +247,7 @@ namespace BackToTheFutureV
                     Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
                 }
 
+                Properties.IsRemoteControlled = false;
                 //RCProp?.Dispose();
             }
         }
@@ -295,6 +294,9 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
+            if (Properties.IsWayback)
+                return;
+
             if (!Properties.IsRemoteControlled)
             {
                 if (_handleBoost)
@@ -405,7 +407,7 @@ namespace BackToTheFutureV
 
         public override void Dispose()
         {
-            if (Properties.IsRemoteControlled)
+            if (Properties.IsRemoteControlled && !Properties.IsWayback)
             {
                 RemoteTimeMachineHandler.StopRemoteControl(true);
             }

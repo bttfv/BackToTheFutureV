@@ -107,7 +107,8 @@ namespace BackToTheFutureV
             {
                 spawnFlags = SpawnFlags.Default;
 
-                if (ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle()))
+                if ((ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())) || (vehicle.IsTimeMachine() &&
+                    TimeMachineHandler.GetTimeMachineFromVehicle(vehicle).Properties.IsRemoteControlled))
                 {
                     spawnFlags |= SpawnFlags.NoPosition;
                 }

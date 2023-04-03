@@ -165,8 +165,16 @@ namespace BackToTheFutureV
 
             if (IsPlayer && PedHandle != FusionUtils.PlayerPed.Handle)
             {
-                waybackRecord.Ped.SwitchPed = true;
-                PedHandle = FusionUtils.PlayerPed.Handle;
+                if (FusionUtils.PlayerVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.IsTimeMachine() &&
+                    TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).Properties.IsRemoteControlled)
+                {
+                    // Do nothing if RC is active since we want Wayback to keep controlling the original ped
+                }
+                else
+                {
+                    PedHandle = FusionUtils.PlayerPed.Handle;
+                    waybackRecord.Ped.SwitchPed = true;
+                }
             }
 
             Records.Add(waybackRecord);

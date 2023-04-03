@@ -40,6 +40,11 @@ namespace BackToTheFutureV
             if (Vehicle != null)
             {
                 vehicle = Vehicle.Apply(nextRecord.Vehicle?.Replica, adjustedRatio, ped);
+                if (vehicle.IsTimeMachine() && TimeMachineHandler.GetTimeMachineFromVehicle(vehicle).Properties.IsRemoteControlled)
+                {
+                    ped.Task.TurnTo(vehicle);
+                    return;
+                }
             }
 
             Ped.Apply(ped, vehicle, nextRecord.Ped.Replica, adjustedRatio);

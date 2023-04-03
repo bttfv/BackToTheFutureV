@@ -125,6 +125,7 @@ namespace BackToTheFutureV
             ret.CanConvert = CanConvert;
             ret.AreFlyingCircuitsBroken = AreFlyingCircuitsBroken;
             ret.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;
+            ret.IsRemoteControlled = IsRemoteControlled;
             ret.Boost = Boost;
             ret.IsOnTracks = IsOnTracks;
             ret.WasOnTracks = WasOnTracks;
@@ -214,6 +215,11 @@ namespace BackToTheFutureV
             if (AreHoodboxCircuitsReady != timeMachine.Properties.AreHoodboxCircuitsReady)
             {
                 timeMachine.Properties.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;
+            }
+
+            if (IsRemoteControlled != timeMachine.Properties.IsRemoteControlled)
+            {
+                timeMachine.Properties.IsRemoteControlled = IsRemoteControlled;
             }
 
             if (Boost != timeMachine.Properties.Boost)
