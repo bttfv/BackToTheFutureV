@@ -213,7 +213,7 @@ namespace BackToTheFutureV
         {
             if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine && !Properties.HasBeenStruckByLightning && WaybackSystem.CurrentPlayerRecording != default)
             {
-                WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event |= WaybackPedEvent.TimeTravel;
+                WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event = WaybackVehicleEvent.TimeTravel;
                 WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.TimeTravelDelay = delay;
                 WaybackSystem.CurrentPlayerRecording.Stop();
             }

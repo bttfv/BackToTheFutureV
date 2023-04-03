@@ -125,6 +125,7 @@ namespace BackToTheFutureV
             ret.CanConvert = CanConvert;
             ret.AreFlyingCircuitsBroken = AreFlyingCircuitsBroken;
             ret.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;
+            ret.Boost = Boost;
             ret.IsOnTracks = IsOnTracks;
             ret.WasOnTracks = WasOnTracks;
             ret.HasBeenStruckByLightning = HasBeenStruckByLightning;
@@ -195,7 +196,10 @@ namespace BackToTheFutureV
 
         public void ApplyToWayback(TimeMachine timeMachine)
         {
-            timeMachine.Properties.IsWayback = true;
+            if (!timeMachine.Properties.IsWayback)
+            {
+                timeMachine.Properties.IsWayback = true;
+            }
 
             if (ReactorCharge != timeMachine.Properties.ReactorCharge)
             {
@@ -210,6 +214,11 @@ namespace BackToTheFutureV
             if (AreHoodboxCircuitsReady != timeMachine.Properties.AreHoodboxCircuitsReady)
             {
                 timeMachine.Properties.AreHoodboxCircuitsReady = AreHoodboxCircuitsReady;
+            }
+
+            if (Boost != timeMachine.Properties.Boost)
+            {
+                timeMachine.Properties.Boost = Boost;
             }
 
             if (AreTimeCircuitsOn != timeMachine.Properties.AreTimeCircuitsOn)

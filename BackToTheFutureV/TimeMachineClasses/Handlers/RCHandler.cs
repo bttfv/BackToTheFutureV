@@ -112,10 +112,20 @@ namespace BackToTheFutureV
                 _handleBoost = true;
 
                 SetSimulateSpeed(64.5f, 8);
+
+                if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine && WaybackSystem.CurrentPlayerRecording != default)
+                {
+                    WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event = WaybackVehicleEvent.RcHandbrakeOn;
+                }
             }
             else
             {
                 SetSimulateSpeed(0, 0);
+
+                if (ModSettings.WaybackSystem && TimeMachineHandler.CurrentTimeMachine == TimeMachine && WaybackSystem.CurrentPlayerRecording != default)
+                {
+                    WaybackSystem.CurrentPlayerRecording.LastRecord.Vehicle.Event = WaybackVehicleEvent.RcHandbrakeOff;
+                }
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Native;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
@@ -10,7 +11,7 @@ namespace BackToTheFutureV
     {
         public VehicleReplica Replica { get; }
 
-        public WaybackPedEvent Event { get; set; } = WaybackPedEvent.None;
+        public WaybackVehicleEvent Event { get; set; } = WaybackVehicleEvent.None;
 
         public int TimeTravelDelay { get; set; }
 
@@ -94,7 +95,23 @@ namespace BackToTheFutureV
                 return null;
             }
 
+            if (FusionUtils.PlayerPed.NotNullAndExists() && FusionUtils.PlayerPed.DistanceToSquared2D(vehicle.Position) > 25000)
+            {
+                Function.Call(Hash.REQUEST_COLLISION_AT_COORD, vehicle.Position.X, vehicle.Position.Y, vehicle.Position.Z);
+                vehicle.Position.LoadScene();
+            }
+
             SpawnFlags spawnFlags = SpawnFlags.NoPosition | SpawnFlags.SetRotation;
+
+            if (nextReplica == null || vehicle.Driver == null || vehicle.Position.DistanceToSquared2D(nextReplica.Position) > 5)
+            {
+                spawnFlags = SpawnFlags.Default;
+
+                if (ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle()))
+                {
+                    spawnFlags |= SpawnFlags.NoPosition;
+                }
+            }
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
@@ -128,7 +145,18 @@ namespace BackToTheFutureV
 
             Properties.ApplyToWayback(timeMachine);
 
-            if (Event.HasFlag(WaybackPedEvent.TimeTravel))
+            if (Event == WaybackVehicleEvent.RcHandbrakeOn)
+            {
+                vehicle.IsBurnoutForced = true;
+                vehicle.CanTiresBurst = false;
+            }
+            else if (Event == WaybackVehicleEvent.RcHandbrakeOff)
+            {
+                vehicle.IsBurnoutForced = false;
+                vehicle.CanTiresBurst = true;
+            }
+
+            if (Event == WaybackVehicleEvent.TimeTravel)
             {
                 timeMachine.Events.OnSparksEnded?.Invoke(TimeTravelDelay);
             }

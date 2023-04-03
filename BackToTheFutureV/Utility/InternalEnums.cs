@@ -48,7 +48,14 @@
             DrivingVehicle,
             Jump,
             MeleeAttack,
-            Climb,
+            Climb
+        }
+
+        internal enum WaybackVehicleEvent
+        {
+            None,
+            RcHandbrakeOn,
+            RcHandbrakeOff,
             TimeTravel
         }
 
