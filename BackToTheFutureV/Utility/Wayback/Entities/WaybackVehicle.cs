@@ -98,10 +98,9 @@ namespace BackToTheFutureV
             if (FusionUtils.PlayerPed.NotNullAndExists() && FusionUtils.PlayerPed.DistanceToSquared2D(vehicle.Position) > 25000)
             {
                 Function.Call(Hash.REQUEST_COLLISION_AT_COORD, vehicle.Position.X, vehicle.Position.Y, vehicle.Position.Z);
-                vehicle.Position.LoadScene();
             }
 
-            SpawnFlags spawnFlags = SpawnFlags.NoPosition | SpawnFlags.SetRotation;
+            SpawnFlags spawnFlags = SpawnFlags.NoPosition | SpawnFlags.SetRotation | SpawnFlags.NoWheels;
 
             if (nextReplica == null || vehicle.Driver == null || vehicle.Position.DistanceToSquared2D(nextReplica.Position) > 5)
             {
@@ -110,7 +109,7 @@ namespace BackToTheFutureV
                 if ((ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())) || (vehicle.IsTimeMachine() &&
                     TimeMachineHandler.GetTimeMachineFromVehicle(vehicle).Properties.IsRemoteControlled))
                 {
-                    spawnFlags |= SpawnFlags.NoPosition;
+                    spawnFlags = SpawnFlags.NoPosition | SpawnFlags.SetRotation | SpawnFlags.NoWheels;
                 }
             }
 

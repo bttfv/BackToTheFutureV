@@ -128,7 +128,7 @@ namespace BackToTheFutureV
             Vehicle.IsHandbrakeForcedOn = true;
             Vehicle.Speed = Vehicle.Speed / 2;
 
-            VehicleControl.SetBrake(Vehicle, 1f);
+            Vehicle.BrakePower = 1f;
 
             gameTimer = Game.GameTime + 1250;
             step = 2;
