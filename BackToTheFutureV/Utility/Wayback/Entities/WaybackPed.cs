@@ -14,6 +14,10 @@ namespace BackToTheFutureV
 
         public bool SwitchPed { get; set; }
 
+        public bool SwitchedClothes { get; set; }
+
+        public bool SwitchedWeapons { get; set; }
+
         public WaybackPed(Ped ped)
         {
             Replica = new PedReplica(ped);
@@ -38,14 +42,19 @@ namespace BackToTheFutureV
                 Event = WaybackPedEvent.Climb;
             }
 
-            if (ped.IsSittingInVehicle())
+            if (ped.IsSittingInVehicle() && ped.SeatIndex == VehicleSeat.Driver)
             {
                 Event = WaybackPedEvent.DrivingVehicle;
             }
 
-            if (ped.IsEnteringVehicle())
+            if (ped.IsEnteringVehicle() && !ped.IsTaskActive(TaskType.InVehicleSeatShuffle))
             {
                 Event = WaybackPedEvent.EnteringVehicle;
+            }
+
+            if (ped.IsEnteringVehicle() && ped.IsTaskActive(TaskType.InVehicleSeatShuffle))
+            {
+                Event = WaybackPedEvent.ShufflingVehicle;
             }
 
             if (ped.IsLeavingVehicle() || ped.IsJumpingOutOfVehicle)
@@ -66,7 +75,14 @@ namespace BackToTheFutureV
                 case WaybackPedEvent.EnteringVehicle:
                     if (vehicle.NotNullAndExists() && !ped.IsEnteringVehicle())
                     {
-                        ped.Task.EnterVehicle(vehicle, VehicleSeat.Driver);
+                        ped.Task.EnterVehicle(vehicle);
+                    }
+
+                    break;
+                case WaybackPedEvent.ShufflingVehicle:
+                    if (vehicle.NotNullAndExists() && !ped.IsTaskActive(TaskType.InVehicleSeatShuffle))
+                    {
+                        ped.Task.ShuffleToNextVehicleSeat(vehicle);
                     }
 
                     break;
@@ -78,7 +94,7 @@ namespace BackToTheFutureV
 
                     break;
                 case WaybackPedEvent.DrivingVehicle:
-                    if (vehicle.NotNullAndExists() && !ped.IsSittingInVehicle(vehicle))
+                    if (vehicle.NotNullAndExists() && !ped.IsEnteringVehicle() && !ped.IsTaskActive(TaskType.InVehicleSeatShuffle) && ped.SeatIndex != VehicleSeat.Driver)
                     {
                         ped.SetIntoVehicle(vehicle, VehicleSeat.Driver);
                     }

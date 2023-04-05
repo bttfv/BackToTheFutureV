@@ -21,7 +21,7 @@ namespace BackToTheFutureV
 
         public WaybackVehicle(Vehicle vehicle)
         {
-            Replica = new VehicleReplica(vehicle, SpawnFlags.NoDriver);
+            Replica = new VehicleReplica(vehicle);
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
@@ -37,7 +37,12 @@ namespace BackToTheFutureV
 
         private Vehicle Spawn()
         {
-            Vehicle vehicle = Replica.Spawn(SpawnFlags.Default);
+            SpawnFlags _spawnFlag = SpawnFlags.Default;
+
+            if (Replica.Model == ModelHandler.DMC12)
+                _spawnFlag = SpawnFlags.NoMods;
+
+            Vehicle vehicle = Replica.Spawn(_spawnFlag);
 
             vehicle.SetPlayerLights(true);
 
@@ -114,6 +119,9 @@ namespace BackToTheFutureV
             }
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
+
+            if (IsTimeMachine && timeMachine.NotNullAndExists())
+                spawnFlags |= SpawnFlags.NoMods;
 
             if (IsTimeMachine && timeMachine.NotNullAndExists() && Properties.IsOnTracks)
             {

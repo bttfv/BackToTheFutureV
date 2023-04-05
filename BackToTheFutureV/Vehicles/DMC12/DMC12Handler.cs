@@ -104,7 +104,7 @@ namespace BackToTheFutureV
             {
                 if (delo.Mods.WormholeType > WormholeType.DMC12 && !delo.Vehicle.IsTimeMachine())
                 {
-                    TimeMachineHandler.Create(delo, SpawnFlags.Default, delo.Mods.WormholeType);
+                    TimeMachineHandler.Create(delo, SpawnFlags.NoMods, delo.Mods.WormholeType);
                 }
 
                 delo.Tick();

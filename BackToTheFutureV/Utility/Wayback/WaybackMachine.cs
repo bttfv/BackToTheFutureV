@@ -1,8 +1,10 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Native;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -40,6 +42,19 @@ namespace BackToTheFutureV
                 }
 
                 return Records[LastRecordedIndex];
+            }
+        }
+
+        public WaybackRecord PreviousRecording
+        {
+            get
+            {
+                if (LastRecordedIndex <= 0)
+                {
+                    return Records[0];
+                }
+
+                return Records[LastRecordedIndex - 1];
             }
         }
 
@@ -177,6 +192,37 @@ namespace BackToTheFutureV
                 }
             }
 
+            // We need to make sure any WaybackPed is removed from the WaybackVehicle since Wayback should control it
+            if (IsPlayer && FusionUtils.PlayerVehicle.NotNullAndExists())
+            {
+                foreach (PedReplica occupant in waybackRecord.Vehicle.Replica.Occupants.ToList())
+                {
+                    if (occupant.Model == waybackRecord.Ped.Replica.Model)
+                    {
+                        waybackRecord.Vehicle.Replica.Occupants.Remove(occupant);
+                    }
+                }
+            }
+
+            if (LastRecordedIndex > 0)
+            {
+                bool _sameComps =
+        PreviousRecording.Ped.Replica.Components.Rank == waybackRecord.Ped.Replica.Components.Rank &&
+        Enumerable.Range(0, PreviousRecording.Ped.Replica.Components.Rank).All(dimension => PreviousRecording.Ped.Replica.Components.GetLength(dimension) == waybackRecord.Ped.Replica.Components.GetLength(dimension)) &&
+        PreviousRecording.Ped.Replica.Components.Cast<int>().SequenceEqual(waybackRecord.Ped.Replica.Components.Cast<int>());
+
+                bool _sameProps =
+        PreviousRecording.Ped.Replica.Props.Rank == waybackRecord.Ped.Replica.Props.Rank &&
+        Enumerable.Range(0, PreviousRecording.Ped.Replica.Props.Rank).All(dimension => PreviousRecording.Ped.Replica.Props.GetLength(dimension) == waybackRecord.Ped.Replica.Props.GetLength(dimension)) &&
+        PreviousRecording.Ped.Replica.Props.Cast<int>().SequenceEqual(waybackRecord.Ped.Replica.Props.Cast<int>());
+
+                if (IsPlayer && (!_sameComps || !_sameProps))
+                    waybackRecord.Ped.SwitchedClothes = true;
+
+                if (IsPlayer && PreviousRecording.Ped.Replica.Weapons.Count != waybackRecord.Ped.Replica.Weapons.Count)
+                    waybackRecord.Ped.SwitchedWeapons = true;
+            }
+
             Records.Add(waybackRecord);
 
             LastRecordedIndex++;
@@ -205,6 +251,34 @@ namespace BackToTheFutureV
             {
                 Ped?.Task.ClearAllImmediately();
                 Ped = CurrentRecord.Spawn(NextRecord);
+            }
+
+            if (CurrentRecord.Ped.SwitchedWeapons)
+            {
+                foreach (WeaponReplica x in CurrentRecord.Ped.Replica.Weapons)
+                {
+                    x.Give(Ped);
+                }
+            }
+
+            if (CurrentRecord.Ped.SwitchedClothes)
+            {
+                for (int x = 0; x <= 11; x++)
+                {
+                    Function.Call(Hash.SET_PED_COMPONENT_VARIATION, Ped, x, CurrentRecord.Ped.Replica.Components[x, 0], CurrentRecord.Ped.Replica.Components[x, 1], CurrentRecord.Ped.Replica.Components[x, 2]);
+                }
+
+                for (int x = 0; x <= 4; x++)
+                {
+                    if (x <= 2)
+                    {
+                        Function.Call(Hash.SET_PED_PROP_INDEX, Ped, x, CurrentRecord.Ped.Replica.Props[x, 0], CurrentRecord.Ped.Replica.Props[x, 1], true);
+                    }
+                    else
+                    {
+                        Function.Call(Hash.SET_PED_PROP_INDEX, Ped, x + 3, CurrentRecord.Ped.Replica.Props[x, 0], CurrentRecord.Ped.Replica.Props[x, 1], true);
+                    }
+                }
             }
 
             CurrentRecord.Apply(Ped, NextRecord);

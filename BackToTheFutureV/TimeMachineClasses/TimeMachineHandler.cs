@@ -245,6 +245,11 @@ namespace BackToTheFutureV
                 spawnFlags |= SpawnFlags.NoOccupants;
             }
 
+            if (timeMachineClone != default && timeMachineClone.Vehicle.Model == ModelHandler.DMC12)
+            {
+                spawnFlags |= SpawnFlags.NoMods;
+            }
+
             if (veh == null)
             {
                 if (timeMachineClone != default)

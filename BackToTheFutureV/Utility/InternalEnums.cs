@@ -44,6 +44,7 @@
             None,
             Walking,
             EnteringVehicle,
+            ShufflingVehicle,
             LeavingVehicle,
             DrivingVehicle,
             Jump,
