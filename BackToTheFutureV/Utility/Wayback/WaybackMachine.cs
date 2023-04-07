@@ -119,6 +119,26 @@ namespace BackToTheFutureV
             }
         }
 
+        private bool ArraysEqual(int[,] a1, int[,] a2, int size, bool comp)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                if (a1[i, 0] != a2[i, 0])
+                {
+                    return false;
+                }
+                else if (a1[i, 1] != a2[i, 1])
+                {
+                    return false;
+                }
+                else if (comp && a1[i, 2] != a2[i, 2])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public void Tick()
         {
             switch (Status)
@@ -206,15 +226,9 @@ namespace BackToTheFutureV
 
             if (LastRecordedIndex > 0)
             {
-                bool _sameComps =
-        PreviousRecording.Ped.Replica.Components.Rank == waybackRecord.Ped.Replica.Components.Rank &&
-        Enumerable.Range(0, PreviousRecording.Ped.Replica.Components.Rank).All(dimension => PreviousRecording.Ped.Replica.Components.GetLength(dimension) == waybackRecord.Ped.Replica.Components.GetLength(dimension)) &&
-        PreviousRecording.Ped.Replica.Components.Cast<int>().SequenceEqual(waybackRecord.Ped.Replica.Components.Cast<int>());
+                bool _sameComps = ArraysEqual(PreviousRecording.Ped.Replica.Components, waybackRecord.Ped.Replica.Components, 12, true);
 
-                bool _sameProps =
-        PreviousRecording.Ped.Replica.Props.Rank == waybackRecord.Ped.Replica.Props.Rank &&
-        Enumerable.Range(0, PreviousRecording.Ped.Replica.Props.Rank).All(dimension => PreviousRecording.Ped.Replica.Props.GetLength(dimension) == waybackRecord.Ped.Replica.Props.GetLength(dimension)) &&
-        PreviousRecording.Ped.Replica.Props.Cast<int>().SequenceEqual(waybackRecord.Ped.Replica.Props.Cast<int>());
+                bool _sameProps = ArraysEqual(PreviousRecording.Ped.Replica.Props, waybackRecord.Ped.Replica.Props, 5, false);
 
                 if (IsPlayer && (!_sameComps || !_sameProps))
                     waybackRecord.Ped.SwitchedClothes = true;

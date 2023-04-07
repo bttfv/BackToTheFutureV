@@ -45,6 +45,9 @@ namespace BackToTheFutureV
                     ped.Task.TurnTo(vehicle);
                     return;
                 }
+
+                if (Vehicle.Event == InternalEnums.WaybackVehicleEvent.TimeTravel && vehicle.Driver == ped)
+                    return;
             }
 
             Ped.Apply(ped, vehicle, nextRecord.Ped.Replica, adjustedRatio);
