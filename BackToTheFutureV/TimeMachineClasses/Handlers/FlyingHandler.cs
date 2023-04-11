@@ -341,7 +341,10 @@ namespace BackToTheFutureV
 
             // Disable vehicle weapon/drive-by in favor of VTOL controls while flying
             if ((Properties.IsFlying || Properties.IsLanding) && Vehicle == FusionUtils.PlayerVehicle)
+            {
                 Game.DisableControlThisFrame(Control.VehicleAim);
+                Game.DisableControlThisFrame(Control.Aim);
+            }
 
             // Process the wheel animations
             Players.HoverModeWheels?.Tick();

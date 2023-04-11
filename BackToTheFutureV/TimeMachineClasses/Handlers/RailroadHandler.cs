@@ -172,6 +172,16 @@ namespace BackToTheFutureV
             Stop();
         }
 
+        private void Explode()
+        {
+            if (TimeMachine.Properties.IsRemoteControlled && !TimeMachine.Properties.IsWayback)
+            {
+                RemoteTimeMachineHandler.StopRemoteControl();
+            }
+            Vehicle.Explode();
+            _exploded = true;
+        }
+
         public override void KeyDown(KeyEventArgs e)
         {
 
@@ -225,24 +235,16 @@ namespace BackToTheFutureV
                 {
                     Stop();
 
-                    if (Math.Abs(_train.GetMPHSpeed() - Vehicle.GetMPHSpeed()) > 33 && !_exploded)
+                    if (!_exploded)
                     {
-                        if (TimeMachine.Properties.IsRemoteControlled && !TimeMachine.Properties.IsWayback)
+                        if (Vehicle.SameDirection(_train, 90f) && _train.RelativeVelocity().Y.ToMPH() - Vehicle.RelativeVelocity().Y.ToMPH() > 25)
                         {
-                            RemoteTimeMachineHandler.StopRemoteControl();
+                            Explode();
                         }
-                        Vehicle.Explode();
-                        _exploded = true;
-                    }
-                    // TODO: SameDirection only accounts for the model rotation; doesn't account for the velocity vector direction
-                    else if (!Vehicle.SameDirection(_train, 90f) && _train.GetMPHSpeed() + Vehicle.GetMPHSpeed() > 33 && !_exploded)
-                    {
-                        if (TimeMachine.Properties.IsRemoteControlled && !TimeMachine.Properties.IsWayback)
+                        else if (!Vehicle.SameDirection(_train, 90f) && _train.RelativeVelocity().Y.ToMPH() + Vehicle.RelativeVelocity().Y.ToMPH() > 25)
                         {
-                            RemoteTimeMachineHandler.StopRemoteControl();
+                            Explode();
                         }
-                        Vehicle.Explode();
-                        _exploded = true;
                     }
 
                     _attachDelay = Game.GameTime + 3000;
