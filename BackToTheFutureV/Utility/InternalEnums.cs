@@ -43,6 +43,7 @@
         {
             None,
             Walking,
+            Running,
             EnteringVehicle,
             ShufflingVehicle,
             LeavingVehicle,

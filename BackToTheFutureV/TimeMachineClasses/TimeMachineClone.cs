@@ -34,12 +34,9 @@ namespace BackToTheFutureV
 
         public void ApplyTo(TimeMachine timeMachine, SpawnFlags spawnFlags)
         {
+            Properties.ApplyTo(timeMachine);
+            Mods.ApplyTo(timeMachine);
             Vehicle.ApplyTo(timeMachine.Vehicle, spawnFlags);
-
-            if (!spawnFlags.HasFlag(SpawnFlags.NoProperties))
-            {
-                Properties.ApplyTo(timeMachine);
-            }
         }
     }
 }

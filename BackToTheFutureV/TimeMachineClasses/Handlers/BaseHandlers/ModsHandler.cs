@@ -195,6 +195,7 @@ namespace BackToTheFutureV
 
             if (Wheel == WheelType.Red && VehicleControl.GetWheelSize(Vehicle) != 1.1f)
             {
+                VehicleControl.SetWheelWidth(Vehicle, 0.976f);
                 VehicleControl.SetWheelSize(Vehicle, 1.1f);
                 Vehicle.Velocity += Vector3.UnitY * 0.3f;
             }

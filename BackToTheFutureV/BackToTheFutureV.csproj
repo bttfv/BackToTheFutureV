@@ -3,7 +3,7 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProjectGuid>{7BE2F39B-E0F1-4F7D-B674-BC595E4AF50D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -198,7 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FusionLibrary.SHVDN3">
-      <Version>1.6.4</Version>
+      <Version>1.6.5</Version>
     </PackageReference>
     <PackageReference Include="LemonUI.SHVDN3">
       <Version>1.9.4</Version>

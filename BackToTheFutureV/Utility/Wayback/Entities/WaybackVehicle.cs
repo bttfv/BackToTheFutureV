@@ -19,6 +19,8 @@ namespace BackToTheFutureV
 
         public PropertiesHandler Properties { get; }
 
+        public ModsPrimitive Mods { get; }
+
         public WaybackVehicle(Vehicle vehicle)
         {
             Replica = new VehicleReplica(vehicle);
@@ -33,6 +35,7 @@ namespace BackToTheFutureV
             IsTimeMachine = true;
 
             Properties = timeMachine.Properties.Clone();
+            Mods = timeMachine.Mods.Clone();
         }
 
         private Vehicle Spawn()
@@ -54,6 +57,7 @@ namespace BackToTheFutureV
             TimeMachine timeMachine = TimeMachineHandler.Create(vehicle);
 
             Properties.ApplyTo(timeMachine);
+            Mods.ApplyTo(timeMachine);
 
             return vehicle;
         }
@@ -149,6 +153,7 @@ namespace BackToTheFutureV
                 timeMachine = TimeMachineHandler.Create(vehicle);
 
                 Properties.ApplyTo(timeMachine);
+                Mods.ApplyTo(timeMachine);
             }
 
             Properties.ApplyToWayback(timeMachine);
@@ -158,7 +163,8 @@ namespace BackToTheFutureV
                 vehicle.IsBurnoutForced = true;
                 vehicle.CanTiresBurst = false;
             }
-            else if (Event == WaybackVehicleEvent.RcHandbrakeOff)
+            
+            if (Event == WaybackVehicleEvent.RcHandbrakeOff)
             {
                 vehicle.IsBurnoutForced = false;
                 vehicle.CanTiresBurst = true;

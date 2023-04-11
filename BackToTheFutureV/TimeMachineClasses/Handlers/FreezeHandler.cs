@@ -57,7 +57,7 @@ namespace BackToTheFutureV
 
         public void OnReenterEnded()
         {
-            if ((FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second) - Properties.DestinationTime).TotalMinutes <= 0)
+            if ((FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second) - Properties.DestinationTime).TotalMinutes <= 1)
                 StartFreezeHandling();
         }
 

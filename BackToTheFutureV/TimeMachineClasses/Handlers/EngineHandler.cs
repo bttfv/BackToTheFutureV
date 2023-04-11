@@ -222,7 +222,7 @@ namespace BackToTheFutureV
         public override void Tick()
         {
             // Show engine information on screen
-            Debug(-1);
+            //Debug(-1);
 
             if (_engineSounds.Any(x => x == null))
             {
@@ -612,7 +612,7 @@ namespace BackToTheFutureV
         {
             if (handbrakeValid)
             {
-                return vehicle.BrakePower > 0 || VehicleControl.GetHandbrake(vehicle) != 0;
+                return vehicle.BrakePower > 0 || VehicleControl.GetHandbrake(vehicle) == true;
             }
 
             return vehicle.BrakePower > 0 && vehicle.ThrottlePower == 0;
@@ -620,7 +620,7 @@ namespace BackToTheFutureV
 
         private static bool IsPlayerRevving(Vehicle vehicle)
         {
-            return VehicleControl.GetHandbrake(vehicle) != 0 && vehicle.ThrottlePower != 0;
+            return VehicleControl.GetHandbrake(vehicle) == true && vehicle.ThrottlePower != 0;
         }
 
         private float VehicleAcceleration()
@@ -708,7 +708,8 @@ namespace BackToTheFutureV
             }
         }
 
-        private void Debug(int id)
+        // Debug code adds a whopping 3kB to script even when unused, so comment out when not using
+        /*private void Debug(int id)
         {
             switch (id)
             {
@@ -748,7 +749,7 @@ namespace BackToTheFutureV
                     }
                     break;
             }
-        }
+        }*/
 
         #endregion
 

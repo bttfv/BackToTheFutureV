@@ -196,6 +196,9 @@ namespace BackToTheFutureV
 
             if (Properties.IsOnTracks)
             {
+                if (Mods.Wheels.Burst != false)
+                    Mods.Wheels.Burst = false;
+
                 customTrain.IsAccelerationOn = Vehicle.IsPlayerDriving() && Vehicle.IsVisible && Vehicle.IsEngineRunning;
 
                 if (FusionUtils.PlayerVehicle == Vehicle)
@@ -231,6 +234,7 @@ namespace BackToTheFutureV
                         Vehicle.Explode();
                         _exploded = true;
                     }
+                    // TODO: SameDirection only accounts for the model rotation; doesn't account for the velocity vector direction
                     else if (!Vehicle.SameDirection(_train, 90f) && _train.GetMPHSpeed() + Vehicle.GetMPHSpeed() > 33 && !_exploded)
                     {
                         if (TimeMachine.Properties.IsRemoteControlled && !TimeMachine.Properties.IsWayback)
@@ -267,7 +271,7 @@ namespace BackToTheFutureV
             _isReentryOn = false;
             Properties.IsOnTracks = false;
 
-            if (Mods.Wheel == WheelType.RailroadInvisible)
+            if (Mods.Wheel == WheelType.RailroadInvisible && Vehicle.IsVisible && Mods.Wheels.Burst != true)
             {
                 Mods.Wheels.Burst = true;
             }

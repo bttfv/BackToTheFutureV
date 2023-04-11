@@ -300,7 +300,14 @@ namespace BackToTheFutureV
 
                 if (spawnFlags.HasFlag(SpawnFlags.New))
                 {
-                    timeMachine.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
+                    if (!ModSettings.WaybackSystem)
+                    {
+                        timeMachine.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
+                    }
+                    else
+                    {
+                        timeMachine.Properties.DestinationTime = FusionUtils.CurrentTime;
+                    }
 
                     if (timeMachine.Mods.WormholeType == WormholeType.BTTF2)
                     {
@@ -315,13 +322,6 @@ namespace BackToTheFutureV
                 }
 
                 timeMachine.Events.SetTimeCircuits?.Invoke(true);
-
-                if (ModSettings.WaybackSystem && spawnFlags.HasFlag(SpawnFlags.ForceReentry | SpawnFlags.New))
-                {
-                    TimeMachineClone _new = timeMachine.Clone();
-                    _new.Properties.IsWayback = true;
-                    RemoteTimeMachineHandler.AddRemote(_new);
-                }
 
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }

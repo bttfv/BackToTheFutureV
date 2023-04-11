@@ -3,7 +3,6 @@ using FusionLibrary.Extensions;
 using GTA;
 using KlangRageAudioLibrary;
 using System;
-using System.Linq;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
@@ -15,6 +14,7 @@ namespace BackToTheFutureV
         public TimeMachine TimeMachine => TimeMachineHandler.GetTimeMachineFromGUID(TimeMachineClone.Properties.GUID);
         public Blip Blip { get; set; }
         public bool Spawned => TimeMachine.NotNullAndExists();
+        public bool WasSpawned;
 
         private int _timer;
         private bool _hasPlayedWarningSound;
@@ -37,7 +37,7 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
-            if (Spawned || Game.GameTime < _timer || TimeParadox.ParadoxInProgress)
+            if (Spawned || WasSpawned || Game.GameTime < _timer || TimeParadox.ParadoxInProgress)
             {
                 return;
             }
@@ -128,6 +128,8 @@ namespace BackToTheFutureV
             }
 
             TimeMachine.Vehicle.SetPlayerLights(true);
+
+            WasSpawned = true;
 
             return TimeMachine;
         }

@@ -128,6 +128,13 @@ namespace BackToTheFutureV
                 {
                     timeMachine.Mods.Wheel = WheelType.RailroadInvisible;
                 }
+
+                if (ModSettings.WaybackSystem)
+                {
+                    TimeMachineClone _new = timeMachine.Clone();
+                    _new.Properties.IsWayback = true;
+                    RemoteTimeMachineHandler.AddRemote(_new).WasSpawned = true;
+                }
             }
 
             if (sender == convertIntoTimeMachine)

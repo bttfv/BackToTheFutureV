@@ -98,9 +98,11 @@ namespace BackToTheFutureV
             registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));
             registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
 
+            if (Mods.IsDMC12 || Vehicle.Model == ModelHandler.Deluxo /*|| Vehicle.Model == "dproto"*/)
+                registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
+
             if (Mods.IsDMC12)
             {
-                registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
                 registeredHandlers.Add("FuelHandler", new FuelHandler(this));
                 registeredHandlers.Add("SIDHandler", new SIDHandler(this));
                 registeredHandlers.Add("FluxCapacitorHandler", new FluxCapacitorHandler(this));
@@ -126,10 +128,10 @@ namespace BackToTheFutureV
 
             Events.OnWormholeTypeChanged += UpdateBlip;
 
-            /*if (Main.DeluxoProtoSupport && vehicle.Model == "dproto")
+            if (Vehicle.Model == ModelHandler.Deluxo /*|| Main.DeluxoProtoSupport && Vehicle.Model == "dproto"*/)
             {
                 Mods.HoverUnderbody = ModState.On;
-            }*/
+            }
 
             CustomCameraManager = new CustomCameraHandler();
 
@@ -283,33 +285,18 @@ namespace BackToTheFutureV
                 Vehicle.LockStatus = VehicleLockStatus.None;
             }
 
-            if (Mods.Wheel == WheelType.RailroadInvisible && Vehicle.IsVisible && Props != null && !Props.RRWheels.IsSpawned)
+            if (Mods.Wheel == WheelType.RailroadInvisible && Props != null && !Props.RRWheels.IsSpawned)
             {
-                Mods.Wheels.Burst = true;
-                Props?.RRWheels?.SpawnProp();
+                if (Mods.Wheels.Burst != true && !Properties.IsOnTracks)
+                    Mods.Wheels.Burst = true;
+
+                if (Vehicle.IsVisible)
+                    Props?.RRWheels?.SpawnProp();
             }
 
             if (Mods.IsDMC12)
             {
                 Vehicle.IsRadioEnabled = false;
-
-                //In certain situations car can't be entered after hover transformation, here is forced enter task.
-                if (FusionUtils.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(FusionUtils.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
-                {
-                    if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, FusionUtils.PlayerPed) != Vehicle || Vehicle.Driver != null)
-                    {
-                        if (Vehicle.Driver != null)
-                        {
-                            TaskSequence taskSequence = new TaskSequence();
-                            taskSequence.AddTask.LeaveVehicle(LeaveVehicleFlags.WarpOut);
-                            taskSequence.AddTask.WanderAround();
-
-                            Vehicle.Driver.Task.PerformSequence(taskSequence);
-                        }
-
-                        FusionUtils.PlayerPed.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
-                    }
-                }
 
                 VehicleWindowCollection windows = Vehicle.Windows;
                 windows[VehicleWindowIndex.BackLeftWindow].Remove();
