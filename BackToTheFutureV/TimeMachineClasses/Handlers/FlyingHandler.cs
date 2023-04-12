@@ -61,6 +61,11 @@ namespace BackToTheFutureV
                 return;
             }
 
+            Props.HoverModeVentsGlow.SpawnProp();
+            Props.HoverModeVentsGlow.Visible = false;
+            Props.HoverModeUnderbodyLights.SpawnProp();
+            Props.HoverModeUnderbodyLights.Visible = false;
+
             TimeHandler.OnDayNightChange += OnDayNightChange;
 
             OnDayNightChange();
@@ -86,6 +91,8 @@ namespace BackToTheFutureV
             {
                 Props.HoverModeVentsGlow.SwapModel(ModelHandler.VentGlowing);
             }
+
+            Props.HoverModeVentsGlow.SpawnProp();
         }
 
         private void SimulateHoverBoost(bool state)
@@ -100,7 +107,6 @@ namespace BackToTheFutureV
             {
                 _hasPlayedBoostSound = false;
                 Sounds.HoverModeBoost?.Stop();
-                Props.HoverModeVentsGlow?.Delete();
             }
         }
 
@@ -124,7 +130,6 @@ namespace BackToTheFutureV
             {
                 Players.HoverModeWheels = new WheelAnimationPlayer(TimeMachine);
                 Players.HoverModeWheels.OnPlayerCompleted += OnCompleted;
-
                 Properties.AreFlyingCircuitsBroken = false;
 
                 return;
@@ -135,7 +140,7 @@ namespace BackToTheFutureV
                 SetFlyMode(false, true);
             }
 
-            Props.HoverModeUnderbodyLights?.Delete();
+            Props.HoverModeUnderbodyLights.Visible = false;
         }
 
         private void OnCompleted()
@@ -301,7 +306,7 @@ namespace BackToTheFutureV
                 Properties.IsAltitudeHolding = false;
             }
 
-            Props.HoverModeVentsGlow?.Delete();
+            Props.HoverModeVentsGlow.Visible = false;
             Props.HoverModeWheelsGlow?.Delete();
         }
 
@@ -321,6 +326,11 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
+            if (Props.HoverModeVentsGlow.Visible != Properties.IsHoverBoosting)
+            {
+                Props.HoverModeVentsGlow.Visible = Properties.IsHoverBoosting;
+            }
+
             if (Mods.HoverUnderbody == ModState.Off)
             {
                 return;
@@ -353,7 +363,7 @@ namespace BackToTheFutureV
             {
                 if (Mods.IsDMC12 && Props.HoverModeUnderbodyLights.IsSequencePlaying)
                 {
-                    Props.HoverModeUnderbodyLights.Delete();
+                    Props.HoverModeUnderbodyLights.Visible = false;
                 }
 
                 return;
@@ -438,16 +448,8 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (Mods.IsDMC12 && Props.HoverModeVentsGlow.IsSpawned && Driver == null)
-            {
-                Props.HoverModeVentsGlow?.Delete();
-            }
-
             if (Properties.AreFlyingCircuitsBroken)
             {
-                // Set vent effect invisible
-                Props.HoverModeVentsGlow?.Delete();
-
                 // Reset flag
                 _hasPlayedBoostSound = false;
 
@@ -546,9 +548,6 @@ namespace BackToTheFutureV
             }
             else
             {
-                // Set vent effect invisible
-                Props.HoverModeVentsGlow?.Delete();
-
                 // Reset flag
                 _hasPlayedBoostSound = false;
 
@@ -653,9 +652,6 @@ namespace BackToTheFutureV
 
         public void Boost()
         {
-            // Set the vent boost effect visible
-            Props.HoverModeVentsGlow?.SpawnProp();
-
             // Play boost sound
             if (!_hasPlayedBoostSound)
             {

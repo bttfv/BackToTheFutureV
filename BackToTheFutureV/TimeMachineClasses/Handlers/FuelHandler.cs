@@ -16,6 +16,7 @@ namespace BackToTheFutureV
         private const int TotalBlinks = 16;
 
         private bool _isBlinking;
+        private bool _isSetEmpty;
 
         private float _reactorGlowingTime = 0;
         private float _refuelTime = 0;
@@ -29,6 +30,10 @@ namespace BackToTheFutureV
             InteractPressed = new NativeInput(GTA.Control.Context);
             InteractPressed.OnControlJustReleased += OnControlJustReleased;
             InteractPressed.OnControlLongPressed += OnControlLongPressed;
+
+            Props.EmptyGlowing.SpawnProp();
+            Props.EmptyGlowing.Visible = false;
+            Props.EmptyOff.SpawnProp();
 
             SetEmpty(false);
 
@@ -402,7 +407,14 @@ namespace BackToTheFutureV
         {
             if (FusionUtils.PlayerVehicle == Vehicle)
             {
-                Properties.HUDProperties.Empty = isOn ? EmptyType.On : EmptyType.Off;
+                if (isOn && Properties.HUDProperties.Empty != EmptyType.On)
+                {
+                    Properties.HUDProperties.Empty = EmptyType.On;
+                }
+                else if (!isOn && Properties.HUDProperties.Empty != EmptyType.Off)
+                {
+                    Properties.HUDProperties.Empty = EmptyType.Off;
+                }
             }
 
             if (Vehicle.IsVisible == false)
@@ -410,15 +422,17 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (isOn)
+            if (isOn && !_isSetEmpty)
             {
-                Props.EmptyOff?.Delete();
-                Props.EmptyGlowing?.SpawnProp();
+                Props.EmptyOff.Visible = false;
+                Props.EmptyGlowing.Visible = true;
+                _isSetEmpty = true;
             }
-            else
+            else if (!isOn && _isSetEmpty)
             {
-                Props.EmptyOff?.SpawnProp();
-                Props.EmptyGlowing?.Delete();
+                Props.EmptyOff.Visible = true;
+                Props.EmptyGlowing.Visible = false;
+                _isSetEmpty = false;
             }
         }
 
@@ -429,7 +443,10 @@ namespace BackToTheFutureV
                 return;
             }
 
-            Properties.HUDProperties.Empty = EmptyType.Hide;
+            if (Properties.HUDProperties.Empty != EmptyType.Hide)
+            {
+                Properties.HUDProperties.Empty = EmptyType.Hide;
+            }
         }
     }
 }

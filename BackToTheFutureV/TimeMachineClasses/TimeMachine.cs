@@ -514,16 +514,16 @@ namespace BackToTheFutureV
                 Players.Wormhole.Stop();
             }
 
-            if (Properties.PhotoGlowingCoilsActive && Props.Coils != null && !Props.Coils.IsSpawned)
+            if (Properties.PhotoGlowingCoilsActive && Props.Coils != null && !Props.Coils.Visible)
             {
                 Mods.OffCoils = ModState.Off;
-                Props.Coils.SpawnProp();
+                Props.Coils.Visible = true;
             }
 
-            if (!Properties.PhotoGlowingCoilsActive && Props.Coils != null && Props.Coils.IsSpawned && Properties.TimeTravelPhase != TimeTravelPhase.OpeningWormhole)
+            if (!Properties.PhotoGlowingCoilsActive && Props.Coils != null && Props.Coils.Visible && Properties.TimeTravelPhase != TimeTravelPhase.OpeningWormhole)
             {
                 Mods.OffCoils = ModState.On;
-                Props.Coils.Delete();
+                Props.Coils.Visible = false;
             }
 
             if (Properties.PhotoFluxCapacitorActive && !(Properties.IsFluxDoingBlueAnim || Properties.IsFluxDoingOrangeAnim))

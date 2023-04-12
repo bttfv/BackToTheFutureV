@@ -122,8 +122,13 @@ namespace BackToTheFutureV
             tempNeedle.SpawnProp();
             oilNeedle.SpawnProp();
             voltNeedle.SpawnProp();
-            doorIndicator.SpawnProp();
+            bayLightOff.SpawnProp();
+            bayLightOn.SpawnProp();
             domeLightOff.SpawnProp();
+            domeLightOn.SpawnProp();
+            doorIndicator.SpawnProp();
+            hoodLightOff.SpawnProp();
+            hoodLightOn.SpawnProp();
             leftFan.SpawnProp();
             rightFan.SpawnProp();
 
@@ -222,47 +227,6 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen && !Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen && Vehicle.Bones["interiorlight"].Pose != InteriorLightOffPose)
-            {
-                Vehicle.Bones["interiorlight"].Pose = InteriorLightOffPose;
-                if (!domeLightOff.IsSpawned)
-                {
-                    domeLightOn.Delete();
-                    domeLightOff.SpawnProp();
-                }
-            }
-            else if ((Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen || Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen) && Vehicle.Bones["interiorlight"].Pose != InteriorLightOnPose)
-            {
-                Vehicle.Bones["interiorlight"].Pose = InteriorLightOnPose;
-                if (!domeLightOn.IsSpawned)
-                {
-                    domeLightOff.Delete();
-                    domeLightOn.SpawnProp();
-                }
-            }
-
-            if (Vehicle.Doors[VehicleDoorIndex.Hood].IsOpen && !hoodLightOn.IsSpawned)
-            {
-                hoodLightOff.Delete();
-                hoodLightOn.SpawnProp();
-            }
-            else if (!Vehicle.Doors[VehicleDoorIndex.Hood].IsOpen && !hoodLightOff.IsSpawned)
-            {
-                hoodLightOn.Delete();
-                hoodLightOff.SpawnProp();
-            }
-
-            if (Vehicle.Doors[VehicleDoorIndex.BackRightDoor].IsOpen && !bayLightOn.IsSpawned)
-            {
-                bayLightOff.Delete();
-                bayLightOn.SpawnProp();
-            }
-            else if (!Vehicle.Doors[VehicleDoorIndex.BackRightDoor].IsOpen && !bayLightOff.IsSpawned)
-            {
-                bayLightOn.Delete();
-                bayLightOff.SpawnProp();
-            }
-
             if (FusionUtils.PlayerVehicle == Vehicle)
             {
                 Game.DisableControlThisFrame(Control.VehicleSpecial);
@@ -279,22 +243,47 @@ namespace BackToTheFutureV
 
             if (!Vehicle.IsVisible)
             {
-                speedNeedle.Delete();
-                rpmNeedle.Delete();
-                fuelNeedle.Delete();
-                tempNeedle.Delete();
-                oilNeedle.Delete();
-                voltNeedle.Delete();
-                doorIndicator.Delete();
-                leftFan.Delete();
-                rightFan.Delete();
+                rpmNeedle.Visible = false;
+                speedNeedle.Visible = false;
+                fuelNeedle.Visible = false;
+                tempNeedle.Visible = false;
+                oilNeedle.Visible = false;
+                voltNeedle.Visible = false;
+                bayLightOff.Visible = false;
+                bayLightOn.Visible = false;
+                domeLightOff.Visible = false;
+                domeLightOn.Visible = false;
+                doorIndicator.Visible = false;
+                hoodLightOff.Visible = false;
+                hoodLightOn.Visible = false;
+                leftFan.Visible = false;
+                rightFan.Visible = false;
 
-                suspensionLeftFront?.Delete();
-                suspensionLeftRear?.Delete();
-                suspensionRightFront?.Delete();
-                suspensionRightRear?.Delete();
+                suspensionLeftFront.Visible = false;
+                suspensionLeftRear.Visible = false;
+                suspensionRightFront.Visible = false;
+                suspensionRightRear.Visible = false;
 
                 return;
+            }
+            else
+            {
+                if (!rpmNeedle.Visible)
+                {
+                    rpmNeedle.Visible = true;
+                    speedNeedle.Visible = true;
+                    fuelNeedle.Visible = true;
+                    tempNeedle.Visible = true;
+                    oilNeedle.Visible = true;
+                    voltNeedle.Visible = true;
+                    leftFan.Visible = true;
+                    rightFan.Visible = true;
+
+                    suspensionLeftFront.Visible = true;
+                    suspensionLeftRear.Visible = true;
+                    suspensionRightFront.Visible = true;
+                    suspensionRightRear.Visible = true;
+                }
             }
 
             if (Vehicle.IsEngineRunning)
@@ -381,11 +370,52 @@ namespace BackToTheFutureV
 
             if (Vehicle.IsEngineRunning && (Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen || Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen))
             {
-                doorIndicator.SpawnProp();
+                if (!doorIndicator.Visible)
+                    doorIndicator.Visible = true;
             }
             else
             {
-                doorIndicator.Delete();
+                doorIndicator.Visible = false;
+            }
+
+            if (!Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen && !Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen && Vehicle.Bones["interiorlight"].Pose != InteriorLightOffPose)
+            {
+                Vehicle.Bones["interiorlight"].Pose = InteriorLightOffPose;
+                domeLightOn.Visible = false;
+                domeLightOff.Visible = true;
+            }
+            else if ((Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen || Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen) && Vehicle.Bones["interiorlight"].Pose != InteriorLightOnPose)
+            {
+                Vehicle.Bones["interiorlight"].Pose = InteriorLightOnPose;
+                domeLightOff.Visible = false;
+                domeLightOn.Visible = true;
+            }
+
+            if (Vehicle.Doors[VehicleDoorIndex.Hood].IsOpen && !Vehicle.Doors[VehicleDoorIndex.Hood].IsBroken && hoodLightOff.Visible)
+            {
+                hoodLightOff.Visible = false;
+                hoodLightOn.Visible = true;
+            }
+            else if ((!Vehicle.Doors[VehicleDoorIndex.Hood].IsOpen || Vehicle.Doors[VehicleDoorIndex.Hood].IsBroken) && hoodLightOn.Visible)
+            {
+                hoodLightOn.Visible = false;
+                hoodLightOff.Visible = true;
+            }
+
+            if (Vehicle.Doors[VehicleDoorIndex.BackRightDoor].IsOpen && !IsTimeMachine && bayLightOff.Visible)
+            {
+                bayLightOff.Visible = false;
+                bayLightOn.Visible = true;
+            }
+            else if (!Vehicle.Doors[VehicleDoorIndex.BackRightDoor].IsOpen && !IsTimeMachine && bayLightOn.Visible)
+            {
+                bayLightOn.Visible = false;
+                bayLightOff.Visible = true;
+            }
+            else if (IsTimeMachine && bayLightOff.IsSpawned)
+            {
+                bayLightOff?.Dispose();
+                bayLightOn?.Dispose();
             }
         }
 
@@ -397,7 +427,13 @@ namespace BackToTheFutureV
             oilNeedle?.Dispose();
             tempNeedle?.Dispose();
             voltNeedle?.Dispose();
+            bayLightOff?.Dispose();
+            bayLightOn?.Dispose();
+            domeLightOff?.Dispose();
+            domeLightOn?.Dispose();
             doorIndicator?.Dispose();
+            hoodLightOff?.Dispose();
+            hoodLightOn?.Dispose();
             leftFan?.Dispose();
             rightFan?.Dispose();
 

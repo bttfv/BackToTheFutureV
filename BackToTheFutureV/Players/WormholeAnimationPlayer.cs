@@ -136,6 +136,10 @@ namespace BackToTheFutureV
             {
                 Props.Coils?.Dispose();
                 Props.Coils = new AnimateProp(Constants.CoilsModel, Vehicle, Vector3.Zero, Vector3.Zero);
+                Props.Coils.SpawnProp();
+                Props.Coils.Visible = false;
+                Props.SeparatedCoils.SpawnProp();
+                Props.SeparatedCoils.Props.ForEach(x => x.Visible = false);
             }
         }
 
@@ -212,7 +216,7 @@ namespace BackToTheFutureV
             numOfProps = FusionUtils.Lerp(1, 11, by);
 
             // Delete all other props
-            Props.SeparatedCoils?.Delete();
+            Props.SeparatedCoils.Props.ForEach(x => x.Visible = false);
 
             if (Properties.ReactorState != ReactorState.Closed)
             {
@@ -225,7 +229,7 @@ namespace BackToTheFutureV
 
                 Mods.OffCoils = ModState.Off;
 
-                Props.Coils?.SpawnProp();
+                Props.Coils.Visible = true;
             }
             else
             {
@@ -233,10 +237,10 @@ namespace BackToTheFutureV
 
                 foreach (int propindex in propsToBeSpawned)
                 {
-                    Props.SeparatedCoils[propindex].SpawnProp();
+                    Props.SeparatedCoils[propindex].Visible = true;
                 }
 
-                // Set next flicker 
+                // Set next flicker
                 _nextFlicker = Game.GameTime + FusionUtils.Random.Next(30, 60);
             }
         }
@@ -260,7 +264,7 @@ namespace BackToTheFutureV
             {
                 Mods.OffCoils = ModState.Off;
 
-                Props.Coils?.SpawnProp();
+                Props.Coils.Visible = true;
             }
 
             /*if (Constants.DeluxoProto)
@@ -277,9 +281,9 @@ namespace BackToTheFutureV
             _hasStartedWormhole = false;
             numOfProps = 0;
 
-            Props.Coils?.Delete();
+            Props.Coils.Visible = false;
 
-            Props.SeparatedCoils?.Delete();
+            Props.SeparatedCoils.Visible = false;
 
             Mods.GlowingEmitter = ModState.Off;
 
@@ -309,6 +313,11 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
+            if (numOfProps == default && Props.SeparatedCoils.Visible)
+            {
+                Props.SeparatedCoils.Props.ForEach(x => x.Visible = false);
+            }
+
             if (!IsPlaying)
             {
                 return;

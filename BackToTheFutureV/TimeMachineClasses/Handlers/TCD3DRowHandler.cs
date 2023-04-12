@@ -41,6 +41,10 @@ namespace BackToTheFutureV
 
                 amProp = new AnimateProp(ModelHandler.TCDAMModels[slotType], Vehicle, Vector3.Zero, Vector3.Zero);
                 pmProp = new AnimateProp(ModelHandler.TCDPMModels[slotType], Vehicle, Vector3.Zero, Vector3.Zero);
+                amProp.SpawnProp();
+                amProp.Visible = false;
+                pmProp.SpawnProp();
+                pmProp.Visible = false;
 
                 Scaleforms.TCDRowsRT[slotType].OnRenderTargetDraw += OnRenderTargetDraw;
             }
@@ -79,8 +83,8 @@ namespace BackToTheFutureV
             }
 
             ScaleformsHandler.TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
-            amProp?.SetState(dateToSet.ToString("tt", CultureInfo.InvariantCulture) == "AM");
-            pmProp?.SetState(dateToSet.ToString("tt", CultureInfo.InvariantCulture) != "AM");
+            amProp.Visible = dateToSet.ToString("tt", CultureInfo.InvariantCulture) == "AM";
+            pmProp.Visible = dateToSet.ToString("tt", CultureInfo.InvariantCulture) != "AM";
 
             date = dateToSet;
             toggle = true;
@@ -104,13 +108,13 @@ namespace BackToTheFutureV
 
             if ((!toggleTo && amPm) || (toggleTo && !amPm))
             {
-                amProp?.Delete();
-                pmProp?.Delete();
+                amProp.Visible = false;
+                pmProp.Visible = false;
             }
             else if ((!toggleTo && !amPm) || (toggleTo && amPm))
             {
-                amProp?.SetState(date.ToString("tt", CultureInfo.InvariantCulture) == "AM");
-                pmProp?.SetState(date.ToString("tt", CultureInfo.InvariantCulture) != "AM");
+                amProp.Visible = date.ToString("tt", CultureInfo.InvariantCulture) == "AM";
+                pmProp.Visible = date.ToString("tt", CultureInfo.InvariantCulture) != "AM";
             }
 
             toggle = toggleTo;

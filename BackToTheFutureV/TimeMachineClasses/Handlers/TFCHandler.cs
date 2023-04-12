@@ -91,6 +91,12 @@ namespace BackToTheFutureV
             _gaugeNeedle2 = new Gauge(ModelHandler.GaugeModels[1], new Vector3(0.3632151f, 0.4841858f, 0.6369596f), 25f, Vehicle);
             _gaugeNeedle3 = new Gauge(ModelHandler.GaugeModels[2], new Vector3(0.509564f, 0.4745394f, 0.6380013f), 50f, Vehicle);
 
+            Props.TFCOff.SpawnProp();
+            Props.TFCOn.SpawnProp();
+            Props.TFCOn.Visible = false;
+            Props.GaugeGlow.SpawnProp();
+            Props.GaugeGlow.Visible = false;
+
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
         }
 
@@ -98,8 +104,8 @@ namespace BackToTheFutureV
         {
             if (Properties.AreTimeCircuitsOn)
             {
-                Props.TFCOn?.SpawnProp();
-                Props.TFCOff?.Delete();
+                Props.TFCOn.Visible = true;
+                Props.TFCOff.Visible = false;
 
                 Props.TFCHandle?.Play();
 
@@ -107,8 +113,8 @@ namespace BackToTheFutureV
             }
             else
             {
-                Props.TFCOff?.SpawnProp();
-                Props.TFCOn?.Delete();
+                Props.TFCOff.Visible = true;
+                Props.TFCOn.Visible = false;
 
                 Props.TFCHandle?.Play();
 
@@ -116,7 +122,7 @@ namespace BackToTheFutureV
                 _gaugeNeedle2.On = false;
                 _gaugeNeedle3.On = false;
 
-                Props.GaugeGlow?.Delete();
+                Props.GaugeGlow.Visible = false;
             }
 
             hasPlayed = false;
@@ -142,7 +148,7 @@ namespace BackToTheFutureV
                     _gaugeNeedle3.On = true;
                 }
 
-                Props.GaugeGlow?.SpawnProp();
+                Props.GaugeGlow.Visible = true;
 
                 hasPlayed = true;
             }

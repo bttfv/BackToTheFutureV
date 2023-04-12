@@ -69,7 +69,11 @@ namespace BackToTheFutureV
 
         private void Instant()
         {
-            Props.HoodboxLights.SpawnProp();
+            if (!Props.HoodboxLights.IsSpawned)
+            {
+                Props.HoodboxLights.SpawnProp();
+            }
+            Props.HoodboxLights.Visible = true;
             Properties.AreHoodboxCircuitsReady = true;
         }
 
@@ -90,6 +94,8 @@ namespace BackToTheFutureV
             {
                 Props.HoodboxLights.SwapModel(ModelHandler.HoodboxLights);
             }
+
+            Props.HoodboxLights.SpawnProp();
         }
 
         private void HookProcess()
@@ -182,17 +188,24 @@ namespace BackToTheFutureV
 
                 if (_coolDown > 0 && _coolDown < Game.GameTime)
                 {
-                    Stop();
+                    Properties.AreHoodboxCircuitsReady = false;
+                    _warmUp = 0;
+                    _coolDown = 0;
                 }
 
                 return;
+            }
+            else
+            {
+                if (Props.HoodboxLights.Visible != Properties.AreHoodboxCircuitsReady)
+                {
+                    Props.HoodboxLights.Visible = Properties.AreHoodboxCircuitsReady;
+                }
             }
 
             if (_warmUp > 0 && _warmUp < Game.GameTime)
             {
                 TextHandler.Me.ShowHelp("WarmupComplete");
-                Props.HoodboxLights.SpawnProp();
-
                 _warmUp = 0;
                 Properties.AreHoodboxCircuitsReady = true;
 

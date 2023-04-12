@@ -13,7 +13,7 @@ namespace BackToTheFutureV
 
         public SpeedoHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-
+            Props.SpeedoCover.SpawnProp();
         }
 
         public override void Dispose()
@@ -34,15 +34,15 @@ namespace BackToTheFutureV
 
             if (Mods.IsDMC12)
             {
-                if (Mods.Speedo == ModState.Off && !Props.SpeedoCover.IsSpawned)
+                if (Mods.Speedo == ModState.Off && !Props.SpeedoCover.Visible)
                 {
-                    Props.SpeedoCover.SpawnProp();
+                    Props.SpeedoCover.Visible = true;
                     currentSpeed = -1;
                 }
 
-                if (Mods.Speedo == ModState.On && Props.SpeedoCover.IsSpawned)
+                if (Mods.Speedo == ModState.On && Props.SpeedoCover.Visible)
                 {
-                    Props.SpeedoCover.Delete();
+                    Props.SpeedoCover.Visible = false;
                     currentSpeed = -1;
                 }
             }

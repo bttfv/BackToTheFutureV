@@ -57,8 +57,8 @@ namespace BackToTheFutureV
         public void StartNormalFluxing()
         {
             ScaleformsHandler.FluxCapacitor.CallFunction("START_ANIMATION");
-            Props.FluxBlue?.Delete();
-            Props.FluxOrange?.Delete();
+            Props.FluxBlue.Visible = false;
+            Props.FluxOrange.Visible = false;
             Properties.IsFluxDoingBlueAnim = false;
             Properties.IsFluxDoingOrangeAnim = false;
         }
@@ -110,6 +110,12 @@ namespace BackToTheFutureV
                 return;
             }
 
+            if (!Props.FluxBlue.IsSpawned)
+            {
+                Props.FluxBlue.SpawnProp();
+                Props.FluxOrange.SpawnProp();
+            }
+
             if (Constants.HasScaleformPriority)
             {
                 Scaleforms.FluxCapacitorRT?.Draw();
@@ -125,24 +131,22 @@ namespace BackToTheFutureV
                 FluxOrangeLight.Draw();
             }
 
-            if (Properties.IsFluxDoingBlueAnim && !Props.FluxBlue.IsSpawned)
+            if (Properties.IsFluxDoingBlueAnim && !Props.FluxBlue.Visible)
             {
-                Props.FluxBlue.SpawnProp();
+                Props.FluxBlue.Visible = true;
+            }
+            else if (!Properties.IsFluxDoingBlueAnim && Props.FluxBlue.Visible)
+            {
+                Props.FluxBlue.Visible = false;
             }
 
-            if (!Properties.IsFluxDoingBlueAnim && Props.FluxBlue.IsSpawned)
+            if (Properties.IsFluxDoingOrangeAnim && !Props.FluxOrange.Visible)
             {
-                Props.FluxBlue?.Delete();
+                Props.FluxOrange.Visible = true;
             }
-
-            if (Properties.IsFluxDoingOrangeAnim && !Props.FluxOrange.IsSpawned)
+            else if (!Properties.IsFluxDoingOrangeAnim && Props.FluxOrange.Visible)
             {
-                Props.FluxOrange.SpawnProp();
-            }
-
-            if (!Properties.IsFluxDoingOrangeAnim && Props.FluxOrange.IsSpawned)
-            {
-                Props.FluxOrange?.Delete();
+                Props.FluxOrange.Visible = false;
             }
         }
 
@@ -151,8 +155,8 @@ namespace BackToTheFutureV
             if (!Properties.AreTimeCircuitsOn)
             {
                 ScaleformsHandler.FluxCapacitor.CallFunction("STOP_ANIMATION");
-                Props.FluxBlue?.Delete();
-                Props.FluxOrange?.Delete();
+                Props.FluxBlue.Visible = false;
+                Props.FluxOrange.Visible = false;
 
                 if (Sounds.FluxCapacitor.IsAnyInstancePlaying)
                 {
