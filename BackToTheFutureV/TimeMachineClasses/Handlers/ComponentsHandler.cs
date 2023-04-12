@@ -169,7 +169,7 @@ namespace BackToTheFutureV
                     Props.HoodboxLights.SpawnProp();
                 }
 
-                if (Vehicle.IsVisible != Props.HoodboxLights?.Visible)
+                if (Vehicle.IsVisible != Props.HoodboxLights.Visible)
                 {
                     Props.HoodboxLights.Visible = Vehicle.IsVisible;
                 }

@@ -139,7 +139,7 @@ namespace BackToTheFutureV
                 Props.Coils.SpawnProp();
                 Props.Coils.Visible = false;
                 Props.SeparatedCoils.SpawnProp();
-                Props.SeparatedCoils.Props.ForEach(x => x.Visible = false);
+                Props.SeparatedCoils.Visible = false;
             }
         }
 
@@ -216,7 +216,7 @@ namespace BackToTheFutureV
             numOfProps = FusionUtils.Lerp(1, 11, by);
 
             // Delete all other props
-            Props.SeparatedCoils.Props.ForEach(x => x.Visible = false);
+            Props.SeparatedCoils.Visible = false;
 
             if (Properties.ReactorState != ReactorState.Closed)
             {
@@ -315,7 +315,7 @@ namespace BackToTheFutureV
         {
             if (numOfProps == default && Props.SeparatedCoils.Visible)
             {
-                Props.SeparatedCoils.Props.ForEach(x => x.Visible = false);
+                Props.SeparatedCoils.Visible = false;
             }
 
             if (!IsPlaying)
