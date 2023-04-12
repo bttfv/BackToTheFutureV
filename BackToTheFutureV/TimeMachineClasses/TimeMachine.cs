@@ -260,7 +260,7 @@ namespace BackToTheFutureV
                 Events.OnScaleformPriority?.Invoke();
                 if (Mods.SuspensionsType != SuspensionsType.Stock || Mods.Wheel == WheelType.Red)
                 {
-                    Vehicle.Velocity += Vector3.UnitY * 0.3f;
+                    Vehicle.Velocity += Vector3.UnitZ * 0.3f;
                 }
             }
 

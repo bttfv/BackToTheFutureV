@@ -12,7 +12,11 @@ namespace BackToTheFutureV
         public static CustomModel TemperatureNeedle = new CustomModel("dmc12_temperature_needle");
         public static CustomModel OilNeedle = new CustomModel("dmc12_oil_needle");
         public static CustomModel VoltageNeedle = new CustomModel("dmc12_voltage_needle");
+        public static CustomModel BayLightOff = new CustomModel("dmc12_baylamp_off");
+        public static CustomModel BayLightOn = new CustomModel("dmc12_baylamp_on");
         public static CustomModel DoorIndicator = new CustomModel("dmc12_door_indicator");
+        public static CustomModel HoodLightOff = new CustomModel("dmc12_hoodlamp_off");
+        public static CustomModel HoodLightOn = new CustomModel("dmc12_hoodlamp_on");
         public static CustomModel DomeLightOff = new CustomModel("dmc12_intlight_off");
         public static CustomModel DomeLightOn = new CustomModel("dmc12_intlight_on");
         public static CustomModel RadiatorFan = new CustomModel("dmc12_radiator_fan");

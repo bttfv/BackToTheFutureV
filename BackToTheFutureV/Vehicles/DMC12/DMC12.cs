@@ -25,9 +25,13 @@ namespace BackToTheFutureV
         private readonly AnimateProp tempNeedle;
         private readonly AnimateProp oilNeedle;
         private readonly AnimateProp voltNeedle;
+        private readonly AnimateProp bayLightOff;
+        private readonly AnimateProp bayLightOn;
         private readonly AnimateProp doorIndicator;
         private readonly AnimateProp domeLightOff;
         private readonly AnimateProp domeLightOn;
+        private readonly AnimateProp hoodLightOff;
+        private readonly AnimateProp hoodLightOn;
         private readonly AnimateProp leftFan;
         private readonly AnimateProp rightFan;
 
@@ -97,9 +101,13 @@ namespace BackToTheFutureV
             tempNeedle = new AnimateProp(ModelHandler.TemperatureNeedle, Vehicle, "temperature_needle");
             oilNeedle = new AnimateProp(ModelHandler.OilNeedle, Vehicle, "oil_needle");
             voltNeedle = new AnimateProp(ModelHandler.VoltageNeedle, Vehicle, "voltage_needle");
+            bayLightOff = new AnimateProp(ModelHandler.BayLightOff, Vehicle, "bumper_r");
+            bayLightOn = new AnimateProp(ModelHandler.BayLightOn, Vehicle, "bumper_r");
             doorIndicator = new AnimateProp(ModelHandler.DoorIndicator, Vehicle, Vector3.Zero, Vector3.Zero);
             domeLightOff = new AnimateProp(ModelHandler.DomeLightOff, Vehicle, "chassis");
             domeLightOn = new AnimateProp(ModelHandler.DomeLightOn, Vehicle, "chassis");
+            hoodLightOff = new AnimateProp(ModelHandler.HoodLightOff, Vehicle, "bonnet");
+            hoodLightOn = new AnimateProp(ModelHandler.HoodLightOn, Vehicle, "bonnet");
             leftFan = new AnimateProp(ModelHandler.RadiatorFan, Vehicle, "radiator_fan_l");
             rightFan = new AnimateProp(ModelHandler.RadiatorFan, Vehicle, "radiator_fan_r");
 
@@ -231,6 +239,28 @@ namespace BackToTheFutureV
                     domeLightOff.Delete();
                     domeLightOn.SpawnProp();
                 }
+            }
+
+            if (Vehicle.Doors[VehicleDoorIndex.Hood].IsOpen && !hoodLightOn.IsSpawned)
+            {
+                hoodLightOff.Delete();
+                hoodLightOn.SpawnProp();
+            }
+            else if (!Vehicle.Doors[VehicleDoorIndex.Hood].IsOpen && !hoodLightOff.IsSpawned)
+            {
+                hoodLightOn.Delete();
+                hoodLightOff.SpawnProp();
+            }
+
+            if (Vehicle.Doors[VehicleDoorIndex.BackRightDoor].IsOpen && !bayLightOn.IsSpawned)
+            {
+                bayLightOff.Delete();
+                bayLightOn.SpawnProp();
+            }
+            else if (!Vehicle.Doors[VehicleDoorIndex.BackRightDoor].IsOpen && !bayLightOff.IsSpawned)
+            {
+                bayLightOn.Delete();
+                bayLightOff.SpawnProp();
             }
 
             if (FusionUtils.PlayerVehicle == Vehicle)

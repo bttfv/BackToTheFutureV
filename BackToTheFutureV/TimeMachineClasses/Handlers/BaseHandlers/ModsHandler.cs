@@ -190,14 +190,14 @@ namespace BackToTheFutureV
             if (suspensionsType != SuspensionsType)
             {
                 SuspensionsType = suspensionsType;
-                Vehicle.Velocity += Vector3.UnitY * 0.3f;
+                Vehicle.Velocity += Vector3.UnitZ * 0.3f;
             }
 
             if (Wheel == WheelType.Red && VehicleControl.GetWheelSize(Vehicle) != 1.1f)
             {
                 VehicleControl.SetWheelWidth(Vehicle, 0.976f);
                 VehicleControl.SetWheelSize(Vehicle, 1.1f);
-                Vehicle.Velocity += Vector3.UnitY * 0.3f;
+                Vehicle.Velocity += Vector3.UnitZ * 0.3f;
             }
 
             switch (SuspensionsType)
@@ -358,7 +358,7 @@ namespace BackToTheFutureV
 
                 if (newSuspension)
                 {
-                    TimeMachine.Vehicle.Velocity += GTA.Math.Vector3.UnitY * 0.3f;
+                    TimeMachine.Vehicle.Velocity += Vector3.UnitZ * 0.3f;
                 }
             }
         }
