@@ -23,7 +23,7 @@ namespace BackToTheFutureV
 
         public static HoverVehicle GetFromVehicle(Vehicle vehicle)
         {
-            if (!vehicle.IsFunctioning())
+            if (!vehicle.IsFunctioning() || vehicle.Model == ModelHandler.DMC12)
                 return null;
 
             HoverVehicle hoverVehicle = GlobalHoverVehicles.SingleOrDefault(x => x.Vehicle == vehicle);
@@ -64,7 +64,7 @@ namespace BackToTheFutureV
         {
             get
             {
-                if (!Vehicle.IsFunctioning())
+                if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12)
                     return false;
 
                 if (!Decorator.Exists(BTTFVDecors.AllowHoverMode))
@@ -75,7 +75,7 @@ namespace BackToTheFutureV
 
             set
             {
-                if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12 || Vehicle.Model == ModelHandler.Deluxo)
+                if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12)
                     return;
 
                 if (Vehicle.IsBoat || Vehicle.IsBicycle || Vehicle.IsBike || Vehicle.IsBlimp || Vehicle.IsAircraft || Vehicle.IsHelicopter || Vehicle.IsMotorcycle)
@@ -158,10 +158,11 @@ namespace BackToTheFutureV
         public void Tick()
         {
             // Disable VehicleRoof and VehicleSpecial as they interfere with flight parameters
-            if (IsHoverModeAllowed && FusionUtils.PlayerVehicle == Vehicle)
+            if (FusionUtils.PlayerVehicle == Vehicle && (FusionUtils.PlayerVehicle.Model == ModelHandler.Deluxo || IsHoverModeAllowed))
             {
                 Game.DisableControlThisFrame(Control.VehicleRoof);
                 Game.DisableControlThisFrame(Control.VehicleSpecial);
+                Game.DisableControlThisFrame(Control.VehicleFlyTransform);
             }
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(Vehicle);

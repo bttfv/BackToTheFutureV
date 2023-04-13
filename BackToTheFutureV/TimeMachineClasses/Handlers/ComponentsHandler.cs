@@ -96,6 +96,7 @@ namespace BackToTheFutureV
             }
 
             Props.HoodboxLights.SpawnProp();
+            Props.HoodboxLights.Visible = false;
         }
 
         private void HookProcess()
@@ -162,11 +163,6 @@ namespace BackToTheFutureV
                 {
                     Stop();
                     return;
-                }
-
-                if (!Props.HoodboxLights.IsSpawned)
-                {
-                    Props.HoodboxLights.SpawnProp();
                 }
 
                 if (Vehicle.IsVisible != Props.HoodboxLights.Visible)

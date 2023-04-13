@@ -13,7 +13,7 @@ namespace BackToTheFutureV
 
         public SpeedoHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            Props.SpeedoCover.SpawnProp();
+            Props.SpeedoCover?.SpawnProp();
         }
 
         public override void Dispose()

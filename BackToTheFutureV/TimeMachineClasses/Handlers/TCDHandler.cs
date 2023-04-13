@@ -71,8 +71,6 @@ namespace BackToTheFutureV
 
             previousSlot = new TCD3DRowHandler("yellow", timeMachine);
             previousSlot.SetVisible(false);
-            Props.TickingDiodes.Visible = false;
-            Props.TickingDiodesOff.Visible = false;
             ScaleformsHandler.GUI.SetDiodeState(false);
             Properties.HUDProperties.IsTickVisible = false;
 
@@ -201,8 +199,11 @@ namespace BackToTheFutureV
 
                 Properties.HUDProperties.IsTickVisible = false;
 
-                Props.TickingDiodes.Visible = false;
-                Props.TickingDiodesOff.Visible = true;
+                if (Mods.IsDMC12)
+                {
+                    Props.TickingDiodes.Visible = false;
+                    Props.TickingDiodesOff.Visible = true;
+                }
 
                 Events.SetSIDLedsState?.Invoke(false);
             }
@@ -493,7 +494,7 @@ namespace BackToTheFutureV
         {
             if (Game.GameTime > nextTick)
             {
-                if (Vehicle != null && Vehicle.IsVisible)
+                if (Vehicle != null && Vehicle.IsVisible && Mods.IsDMC12)
                 {
                     Props.TickingDiodes.Visible = currentState;
                     Props.TickingDiodesOff.Visible = !currentState;

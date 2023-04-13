@@ -170,6 +170,12 @@ namespace BackToTheFutureV
 
             if (FirstTick)
             {
+                TimeMachine temp = TimeMachineHandler.Create(position:new GTA.Math.Vector3(0,0,2400));
+                while (!temp.IsReady)
+                {
+                    LoadingPrompt.Show("Loading BTTFV");
+                }
+                temp.Dispose();
                 LoadingPrompt.Hide();
                 IntroHandler.Me.Start(true);
                 FirstTick = false;

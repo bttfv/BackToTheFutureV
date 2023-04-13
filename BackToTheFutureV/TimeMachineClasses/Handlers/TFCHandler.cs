@@ -147,7 +147,8 @@ namespace BackToTheFutureV
                 {
                     _gaugeNeedle3.On = true;
                 }
-
+                Props.TFCOff.Visible = false;
+                Props.TFCOn.Visible = true;
                 Props.GaugeGlow.Visible = true;
 
                 hasPlayed = true;

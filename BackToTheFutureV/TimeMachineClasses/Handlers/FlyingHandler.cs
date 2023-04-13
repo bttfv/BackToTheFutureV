@@ -61,11 +61,6 @@ namespace BackToTheFutureV
                 return;
             }
 
-            Props.HoverModeVentsGlow.SpawnProp();
-            Props.HoverModeVentsGlow.Visible = false;
-            Props.HoverModeUnderbodyLights.SpawnProp();
-            Props.HoverModeUnderbodyLights.Visible = false;
-
             TimeHandler.OnDayNightChange += OnDayNightChange;
 
             OnDayNightChange();
@@ -93,6 +88,7 @@ namespace BackToTheFutureV
             }
 
             Props.HoverModeVentsGlow.SpawnProp();
+            Props.HoverModeVentsGlow.Visible = false;
         }
 
         private void SimulateHoverBoost(bool state)
@@ -140,7 +136,7 @@ namespace BackToTheFutureV
                 SetFlyMode(false, true);
             }
 
-            Props.HoverModeUnderbodyLights.Visible = false;
+            Props.HoverModeUnderbodyLights?.Delete();
         }
 
         private void OnCompleted()
@@ -289,11 +285,8 @@ namespace BackToTheFutureV
             if (Mods.IsDMC12)
             {
                 Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
-            }
-
-            if (Mods.IsDMC12)
-            {
                 Function.Call(Hash.OVERRIDE_VEH_HORN, Vehicle, true, _defaultHorn);
+                Props.HoverModeVentsGlow.Visible = false;
             }
 
             if (!Properties.IsLanding && !Properties.IsFlying)
@@ -306,13 +299,12 @@ namespace BackToTheFutureV
                 Properties.IsAltitudeHolding = false;
             }
 
-            Props.HoverModeVentsGlow.Visible = false;
             Props.HoverModeWheelsGlow?.Delete();
         }
 
         public override void KeyDown(KeyEventArgs e)
         {
-            if (e.KeyCode == ModControls.HoverAltitudeHold && FusionUtils.PlayerVehicle == Vehicle && Properties.IsFlying)
+            if (e.KeyCode == ModControls.HoverAltitudeHold && FusionUtils.PlayerVehicle == Vehicle && Properties.IsFlying && !Properties.AreFlyingCircuitsBroken)
             {
                 SetHoverMode(!Properties.IsAltitudeHolding);
             }
@@ -326,7 +318,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (Props.HoverModeVentsGlow.Visible != Properties.IsHoverBoosting)
+            if (Mods.IsDMC12 && Props.HoverModeVentsGlow.Visible != Properties.IsHoverBoosting)
             {
                 Props.HoverModeVentsGlow.Visible = Properties.IsHoverBoosting;
             }
@@ -363,16 +355,20 @@ namespace BackToTheFutureV
             {
                 if (Mods.IsDMC12 && Props.HoverModeUnderbodyLights.IsSequencePlaying)
                 {
-                    Props.HoverModeUnderbodyLights.Visible = false;
+                    Props.HoverModeUnderbodyLights.Delete();
                 }
 
                 return;
             }
 
             // Process underbody lights
-            if (Mods.IsDMC12 && !Props.HoverModeUnderbodyLights.IsSequencePlaying)
+            if (Mods.IsDMC12 && (Properties.IsLanding || Properties.IsFlying) && !Properties.AreFlyingCircuitsBroken && !Props.HoverModeUnderbodyLights.IsSequencePlaying)
             {
                 Props.HoverModeUnderbodyLights.Play();
+            }
+            else if (Mods.IsDMC12 && ((!Properties.IsLanding && !Properties.IsFlying) || Properties.AreFlyingCircuitsBroken) && Props.HoverModeUnderbodyLights.IsSequencePlaying)
+            {
+                Props.HoverModeUnderbodyLights?.Delete();
             }
 
             if (Properties.IsLanding)
@@ -507,7 +503,10 @@ namespace BackToTheFutureV
             Vehicle.ApplyForce(_forceToBeApplied, Vector3.Zero);
 
             // Force fly mode
-            VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
+            if (VehicleControl.GetDeluxoFlyMode(Vehicle) != 1f)
+            {
+                VehicleControl.SetDeluxoFlyMode(Vehicle, 1f);
+            }
 
             // Force brake lights on if flying
             if (Properties.IsFlying)

@@ -260,7 +260,7 @@ namespace BackToTheFutureV
             _hasStartedWormhole = false;
 
             // Spawn the coil model
-            if (Mods.WormholeType != WormholeType.BTTF3 && Properties.ReactorState == ReactorState.Closed)
+            if (Mods.IsDMC12 && Mods.WormholeType != WormholeType.BTTF3 && Properties.ReactorState == ReactorState.Closed)
             {
                 Mods.OffCoils = ModState.Off;
 
@@ -281,9 +281,12 @@ namespace BackToTheFutureV
             _hasStartedWormhole = false;
             numOfProps = 0;
 
-            Props.Coils.Visible = false;
+            if (Mods.IsDMC12)
+            {
+                Props.Coils.Visible = false;
 
-            Props.SeparatedCoils.Visible = false;
+                Props.SeparatedCoils.Visible = false;
+            }
 
             Mods.GlowingEmitter = ModState.Off;
 
@@ -313,7 +316,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (numOfProps == default && Props.SeparatedCoils.Visible)
+            if (Mods.IsDMC12 && numOfProps == default && Props.SeparatedCoils.Visible)
             {
                 Props.SeparatedCoils.Visible = false;
             }

@@ -57,8 +57,6 @@ namespace BackToTheFutureV
 
             if (vehicle.Model == ModelHandler.DMC12)
             {
-                HoverVehicle.SoftLock = true;
-
                 DMC12 = DMC12Handler.GetDeloreanFromVehicle(vehicle);
 
                 if (DMC12 == null)
@@ -98,7 +96,7 @@ namespace BackToTheFutureV
             registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));
             registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
 
-            if (Mods.IsDMC12 || Vehicle.Model == ModelHandler.Deluxo /*|| Vehicle.Model == "dproto"*/)
+            if (Mods.IsDMC12 /*|| Vehicle.Model == "dproto"*/)
                 registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
 
             if (Mods.IsDMC12)

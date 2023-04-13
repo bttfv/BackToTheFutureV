@@ -83,8 +83,11 @@ namespace BackToTheFutureV
             }
 
             ScaleformsHandler.TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
-            amProp.Visible = dateToSet.ToString("tt", CultureInfo.InvariantCulture) == "AM";
-            pmProp.Visible = dateToSet.ToString("tt", CultureInfo.InvariantCulture) != "AM";
+            if (Mods.IsDMC12)
+            {
+                amProp.Visible = dateToSet.ToString("tt", CultureInfo.InvariantCulture) == "AM";
+                pmProp.Visible = dateToSet.ToString("tt", CultureInfo.InvariantCulture) != "AM";
+            }
 
             date = dateToSet;
             toggle = true;
@@ -106,15 +109,18 @@ namespace BackToTheFutureV
 
             ScaleformsHandler.TCDRowsScaleforms[SlotType]?.SetVisible(toggleTo, month, day, year, hour, minute);
 
-            if ((!toggleTo && amPm) || (toggleTo && !amPm))
+            if (Mods.IsDMC12)
             {
-                amProp.Visible = false;
-                pmProp.Visible = false;
-            }
-            else if ((!toggleTo && !amPm) || (toggleTo && amPm))
-            {
-                amProp.Visible = date.ToString("tt", CultureInfo.InvariantCulture) == "AM";
-                pmProp.Visible = date.ToString("tt", CultureInfo.InvariantCulture) != "AM";
+                if ((!toggleTo && amPm) || (toggleTo && !amPm))
+                {
+                    amProp.Visible = false;
+                    pmProp.Visible = false;
+                }
+                else if ((!toggleTo && !amPm) || (toggleTo && amPm))
+                {
+                    amProp.Visible = date.ToString("tt", CultureInfo.InvariantCulture) == "AM";
+                    pmProp.Visible = date.ToString("tt", CultureInfo.InvariantCulture) != "AM";
+                }
             }
 
             toggle = toggleTo;

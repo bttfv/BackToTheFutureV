@@ -35,12 +35,16 @@ namespace BackToTheFutureV
                 _hoverTraffic = !_hoverTraffic;
             }*/
 
-            if (e.KeyCode == ModControls.HoverAltitudeHold && FusionUtils.PlayerVehicle.NotNullAndExists() && HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle).IsInHoverMode)
+            if (e.KeyCode == ModControls.HoverAltitudeHold && FusionUtils.PlayerVehicle.NotNullAndExists() && HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle) != null && HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle).IsInHoverMode)
             {
+                if (TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).NotNullAndExists() && TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).Properties.AreFlyingCircuitsBroken)
+                {
+                    return;
+                }
                 HoverVehicle hoverVehicle = HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle);
                 hoverVehicle.IsAltitudeHolding = !hoverVehicle.IsAltitudeHolding;
-
                 TextHandler.Me.ShowHelp("AltitudeHoldChange", true, TextHandler.Me.GetOnOff(hoverVehicle.IsAltitudeHolding));
+
             }
         }
 
@@ -55,7 +59,7 @@ namespace BackToTheFutureV
             {
                 foreach (Vehicle Vehicle in World.GetAllVehicles())
                 {
-                    if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12 || Vehicle.Model == ModelHandler.Deluxo)
+                    if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12)
                         continue;
 
                     /*if (_hoverTraffic)
@@ -110,7 +114,7 @@ namespace BackToTheFutureV
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);
 
-            if (timeMachine != null && timeMachine.Properties.AreFlyingCircuitsBroken)
+            if (timeMachine != null && timeMachine.Mods.HoverUnderbody != ModState.On && timeMachine.Properties.AreFlyingCircuitsBroken)
             {
                 TextHandler.Me.ShowHelp("HoverDamaged");
 
