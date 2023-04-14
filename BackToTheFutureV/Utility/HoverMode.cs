@@ -35,16 +35,20 @@ namespace BackToTheFutureV
                 _hoverTraffic = !_hoverTraffic;
             }*/
 
-            if (e.KeyCode == ModControls.HoverAltitudeHold && FusionUtils.PlayerVehicle.NotNullAndExists() && HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle) != null && HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle).IsInHoverMode)
+            if (e.KeyCode == ModControls.HoverAltitudeHold && FusionUtils.PlayerVehicle.NotNullAndExists())
             {
-                if (TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).NotNullAndExists() && TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).Properties.AreFlyingCircuitsBroken)
-                {
-                    return;
-                }
                 HoverVehicle hoverVehicle = HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle);
+
+                if (hoverVehicle == null || !hoverVehicle.IsInHoverMode)
+                    return;
+
+                //if (TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).NotNullAndExists() && TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).Properties.AreFlyingCircuitsBroken)
+                //{
+                //    return;
+                //}
+
                 hoverVehicle.IsAltitudeHolding = !hoverVehicle.IsAltitudeHolding;
                 TextHandler.Me.ShowHelp("AltitudeHoldChange", true, TextHandler.Me.GetOnOff(hoverVehicle.IsAltitudeHolding));
-
             }
         }
 
@@ -112,14 +116,14 @@ namespace BackToTheFutureV
             if (!ModControls.LongPressForHover || _nextModeChangeAllowed > Game.GameTime)
                 return;
 
-            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);
+            //TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);
 
-            if (timeMachine != null && timeMachine.Mods.HoverUnderbody != ModState.On && timeMachine.Properties.AreFlyingCircuitsBroken)
-            {
-                TextHandler.Me.ShowHelp("HoverDamaged");
+            //if (timeMachine != null && timeMachine.Mods.HoverUnderbody != ModState.On && timeMachine.Properties.AreFlyingCircuitsBroken)
+            //{
+            //    TextHandler.Me.ShowHelp("HoverDamaged");
 
-                return;
-            }
+            //    return;
+            //}
 
             HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle)?.SwitchMode();
             _nextModeChangeAllowed = Game.GameTime + 2000;
@@ -130,14 +134,14 @@ namespace BackToTheFutureV
             if (ModControls.LongPressForHover || _nextModeChangeAllowed > Game.GameTime)
                 return;
 
-            TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);
+            //TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);
 
-            if (timeMachine != null && timeMachine.Properties.AreFlyingCircuitsBroken)
-            {
-                TextHandler.Me.ShowHelp("HoverDamaged");
+            //if (timeMachine != null && timeMachine.Properties.AreFlyingCircuitsBroken)
+            //{
+            //    TextHandler.Me.ShowHelp("HoverDamaged");
 
-                return;
-            }
+            //    return;
+            //}
 
             HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle)?.SwitchMode();
             _nextModeChangeAllowed = Game.GameTime + 2000;

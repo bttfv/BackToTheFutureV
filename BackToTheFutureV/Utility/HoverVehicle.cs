@@ -23,7 +23,7 @@ namespace BackToTheFutureV
 
         public static HoverVehicle GetFromVehicle(Vehicle vehicle)
         {
-            if (!vehicle.IsFunctioning() || vehicle.Model == ModelHandler.DMC12)
+            if (!vehicle.IsFunctioning())
                 return null;
 
             HoverVehicle hoverVehicle = GlobalHoverVehicles.SingleOrDefault(x => x.Vehicle == vehicle);
@@ -64,7 +64,7 @@ namespace BackToTheFutureV
         {
             get
             {
-                if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12)
+                if (!Vehicle.IsFunctioning())
                     return false;
 
                 if (!Decorator.Exists(BTTFVDecors.AllowHoverMode))
@@ -75,7 +75,7 @@ namespace BackToTheFutureV
 
             set
             {
-                if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12)
+                if (!Vehicle.IsFunctioning())
                     return;
 
                 if (Vehicle.IsBoat || Vehicle.IsBicycle || Vehicle.IsBike || Vehicle.IsBlimp || Vehicle.IsAircraft || Vehicle.IsHelicopter || Vehicle.IsMotorcycle)
