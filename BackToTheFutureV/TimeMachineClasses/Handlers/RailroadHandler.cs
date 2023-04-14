@@ -2,7 +2,6 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -228,7 +227,7 @@ namespace BackToTheFutureV
                     return;
                 }
 
-                Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.FreightContModel1, 
+                Vehicle _train = World.GetClosestVehicle(Vehicle.Position, 25, ModelHandler.FreightModel, ModelHandler.FreightCarModel, ModelHandler.FreightContModel1,
                     ModelHandler.FreightContModel2, ModelHandler.GrainCarModel, ModelHandler.TankerCarModel);
 
                 if (Vehicle.IsVisible && _train != null && Vehicle.IsTouching(_train))

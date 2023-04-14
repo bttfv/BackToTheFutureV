@@ -1,7 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.Native;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
@@ -62,7 +61,7 @@ namespace BackToTheFutureV
             return vehicle;
         }
 
-        public Vehicle TryFindOrSpawn(VehicleReplica nextReplica, float adjustedRatio)
+        private Vehicle TryFindOrSpawn(VehicleReplica nextReplica, float adjustedRatio)
         {
             Vehicle vehicle = null;
 
@@ -92,6 +91,11 @@ namespace BackToTheFutureV
 
         public Vehicle Apply(VehicleReplica nextReplica, float adjustedRatio, Ped ped = null)
         {
+            if (FusionUtils.PlayerPed.DistanceToSquared2D(Replica.Position) > 25000)
+            {
+                Replica.Position.RequestCollision();
+            }
+
             Vehicle vehicle = ped?.GetUsingVehicle();
 
             if (!vehicle.NotNullAndExists())
@@ -104,28 +108,24 @@ namespace BackToTheFutureV
                 return null;
             }
 
-            if (FusionUtils.PlayerPed.NotNullAndExists() && FusionUtils.PlayerPed.DistanceToSquared2D(vehicle.Position) > 25000)
-            {
-                Function.Call(Hash.REQUEST_COLLISION_AT_COORD, vehicle.Position.X, vehicle.Position.Y, vehicle.Position.Z);
-            }
-
             SpawnFlags spawnFlags = SpawnFlags.NoPosition | SpawnFlags.SetRotation | SpawnFlags.NoWheels;
 
             if (nextReplica == null || vehicle.Driver == null || vehicle.Position.DistanceToSquared2D(nextReplica.Position) > 5)
             {
                 spawnFlags = SpawnFlags.Default;
-
-                if ((ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())) || (vehicle.IsTimeMachine() &&
-                    TimeMachineHandler.GetTimeMachineFromVehicle(vehicle).Properties.IsRemoteControlled))
-                {
-                    spawnFlags = SpawnFlags.NoPosition | SpawnFlags.SetRotation | SpawnFlags.NoWheels;
-                }
             }
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
             if (IsTimeMachine && timeMachine.NotNullAndExists())
+            {
+                if ((ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())) || timeMachine.Properties.IsRemoteControlled)
+                {
+                    spawnFlags = SpawnFlags.NoPosition | SpawnFlags.SetRotation | SpawnFlags.NoWheels;
+                }
+
                 spawnFlags |= SpawnFlags.NoMods;
+            }
 
             if (IsTimeMachine && timeMachine.NotNullAndExists() && Properties.IsOnTracks)
             {
@@ -163,7 +163,7 @@ namespace BackToTheFutureV
                 vehicle.IsBurnoutForced = true;
                 vehicle.CanTiresBurst = false;
             }
-            
+
             if (Event == WaybackVehicleEvent.RcHandbrakeOff)
             {
                 vehicle.IsBurnoutForced = false;

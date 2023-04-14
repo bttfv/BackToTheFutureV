@@ -1,7 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -200,7 +199,7 @@ namespace BackToTheFutureV
 
             // Do nothing if RC is active since we want Wayback to keep controlling the original ped
             if (IsPlayer && PedHandle != FusionUtils.PlayerPed.Handle && !RemoteTimeMachineHandler.IsRemoteOn)
-            {                
+            {
                 PedHandle = FusionUtils.PlayerPed.Handle;
                 waybackRecord.Ped.SwitchPed = true;
             }

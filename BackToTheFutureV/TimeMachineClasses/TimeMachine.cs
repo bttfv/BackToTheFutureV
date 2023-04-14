@@ -53,7 +53,7 @@ namespace BackToTheFutureV
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
             Vehicle = vehicle;
-            HoverVehicle = HoverVehicle.GetFromVehicle(vehicle);            
+            HoverVehicle = HoverVehicle.GetFromVehicle(vehicle);
 
             if (vehicle.Model == ModelHandler.DMC12)
             {
