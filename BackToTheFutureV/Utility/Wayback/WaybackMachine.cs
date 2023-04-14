@@ -198,18 +198,11 @@ namespace BackToTheFutureV
 
             OverrideVehicle = null;
 
-            if (IsPlayer && PedHandle != FusionUtils.PlayerPed.Handle)
-            {
-                if (FusionUtils.PlayerVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.IsTimeMachine() &&
-                    TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).Properties.IsRemoteControlled)
-                {
-                    // Do nothing if RC is active since we want Wayback to keep controlling the original ped
-                }
-                else
-                {
-                    PedHandle = FusionUtils.PlayerPed.Handle;
-                    waybackRecord.Ped.SwitchPed = true;
-                }
+            // Do nothing if RC is active since we want Wayback to keep controlling the original ped
+            if (IsPlayer && PedHandle != FusionUtils.PlayerPed.Handle && !RemoteTimeMachineHandler.IsRemoteOn)
+            {                
+                PedHandle = FusionUtils.PlayerPed.Handle;
+                waybackRecord.Ped.SwitchPed = true;
             }
 
             // We need to make sure any WaybackPed is removed from the WaybackVehicle since Wayback should control it
@@ -265,34 +258,6 @@ namespace BackToTheFutureV
             {
                 Ped?.Task.ClearAllImmediately();
                 Ped = CurrentRecord.Spawn(NextRecord);
-            }
-
-            if (CurrentRecord.Ped.SwitchedWeapons)
-            {
-                foreach (WeaponReplica x in CurrentRecord.Ped.Replica.Weapons)
-                {
-                    x.Give(Ped);
-                }
-            }
-
-            if (CurrentRecord.Ped.SwitchedClothes)
-            {
-                for (int x = 0; x < 12; x++)
-                {
-                    Function.Call(Hash.SET_PED_COMPONENT_VARIATION, Ped, x, CurrentRecord.Ped.Replica.Components[x, 0], CurrentRecord.Ped.Replica.Components[x, 1], CurrentRecord.Ped.Replica.Components[x, 2]);
-                }
-
-                for (int x = 0; x < 5; x++)
-                {
-                    if (x <= 2)
-                    {
-                        Function.Call(Hash.SET_PED_PROP_INDEX, Ped, x, CurrentRecord.Ped.Replica.Props[x, 0], CurrentRecord.Ped.Replica.Props[x, 1], true);
-                    }
-                    else
-                    {
-                        Function.Call(Hash.SET_PED_PROP_INDEX, Ped, x + 3, CurrentRecord.Ped.Replica.Props[x, 0], CurrentRecord.Ped.Replica.Props[x, 1], true);
-                    }
-                }
             }
 
             CurrentRecord.Apply(Ped, NextRecord);

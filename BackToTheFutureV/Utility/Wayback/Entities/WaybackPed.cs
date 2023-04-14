@@ -56,6 +56,34 @@ namespace BackToTheFutureV
             if (!vehicle.NotNullAndExists() || !ped.IsInVehicle(vehicle))
                 nextReplica.ApplyTo(ped);
 
+            if (SwitchedWeapons)
+            {
+                foreach (WeaponReplica x in Replica.Weapons)
+                {
+                    x.Give(ped);
+                }
+            }
+
+            if (SwitchedClothes)
+            {
+                for (int x = 0; x < 12; x++)
+                {
+                    Function.Call(Hash.SET_PED_COMPONENT_VARIATION, ped, x, Replica.Components[x, 0], Replica.Components[x, 1], Replica.Components[x, 2]);
+                }
+
+                for (int x = 0; x < 5; x++)
+                {
+                    if (x <= 2)
+                    {
+                        Function.Call(Hash.SET_PED_PROP_INDEX, ped, x, Replica.Props[x, 0], Replica.Props[x, 1], true);
+                    }
+                    else
+                    {
+                        Function.Call(Hash.SET_PED_PROP_INDEX, ped, x + 3, Replica.Props[x, 0], Replica.Props[x, 1], true);
+                    }
+                }
+            }
+
             if (Event == WaybackPedEvent.None)
                 return;
 
