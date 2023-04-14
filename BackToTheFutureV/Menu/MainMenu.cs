@@ -144,9 +144,9 @@ namespace BackToTheFutureV
 
             if (sender == deleteCurrent)
             {
-                timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle);
+                timeMachine = TimeMachineHandler.CurrentTimeMachine;
 
-                if (timeMachine == null)
+                if (!timeMachine.NotNullAndExists())
                 {
                     TextHandler.Me.ShowNotification("NotSeated");
                     return;
