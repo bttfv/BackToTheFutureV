@@ -108,22 +108,17 @@ namespace BackToTheFutureV
                 return null;
             }
 
-            SpawnFlags spawnFlags = SpawnFlags.NoPosition | SpawnFlags.SetRotation | SpawnFlags.NoWheels;
+            SpawnFlags spawnFlags = SpawnFlags.Default;
 
-            if (nextReplica == null || vehicle.Driver == null || vehicle.Position.DistanceToSquared2D(nextReplica.Position) > 5)
+            if (ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle()))
             {
-                spawnFlags = SpawnFlags.Default;
+                spawnFlags |= SpawnFlags.NoPosition;
             }
 
             TimeMachine timeMachine = TimeMachineHandler.GetTimeMachineFromVehicle(vehicle);
 
             if (IsTimeMachine && timeMachine.NotNullAndExists())
             {
-                if ((ped.NotNullAndExists() && (ped.IsEnteringVehicle() || ped.IsLeavingVehicle())) || timeMachine.Properties.IsRemoteControlled)
-                {
-                    spawnFlags = SpawnFlags.NoPosition | SpawnFlags.SetRotation | SpawnFlags.NoWheels;
-                }
-
                 spawnFlags |= SpawnFlags.NoMods;
             }
 
