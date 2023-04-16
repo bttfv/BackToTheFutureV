@@ -79,7 +79,7 @@ namespace BackToTheFutureV
                         CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.HoverUnderbodyCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                         CurrentTimeMachine.Mods.HoverUnderbody = ModState.On;
                     }
-                    else if (FusionUtils.PlayerVehicle.Model != ModelHandler.DMC12 || FusionUtils.PlayerVehicle.Model != ModelHandler.Deluxo)
+                    else
                     {
                         HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle).IsHoverModeAllowed = true;
                     }

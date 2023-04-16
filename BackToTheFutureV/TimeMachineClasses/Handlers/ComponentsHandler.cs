@@ -80,8 +80,6 @@ namespace BackToTheFutureV
 
         private void OnDayNightChange()
         {
-            Props.HoodboxLights?.Delete();
-
             if (TimeHandler.IsNight)
             {
                 Props.HoodboxLights.SwapModel(ModelHandler.HoodboxLightsNight);

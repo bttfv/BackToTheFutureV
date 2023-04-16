@@ -71,6 +71,8 @@ namespace BackToTheFutureV
 
             previousSlot = new TCD3DRowHandler("yellow", timeMachine);
             previousSlot.SetVisible(false);
+            ScaleformsHandler.GUI.SetDiodeState(false);
+            Properties.HUDProperties.IsTickVisible = false;
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
             Events.OnDestinationDateChange += OnDestinationDateChange;
@@ -433,7 +435,7 @@ namespace BackToTheFutureV
             }
         }
 
-        public void SetTimeCircuitsOn(bool on)
+        private void SetTimeCircuitsOn(bool on)
         {
             if (TcdEditer.IsEditing || RCGUIEditer.IsEditing)
             {

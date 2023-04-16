@@ -28,8 +28,7 @@ namespace BackToTheFutureV
         public AnimatePropsHandler SeparatedCoils;
 
         //Flux capacitor
-        public AnimateProp FluxBlue;
-        public AnimateProp FluxOrange;
+        public AnimateProp FluxGlow;
 
         //Plutonium gauge
         public AnimateProp GaugeGlow;
@@ -150,7 +149,6 @@ namespace BackToTheFutureV
             EmptyOff = new AnimateProp(ModelHandler.EmptyOff, Vehicle);
 
             //Time travel
-            //Coils = new AnimateProp(Vehicle, ModelHandler.CoilsGlowing);
             SeparatedCoils = new AnimatePropsHandler();
             foreach (CustomModel coilModel in ModelHandler.CoilSeparated)
             {
@@ -175,17 +173,14 @@ namespace BackToTheFutureV
 
             //TCD
             DiodesOff = new AnimateProp(ModelHandler.DiodesOff, Vehicle);
-            DiodesOff.SpawnProp();
             TickingDiodes = new AnimateProp(ModelHandler.TickingDiodes, Vehicle);
             TickingDiodesOff = new AnimateProp(ModelHandler.TickingDiodesOff, Vehicle);
-            TickingDiodesOff.SpawnProp();
 
             //Hoodbox lights
             HoodboxLights = new AnimateProp(ModelHandler.HoodboxLights, Vehicle, "bonnet");
 
             //Flux capacitor
-            FluxBlue = new AnimateProp(ModelHandler.FluxBlueModel, Vehicle, "flux_capacitor");
-            FluxOrange = new AnimateProp(ModelHandler.FluxOrangeModel, Vehicle, "flux_capacitor");
+            FluxGlow = new AnimateProp(ModelHandler.FluxBlueModel, Vehicle, "flux_capacitor");
 
             //License plate
             LicensePlate = new AnimateProp(ModelHandler.LicensePlate, Vehicle, Vehicle.GetPositionOffset(Vehicle.RearPosition).GetSingleOffset(Coordinate.Z, 0.0275f), new Vector3(30, -90, 90));
@@ -218,7 +213,9 @@ namespace BackToTheFutureV
 
             //Time travel
             Coils?.Dispose();
+            SeparatedCoils?.Dispose();
             WhiteSphere?.Dispose();
+            InvisibleProp?.Dispose();
 
             //Plutonium gauge
             GaugeGlow?.Dispose();
@@ -243,8 +240,7 @@ namespace BackToTheFutureV
             TickingDiodesOff?.Dispose();
 
             //Flux capacitor
-            FluxBlue?.Dispose();
-            FluxOrange?.Dispose();
+            FluxGlow?.Dispose();
 
             //License plate
             LicensePlate?.Dispose(LicensePlate != null && LicensePlate.IsSpawned);
@@ -261,14 +257,7 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs e)
         {
-            //if (key == Keys.L)
-            //{
-            //    Sounds.Plate.Play();
-            //    LicensePlate.Play(false, true);
-            //}
 
-            //if (key == Keys.O)
-            //    LicensePlate.Delete();
         }
 
         public override void Tick()

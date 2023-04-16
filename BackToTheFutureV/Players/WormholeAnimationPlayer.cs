@@ -236,7 +236,7 @@ namespace BackToTheFutureV
                     Props.SeparatedCoils[propindex].SpawnProp();
                 }
 
-                // Set next flicker 
+                // Set next flicker
                 _nextFlicker = Game.GameTime + FusionUtils.Random.Next(30, 60);
             }
         }

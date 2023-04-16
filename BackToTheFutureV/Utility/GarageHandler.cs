@@ -300,16 +300,13 @@ namespace BackToTheFutureV
                                 timeMachine.Properties.ReactorCharge = 1;
                             }
 
-                            Transform = false;
-                        }
-
-                        if (!isTimeMachine && Vehicle.IsTimeMachine())
-                        {
                             garageSound.SourceEntity = FusionUtils.PlayerPed;
                             garageSound.Volume = 0.5f;
                             garageSound.Play();
 
-                            TimeMachineHandler.GetTimeMachineFromVehicle(Vehicle)?.Particles.IceSmoke?.Play();
+                            timeMachine.Particles.IceSmoke?.Play();
+
+                            Transform = false;
                         }
 
                         Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, true, true, false);

@@ -86,6 +86,7 @@ namespace BackToTheFutureV
             if (wheelType != Wheel)
             {
                 Wheel = wheelType;
+                Vehicle.Velocity -= Vector3.UnitZ * 0.1f;
             }
 
             if (reactorType != Reactor)
@@ -190,14 +191,13 @@ namespace BackToTheFutureV
             if (suspensionsType != SuspensionsType)
             {
                 SuspensionsType = suspensionsType;
-                Vehicle.Velocity += Vector3.UnitZ * 0.3f;
+                Vehicle.Velocity -= Vector3.UnitZ * 0.1f;
             }
 
             if (Wheel == WheelType.Red && VehicleControl.GetWheelSize(Vehicle) != 1.1f)
             {
                 VehicleControl.SetWheelWidth(Vehicle, 0.976f);
                 VehicleControl.SetWheelSize(Vehicle, 1.1f);
-                Vehicle.Velocity += Vector3.UnitZ * 0.3f;
             }
 
             switch (SuspensionsType)
@@ -270,6 +270,13 @@ namespace BackToTheFutureV
                     HoverUnderbody = ModState.Off;
                 }
 
+                bool newWheels = false;
+
+                if (TimeMachine.Mods != null && TimeMachine.Mods.Wheel != value)
+                {
+                    newWheels = true;
+                }
+
                 base.Wheel = value;
 
                 if (TimeMachine.Properties == null)
@@ -304,6 +311,11 @@ namespace BackToTheFutureV
                     TimeMachine.Props?.RRWheels?.Delete();
 
                     Wheels.Burst = false;
+                }
+
+                if (newWheels)
+                {
+                    TimeMachine.Vehicle.Velocity -= Vector3.UnitZ * 0.1f;
                 }
             }
         }
@@ -358,7 +370,7 @@ namespace BackToTheFutureV
 
                 if (newSuspension)
                 {
-                    TimeMachine.Vehicle.Velocity += Vector3.UnitZ * 0.3f;
+                    TimeMachine.Vehicle.Velocity -= Vector3.UnitZ * 0.1f;
                 }
             }
         }

@@ -57,8 +57,6 @@ namespace BackToTheFutureV
 
             if (vehicle.Model == ModelHandler.DMC12)
             {
-                HoverVehicle.SoftLock = true;
-
                 DMC12 = DMC12Handler.GetDeloreanFromVehicle(vehicle);
 
                 if (DMC12 == null)
@@ -98,7 +96,7 @@ namespace BackToTheFutureV
             registeredHandlers.Add("RailroadHandler", new RailroadHandler(this));
             registeredHandlers.Add("LightningStrikeHandler", new LightningStrikeHandler(this));
 
-            if (Mods.IsDMC12 || Vehicle.Model == ModelHandler.Deluxo /*|| Vehicle.Model == "dproto"*/)
+            if (Mods.IsDMC12 /*|| Vehicle.Model == "dproto"*/)
                 registeredHandlers.Add("FlyingHandler", new FlyingHandler(this));
 
             if (Mods.IsDMC12)
@@ -247,6 +245,24 @@ namespace BackToTheFutureV
             // If we don't, then the ApplyToWayback check will just override this and we'll end up in a huge loop
             if (TimeMachineHandler.CurrentTimeMachine == this && FusionUtils.PlayerPed.SeatIndex == VehicleSeat.Driver && Properties.IsWayback)
                 Properties.IsWayback = false;
+
+            //In certain situations car can't be entered after hover transformation, here is forced enter task.
+            if (FusionUtils.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(FusionUtils.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
+            {
+                if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, FusionUtils.PlayerPed) != Vehicle || Vehicle.Driver != null)
+                {
+                    if (Vehicle.Driver != null)
+                    {
+                        TaskSequence taskSequence = new TaskSequence();
+                        taskSequence.AddTask.LeaveVehicle(LeaveVehicleFlags.WarpOut);
+                        taskSequence.AddTask.WanderAround();
+
+                        Vehicle.Driver.Task.PerformSequence(taskSequence);
+                    }
+
+                    FusionUtils.PlayerPed.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
+                }
+            }
 
             //After reentry, story time machines spawn in an odd state. This code fixes the inability for player to enter the time machine from the mineshaft
             if (!TimeMachineHandler.ClosestTimeMachine.IsFunctioning() && Vehicle.IsFunctioning() && FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, 4.47f) && Constants.FullDamaged && Game.IsControlJustPressed(GTA.Control.Enter))
@@ -526,12 +542,12 @@ namespace BackToTheFutureV
                 Props.Coils.Delete();
             }
 
-            if (Properties.PhotoFluxCapacitorActive && !(Properties.IsFluxDoingBlueAnim || Properties.IsFluxDoingOrangeAnim))
+            if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingAnim)
             {
                 Events.OnWormholeStarted?.Invoke();
             }
 
-            if (!Properties.PhotoFluxCapacitorActive && (Properties.IsFluxDoingBlueAnim || Properties.IsFluxDoingOrangeAnim) && Properties.IsPhotoModeOn)
+            if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingAnim && Properties.IsPhotoModeOn)
             {
                 Events.OnSparksInterrupted?.Invoke();
             }

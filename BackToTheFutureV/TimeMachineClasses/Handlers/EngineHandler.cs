@@ -4,10 +4,12 @@ using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using KlangRageAudioLibrary;
+//using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AudioPlayer = KlangRageAudioLibrary.AudioPlayer;
+//using Screen = GTA.UI.Screen;
 
 // TODO: Improve acceleration sound handling (first sound plays only when u burst tires)
 // TODO: Reverse based on real acceleration

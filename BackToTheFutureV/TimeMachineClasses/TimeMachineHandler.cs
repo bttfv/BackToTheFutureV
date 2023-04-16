@@ -217,7 +217,7 @@ namespace BackToTheFutureV
             {
                 // First check to see if player is underground and spawn at same height if so
                 // If not we check an offset in the sky then set to ground height to get proper ground to spawn on
-                if (ped.Position.Z < ped.GetOffsetPosition(new Vector3(0, 0, 1000)).SetToGroundHeight().Z + 1)
+                if (ped.Position.Z < ped.GetOffsetPosition(new Vector3(0, 0, 1000)).SetToGroundHeight().Z - 5)
                     spawnPos = ped.GetOffsetPosition(new Vector3(0, 25, 0));
                 else
                     spawnPos = ped.GetOffsetPosition(new Vector3(0, 25, 1000)).SetToGroundHeight();
