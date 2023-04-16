@@ -92,27 +92,33 @@ namespace BackToTheFutureV
             _gaugeNeedle3 = new Gauge(ModelHandler.GaugeModels[2], new Vector3(0.509564f, 0.4745394f, 0.6380013f), 50f, Vehicle);
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
+
+            Props.TFCOff.Visible = true;
         }
 
         private void OnTimeCircuitsToggle()
         {
             if (Properties.AreTimeCircuitsOn)
             {
-                Props.TFCHandle?.Play();
-                Props.TFCOff.Visible = false;
                 Props.TFCOn.Visible = true;
+                Props.TFCOff.Visible = false;
+
+                Props.TFCHandle?.Play();
 
                 playAt = Game.GameTime + 2000;
             }
             else
             {
+                Props.TFCOn.Visible = false;
+                Props.TFCOff.Visible = true;
+
                 Props.TFCHandle?.Play();
 
-                Props.TFCOn.Visible = false;
-                Props.GaugeGlow.Visible = false;
                 _gaugeNeedle1.On = false;
                 _gaugeNeedle2.On = false;
                 _gaugeNeedle3.On = false;
+
+                Props.GaugeGlow.Visible = false;
             }
 
             hasPlayed = false;
@@ -131,19 +137,11 @@ namespace BackToTheFutureV
                     Sounds.PlutoniumGauge?.Play();
                 }
 
-                Props.GaugeGlow.Visible = true;
                 _gaugeNeedle1.On = true;
                 _gaugeNeedle2.On = true;
-                if (Properties.IsFueled)
-                {
-                    _gaugeNeedle3.On = true;
-                }
 
-                hasPlayed = true;
-            }
-            else if (!hasPlayed && !Properties.AreTimeCircuitsOn)
-            {
-                Props.TFCOff.Visible = true;
+                Props.GaugeGlow.Visible = true;
+
                 hasPlayed = true;
             }
 
@@ -151,6 +149,7 @@ namespace BackToTheFutureV
             {
                 _gaugeNeedle3.On = false;
             }
+
             if (hasPlayed && Properties.AreTimeCircuitsOn && Properties.IsFueled && !_gaugeNeedle3.On)
             {
                 _gaugeNeedle3.On = true;

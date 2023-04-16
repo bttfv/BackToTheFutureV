@@ -235,49 +235,7 @@ namespace BackToTheFutureV
             }
 
             if (!Vehicle.IsVisible)
-            {
-                rpmNeedle.Visible = false;
-                speedNeedle.Visible = false;
-                fuelNeedle.Visible = false;
-                tempNeedle.Visible = false;
-                oilNeedle.Visible = false;
-                voltNeedle.Visible = false;
-                bayLightOff.Visible = false;
-                bayLightOn.Visible = false;
-                domeLightOff.Visible = false;
-                domeLightOn.Visible = false;
-                doorIndicator.Visible = false;
-                hoodLightOff.Visible = false;
-                hoodLightOn.Visible = false;
-                leftFan.Visible = false;
-                rightFan.Visible = false;
-
-                suspensionLeftFront.Visible = false;
-                suspensionLeftRear.Visible = false;
-                suspensionRightFront.Visible = false;
-                suspensionRightRear.Visible = false;
-
                 return;
-            }
-            else
-            {
-                if (!rpmNeedle.Visible)
-                {
-                    rpmNeedle.Visible = true;
-                    speedNeedle.Visible = true;
-                    fuelNeedle.Visible = true;
-                    tempNeedle.Visible = true;
-                    oilNeedle.Visible = true;
-                    voltNeedle.Visible = true;
-                    leftFan.Visible = true;
-                    rightFan.Visible = true;
-
-                    suspensionLeftFront.Visible = true;
-                    suspensionLeftRear.Visible = true;
-                    suspensionRightFront.Visible = true;
-                    suspensionRightRear.Visible = true;
-                }
-            }
 
             if (Vehicle.IsEngineRunning)
             {

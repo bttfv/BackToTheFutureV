@@ -59,8 +59,7 @@ namespace BackToTheFutureV
         public bool IsFueled => ReactorCharge > 0;
 
         public TimeTravelPhase TimeTravelPhase { get; set; } = TimeTravelPhase.Completed;
-        public bool IsFluxDoingBlueAnim { get; set; }
-        public bool IsFluxDoingOrangeAnim { get; set; }
+        public bool IsFluxDoingAnim { get; set; }
         public bool IsEngineStalling { get; set; }
         public bool BlockEngineRecover { get; set; }
         public bool IsRemoteControlled { get; set; }

@@ -438,7 +438,7 @@ namespace BackToTheFutureV
             }
         }
 
-        public void SetTimeCircuitsOn(bool on)
+        private void SetTimeCircuitsOn(bool on)
         {
             if (TcdEditer.IsEditing || RCGUIEditer.IsEditing)
             {

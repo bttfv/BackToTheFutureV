@@ -198,7 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FusionLibrary.SHVDN3">
-      <Version>1.6.7</Version>
+      <Version>1.6.8</Version>
     </PackageReference>
     <PackageReference Include="LemonUI.SHVDN3">
       <Version>1.9.4</Version>

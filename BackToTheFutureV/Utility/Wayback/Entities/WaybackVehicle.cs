@@ -145,8 +145,8 @@ namespace BackToTheFutureV
                     vehicle.CanTiresBurst = false;
 
                     break;
-                case WaybackVehicleEvent.RcHandbrakeOff: 
-                    vehicle.IsBurnoutForced = false; 
+                case WaybackVehicleEvent.RcHandbrakeOff:
+                    vehicle.IsBurnoutForced = false;
                     vehicle.CanTiresBurst = true;
 
                     break;

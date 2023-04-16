@@ -246,6 +246,24 @@ namespace BackToTheFutureV
             if (TimeMachineHandler.CurrentTimeMachine == this && FusionUtils.PlayerPed.SeatIndex == VehicleSeat.Driver && Properties.IsWayback)
                 Properties.IsWayback = false;
 
+            //In certain situations car can't be entered after hover transformation, here is forced enter task.
+            if (FusionUtils.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(FusionUtils.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
+            {
+                if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, FusionUtils.PlayerPed) != Vehicle || Vehicle.Driver != null)
+                {
+                    if (Vehicle.Driver != null)
+                    {
+                        TaskSequence taskSequence = new TaskSequence();
+                        taskSequence.AddTask.LeaveVehicle(LeaveVehicleFlags.WarpOut);
+                        taskSequence.AddTask.WanderAround();
+
+                        Vehicle.Driver.Task.PerformSequence(taskSequence);
+                    }
+
+                    FusionUtils.PlayerPed.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
+                }
+            }
+
             //After reentry, story time machines spawn in an odd state. This code fixes the inability for player to enter the time machine from the mineshaft
             if (!TimeMachineHandler.ClosestTimeMachine.IsFunctioning() && Vehicle.IsFunctioning() && FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, 4.47f) && Constants.FullDamaged && Game.IsControlJustPressed(GTA.Control.Enter))
             {
@@ -524,12 +542,12 @@ namespace BackToTheFutureV
                 Props.Coils.Visible = false;
             }
 
-            if (Properties.PhotoFluxCapacitorActive && !(Properties.IsFluxDoingBlueAnim || Properties.IsFluxDoingOrangeAnim))
+            if (Properties.PhotoFluxCapacitorActive && !Properties.IsFluxDoingAnim)
             {
                 Events.OnWormholeStarted?.Invoke();
             }
 
-            if (!Properties.PhotoFluxCapacitorActive && (Properties.IsFluxDoingBlueAnim || Properties.IsFluxDoingOrangeAnim) && Properties.IsPhotoModeOn)
+            if (!Properties.PhotoFluxCapacitorActive && Properties.IsFluxDoingAnim && Properties.IsPhotoModeOn)
             {
                 Events.OnSparksInterrupted?.Invoke();
             }
