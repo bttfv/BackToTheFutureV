@@ -91,12 +91,6 @@ namespace BackToTheFutureV
             _gaugeNeedle2 = new Gauge(ModelHandler.GaugeModels[1], new Vector3(0.3632151f, 0.4841858f, 0.6369596f), 25f, Vehicle);
             _gaugeNeedle3 = new Gauge(ModelHandler.GaugeModels[2], new Vector3(0.509564f, 0.4745394f, 0.6380013f), 50f, Vehicle);
 
-            Props.TFCOff.SpawnProp();
-            Props.TFCOn.SpawnProp();
-            Props.TFCOn.Visible = false;
-            Props.GaugeGlow.SpawnProp();
-            Props.GaugeGlow.Visible = false;
-
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
         }
 
@@ -104,25 +98,21 @@ namespace BackToTheFutureV
         {
             if (Properties.AreTimeCircuitsOn)
             {
-                Props.TFCOn.Visible = true;
-                Props.TFCOff.Visible = false;
-
                 Props.TFCHandle?.Play();
+                Props.TFCOff.Visible = false;
+                Props.TFCOn.Visible = true;
 
                 playAt = Game.GameTime + 2000;
             }
             else
             {
-                Props.TFCOff.Visible = true;
-                Props.TFCOn.Visible = false;
-
                 Props.TFCHandle?.Play();
 
+                Props.TFCOn.Visible = false;
+                Props.GaugeGlow.Visible = false;
                 _gaugeNeedle1.On = false;
                 _gaugeNeedle2.On = false;
                 _gaugeNeedle3.On = false;
-
-                Props.GaugeGlow.Visible = false;
             }
 
             hasPlayed = false;
@@ -141,18 +131,22 @@ namespace BackToTheFutureV
                     Sounds.PlutoniumGauge?.Play();
                 }
 
+                Props.GaugeGlow.Visible = true;
                 _gaugeNeedle1.On = true;
                 _gaugeNeedle2.On = true;
                 if (Properties.IsFueled)
                 {
                     _gaugeNeedle3.On = true;
                 }
-                Props.TFCOff.Visible = false;
-                Props.TFCOn.Visible = true;
-                Props.GaugeGlow.Visible = true;
 
                 hasPlayed = true;
             }
+            else if (!hasPlayed && !Properties.AreTimeCircuitsOn)
+            {
+                Props.TFCOff.Visible = true;
+                hasPlayed = true;
+            }
+
             if (hasPlayed && Properties.AreTimeCircuitsOn && !Properties.IsFueled && _gaugeNeedle3.On)
             {
                 _gaugeNeedle3.On = false;

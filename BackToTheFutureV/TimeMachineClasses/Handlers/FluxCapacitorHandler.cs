@@ -124,11 +124,6 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!Props.FluxGlow.IsSpawned)
-            {
-                Props.FluxGlow.SpawnProp();
-            }
-
             if (Constants.HasScaleformPriority)
             {
                 Scaleforms.FluxCapacitorRT?.Draw();

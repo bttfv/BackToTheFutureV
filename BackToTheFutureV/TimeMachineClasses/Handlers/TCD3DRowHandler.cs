@@ -41,10 +41,6 @@ namespace BackToTheFutureV
 
                 amProp = new AnimateProp(ModelHandler.TCDAMModels[slotType], Vehicle, Vector3.Zero, Vector3.Zero);
                 pmProp = new AnimateProp(ModelHandler.TCDPMModels[slotType], Vehicle, Vector3.Zero, Vector3.Zero);
-                amProp.SpawnProp();
-                amProp.Visible = false;
-                pmProp.SpawnProp();
-                pmProp.Visible = false;
 
                 Scaleforms.TCDRowsRT[slotType].OnRenderTargetDraw += OnRenderTargetDraw;
             }

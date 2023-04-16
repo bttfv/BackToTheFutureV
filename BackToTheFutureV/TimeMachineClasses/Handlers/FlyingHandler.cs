@@ -312,14 +312,14 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (Mods.IsDMC12 && Props.HoverModeVentsGlow.Visible != Properties.IsHoverBoosting)
-            {
-                Props.HoverModeVentsGlow.Visible = Properties.IsHoverBoosting;
-            }
-
             if (Mods.HoverUnderbody == ModState.Off)
             {
                 return;
+            }
+
+            if (Props.HoverModeVentsGlow.Visible != Properties.IsHoverBoosting)
+            {
+                Props.HoverModeVentsGlow.Visible = Properties.IsHoverBoosting;
             }
 
             // Automatically fold wheels in if fly mode is exited in any other way

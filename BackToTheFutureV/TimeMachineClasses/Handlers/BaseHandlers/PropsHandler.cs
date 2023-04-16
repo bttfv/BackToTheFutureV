@@ -173,13 +173,8 @@ namespace BackToTheFutureV
 
             //TCD
             DiodesOff = new AnimateProp(ModelHandler.DiodesOff, Vehicle);
-            DiodesOff.SpawnProp();
             TickingDiodes = new AnimateProp(ModelHandler.TickingDiodes, Vehicle);
-            TickingDiodes.SpawnProp();
             TickingDiodesOff = new AnimateProp(ModelHandler.TickingDiodesOff, Vehicle);
-            TickingDiodesOff.SpawnProp();
-            TickingDiodes.Visible = false;
-            TickingDiodesOff.Visible = false;
 
             //Hoodbox lights
             HoodboxLights = new AnimateProp(ModelHandler.HoodboxLights, Vehicle, "bonnet");

@@ -122,13 +122,6 @@ namespace BackToTheFutureV
             tempNeedle.SpawnProp();
             oilNeedle.SpawnProp();
             voltNeedle.SpawnProp();
-            bayLightOff.SpawnProp();
-            bayLightOn.SpawnProp();
-            domeLightOff.SpawnProp();
-            domeLightOn.SpawnProp();
-            doorIndicator.SpawnProp();
-            hoodLightOff.SpawnProp();
-            hoodLightOn.SpawnProp();
             leftFan.SpawnProp();
             rightFan.SpawnProp();
 

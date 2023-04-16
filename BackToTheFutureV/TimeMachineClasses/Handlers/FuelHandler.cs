@@ -31,10 +31,6 @@ namespace BackToTheFutureV
             InteractPressed.OnControlJustReleased += OnControlJustReleased;
             InteractPressed.OnControlLongPressed += OnControlLongPressed;
 
-            Props.EmptyGlowing.SpawnProp();
-            Props.EmptyGlowing.Visible = false;
-            Props.EmptyOff.SpawnProp();
-
             SetEmpty(false);
 
             Events.StartFuelBlink += StartFuelBlink;
@@ -417,7 +413,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (Vehicle.IsVisible == false)
+            if (!Vehicle.IsVisible)
             {
                 return;
             }

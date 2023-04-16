@@ -136,10 +136,6 @@ namespace BackToTheFutureV
             {
                 Props.Coils?.Dispose();
                 Props.Coils = new AnimateProp(Constants.CoilsModel, Vehicle, Vector3.Zero, Vector3.Zero);
-                Props.Coils.SpawnProp();
-                Props.Coils.Visible = false;
-                Props.SeparatedCoils.SpawnProp();
-                Props.SeparatedCoils.Visible = false;
             }
         }
 
@@ -284,7 +280,6 @@ namespace BackToTheFutureV
             if (Mods.IsDMC12)
             {
                 Props.Coils.Visible = false;
-
                 Props.SeparatedCoils.Visible = false;
             }
 
@@ -316,11 +311,6 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (Mods.IsDMC12 && numOfProps == default && Props.SeparatedCoils.Visible)
-            {
-                Props.SeparatedCoils.Visible = false;
-            }
-
             if (!IsPlaying)
             {
                 return;
