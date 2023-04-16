@@ -1,6 +1,5 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
-using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
 using GTA.Native;

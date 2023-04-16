@@ -163,7 +163,7 @@ namespace BackToTheFutureV
                 vehicle.IsBurnoutForced = true;
                 vehicle.CanTiresBurst = false;
             }
-            
+
             if (Event == WaybackVehicleEvent.RcHandbrakeOff)
             {
                 vehicle.IsBurnoutForced = false;
