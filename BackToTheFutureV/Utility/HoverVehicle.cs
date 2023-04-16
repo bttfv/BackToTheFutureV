@@ -91,6 +91,9 @@ namespace BackToTheFutureV
         {
             get
             {
+                if (!IsHoverModeAllowed)
+                    return false;
+
                 bool value = Decorator.GetBool(BTTFVDecors.IsInHoverMode);
                 bool realValue = VehicleControl.GetDeluxoTransformation(Vehicle) > 0f;
 

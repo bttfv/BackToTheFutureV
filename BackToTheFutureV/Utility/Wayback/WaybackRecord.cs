@@ -2,7 +2,6 @@
 using FusionLibrary.Extensions;
 using GTA;
 using System;
-using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
@@ -41,16 +40,6 @@ namespace BackToTheFutureV
             if (Vehicle != null)
             {
                 vehicle = Vehicle.Apply(nextRecord.Vehicle?.Replica, adjustedRatio, ped);
-
-                if (Vehicle.Event == WaybackVehicleEvent.TimeTravel)
-                    return;
-
-                if (vehicle.IsTimeMachine() && TimeMachineHandler.GetTimeMachineFromVehicle(vehicle).Properties.IsRemoteControlled)
-                {
-                    ped.Task.TurnTo(vehicle);
-                    return;
-                }
-
             }
 
             Ped.Apply(ped, vehicle, nextRecord.Ped.Replica, adjustedRatio);

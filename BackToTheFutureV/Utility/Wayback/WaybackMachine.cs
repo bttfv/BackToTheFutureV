@@ -3,7 +3,6 @@ using FusionLibrary.Extensions;
 using GTA;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -117,7 +116,6 @@ namespace BackToTheFutureV
                 WaitForTimeMachineGUID = Guid.Empty;
             }
         }
-
         private bool ArraysEqual(int[,] a1, int[,] a2, int size, bool comp)
         {
             for (int i = 0; i < size; i++)
@@ -159,7 +157,7 @@ namespace BackToTheFutureV
 
                         Status = WaybackStatus.Playing;
 
-                        if (!Ped.NotNullAndExists() && CurrentRecord?.Vehicle?.Event != WaybackVehicleEvent.TimeTravel)
+                        if (!Ped.NotNullAndExists())
                         {
                             Ped = CurrentRecord.Spawn(NextRecord);
                         }
@@ -200,20 +198,8 @@ namespace BackToTheFutureV
             // Do nothing if RC is active since we want Wayback to keep controlling the original ped
             if (IsPlayer && PedHandle != FusionUtils.PlayerPed.Handle && !RemoteTimeMachineHandler.IsRemoteOn)
             {
-                PedHandle = FusionUtils.PlayerPed.Handle;
                 waybackRecord.Ped.SwitchPed = true;
-            }
-
-            // We need to make sure any WaybackPed is removed from the WaybackVehicle since Wayback should control it
-            if (IsPlayer && FusionUtils.PlayerVehicle.NotNullAndExists())
-            {
-                foreach (PedReplica occupant in waybackRecord.Vehicle.Replica.Occupants.ToList())
-                {
-                    if (occupant.Model == waybackRecord.Ped.Replica.Model)
-                    {
-                        waybackRecord.Vehicle.Replica.Occupants.Remove(occupant);
-                    }
-                }
+                PedHandle = FusionUtils.PlayerPed.Handle;
             }
 
             if (LastRecordedIndex > 0)
@@ -276,10 +262,7 @@ namespace BackToTheFutureV
             if (Status == WaybackStatus.Recording && Records.Count > 0)
             {
                 StartTime = Records[0].Time;
-                if (ModSettings.RealTime)
-                    EndTime = LastRecord.Time.AddSeconds(-2);
-                else
-                    EndTime = LastRecord.Time.AddMinutes(-1);
+                EndTime = LastRecord.Time;
             }
 
             CurrentIndex = 0;
