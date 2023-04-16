@@ -151,7 +151,7 @@
 	BTTFV_Menu_Main_Item_Remove_Title = タイムマシンを削除
 	BTTFV_Menu_Main_Item_RemoveAll_Description = スクリプトによって生成されたすべてのタイムマシンを削除します。
 	BTTFV_Menu_Main_Item_RemoveAll_Title = すべてのタイムマシンを削除
-	BTTFV_Menu_Main_Item_RemoveOther_Description = すべてのタイムマシンが現在のマシンを想定して削除します。
+	BTTFV_Menu_Main_Item_RemoveOther_Description = 現在乗車中のタイムマシンを除いた全てのタイムマシンを削除します。
 	BTTFV_Menu_Main_Item_RemoveOther_Title = 他のタイムマシンを削除する
 	BTTFV_Menu_Main_Item_Settings_Description = Modに関するさまざまな設定を変更します。
 	BTTFV_Menu_Main_Item_Settings_Title = 設定

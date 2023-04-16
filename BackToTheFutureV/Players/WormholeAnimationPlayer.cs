@@ -329,16 +329,25 @@ namespace BackToTheFutureV
                 HandleSparks();
             }
 
-            if (Mods.WormholeType != WormholeType.BTTF2 && !Properties.IsFlying && !Particles.WheelsFire.IsPlaying)
+            if (!(Properties.IsFlying || Properties.IsLanding) && !Particles.WheelsFire.IsPlaying)
             {
                 Particles.WheelsFire.Play();
+            }
+            if (Properties.IsFlying && Particles.WheelsFire.IsPlaying)
+            {
+                Particles.WheelsFire?.Stop();
             }
 
             if (Mods.WormholeType == WormholeType.BTTF3)
             {
-                if (!Properties.IsFlying && !Particles.WheelsSparks.IsPlaying)
+                if (!(Properties.IsFlying || Properties.IsLanding) && !Particles.WheelsSparks.IsPlaying)
                 {
                     Particles.WheelsSparks.Play();
+                }
+
+                if (Properties.IsFlying && Particles.WheelsSparks.IsPlaying)
+                {
+                    Particles.WheelsSparks?.Stop();
                 }
 
                 if (!Particles.Sparks.IsPlaying)

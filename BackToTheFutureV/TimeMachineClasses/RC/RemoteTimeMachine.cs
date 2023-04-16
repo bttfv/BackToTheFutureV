@@ -42,6 +42,9 @@ namespace BackToTheFutureV
                 return;
             }
 
+            if (Spawned && !WasSpawned)
+                WasSpawned = true;
+
             if (!TimeMachineClone.Properties.HasBeenStruckByLightning && !TimeMachineClone.Properties.IsWayback)
             {
                 if (!_hasPlayedWarningSound && ((!TimeHandler.RealTime && IsTimeBeforeSeconds(60)) || (TimeHandler.RealTime && IsTimeBeforeMilliseconds(2500))))
@@ -128,8 +131,6 @@ namespace BackToTheFutureV
             }
 
             TimeMachine.Vehicle.SetPlayerLights(true);
-
-            WasSpawned = true;
 
             return TimeMachine;
         }
