@@ -35,6 +35,8 @@ namespace BackToTheFutureV
 
             Events.OnTimeTravelStarted += StartNormalFluxing;
             Events.OnSparksInterrupted += StartNormalFluxing;
+
+            OnWormholeTypeChanged();
         }
 
         public void StartTimeTravelEffect()
@@ -83,8 +85,6 @@ namespace BackToTheFutureV
 
         private void OnWormholeTypeChanged()
         {
-            Props.FluxGlow?.Delete();
-
             if (Mods.WormholeType != WormholeType.BTTF3)
             {
                 Props.FluxGlow.SwapModel(ModelHandler.FluxBlueModel);
@@ -93,9 +93,6 @@ namespace BackToTheFutureV
             {
                 Props.FluxGlow.SwapModel(ModelHandler.FluxOrangeModel);
             }
-
-            Props.FluxGlow.SpawnProp();
-            Props.FluxGlow.Visible = false;
         }
 
         public override void Tick()

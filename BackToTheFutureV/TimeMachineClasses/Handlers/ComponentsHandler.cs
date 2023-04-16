@@ -69,10 +69,6 @@ namespace BackToTheFutureV
 
         private void Instant()
         {
-            if (!Props.HoodboxLights.IsSpawned)
-            {
-                Props.HoodboxLights.SpawnProp();
-            }
             Props.HoodboxLights.Visible = true;
             Properties.AreHoodboxCircuitsReady = true;
         }
@@ -84,8 +80,6 @@ namespace BackToTheFutureV
 
         private void OnDayNightChange()
         {
-            Props.HoodboxLights?.Delete();
-
             if (TimeHandler.IsNight)
             {
                 Props.HoodboxLights.SwapModel(ModelHandler.HoodboxLightsNight);
@@ -94,9 +88,6 @@ namespace BackToTheFutureV
             {
                 Props.HoodboxLights.SwapModel(ModelHandler.HoodboxLights);
             }
-
-            Props.HoodboxLights.SpawnProp();
-            Props.HoodboxLights.Visible = false;
         }
 
         private void HookProcess()

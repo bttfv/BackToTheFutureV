@@ -76,8 +76,6 @@ namespace BackToTheFutureV
 
         private void OnDayNightChange()
         {
-            Props.HoverModeVentsGlow?.Delete();
-
             if (TimeHandler.IsNight)
             {
                 Props.HoverModeVentsGlow.SwapModel(ModelHandler.VentGlowingNight);
@@ -86,9 +84,6 @@ namespace BackToTheFutureV
             {
                 Props.HoverModeVentsGlow.SwapModel(ModelHandler.VentGlowing);
             }
-
-            Props.HoverModeVentsGlow.SpawnProp();
-            Props.HoverModeVentsGlow.Visible = false;
         }
 
         private void SimulateHoverBoost(bool state)
@@ -167,9 +162,9 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Mods.Wheel != WheelType.RedInvisible && Props.HoverModeWheelsGlow != null && !Props.HoverModeWheelsGlow.IsSpawned)
+            if (Mods.Wheel != WheelType.RedInvisible && !Props.HoverModeWheelsGlow.Visible)
             {
-                Props.HoverModeWheelsGlow?.SpawnProp();
+                Props.HoverModeWheelsGlow.Visible = true;
             }
 
             Sounds.HoverModeUp?.Play();
@@ -286,7 +281,6 @@ namespace BackToTheFutureV
             {
                 Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
                 Function.Call(Hash.OVERRIDE_VEH_HORN, Vehicle, true, _defaultHorn);
-                Props.HoverModeVentsGlow.Visible = false;
             }
 
             if (!Properties.IsLanding && !Properties.IsFlying)
