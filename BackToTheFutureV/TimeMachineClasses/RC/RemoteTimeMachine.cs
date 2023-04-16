@@ -37,13 +37,13 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
+            if (Spawned && !WasSpawned)
+                WasSpawned = true;
+
             if (Spawned || WasSpawned || Game.GameTime < _timer || TimeParadox.ParadoxInProgress)
             {
                 return;
             }
-
-            if (Spawned && !WasSpawned)
-                WasSpawned = true;
 
             if (!TimeMachineClone.Properties.HasBeenStruckByLightning && !TimeMachineClone.Properties.IsWayback)
             {
