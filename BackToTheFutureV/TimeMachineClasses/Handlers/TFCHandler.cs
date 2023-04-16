@@ -90,6 +90,7 @@ namespace BackToTheFutureV
             _gaugeNeedle1 = new Gauge(ModelHandler.GaugeModels[0], new Vector3(0.2549649f, 0.4890909f, 0.6371477f), 25f, Vehicle);
             _gaugeNeedle2 = new Gauge(ModelHandler.GaugeModels[1], new Vector3(0.3632151f, 0.4841858f, 0.6369596f), 25f, Vehicle);
             _gaugeNeedle3 = new Gauge(ModelHandler.GaugeModels[2], new Vector3(0.509564f, 0.4745394f, 0.6380013f), 50f, Vehicle);
+            Props.TFCOff?.SpawnProp();
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
         }

@@ -122,8 +122,6 @@ namespace BackToTheFutureV
             tempNeedle.SpawnProp();
             oilNeedle.SpawnProp();
             voltNeedle.SpawnProp();
-            doorIndicator.SpawnProp();
-            domeLightOff.SpawnProp();
             leftFan.SpawnProp();
             rightFan.SpawnProp();
 
@@ -381,11 +379,13 @@ namespace BackToTheFutureV
 
             if (Vehicle.IsEngineRunning && (Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen || Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen))
             {
-                doorIndicator.SpawnProp();
+                if (!doorIndicator.IsSpawned)
+                    doorIndicator.SpawnProp();
             }
             else
             {
-                doorIndicator.Delete();
+                if (doorIndicator.IsSpawned)
+                    doorIndicator.Delete();
             }
         }
 
@@ -397,7 +397,13 @@ namespace BackToTheFutureV
             oilNeedle?.Dispose();
             tempNeedle?.Dispose();
             voltNeedle?.Dispose();
+            bayLightOff?.Dispose();
+            bayLightOn?.Dispose();
+            domeLightOff?.Dispose();
+            domeLightOn?.Dispose();
             doorIndicator?.Dispose();
+            hoodLightOff?.Dispose();
+            hoodLightOn?.Dispose();
             leftFan?.Dispose();
             rightFan?.Dispose();
 
