@@ -141,8 +141,6 @@ namespace BackToTheFutureV
 
         private static readonly AudioPlayer garageSound = Main.CommonAudioEngine.Create("story/garage.wav", Presets.No3D);
 
-        private static bool isTimeMachine;
-
         private static bool _placeDamaged;
 
         public static bool WaitForCustomMenu;
@@ -252,8 +250,6 @@ namespace BackToTheFutureV
                         {
                             //FusionUtils.HideGUI = true;
                             GTA.UI.Hud.IsRadarVisible = false;
-
-                            isTimeMachine = Vehicle.IsTimeMachine();
 
                             Vehicle.TaskDrive().Add(DriveAction.BrakeUntilTimeEndsOrCarStops, 2000).Start();
                             Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, false, false, true);

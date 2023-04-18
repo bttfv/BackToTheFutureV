@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Native;
 using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
@@ -14,11 +15,13 @@ namespace BackToTheFutureV
 
         private int _restartAt;
         private int _nextCheck;
+        private int _headCheck;
 
         private readonly TimedEventHandler timedEventManager;
 
         private bool _lightsOn;
         private bool _highbeamsOn;
+        private bool _headHorn;
 
         private float _lightsBrightness;
 
@@ -125,15 +128,6 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (Sounds.HeadHorn.IsAnyInstancePlaying && !DMC12.forcedDucking)
-            {
-                DMC12.forcedDucking = true;
-            }
-            else if (!Sounds.HeadHorn.IsAnyInstancePlaying && DMC12.forcedDucking)
-            {
-                DMC12.forcedDucking = false;
-            }
-
             if (Mods.Reactor != ReactorType.Nuclear && IsPlaying && !Properties.PhotoEngineStallActive)
             {
                 if (Properties.IsEngineStalling)
@@ -154,6 +148,21 @@ namespace BackToTheFutureV
                 Properties.PhotoEngineStallActive = true;
                 Properties.BlockEngineRecover = true;
                 Properties.AlarmTime = Properties.AlarmTime.AddSeconds(-11);
+            }
+
+            if (_headHorn && Game.GameTime < _headCheck)
+            {
+                if (!DMC12.forcedDucking)
+                {
+                    DMC12.forcedDucking = true;
+                }
+                Function.Call(Hash.SET_HORN_PERMANENTLY_ON, Vehicle.Handle);
+            }
+            else if (_headHorn)
+            {
+                DMC12.forcedDucking = false;
+                _headHorn = false;
+                _headCheck = 0;
             }
 
             if (Game.GameTime < _nextCheck || !IsPlaying || !Vehicle.IsVisible || MenuHandler.GarageMenu.Visible)
@@ -210,7 +219,8 @@ namespace BackToTheFutureV
 
                     if (Properties.BlockEngineRecover && Properties.PhotoEngineStallActive && FusionUtils.CurrentTime == Properties.AlarmTime.AddSeconds(+11) && (Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)))
                     {
-                        Sounds.HeadHorn?.Play();
+                        _headCheck = Game.GameTime + 500;
+                        _headHorn = true;
                         Stop();
                         _nextCheck = Game.GameTime + 10000;
                         return;

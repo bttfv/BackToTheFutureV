@@ -79,7 +79,7 @@ namespace BackToTheFutureV
         public StartFuelBlink StartFuelBlink;
         public SetStopTracks SetStopTracks;
         public SetReactorState SetReactorState;
-        public SetPedAI StartDriverAI;
+        //public SetPedAI StartDriverAI;
         public SetEngineStall SetEngineStall;
         public StartLightningStrike StartLightningStrike;
         public SimulateInputDate SimulateInputDate;

@@ -135,6 +135,8 @@ namespace BackToTheFutureV
 
             spawnSuspension = true;
 
+            Function.Call(Hash.ENABLE_VEHICLE_EXHAUST_POPS, Vehicle, false);
+
             DMC12Handler.AddDelorean(this);
         }
 
@@ -272,7 +274,6 @@ namespace BackToTheFutureV
                 Game.DisableControlThisFrame(Control.VehicleSpecial);
                 Game.DisableControlThisFrame(Control.VehicleRoof);
                 Game.DisableControlThisFrame(Control.VehicleHydraulicsControlToggle);
-                Function.Call(Hash.ENABLE_VEHICLE_EXHAUST_POPS, Vehicle, false);
                 HandleDucking();
             }
 
