@@ -444,7 +444,7 @@ namespace BackToTheFutureV
 
             if (!Properties.AreTimeCircuitsOn && Mods.Hoodbox == ModState.On && !Properties.AreHoodboxCircuitsReady)
             {
-                if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
+                if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing && TimeMachine == TimeMachineHandler.CurrentTimeMachine)
                 {
                     TextHandler.Me.ShowHelp("NotWarmed");
                 }
@@ -454,7 +454,7 @@ namespace BackToTheFutureV
 
             if (!Properties.AreTimeCircuitsOn && Properties.AreTimeCircuitsBroken && Mods.Hoodbox == ModState.Off)
             {
-                if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing)
+                if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing && TimeMachine == TimeMachineHandler.CurrentTimeMachine)
                 {
                     TextHandler.Me.ShowHelp("ChipDamaged");
                 }

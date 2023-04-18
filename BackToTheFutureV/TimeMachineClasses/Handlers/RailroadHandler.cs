@@ -24,6 +24,11 @@ namespace BackToTheFutureV
 
         private bool _exploded = false;
 
+        private Vector3 _windscreenOnPose;
+
+        private Vector3 _windscreenOffPose = new Vector3(0f, 0f, -2400f);
+
+
         public RailroadHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             Events.OnTimeTravelStarted += OnTimeTravelStarted;
@@ -31,6 +36,7 @@ namespace BackToTheFutureV
             Events.SetStopTracks += Stop;
             Events.StartTrain += Start;
             Events.SetTrainSpeed += SetTrainSpeed;
+            _windscreenOnPose = Vehicle.Bones["windscreen"].Pose;
         }
 
         public void SetTrainSpeed(float speed)
@@ -152,6 +158,7 @@ namespace BackToTheFutureV
 
             Properties.IsOnTracks = true;
             Mods.Wheels.Burst = false;
+            Vehicle.CanTiresBurst = false;
 
             if (_isReentryOn)
             {
@@ -206,7 +213,20 @@ namespace BackToTheFutureV
             if (Properties.IsOnTracks)
             {
                 if (Mods.Wheels.Burst != false)
+                {
                     Mods.Wheels.Burst = false;
+                    Vehicle.CanTiresBurst = false;
+                }
+
+                // Silly hack to get scaleforms like hoodbox and wormhole to appear on RR time machines in first person
+                if (FusionUtils.IsCameraInFirstPerson() && TimeMachine == TimeMachineHandler.CurrentTimeMachine)
+                {
+                    Vehicle.Bones["windscreen"].Pose = _windscreenOffPose;
+                }
+                else if (Vehicle.Bones["windscreen"].Pose != _windscreenOnPose)
+                {
+                    Vehicle.Bones["windscreen"].Pose = _windscreenOnPose;
+                }
 
                 customTrain.IsAccelerationOn = Vehicle.IsPlayerDriving() && Vehicle.IsVisible && Vehicle.IsEngineRunning;
 
@@ -272,8 +292,14 @@ namespace BackToTheFutureV
             _isReentryOn = false;
             Properties.IsOnTracks = false;
 
+            if (Vehicle.Bones["windscreen"].Pose != _windscreenOnPose)
+            {
+                Vehicle.Bones["windscreen"].Pose = _windscreenOnPose;
+            }
+
             if (Mods.Wheel == WheelType.RailroadInvisible && Vehicle.IsVisible && Mods.Wheels.Burst != true)
             {
+                Vehicle.CanTiresBurst = true;
                 Mods.Wheels.Burst = true;
             }
 
