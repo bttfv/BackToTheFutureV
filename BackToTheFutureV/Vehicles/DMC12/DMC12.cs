@@ -220,6 +220,12 @@ namespace BackToTheFutureV
                 return;
             }
 
+            if (!IsTimeMachine)
+                VehicleControl.SetDeluxoTransformation(Vehicle, 0);
+
+            if (!Vehicle.IsVisible)
+                return;
+
             if (!Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen && !Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen && Vehicle.Bones["interiorlight"].Pose != InteriorLightOffPose)
             {
                 Vehicle.Bones["interiorlight"].Pose = InteriorLightOffPose;
@@ -268,31 +274,6 @@ namespace BackToTheFutureV
                 Game.DisableControlThisFrame(Control.VehicleHydraulicsControlToggle);
                 Function.Call(Hash.ENABLE_VEHICLE_EXHAUST_POPS, Vehicle, false);
                 HandleDucking();
-            }
-
-            if (!IsTimeMachine)
-            {
-                VehicleControl.SetDeluxoTransformation(Vehicle, 0);
-            }
-
-            if (!Vehicle.IsVisible)
-            {
-                speedNeedle.Delete();
-                rpmNeedle.Delete();
-                fuelNeedle.Delete();
-                tempNeedle.Delete();
-                oilNeedle.Delete();
-                voltNeedle.Delete();
-                doorIndicator.Delete();
-                leftFan.Delete();
-                rightFan.Delete();
-
-                suspensionLeftFront?.Delete();
-                suspensionLeftRear?.Delete();
-                suspensionRightFront?.Delete();
-                suspensionRightRear?.Delete();
-
-                return;
             }
 
             if (Vehicle.IsEngineRunning)
