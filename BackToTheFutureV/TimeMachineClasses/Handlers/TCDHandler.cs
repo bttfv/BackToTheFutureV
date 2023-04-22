@@ -247,7 +247,8 @@ namespace BackToTheFutureV
         public void StartTimeCircuitsGlitch(bool softGlitch)
         {
             // Set TCD error stuff
-            Sounds.TCDGlitch?.Play();
+            if (!GTA.UI.Screen.IsFadedOut)
+                Sounds.TCDGlitch?.Play();
 
             glitchEvents.ResetExecution();
 
@@ -469,13 +470,16 @@ namespace BackToTheFutureV
 
             Properties.AreTimeCircuitsOn = on;
 
-            if (on)
+            if (!GTA.UI.Screen.IsFadedOut)
             {
-                Sounds.InputOn?.Play();
-            }
-            else
-            {
-                Sounds.InputOff?.Play();
+                if (on)
+                {
+                    Sounds.InputOn?.Play();
+                }
+                else
+                {
+                    Sounds.InputOff?.Play();
+                }
             }
 
             Events.OnTimeCircuitsToggle?.Invoke();
@@ -501,7 +505,7 @@ namespace BackToTheFutureV
 
                 Properties.HUDProperties.IsTickVisible = currentState;
 
-                if (ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying)
+                if (ModSettings.PlayDiodeBeep && currentState && Vehicle.IsVisible && !Sounds.TCDBeep.IsAnyInstancePlaying && !GTA.UI.Screen.IsFadedOut)
                 {
                     Sounds.TCDBeep?.Play(true);
                 }

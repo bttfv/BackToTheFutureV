@@ -14,10 +14,8 @@
         internal static class BTTFVDecors
         {
             public const string TimeMachine = "BTTFV_TimeMachine";
-            public const string DestDate1 = "BTTFV_DestDate1";
-            public const string DestDate2 = "BTTFV_DestDate2";
-            public const string LastDate1 = "BTTFV_LastDate1";
-            public const string LastDate2 = "BTTFV_LastDate2";
+            public const string DestDate = "BTTFV_DestDate";
+            public const string LastDate = "BTTFV_LastDate";
             public const string WormholeType = "BTTFV_WormholeType";
             public const string TimeCircuitsOn = "BTTFV_TCOn";
             public const string CutsceneMode = "BTTFV_TimeTravelType";

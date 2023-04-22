@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using GTA;
 using System;
+using System.Globalization;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -65,7 +66,7 @@ namespace BackToTheFutureV
 
                     if (Properties.AlarmSet)
                     {
-                        TextHandler.Me.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss"));
+                        TextHandler.Me.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss", CultureInfo.InvariantCulture));
                     }
                 }
                 else
@@ -172,7 +173,7 @@ namespace BackToTheFutureV
                         tempTime = tempTime.AddSeconds(-tempTime.Second).AddSeconds(second);
                         pressedTime++;
 
-                        TextHandler.Me.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString());
+                        TextHandler.Me.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString(CultureInfo.InvariantCulture));
 
                         if (pressedTime > 5)
                         {
@@ -198,7 +199,7 @@ namespace BackToTheFutureV
                         tempTime = tempTime.AddSeconds(-tempTime.Second).AddSeconds(second);
                         pressedTime++;
 
-                        TextHandler.Me.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString());
+                        TextHandler.Me.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString(CultureInfo.InvariantCulture));
 
                         if (pressedTime > 5)
                         {
@@ -215,7 +216,7 @@ namespace BackToTheFutureV
                         Properties.AlarmTime = tempTime;
                         Properties.AlarmSet = true;
 
-                        TextHandler.Me.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss"));
+                        TextHandler.Me.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss", CultureInfo.InvariantCulture));
 
                         TextHandler.Me.ShowNotification("Clock_AlarmSet");
                     }
@@ -230,7 +231,7 @@ namespace BackToTheFutureV
 
             if (TimeHandler.RealTime)
             {
-                if (Properties.AlarmSet && Properties.AlarmTime.ToString("hh") == Properties.ClockTime.ToString("hh") && Properties.ClockTime.Minute == Properties.AlarmTime.Minute && Properties.ClockTime.Second >= Properties.AlarmTime.Second && Properties.ClockTime.Second <= Properties.AlarmTime.Second + 5)
+                if (Properties.AlarmSet && Properties.AlarmTime.ToString("hh", CultureInfo.InvariantCulture) == Properties.ClockTime.ToString("hh", CultureInfo.InvariantCulture) && Properties.ClockTime.Minute == Properties.AlarmTime.Minute && Properties.ClockTime.Second >= Properties.AlarmTime.Second && Properties.ClockTime.Second <= Properties.AlarmTime.Second + 5)
                 {
                     if (!Props.BulovaClockRing.IsPlaying)
                     {
@@ -257,7 +258,7 @@ namespace BackToTheFutureV
             }
             else
             {
-                if (Properties.AlarmSet && Properties.AlarmTime.ToString("hh") == Properties.ClockTime.ToString("hh") && Properties.ClockTime.Minute >= Properties.AlarmTime.Minute && Properties.ClockTime.Minute <= Properties.AlarmTime.Minute + 2)
+                if (Properties.AlarmSet && Properties.AlarmTime.ToString("hh", CultureInfo.InvariantCulture) == Properties.ClockTime.ToString("hh", CultureInfo.InvariantCulture) && Properties.ClockTime.Minute >= Properties.AlarmTime.Minute && Properties.ClockTime.Minute <= Properties.AlarmTime.Minute + 2)
                 {
                     if (!Props.BulovaClockRing.IsPlaying)
                     {

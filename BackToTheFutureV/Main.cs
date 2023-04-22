@@ -165,7 +165,6 @@ namespace BackToTheFutureV
             TrashHandler.Tick();
             GarageHandler.Tick();
             WeatherHandler.Tick();
-
             WaybackSystem.Tick();
 
             if (FirstTick)

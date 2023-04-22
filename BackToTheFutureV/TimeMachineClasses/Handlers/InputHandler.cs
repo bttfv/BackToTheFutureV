@@ -2,6 +2,7 @@
 using GTA;
 using GTA.Native;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using static FusionLibrary.FusionEnums;
@@ -99,7 +100,8 @@ namespace BackToTheFutureV
         {
             try
             {
-                Sounds.Keypad[int.Parse(number)]?.Play();
+                if (!GTA.UI.Screen.IsFadedOut)
+                    Sounds.Keypad[int.Parse(number)]?.Play();
 
                 _destinationTimeRaw += number;
                 _nextReset = Game.GameTime + 15000;
@@ -119,7 +121,9 @@ namespace BackToTheFutureV
             // If its not a valid length/mode
             if (_destinationTimeRaw.Length != 12 && _destinationTimeRaw.Length != 4 && _destinationTimeRaw.Length != 8)
             {
-                Sounds.InputEnterError?.Play();
+                if (!GTA.UI.Screen.IsFadedOut)
+                    Sounds.InputEnterError?.Play();
+
                 InputMode = false;
                 _nextReset = 0;
                 _destinationTimeRaw = string.Empty;
@@ -128,14 +132,16 @@ namespace BackToTheFutureV
             // If player tries to set Jan 1 0001 through Jan 3 0001 or year 9999 script breaks; set these dates to invalid to error out TCD input
             if ((_destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(0, 8) == "01010001") || (_destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(0, 8) == "01020001") || (_destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(0, 8) == "01030001") || (_destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(4, 4) == "9999"))
             {
-                _destinationTimeRaw = "000000000000";
+                _destinationTimeRaw = string.Empty;
             }
 
             DateTime? dateTime = FusionUtils.ParseFromRawString(_destinationTimeRaw, Properties.DestinationTime, out InputType inputType);
 
             if (dateTime == null)
             {
-                Sounds.InputEnterError?.Play();
+                if (!GTA.UI.Screen.IsFadedOut)
+                    Sounds.InputEnterError?.Play();
+
                 InputMode = false;
                 _nextReset = 0;
                 _destinationTimeRaw = string.Empty;
@@ -148,7 +154,7 @@ namespace BackToTheFutureV
 
         private string DateToInput(DateTime dateTime, int pos)
         {
-            return dateTime.ToString("MMddyyyyHHmm")[pos].ToString();
+            return dateTime.ToString("MMddyyyyHHmm", CultureInfo.InvariantCulture)[pos].ToString(CultureInfo.InvariantCulture);
         }
 
         public override void Tick()

@@ -68,7 +68,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (CurrentTimeMachine == null)
+            if (CurrentTimeMachine == null || !FusionUtils.PlayerPed.IsFullyInVehicle())
             {
                 Visible = false;
                 return;

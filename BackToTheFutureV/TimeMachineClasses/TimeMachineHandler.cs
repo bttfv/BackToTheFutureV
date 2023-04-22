@@ -217,7 +217,7 @@ namespace BackToTheFutureV
             {
                 // First check to see if player is underground and spawn at same height if so
                 // If not we check an offset in the sky then set to ground height to get proper ground to spawn on
-                if (ped.Position.Z < ped.GetOffsetPosition(new Vector3(0, 0, 1000)).SetToGroundHeight().Z - 5)
+                if (!ped.IsOutInTheOpen())
                     spawnPos = ped.GetOffsetPosition(new Vector3(0, 25, 0));
                 else
                     spawnPos = ped.GetOffsetPosition(new Vector3(0, 25, 1000)).SetToGroundHeight();
@@ -313,6 +313,10 @@ namespace BackToTheFutureV
                 if (timeMachine.Mods.WormholeType == WormholeType.BTTF3)
                 {
                     timeMachine.Properties.PreviousTime = new DateTime(1955, 11, 16, 10, 20, 0);
+                    if (timeMachine.Mods.Wheel == WheelType.RailroadInvisible)
+                    {
+                        timeMachine.Properties.PreviousTime = new DateTime(1885, 9, 7, 10, 00, 0);
+                    }
                 }
             }
 

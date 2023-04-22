@@ -127,7 +127,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Mods.Reactor == ReactorType.Nuclear)
+            if (Mods.Reactor == ReactorType.Nuclear && !GTA.UI.Screen.IsFadedOut)
             {
                 Sounds.PlutoniumRefuel?.Play();
             }
@@ -253,7 +253,8 @@ namespace BackToTheFutureV
                         _nextId = 1;
                         _nextBlink = Game.GameTime + 640;
 
-                        Sounds.FuelEmpty?.Play();
+                        if (!GTA.UI.Screen.IsFadedOut)
+                            Sounds.FuelEmpty?.Play();
                     }
                     else
                     {

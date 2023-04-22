@@ -1,9 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -23,15 +20,13 @@ namespace BackToTheFutureV
 
         public static void Register()
         {
+            Decorator.Register(BTTFVDecors.TorqueMultiplier, DecorType.Float);
             Decorator.Register(BTTFVDecors.TimeMachine, DecorType.Bool);
-            Decorator.Register(BTTFVDecors.DestDate1, DecorType.Int);
-            Decorator.Register(BTTFVDecors.DestDate2, DecorType.Int);
-            Decorator.Register(BTTFVDecors.LastDate1, DecorType.Int);
-            Decorator.Register(BTTFVDecors.LastDate2, DecorType.Int);
-            Decorator.Register(BTTFVDecors.WormholeType, DecorType.Int);
             Decorator.Register(BTTFVDecors.TimeCircuitsOn, DecorType.Bool);
             Decorator.Register(BTTFVDecors.CutsceneMode, DecorType.Bool);
-            Decorator.Register(BTTFVDecors.TorqueMultiplier, DecorType.Float);
+            Decorator.Register(BTTFVDecors.WormholeType, DecorType.Int);
+            Decorator.Register(BTTFVDecors.DestDate, DecorType.DateTime);
+            Decorator.Register(BTTFVDecors.LastDate, DecorType.DateTime);
             Decorator.Lock();
         }
 
@@ -47,8 +42,8 @@ namespace BackToTheFutureV
             if (!Mods.IsDMC12 && CheckVehicle())
             {
                 Mods.WormholeType = (WormholeType)Decorator.GetInt(BTTFVDecors.WormholeType);
-                Properties.DestinationTime = ConvertIntToDate(Decorator.GetInt(BTTFVDecors.DestDate1), Decorator.GetInt(BTTFVDecors.DestDate2));
-                Properties.PreviousTime = ConvertIntToDate(Decorator.GetInt(BTTFVDecors.LastDate1), Decorator.GetInt(BTTFVDecors.LastDate2));
+                Properties.DestinationTime = Decorator.GetDateTime(BTTFVDecors.DestDate);
+                Properties.PreviousTime = Decorator.GetDateTime(BTTFVDecors.LastDate);
 
                 if (Properties.AreTimeCircuitsOn != Decorator.GetBool(BTTFVDecors.TimeCircuitsOn))
                 {
@@ -88,36 +83,17 @@ namespace BackToTheFutureV
 
         public void OnDestinationDateChange(InputType inputType)
         {
-            int[] tmp = ConvertDateToInt(Properties.DestinationTime);
-
-            Decorator.SetInt(BTTFVDecors.DestDate1, tmp[0]);
-            Decorator.SetInt(BTTFVDecors.DestDate2, tmp[1]);
+            Decorator.SetDateTime(BTTFVDecors.DestDate, Properties.DestinationTime);
         }
 
         private void OnTimeTravelStarted()
         {
-            int[] tmp = ConvertDateToInt(Properties.PreviousTime);
-
-            Decorator.SetInt(BTTFVDecors.LastDate1, tmp[0]);
-            Decorator.SetInt(BTTFVDecors.LastDate2, tmp[1]);
+            Decorator.SetDateTime(BTTFVDecors.LastDate, Properties.PreviousTime);
         }
 
         private void OnTimeCircuitsToggle()
         {
             Decorator.SetBool(BTTFVDecors.TimeCircuitsOn, Properties.AreTimeCircuitsOn);
-        }
-
-        public static int[] ConvertDateToInt(DateTime dateTime)
-        {
-            return new int[] { Convert.ToInt32($"9{dateTime:MMyyyy}"), Convert.ToInt32($"9{dateTime:ddhhmm}") };
-        }
-
-        public static DateTime ConvertIntToDate(int dateTime1, int dateTime2)
-        {
-            string tmp1 = dateTime1.ToString().Substring(1);
-            IEnumerable<string> tmp2 = dateTime2.ToString().Substring(1).SplitInParts(2);
-
-            return new DateTime(Convert.ToInt32(tmp1.Substring(2)), Convert.ToInt32(tmp1.Substring(0, 2)), Convert.ToInt32(tmp2.ElementAt(0)), Convert.ToInt32(tmp2.ElementAt(1)), Convert.ToInt32(tmp2.ElementAt(2)), 0);
         }
 
         public override void Dispose()

@@ -1,7 +1,9 @@
 ﻿using FusionLibrary;
+using FusionLibrary.Extensions;
 using LemonUI.Menus;
 using System;
 using System.ComponentModel;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
@@ -94,8 +96,21 @@ namespace BackToTheFutureV
             if (CurrentTimeMachine == null)
             {
                 Visible = false;
-
                 return;
+            }
+
+            foreach (GarageDoor door in Enum.GetValues(typeof(GarageDoor)))
+            {
+                if (CurrentTimeMachine.Vehicle.IsPartiallyInGarage(door) || CurrentTimeMachine.Vehicle.IsEntirelyInGarage(door))
+                {
+                    CurrentTimeMachine.Properties.PhotoFluxCapacitorActive = false;
+                    CurrentTimeMachine.Properties.PhotoGlowingCoilsActive = false;
+                    CurrentTimeMachine.Properties.PhotoWormholeActive = false;
+                    CurrentTimeMachine.Properties.PhotoSIDMaxActive = false;
+                    Visible = false;
+                    MenuHandler.TimeMachineMenu.Visible = true;
+                    return;
+                }
             }
 
             Wormhole.Checked = CurrentTimeMachine.Properties.PhotoWormholeActive;
@@ -105,7 +120,7 @@ namespace BackToTheFutureV
             EngineStall.Checked = CurrentTimeMachine.Properties.PhotoEngineStallActive;
             SIDMax.Checked = CurrentTimeMachine.Properties.PhotoSIDMaxActive;
 
-            LightningStrike.Enabled = !CurrentTimeMachine.Properties.IsPhotoModeOn;
+            LightningStrike.Enabled = !CurrentTimeMachine.Properties.IsPhotoModeOn && CurrentTimeMachine.Vehicle.IsOutInTheOpen();
 
             HideHUD.Checked = FusionUtils.HideGUI;
         }

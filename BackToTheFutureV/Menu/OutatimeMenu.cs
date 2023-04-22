@@ -3,6 +3,7 @@ using GTA.Math;
 using LemonUI.Menus;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -38,8 +39,8 @@ namespace BackToTheFutureV
         private void UpdateInfos()
         {
             TypeDescription.Title = $"{GetItemTitle("Type")}: {CurrentRemoteTimeMachine.TimeMachineClone.Mods.WormholeType}";
-            DestinationTimeDescription.Title = GetItemTitle("Destination") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt");
-            LastTimeDescription.Title = GetItemTitle("Last") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy hh:mm tt");
+            DestinationTimeDescription.Title = GetItemTitle("Destination") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.DestinationTime.ToString("MM/dd/yyyy hh:mm tt", CultureInfo.InvariantCulture);
+            LastTimeDescription.Title = GetItemTitle("Last") + " " + CurrentRemoteTimeMachine.TimeMachineClone.Properties.PreviousTime.ToString("MM/dd/yyyy hh:mm tt", CultureInfo.InvariantCulture);
 
             Spawned.Checked = CurrentRemoteTimeMachine.Spawned;
 

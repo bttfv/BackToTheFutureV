@@ -53,7 +53,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= Constants.TimeTravelAtSpeed && !Properties.IsFlying) /*|| (Constants.DeluxoProto && Vehicle.IsExtraOn(1) && Vehicle.Mods.DashboardColor == (VehicleColor)70 && !Properties.IsFlying)*/ || (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
+            if ((Mods.IsDMC12 && Mods.Hook == HookState.On && Vehicle.GetMPHSpeed() >= Constants.TimeTravelAtSpeed && !Properties.IsFlying && Vehicle.IsOutInTheOpen()) /*|| (Constants.DeluxoProto && Vehicle.IsExtraOn(1) && Vehicle.Mods.DashboardColor == (VehicleColor)70 && !Properties.IsFlying)*/ || (Vehicle.HeightAboveGround >= 20 && Properties.IsFlying))
             {
                 if (FusionUtils.Random.NextDouble() < 0.3)
                 {
@@ -70,7 +70,8 @@ namespace BackToTheFutureV
         {
             if (!_instant)
             {
-                Sounds.Thunder?.Play();
+                if (!GTA.UI.Screen.IsFadedOut)
+                    Sounds.Thunder?.Play();
 
                 Props.Lightnings.IsSequenceLooped = Properties.AreTimeCircuitsOn;
                 Props.Lightnings.Play();
@@ -89,7 +90,8 @@ namespace BackToTheFutureV
 
                 Particles.LightningSparks?.Play();
 
-                Sounds.LightningStrike?.Play();
+                if (!GTA.UI.Screen.IsFadedOut)
+                    Sounds.LightningStrike?.Play();
 
                 Events.SetSIDLedsState?.Invoke(true, true);
 

@@ -127,6 +127,7 @@ namespace BackToTheFutureV
                 if (spawnBTTF.SelectedIndex == 5)
                 {
                     timeMachine.Mods.Wheel = WheelType.RailroadInvisible;
+                    timeMachine.Properties.PreviousTime = new DateTime(1885, 9, 7, 10, 00, 0);
                 }
 
                 if (ModSettings.WaybackSystem)

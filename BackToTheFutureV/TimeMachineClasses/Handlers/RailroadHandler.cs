@@ -133,7 +133,7 @@ namespace BackToTheFutureV
 
             customTrain.SetToAttach(Vehicle, new Vector3(0, 4.5f, Mods.IsDMC12 ? 0 : Vehicle.HeightAboveGround - customTrain.Carriage(1).HeightAboveGround), 1, 0);
 
-            customTrain.SetPosition(Vehicle.GetOffsetPosition(offset: Vector3.Zero.GetSingleOffset(Coordinate.Y, -1)));
+            customTrain.SetPosition(Vehicle.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Y, -1)));
 
             customTrain.OnVehicleAttached += CustomTrain_OnVehicleAttached;
             customTrain.OnTrainDeleted += CustomTrain_OnTrainDeleted;

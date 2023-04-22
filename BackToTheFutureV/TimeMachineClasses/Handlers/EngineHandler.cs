@@ -229,7 +229,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Vehicle.IsVisible == false || !Vehicle.IsEngineRunning || !ModSettings.PlayEngineSounds || Main.FirstTick)
+            if (Vehicle.IsVisible == false || !Vehicle.IsEngineRunning || !ModSettings.PlayEngineSounds || Main.FirstTick || GTA.UI.Screen.IsFadedOut)
             {
                 Stop();
                 return;
@@ -630,6 +630,9 @@ namespace BackToTheFutureV
 
         private void PredictAccleration()
         {
+            if (Properties.IsFlying || Properties.IsLanding)
+                return;
+
             _possibleFastAccel = true; // get in default state
 
             _carAngle = Vehicle.Rotation.X;
