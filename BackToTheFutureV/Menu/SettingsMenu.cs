@@ -14,6 +14,7 @@ namespace BackToTheFutureV
         private readonly NativeCheckboxItem WaybackSystem;
         private readonly NativeCheckboxItem TimeParadox;
         private readonly NativeCheckboxItem RandomTrains;
+        private readonly NativeCheckboxItem LandingSystem;
         private readonly NativeCheckboxItem RealTime;
         private readonly NativeCheckboxItem YearTraffic;
         private readonly NativeCheckboxItem GlowingWormholeEmitter;
@@ -28,6 +29,7 @@ namespace BackToTheFutureV
             WaybackSystem = NewCheckboxItem("Wayback", ModSettings.WaybackSystem);
             TimeParadox = NewCheckboxItem("TimeParadox", ModSettings.TimeParadox);
             RandomTrains = NewCheckboxItem("RandomTrains", ModSettings.RandomTrains);
+            LandingSystem = NewCheckboxItem("LandingSystem", ModSettings.LandingSystem);
             RealTime = NewCheckboxItem("RealTime", ModSettings.RealTime);
             YearTraffic = NewCheckboxItem("YearTraffic", ModSettings.YearTraffic);
             GlowingWormholeEmitter = NewCheckboxItem("GlowingWormhole", ModSettings.GlowingWormholeEmitter);
@@ -89,6 +91,9 @@ namespace BackToTheFutureV
                     break;
                 case NativeCheckboxItem _ when sender == InfiniteFuel:
                     ModSettings.InfiniteFuel = Checked;
+                    break;
+                case NativeCheckboxItem _ when sender == LandingSystem:
+                    ModSettings.LandingSystem = Checked;
                     break;
                 case NativeCheckboxItem _ when sender == WaybackSystem:
                     ModSettings.WaybackSystem = Checked;

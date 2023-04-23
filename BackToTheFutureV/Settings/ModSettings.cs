@@ -37,6 +37,7 @@ namespace BackToTheFutureV
         public static bool LightningStrikeEvent { get; set; } = true;
         public static bool EngineStallEvent { get; set; } = true;
         public static bool TurbulenceEvent { get; set; } = true;
+        public static bool LandingSystem { get; set; } = true;
         public static bool TerroristsEvent { get; set; } = true;
         public static bool TrainEvent { get; set; } = true;
         public static bool RandomTrains { get; set; } = true;
@@ -106,6 +107,7 @@ namespace BackToTheFutureV
             WaybackSystem = settings.GetValue("General", "WaybackSystem", WaybackSystem);
             TimeParadox = settings.GetValue("General", "TimeParadox", TimeParadox);
             RandomTrains = settings.GetValue("General", "RandomTrains", RandomTrains);
+            LandingSystem = settings.GetValue("General", "LandingSystem", LandingSystem);
             RealTime = settings.GetValue("General", "RealTime", RealTime);
             YearTraffic = settings.GetValue("General", "YearTraffic", YearTraffic);
             //DeluxoProto = settings.GetValue("General", "DeluxoProto", DeluxoProto);
@@ -156,6 +158,7 @@ namespace BackToTheFutureV
             settings.SetValue("General", "CinematicSpawn", CinematicSpawn);
             settings.SetValue("General", "CutsceneMode", CutsceneMode);
             settings.SetValue("General", "RandomTrains", RandomTrains);
+            settings.SetValue("General", "LandingSystem", LandingSystem);
             settings.SetValue("General", "RealTime", RealTime);
             settings.SetValue("General", "YearTraffic", YearTraffic);
             //settings.SetValue("General", "DeluxoProto", DeluxoProto);
