@@ -329,7 +329,7 @@ namespace BackToTheFutureV
                     timeMachine.Properties.AreHoodboxCircuitsReady = true;
                 }
 
-                timeMachine.Events.SetTimeCircuits?.Invoke(true);
+                timeMachine.Events.SetTimeCircuits?.Invoke(true, true);
 
                 timeMachine.Events.OnReenterStarted?.Invoke();
             }

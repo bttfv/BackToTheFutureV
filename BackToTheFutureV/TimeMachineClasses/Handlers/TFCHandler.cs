@@ -1,102 +1,105 @@
-﻿using FusionLibrary;
-using GTA;
-using GTA.Math;
-using System;
+﻿using GTA;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
+using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
-    internal class Gauge
-    {
-        public AnimateProp Prop { get; }
-        public float MaxRot { get; }
-        public Vehicle Vehicle { get; }
-        public Vector3 Offset { get; }
-        public float Rotation { get; private set; }
-
-        public bool On
-        {
-            get => on;
-
-            set
-            {
-                on = value;
-                rotate = true;
-            }
-        }
-
-        private bool on;
-        private bool rotate;
-
-        public Gauge(Model modelName, Vector3 offset, float maxRot, Vehicle vehicle)
-        {
-            MaxRot = maxRot;
-            Vehicle = vehicle;
-            Offset = offset;
-
-            Prop = new AnimateProp(modelName, Vehicle, Offset, Vector3.Zero);
-            Prop.SpawnProp();
-        }
-
-        public void Tick()
-        {
-            if (!rotate)
-            {
-                return;
-            }
-
-            if (On && Rotation < MaxRot)
-            {
-                Rotation = FusionUtils.Lerp(Rotation, MaxRot, Game.LastFrameTime * 2f);
-
-                float diff = Math.Abs(Rotation - MaxRot);
-                if (diff <= 0.01)
-                {
-                    rotate = false;
-                }
-            }
-            else if (!On && Rotation > 0)
-            {
-                Rotation = FusionUtils.Lerp(Rotation, 0, Game.LastFrameTime * 4f);
-
-                float diff = Math.Abs(Rotation - 0);
-                if (diff <= 0.01)
-                {
-                    rotate = false;
-                }
-            }
-
-            Prop.MoveProp(Vector3.Zero, new Vector3(0, Rotation, 0), false);
-        }
-
-        public void Dispose()
-        {
-            Prop?.Dispose();
-        }
-    }
 
     internal class TFCHandler : HandlerPrimitive
     {
-        private readonly Gauge _gaugeNeedle1;
-        private readonly Gauge _gaugeNeedle2;
-        private readonly Gauge _gaugeNeedle3;
-
         private int playAt;
-        private bool hasPlayed;
+        private bool startBlink;
+        private bool hasTimeTraveled;
 
         public TFCHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            _gaugeNeedle1 = new Gauge(ModelHandler.GaugeModels[0], new Vector3(0.2549649f, 0.4890909f, 0.6371477f), 25f, Vehicle);
-            _gaugeNeedle2 = new Gauge(ModelHandler.GaugeModels[1], new Vector3(0.3632151f, 0.4841858f, 0.6369596f), 25f, Vehicle);
-            _gaugeNeedle3 = new Gauge(ModelHandler.GaugeModels[2], new Vector3(0.509564f, 0.4745394f, 0.6380013f), 50f, Vehicle);
+            Props.Gauges.SpawnProp();
+
+            Props.FuelGauge.OnAnimCompleted += FuelGauge_OnAnimCompleted;
+
             Props.TFCOff?.SpawnProp();
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
+            Events.StartFuelGaugeGoDown += StartFuelGaugeGoDown;
         }
 
-        private void OnTimeCircuitsToggle()
+        private void StartFuelGaugeGoDown(bool startBlink)
         {
+            this.startBlink = startBlink;
+            hasTimeTraveled = true;
+
+            if (startBlink)
+            {
+                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].StepRatio = 0.0454f;
+                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].SmoothEnd = false;
+            }
+
+            Props.FuelGauge?.Play();
+        }
+
+        private void FuelGauge_OnAnimCompleted(AnimationStep animationStep)
+        {
+            Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].StepRatio = 1f;
+            Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].SmoothEnd = true;
+
+            if (hasTimeTraveled && !Properties.HasBeenStruckByLightning)
+                Properties.ReactorCharge--;
+
+            hasTimeTraveled = false;
+
+            if (!startBlink)
+                return;
+
+            Events.StartFuelBlink?.Invoke();
+        }
+
+        private void OnTimeCircuitsToggle(bool instant = false)
+        {
+            if (instant)
+            {
+                if (Properties.AreTimeCircuitsOn)
+                {
+                    Props.TFCOn?.SpawnProp();
+                    Props.TFCOff?.Delete();
+
+                    Props.GaugeGlow?.SpawnProp();
+
+                    Props.Gauges.Play(true);
+                }
+                else
+                {
+                    Props.TFCOn?.Delete();
+                    Props.TFCOff?.SpawnProp();
+
+                    Props.GaugeGlow?.Delete();
+
+                    Props.Gauges.Play(true);
+                }
+
+                return;
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                if (Props.Gauges[i].IsPlaying)
+                {
+                    Props.Gauges[i].Stop();
+                    Props.Gauges[i][AnimationType.Rotation][AnimationStep.First][Coordinate.Y].IsIncreasing = !Props.Gauges[i][AnimationType.Rotation][AnimationStep.First][Coordinate.Y].IsIncreasing;
+                }
+            }
+
+            if (Props.FuelGauge.IsPlaying)
+            {
+                Props.FuelGauge.Stop();
+
+                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].StepRatio = 1f;
+                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].SmoothEnd = true;
+
+                if (!hasTimeTraveled)
+                    Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].IsIncreasing = !Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].IsIncreasing;
+            }
+
             if (Properties.AreTimeCircuitsOn)
             {
                 Props.TFCOn?.SpawnProp();
@@ -105,6 +108,7 @@ namespace BackToTheFutureV
                 Props.TFCHandle?.Play();
 
                 playAt = Game.GameTime + 2000;
+                IsPlaying = true;
             }
             else
             {
@@ -113,14 +117,14 @@ namespace BackToTheFutureV
 
                 Props.TFCHandle?.Play();
 
-                _gaugeNeedle1.On = false;
-                _gaugeNeedle2.On = false;
-                _gaugeNeedle3.On = false;
+                Props.Gauge1?.Play();
+                Props.Gauge2?.Play();
+
+                if (Props.FuelGauge.CurrentRotation.Y > 0)
+                    Props.FuelGauge.Play();
 
                 Props.GaugeGlow?.Delete();
             }
-
-            hasPlayed = false;
         }
 
         public override void KeyDown(KeyEventArgs e)
@@ -129,36 +133,25 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (!hasPlayed && Properties.AreTimeCircuitsOn && Game.GameTime > playAt)
+            if (IsPlaying && Game.GameTime >= playAt)
             {
                 if (Mods.Reactor == ReactorType.Nuclear)
                 {
                     Sounds.PlutoniumGauge?.Play();
                 }
 
-                _gaugeNeedle1.On = true;
-                _gaugeNeedle2.On = true;
+                Props.Gauge1?.Play();
+                Props.Gauge2?.Play();
+
                 if (Properties.IsFueled)
                 {
-                    _gaugeNeedle3.On = true;
+                    Props.FuelGauge?.Play();
                 }
 
                 Props.GaugeGlow?.SpawnProp();
 
-                hasPlayed = true;
+                IsPlaying = false;
             }
-            if (hasPlayed && Properties.AreTimeCircuitsOn && !Properties.IsFueled && _gaugeNeedle3.On)
-            {
-                _gaugeNeedle3.On = false;
-            }
-            if (hasPlayed && Properties.AreTimeCircuitsOn && Properties.IsFueled && !_gaugeNeedle3.On)
-            {
-                _gaugeNeedle3.On = true;
-            }
-
-            _gaugeNeedle1.Tick();
-            _gaugeNeedle2.Tick();
-            _gaugeNeedle3.Tick();
         }
 
         public override void Stop()
@@ -167,9 +160,6 @@ namespace BackToTheFutureV
 
         public override void Dispose()
         {
-            _gaugeNeedle1.Dispose();
-            _gaugeNeedle2.Dispose();
-            _gaugeNeedle3.Dispose();
         }
     }
 }

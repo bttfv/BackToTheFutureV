@@ -17,7 +17,7 @@ namespace BackToTheFutureV
     internal delegate void OnReenterStarted();
     internal delegate void OnReenterEnded();
 
-    internal delegate void OnTimeCircuitsToggle();
+    internal delegate void OnTimeCircuitsToggle(bool instant = false);
     internal delegate void OnDestinationDateChange(InputType inputType);
     internal delegate void OnLightningStrike();
     internal delegate void OnHoverUnderbodyToggle(bool reload = false);
@@ -26,13 +26,14 @@ namespace BackToTheFutureV
     internal delegate void OnVehicleSpawned();
 
     internal delegate void SetRCMode(bool state, bool instant = false);
-    internal delegate void SetTimeCircuits(bool state);
+    internal delegate void SetTimeCircuits(bool state, bool instant = false);
     internal delegate void SetTimeCircuitsBroken();
     internal delegate void SetFlyMode(bool state, bool instant = false);
     internal delegate void SetAltitudeHold(bool state);
     internal delegate void SetHoodboxWarmedUp();
     internal delegate void SetFreeze(bool state, bool resume = false);
     internal delegate void StartTimeTravel(int delay = 0);
+    internal delegate void StartFuelGaugeGoDown(bool startBlink);
     internal delegate void StartFuelBlink();
     internal delegate void SetStopTracks(int delay = 0);
     internal delegate void SetReactorState(ReactorState reactorState);
@@ -76,6 +77,7 @@ namespace BackToTheFutureV
         public SetHoodboxWarmedUp SetHoodboxWarmedUp;
         public SetFreeze SetFreeze;
         public StartTimeTravel StartTimeTravel;
+        public StartFuelGaugeGoDown StartFuelGaugeGoDown;
         public StartFuelBlink StartFuelBlink;
         public SetStopTracks SetStopTracks;
         public SetReactorState SetReactorState;

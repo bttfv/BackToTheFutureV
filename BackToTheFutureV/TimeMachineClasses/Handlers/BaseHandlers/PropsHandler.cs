@@ -68,6 +68,12 @@ namespace BackToTheFutureV
         public AnimateProp BulovaClockMinute;
         public AnimateProp BulovaClockRing;
 
+        //Gauges
+        public AnimateProp Gauge1;
+        public AnimateProp Gauge2;
+        public AnimateProp FuelGauge;
+        public AnimatePropsHandler Gauges;
+
         public PropsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
             //Wheels
@@ -155,21 +161,11 @@ namespace BackToTheFutureV
                 SeparatedCoils.Add(new AnimateProp(coilModel, TimeMachine.Vehicle));
             }
 
-            //Plutonium gauge
-            GaugeGlow = new AnimateProp(ModelHandler.GaugeGlow, Vehicle);
-
             //Speedo
             SpeedoCover = new AnimateProp(ModelHandler.SpeedoCover, Vehicle);
 
             //Compass
             Compass = new AnimateProp(ModelHandler.Compass, Vehicle, "bttf_compass");
-
-            //TFC
-            TFCOn = new AnimateProp(ModelHandler.TFCOn, Vehicle);
-            TFCOff = new AnimateProp(ModelHandler.TFCOff, Vehicle);
-            TFCHandle = new AnimateProp(ModelHandler.TFCHandle, Vehicle, new Vector3(-0.03805999f, -0.0819466f, 0.5508024f), Vector3.Zero);
-            TFCHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, false, -45, 0, 1, 135, 1, false);
-            TFCHandle.SpawnProp();
 
             //TCD
             DiodesOff = new AnimateProp(ModelHandler.DiodesOff, Vehicle);
@@ -193,6 +189,28 @@ namespace BackToTheFutureV
             BulovaClockMinute = new AnimateProp(ModelHandler.BulovaClockMinute, Vehicle, "bulova_clock_ring_hands");
             BulovaClockRing = new AnimateProp(ModelHandler.BulovaClockRing, Vehicle, "bulova_clock");
             BulovaClockRing[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(false, true, -10, 10, 1, 360, 1, false);
+
+            //Gauges
+            Gauges = new AnimatePropsHandler();
+            Gauge1 = new AnimateProp(ModelHandler.GaugeModels[0], Vehicle, new Vector3(0.2549649f, 0.4890909f, 0.6371477f));
+            Gauge1[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, true, 0, 25f, 1, 25f, 1, true);
+            Gauges.Add(Gauge1);
+            Gauge2 = new AnimateProp(ModelHandler.GaugeModels[0], Vehicle, new Vector3(0.3632151f, 0.4841858f, 0.6369596f));
+            Gauge2[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, true, 0, 25f, 1, 25f, 1, true);
+            Gauges.Add(Gauge2);
+            FuelGauge = new AnimateProp(ModelHandler.GaugeModels[0], Vehicle, new Vector3(0.509564f, 0.4745394f, 0.6380013f));
+            FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, true, 0, 50f, 1, 50f, 1, true);
+            Gauges.Add(FuelGauge);
+
+            //TFC
+            TFCHandle = new AnimateProp(ModelHandler.TFCHandle, Vehicle, new Vector3(-0.03805999f, -0.0819466f, 0.5508024f), Vector3.Zero);
+            TFCHandle[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, false, -45, 0, 1, 135, 1, false);
+            Gauges.Add(TFCHandle);
+            TFCOn = new AnimateProp(ModelHandler.TFCOn, Vehicle);
+            TFCOff = new AnimateProp(ModelHandler.TFCOff, Vehicle);
+
+            //Plutonium gauge
+            GaugeGlow = new AnimateProp(ModelHandler.GaugeGlow, Vehicle);
         }
 
         public override void Dispose()
@@ -253,6 +271,10 @@ namespace BackToTheFutureV
             BulovaClockHour?.Dispose();
             BulovaClockMinute?.Dispose();
             BulovaClockRing?.Dispose();
+
+            //Gauges
+            Gauges?.Dispose();
+            FuelGauge?.Dispose();
         }
 
         public override void KeyDown(KeyEventArgs e)

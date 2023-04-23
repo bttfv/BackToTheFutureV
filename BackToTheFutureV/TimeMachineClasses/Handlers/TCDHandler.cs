@@ -162,7 +162,7 @@ namespace BackToTheFutureV
             previousSlot.SetDate(Properties.PreviousTime);
         }
 
-        private void OnTimeCircuitsToggle()
+        private void OnTimeCircuitsToggle(bool instant = false)
         {
             if (!Constants.HasScaleformPriority)
             {
@@ -432,7 +432,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void SetTimeCircuitsOn(bool on)
+        private void SetTimeCircuitsOn(bool state, bool instant = false)
         {
             if (TcdEditer.IsEditing || RCGUIEditer.IsEditing)
             {
@@ -464,9 +464,9 @@ namespace BackToTheFutureV
                 return;
             }
 
-            Properties.AreTimeCircuitsOn = on;
+            Properties.AreTimeCircuitsOn = state;
 
-            if (on)
+            if (state)
             {
                 Sounds.InputOn?.Play();
             }
@@ -475,7 +475,7 @@ namespace BackToTheFutureV
                 Sounds.InputOff?.Play();
             }
 
-            Events.OnTimeCircuitsToggle?.Invoke();
+            Events.OnTimeCircuitsToggle?.Invoke(instant);
         }
 
         public void SetTimeCircuitsBroken()

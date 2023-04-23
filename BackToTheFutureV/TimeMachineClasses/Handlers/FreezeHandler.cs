@@ -139,6 +139,8 @@ namespace BackToTheFutureV
             switch (_currentStep)
             {
                 case 0:
+                    Events.StartFuelGaugeGoDown?.Invoke(_fuelNotif && !_wasStruck && Mods.Reactor == ReactorType.Nuclear);
+
                     // Set the ice
                     Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, Properties.IceValue);
 
@@ -189,17 +191,6 @@ namespace BackToTheFutureV
 
                             return;
                         }
-                    }
-
-                    _currentStep++;
-                    _gameTimer = Game.GameTime + 1000;
-                    break;
-
-                case 4:
-
-                    if (_fuelNotif && !_wasStruck)
-                    {
-                        Events.StartFuelBlink?.Invoke();
                     }
 
                     _doingFreezingSequence = false;

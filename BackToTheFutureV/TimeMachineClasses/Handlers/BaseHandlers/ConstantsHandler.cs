@@ -237,12 +237,14 @@ namespace BackToTheFutureV
             Events.OnLightningStrike += StartTimeTravelCooldown;
             Events.OnTimeTravelStarted += StartTimeTravelCooldown;
             Events.OnReenterEnded += StartTimeTravelCooldown;
-            Events.OnTimeCircuitsToggle += () =>
-            {
-                ResetAll();
-            };
+            Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
 
             OnWormholeTypeChanged();
+        }
+
+        private void OnTimeCircuitsToggle(bool instant = false)
+        {
+            ResetAll();
         }
 
         public void OnWormholeTypeChanged()

@@ -184,10 +184,6 @@ namespace BackToTheFutureV
                     Properties.PhotoGlowingCoilsActive = false;
                 }
             }
-            else if (Mods.IsDMC12)
-            {
-                Properties.ReactorCharge--;
-            }
 
             if (!Properties.IsOnTracks && !Properties.IsFlying && Vehicle.Driver == null)
             {

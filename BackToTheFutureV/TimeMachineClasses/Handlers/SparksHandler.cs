@@ -62,7 +62,7 @@ namespace BackToTheFutureV
             Sounds.DiodesGlowing?.Play();
         }
 
-        private void OnTimeCircuitsToggle()
+        private void OnTimeCircuitsToggle(bool instant = false)
         {
             if (!Properties.AreTimeCircuitsOn && Players.Wormhole.IsPlaying)
             {

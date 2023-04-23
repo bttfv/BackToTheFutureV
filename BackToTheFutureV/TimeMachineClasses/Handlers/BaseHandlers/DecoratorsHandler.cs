@@ -91,7 +91,7 @@ namespace BackToTheFutureV
             Decorator.SetDateTime(BTTFVDecors.LastDate, Properties.PreviousTime);
         }
 
-        private void OnTimeCircuitsToggle()
+        private void OnTimeCircuitsToggle(bool instant = false)
         {
             Decorator.SetBool(BTTFVDecors.TimeCircuitsOn, Properties.AreTimeCircuitsOn);
         }

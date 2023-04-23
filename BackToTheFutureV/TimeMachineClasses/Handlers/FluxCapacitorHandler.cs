@@ -67,7 +67,7 @@ namespace BackToTheFutureV
             Update();
         }
 
-        private void OnTimeCircuitsToggle()
+        private void OnTimeCircuitsToggle(bool instant = false)
         {
             if (Constants.HasScaleformPriority)
             {
