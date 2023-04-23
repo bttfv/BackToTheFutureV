@@ -41,7 +41,6 @@ namespace BackToTheFutureV
 
         public static void TimeChanged(DateTime time)
         {
-            RemoteTimeMachineHandler.RemoteTimeMachines.ForEach(x => x.WasSpawned = false);
             TimeMachineHandler.ExistenceCheck(time);
             RemoteTimeMachineHandler.ExistenceCheck(time);
         }

@@ -14,7 +14,6 @@ namespace BackToTheFutureV
         public TimeMachine TimeMachine => TimeMachineHandler.GetTimeMachineFromGUID(TimeMachineClone.Properties.GUID);
         public Blip Blip { get; set; }
         public bool Spawned => TimeMachine.NotNullAndExists();
-        public bool WasSpawned;
 
         private int _timer;
         private bool _hasPlayedWarningSound;
@@ -37,10 +36,7 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
-            if (Spawned && !WasSpawned)
-                WasSpawned = true;
-
-            if (Spawned || WasSpawned || Game.GameTime < _timer || TimeParadox.ParadoxInProgress)
+            if (Spawned || Game.GameTime < _timer || TimeParadox.ParadoxInProgress)
             {
                 return;
             }
@@ -67,16 +63,6 @@ namespace BackToTheFutureV
 
                 _hasPlayedWarningSound = false;
                 _timer = Game.GameTime + 10000;
-            }
-
-            if (TimeMachineClone.Properties.DestinationTime <= FusionUtils.CurrentTime)
-            {
-                if (RemoteTimeMachineHandler.RemoteTimeMachines.FindLast(x => x.TimeMachineClone.Properties.GUID == TimeMachineClone.Properties.GUID) == this &&
-                    !TimeMachineClone.Properties.PlayerUsed)
-                {
-                    Spawn(ReenterType.Normal);
-                    _hasPlayedWarningSound = false;
-                }
             }
         }
 
