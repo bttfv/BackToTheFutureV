@@ -80,12 +80,11 @@ namespace BackToTheFutureV
 
             if (_forcedHandbrake || Game.IsControlPressed(GTA.Control.VehicleDuck))
             {
-                if (!GTA.UI.Screen.IsFadedOut)
-                    Sounds.RCBrake?.Play();
+                Sounds.RCBrake?.Play();
 
                 SetForcedHandbrake();
 
-                if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Mods.Hoodbox == ModState.Off && Mods.Hook == HookState.Off && Mods.HoverUnderbody == ModState.Off && Mods.WormholeType == WormholeType.BTTF1 && Properties.IsFueled && Properties.AreTimeCircuitsOn && !GTA.UI.Screen.IsFadedOut)
+                if (_forcedHandbrake && Mods.IsDMC12 && Mods.Reactor == ReactorType.Nuclear && Mods.Plate == PlateType.Outatime && Mods.Hoodbox == ModState.Off && Mods.Hook == HookState.Off && Mods.HoverUnderbody == ModState.Off && Mods.WormholeType == WormholeType.BTTF1 && Properties.IsFueled && Properties.AreTimeCircuitsOn)
                 {
                     Sounds.RCSomeSerious?.Stop();
                     Sounds.RCSomeSerious?.Play();
@@ -181,8 +180,7 @@ namespace BackToTheFutureV
                 sound.SourceEntity = TimeMachine.OriginalPed;
             }
 
-            if (!GTA.UI.Screen.IsFadedOut)
-                Sounds.RCOn?.Play();
+            Sounds.RCOn?.Play();
 
             //RCProp = new AnimateProp(ModelHandler.BTTFMrFusion, TimeMachine.OriginalPed, TimeMachine.OriginalPed.Bones[Bone.MHLeftHandSide]);
             //RCProp.SpawnProp();
@@ -364,7 +362,7 @@ namespace BackToTheFutureV
             Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, TimeMachine.OriginalPed);
             Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, TimeMachine.OriginalPed);
 
-            if (Game.IsControlJustPressed(GTA.Control.VehicleAccelerate) && !GTA.UI.Screen.IsFadedOut)
+            if (Game.IsControlJustPressed(GTA.Control.VehicleAccelerate))
             {
                 Sounds.RCAcceleration?.Play();
             }

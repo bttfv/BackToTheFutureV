@@ -343,7 +343,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (Game.GameTime < _gameTimer || !Vehicle.IsVisible || !Mods.IsDMC12 || GTA.UI.Screen.IsFadedOut)
+            if (Game.GameTime < _gameTimer || !Vehicle.IsVisible || !Mods.IsDMC12)
             {
                 return;
             }
@@ -396,20 +396,14 @@ namespace BackToTheFutureV
 
             if (Vehicle.IsEngineRunning && !_engineOn)
             {
-                if (!(GTA.UI.Screen.IsFadingIn || GTA.UI.Screen.IsFadingOut))
-                {
-                    _engineOffsound.Stop();
-                    _engineOnSound.Play();
-                }
+                _engineOffsound.Stop();
+                _engineOnSound.Play();
                 _engineOn = true;
             }
             else if (!Vehicle.IsEngineRunning && _engineOn)
             {
-                if (!(GTA.UI.Screen.IsFadingIn || GTA.UI.Screen.IsFadingOut))
-                {
-                    _engineOnSound.Stop();
-                    _engineOffsound.Play();
-                }
+                _engineOnSound.Stop();
+                _engineOffsound.Play();
                 _engineOn = false;
             }
 

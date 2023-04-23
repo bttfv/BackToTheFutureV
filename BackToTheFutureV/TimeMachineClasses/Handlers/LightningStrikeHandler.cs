@@ -70,9 +70,7 @@ namespace BackToTheFutureV
         {
             if (!_instant)
             {
-                if (!GTA.UI.Screen.IsFadedOut)
-                    Sounds.Thunder?.Play();
-
+                Sounds.Thunder?.Play();
                 Props.Lightnings.IsSequenceLooped = Properties.AreTimeCircuitsOn;
                 Props.Lightnings.Play();
             }
@@ -90,8 +88,7 @@ namespace BackToTheFutureV
 
                 Particles.LightningSparks?.Play();
 
-                if (!GTA.UI.Screen.IsFadedOut)
-                    Sounds.LightningStrike?.Play();
+                Sounds.LightningStrike?.Play();
 
                 Events.SetSIDLedsState?.Invoke(true, true);
 

@@ -71,7 +71,7 @@ namespace BackToTheFutureV
 
                 if (mphSpeed > currentSpeed || mphSpeed < currentSpeed)
                 {
-                    if ((int)mphSpeed != (int)currentSpeed && ModSettings.PlaySpeedoBeep && Vehicle.IsVisible && !GTA.UI.Screen.IsFadedOut)
+                    if ((int)mphSpeed != (int)currentSpeed && ModSettings.PlaySpeedoBeep && Vehicle.IsVisible)
                     {
                         Sounds.Speedo?.Play();
                     }

@@ -63,7 +63,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(GTAPath)\scripts\irrKlang.NET4.dll</HintPath>
     </Reference>
-    <Reference Include="KlangRageAudioLibrary, Version=1.0.7917.28287, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="KlangRageAudioLibrary, Version=1.0.8513.18595, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(GTAPath)\scripts\KlangRageAudioLibrary.dll</HintPath>
     </Reference>

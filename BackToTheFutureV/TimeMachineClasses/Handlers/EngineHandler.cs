@@ -229,7 +229,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Vehicle.IsVisible == false || !Vehicle.IsEngineRunning || !ModSettings.PlayEngineSounds || Main.FirstTick || GTA.UI.Screen.IsFadedOut)
+            if (Vehicle.IsVisible == false || !Vehicle.IsEngineRunning || !ModSettings.PlayEngineSounds || Main.FirstTick)
             {
                 Stop();
                 return;

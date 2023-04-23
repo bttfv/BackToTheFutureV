@@ -59,8 +59,7 @@ namespace BackToTheFutureV
                         break;
                     }
 
-                    if (!GTA.UI.Screen.IsFadedOut)
-                        Sounds.Reenter?.Play();
+                    Sounds.Reenter?.Play();
 
                     Particles?.Flash?.Play();
 

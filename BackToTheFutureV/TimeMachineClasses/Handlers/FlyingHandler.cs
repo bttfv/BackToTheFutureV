@@ -168,8 +168,7 @@ namespace BackToTheFutureV
                 Props.HoverModeWheelsGlow?.SpawnProp();
             }
 
-            if (!GTA.UI.Screen.IsFadedOut)
-                Sounds.HoverModeUp?.Play();
+            Sounds.HoverModeUp?.Play();
 
             _startHoverGlowLater = false;
         }
@@ -265,8 +264,7 @@ namespace BackToTheFutureV
 
             if (Properties.IsFlying && !instant)
             {
-                if (!GTA.UI.Screen.IsFadedOut)
-                    Sounds.HoverModeOn?.Play();
+                Sounds.HoverModeOn?.Play();
 
                 Particles?.HoverModeSmoke?.Play();
             }
@@ -274,8 +272,7 @@ namespace BackToTheFutureV
             {
                 if (!Properties.IsFlying)
                 {
-                    if (!GTA.UI.Screen.IsFadedOut)
-                        Sounds.HoverModeOff?.Play();
+                    Sounds.HoverModeOff?.Play();
                 }
 
                 Props.HoverModeWheelsGlow?.Delete();
@@ -664,8 +661,7 @@ namespace BackToTheFutureV
             // Play boost sound
             if (!_hasPlayedBoostSound)
             {
-                if (!GTA.UI.Screen.IsFadedOut)
-                    Sounds.HoverModeBoost?.Play();
+                Sounds.HoverModeBoost?.Play();
 
                 _hasPlayedBoostSound = true;
             }

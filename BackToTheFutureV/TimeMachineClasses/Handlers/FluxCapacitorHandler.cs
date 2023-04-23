@@ -95,7 +95,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (!Properties.AreTimeCircuitsOn || GTA.UI.Screen.IsFadedOut)
+            if (!Properties.AreTimeCircuitsOn)
             {
                 return;
             }

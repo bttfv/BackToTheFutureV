@@ -45,8 +45,7 @@ namespace BackToTheFutureV
                 if (Players.Wormhole.IsPlaying)
                 {
                     DMC12?.SetVoltValue?.Invoke(50);
-                    if (!GTA.UI.Screen.IsFadedOut)
-                        Sounds.WormholeInterrupted?.Play();
+                    Sounds.WormholeInterrupted?.Play();
                 }
 
                 Stop();
@@ -55,7 +54,7 @@ namespace BackToTheFutureV
 
         public void OnSIDMaxSpeedReached(bool over)
         {
-            if (!Properties.AreTimeCircuitsOn || !over || GTA.UI.Screen.IsFadedOut)
+            if (!Properties.AreTimeCircuitsOn || !over)
             {
                 return;
             }
@@ -116,8 +115,7 @@ namespace BackToTheFutureV
                             Properties.CanConvert = false;
                         }
 
-                        if (!GTA.UI.Screen.IsFadedOut)
-                            Sounds.Sparks?.Play();
+                        Sounds.Sparks?.Play();
                     }
 
                     if (Mods.WormholeType == WormholeType.BTTF3 && Game.GameTime >= Constants.StabilizationSoundAtTime && Constants.OverTimeTravelAtSpeed)
@@ -126,8 +124,7 @@ namespace BackToTheFutureV
 
                         if (!Sounds.SparkStabilized.IsAnyInstancePlaying)
                         {
-                            if (!GTA.UI.Screen.IsFadedOut)
-                                Sounds.SparkStabilized?.Play();
+                            Sounds.SparkStabilized?.Play();
                         }
                     }
 
@@ -145,8 +142,7 @@ namespace BackToTheFutureV
 
                     if (!Sounds.SparksEmpty.IsAnyInstancePlaying)
                     {
-                        if (!GTA.UI.Screen.IsFadedOut)
-                            Sounds.SparksEmpty?.Play();
+                        Sounds.SparksEmpty?.Play();
                     }
                 }
             }

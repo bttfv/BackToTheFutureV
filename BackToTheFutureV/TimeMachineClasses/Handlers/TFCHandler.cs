@@ -131,7 +131,7 @@ namespace BackToTheFutureV
         {
             if (!hasPlayed && Properties.AreTimeCircuitsOn && Game.GameTime > playAt)
             {
-                if (Mods.Reactor == ReactorType.Nuclear && !GTA.UI.Screen.IsFadedOut)
+                if (Mods.Reactor == ReactorType.Nuclear)
                 {
                     Sounds.PlutoniumGauge?.Play();
                 }

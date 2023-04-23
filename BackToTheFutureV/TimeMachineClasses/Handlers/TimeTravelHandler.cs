@@ -120,8 +120,7 @@ namespace BackToTheFutureV
                         RemoteTimeMachineHandler.RemoteTimeMachines.FindAll(x => x.TimeMachineClone.Properties.GUID == Properties.GUID).ForEach(x => x.TimeMachineClone.Properties.PlayerUsed = true);
                         // Create a copy of the current status of the time machine
                         TimeMachine.LastDisplacementClone = TimeMachine.Clone();
-                        if (!Screen.IsFadedOut)
-                            Sounds.TimeTravelInstant?.Play();
+                        Sounds.TimeTravelInstant?.Play();
 
                         if (FusionUtils.IsCameraInFirstPerson())
                         {
@@ -158,8 +157,7 @@ namespace BackToTheFutureV
 
                         return;
                     }
-                    if (!Screen.IsFadedOut)
-                        Sounds.TimeTravelCutscene?.Play();
+                    Sounds.TimeTravelCutscene?.Play();
 
                     // Play the effects
                     Particles?.TimeTravelEffect?.Play();
@@ -177,7 +175,7 @@ namespace BackToTheFutureV
                         else
                             RemoteTimeMachineHandler.RemoteTimeMachines.FindAll(x => x.TimeMachineClone.Properties.GUID == Properties.GUID).FindLast(x => x.TimeMachineClone.Properties.PlayerUsed = false);
 
-                        if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime && !Screen.IsFadedOut)
+                        if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime)
                         {
                             Sounds.Plate?.Play();
                             Props.LicensePlate?.Play(false, true);
@@ -217,7 +215,7 @@ namespace BackToTheFutureV
 
                     Vehicle.SetVisible(false);
 
-                    if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime && !Screen.IsFadedOut)
+                    if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime)
                     {
                         //if (Properties.TimeTravelType == TimeTravelType.Cutscene)
                         //    TimeMachine.CustomCamera = TimeMachineCamera.LicensePlate;

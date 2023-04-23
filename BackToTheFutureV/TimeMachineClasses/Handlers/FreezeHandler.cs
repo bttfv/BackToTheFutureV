@@ -131,7 +131,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Game.GameTime < _gameTimer || GTA.UI.Screen.IsFadedOut)
+            if (Game.GameTime < _gameTimer)
             {
                 return;
             }

@@ -205,8 +205,7 @@ namespace BackToTheFutureV
                     {
                         //Would be cool to loop this animation at the key-turning step...
                         Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop);
-                        if (!GTA.UI.Screen.IsFadedOut)
-                            Sounds.EngineRestarter?.Play();
+                        Sounds.EngineRestarter?.Play();
 
                         _restartAt = Game.GameTime + FusionUtils.Random.Next(3000, 10000);
                         _isRestarting = true;
