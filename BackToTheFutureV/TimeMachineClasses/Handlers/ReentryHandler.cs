@@ -136,11 +136,8 @@ namespace BackToTheFutureV
 
         private void OnReenterEnded()
         {
-            if (Driver == FusionUtils.PlayerPed && ModSettings.WaybackSystem)
+            if (Driver == FusionUtils.PlayerPed)
             {
-                // Remake the clone so it has the proper GUID for Wayback
-                TimeMachine.LastDisplacementClone = TimeMachine.Clone();
-                TimeMachine.LastDisplacementClone.Properties.IsWayback = true;
                 RemoteTimeMachineHandler.AddRemote(TimeMachine.LastDisplacementClone);
             }
 

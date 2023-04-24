@@ -332,6 +332,13 @@ namespace BackToTheFutureV
                 timeMachine.Events.SetTimeCircuits?.Invoke(true, true);
 
                 timeMachine.Events.OnReenterStarted?.Invoke();
+
+                if (spawnFlags.HasFlag(SpawnFlags.New))
+                    RemoteTimeMachineHandler.AddRemote(timeMachine.Clone());
+            } 
+            else if (!ModSettings.WaybackSystem && spawnFlags.HasFlag(SpawnFlags.New))
+            {
+                RemoteTimeMachineHandler.AddRemote(timeMachine.Clone());
             }
 
             if (timeMachine.Vehicle.IsSeatFree(VehicleSeat.Driver) && timeMachine.Properties.IsFlying)
