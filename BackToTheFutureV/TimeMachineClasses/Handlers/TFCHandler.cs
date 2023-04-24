@@ -48,6 +48,9 @@ namespace BackToTheFutureV
 
             hasTimeTraveled = false;
 
+            if (!Properties.AreTimeCircuitsOn)
+                startBlink = false;
+
             if (!startBlink)
                 return;
 
@@ -89,7 +92,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (Props.FuelGauge.IsPlaying)
+            if (Props.FuelGauge.IsPlaying && !hasTimeTraveled)
             {
                 Props.FuelGauge.Stop();
 
@@ -121,7 +124,7 @@ namespace BackToTheFutureV
                 Props.Gauge1?.Play();
                 Props.Gauge2?.Play();
 
-                if (Props.FuelGauge.CurrentRotation.Y > 0)
+                if (Props.FuelGauge.CurrentRotation.Y > 0 && !hasTimeTraveled)
                     Props.FuelGauge.Play();
 
                 Props.GaugeGlow?.Delete();
