@@ -112,6 +112,7 @@ namespace BackToTheFutureV
             }
             else
             {
+                IsPlaying = false;
                 Props.TFCOff?.SpawnProp();
                 Props.TFCOn?.Delete();
 

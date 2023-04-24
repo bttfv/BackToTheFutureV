@@ -150,6 +150,8 @@ namespace BackToTheFutureV
 
                         TimeHandler.TimeTravelTo(Properties.DestinationTime);
 
+                        Function.Call(Hash.CLEAR_AREA_OF_COPS, Vehicle.Position.X, Vehicle.Position.Y, Vehicle.Position.Z, 250f, false);
+
                         // Invoke delegate
                         Events.OnTimeTravelEnded?.Invoke();
                         Events.OnReenterEnded?.Invoke();
@@ -283,6 +285,8 @@ namespace BackToTheFutureV
                     {
                         TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-2));
                     }
+
+                    Function.Call(Hash.CLEAR_AREA_OF_COPS, Vehicle.Position.X, Vehicle.Position.Y, Vehicle.Position.Z, 250f, false);
 
                     if (Properties.TimeTravelDestPos != Vector3.Zero)
                     {
