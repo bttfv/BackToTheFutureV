@@ -30,18 +30,14 @@ namespace BackToTheFutureV
             hasTimeTraveled = true;
 
             if (startBlink)
-            {
-                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].StepRatio = 0.0454f;
-                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].SmoothEnd = false;
-            }
+                ToggleFuelGauge(false);
 
             Props.FuelGauge?.Play();
         }
 
         private void FuelGauge_OnAnimCompleted(AnimationStep animationStep)
         {
-            Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].StepRatio = 1f;
-            Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].SmoothEnd = true;
+            ToggleFuelGauge(true);
 
             if (hasTimeTraveled && !Properties.HasBeenStruckByLightning)
                 Properties.ReactorCharge--;
@@ -55,6 +51,20 @@ namespace BackToTheFutureV
                 return;
 
             Events.StartFuelBlink?.Invoke();
+        }
+
+        private void ToggleFuelGauge(bool state)
+        {
+            if (state)
+            {
+                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].StepRatio = 1f;
+                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].SmoothEnd = true;
+            }
+            else
+            {
+                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].StepRatio = 0.0454f;
+                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].SmoothEnd = false;
+            }
         }
 
         private void OnTimeCircuitsToggle(bool instant = false)
@@ -83,24 +93,14 @@ namespace BackToTheFutureV
                 return;
             }
 
-            for (int i = 0; i < 2; i++)
-            {
-                if (Props.Gauges[i].IsPlaying)
-                {
-                    Props.Gauges[i].Stop();
-                    Props.Gauges[i][AnimationType.Rotation][AnimationStep.First][Coordinate.Y].IsIncreasing = !Props.Gauges[i][AnimationType.Rotation][AnimationStep.First][Coordinate.Y].IsIncreasing;
-                }
-            }
+            for (int i = 0; i < 3; i++)
+                Props.Gauges[i].Stop();
 
             if (Props.FuelGauge.IsPlaying && !hasTimeTraveled)
             {
-                Props.FuelGauge.Stop();
+                Props.FuelGauge.Stop(!hasTimeTraveled);
 
-                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].StepRatio = 1f;
-                Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].SmoothEnd = true;
-
-                if (!hasTimeTraveled)
-                    Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].IsIncreasing = !Props.FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].IsIncreasing;
+                ToggleFuelGauge(true);
             }
 
             if (Properties.AreTimeCircuitsOn)
@@ -133,6 +133,7 @@ namespace BackToTheFutureV
 
         public override void KeyDown(KeyEventArgs e)
         {
+
         }
 
         public override void Tick()

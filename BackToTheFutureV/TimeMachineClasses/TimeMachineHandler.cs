@@ -335,7 +335,7 @@ namespace BackToTheFutureV
 
                 if (spawnFlags.HasFlag(SpawnFlags.New))
                     RemoteTimeMachineHandler.AddRemote(timeMachine.Clone());
-            } 
+            }
             else if (!ModSettings.WaybackSystem && spawnFlags.HasFlag(SpawnFlags.New))
             {
                 RemoteTimeMachineHandler.AddRemote(timeMachine.Clone());

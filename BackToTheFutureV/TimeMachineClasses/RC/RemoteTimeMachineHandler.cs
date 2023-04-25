@@ -3,6 +3,7 @@ using FusionLibrary.Extensions;
 using LemonUI.TimerBars;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BackToTheFutureV
 {
@@ -26,6 +27,16 @@ namespace BackToTheFutureV
             };
 
             CustomNativeMenu.ObjectPool.Add(TimerBarCollection);
+        }
+
+        public static RemoteTimeMachine GetRemoteTimeMachineFromGUID(Guid guid)
+        {
+            RemoteTimeMachine timeMachine = RemoteTimeMachines.SingleOrDefault(x => x.TimeMachineClone.Properties.GUID == guid);
+
+            if (timeMachine == default)
+                return null;
+
+            return timeMachine;
         }
 
         public static void StartRemoteControl(TimeMachine timeMachine)

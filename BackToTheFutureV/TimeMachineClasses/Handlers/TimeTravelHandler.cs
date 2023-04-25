@@ -102,6 +102,16 @@ namespace BackToTheFutureV
                         }
                     }
 
+                    RemoteTimeMachine remoteTimeMachine = RemoteTimeMachineHandler.GetRemoteTimeMachineFromGUID(Properties.GUID);
+
+                    if (remoteTimeMachine != null)
+                    {
+                        if (Properties.DestinationTime > FusionUtils.CurrentTime)
+                            remoteTimeMachine.TimeMachineClone.ExistsUntil = DateTime.MaxValue;
+                        else
+                            remoteTimeMachine.TimeMachineClone.ExistsUntil = FusionUtils.CurrentTime;
+                    }
+
                     Properties.LastVelocity = Vehicle.Velocity;
 
                     // Set previous time

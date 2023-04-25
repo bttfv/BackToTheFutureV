@@ -14,6 +14,8 @@ namespace BackToTheFutureV
         public PropertiesHandler Properties { get; }
         public VehicleReplica Vehicle { get; }
 
+        public DateTime ExistsUntil { get; set; } = DateTime.MaxValue;
+
         public TimeMachineClone(TimeMachine timeMachine)
         {
             Mods = timeMachine.Mods.Clone();
