@@ -15,6 +15,16 @@ namespace BackToTheFutureV
 
         public static List<WaybackMachine> CurrentReplaying => Machines.Where(x => x.Status == WaybackStatus.Playing).ToList();
 
+        public static WaybackMachine GetWaybackMachineFromGUID(Guid guid)
+        {
+            WaybackMachine waybackMachine = Machines.SingleOrDefault(x => x.WaitForTimeMachineGUID == guid);
+
+            if (waybackMachine == default)
+                return null;
+
+            return waybackMachine;
+        }
+
         static WaybackSystem()
         {
             TimeHandler.OnTimeChanged += (DateTime dateTime) => Stop();

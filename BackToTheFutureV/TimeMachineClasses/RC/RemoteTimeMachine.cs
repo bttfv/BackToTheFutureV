@@ -93,7 +93,7 @@ namespace BackToTheFutureV
                 case ReenterType.Spawn:
                     TimeMachineClone timeMachineClone = TimeMachineClone;
 
-                    if (FusionUtils.CurrentTime >= TimeMachineClone.Properties.DestinationTime.AddMinutes(10))
+                    if (WaybackSystem.GetWaybackMachineFromGUID(timeMachineClone.Properties.GUID) == null && FusionUtils.CurrentTime >= TimeMachineClone.Properties.DestinationTime.AddMinutes(10))
                     {
                         timeMachineClone.Vehicle.Position = timeMachineClone.Vehicle.Position.Around(FusionUtils.Random.Next(0, 1000));
                         timeMachineClone.Vehicle.Position.RequestCollision();
