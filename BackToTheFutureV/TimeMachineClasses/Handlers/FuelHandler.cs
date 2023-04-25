@@ -56,7 +56,7 @@ namespace BackToTheFutureV
 
             if (Properties.ReactorState != ReactorState.Closed)
             {
-                SetReactorState(ReactorState.Opened);
+                SetReactorState(ReactorState.Closed);
             }
         }
 
