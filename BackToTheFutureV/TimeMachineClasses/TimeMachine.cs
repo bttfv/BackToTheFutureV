@@ -50,6 +50,9 @@ namespace BackToTheFutureV
 
         public bool Disposed { get; private set; }
 
+        public bool ReturnVisible { get; set; }
+        private int gameTime;
+
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
             Vehicle = vehicle;
@@ -226,6 +229,12 @@ namespace BackToTheFutureV
             }
         }
 
+        public void StartTurnVisible()
+        {
+            ReturnVisible = true;
+            gameTime = Game.GameTime + 500;
+        }
+
         public void Tick()
         {
             if (!IsReady)
@@ -239,6 +248,18 @@ namespace BackToTheFutureV
                 TimeMachineHandler.RemoveTimeMachine(this, false);
 
                 return;
+            }
+
+            if (ReturnVisible && gameTime <= Game.GameTime)
+            {
+                if (Vehicle.IncreaseAlpha() == AlphaLevel.L5)
+                {
+                    ReturnVisible = false;
+                }
+                else
+                {
+                    gameTime = Game.GameTime + 500;
+                }
             }
 
             // TODO: Figure out how to iterate WaybackMachines to find the one using this and stop it/time paradox it

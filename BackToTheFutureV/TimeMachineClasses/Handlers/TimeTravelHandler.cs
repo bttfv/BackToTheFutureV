@@ -199,7 +199,10 @@ namespace BackToTheFutureV
                             RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone());
                         }
 
-                        Vehicle.SetVisible(false);
+                        if (Properties.DestinationTime <= FusionUtils.CurrentTime)
+                            TimeMachine.Vehicle.SetAlpha(AlphaLevel.L0);
+                        else
+                            Vehicle.SetVisible(false);
 
                         // Invoke delegate
                         Events.OnTimeTravelEnded?.Invoke();
@@ -251,7 +254,14 @@ namespace BackToTheFutureV
                             RemoteTimeMachineHandler.StopRemoteControl();
                         }
 
-                        TimeMachineHandler.RemoveTimeMachine(TimeMachine, true, true);
+                        if (Properties.DestinationTime <= FusionUtils.CurrentTime)
+                        {
+                            TimeMachine.StartTurnVisible();
+                            Events.OnTimeTravelEnded?.Invoke();
+                            Properties.TimeTravelPhase = TimeTravelPhase.Completed;
+                        }                            
+                        else
+                            TimeMachineHandler.RemoveTimeMachine(TimeMachine, true, true);
 
                         return;
                     }
