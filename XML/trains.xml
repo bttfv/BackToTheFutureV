@@ -1143,6 +1143,124 @@ metrotrain - carriage_vert_offset = "1.12"
 				carriage_vert_offset = "0.70"
 			repeat_count = "1" />	
 	</train_config>
+
+	<train_config
+			name = "freight_config25"
+			populate_train_dist = "40.0"
+			announce_stations = "false"
+			doors_beep = "false"
+			carriages_hang = "false"
+			carriages_swing = "false"
+			link_tracks_with_adjacent_stations = "true"
+			carriage_gap = "0.1"
+			no_random_spawn = "true">
+
+			<carriage
+					model_name = "freight"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "1.65"
+			repeat_count = "1" />
+			<carriage
+					model_name = "freightgrain"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "0.99"
+			repeat_count = "1" />			
+			<carriage
+				model_name = "freightcar2"
+				max_peds_per_carriage = "0"
+				flip_model_dir = "false"
+				do_interior_lights = "true"
+				carriage_vert_offset = "0.70"
+			repeat_count = "1" />
+			<carriage
+					model_name = "tankercar"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "0.99"
+			repeat_count = "1" />
+			<carriage
+					model_name = "freightgrain"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "0.99"
+			repeat_count = "1" />
+			<carriage
+					model_name = "tankercar"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "0.99"
+			repeat_count = "1" />
+			<carriage
+				model_name = "freightcar2"
+				max_peds_per_carriage = "0"
+				flip_model_dir = "false"
+				do_interior_lights = "true"
+				carriage_vert_offset = "0.70"
+			repeat_count = "1" />
+			<carriage
+					model_name = "freightgrain"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "0.99"
+			repeat_count = "1" />
+			<carriage
+				model_name = "freightcar2"
+				max_peds_per_carriage = "0"
+				flip_model_dir = "false"
+				do_interior_lights = "true"
+				carriage_vert_offset = "0.70"
+			repeat_count = "1" />
+			<carriage
+					model_name = "tankercar"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "0.99"
+			repeat_count = "2" />
+			<carriage
+					model_name = "freightcar2"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "0.70"
+			repeat_count = "1" />			
+			<carriage
+					model_name = "tankercar"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "0.99"
+			repeat_count = "1" />
+			<carriage
+				model_name = "freightcar2"
+				max_peds_per_carriage = "0"
+				flip_model_dir = "false"
+				do_interior_lights = "true"
+				carriage_vert_offset = "0.70"
+			repeat_count = "1" />
+			<carriage
+					model_name = "freightgrain"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "0.99"
+			repeat_count = "1" />
+			<carriage
+					model_name = "tankercar"
+					max_peds_per_carriage = "0"
+					flip_model_dir = "false"
+					do_interior_lights = "true"
+					carriage_vert_offset = "0.99"
+			repeat_count = "2" />
+	</train_config>	
 	
 	<train_config
 			name = "metro_config0"
@@ -1226,6 +1344,7 @@ metrotrain - carriage_vert_offset = "1.12"
 		<train_config_ref name = "freight_config22" />	
 		<train_config_ref name = "freight_config23" />		
 		<train_config_ref name = "freight_config24" />		<!-- Added by Rockstar on the Tuners DLC (2372) -->
+		<train_config_ref name = "freight_config25" /> 		<!-- Added by Rockstar in 2824 -->
 	</train_config_group>
 	
 	<train_config_group name = "metro_group">
