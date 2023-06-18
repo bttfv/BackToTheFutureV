@@ -6,12 +6,12 @@
          <colors>
             <Item>
                <indices content="char_array">
-					119
-				    3
-				    134
-				    24
-				    3
-				    0
+                  119
+				  3
+				  134
+				  24
+				  3
+				  0
                </indices>
                <liveries>
                   <Item value="false" />
@@ -37,8 +37,8 @@
                </Item>
             </Probabilities>
          </plateProbabilities>
-         <lightSettings value="1985" />
+         <lightSettings value="2015" />
          <sirenSettings value="0" />
       </Item>
-   </variationData>
+	  </variationData>
 </CVehicleModelInfoVariation>

@@ -1156,7 +1156,7 @@
 	</Kits>
 	<Lights>
 		<Item>
-			<id value="1985"/>
+			<id value="2015"/>
 			<indicator>
 				<intensity value="0.375000"/>
 				<falloffMax value="2.500000"/>
