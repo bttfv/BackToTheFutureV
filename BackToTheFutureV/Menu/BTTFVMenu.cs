@@ -12,7 +12,7 @@ namespace BackToTheFutureV
 
         public BTTFVMenu(string internalName) : base(TextHandler.Me, internalName, banner)
         {
-            Title = null;
+            BannerText = null;
         }
     }
 }
