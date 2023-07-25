@@ -11,7 +11,7 @@
 - [RageAm](https://github.com/ranstar74/rageAm)
 
 ## For developers:
-In order to open the solution, you need Visual Studio 2017+ with Xamarin components installed.
+In order to open the solution, you need Visual Studio 2017+ as well as [KlangRageAudioLibrary & irrKlang.NET4](https://github.com/bttfv/KlangRageAudioLibrary)
 
 ## Controls:
 - ### Keyboard **/** Controller
