@@ -9,7 +9,7 @@ namespace BackToTheFutureV
         private static int _length;
         public static void Register()
         {
-            new MomentReplica(new DateTime(1885, 9, 4, 21, 0, 0)) { Weather = Weather.ExtraSunny, MomentDuration = 3660, ResetWanted = false };
+            new MomentReplica(new DateTime(1885, 9, 5, 0, 0, 0)) { Weather = Weather.ExtraSunny, MomentDuration = 4320, ResetWanted = false };
             new MomentReplica(new DateTime(1955, 11, 5, 5, 0, 0)) { Weather = Weather.Raining, TransitionWeather = true, MomentDuration = 40, ResetWanted = false };
             new MomentReplica(new DateTime(1955, 11, 5, 5, 46, 0)) { Weather = Weather.Clearing, TransitionWeather = true, PuddleLevel = 0.5f, MomentDuration = 6, ResetWanted = false };
             new MomentReplica(new DateTime(1955, 11, 5, 6, 47, 0)) { Weather = Weather.Clouds, TransitionWeather = true, PuddleLevel = 0.5f, MomentDuration = 55, ResetWanted = false };

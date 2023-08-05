@@ -14,8 +14,11 @@ namespace BackToTheFutureV
         private int _coolDown = 0;
         private bool _wasOn;
         private bool _wasStruck;
+        private bool _hoodText = false;
 
         private float _fluxBandsCooldown = -1;
+
+        private bool _hookText = false;
 
         public ComponentsHandler(TimeMachine timeMachine) : base(timeMachine)
         {
@@ -94,8 +97,9 @@ namespace BackToTheFutureV
         {
             if ((Mods.Hook == HookState.On || Mods.Hook == HookState.OnDoor) && !FusionUtils.PlayerPed.IsInVehicle())
             {
-                if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1))
+                if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1) && (!GTA.UI.Screen.IsHelpTextDisplayed || _hookText))
                 {
+                    _hookText = true;
                     if (Mods.Hook == HookState.OnDoor)
                     {
                         TextHandler.Me.ShowHelp("ApplyHook");
@@ -116,6 +120,10 @@ namespace BackToTheFutureV
                             Mods.Hook = HookState.OnDoor;
                         }
                     }
+                }
+                else if (!FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "window_rf", 1) && _hookText)
+                {
+                    _hookText = false;
                 }
             }
         }
@@ -202,14 +210,20 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f))
+            if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f) && (!GTA.UI.Screen.IsHelpTextDisplayed || _hoodText))
             {
+                _hoodText = true;
                 TextHandler.Me.ShowHelp("Warmup");
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))
                 {
                     _warmUp = Game.GameTime + 8000;
+                    _hoodText = false;
                 }
+            }
+            else if (!FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f) && _hoodText)
+            {
+                _hoodText = false;
             }
         }
 

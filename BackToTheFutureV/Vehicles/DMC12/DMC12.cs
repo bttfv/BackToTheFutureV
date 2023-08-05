@@ -28,6 +28,7 @@ namespace BackToTheFutureV
         private readonly AnimateProp bayLightOff;
         private readonly AnimateProp bayLightOn;
         private readonly AnimateProp doorIndicator;
+        private readonly AnimateProp brakeIndicator;
         private readonly AnimateProp domeLightOff;
         private readonly AnimateProp domeLightOn;
         private readonly AnimateProp hoodLightOff;
@@ -104,6 +105,7 @@ namespace BackToTheFutureV
             bayLightOff = new AnimateProp(ModelHandler.BayLightOff, Vehicle, "bumper_r");
             bayLightOn = new AnimateProp(ModelHandler.BayLightOn, Vehicle, "bumper_r");
             doorIndicator = new AnimateProp(ModelHandler.DoorIndicator, Vehicle, Vector3.Zero, Vector3.Zero);
+            brakeIndicator = new AnimateProp(ModelHandler.BrakeIndicator, Vehicle, Vector3.Zero, Vector3.Zero);
             domeLightOff = new AnimateProp(ModelHandler.DomeLightOff, Vehicle, "chassis");
             domeLightOn = new AnimateProp(ModelHandler.DomeLightOn, Vehicle, "chassis");
             hoodLightOff = new AnimateProp(ModelHandler.HoodLightOff, Vehicle, "bonnet");
@@ -368,6 +370,17 @@ namespace BackToTheFutureV
             {
                 if (doorIndicator.IsSpawned)
                     doorIndicator.Delete();
+            }
+
+            if (Vehicle.IsEngineRunning && VehicleControl.GetHandbrake(Vehicle))
+            {
+                if (!brakeIndicator.IsSpawned)
+                    brakeIndicator.SpawnProp();
+            }
+            else
+            {
+                if (brakeIndicator.IsSpawned)
+                    brakeIndicator.Delete();
             }
         }
 

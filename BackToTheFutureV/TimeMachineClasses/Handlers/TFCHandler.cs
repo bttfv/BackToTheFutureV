@@ -39,9 +39,6 @@ namespace BackToTheFutureV
         {
             ToggleFuelGauge(true);
 
-            if (hasTimeTraveled && !Properties.HasBeenStruckByLightning)
-                Properties.ReactorCharge--;
-
             hasTimeTraveled = false;
 
             if (!Properties.AreTimeCircuitsOn)

@@ -52,6 +52,7 @@ namespace BackToTheFutureV
 
         public bool ReturnVisible { get; set; }
         private int gameTime;
+        private bool hasCollided;
 
         public TimeMachine(Vehicle vehicle, WormholeType wormholeType)
         {
@@ -112,14 +113,7 @@ namespace BackToTheFutureV
                 registeredHandlers.Add("ComponentsHandler", new ComponentsHandler(this));
                 registeredHandlers.Add("EngineHandler", new EngineHandler(this));
                 registeredHandlers.Add("StarterHandler", new StarterHandler(this));
-                //registeredHandlers.Add("DriverAIHandler", new DriverAIHandler(this));
                 registeredHandlers.Add("ClockHandler", new ClockHandler(this));
-
-                //VehicleBone.TryGetForVehicle(Vehicle, "suspension_lf", out boneLf);
-                //VehicleBone.TryGetForVehicle(Vehicle, "suspension_rf", out boneRf);
-
-                //leftSuspesionOffset = Vehicle.Bones["suspension_lf"].GetRelativeOffsetPosition(new Vector3(0.025f, 0, 0.005f));
-                //rightSuspesionOffset = Vehicle.Bones["suspension_rf"].GetRelativeOffsetPosition(new Vector3(-0.025f, 0, 0.005f));
             }
 
             Decorators = new DecoratorsHandler(this);
@@ -356,6 +350,26 @@ namespace BackToTheFutureV
                     {
                         Props.LicensePlate[AnimationType.Rotation][AnimationStep.First][Coordinate.Z].StepRatio -= Game.LastFrameTime;
                     }
+                }
+
+                if (Sounds.SlideStop.IsAnyInstancePlaying)
+                {
+                    if (Vehicle.IsInAir || (Vehicle.HasCollided && Vehicle.Speed < 7f))
+                    {
+                        if (Vehicle.HasCollided && Vehicle.Speed < 7f)
+                        {
+                            hasCollided = true;
+                        }
+                        Sounds.SlideStop.Volume = 0f;
+                    }
+                    else if (!hasCollided)
+                    {
+                        Sounds.SlideStop.Volume = 0.75f;
+                    }
+                }
+                else if (hasCollided)
+                {
+                    hasCollided = false;
                 }
             }
 

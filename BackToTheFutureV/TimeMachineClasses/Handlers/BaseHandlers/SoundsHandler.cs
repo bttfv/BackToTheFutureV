@@ -93,6 +93,7 @@ namespace BackToTheFutureV
 
         //Reenter
         public AudioPlayer Reenter;
+        public AudioPlayer SlideStop;
 
         //TCD Input
         public AudioPlayer InputEnter;
@@ -245,6 +246,9 @@ namespace BackToTheFutureV
             FluxCapacitor.MinimumDistance = 0.5f;
             FluxCapacitor.SourceBone = "flux_capacitor";
 
+            //Reentry
+            SlideStop = AudioEngine.Create("general/slideStop.wav", Presets.Exterior);
+
             //Plate
             Plate = AudioEngine.Create("general/plate.wav", Presets.ExteriorLoud);
 
@@ -328,6 +332,7 @@ namespace BackToTheFutureV
             TimeTravelCutscene?.Dispose();
             TimeTravelInstant?.Dispose();
             Reenter?.Dispose();
+            SlideStop?.Dispose();
 
             //Plate
             Plate?.Dispose();

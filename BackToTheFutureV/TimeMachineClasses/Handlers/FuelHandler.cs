@@ -16,6 +16,7 @@ namespace BackToTheFutureV
         private const int TotalBlinks = 16;
 
         private bool _isBlinking;
+        private bool _refuelText = false;
 
         private float _reactorGlowingTime = 0;
         private float _refuelTime = 0;
@@ -62,7 +63,7 @@ namespace BackToTheFutureV
 
         private void OnControlJustReleased()
         {
-            if (Properties.ReactorState != ReactorState.Opened || Players.Refuel.IsPlaying || !IsPlayerInPosition())
+            if (Properties.ReactorState != ReactorState.Opened || Players.Refuel.IsPlaying || !IsPlayerInPosition() || (GTA.UI.Screen.IsHelpTextDisplayed && !_refuelText))
             {
                 return;
             }
@@ -86,7 +87,8 @@ namespace BackToTheFutureV
 
         private void OnControlLongPressed()
         {
-            if ((Properties.ReactorState != ReactorState.Opened && Properties.ReactorState != ReactorState.Closed) || Players.Refuel.IsPlaying || !IsPlayerInPosition())
+            if ((Properties.ReactorState != ReactorState.Opened && Properties.ReactorState != ReactorState.Closed) || Players.Refuel.IsPlaying || !IsPlayerInPosition() ||
+                 (GTA.UI.Screen.IsHelpTextDisplayed && !_refuelText))
             {
                 return;
             }
@@ -188,7 +190,8 @@ namespace BackToTheFutureV
                 }
             }
 
-            if (Mods.Reactor == ReactorType.MrFusion && Properties.ReactorState == ReactorState.Closed && FusionUtils.IsBulletPresent(Vehicle.Bones["mr_fusion_handle"].Position, 0.085f) && FusionUtils.Random.NextDouble() < 0.2)
+            if (Mods.Reactor == ReactorType.MrFusion && Properties.ReactorState == ReactorState.Closed &&
+                FusionUtils.IsBulletPresent(Vehicle.Bones["mr_fusion_handle"].Position, 0.085f) && FusionUtils.Random.NextDouble() < 0.2)
             {
                 SetReactorState(ReactorState.Opened);
             }
@@ -296,12 +299,22 @@ namespace BackToTheFutureV
 
             if (Players.Refuel.IsPlaying || !IsPlayerInPosition())
             {
+                if (_refuelText)
+                {
+                    _refuelText = false;
+                }
+                return;
+            }
+
+            if (GTA.UI.Screen.IsHelpTextDisplayed && !_refuelText)
+            {
                 return;
             }
 
             switch (Properties.ReactorState)
             {
                 case ReactorState.Opened:
+                    _refuelText = true;
                     if (HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
                     {
                         TextHandler.Me.ShowHelp("RefuelReactor");
@@ -313,6 +326,7 @@ namespace BackToTheFutureV
 
                     break;
                 case ReactorState.Closed:
+                    _refuelText = true;
                     TextHandler.Me.ShowHelp("OpenReactor");
                     break;
             }

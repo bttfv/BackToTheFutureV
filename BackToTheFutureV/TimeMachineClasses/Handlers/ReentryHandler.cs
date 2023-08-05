@@ -181,9 +181,15 @@ namespace BackToTheFutureV
                     Properties.PhotoGlowingCoilsActive = false;
                 }
             }
+            else if (Mods.IsDMC12)
+            {
+                Properties.ReactorCharge--;
+            }
 
             if (!Properties.IsOnTracks && !Properties.IsFlying && Vehicle.Driver == null)
             {
+                Events.SetTimeCircuits?.Invoke(false, true);
+                Vehicle.IsEngineRunning = false;
                 Vehicle.SteeringAngle = -35;
                 Vehicle.IsHandbrakeForcedOn = true;
                 Vehicle.Speed /= 2;
@@ -191,6 +197,11 @@ namespace BackToTheFutureV
                 Vehicle.BrakePower = 1f;
 
                 _handbrakeTimer = 0;
+
+                if (Mods.IsDMC12 && Mods.Wheel != WheelType.RailroadInvisible)
+                {
+                    Sounds.SlideStop?.Play();
+                }
             }
 
             if (Driver == FusionUtils.PlayerPed)

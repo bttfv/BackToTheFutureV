@@ -15,6 +15,7 @@ namespace BackToTheFutureV
         public static CustomModel BayLightOff = new CustomModel("dmc12_baylamp_off");
         public static CustomModel BayLightOn = new CustomModel("dmc12_baylamp_on");
         public static CustomModel DoorIndicator = new CustomModel("dmc12_door_indicator");
+        public static CustomModel BrakeIndicator = new CustomModel("dmc12_brake_indicator");
         public static CustomModel HoodLightOff = new CustomModel("dmc12_hoodlamp_off");
         public static CustomModel HoodLightOn = new CustomModel("dmc12_hoodlamp_on");
         public static CustomModel DomeLightOff = new CustomModel("dmc12_intlight_off");
