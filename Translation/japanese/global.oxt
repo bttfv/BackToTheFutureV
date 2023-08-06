@@ -93,6 +93,8 @@
 	BTTFV_Menu_Custom_Subtitle = カスタムメニュー
 	BTTFV_Menu_Custom_Title = カスタムメニュー
 	BTTFV_Menu_Doors_Description = デロリアンのドアを開ける/閉じれるメニューです。
+	BTTFV_Menu_Doors_Item_All_Description = 全部のドアを開く/閉じる。
+	BTTFV_Menu_Doors_Item_All_Title = 全部
 	BTTFV_Menu_Doors_Item_DriversDoor_Description = 左側のドアを開く/閉じる。
 	BTTFV_Menu_Doors_Item_DriversDoor_Title = 左ドア
 	BTTFV_Menu_Doors_Item_Engine_Description = エンジンカバーを開く/閉じる。

@@ -93,6 +93,8 @@
 	BTTFV_Menu_Custom_Subtitle = 커스텀 메뉴
 	BTTFV_Menu_Custom_Title = 커스텀 메뉴
 	BTTFV_Menu_Doors_Description = 드로리안의 문을 열고 닫을 수 있습니다.
+	BTTFV_Menu_Doors_Item_All_Description = 모든 문을 열거나 닫습니다.
+	BTTFV_Menu_Doors_Item_All_Title = 모든
 	BTTFV_Menu_Doors_Item_DriversDoor_Description = 운전석 문을 열거나 닫습니다.
 	BTTFV_Menu_Doors_Item_DriversDoor_Title = 운전석 문
 	BTTFV_Menu_Doors_Item_Engine_Description = 엔진 커버를 열거나 닫습니다.

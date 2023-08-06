@@ -93,6 +93,8 @@
 	BTTFV_Menu_Custom_Subtitle = Пользовательское меню
 	BTTFV_Menu_Custom_Title = Пользовательское меню
 	BTTFV_Menu_Doors_Description = Позволяет открывать и закрывать двери ДеЛореана.
+	BTTFV_Menu_Doors_Item_All_Description = Открывает / Закрывает все двери.
+	BTTFV_Menu_Doors_Item_All_Title = Открыть все
 	BTTFV_Menu_Doors_Item_DriversDoor_Description = Открывает или закрывает боковую водительскую дверь.
 	BTTFV_Menu_Doors_Item_DriversDoor_Title = Водительская дверь
 	BTTFV_Menu_Doors_Item_Engine_Description = Открывает или закрывает крышку двигателя.

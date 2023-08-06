@@ -93,6 +93,8 @@
 	BTTFV_Menu_Custom_Subtitle = Menu niestandardowe
 	BTTFV_Menu_Custom_Title = Menu niestandardowe
 	BTTFV_Menu_Doors_Description = Pozwala otwierać i zamykać drzwi w DeLoreanie.
+	BTTFV_Menu_Doors_Item_All_Description = Otwiera lub zamyka wszystkie drzwi.
+	BTTFV_Menu_Doors_Item_All_Title = Wszystkie
 	BTTFV_Menu_Doors_Item_DriversDoor_Description = Otwiera lub zamyka boczne drzwi kierowcy.
 	BTTFV_Menu_Doors_Item_DriversDoor_Title = Drzwi kierowcy
 	BTTFV_Menu_Doors_Item_Engine_Description = Otwiera lub zamyka pokrywę silnika.

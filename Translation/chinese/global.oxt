@@ -93,6 +93,8 @@ Version 2 30
 	BTTFV_Menu_Custom_Subtitle = 自定義選單
 	BTTFV_Menu_Custom_Title = 自定義選單
 	BTTFV_Menu_Doors_Description = 開啟或关閉迪儸倫車上的各種車門。
+	BTTFV_Menu_Doors_Item_All_Description = 開關全部的車門。
+	BTTFV_Menu_Doors_Item_All_Title = 全部
 	BTTFV_Menu_Doors_Item_DriversDoor_Description = 開關司機側的車門。
 	BTTFV_Menu_Doors_Item_DriversDoor_Title = 司機側門
 	BTTFV_Menu_Doors_Item_Engine_Description = 開啟或关闭引擎蓋

@@ -93,6 +93,8 @@ Version 2 30
 	BTTFV_Menu_Custom_Subtitle = 改装菜单
 	BTTFV_Menu_Custom_Title = 改装菜单
 	BTTFV_Menu_Doors_Description = 开启或关闭德罗宁上的各种车门。
+	BTTFV_Menu_Doors_Item_All_Description = 开/关全部座门。
+	BTTFV_Menu_Doors_Item_All_Title = 全部
 	BTTFV_Menu_Doors_Item_DriversDoor_Description = 开/关驾驶座门。
 	BTTFV_Menu_Doors_Item_DriversDoor_Title = 驾驶座门
 	BTTFV_Menu_Doors_Item_Engine_Description = 开/关引擎盖。

@@ -14,6 +14,7 @@ namespace BackToTheFutureV
         private readonly NativeItem Hood;
         private readonly NativeItem Trunk;
         private readonly NativeItem Engine;
+        private readonly NativeItem All;
 
         public DoorsMenu() : base("Doors")
         {
@@ -22,6 +23,7 @@ namespace BackToTheFutureV
             Hood = NewItem("Hood");
             Trunk = NewItem("Trunk");
             Engine = NewItem("Engine");
+            All = NewItem("All");
         }
 
         public override void Tick()
@@ -98,6 +100,25 @@ namespace BackToTheFutureV
                         vehicle.Doors[VehicleDoorIndex.Trunk].Open();
                         vehicle.Doors[VehicleDoorIndex.BackRightDoor].Open();
                     }
+                    break;
+                case NativeItem item when item == All:
+                    if (vehicle.IsAnyDoorOpen())
+                    {
+                        vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].Close();
+                        vehicle.Doors[VehicleDoorIndex.FrontRightDoor].Close();
+                        vehicle.Doors[VehicleDoorIndex.Hood].Close();
+                        vehicle.Doors[VehicleDoorIndex.Trunk].Close();
+                        vehicle.Doors[VehicleDoorIndex.BackRightDoor].Close();
+                    }
+                    else
+                    {
+                        vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].Open();
+                        vehicle.Doors[VehicleDoorIndex.FrontRightDoor].Open();
+                        vehicle.Doors[VehicleDoorIndex.Hood].Open();
+                        vehicle.Doors[VehicleDoorIndex.Trunk].Open();
+                        vehicle.Doors[VehicleDoorIndex.BackRightDoor].Open();
+                    }
+
                     break;
             }
         }

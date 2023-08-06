@@ -93,6 +93,8 @@ Version 2 30
 	BTTFV_Menu_Custom_Subtitle = Menu Personnaliser
 	BTTFV_Menu_Custom_Title = Menu Personnaliser
 	BTTFV_Menu_Doors_Description = Ouvre/ferme les portières de la DeLorean.
+	BTTFV_Menu_Doors_Item_All_Description = Ouvre/ferme toutes les portières.
+	BTTFV_Menu_Doors_Item_All_Title = Toutes
 	BTTFV_Menu_Doors_Item_DriversDoor_Description = Ouvre/ferme la portière côté conducteur.
 	BTTFV_Menu_Doors_Item_DriversDoor_Title = Portière conducteur
 	BTTFV_Menu_Doors_Item_Engine_Description = Ouvre/ferme le capot moteur.
