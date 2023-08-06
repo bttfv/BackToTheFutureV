@@ -255,7 +255,7 @@ namespace BackToTheFutureV
 
         public void DrawGUI()
         {
-            if (FusionUtils.HideGUI || FusionUtils.PlayerVehicle != Vehicle || !Constants.HasScaleformPriority || FusionUtils.IsCameraInFirstPerson() || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
+            if (FusionUtils.HideGUI || FusionUtils.PlayerVehicle != Vehicle || !Constants.HasScaleformPriority || TcdEditer.IsEditing || RCGUIEditer.IsEditing)
             {
                 return;
             }

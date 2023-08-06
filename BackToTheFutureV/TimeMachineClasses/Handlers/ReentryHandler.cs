@@ -11,6 +11,7 @@ namespace BackToTheFutureV
     internal class ReentryHandler : HandlerPrimitive
     {
         private float _handbrakeTimer = -1;
+        private bool _skid = false;
         private int _currentStep;
         private int _gameTimer;
 
@@ -36,6 +37,19 @@ namespace BackToTheFutureV
                     Vehicle.IsHandbrakeForcedOn = false;
 
                     _handbrakeTimer = -1;
+                }
+            }
+
+            if (_skid)
+            {
+                if (Vehicle.Speed < 2f && Vehicle.SteeringAngle < 0)
+                {
+                    Vehicle.SteeringAngle += 4f;
+                }
+                else if (Vehicle.SteeringAngle >= 0)
+                {
+                    Vehicle.SteeringAngle = 0;
+                    _skid = false;
                 }
             }
 
@@ -197,6 +211,7 @@ namespace BackToTheFutureV
                 Vehicle.BrakePower = 1f;
 
                 _handbrakeTimer = 0;
+                _skid = true;
 
                 if (Mods.IsDMC12 && Mods.Wheel != WheelType.RailroadInvisible)
                 {

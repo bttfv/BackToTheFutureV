@@ -148,7 +148,8 @@ namespace BackToTheFutureV
                     EndProductionDate = new DateTime(1982, 12, 24, 23, 59, 59),
                     MaxInWorld = 25,
                     MaxSpawned = 3,
-                    WaitBetweenSpawns = 10000
+                    WaitBetweenSpawns = 180000,
+                    ChanceOfSpawn = 0.5f
                 });
             }
 
