@@ -18,12 +18,12 @@ namespace BackToTheFutureV
 
         public DoorsMenu() : base("Doors")
         {
+            All = NewItem("All");
             DriversDoor = NewItem("DriversDoor");
             PassengerDoor = NewItem("PassengerDoor");
             Hood = NewItem("Hood");
             Trunk = NewItem("Trunk");
             Engine = NewItem("Engine");
-            All = NewItem("All");
         }
 
         public override void Tick()

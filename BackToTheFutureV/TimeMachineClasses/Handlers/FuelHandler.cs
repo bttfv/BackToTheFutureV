@@ -12,6 +12,7 @@ namespace BackToTheFutureV
         private int _nextBlink;
         private int _nextId;
         private int _blinks;
+        private int _delayTime = -1;
 
         private const int TotalBlinks = 16;
 
@@ -170,7 +171,9 @@ namespace BackToTheFutureV
                 return;
             }
 
+            Properties.HUDProperties.Empty = EmptyType.Off;
             _isBlinking = true;
+            _delayTime = Game.GameTime + 180000;
         }
 
         public override void Tick()
@@ -235,12 +238,13 @@ namespace BackToTheFutureV
             // Empty animation
 
             // For BTTF1
-            if (_isBlinking && !Properties.IsFueled && Mods.Reactor == ReactorType.Nuclear)
+            if (_isBlinking && Game.GameTime > _delayTime && !Properties.IsFueled && Mods.Reactor == ReactorType.Nuclear)
             {
                 // Blink anim end
                 if (_blinks > TotalBlinks && Game.GameTime > _nextBlink)
                 {
                     _isBlinking = false;
+                    _delayTime = -1;
                     _blinks = 0;
 
                     SetEmpty(true);
@@ -269,9 +273,7 @@ namespace BackToTheFutureV
                 }
             }
             // For BTTF2/3
-            // Fueled -> EMPTY indicator isn't glowing, EMPTY in GUI is hidden
-            // Not Fueled -> Glowing EMPTY indicator inside car and in GUI
-            else
+            else if (Mods.Reactor != ReactorType.Nuclear)
             {
                 if (Properties.IsFueled)
                 {
@@ -282,6 +284,11 @@ namespace BackToTheFutureV
                 {
                     SetEmpty(true);
                 }
+            }
+            // Hide 2D EMPTY indicator on BTTF1 if fueled
+            else if (Properties.IsFueled)
+            {
+                HideEmpty();
             }
 
             if (Properties.ReactorState == ReactorState.Refueling && Mods.Reactor == ReactorType.MrFusion)

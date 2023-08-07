@@ -212,7 +212,7 @@ namespace BackToTheFutureV
             Gauges.InvertOnStop = true;
 
             FuelGauge = new AnimateProp(ModelHandler.GaugeModels[0], Vehicle, new Vector3(0.509564f, 0.4745394f, 0.6380013f));
-            FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, true, 0, 50f, 1, 50f, 1, true);
+            FuelGauge[AnimationType.Rotation][AnimationStep.First][Coordinate.Y].Setup(true, true, 0, 90f, 1, 50f, 1, true);
             Gauges.Add(FuelGauge);
 
             //Plutonium gauge
