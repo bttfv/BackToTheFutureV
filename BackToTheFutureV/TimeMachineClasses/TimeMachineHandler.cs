@@ -225,6 +225,12 @@ namespace BackToTheFutureV
                 heading = ped.Heading + 180;
             }
 
+            if (spawnPos.Z > 2500)
+            {
+                // 2699Z is the physical limit of the game engine; set to 2500Z
+                spawnPos[2] = 2500;
+            }
+
             if (spawnFlags.HasFlag(SpawnFlags.CheckExists) && timeMachineClone != default)
             {
                 veh = World.GetClosestVehicle(timeMachineClone.Vehicle.Position, 5f, timeMachineClone.Vehicle.Model);
