@@ -59,7 +59,7 @@ namespace BackToTheFutureV
             Vehicle = vehicle;
             HoverVehicle = HoverVehicle.GetFromVehicle(vehicle);
 
-            if (vehicle.Model == ModelHandler.DMC12)
+            if (Vehicle.Model == ModelHandler.DMC12)
             {
                 DMC12 = DMC12Handler.GetDeloreanFromVehicle(vehicle);
 
@@ -67,6 +67,8 @@ namespace BackToTheFutureV
                 {
                     DMC12 = new DMC12(vehicle);
                 }
+                // Reset wheels to DMC-12 wheels
+                Function.Call(Hash.REMOVE_VEHICLE_MOD, Vehicle, 23);
             }
 
             Vehicle.IsPersistent = true;

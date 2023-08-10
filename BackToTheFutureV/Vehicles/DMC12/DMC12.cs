@@ -186,9 +186,9 @@ namespace BackToTheFutureV
                         duckCameraStart = World.CreateCamera(FusionUtils.PlayerPed.Bones[Bone.IKHead].Position + new Vector3(0f, 0.03f, 0.12f), GameplayCamera.Rotation, GameplayCamera.FieldOfView);
                         duckCameraEnd = World.CreateCamera(FusionUtils.PlayerPed.Bones[Bone.IKHead].Position + new Vector3(0f, 0.03f, 0.12f), GameplayCamera.Rotation, GameplayCamera.FieldOfView);
                         steeringCamera = World.CreateCamera(Vehicle.Position, Vehicle.Rotation, 50);
-                        steeringCamera.AttachToVehicle(Vehicle, "", Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), FusionUtils.DirectionToRotation(Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), Vehicle.Bones["steeringwheel"].RelativePosition, 0));
+                        steeringCamera?.AttachToVehicle(Vehicle, "", Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), FusionUtils.DirectionToRotation(Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), Vehicle.Bones["steeringwheel"].RelativePosition, 0));
                         World.RenderingCamera = duckCameraStart;
-                        duckCameraStart.InterpTo(steeringCamera, 50, 0, 0);
+                        duckCameraStart?.InterpTo(steeringCamera, 50, 0, 0);
                         isDucking = true;
                         fpsSetup = true;
                     }
@@ -197,7 +197,7 @@ namespace BackToTheFutureV
                 {
                     if (!fpsEnded)
                     {
-                        steeringCamera.InterpTo(duckCameraEnd, 50, 0, 0);
+                        steeringCamera?.InterpTo(duckCameraEnd, 50, 0, 0);
                         duckTime = Game.GameTime + 50;
                         fpsEnded = true;
                     }
