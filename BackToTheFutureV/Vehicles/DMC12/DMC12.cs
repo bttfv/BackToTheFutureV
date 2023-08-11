@@ -230,6 +230,8 @@ namespace BackToTheFutureV
             if (!Vehicle.IsVisible)
                 return;
 
+            Mods.ModCheck();
+
             if (!Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen && !Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen && Vehicle.Bones["interiorlight"].Pose != InteriorLightOffPose)
             {
                 Vehicle.Bones["interiorlight"].Pose = InteriorLightOffPose;

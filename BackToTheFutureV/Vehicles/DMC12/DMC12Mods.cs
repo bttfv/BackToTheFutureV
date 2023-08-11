@@ -13,6 +13,8 @@ namespace BackToTheFutureV
     {
         protected Vehicle Vehicle { get; }
 
+        public bool WasReloaded { get; set; }
+
         public Dictionary<VehicleWheelBoneId, Vector3> WheelStartOffsets { get; } = new Dictionary<VehicleWheelBoneId, Vector3>();
 
         public CVehicle CVehicle { get; }
@@ -23,14 +25,14 @@ namespace BackToTheFutureV
 
             CVehicle = new CVehicle(vehicle);
 
-            bool wasReloaded = WheelStartOffsets.Count == 0 && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != SuspensionsType.Unknown && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != SuspensionsType.Stock;
+            WasReloaded = WheelStartOffsets.Count == 0 && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != SuspensionsType.Unknown && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != SuspensionsType.Stock;
 
             foreach (KeyValuePair<VehicleWheelBoneId, CWheel> cWheel in CVehicle.Wheels)
             {
                 WheelStartOffsets.Add(cWheel.Key, cWheel.Value.RelativePosition.Get());
             }
 
-            if (wasReloaded)
+            if (WasReloaded)
             {
                 switch ((SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index)
                 {
@@ -49,10 +51,10 @@ namespace BackToTheFutureV
                         WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
                         break;
                     case SuspensionsType.LiftFrontAndRear:
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
-                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.1f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.07f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightFront] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.07f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.07f);
+                        WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] += Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.07f);
                         break;
                     case SuspensionsType.LowerFrontLiftRear:
                         WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
@@ -74,6 +76,11 @@ namespace BackToTheFutureV
                         WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
                         WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
                         break;
+                }
+
+                if (!Vehicle.IsTimeMachine())
+                {
+                    WasReloaded = false;
                 }
             }
 
@@ -173,6 +180,7 @@ namespace BackToTheFutureV
             {
                 base.Wheel = value;
 
+                //Vehicle.Mods.WheelType = VehicleWheelType.Track;
                 Function.Call(Hash.SET_VEHICLE_WHEEL_TYPE, Vehicle, 12);
                 Vehicle.Mods[VehicleModType.FrontWheel].Index = (int)value;
             }
@@ -421,6 +429,151 @@ namespace BackToTheFutureV
                 if (IsDMC12)
                 {
                     Vehicle.Mods[VehicleModType.Hood].Index = (int)value;
+                }
+            }
+        }
+
+        public void ModCheck()
+        {
+            if (IsDMC12 && !WasReloaded)
+            {
+                // The following checks are to stop Los Santos Customs mods on DeLoreans
+                SuspensionsType suspensionsType = (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index;
+                WormholeType wormholeType = (WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index;
+                ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
+                PlateType plateType = (PlateType)Vehicle.Mods[VehicleModType.Ornaments].Index;
+                ExhaustType exhaustType = (ExhaustType)Vehicle.Mods[VehicleModType.Exhaust].Index;
+                HoodType hoodType = (HoodType)Vehicle.Mods[VehicleModType.Hood].Index;
+                ModState components1 = (ModState)Vehicle.Mods[VehicleModType.Spoilers].Index;
+                ModState components2 = (ModState)Vehicle.Mods[VehicleModType.ColumnShifterLevers].Index;
+                ModState components3 = (ModState)Vehicle.Mods[VehicleModType.SideSkirt].Index;
+                ModState components4 = (ModState)Vehicle.Mods[VehicleModType.SteeringWheels].Index;
+                ModState hoodbox1 = (ModState)Vehicle.Mods[VehicleModType.Livery].Index;
+                ModState hoodbox2 = (ModState)Vehicle.Mods[VehicleModType.Aerials].Index;
+                ModState modState = (ModState)Vehicle.Mods[VehicleModType.RightFender].Index;
+
+                if (wormholeType != WormholeType)
+                {
+                    WormholeType temp = WormholeType;
+                    WormholeType = temp;
+                }
+
+                if (reactorType != Reactor)
+                {
+                    ReactorType temp = Reactor;
+                    Reactor = temp;
+                }
+
+                if (plateType != Plate)
+                {
+                    PlateType temp = Plate;
+                    Plate = temp;
+                }
+
+                if (exhaustType != Exhaust)
+                {
+                    ExhaustType temp = Exhaust;
+                    Exhaust = temp;
+                }
+
+                if (hoodType != Hood)
+                {
+                    HoodType temp = Hood;
+                    Hood = temp;
+                }
+
+                if (components1 != Components || components2 != Components || components3 != Components || components4 != Components)
+                {
+                    ModState temp = Components;
+                    Components = temp;
+                }
+
+                if (modState != Bulova)
+                {
+                    ModState temp = Bulova;
+                    Bulova = temp;
+                }
+
+                if (hoodbox1 != Hoodbox || hoodbox2 != Hoodbox)
+                {
+                    ModState temp = Hoodbox;
+                    Hoodbox = temp;
+                }
+
+                modState = (ModState)Vehicle.Mods[VehicleModType.Dashboard].Index;
+
+                if (modState != Speedo)
+                {
+                    ModState temp = Speedo;
+                    Speedo = temp;
+                }
+
+                modState = (ModState)Vehicle.Mods[VehicleModType.FrontBumper].Index;
+
+                if (modState != OffCoils)
+                {
+                    ModState temp = OffCoils;
+                    OffCoils = temp;
+                }
+
+                modState = (ModState)Vehicle.Mods[VehicleModType.Frame].Index;
+
+                if (modState != GlowingEmitter)
+                {
+                    ModState temp = GlowingEmitter;
+                    GlowingEmitter = temp;
+                }
+
+                modState = (ModState)Vehicle.Mods[VehicleModType.Fender].Index;
+
+                if (modState != GlowingReactor)
+                {
+                    ModState temp = GlowingReactor;
+                    GlowingReactor = temp;
+                }
+
+                modState = (ModState)Vehicle.Mods[VehicleModType.DialDesign].Index;
+
+                if (modState != HoverUnderbody)
+                {
+                    ModState temp = HoverUnderbody;
+                    HoverUnderbody = temp;
+                }
+
+                if (Components == ModState.On)
+                {
+                    if ((Vehicle.Mods[VehicleModType.Roof].Index == 1 && Hook != HookState.Off) || (Vehicle.Mods[VehicleModType.ArchCover].Index == 0 && Hook != HookState.OnDoor)
+                        || (Vehicle.Mods[VehicleModType.ArchCover].Index == 1 && Hook != HookState.On))
+                    {
+                        HookState temp = Hook;
+                        Hook = temp;
+                    }
+                    else if (Hook != HookState.Removed)
+                    {
+                        Hook = HookState.Removed;
+                    }
+                }
+                else
+                {
+                    if (Vehicle.Mods[VehicleModType.Roof].Index != -1 || Vehicle.Mods[VehicleModType.ArchCover].Index != -1 || Vehicle.Mods[VehicleModType.Grille].Index != -1)
+                    {
+                        Vehicle.Mods[VehicleModType.Roof].Index = -1;
+                        Vehicle.Mods[VehicleModType.Roof].Variation = false;
+                        Vehicle.Mods[VehicleModType.ArchCover].Index = -1;
+                        Vehicle.Mods[VehicleModType.ArchCover].Variation = false;
+                        Vehicle.Mods[VehicleModType.Grille].Index = -1;
+                        Vehicle.Mods[VehicleModType.Grille].Variation = false;
+                    }
+                    if (Hook != HookState.Unknown)
+                    {
+                        Hook = HookState.Unknown;
+                    }
+                }
+
+                if (suspensionsType != SuspensionsType)
+                {
+                    SuspensionsType temp = SuspensionsType;
+                    SuspensionsType = temp;
                 }
             }
         }

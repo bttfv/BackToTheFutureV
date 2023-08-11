@@ -19,6 +19,7 @@ namespace BackToTheFutureV
         public DMC12 DMC12 { get; }
         public HoverVehicle HoverVehicle { get; }
 
+        public VehicleWindowCollection Windows { get; private set; }
         public EventsHandler Events { get; private set; }
         public PropertiesHandler Properties { get; private set; }
         public ModsHandler Mods { get; private set; }
@@ -67,8 +68,14 @@ namespace BackToTheFutureV
                 {
                     DMC12 = new DMC12(vehicle);
                 }
-                // Reset wheels to DMC-12 wheels
-                Function.Call(Hash.REMOVE_VEHICLE_MOD, Vehicle, 23);
+
+                DMC12.Mods.WasReloaded = true;
+
+                // Reset wheels to DMC-12 wheels if not BTTFV wheels
+                if (Function.Call<int>(Hash.GET_VEHICLE_WHEEL_TYPE, Vehicle.Handle) != 12)
+                {
+                    Vehicle.Mods[VehicleModType.FrontWheel]?.Remove();
+                }
             }
 
             Vehicle.IsPersistent = true;
@@ -116,6 +123,7 @@ namespace BackToTheFutureV
                 registeredHandlers.Add("EngineHandler", new EngineHandler(this));
                 registeredHandlers.Add("StarterHandler", new StarterHandler(this));
                 registeredHandlers.Add("ClockHandler", new ClockHandler(this));
+                Windows = Vehicle.Windows;
             }
 
             Decorators = new DecoratorsHandler(this);
@@ -291,10 +299,6 @@ namespace BackToTheFutureV
             {
                 Properties.HasScaleformPriority = Constants.HasScaleformPriority;
                 Events.OnScaleformPriority?.Invoke();
-                if (Mods.SuspensionsType != SuspensionsType.Stock || Mods.Wheel == WheelType.Red)
-                {
-                    Vehicle.Velocity += Vector3.UnitZ * 0.3f;
-                }
             }
 
             if (!Vehicle.IsVisible)
@@ -318,26 +322,18 @@ namespace BackToTheFutureV
                 Vehicle.LockStatus = VehicleLockStatus.None;
             }
 
-            if (Mods.Wheel == WheelType.RailroadInvisible && Props != null && !Props.RRWheels.IsSpawned)
-            {
-                if (Mods.Wheels.Burst != true && !Properties.IsOnTracks)
-                    Mods.Wheels.Burst = true;
-
-                if (Vehicle.IsVisible)
-                    Props?.RRWheels?.SpawnProp();
-            }
-
             if (Mods.IsDMC12)
             {
                 Vehicle.IsRadioEnabled = false;
 
-                VehicleWindowCollection windows = Vehicle.Windows;
-                windows[VehicleWindowIndex.BackLeftWindow].Remove();
-                windows[VehicleWindowIndex.BackRightWindow].Remove();
-                windows[VehicleWindowIndex.ExtraWindow4].Remove();
-
-                Vehicle.Doors[VehicleDoorIndex.Trunk].Break(false);
-                Vehicle.Doors[VehicleDoorIndex.BackRightDoor].Break(false);
+                if (Windows[VehicleWindowIndex.BackRightWindow].IsIntact)
+                {
+                    Windows[VehicleWindowIndex.BackLeftWindow].Remove();
+                    Windows[VehicleWindowIndex.BackRightWindow].Remove();
+                    Windows[VehicleWindowIndex.ExtraWindow4].Remove();
+                    Vehicle.Doors[VehicleDoorIndex.Trunk].Break(false);
+                    Vehicle.Doors[VehicleDoorIndex.BackRightDoor].Break(false);
+                }
 
                 if (Mods.Hoodbox == ModState.On)
                 {
@@ -373,6 +369,15 @@ namespace BackToTheFutureV
                 {
                     hasCollided = false;
                 }
+            }
+
+            if (Mods.Wheel == WheelType.RailroadInvisible && Props != null && !Props.RRWheels.IsSpawned)
+            {
+                if (Mods.Wheels.Burst != true && !Properties.IsOnTracks)
+                    Mods.Wheels.Burst = true;
+
+                if (Vehicle.IsVisible)
+                    Props?.RRWheels?.SpawnProp();
             }
 
             /*if (Constants.DeluxoProto)
