@@ -14,11 +14,15 @@ namespace BackToTheFutureV
 
         public CVehicleWheels Wheels { get; }
 
+        private bool WasReloadedTM { get; set; }
+
         public ModsHandler(TimeMachine timeMachine, WormholeType wormholeType) : base(timeMachine.Vehicle)
         {
             TimeMachine = timeMachine;
 
             Wheels = new CVehicleWheels(timeMachine);
+
+            WasReloadedTM = true;
 
             if (IsDMC12)
             {
@@ -68,145 +72,146 @@ namespace BackToTheFutureV
 
         public void Tick()
         {
-            if (IsDMC12 && WasReloaded)
+            if (WasReloadedTM)
             {
-                // The following checks re-assert the correct time machine mods on script reload
-                SuspensionsType suspensionsType = (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index;
-                WormholeType wormholeType = (WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index;
-                WheelType wheelType = (WheelType)Vehicle.Mods[VehicleModType.FrontWheel].Index;
-                ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
-                PlateType plateType = (PlateType)Vehicle.Mods[VehicleModType.Ornaments].Index;
-                ExhaustType exhaustType = (ExhaustType)Vehicle.Mods[VehicleModType.Exhaust].Index;
-                HoodType hoodType = (HoodType)Vehicle.Mods[VehicleModType.Hood].Index;
-                ModState modState = (ModState)Vehicle.Mods[VehicleModType.Spoilers].Index;
-                HookState hookState = HookState.Unknown;
-
-                if (wormholeType != WormholeType)
+                if ((WheelType)Vehicle.Mods[VehicleModType.FrontWheel].Index != Wheel)
                 {
-                    WormholeType = wormholeType;
+                    Wheel = (WheelType)Vehicle.Mods[VehicleModType.FrontWheel].Index;
                 }
 
-                if (wheelType != Wheel)
+                if (IsDMC12)
                 {
-                    Wheel = wheelType;
+                    // The following checks re-assert the correct time machine mods on script reload
+                    SuspensionsType suspensionsType = (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index;
+                    WormholeType wormholeType = (WormholeType)Vehicle.Mods[VehicleModType.TrimDesign].Index;
+                    ReactorType reactorType = (ReactorType)Vehicle.Mods[VehicleModType.Plaques].Index;
+                    PlateType plateType = (PlateType)Vehicle.Mods[VehicleModType.Ornaments].Index;
+                    ExhaustType exhaustType = (ExhaustType)Vehicle.Mods[VehicleModType.Exhaust].Index;
+                    HoodType hoodType = (HoodType)Vehicle.Mods[VehicleModType.Hood].Index;
+                    ModState modState = (ModState)Vehicle.Mods[VehicleModType.Spoilers].Index;
+                    HookState hookState = HookState.Unknown;
+
+                    if (wormholeType != WormholeType)
+                    {
+                        WormholeType = wormholeType;
+                    }
+
+                    if (reactorType != Reactor)
+                    {
+                        Reactor = reactorType;
+                    }
+
+                    if (plateType != Plate)
+                    {
+                        Plate = plateType;
+                    }
+
+                    if (exhaustType != Exhaust)
+                    {
+                        Exhaust = exhaustType;
+                    }
+
+                    if (hoodType != Hood)
+                    {
+                        Hood = hoodType;
+                    }
+
+                    if (modState != Components)
+                    {
+                        Components = modState;
+                    }
+
+                    modState = (ModState)Vehicle.Mods[VehicleModType.RightFender].Index;
+
+                    if (modState != Bulova)
+                    {
+                        Bulova = modState;
+                    }
+
+                    modState = (ModState)Vehicle.Mods[VehicleModType.Dashboard].Index;
+
+                    if (modState != Speedo)
+                    {
+                        Speedo = modState;
+                    }
+
+                    modState = (ModState)Vehicle.Mods[VehicleModType.FrontBumper].Index;
+
+                    if (modState != OffCoils)
+                    {
+                        OffCoils = modState;
+                    }
+
+                    modState = (ModState)Vehicle.Mods[VehicleModType.Frame].Index;
+
+                    if (modState != GlowingEmitter)
+                    {
+                        GlowingEmitter = modState;
+                    }
+
+                    modState = (ModState)Vehicle.Mods[VehicleModType.Fender].Index;
+
+                    if (modState != GlowingReactor)
+                    {
+                        GlowingReactor = modState;
+                    }
+
+                    modState = (ModState)Vehicle.Mods[VehicleModType.DialDesign].Index;
+
+                    if (modState != HoverUnderbody)
+                    {
+                        HoverUnderbody = modState;
+                    }
+
+                    modState = (ModState)Vehicle.Mods[VehicleModType.Livery].Index;
+
+                    if (modState != Hoodbox)
+                    {
+                        Hoodbox = modState;
+                    }
+
+                    if (Vehicle.Mods[VehicleModType.Roof].Index == 1 && Vehicle.Mods[VehicleModType.ArchCover].Index == -1 && Vehicle.Mods[VehicleModType.Grille].Index == -1)
+                    {
+                        hookState = HookState.Off;
+                    }
+
+                    if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == 0 && Vehicle.Mods[VehicleModType.Grille].Index == 0)
+                    {
+                        hookState = HookState.OnDoor;
+                    }
+
+                    if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == 1 && Vehicle.Mods[VehicleModType.Grille].Index == 1)
+                    {
+                        hookState = HookState.On;
+                    }
+
+                    if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == -1 && Vehicle.Mods[VehicleModType.Grille].Index == 0)
+                    {
+                        hookState = HookState.Removed;
+                    }
+
+                    if (hookState != Hook)
+                    {
+                        Hook = hookState;
+                    }
+
+                    if (suspensionsType != SuspensionsType)
+                    {
+                        SuspensionsType = suspensionsType;
+                    }
                 }
 
-                if (reactorType != Reactor)
-                {
-                    Reactor = reactorType;
-                }
-
-                if (plateType != Plate)
-                {
-                    Plate = plateType;
-                }
-
-                if (exhaustType != Exhaust)
-                {
-                    Exhaust = exhaustType;
-                }
-
-                if (hoodType != Hood)
-                {
-                    Hood = hoodType;
-                }
-
-                if (modState != Components)
-                {
-                    Components = modState;
-                }
-
-                modState = (ModState)Vehicle.Mods[VehicleModType.RightFender].Index;
-
-                if (modState != Bulova)
-                {
-                    Bulova = modState;
-                }
-
-                modState = (ModState)Vehicle.Mods[VehicleModType.Dashboard].Index;
-
-                if (modState != Speedo)
-                {
-                    Speedo = modState;
-                }
-
-                modState = (ModState)Vehicle.Mods[VehicleModType.FrontBumper].Index;
-
-                if (modState != OffCoils)
-                {
-                    OffCoils = modState;
-                }
-
-                modState = (ModState)Vehicle.Mods[VehicleModType.Frame].Index;
-
-                if (modState != GlowingEmitter)
-                {
-                    GlowingEmitter = modState;
-                }
-
-                modState = (ModState)Vehicle.Mods[VehicleModType.Fender].Index;
-
-                if (modState != GlowingReactor)
-                {
-                    GlowingReactor = modState;
-                }
-
-                modState = (ModState)Vehicle.Mods[VehicleModType.DialDesign].Index;
-
-                if (modState != HoverUnderbody)
-                {
-                    HoverUnderbody = modState;
-                }
-
-                modState = (ModState)Vehicle.Mods[VehicleModType.Livery].Index;
-
-                if (modState != Hoodbox)
-                {
-                    Hoodbox = modState;
-                }
-
-                if (Vehicle.Mods[VehicleModType.Roof].Index == 1 && Vehicle.Mods[VehicleModType.ArchCover].Index == -1 && Vehicle.Mods[VehicleModType.Grille].Index == -1)
-                {
-                    hookState = HookState.Off;
-                }
-
-                if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == 0 && Vehicle.Mods[VehicleModType.Grille].Index == 0)
-                {
-                    hookState = HookState.OnDoor;
-                }
-
-                if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == 1 && Vehicle.Mods[VehicleModType.Grille].Index == 1)
-                {
-                    hookState = HookState.On;
-                }
-
-                if (Vehicle.Mods[VehicleModType.Roof].Index == 0 && Vehicle.Mods[VehicleModType.ArchCover].Index == -1 && Vehicle.Mods[VehicleModType.Grille].Index == 0)
-                {
-                    hookState = HookState.Removed;
-                }
-
-                if (hookState != Hook)
-                {
-                    Hook = hookState;
-                }
-
-                if (suspensionsType != SuspensionsType)
-                {
-                    SuspensionsType = suspensionsType;
-                }
-
-                WasReloaded = false;
+                WasReloadedTM = false;
             }
 
             // Disable changing wheels in Los Santos Customs
-            if (IsDMC12 && !WasReloaded)
+            if (IsDMC12 && !WasReloadedTM)
             {
                 if ((WheelType)Vehicle.Mods[VehicleModType.FrontWheel].Index != Wheel)
                 {
                     WheelType temp = Wheel;
                     Wheel = temp;
                 }
-
             }
 
             if (Wheel == WheelType.Red && VehicleControl.GetWheelSize(Vehicle) != 1.1f)

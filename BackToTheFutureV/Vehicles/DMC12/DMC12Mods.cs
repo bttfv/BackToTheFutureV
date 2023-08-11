@@ -13,7 +13,7 @@ namespace BackToTheFutureV
     {
         protected Vehicle Vehicle { get; }
 
-        public bool WasReloaded { get; set; }
+        protected bool WasReloaded { get; set; }
 
         public Dictionary<VehicleWheelBoneId, Vector3> WheelStartOffsets { get; } = new Dictionary<VehicleWheelBoneId, Vector3>();
 
@@ -25,7 +25,7 @@ namespace BackToTheFutureV
 
             CVehicle = new CVehicle(vehicle);
 
-            WasReloaded = WheelStartOffsets.Count == 0 && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != SuspensionsType.Unknown && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != SuspensionsType.Stock;
+            WasReloaded = WheelStartOffsets.Count == 0 && (SuspensionsType)Vehicle.Mods[VehicleModType.Hydraulics].Index != SuspensionsType.Unknown;
 
             foreach (KeyValuePair<VehicleWheelBoneId, CWheel> cWheel in CVehicle.Wheels)
             {
@@ -76,20 +76,18 @@ namespace BackToTheFutureV
                         WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
                         WheelStartOffsets[VehicleWheelBoneId.WheelRightRear] -= Vector3.Zero.GetSingleOffset(Coordinate.Z, 0.05f);
                         break;
+                    default:
+                        break;
                 }
 
-                if (!Vehicle.IsTimeMachine())
-                {
-                    WasReloaded = false;
-                }
+                WasReloaded = false;
             }
 
             IsDMC12 = Vehicle.Model == ModelHandler.DMC12;
 
-            Vehicle.Mods.InstallModKit();
-
             if (IsDMC12)
             {
+                Vehicle.Mods.InstallModKit();
                 Function.Call(Hash.SET_HYDRAULICS_CONTROL, Vehicle, false);
 
                 Vehicle.ToggleExtra(10, true);
@@ -548,7 +546,7 @@ namespace BackToTheFutureV
                         HookState temp = Hook;
                         Hook = temp;
                     }
-                    else if (Hook != HookState.Removed)
+                    else if (Vehicle.Mods[VehicleModType.ArchCover].Index == -1 && Vehicle.Mods[VehicleModType.Roof].Index == 0 && Hook != HookState.Removed)
                     {
                         Hook = HookState.Removed;
                     }

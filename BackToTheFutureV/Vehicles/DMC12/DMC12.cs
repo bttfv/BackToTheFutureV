@@ -225,12 +225,13 @@ namespace BackToTheFutureV
             }
 
             if (!IsTimeMachine)
+            {
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0);
+                Mods.ModCheck();
+            }
 
             if (!Vehicle.IsVisible)
                 return;
-
-            Mods.ModCheck();
 
             if (!Vehicle.Doors[VehicleDoorIndex.FrontLeftDoor].IsOpen && !Vehicle.Doors[VehicleDoorIndex.FrontRightDoor].IsOpen && Vehicle.Bones["interiorlight"].Pose != InteriorLightOffPose)
             {

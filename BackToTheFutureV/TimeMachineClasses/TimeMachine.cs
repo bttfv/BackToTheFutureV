@@ -69,8 +69,6 @@ namespace BackToTheFutureV
                     DMC12 = new DMC12(vehicle);
                 }
 
-                DMC12.Mods.WasReloaded = true;
-
                 // Reset wheels to DMC-12 wheels if not BTTFV wheels
                 if (Function.Call<int>(Hash.GET_VEHICLE_WHEEL_TYPE, Vehicle.Handle) != 12)
                 {
@@ -322,6 +320,9 @@ namespace BackToTheFutureV
                 Vehicle.LockStatus = VehicleLockStatus.None;
             }
 
+            Mods.Tick();
+            Mods.ModCheck();
+
             if (Mods.IsDMC12)
             {
                 Vehicle.IsRadioEnabled = false;
@@ -339,8 +340,6 @@ namespace BackToTheFutureV
                 {
                     Vehicle.Doors[VehicleDoorIndex.Hood].CanBeBroken = false;
                 }
-
-                Mods.Tick();
 
                 if (Props.LicensePlate.IsPlaying)
                 {
