@@ -137,7 +137,6 @@
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\PlayersHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ParticlesHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\BaseHandlers\ScaleformsHandler.cs" />
-    <Compile Include="TimeMachineClasses\Handlers\DriverAIHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\EngineHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\FluxCapacitorHandler.cs" />
     <Compile Include="TimeMachineClasses\Handlers\FlyingHandler.cs" />

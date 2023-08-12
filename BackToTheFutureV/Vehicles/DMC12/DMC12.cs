@@ -224,7 +224,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!IsTimeMachine)
+            if (Mods.Components == InternalEnums.ModState.Off)
             {
                 VehicleControl.SetDeluxoTransformation(Vehicle, 0);
                 Mods.ModCheck();
@@ -286,7 +286,7 @@ namespace BackToTheFutureV
             {
                 rpmRotation = Vehicle.CurrentRPM.Remap(0, 1, 0, 245);
 
-                if (IsTimeMachine)
+                if (Mods.Components == InternalEnums.ModState.On)
                 {
                     if (Vehicle.GetMPHSpeed() < 15)
                     {
