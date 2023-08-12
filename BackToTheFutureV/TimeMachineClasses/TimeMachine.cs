@@ -69,6 +69,8 @@ namespace BackToTheFutureV
                     DMC12 = new DMC12(vehicle);
                 }
 
+                DMC12.IsTimeMachine = true;
+
                 // Reset wheels to DMC-12 wheels if not BTTFV wheels
                 if (Function.Call<int>(Hash.GET_VEHICLE_WHEEL_TYPE, Vehicle.Handle) != 12)
                 {
