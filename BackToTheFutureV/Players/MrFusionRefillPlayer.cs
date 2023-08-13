@@ -72,13 +72,13 @@ namespace BackToTheFutureV
             if (Properties.ReactorState == ReactorState.Opened)
             {
                 _mrFusionHandle.Play();
-                _mrfusionOpen.Play();
+                _mrfusionOpen?.Play();
                 Particles.MrFusionSmoke?.Play();
             }
             else
             {
                 _mrFusion.Play();
-                _mrfusionClosed.Play();
+                _mrfusionClosed?.Play();
             }
         }
 

@@ -72,7 +72,7 @@ namespace BackToTheFutureV
                         return;
                     }
 
-                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    GarageSounds[FusionUtils.Random.Next(1, 4)]?.Play();
 
                     if (CurrentTimeMachine.NotNullAndExists() && CurrentTimeMachine.Mods.IsDMC12)
                     {
@@ -93,7 +93,7 @@ namespace BackToTheFutureV
                         TextHandler.Me.ShowNotification("NotEnoughMoney");
                         return;
                     }
-                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    GarageSounds[FusionUtils.Random.Next(1, 4)]?.Play();
                     CurrentTimeMachine.CustomCameraManager.Show((int)TimeMachineCamera.ReactorCustom, FusionEnums.CameraSwitchType.Instant, 1250);
                     CurrentTimeMachine.Mods.Reactor = ReactorType.MrFusion;
                     CurrentTimeMachine.Mods.WormholeType = WormholeType.BTTF2;
@@ -116,7 +116,7 @@ namespace BackToTheFutureV
                         TextHandler.Me.ShowNotification("NotEnoughMoney");
                         return;
                     }
-                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    GarageSounds[FusionUtils.Random.Next(1, 4)]?.Play();
                     if (CurrentTimeMachine.Repair(true, false, false))
                     {
                         Game.Player.Money -= 500;
@@ -129,7 +129,7 @@ namespace BackToTheFutureV
                         TextHandler.Me.ShowNotification("NotEnoughMoney");
                         return;
                     }
-                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    GarageSounds[FusionUtils.Random.Next(1, 4)]?.Play();
                     if (CurrentTimeMachine.Repair(false, true, false))
                     {
                         Game.Player.Money -= 1000;
@@ -142,7 +142,7 @@ namespace BackToTheFutureV
                         TextHandler.Me.ShowNotification("NotEnoughMoney");
                         return;
                     }
-                    GarageSounds[FusionUtils.Random.Next(1, 4)].Play();
+                    GarageSounds[FusionUtils.Random.Next(1, 4)]?.Play();
                     if (CurrentTimeMachine.Repair(false, false, true))
                     {
                         Game.Player.Money -= 750;

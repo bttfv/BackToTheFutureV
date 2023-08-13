@@ -280,12 +280,12 @@ namespace BackToTheFutureV
             {
                 if (!_engineNeutralSound.IsAnyInstancePlaying)
                 {
-                    _engineNeutralSound.Play();
+                    _engineNeutralSound?.Play();
                 }
             }
             else
             {
-                _engineNeutralSound.Stop();
+                _engineNeutralSound?.Stop();
             }
 
             HandleRegularSounds();
@@ -315,14 +315,14 @@ namespace BackToTheFutureV
 
         public override void Stop()
         {
-            _engineSounds.ForEach(x => x.Stop());
-            _accelSounds.ForEach(x => x.Stop());
+            _engineSounds.ForEach(x => x?.Stop());
+            _accelSounds.ForEach(x => x?.Stop());
         }
 
         public override void Dispose()
         {
-            _engineSounds.ForEach(x => x.Dispose());
-            _accelSounds.ForEach(x => x.Dispose());
+            _engineSounds.ForEach(x => x?.Dispose());
+            _accelSounds.ForEach(x => x?.Dispose());
         }
 
         #endregion
@@ -343,12 +343,12 @@ namespace BackToTheFutureV
             {
                 if (!_engineIdleSound.IsAnyInstancePlaying)
                 {
-                    _engineIdleSound.Play();
+                    _engineIdleSound?.Play();
                 }
             }
             else
             {
-                _engineIdleSound.Stop();
+                _engineIdleSound?.Stop();
             }
 
             // Play revving sound
@@ -356,7 +356,7 @@ namespace BackToTheFutureV
             {
                 if (!_engineRevvingSound.IsAnyInstancePlaying || (_engineRevvingSound.Last?.PlayPosition > 1000 && !_isRevPlayed))
                 {
-                    _engineRevvingSound.Play();
+                    _engineRevvingSound?.Play();
                     _isRevPlayed = true;
                 }
             }
@@ -371,12 +371,12 @@ namespace BackToTheFutureV
             {
                 if (!_engineDecelSound.IsAnyInstancePlaying || _engineDecelSound.Last?.PlayPosition > 1000)
                 {
-                    _engineDecelSound.Play();
+                    _engineDecelSound?.Play();
                 }
             }
             else
             {
-                _engineDecelSound.Stop();
+                _engineDecelSound?.Stop();
             }
 
             // Play reverse sound
@@ -385,12 +385,12 @@ namespace BackToTheFutureV
             {
                 if (!_engineReverseSound.IsAnyInstancePlaying)
                 {
-                    _engineReverseSound.Play();
+                    _engineReverseSound?.Play();
                 }
             }
             else
             {
-                _engineReverseSound.Stop();
+                _engineReverseSound?.Stop();
             }
         }
 
@@ -408,17 +408,17 @@ namespace BackToTheFutureV
                 {
                     if (_engineAccel2Sound.Last?.PlayPosition >= 7000)
                     {
-                        _engineAccel2Sound.Play();
+                        _engineAccel2Sound?.Play();
                     }
                 }
                 else
                 {
-                    _engineAccel2Sound.Play();
+                    _engineAccel2Sound?.Play();
                 }
             }
             else
             {
-                _engineAccel2Sound.Stop();
+                _engineAccel2Sound?.Stop();
             }
 
             // Play deceleration sound
@@ -426,12 +426,12 @@ namespace BackToTheFutureV
             {
                 if (!_engineDecelSound.IsAnyInstancePlaying || _engineDecelSound.Last?.PlayPosition > 1000)
                 {
-                    _engineDecelSound.Play();
+                    _engineDecelSound?.Play();
                 }
             }
             else
             {
-                _engineDecelSound.Stop();
+                _engineDecelSound?.Stop();
             }
         }
 
@@ -445,7 +445,7 @@ namespace BackToTheFutureV
             //Stop acceleration sounds if car is braking / driving neutral
             if (Acceleration < -10f || Vehicle.ThrottlePower == 0 || Vehicle.BrakePower > 0 || Mods.Wheels.AnyBurst || Vehicle.IsInWater)
             {
-                _accelSounds.ForEach(x => x.Stop());
+                _accelSounds.ForEach(x => x?.Stop());
                 return;
             }
 
@@ -458,12 +458,12 @@ namespace BackToTheFutureV
                     {
                         if (_currentAccel.Last?.PlayPosition >= 7000)
                         {
-                            _currentAccel.Play();
+                            _currentAccel?.Play();
                         }
                     }
                     else if (!_accelSounds.Any(x => x.IsAnyInstancePlaying))
                     {
-                        _currentAccel.Play();
+                        _currentAccel?.Play();
                     }
                 }
             }
@@ -497,7 +497,7 @@ namespace BackToTheFutureV
                 }
             }
 
-            _currentAccel.Play();
+            _currentAccel?.Play();
         }
 
         private void OnGearDownEvent()
@@ -513,7 +513,7 @@ namespace BackToTheFutureV
             }
             else
             {
-                OnGearDown.Invoke();
+                OnGearDown?.Invoke();
             }
 
             PreviousGear = CurrentGear;

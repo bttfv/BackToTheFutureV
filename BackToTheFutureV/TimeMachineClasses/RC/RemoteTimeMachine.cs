@@ -146,6 +146,7 @@ namespace BackToTheFutureV
         public void Dispose()
         {
             Blip?.Delete();
+            WarningSound?.Dispose();
         }
 
         public override string ToString()

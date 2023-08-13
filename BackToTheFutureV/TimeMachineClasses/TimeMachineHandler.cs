@@ -349,7 +349,7 @@ namespace BackToTheFutureV
 
             if (timeMachine.Vehicle.IsSeatFree(VehicleSeat.Driver) && timeMachine.Properties.IsFlying)
             {
-                timeMachine.Events.SetFlyMode.Invoke(false);
+                timeMachine.Events.SetFlyMode?.Invoke(false);
             }
 
             return timeMachine;

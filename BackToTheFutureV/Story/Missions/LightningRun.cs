@@ -57,7 +57,7 @@ namespace BackToTheFutureV
 
         private readonly CustomCameraHandler CustomCamera = new CustomCameraHandler();
 
-        private AudioPlayer Thunder;
+        private readonly AudioPlayer Thunder;
 
         public const Hash LightningRunStreet = unchecked((Hash)4174973413);
 
@@ -76,6 +76,7 @@ namespace BackToTheFutureV
 
         public LightningRun()
         {
+            Thunder = Main.CommonAudioEngine.Create("general/thunder.wav", Presets.No3D);
             TimeHandler.OnTimeChanged += (DateTime time) =>
             {
                 OnEnd();
@@ -237,9 +238,16 @@ namespace BackToTheFutureV
                         CustomCamera.Show(0);
                     }
 
-                    Thunder.SourceEntity = FusionUtils.PlayerPed;
-                    Thunder.Play();
+                    if (FusionUtils.PlayerPed.NotNullAndExists())
+                    {
+                        Thunder.SourceEntity = FusionUtils.PlayerPed;
+                    }
+                    else
+                    {
+                        Thunder.SourceEntity = Pole;
+                    }
 
+                    Thunder?.Play();
                     Lightnings.Play();
                     Spark.Play();
 
@@ -350,8 +358,6 @@ namespace BackToTheFutureV
                 Spark = new ParticlePlayer("core", "ent_brk_sparking_wires_sp", ParticleType.ForceLooped, Pole, Vector3.Zero, Vector3.Zero, 8f) { Interval = 500 };
 
                 CustomCamera.Add(RightStreetPole, new Vector3(11.93889f, 11.07275f, 4.756693f), new Vector3(11.65637f, 10.13232f, 4.56657f), 64);
-
-                Thunder = Main.CommonAudioEngine.Create("general/thunder.wav", Presets.No3D);
 
                 Vector3 curPos = polePosition;
 

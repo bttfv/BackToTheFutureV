@@ -70,12 +70,12 @@ namespace BackToTheFutureV
 
             if (Properties.ReactorState == ReactorState.Opened)
             {
-                open.Play();
+                open?.Play();
                 plutoniumCap.Play();
             }
             else
             {
-                close.Play();
+                close?.Play();
                 plutoniumCap.Play(AnimationStep.Third);
             }
         }
@@ -93,8 +93,8 @@ namespace BackToTheFutureV
         public override void Dispose()
         {
             plutoniumCap.Dispose();
-            open.Dispose();
-            close.Dispose();
+            open?.Dispose();
+            close?.Dispose();
         }
     }
 }
