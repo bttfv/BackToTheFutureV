@@ -296,12 +296,9 @@ namespace BackToTheFutureV
                                 timeMachine.Properties.ReactorCharge = 1;
                             }
 
-                            if (FusionUtils.PlayerPed.NotNullAndExists())
-                            {
-                                garageSound.SourceEntity = timeMachine;
-                                garageSound.Volume = 0.5f;
-                                garageSound?.Play();
-                            }
+                            garageSound.SourceEntity = timeMachine;
+                            garageSound.Volume = 0.5f;
+                            garageSound?.Play();
 
                             timeMachine.Particles.IceSmoke?.Play();
 

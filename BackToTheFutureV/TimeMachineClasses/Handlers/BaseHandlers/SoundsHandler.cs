@@ -50,13 +50,13 @@ namespace BackToTheFutureV
         private readonly AudioPlayer _doorOpenSound;
         private readonly AudioPlayer _doorCloseSound;
         private readonly AudioPlayer _doorOpenColdSound;
-        private readonly AudioPlayer _doorCloseColdsound;
+        private readonly AudioPlayer _doorCloseColdSound;
         private readonly AudioPlayer _engineOnSound;
-        private readonly AudioPlayer _engineOffsound;
+        private readonly AudioPlayer _engineOffSound;
         private readonly List<AudioPlayer> _doorSounds;
 
-        //Clock
-        public AudioPlayer Alarm;
+        //Engine restarter
+        public AudioPlayer EngineRestarter;
 
         private bool _engineOn;
 
@@ -77,8 +77,8 @@ namespace BackToTheFutureV
         //Speedo
         public AudioPlayer Speedo;
 
-        //Engine restarter
-        public AudioPlayer EngineRestarter;
+        //Clock
+        public AudioPlayer Alarm;
 
         //Sparks
         public AudioPlayer Sparks;
@@ -221,16 +221,16 @@ namespace BackToTheFutureV
             _doorOpenSound = AudioEngine.Create("general/doorOpen.wav", Presets.Exterior);
             _doorCloseSound = AudioEngine.Create("general/doorClose.wav", Presets.Exterior);
             _doorOpenColdSound = AudioEngine.Create("general/doorOpenCold.wav", Presets.Exterior);
-            _doorCloseColdsound = AudioEngine.Create("general/doorCloseCold.wav", Presets.Exterior);
-            _engineOffsound = AudioEngine.Create("general/engine/engineStop.wav", Presets.Exterior);
+            _doorCloseColdSound = AudioEngine.Create("general/doorCloseCold.wav", Presets.Exterior);
+            _engineOffSound = AudioEngine.Create("general/engine/engineStop.wav", Presets.Exterior);
             _engineOnSound = AudioEngine.Create("general/engine/engineStart.wav", Presets.Exterior);
 
-            _engineOffsound.SourceBone = "engine";
+            _engineOffSound.SourceBone = "engine";
             _engineOnSound.SourceBone = "engine";
 
             _doorSounds = new List<AudioPlayer>
             {
-                _doorOpenSound, _doorCloseSound, _doorOpenColdSound, _doorCloseColdsound
+                _doorOpenSound, _doorCloseSound, _doorOpenColdSound, _doorCloseColdSound
             };
 
             //Engine restarter
@@ -279,6 +279,12 @@ namespace BackToTheFutureV
 
         public override void Dispose()
         {
+            //Hover Mode
+            HoverModeOn?.Dispose();
+            HoverModeOff?.Dispose();
+            HoverModeUp?.Dispose();
+            HoverModeBoost?.Dispose();
+
             //Ice
             Ice?.Dispose();
             IceVents?.Dispose();
@@ -289,6 +295,7 @@ namespace BackToTheFutureV
 
             //Lightning strike
             LightningStrike?.Dispose();
+            Thunder?.Dispose();
 
             //Plutonium gauge
             PlutoniumGauge?.Dispose();
@@ -304,17 +311,31 @@ namespace BackToTheFutureV
             _doorOpenSound?.Dispose();
             _doorCloseSound?.Dispose();
             _doorOpenColdSound?.Dispose();
-            _doorCloseColdsound?.Dispose();
+            _doorCloseColdSound?.Dispose();
             _engineOnSound?.Dispose();
-            _engineOffsound?.Dispose();
+            _engineOffSound?.Dispose();
 
             //Engine restarter
             EngineRestarter?.Dispose();
 
+            //Speedo
+            Speedo?.Dispose();
+
+            //Alarm
+            Alarm?.Dispose();
+
             //Sparks
             Sparks?.Dispose();
+            SparksEmpty?.Dispose();
             SparkStabilized?.Dispose();
             DiodesGlowing?.Dispose();
+            WormholeInterrupted?.Dispose();
+
+            //Time travel
+            TimeTravelCutscene?.Dispose();
+            TimeTravelInstant?.Dispose();
+            Reenter?.Dispose();
+            SlideStop?.Dispose();
 
             //TCD Handler
             InputEnter?.Dispose();
@@ -324,21 +345,12 @@ namespace BackToTheFutureV
             InputOff?.Dispose();
 
             //TCD
-            TCDBeep?.Dispose();
             FluxCapacitor?.Dispose();
+            TCDBeep?.Dispose();
             TCDGlitch?.Dispose();
-
-            //Time travel
-            TimeTravelCutscene?.Dispose();
-            TimeTravelInstant?.Dispose();
-            Reenter?.Dispose();
-            SlideStop?.Dispose();
 
             //Plate
             Plate?.Dispose();
-
-            //Alarm
-            Alarm?.Dispose();
         }
 
         public override void KeyDown(KeyEventArgs e)
@@ -361,16 +373,16 @@ namespace BackToTheFutureV
                 string doorSide = door.Key == VehicleDoorIndex.FrontLeftDoor ? "d" : "p";
                 string doorBone = $"handle_{doorSide}side_f";
 
-                _doorSounds.ForEach(x => x.SourceBone = doorBone);
+                _doorSounds?.ForEach(x => x.SourceBone = doorBone);
                 if (doorAngle > 0 && !door.Value.IsDoorOpen)
                 {
                     if (!Properties.IsFreezed)
                     {
-                        _doorOpenSound.Play();
+                        _doorOpenSound?.Play();
                     }
                     else
                     {
-                        _doorOpenColdSound.Play();
+                        _doorOpenColdSound?.Play();
                     }
 
                     _doorStatus[door.Key].IsDoorOpen = true;
@@ -388,11 +400,11 @@ namespace BackToTheFutureV
                 {
                     if (!Properties.IsFreezed)
                     {
-                        _doorCloseSound.Play();
+                        _doorCloseSound?.Play();
                     }
                     else
                     {
-                        _doorCloseColdsound.Play();
+                        _doorCloseColdSound?.Play();
                     }
 
                     _doorStatus[door.Key].IsDoorFullyOpen = false;
@@ -401,14 +413,14 @@ namespace BackToTheFutureV
 
             if (Vehicle.IsEngineRunning && !_engineOn)
             {
-                _engineOffsound.Stop();
-                _engineOnSound.Play();
+                _engineOffSound?.Stop();
+                _engineOnSound?.Play();
                 _engineOn = true;
             }
             else if (!Vehicle.IsEngineRunning && _engineOn)
             {
-                _engineOnSound.Stop();
-                _engineOffsound.Play();
+                _engineOnSound?.Stop();
+                _engineOffSound?.Play();
                 _engineOn = false;
             }
 
@@ -417,12 +429,12 @@ namespace BackToTheFutureV
 
         public override void Stop()
         {
-            _doorCloseSound.Stop();
-            _doorOpenSound.Stop();
-            _doorCloseColdsound.Stop();
-            _doorOpenColdSound.Stop();
-            _engineOffsound.Stop();
-            _engineOnSound.Stop();
+            _doorCloseSound?.Stop();
+            _doorOpenSound?.Stop();
+            _doorCloseColdSound?.Stop();
+            _doorOpenColdSound?.Stop();
+            _engineOffSound?.Stop();
+            _engineOnSound?.Stop();
         }
     }
 }

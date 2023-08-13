@@ -230,9 +230,6 @@ namespace BackToTheFutureV
 
                     if (Mods.IsDMC12 && !Properties.IsFlying && !Properties.IsOnTracks && Mods.Plate == PlateType.Outatime)
                     {
-                        //if (Properties.TimeTravelType == TimeTravelType.Cutscene)
-                        //    TimeMachine.CustomCamera = TimeMachineCamera.LicensePlate;
-
                         Sounds.Plate?.Play();
                         Props.LicensePlate?.Play(false, true);
                     }

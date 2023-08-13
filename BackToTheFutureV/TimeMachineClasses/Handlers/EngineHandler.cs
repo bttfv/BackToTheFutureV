@@ -315,14 +315,14 @@ namespace BackToTheFutureV
 
         public override void Stop()
         {
-            _engineSounds.ForEach(x => x?.Stop());
-            _accelSounds.ForEach(x => x?.Stop());
+            _engineSounds?.ForEach(x => x?.Stop());
+            _accelSounds?.ForEach(x => x?.Stop());
         }
 
         public override void Dispose()
         {
-            _engineSounds.ForEach(x => x?.Dispose());
-            _accelSounds.ForEach(x => x?.Dispose());
+            _engineSounds?.ForEach(x => x?.Dispose());
+            _accelSounds?.ForEach(x => x?.Dispose());
         }
 
         #endregion
@@ -445,7 +445,7 @@ namespace BackToTheFutureV
             //Stop acceleration sounds if car is braking / driving neutral
             if (Acceleration < -10f || Vehicle.ThrottlePower == 0 || Vehicle.BrakePower > 0 || Mods.Wheels.AnyBurst || Vehicle.IsInWater)
             {
-                _accelSounds.ForEach(x => x?.Stop());
+                _accelSounds?.ForEach(x => x?.Stop());
                 return;
             }
 
