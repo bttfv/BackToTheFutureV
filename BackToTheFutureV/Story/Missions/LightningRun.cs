@@ -168,7 +168,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!setup || (FusionUtils.CurrentTime >= StartTime && FusionUtils.CurrentTime <= EndTime && Thunder == null) || (FusionUtils.CurrentTime < StartTime || FusionUtils.CurrentTime > EndTime) && Thunder != null)
+            if (!setup || (FusionUtils.CurrentTime >= StartTime && FusionUtils.CurrentTime <= EndTime && StreetRope == null) || (FusionUtils.CurrentTime < StartTime || FusionUtils.CurrentTime > EndTime) && StreetRope != null)
             {
                 OnEnd();
                 Setup();

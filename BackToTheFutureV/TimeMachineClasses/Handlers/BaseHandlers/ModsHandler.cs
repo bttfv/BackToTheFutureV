@@ -41,6 +41,7 @@ namespace BackToTheFutureV
                         Reactor = ReactorType.Nuclear;
                         Exhaust = ExhaustType.BTTF;
                         Plate = PlateType.Outatime;
+                        SuspensionsType = SuspensionsType.LowerRear;
                         break;
                     case WormholeType.BTTF2:
                         Reactor = ReactorType.MrFusion;
