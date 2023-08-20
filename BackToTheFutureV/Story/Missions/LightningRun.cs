@@ -86,6 +86,7 @@ namespace BackToTheFutureV
         public override void Abort()
         {
             OnEnd();
+            Thunder?.Dispose();
         }
 
         public override void KeyDown(KeyEventArgs key)
