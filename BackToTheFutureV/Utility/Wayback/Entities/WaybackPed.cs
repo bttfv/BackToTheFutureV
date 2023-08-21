@@ -91,54 +91,54 @@ namespace BackToTheFutureV
             {
                 case WaybackPedEvent.EnteringVehicle:
                     if (vehicle.NotNullAndExists() && !ped.IsEnteringVehicle())
-                        ped.Task.EnterVehicle(vehicle);
+                        ped?.Task?.EnterVehicle(vehicle);
 
                     break;
                 case WaybackPedEvent.ShufflingVehicle:
                     if (vehicle.NotNullAndExists() && !ped.IsTaskActive(TaskType.InVehicleSeatShuffle))
-                        ped.Task.ShuffleToNextVehicleSeat(vehicle);
+                        ped?.Task?.ShuffleToNextVehicleSeat(vehicle);
 
                     break;
                 case WaybackPedEvent.LeavingVehicle:
                     if (!ped.IsLeavingVehicle())
-                        ped.Task.LeaveVehicle();
+                        ped?.Task?.LeaveVehicle();
 
                     break;
                 case WaybackPedEvent.DrivingVehicle:
                     if (vehicle.NotNullAndExists() && !ped.IsEnteringVehicle() && !ped.IsTaskActive(TaskType.InVehicleSeatShuffle) && ped.SeatIndex != VehicleSeat.Driver)
-                        ped.SetIntoVehicle(vehicle, VehicleSeat.Driver);
+                        ped?.SetIntoVehicle(vehicle, VehicleSeat.Driver);
 
                     break;
                 case WaybackPedEvent.Jump:
                     if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.ScriptedAnimation) || ped.IsClimbing)
                         break;
 
-                    ped.Task.Jump();
+                    ped?.Task?.Jump();
                     break;
                 case WaybackPedEvent.MeleeAttack:
                     if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.ScriptedAnimation) || ped.IsClimbing)
                         break;
 
-                    ped.Task.PlayAnimation("melee@unarmed@streamed_core_fps", MeleeAttacks.SelectRandomElement());
+                    ped?.Task?.PlayAnimation("melee@unarmed@streamed_core_fps", MeleeAttacks.SelectRandomElement());
                     break;
                 case WaybackPedEvent.Climb:
                     if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.ScriptedAnimation) || ped.IsClimbing)
                         break;
 
-                    ped.Task.Climb();
+                    ped?.Task?.Climb();
                     break;
                 case WaybackPedEvent.Running:
                     if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.ScriptedAnimation) || ped.IsClimbing)
                         break;
 
                     Function.Call(Hash.SET_PED_MOVE_RATE_OVERRIDE, ped, 1.15f);
-                    ped.Task.RunTo(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), true);
+                    ped?.Task?.RunTo(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), true);
                     break;
                 case WaybackPedEvent.Walking:
                     if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.ScriptedAnimation) || ped.IsClimbing || ped.IsRunning)
                         break;
 
-                    ped.TaskGoStraightTo(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), FusionUtils.Lerp(Replica.Speed, nextReplica.Speed, adjustedRatio), FusionUtils.Lerp(Replica.Heading, nextReplica.Heading, adjustedRatio));
+                    ped?.TaskGoStraightTo(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), FusionUtils.Lerp(Replica.Speed, nextReplica.Speed, adjustedRatio), FusionUtils.Lerp(Replica.Heading, nextReplica.Heading, adjustedRatio));
                     break;
             }
         }

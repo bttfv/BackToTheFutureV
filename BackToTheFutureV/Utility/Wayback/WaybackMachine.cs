@@ -241,7 +241,7 @@ namespace BackToTheFutureV
 
             if (CurrentRecord.Ped.SwitchPed)
             {
-                Ped?.Task.ClearAllImmediately();
+                Ped?.Task?.ClearAllImmediately();
                 Ped = CurrentRecord.Spawn(NextRecord);
             }
 

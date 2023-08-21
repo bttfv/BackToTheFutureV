@@ -282,17 +282,17 @@ namespace BackToTheFutureV
                         taskSequence.AddTask.LeaveVehicle(LeaveVehicleFlags.WarpOut);
                         taskSequence.AddTask.Wander();
 
-                        Vehicle.Driver.Task.PerformSequence(taskSequence);
+                        Vehicle.Driver?.Task?.PerformSequence(taskSequence);
                     }
 
-                    FusionUtils.PlayerPed.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
+                    FusionUtils.PlayerPed?.Task?.EnterVehicle(Vehicle, VehicleSeat.Driver);
                 }
             }
 
             //After reentry, story time machines spawn in an odd state. This code fixes the inability for player to enter the time machine from the mineshaft
             if (!TimeMachineHandler.ClosestTimeMachine.IsFunctioning() && Vehicle.IsFunctioning() && FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, 4.47f) && Constants.FullDamaged && Game.IsControlJustPressed(GTA.Control.Enter))
             {
-                FusionUtils.PlayerPed.Task.EnterVehicle(Vehicle, VehicleSeat.Driver);
+                FusionUtils.PlayerPed?.Task?.EnterVehicle(Vehicle, VehicleSeat.Driver);
             }
 
             if (Constants.HasScaleformPriority != Properties.HasScaleformPriority)

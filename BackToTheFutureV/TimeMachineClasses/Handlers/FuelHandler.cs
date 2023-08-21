@@ -157,7 +157,7 @@ namespace BackToTheFutureV
                 refuelSequence.AddTask.PlayAnimation(refuelAnim);
                 refuelSequence.AddTask.StopScriptedAnimationTask(refuelAnim);
 
-                refuelPed?.Task.PerformSequence(refuelSequence);
+                refuelPed?.Task?.PerformSequence(refuelSequence);
             }
 
             Properties.ReactorCharge++;

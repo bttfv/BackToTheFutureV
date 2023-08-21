@@ -99,7 +99,7 @@ namespace BackToTheFutureV
                         Yield();
                 }
 
-                FusionUtils.PlayerPed.Task.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                FusionUtils.PlayerPed?.Task?.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
 
                 while (FusionUtils.PlayerPed.IsInVehicle())
                     Yield();

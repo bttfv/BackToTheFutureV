@@ -85,8 +85,8 @@ namespace BackToTheFutureV
             Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, Driver, 1.0f);
 
             Shooter = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Passenger);
-            Shooter.Weapons.Give(WeaponHash.Pistol, 999, true, true);
-            Shooter.Task.VehicleShootAtPed(FusionUtils.PlayerPed);
+            Shooter?.Weapons?.Give(WeaponHash.Pistol, 999, true, true);
+            Shooter?.Task?.VehicleShootAtPed(FusionUtils.PlayerPed);
 
             PedGroup peds = new PedGroup
             {
@@ -120,8 +120,8 @@ namespace BackToTheFutureV
 
         private void StopVehicle()
         {
-            Shooter.Task.ClearAll();
-            Driver.Task.ClearAll();
+            Shooter?.Task?.ClearAll();
+            Driver?.Task?.ClearAll();
 
             Vehicle.SteeringAngle = FusionUtils.Random.NextDouble() >= 0.5f ? 35 : -35;
             Vehicle.IsHandbrakeForcedOn = true;

@@ -31,7 +31,7 @@ namespace BackToTheFutureV
 
             if (warpInPlayer)
             {
-                FusionUtils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+                FusionUtils.PlayerPed?.Task?.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
             }
 
             return new DMC12(vehicle);
@@ -41,7 +41,7 @@ namespace BackToTheFutureV
         {
             if (warpInPlayer)
             {
-                FusionUtils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+                FusionUtils.PlayerPed?.Task?.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
             }
 
             return new DMC12(vehicle);

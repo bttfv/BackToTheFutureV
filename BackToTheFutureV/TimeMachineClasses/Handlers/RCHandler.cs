@@ -188,8 +188,8 @@ namespace BackToTheFutureV
             if (!TimeMachine.OriginalPed.IsInVehicle())
             {
                 TimeMachine.OriginalPed.KeepTaskWhenMarkedAsNoLongerNeeded = true;
-                //TimeMachine.OriginalPed.Task.PlayAnimation("amb@world_human_seat_wall_eating@male@both_hands@idle_a", "idle_a", 8f, -1, AnimationFlags.UpperBodyOnly | AnimationFlags.Loop);
-                TimeMachine.OriginalPed.Task.TurnTo(Vehicle);
+                //TimeMachine.OriginalPed?.Task?.PlayAnimation("amb@world_human_seat_wall_eating@male@both_hands@idle_a", "idle_a", 8f, -1, AnimationFlags.UpperBodyOnly | AnimationFlags.Loop);
+                TimeMachine.OriginalPed?.Task?.TurnTo(Vehicle);
             }
 
             if (CurrentMode == RcModes.FromPlayerCamera || FusionUtils.IsCameraInFirstPerson())
@@ -213,7 +213,7 @@ namespace BackToTheFutureV
                     return;
                 }
 
-                TimeMachine.OriginalPed.Task.ClearAll();
+                TimeMachine.OriginalPed?.Task?.ClearAll();
 
                 PlayerSwitch.Switch(TimeMachine.OriginalPed, true, instant);
 

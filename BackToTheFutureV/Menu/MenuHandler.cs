@@ -50,7 +50,7 @@ namespace BackToTheFutureV
 
                     if (FusionUtils.PlayerPed.IsGoingIntoCover)
                     {
-                        FusionUtils.PlayerPed.Task.StandStill(1);
+                        FusionUtils.PlayerPed?.Task?.StandStill(1);
                     }
 
                     if (RemoteTimeMachineHandler.IsRemoteOn)

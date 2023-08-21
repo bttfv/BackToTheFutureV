@@ -47,7 +47,7 @@ namespace BackToTheFutureV
                 {
                     if (!FusionUtils.PlayerPed.IsInVehicle())
                     {
-                        FusionUtils.PlayerPed.Task.PlayAnimation("amb@code_human_wander_idles@male@idle_a", "idle_a_wristwatch", 8f, -1, AnimationFlags.UpperBodyOnly);
+                        FusionUtils.PlayerPed?.Task?.PlayAnimation("amb@code_human_wander_idles@male@idle_a", "idle_a_wristwatch", 8f, -1, AnimationFlags.UpperBodyOnly);
                     }
 
                     WarningSound.SourceEntity = FusionUtils.PlayerPed;

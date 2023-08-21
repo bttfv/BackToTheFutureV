@@ -67,7 +67,7 @@ namespace BackToTheFutureV
                 FusionUtils.PlayerPed.IsVisible = false;
                 vehicle.DeleteCompletely();
                 vehicle = World.CreateVehicle("dproto", spawnPos, spawnHeading);
-                FusionUtils.PlayerPed.Task.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
+                FusionUtils.PlayerPed?.Task?.WarpIntoVehicle(vehicle, VehicleSeat.Driver);
                 vehicle.Mods.PrimaryColor = (VehicleColor)117;
                 vehicle.Mods.SecondaryColor = (VehicleColor)13;
                 vehicle.Mods.TrimColor = (VehicleColor)22;

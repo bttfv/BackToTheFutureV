@@ -113,7 +113,7 @@ namespace BackToTheFutureV
         {
             if (Mods.IsDMC12 && Driver != null && Driver == FusionUtils.PlayerPed)
             {
-                Driver.Task.PlayAnimation(inputAnim.ClipDictionary.Name, inputAnim.AnimationName, 8f, -1, AnimationFlags.Secondary);
+                Driver?.Task?.PlayAnimation(inputAnim.ClipDictionary.Name, inputAnim.AnimationName, 8f, -1, AnimationFlags.Secondary);
             }
 
             // If its not a valid length/mode
@@ -155,7 +155,7 @@ namespace BackToTheFutureV
         {
             if (Driver != null && Driver.IsPlayingAnimation(inputAnim) && Game.IsControlJustPressed(GTA.Control.VehicleExit))
             {
-                Driver.Task.StopScriptedAnimationTask(inputAnim);
+                Driver?.Task?.StopScriptedAnimationTask(inputAnim);
             }
 
             if (lastInput != Keys.None && !Game.IsKeyPressed(lastInput))

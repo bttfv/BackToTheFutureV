@@ -88,7 +88,7 @@ namespace BackToTheFutureV
             {
                 if (spawnBTTF.SelectedIndex == 0)
                 {
-                    FusionUtils.PlayerPed.Task.WarpIntoVehicle(DMC12Handler.CreateDMC12(FusionUtils.PlayerPed.Position, FusionUtils.PlayerPed.Heading), VehicleSeat.Driver);
+                    FusionUtils.PlayerPed?.Task?.WarpIntoVehicle(DMC12Handler.CreateDMC12(FusionUtils.PlayerPed.Position, FusionUtils.PlayerPed.Heading), VehicleSeat.Driver);
                     Visible = false;
                     return;
                 }
