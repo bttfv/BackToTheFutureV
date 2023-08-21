@@ -62,7 +62,7 @@ namespace BackToTheFutureV
         private void StartParadox()
         {
             ParadoxInProgress = true;
-            Game.Player.CanControlCharacter = false;
+            Game.Player.SetControlState(false);
 
             if (FusionUtils.PlayerVehicle.NotNullAndExists() && FusionUtils.PlayerVehicle.IsTimeMachine() && TimeMachineHandler.CurrentTimeMachine.Properties.IsRemoteControlled)
             {
@@ -159,7 +159,7 @@ namespace BackToTheFutureV
 
             oldPed.Delete();
 
-            Game.Player.CanControlCharacter = true;
+            Game.Player.SetControlState(true);
 
             ParadoxInProgress = false;
         }

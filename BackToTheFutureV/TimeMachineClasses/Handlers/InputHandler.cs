@@ -1,6 +1,5 @@
 ﻿using FusionLibrary;
 using GTA;
-using GTA.Native;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -11,6 +10,7 @@ namespace BackToTheFutureV
 {
     internal class InputHandler : HandlerPrimitive
     {
+        private readonly ClipDictAndAnimNamePair inputAnim = new ClipDictAndAnimNamePair(clipDictName: "veh@low@front_ds@base", animName: "change_station");
         public bool InputMode { get; private set; }
 
         public Keys lastInput = Keys.None;
@@ -113,7 +113,7 @@ namespace BackToTheFutureV
         {
             if (Mods.IsDMC12 && Driver != null && Driver == FusionUtils.PlayerPed)
             {
-                Driver.Task.PlayAnimation("veh@low@front_ds@base", "change_station", 8f, -1, AnimationFlags.Secondary);
+                Driver.Task.PlayAnimation(inputAnim.ClipDictionary.Name, inputAnim.AnimationName, 8f, -1, AnimationFlags.Secondary);
             }
 
             // If its not a valid length/mode
@@ -153,9 +153,9 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (Driver != null && Function.Call<bool>(Hash.IS_ENTITY_PLAYING_ANIM, Driver, "veh@low@front_ds@base", "change_station", 3) && Game.IsControlJustPressed(GTA.Control.VehicleExit))
+            if (Driver != null && Driver.IsPlayingAnimation(inputAnim) && Game.IsControlJustPressed(GTA.Control.VehicleExit))
             {
-                Driver.Task.ClearAnimation("veh@low@front_ds@base", "change_station");
+                Driver.Task.StopScriptedAnimationTask(inputAnim);
             }
 
             if (lastInput != Keys.None && !Game.IsKeyPressed(lastInput))

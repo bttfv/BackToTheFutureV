@@ -162,13 +162,13 @@ namespace BackToTheFutureV
             Clone.CanFlyThroughWindscreen = false;
             Clone.CanBeDraggedOutOfVehicle = false;
             Clone.BlockPermanentEvents = true;
-            Clone.AlwaysKeepTask = true;
+            Clone.KeepTaskWhenMarkedAsNoLongerNeeded = true;
             Clone.IsVisible = false;
             Clone.Health = StartHealth;
             TimeMachine.OriginalPed.Health = StartHealth;
             Clone.IsInvincible = true;
             Clone.IsExplosionProof = true;
-            Clone.CanBeKnockedOffBike = false;
+            Clone.KnockOffVehicleType = KnockOffVehicleType.Never;
             Clone.CanWearHelmet = false;
 
             _blip = TimeMachine.OriginalPed.AddBlip();
@@ -187,7 +187,7 @@ namespace BackToTheFutureV
 
             if (!TimeMachine.OriginalPed.IsInVehicle())
             {
-                TimeMachine.OriginalPed.AlwaysKeepTask = true;
+                TimeMachine.OriginalPed.KeepTaskWhenMarkedAsNoLongerNeeded = true;
                 //TimeMachine.OriginalPed.Task.PlayAnimation("amb@world_human_seat_wall_eating@male@both_hands@idle_a", "idle_a", 8f, -1, AnimationFlags.UpperBodyOnly | AnimationFlags.Loop);
                 TimeMachine.OriginalPed.Task.TurnTo(Vehicle);
             }
@@ -196,10 +196,11 @@ namespace BackToTheFutureV
             {
                 CurrentMode = RcModes.FromPlayerCamera;
 
-                _camera = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
+                _camera = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
                 Function.Call(Hash.ATTACH_CAM_TO_PED_BONE, _camera, TimeMachine.OriginalPed, Bone.SkelHead, 0, 0, 0, true);
                 _camera.PointAt(Vehicle);
-                World.RenderingCamera = _camera;
+                _camera.IsActive = true;
+                Camera.StartRenderingScriptedCamera();
             }
         }
 
@@ -241,7 +242,7 @@ namespace BackToTheFutureV
 
                 _camera?.Delete();
                 _camera = null;
-                World.RenderingCamera = null;
+                Camera.StopRenderingScriptedCamera();
 
                 if (CurrentMode == RcModes.FromPlayerCamera)
                 {
@@ -377,7 +378,7 @@ namespace BackToTheFutureV
 
                     _camera?.Delete();
                     _camera = null;
-                    World.RenderingCamera = null;
+                    Camera.StopRenderingScriptedCamera();
 
                     Function.Call(Hash.SET_FOLLOW_VEHICLE_CAM_VIEW_MODE, 0);
                 }
@@ -387,15 +388,13 @@ namespace BackToTheFutureV
 
                     Function.Call(Hash.SET_FOCUS_ENTITY, TimeMachine.OriginalPed);
 
-                    _camera = World.CreateCamera(GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
+                    _camera = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
                     Function.Call(Hash.ATTACH_CAM_TO_PED_BONE, _camera, TimeMachine.OriginalPed, Bone.SkelHead, 0, 0, 0, true);
                     _camera.PointAt(Vehicle);
-                    World.RenderingCamera = _camera;
+                    _camera.IsActive = true;
+                    Camera.StartRenderingScriptedCamera();
                 }
             }
-
-            //if (CurrentMode == RcModes.FromPlayerCamera && _camera != null && _camera.Exists())
-            //    TimeMachine.OriginalPed.Rotation = _camera.Rotation;
         }
 
         public override void Stop()

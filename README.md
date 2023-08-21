@@ -4,14 +4,17 @@
 
 ## Requirements:
 - [.NET Framework 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer)
+- [FusionLibrary Nightly](https://github.com/nomakewan/FusionLibrary/tree/nightlyshvdn)
 - [Script Hook V](https://www.dev-c.com/gtav/scripthookv/)
-- [Community Script Hook V .NET v3.6.0](https://github.com/crosire/scripthookvdotnet/releases)
+- [Script Hook V .NET Nightly](https://github.com/scripthookvdotnet/scripthookvdotnet/actions/workflows/build.yml)
 - [LemonUI v1.10](https://github.com/justalemon/LemonUI)
 - [HeapAdjuster](https://www.gta5-mods.com/tools/heapadjuster)
 - [RageAm](https://github.com/ranstar74/rageAm)
 
 ## For developers:
-In order to open the solution, you need Visual Studio 2017+ as well as [KlangRageAudioLibrary & irrKlang.NET4](https://github.com/bttfv/KlangRageAudioLibrary)
+In order to open the solution, you need Visual Studio 2017+ as well as [KlangRageAudioLibrary & irrKlang.NET4](https://github.com/bttfv/KlangRageAudioLibrary).
+Please note that this branch uses the nightly build of ScriptHookVDotNet and will not work on 3.6.0 or earlier.
+It also requires that you compile a nightly-compatible version of FusionLibrary from the link above.
 
 ## Controls:
 - ### Keyboard **/** Controller

@@ -288,7 +288,7 @@ namespace BackToTheFutureV
                     TimeMachine.CustomCameraManager.Stop();
                     FireTrailsHandler.RemoveTrail(trails);
 
-                    World.RenderingCamera = null;
+                    Camera.StopRenderingScriptedCamera();
 
                     if (!Properties.IsWayback)
                         Properties.NewGUID();

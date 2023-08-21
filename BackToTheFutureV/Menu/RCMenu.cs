@@ -109,10 +109,10 @@ namespace BackToTheFutureV
                 CarCam?.Delete();
             }
 
-            CarCam = World.CreateCamera(CurrentTimeMachine.Vehicle.GetOffsetPosition(new Vector3(0.0f, -5.0f, 3.0f)), World.RenderingCamera.Rotation, 75.0f);
+            CarCam = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, CurrentTimeMachine.Vehicle.GetOffsetPosition(new Vector3(0.0f, -5.0f, 3.0f)), Vector3.Zero, 75f);
             CarCam.PointAt(CurrentTimeMachine.Vehicle);
-
-            World.RenderingCamera = CarCam;
+            CarCam.IsActive = true;
+            Camera.StartRenderingScriptedCamera();
 
             Function.Call(Hash.CLEAR_FOCUS);
             Function.Call(Hash.SET_FOCUS_ENTITY, CurrentTimeMachine.Vehicle);
@@ -123,7 +123,7 @@ namespace BackToTheFutureV
             Function.Call(Hash.CLEAR_FOCUS);
             CarCam?.Delete();
             CarCam = null;
-            World.RenderingCamera = null;
+            Camera.StopRenderingScriptedCamera();
         }
 
         public override void Tick()

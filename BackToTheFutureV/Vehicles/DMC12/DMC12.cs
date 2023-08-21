@@ -41,6 +41,8 @@ namespace BackToTheFutureV
         private readonly AnimateProp suspensionRightFront;
         private readonly AnimateProp suspensionRightRear;
 
+        private readonly ClipDictAndAnimNamePair duckAnim = new ClipDictAndAnimNamePair(clipDictName: "veh@low@front_ds@idle_duck", animName: "sit");
+
         private Vector3 InteriorLightOnPose;
         private Vector3 InteriorLightOffPose = new Vector3(0f, 0f, -2500f);
 
@@ -150,18 +152,18 @@ namespace BackToTheFutureV
             {
                 if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((IsTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !IsTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && !FusionUtils.IsCameraInFirstPerson())
                 {
-                    FusionUtils.PlayerPed.Task?.PlayAnimation("veh@low@front_ds@idle_duck", "sit", 3.5f, 3.5f, -1, AnimationFlags.Secondary, 1f);
+                    FusionUtils.PlayerPed.Task?.PlayAnimation(duckAnim.ClipDictionary.Name, duckAnim.AnimationName, 3.5f, 3.5f, -1, AnimationFlags.Secondary, 1f);
                     isDucking = true;
                     duckEnded = false;
                 }
                 else if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((IsTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !IsTimeMachine) && isDucking && !FusionUtils.IsCameraInFirstPerson())
                 {
-                    Function.Call(Hash.SET_ENTITY_ANIM_SPEED, FusionUtils.PlayerPed, "veh@low@front_ds@idle_duck", "sit", 0f);
-                    Function.Call(Hash.SET_ENTITY_ANIM_CURRENT_TIME, FusionUtils.PlayerPed, "veh@low@front_ds@idle_duck", "sit", 0f);
+                    Function.Call(Hash.SET_ENTITY_ANIM_SPEED, FusionUtils.PlayerPed, duckAnim.ClipDictionary.Name, duckAnim.AnimationName, 0f);
+                    Function.Call(Hash.SET_ENTITY_ANIM_CURRENT_TIME, FusionUtils.PlayerPed, duckAnim.ClipDictionary.Name, duckAnim.AnimationName, 0f);
                 }
                 else if (!duckEnded && !(Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && !FusionUtils.IsCameraInFirstPerson())
                 {
-                    FusionUtils.PlayerPed.Task?.ClearAnimation("veh@low@front_ds@idle_duck", "sit");
+                    FusionUtils.PlayerPed.Task?.StopScriptedAnimationTask(duckAnim);
                     isDucking = false;
                     duckEnded = true;
                 }
@@ -170,12 +172,12 @@ namespace BackToTheFutureV
                 {
                     if (!fpsSetup)
                     {
-                        duckCameraStart = World.CreateCamera(FusionUtils.PlayerPed.Bones[Bone.IKHead].Position + new Vector3(0f, 0.03f, 0.12f), GameplayCamera.Rotation, GameplayCamera.FieldOfView);
-                        duckCameraEnd = World.CreateCamera(FusionUtils.PlayerPed.Bones[Bone.IKHead].Position + new Vector3(0f, 0.03f, 0.12f), GameplayCamera.Rotation, GameplayCamera.FieldOfView);
-                        steeringCamera = World.CreateCamera(Vehicle.Position, Vehicle.Rotation, 50);
+                        duckCameraStart = duckCameraEnd = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, FusionUtils.PlayerPed.Bones[Bone.IKHead].Position + new Vector3(0f, 0.03f, 0.12f), GameplayCamera.Rotation, GameplayCamera.FieldOfView, true);
+                        steeringCamera = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, Vehicle.Position, Vehicle.Rotation, 50f, true);
                         steeringCamera?.AttachToVehicle(Vehicle, "", Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), FusionUtils.DirectionToRotation(Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), Vehicle.Bones["steeringwheel"].RelativePosition, 0));
-                        World.RenderingCamera = duckCameraStart;
-                        duckCameraStart?.InterpTo(steeringCamera, 50, 0, 0);
+                        duckCameraStart.IsActive = true;
+                        Camera.StartRenderingScriptedCamera();
+                        duckCameraStart?.InterpTo(steeringCamera, 50);
                         isDucking = true;
                         fpsSetup = true;
                     }
@@ -184,13 +186,13 @@ namespace BackToTheFutureV
                 {
                     if (!fpsEnded)
                     {
-                        steeringCamera?.InterpTo(duckCameraEnd, 50, 0, 0);
+                        steeringCamera?.InterpTo(duckCameraEnd, 50);
                         duckTime = Game.GameTime + 50;
                         fpsEnded = true;
                     }
                     if (Game.GameTime > duckTime && fpsEnded)
                     {
-                        World.RenderingCamera = null;
+                        Camera.StopRenderingScriptedCamera();
                         duckCameraStart?.Delete();
                         duckCameraEnd?.Delete();
                         steeringCamera?.Delete();

@@ -280,7 +280,7 @@ namespace BackToTheFutureV
                     {
                         TaskSequence taskSequence = new TaskSequence();
                         taskSequence.AddTask.LeaveVehicle(LeaveVehicleFlags.WarpOut);
-                        taskSequence.AddTask.WanderAround();
+                        taskSequence.AddTask.Wander();
 
                         Vehicle.Driver.Task.PerformSequence(taskSequence);
                     }
@@ -333,7 +333,7 @@ namespace BackToTheFutureV
                 {
                     Windows[VehicleWindowIndex.BackLeftWindow].Remove();
                     Windows[VehicleWindowIndex.BackRightWindow].Remove();
-                    Windows[VehicleWindowIndex.ExtraWindow4].Remove();
+                    Windows[VehicleWindowIndex.BackWindshield].Remove();
                     Vehicle.Doors[VehicleDoorIndex.Trunk].Break(false);
                     Vehicle.Doors[VehicleDoorIndex.BackRightDoor].Break(false);
                 }

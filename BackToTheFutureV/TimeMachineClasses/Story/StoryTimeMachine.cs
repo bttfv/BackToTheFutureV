@@ -103,7 +103,7 @@ namespace BackToTheFutureV
                     VehicleWindowCollection windows = TimeMachine.Vehicle.Windows;
                     windows[VehicleWindowIndex.BackLeftWindow].Remove();
                     windows[VehicleWindowIndex.BackRightWindow].Remove();
-                    windows[VehicleWindowIndex.ExtraWindow4].Remove();
+                    windows[VehicleWindowIndex.BackWindshield].Remove();
 
                     TimeMachine.Vehicle.Doors[VehicleDoorIndex.Trunk].Break(false);
                     TimeMachine.Vehicle.Doors[VehicleDoorIndex.BackRightDoor].Break(false);

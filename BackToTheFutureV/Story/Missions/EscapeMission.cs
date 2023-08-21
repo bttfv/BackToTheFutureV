@@ -77,7 +77,7 @@ namespace BackToTheFutureV
 
             Driver = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Driver);
 
-            Driver.AlwaysKeepTask = true;
+            Driver.KeepTaskWhenMarkedAsNoLongerNeeded = true;
 
             Function.Call(Hash.TASK_VEHICLE_CHASE, Driver, FusionUtils.PlayerPed);
             Function.Call(Hash.SET_TASK_VEHICLE_CHASE_BEHAVIOR_FLAG, Driver, VehicleDrivingFlags.ForceStraightLine | VehicleDrivingFlags.SwerveAroundAllVehicles | VehicleDrivingFlags.PreferNavmeshRoute | VehicleDrivingFlags.AllowGoingWrongWay | VehicleDrivingFlags.UseShortCutLinks, true);

@@ -47,7 +47,6 @@ namespace BackToTheFutureV
         public static bool TimeParadox { get; set; } = false;
         //public static bool DeluxoProto { get; set; } = true;
         public static int MaxRecordedMachines { get; set; } = 10;
-        public static bool Potato { get; set; } = false;
 
         private static ScriptSettings settings;
         private static readonly CultureInfo info = CultureInfo.CreateSpecificCulture("en-US");
@@ -112,7 +111,6 @@ namespace BackToTheFutureV
             YearTraffic = settings.GetValue("General", "YearTraffic", YearTraffic);
             //DeluxoProto = settings.GetValue("General", "DeluxoProto", DeluxoProto);
             MaxRecordedMachines = settings.GetValue("General", "MaxRemote", MaxRecordedMachines);
-            Potato = settings.GetValue("General", "Potato", Potato);
 
             LightningStrikeEvent = settings.GetValue("Events", "LightningStrike", LightningStrikeEvent);
             EngineStallEvent = settings.GetValue("Events", "EngineStall", EngineStallEvent);
@@ -163,7 +161,6 @@ namespace BackToTheFutureV
             settings.SetValue("General", "YearTraffic", YearTraffic);
             //settings.SetValue("General", "DeluxoProto", DeluxoProto);
             settings.SetValue("General", "MaxRemote", MaxRecordedMachines);
-            settings.SetValue("General", "Potato", Potato);
 
             settings.SetValue("Events", "LightningStrike", LightningStrikeEvent);
             settings.SetValue("Events", "EngineStall", EngineStallEvent);

@@ -1,7 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.Native;
 using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
@@ -17,6 +16,7 @@ namespace BackToTheFutureV
         private int _nextCheck;
         private int _headCheck;
 
+        private readonly ClipDictAndAnimNamePair restartAnim = new ClipDictAndAnimNamePair(clipDictName: "veh@low@front_ds@base", animName: "start_engine");
         private readonly TimedEventHandler timedEventManager;
 
         private bool _lightsOn;
@@ -89,7 +89,7 @@ namespace BackToTheFutureV
             }
             else
             {
-                Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
+                Driver?.Task?.StopScriptedAnimationTask(restartAnim);
             }
 
             if (Properties.IsFlying)
@@ -156,7 +156,7 @@ namespace BackToTheFutureV
                 {
                     DMC12.forcedDucking = true;
                 }
-                Function.Call(Hash.SET_HORN_PERMANENTLY_ON, Vehicle.Handle);
+                GTA.Native.Function.Call(GTA.Native.Hash.SET_HORN_PERMANENTLY_ON, Vehicle.Handle);
             }
             else if (_headHorn)
             {
@@ -204,7 +204,7 @@ namespace BackToTheFutureV
                     if (!_isRestarting)
                     {
                         //Would be cool to loop this animation at the key-turning step...
-                        Driver?.Task?.PlayAnimation("veh@low@front_ds@base", "start_engine", 8f, -1, AnimationFlags.Loop);
+                        Driver?.Task?.PlayAnimation(restartAnim.ClipDictionary.Name, restartAnim.AnimationName, 8f, -1, AnimationFlags.Loop);
                         Sounds.EngineRestarter?.Play();
 
                         _restartAt = Game.GameTime + FusionUtils.Random.Next(3000, 10000);
@@ -229,7 +229,7 @@ namespace BackToTheFutureV
                 }
                 else
                 {
-                    Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
+                    Driver?.Task?.StopScriptedAnimationTask(restartAnim);
                     _lightsBrightness = 1;
                     timedEventManager.ResetExecution();
                     _isRestarting = false;
@@ -276,7 +276,7 @@ namespace BackToTheFutureV
             }
 
             Vehicle.IsEngineRunning = true;
-            Driver?.Task?.ClearAnimation("veh@low@front_ds@base", "start_engine");
+            Driver?.Task?.StopScriptedAnimationTask(restartAnim);
         }
 
         public override void Dispose()

@@ -39,12 +39,6 @@ namespace BackToTheFutureV
 
             ModSettings.LoadSettings();
 
-            if (ModSettings.Potato)
-            {
-                Potato.AddIgnoreType(typeof(Main));
-                Potato.Start();
-            }
-
             /*if (ModSettings.DeluxoProto && new Model("dproto").IsInCdImage)
             {
                 DeluxoProtoSupport = true;
@@ -57,12 +51,7 @@ namespace BackToTheFutureV
 
         private void Main_Aborted(object sender, EventArgs e)
         {
-            if (ModSettings.Potato)
-            {
-                Potato.Stop();
-            }
-
-            World.RenderingCamera = null;
+            Camera.StopRenderingScriptedCamera();
 
             Screen.FadeIn(1000);
 

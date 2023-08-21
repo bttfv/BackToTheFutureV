@@ -22,6 +22,7 @@ namespace BackToTheFutureV
         private float _reactorGlowingTime = 0;
         private float _refuelTime = 0;
 
+        private readonly ClipDictAndAnimNamePair refuelAnim = new ClipDictAndAnimNamePair(clipDictName: "anim@narcotics@trash", animName: "drop_front");
         private readonly NativeInput InteractPressed;
 
         private TaskSequence refuelSequence;
@@ -153,8 +154,8 @@ namespace BackToTheFutureV
 
                 refuelSequence.AddTask.ClearAllImmediately();
                 refuelSequence.AddTask.TurnTo(Vehicle.Bones["mr_fusion_handle"].Position, 1000);
-                refuelSequence.AddTask.PlayAnimation("anim@narcotics@trash", "drop_front");
-                refuelSequence.AddTask.ClearAnimation("anim@narcotics@trash", "drop_front");
+                refuelSequence.AddTask.PlayAnimation(refuelAnim);
+                refuelSequence.AddTask.StopScriptedAnimationTask(refuelAnim);
 
                 refuelPed?.Task.PerformSequence(refuelSequence);
             }

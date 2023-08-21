@@ -120,12 +120,12 @@ namespace BackToTheFutureV
 
         public Camera CreateInsideCamera()
         {
-            return World.CreateCamera(InsideCameraPosition, InsideCameraRotation, 50);
+            return Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, InsideCameraPosition, InsideCameraRotation, 50f, true);
         }
 
         public Camera CreateOutsideCamera()
         {
-            return World.CreateCamera(OutsideCameraPosition, OutsideCameraRotation, 50);
+            return Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, OutsideCameraPosition, OutsideCameraRotation, 50f, true);
         }
     }
 
@@ -323,7 +323,8 @@ namespace BackToTheFutureV
             garageCamera = null;
 
             garageCamera = camera;
-            World.RenderingCamera = garageCamera;
+            garageCamera.IsActive = true;
+            Camera.StartRenderingScriptedCamera();
         }
 
         private static void DestroyCamera()
@@ -331,7 +332,7 @@ namespace BackToTheFutureV
             garageCamera?.Delete();
             garageCamera = null;
 
-            World.RenderingCamera = null;
+            Camera.StopRenderingScriptedCamera();
         }
     }
 }
