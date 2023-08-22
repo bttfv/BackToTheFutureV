@@ -98,7 +98,7 @@ namespace BackToTheFutureV
                     if (spawnElsewhere)
                     {
                         timeMachineClone.Vehicle.Position = timeMachineClone.Vehicle.Position.Around(FusionUtils.Random.Next(0, 1000));
-                        timeMachineClone.Vehicle.Position.RequestCollision();
+                        Streaming.RequestCollisionAt(timeMachineClone.Vehicle.Position);
                     }
 
                     timeMachineClone.Spawn(SpawnFlags.NoVelocity);

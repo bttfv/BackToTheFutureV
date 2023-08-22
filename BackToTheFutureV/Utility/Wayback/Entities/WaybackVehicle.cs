@@ -84,7 +84,7 @@ namespace BackToTheFutureV
         {
             if (FusionUtils.PlayerPed.DistanceToSquared2D(Replica.Position) > 25000)
             {
-                Replica.Position.RequestCollision();
+                Streaming.RequestCollisionAt(Replica.Position);
             }
 
             Vehicle vehicle = ped?.GetUsingVehicle();

@@ -86,19 +86,16 @@ namespace BackToTheFutureV
                 for (int i = 0; i < maxLength; i++)
                 {
                     // Define fire offset on left and right wheels
-                    Vector3 leftPosOffset = leftWheelOffset + new Vector3(0, i * baseOffset, -0.2f);
-                    Vector3 rightPosOffset = rightWheelOffset + new Vector3(0, i * baseOffset, -0.2f);
+                    Vector3 leftPosOffset = vehicle.GetOffsetPosition(leftWheelOffset + new Vector3(0, i * baseOffset, -0.2f));
+                    Vector3 rightPosOffset = vehicle.GetOffsetPosition(rightWheelOffset + new Vector3(0, i * baseOffset, -0.2f));
 
                     // Place fire offset on ground if car is not flying
-                    if (vehicle.IsInAir)
+                    if (!vehicle.IsInAir)
                     {
-                        leftPosOffset = vehicle.GetOffsetPosition(leftPosOffset);
-                        rightPosOffset = vehicle.GetOffsetPosition(rightPosOffset);
-                    }
-                    else
-                    {
-                        leftPosOffset = FusionUtils.GetPositionOnGround(vehicle.GetOffsetPosition(leftPosOffset), 0.125f);
-                        rightPosOffset = FusionUtils.GetPositionOnGround(vehicle.GetOffsetPosition(rightPosOffset), 0.125f);
+                        World.GetGroundHeight(leftPosOffset, out float leftTemp);
+                        leftPosOffset.Z = leftTemp + 0.125f;
+                        World.GetGroundHeight(rightPosOffset, out float rightTemp);
+                        rightPosOffset.Z = rightTemp + 0.125f;
                     }
 
                     // Create and configure fire particle

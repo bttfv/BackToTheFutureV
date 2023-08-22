@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Math;
 using GTA.Native;
 using GTA.UI;
 using System;
@@ -71,7 +72,7 @@ namespace BackToTheFutureV
 
             if (LastRecord.Ped.Replica.Model != FusionUtils.PlayerPed.Model)
             {
-                LastRecord.Ped.Replica.Position.LoadScene();
+                Streaming.StartNewFrustumLoadScene(LastRecord.Ped.Replica.Position, Vector3.Zero, 20f);
 
                 Ped newPed = LastRecord.Spawn(LastRecord);
 
@@ -148,7 +149,7 @@ namespace BackToTheFutureV
             Function.Call(Hash.NETWORK_RESURRECT_LOCAL_PLAYER, FusionUtils.PlayerPed.Position.X, FusionUtils.PlayerPed.Position.Y, FusionUtils.PlayerPed.Position.Z, FusionUtils.PlayerPed.Heading, false, false);
             Function.Call(Hash.FORCE_GAME_STATE_PLAYING);
 
-            StartRecord.Ped.Replica.Position.LoadScene();
+            Streaming.StartNewFrustumLoadScene(StartRecord.Ped.Replica.Position, Vector3.Zero, 20f);
 
             Ped oldPed = FusionUtils.PlayerPed;
             Ped newPed = StartRecord.Spawn(StartRecord);
