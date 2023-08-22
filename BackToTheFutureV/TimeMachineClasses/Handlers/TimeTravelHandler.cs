@@ -91,7 +91,7 @@ namespace BackToTheFutureV
                         }
                         else
                         {
-                            if ((!ModSettings.CutsceneMode && !Properties.HasBeenStruckByLightning) || FusionUtils.IsCameraInFirstPerson())
+                            if ((!ModSettings.CutsceneMode && !Properties.HasBeenStruckByLightning) || GameplayCamera.FollowPedCameraViewMode == CameraViewMode.FirstPerson)
                             {
                                 Properties.TimeTravelType = TimeTravelType.Instant;
                             }
@@ -131,7 +131,7 @@ namespace BackToTheFutureV
                         TimeMachine.LastDisplacementClone = TimeMachine.Clone();
                         Sounds.TimeTravelInstant?.Play();
 
-                        if (FusionUtils.IsCameraInFirstPerson())
+                        if (GameplayCamera.FollowPedCameraViewMode == CameraViewMode.FirstPerson)
                         {
                             Props.WhiteSphere.SpawnProp();
                         }

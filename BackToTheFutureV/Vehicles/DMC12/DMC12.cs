@@ -150,25 +150,25 @@ namespace BackToTheFutureV
             We also check to see if the player is in first-person since the required animations are completely different.*/
             if (ClockHandler.finishTime < Game.GameTime && Vehicle.Driver != null && Vehicle.Driver.IsVisible)
             {
-                if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((IsTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !IsTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && !FusionUtils.IsCameraInFirstPerson())
+                if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((IsTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !IsTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && GameplayCamera.FollowPedCameraViewMode != CameraViewMode.FirstPerson)
                 {
                     FusionUtils.PlayerPed.Task?.PlayAnimation(duckAnim.ClipDictionary.Name, duckAnim.AnimationName, 3.5f, 3.5f, -1, AnimationFlags.Secondary, 1f);
                     isDucking = true;
                     duckEnded = false;
                 }
-                else if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((IsTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !IsTimeMachine) && isDucking && !FusionUtils.IsCameraInFirstPerson())
+                else if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((IsTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !IsTimeMachine) && isDucking && GameplayCamera.FollowPedCameraViewMode != CameraViewMode.FirstPerson)
                 {
                     Function.Call(Hash.SET_ENTITY_ANIM_SPEED, FusionUtils.PlayerPed, duckAnim.ClipDictionary.Name, duckAnim.AnimationName, 0f);
                     Function.Call(Hash.SET_ENTITY_ANIM_CURRENT_TIME, FusionUtils.PlayerPed, duckAnim.ClipDictionary.Name, duckAnim.AnimationName, 0f);
                 }
-                else if (!duckEnded && !(Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && !FusionUtils.IsCameraInFirstPerson())
+                else if (!duckEnded && !(Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && GameplayCamera.FollowPedCameraViewMode != CameraViewMode.FirstPerson)
                 {
                     FusionUtils.PlayerPed.Task?.StopScriptedAnimationTask(duckAnim);
                     isDucking = false;
                     duckEnded = true;
                 }
 
-                if (forcedDucking && FusionUtils.PlayerPed.IsFullyInVehicle() && ((IsTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !IsTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && FusionUtils.IsCameraInFirstPerson())
+                if (forcedDucking && FusionUtils.PlayerPed.IsFullyInVehicle() && ((IsTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !IsTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && GameplayCamera.FollowPedCameraViewMode == CameraViewMode.FirstPerson)
                 {
                     if (!fpsSetup)
                     {
@@ -182,7 +182,7 @@ namespace BackToTheFutureV
                         fpsSetup = true;
                     }
                 }
-                else if (isDucking && !forcedDucking && FusionUtils.IsCameraInFirstPerson())
+                else if (isDucking && !forcedDucking && GameplayCamera.FollowPedCameraViewMode == CameraViewMode.FirstPerson)
                 {
                     if (!fpsEnded)
                     {
