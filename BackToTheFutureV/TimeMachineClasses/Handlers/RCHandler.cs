@@ -192,7 +192,7 @@ namespace BackToTheFutureV
                 TimeMachine.OriginalPed?.Task?.TurnTo(Vehicle);
             }
 
-            if (CurrentMode == RcModes.FromPlayerCamera || GameplayCamera.FollowPedCameraViewMode == CameraViewMode.FirstPerson)
+            if (CurrentMode == RcModes.FromPlayerCamera || FusionUtils.IsCameraInFirstPerson())
             {
                 CurrentMode = RcModes.FromPlayerCamera;
 

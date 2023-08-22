@@ -50,7 +50,7 @@ namespace BackToTheFutureV
 
         private void ProcessButton(Keys key)
         {
-            if (GameplayCamera.FollowPedCameraViewMode == CameraViewMode.FirstPerson && (key == Keys.O || (IsPlaying && (Game.IsControlJustPressed(Control.PhoneCancel) || Game.IsControlJustPressed(Control.PhoneSelect)))))
+            if (FusionUtils.IsCameraInFirstPerson() && (key == Keys.O || (IsPlaying && (Game.IsControlJustPressed(Control.PhoneCancel) || Game.IsControlJustPressed(Control.PhoneSelect)))))
             {
                 IsPlaying = !IsPlaying;
 

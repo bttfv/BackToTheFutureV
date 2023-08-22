@@ -219,7 +219,7 @@ namespace BackToTheFutureV
                 }
 
                 // Silly hack to get scaleforms like hoodbox and wormhole to appear on RR time machines in first person
-                if (GameplayCamera.FollowPedCameraViewMode == CameraViewMode.FirstPerson && TimeMachine == TimeMachineHandler.CurrentTimeMachine)
+                if (FusionUtils.IsCameraInFirstPerson() && TimeMachine == TimeMachineHandler.CurrentTimeMachine)
                 {
                     Vehicle.Bones["windscreen"].Pose = _windscreenOffPose;
                 }
