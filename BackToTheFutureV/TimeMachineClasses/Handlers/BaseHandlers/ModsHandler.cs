@@ -16,6 +16,8 @@ namespace BackToTheFutureV
 
         private bool WasReloadedTM { get; set; }
 
+        private bool StockSuspension { get; set; }
+
         public ModsHandler(TimeMachine timeMachine, WormholeType wormholeType) : base(timeMachine.Vehicle)
         {
             TimeMachine = timeMachine;
@@ -216,54 +218,74 @@ namespace BackToTheFutureV
                 switch (SuspensionsType)
                 {
                     case SuspensionsType.Stock:
-                        CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.0f));
-                        CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.0f));
-                        CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.0f));
-                        CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                        if (!StockSuspension)
+                        {
+                            CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.0f));
+                            CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.0f));
+                            CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                            CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.0f));
+                            StockSuspension = true;
+                        }
                         break;
                     case SuspensionsType.LiftFrontLowerRear:
+                        if (StockSuspension)
+                            StockSuspension = false;
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, -0.1f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, -0.1f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.05f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.05f));
                         break;
                     case SuspensionsType.LiftFront:
+                        if (StockSuspension)
+                            StockSuspension = false;
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, -0.1f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, -0.1f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.0f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.0f));
                         break;
                     case SuspensionsType.LiftRear:
+                        if (StockSuspension)
+                            StockSuspension = false;
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.0f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.0f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, -0.1f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, -0.1f));
                         break;
                     case SuspensionsType.LiftFrontAndRear:
+                        if (StockSuspension)
+                            StockSuspension = false;
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, -0.07f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, -0.07f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, -0.07f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, -0.07f));
                         break;
                     case SuspensionsType.LowerFrontLiftRear:
+                        if (StockSuspension)
+                            StockSuspension = false;
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.05f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.05f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, -0.1f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, -0.1f));
                         break;
                     case SuspensionsType.LowerFront:
+                        if (StockSuspension)
+                            StockSuspension = false;
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.05f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.05f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.0f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.0f));
                         break;
                     case SuspensionsType.LowerRear:
+                        if (StockSuspension)
+                            StockSuspension = false;
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.0f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.0f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.05f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightRear].GetSingleOffset(Coordinate.Z, 0.05f));
                         break;
                     case SuspensionsType.LowerFrontAndRear:
+                        if (StockSuspension)
+                            StockSuspension = false;
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftFront].GetSingleOffset(Coordinate.Z, 0.05f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelRightFront].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelRightFront].GetSingleOffset(Coordinate.Z, 0.05f));
                         CVehicle.Wheels[VehicleWheelBoneId.WheelLeftRear].RelativePosition.Set(WheelStartOffsets[VehicleWheelBoneId.WheelLeftRear].GetSingleOffset(Coordinate.Z, 0.05f));
