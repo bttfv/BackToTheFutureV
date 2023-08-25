@@ -27,7 +27,7 @@ namespace BackToTheFutureV
             Decorator.Register(BTTFVDecors.WormholeType, DecorType.Int);
             Decorator.Register(BTTFVDecors.DestDate, DecorType.DateTime);
             Decorator.Register(BTTFVDecors.LastDate, DecorType.DateTime);
-            Decorator.Lock();
+            DecoratorInterface.IsLocked = true;
         }
 
         public DecoratorsHandler(TimeMachine timeMachine) : base(timeMachine)

@@ -102,7 +102,7 @@ namespace BackToTheFutureV
             Decorator.Register(BTTFVDecors.IsVerticalBoosting, DecorType.Bool);
             Decorator.Register(BTTFVDecors.IsWaitForLanding, DecorType.Bool);
             Decorator.Register(BTTFVDecors.IsAltitudeHolding, DecorType.Bool);
-            Decorator.Lock();
+            DecoratorInterface.IsLocked = true;
 
             _flyModeInput = new NativeInput(ModControls.Hover);
             _flyModeInput.OnControlLongPressed += OnFlyModeControlJustLongPressed;
