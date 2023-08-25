@@ -97,7 +97,8 @@ namespace BackToTheFutureV
                 Events.SetFlyMode?.Invoke(false);
             }
 
-            Vehicle.GetLightsState(out _lightsOn, out _highbeamsOn);
+            _lightsOn = Vehicle.AreLightsOn;
+            _highbeamsOn = Vehicle.AreHighBeamsOn;
 
             if (_highbeamsOn)
             {
@@ -124,7 +125,7 @@ namespace BackToTheFutureV
                 if (_lightsOn)
                 {
                     Vehicle.SetLightsMode(LightsMode.AlwaysOn);
-                    Vehicle.SetLightsBrightness(_lightsBrightness);
+                    Vehicle.LightsMultiplier = _lightsBrightness;
                 }
             }
 
@@ -269,7 +270,7 @@ namespace BackToTheFutureV
 
             if (_lightsOn)
             {
-                Vehicle.SetLightsBrightness(1);
+                Vehicle.LightsMultiplier = 1f;
                 Vehicle.SetLightsMode(LightsMode.Default);
 
                 Vehicle.AreHighBeamsOn = _highbeamsOn;

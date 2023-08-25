@@ -138,7 +138,7 @@ namespace BackToTheFutureV
                     if (ped.IsTaskActive(TaskType.Jump) || ped.IsTaskActive(TaskType.ScriptedAnimation) || ped.IsClimbing || ped.IsRunning)
                         break;
 
-                    ped?.TaskGoStraightTo(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), FusionUtils.Lerp(Replica.Speed, nextReplica.Speed, adjustedRatio), FusionUtils.Lerp(Replica.Heading, nextReplica.Heading, adjustedRatio));
+                    ped?.Task?.GoStraightTo(FusionUtils.Lerp(Replica.Position, nextReplica.Position, adjustedRatio), (int)FusionUtils.Lerp(Replica.Speed, nextReplica.Speed, adjustedRatio), FusionUtils.Lerp(Replica.Heading, nextReplica.Heading, adjustedRatio));
                     break;
             }
         }
