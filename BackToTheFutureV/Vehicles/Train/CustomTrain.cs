@@ -28,22 +28,12 @@ namespace BackToTheFutureV
         }
         public int CarriageCount { get; }
 
-        private float _cruiseSpeed;
-        private bool _setSpeed;
         private float _speed;
 
         public bool Exists { get; private set; } = true;
         public bool IsAutomaticBrakeOn { get; set; } = true;
         public bool IsAccelerationOn { get; set; } = false;
-
-        public float CruiseSpeed { get => _cruiseSpeed; set { _cruiseSpeed = value; _setSpeed = false; IsAutomaticBrakeOn = false; Function.Call(Hash.SET_TRAIN_CRUISE_SPEED, Train, value); } }
-        public float CruiseSpeedMPH
-        {
-            get => CruiseSpeed.ToMPH();
-
-            set => CruiseSpeed = value.ToMS();
-        }
-        public float Speed { get => _speed; set { _speed = value; _setSpeed = true; } }
+        public float Speed { get => _speed; set { _speed = value; } }
         public float SpeedMPH
         {
             get => Speed.ToMPH();
@@ -72,7 +62,6 @@ namespace BackToTheFutureV
             Direction = direction;
             Train = Function.Call<Vehicle>(Hash.CREATE_MISSION_TRAIN, variation, position.X, position.Y, position.Z, direction);
 
-            CruiseSpeed = 0;
             Speed = 0;
             CarriageCount = carriageCount;
 
@@ -169,12 +158,6 @@ namespace BackToTheFutureV
                     _speed = 0f;
                 }
             }
-
-            if (!_setSpeed)
-            {
-                CruiseSpeedMPH = 0;
-                _setSpeed = true;
-            }
         }
 
         private void Acceleration()
@@ -240,20 +223,17 @@ namespace BackToTheFutureV
                 Brake();
             }
 
-            if (_setSpeed)
+            if (SpeedMPH > 90)
             {
-                if (SpeedMPH > 90)
-                {
-                    SpeedMPH = 90;
-                }
-
-                if (SpeedMPH < -25)
-                {
-                    SpeedMPH = -25;
-                }
-
-                Function.Call(Hash.SET_TRAIN_SPEED, Train, Speed);
+                SpeedMPH = 90;
             }
+
+            if (SpeedMPH < -25)
+            {
+                SpeedMPH = -25;
+            }
+
+            Train.ForwardSpeed = Speed;
 
             if (ToDestroy)
             {

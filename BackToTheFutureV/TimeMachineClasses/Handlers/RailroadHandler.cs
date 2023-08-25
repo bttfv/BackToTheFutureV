@@ -151,8 +151,6 @@ namespace BackToTheFutureV
         private void CustomTrain_OnVehicleAttached()
         {
             customTrain.DisableToDestroy();
-
-            customTrain.CruiseSpeedMPH = 0;
             customTrain.SpeedMPH = 0;
             customTrain.IsAutomaticBrakeOn = true;
 
@@ -239,7 +237,7 @@ namespace BackToTheFutureV
                 {
                     if (_forceFreightTrain || (ModSettings.TrainEvent && FusionUtils.Random.NextDouble() <= 0.25f))
                     {
-                        CustomTrainHandler.CreateFreightTrain(Vehicle, !_direction).SetToDestroy(Vehicle, 35);
+                        CustomTrainHandler.CreateFreightTrain(Vehicle, !_direction);
                     }
 
                     _isReentryOn = false;

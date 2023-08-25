@@ -13,7 +13,8 @@ namespace BackToTheFutureV
         public static CustomTrain CreateFreightTrain(Vehicle vehicle, bool direction)
         {
             trainHandlers.Add(new CustomTrain(vehicle.GetOffsetPosition(new Vector3(0, 100f, 0)), direction, 3, 0));
-            trainHandlers.Last().CruiseSpeedMPH = 40;
+            trainHandlers.Last().IsAutomaticBrakeOn = false;
+            trainHandlers.Last().SpeedMPH = 40;
             trainHandlers.Last().SetToDestroy(vehicle, 35);
 
             return trainHandlers.Last();
