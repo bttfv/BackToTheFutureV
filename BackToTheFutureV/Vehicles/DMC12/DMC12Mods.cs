@@ -179,7 +179,7 @@ namespace BackToTheFutureV
                 base.Wheel = value;
 
                 //Vehicle.Mods.WheelType = VehicleWheelType.Track;
-                Function.Call(Hash.SET_VEHICLE_WHEEL_TYPE, Vehicle, 12);
+                Vehicle.Mods.WheelType = VehicleWheelType.Track;
                 Vehicle.Mods[VehicleModType.FrontWheel].Index = (int)value;
             }
         }

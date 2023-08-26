@@ -1,5 +1,4 @@
 ﻿using GTA;
-using GTA.Native;
 using KlangRageAudioLibrary;
 using System.Collections.Generic;
 using System.Linq;
@@ -367,7 +366,7 @@ namespace BackToTheFutureV
 
             foreach (KeyValuePair<VehicleDoorIndex, DoorInfo> door in _doorStatus.ToList())
             {
-                float doorAngle = Function.Call<float>(Hash.GET_VEHICLE_DOOR_ANGLE_RATIO, Vehicle.Handle, (int)door.Key);
+                float doorAngle = Vehicle.Doors[door.Key].AngleRatio;
 
                 // Detect door index (d -> driver side) (p - passenger side) for correct 3d sound
                 string doorSide = door.Key == VehicleDoorIndex.FrontLeftDoor ? "d" : "p";

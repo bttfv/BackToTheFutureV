@@ -443,7 +443,7 @@ namespace BackToTheFutureV
             {
                 if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing && TimeMachine == TimeMachineHandler.CurrentTimeMachine)
                 {
-                    TextHandler.Me.ShowHelp("NotWarmed");
+                    TextHandler.Me.ShowHelp("NotWarmed", 2500);
                 }
 
                 return;
@@ -453,7 +453,7 @@ namespace BackToTheFutureV
             {
                 if (!TcdEditer.IsEditing && !RCGUIEditer.IsEditing && TimeMachine == TimeMachineHandler.CurrentTimeMachine)
                 {
-                    TextHandler.Me.ShowHelp("ChipDamaged");
+                    TextHandler.Me.ShowHelp("ChipDamaged", 2500);
                 }
 
                 return;

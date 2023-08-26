@@ -1,8 +1,8 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Graphics;
 using GTA.Native;
 using GTA.UI;
-//using KlangRageAudioLibrary;
 using System;
 using System.Globalization;
 using System.Media;
@@ -17,10 +17,8 @@ namespace BackToTheFutureV
         private readonly CultureInfo dateFormat = CultureInfo.CreateSpecificCulture("en-US");
 
         private TimedEventHandler TimedEventHandler { get; } = new TimedEventHandler();
-        SoundPlayer timeParadoxShort = new SoundPlayer("scripts\\BackToTheFutureV\\Sounds\\story\\bttf_subtitle1.wav");
-        SoundPlayer timeParadox = new SoundPlayer("scripts\\BackToTheFutureV\\Sounds\\story\\bttf_subtitle3.wav");
-        /*private readonly AudioPlayer timeParadox = Main.CommonAudioEngine.Create("story/bttf_subtitle3.wav", Presets.No3D);
-        private readonly AudioPlayer timeParadoxShort = Main.CommonAudioEngine.Create("story/bttf_subtitle1.wav", Presets.No3D);*/
+        readonly SoundPlayer timeParadoxShort = new SoundPlayer("scripts\\BackToTheFutureV\\Sounds\\story\\bttf_subtitle1.wav");
+        readonly SoundPlayer timeParadox = new SoundPlayer("scripts\\BackToTheFutureV\\Sounds\\story\\bttf_subtitle3.wav");
 
         private readonly string FirstBlock = $"BTTF V TEAM\nPresents";
         private readonly string SecondBlock = $"A\nBACK TO THE FUTURE\nMod";
@@ -180,7 +178,7 @@ namespace BackToTheFutureV
             if (!timedEvent.FirstExecution)
                 return;
 
-            Function.Call(Hash.RESET_SCRIPT_GFX_ALIGN);
+            Scripted2DGfxSettings.ResetAlignment();
 
             if (Screen.IsFadedOut && !Screen.IsFadingIn)
                 Screen.FadeIn(1000);
@@ -211,7 +209,7 @@ namespace BackToTheFutureV
             Function.Call(Hash.SET_TEXT_SCALE, 1.25f, 1.25f);
             Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, (int)alpha);
             Function.Call(Hash.SET_TEXT_CENTRE, true);
-            Function.Call(Hash.SET_SCRIPT_GFX_DRAW_ORDER, 7);
+            Scripted2DGfxSettings.DrawOrder = ScriptedGfxDrawOrder.AfterFade;
             Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING"); // draw crap on screen
             Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, input);
             var fVar1 = Function.Call<float>(Hash.GET_RENDERED_CHARACTER_HEIGHT, 1.25f, 0);

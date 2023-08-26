@@ -72,7 +72,7 @@ namespace BackToTheFutureV
                 DMC12.IsTimeMachine = true;
 
                 // Reset wheels to DMC-12 wheels if not BTTFV wheels
-                if (Function.Call<int>(Hash.GET_VEHICLE_WHEEL_TYPE, Vehicle.Handle) != 12)
+                if (Vehicle.Mods.WheelType != VehicleWheelType.Track)
                 {
                     Vehicle.Mods[VehicleModType.FrontWheel]?.Remove();
                 }
@@ -306,7 +306,7 @@ namespace BackToTheFutureV
                 Vehicle.IsEngineRunning = false;
             }
 
-            Function.Call(Hash.SET_VEHICLE_CHEAT_POWER_INCREASE, Vehicle, Decorators.TorqueMultiplier);
+            Vehicle.EngineTorqueMultiplier = Decorators.TorqueMultiplier;
 
             if (Mods.HoverUnderbody == ModState.Off && Mods.IsDMC12)
             {

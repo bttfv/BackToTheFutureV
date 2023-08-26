@@ -2,6 +2,7 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Native;
+using GTA.UI;
 using KlangRageAudioLibrary;
 using LemonUI.Menus;
 using System;
@@ -232,7 +233,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            Function.Call(Hash.SHOW_HUD_COMPONENT_THIS_FRAME, 3);
+            Hud.ShowComponentThisFrame(HudComponent.Cash);
 
             bool active = CurrentTimeMachine.NotNullAndExists();
 

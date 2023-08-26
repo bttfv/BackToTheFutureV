@@ -1,7 +1,5 @@
 ﻿using FusionLibrary;
-//using FusionLibrary.Extensions;
 using GTA;
-//using GTA.Math;
 using System.Drawing;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
@@ -14,13 +12,9 @@ namespace BackToTheFutureV
 
         public FluxCapacitorHandler(TimeMachine timeMachine) : base(timeMachine)
         {
-            //Vector3 pos = Vehicle.Bones["flux_capacitor"].RelativePosition;
-            //Vector3 dir = pos.GetDirectionTo(new Vector3(-0.03805999f, -0.0819466f, 0.5508024f));
-
             FluxLights = new LightHandler(TimeMachine, TimeMachineHandler.TimeMachineCount + 1);
             FluxLights.Add("flux_capacitor", "windscreen", Color.FromArgb(118, 147, 230), 10, 5, 0, 45, 100);
             FluxLights.Add("windscreen", "flux_capacitor", Color.FromArgb(118, 147, 230), 10, 10, 0, 6, 0);
-            //FluxLights.Add(pos, dir, Color.FromArgb(118, 147, 230), 10, 20, 0, 90, 100);
 
             Events.OnTimeCircuitsToggle += OnTimeCircuitsToggle;
             Events.OnScaleformPriority += OnScaleformPriority;

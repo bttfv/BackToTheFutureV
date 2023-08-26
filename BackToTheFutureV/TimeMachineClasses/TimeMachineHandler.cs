@@ -3,7 +3,6 @@ using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using GTA.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -129,7 +128,7 @@ namespace BackToTheFutureV
             else
             {
                 _timeMachinesToRemove.Add(vehicle, deleteVeh);
-                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+                Game.Player.IsSpecialAbilityEnabled = true;
                 PlayerSwitch.Disable = false;
             }
         }
@@ -156,7 +155,7 @@ namespace BackToTheFutureV
                 }
 
                 RemoveTimeMachine(veh);
-                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+                Game.Player.IsSpecialAbilityEnabled = true;
                 PlayerSwitch.Disable = false;
             }
         }
@@ -502,7 +501,7 @@ namespace BackToTheFutureV
 
             if (CurrentTimeMachine != null && !FusionUtils.PlayerVehicle.IsFunctioning())
             {
-                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+                Game.Player.IsSpecialAbilityEnabled = true;
                 PlayerSwitch.Disable = false;
                 CurrentTimeMachine = null;
             }

@@ -220,7 +220,7 @@ namespace BackToTheFutureV
             }
 
             if (Driver == FusionUtils.PlayerPed)
-                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+                Game.Player.IsSpecialAbilityEnabled = true;
 
             if (Driver != null && Driver != FusionUtils.PlayerPed)
             {

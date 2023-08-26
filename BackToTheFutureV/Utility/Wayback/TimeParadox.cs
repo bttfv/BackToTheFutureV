@@ -25,7 +25,7 @@ namespace BackToTheFutureV
 
         /*private void TimeParadox_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            if (e.KeyCode != System.Windows.Forms.Keys.E)
+            if (e.KeyCode != System.Windows.Forms.Keys.E || !ModSettings.WaybackSystem || !ModSettings.TimeParadox)
                 return;
 
             StartParadox();
@@ -95,7 +95,7 @@ namespace BackToTheFutureV
             {
                 if (FusionUtils.PlayerVehicle.Speed > 5)
                 {
-                    Function.Call(Hash.TASK_VEHICLE_TEMP_ACTION, FusionUtils.PlayerPed, FusionUtils.PlayerVehicle, FusionEnums.DriveAction.BrakeStrong, 5000);
+                    FusionUtils.PlayerPed.TaskDrive().Add(DriveAction.BrakeStrong, 5000).Start();
                     while (FusionUtils.PlayerVehicle.Speed > 5)
                         Yield();
                 }

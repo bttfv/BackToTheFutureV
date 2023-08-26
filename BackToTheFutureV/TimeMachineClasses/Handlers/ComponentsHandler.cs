@@ -102,11 +102,11 @@ namespace BackToTheFutureV
                     _hookText = true;
                     if (Mods.Hook == HookState.OnDoor)
                     {
-                        TextHandler.Me.ShowHelp("ApplyHook");
+                        TextHandler.Me.ShowHelp("ApplyHook", 32);
                     }
                     else
                     {
-                        TextHandler.Me.ShowHelp("RemoveHook");
+                        TextHandler.Me.ShowHelp("RemoveHook", 32);
                     }
 
                     if (Game.IsControlJustPressed(GTA.Control.Context))
@@ -196,7 +196,7 @@ namespace BackToTheFutureV
 
             if (_warmUp > 0 && _warmUp < Game.GameTime)
             {
-                TextHandler.Me.ShowHelp("WarmupComplete");
+                TextHandler.Me.ShowHelp("WarmupComplete", 2500);
                 Props.HoodboxLights.SpawnProp();
 
                 _warmUp = 0;
@@ -213,7 +213,7 @@ namespace BackToTheFutureV
             if (FusionUtils.PlayerPed.DistanceToSquared2D(Vehicle, "bonnet", 1.5f) && (!GTA.UI.Screen.IsHelpTextDisplayed || _hoodText))
             {
                 _hoodText = true;
-                TextHandler.Me.ShowHelp("Warmup");
+                TextHandler.Me.ShowHelp("Warmup", 32);
 
                 if (Game.IsControlJustPressed(GTA.Control.Context))
                 {

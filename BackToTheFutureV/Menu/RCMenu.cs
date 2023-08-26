@@ -2,7 +2,6 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using GTA.Native;
 using LemonUI.Menus;
 using System;
 using System.ComponentModel;
@@ -114,13 +113,13 @@ namespace BackToTheFutureV
             CarCam.IsActive = true;
             Camera.StartRenderingScriptedCamera();
 
-            Function.Call(Hash.CLEAR_FOCUS);
-            Function.Call(Hash.SET_FOCUS_ENTITY, CurrentTimeMachine.Vehicle);
+            Streaming.ClearOverriddenFocus();
+            Streaming.FocusEntity = CurrentTimeMachine.Vehicle;
         }
 
         public void StopPreviewing()
         {
-            Function.Call(Hash.CLEAR_FOCUS);
+            Streaming.ClearOverriddenFocus();
             CarCam?.Delete();
             CarCam = null;
             Camera.StopRenderingScriptedCamera();

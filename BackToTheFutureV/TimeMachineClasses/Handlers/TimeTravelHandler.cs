@@ -2,7 +2,6 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using GTA.Native;
 using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
@@ -61,13 +60,13 @@ namespace BackToTheFutureV
             if (FusionUtils.PlayerVehicle == Vehicle && !Properties.IsRemoteControlled && !FusionUtils.HideGUI)
             {
                 FusionUtils.HideGUI = true;
-                Function.Call(Hash.DISABLE_ALL_CONTROL_ACTIONS, 0);
+                Game.DisableAllControlsThisFrame();
             }
 
             if (FusionUtils.PlayerPed.IsInVehicle(Vehicle))
             {
-                Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, FusionUtils.PlayerPed);
-                Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, FusionUtils.PlayerPed);
+                FusionUtils.PlayerPed.StopCurrentPlayingSpeech();
+                FusionUtils.PlayerPed.StopCurrentPlayingAmbientSpeech();
             }
 
             if (Game.GameTime < gameTimer)

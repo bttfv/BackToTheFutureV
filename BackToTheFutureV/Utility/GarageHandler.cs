@@ -158,7 +158,7 @@ namespace BackToTheFutureV
 
             if (Vehicle.NotNullAndExists())
             {
-                Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, Vehicle.IsEngineRunning, true, false);
+                Vehicle.IsEngineRunning = true;
             }
 
             FusionUtils.HideGUI = false;
@@ -306,7 +306,7 @@ namespace BackToTheFutureV
                         }
 
                         Function.Call(Hash.SET_VEHICLE_ENGINE_ON, Vehicle, true, true, false);
-                        Vehicle.TaskDrive().Create().Add(DriveAction.AccelerateWeak, 1000).Start();
+                        Vehicle.TaskDrive().Add(DriveAction.AccelerateWeak, 1000).Start();
 
                         garageInfo.Unlock();
 

@@ -181,7 +181,7 @@ namespace BackToTheFutureV
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
-                        TextHandler.Me.ShowHelp("HoverDamaged");
+                        TextHandler.Me.ShowHelp("HoverDamaged", 2500);
 
                         return;
                     }
@@ -201,7 +201,7 @@ namespace BackToTheFutureV
                 {
                     if (Properties.AreFlyingCircuitsBroken)
                     {
-                        TextHandler.Me.ShowHelp("HoverDamaged");
+                        TextHandler.Me.ShowHelp("HoverDamaged", 2500);
 
                         return;
                     }
@@ -227,7 +227,7 @@ namespace BackToTheFutureV
                     VehicleControl.SetDeluxoTransformation(Vehicle, 0f);
                 }
 
-                TextHandler.Me.ShowHelp("HoverDamaged");
+                TextHandler.Me.ShowHelp("HoverDamaged", 2500);
 
                 return;
             }
@@ -252,7 +252,7 @@ namespace BackToTheFutureV
 
             if (!Properties.IsLanding)
             {
-                Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_TARGET_RATIO, Vehicle, Properties.IsFlying ? 1f : 0f);
+                Vehicle.SpecialFlightModeTargetRatio = Properties.IsFlying ? 1f : 0f;
             }
             else
             {

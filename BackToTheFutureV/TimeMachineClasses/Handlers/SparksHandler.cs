@@ -31,7 +31,7 @@ namespace BackToTheFutureV
                 Properties.TimeTravelPhase = TimeTravelPhase.OpeningWormhole;
 
                 Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
-                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
+                Game.Player.IsSpecialAbilityEnabled = false;
 
                 if (Properties.IsFueled)
                 {
@@ -170,7 +170,7 @@ namespace BackToTheFutureV
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
             {
                 FusionUtils.StopPadShake();
-                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, true);
+                Game.Player.IsSpecialAbilityEnabled = true;
                 PlayerSwitch.Disable = false;
             }
 
@@ -225,7 +225,7 @@ namespace BackToTheFutureV
             if (TimeMachineHandler.CurrentTimeMachine == TimeMachine)
             {
                 PlayerSwitch.Disable = true;
-                Function.Call(Hash.ENABLE_SPECIAL_ABILITY, Game.Player, false);
+                Game.Player.IsSpecialAbilityEnabled = false;
             }
 
             Function.Call(Hash.DETACH_VEHICLE_FROM_ANY_TOW_TRUCK, Vehicle.Handle);

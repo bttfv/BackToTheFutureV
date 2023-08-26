@@ -2,7 +2,6 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using GTA.Native;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -197,7 +196,7 @@ namespace BackToTheFutureV
                 CurrentMode = RcModes.FromPlayerCamera;
 
                 _camera = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
-                Function.Call(Hash.ATTACH_CAM_TO_PED_BONE, _camera, TimeMachine.OriginalPed, Bone.SkelHead, 0, 0, 0, true);
+                _camera.AttachTo(TimeMachine.OriginalPed.Bones[Bone.SkelHead], Vector3.Zero);
                 _camera.PointAt(Vehicle);
                 _camera.IsActive = true;
                 Camera.StartRenderingScriptedCamera();
@@ -236,7 +235,7 @@ namespace BackToTheFutureV
                     SetForcedHandbrake();
                 }
 
-                Function.Call(Hash.CLEAR_FOCUS);
+                Streaming.ClearOverriddenFocus();
 
                 _blip?.Delete();
 
@@ -246,7 +245,7 @@ namespace BackToTheFutureV
 
                 if (CurrentMode == RcModes.FromPlayerCamera)
                 {
-                    Function.Call(Hash.SET_FOLLOW_PED_CAM_VIEW_MODE, 4);
+                    GameplayCamera.FollowPedCameraViewMode = CameraViewMode.FirstPerson;
                 }
 
                 Properties.IsRemoteControlled = false;
@@ -352,16 +351,16 @@ namespace BackToTheFutureV
 
             Vector3 origPos = TimeMachine.OriginalPed.Position;
             Vector3 carPos = Vehicle.Position;
-            Function.Call(Hash.REQUEST_COLLISION_AT_COORD, origPos.X, origPos.Y, origPos.Z);
-            Function.Call(Hash.REQUEST_COLLISION_AT_COORD, carPos.X, carPos.Y, carPos.Z);
+            Streaming.RequestCollisionAt(origPos);
+            Streaming.RequestCollisionAt(carPos);
             if (!Driver.NotNullAndExists())
             {
                 Clone.SetIntoVehicle(Vehicle, VehicleSeat.Driver);
             }
-            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Driver);
-            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, Driver);
-            Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, TimeMachine.OriginalPed);
-            Function.Call(Hash.STOP_CURRENT_PLAYING_SPEECH, TimeMachine.OriginalPed);
+            Driver.StopCurrentPlayingSpeech();
+            Driver.StopCurrentPlayingAmbientSpeech();
+            TimeMachine.OriginalPed.StopCurrentPlayingSpeech();
+            TimeMachine.OriginalPed.StopCurrentPlayingAmbientSpeech();
 
             if (Game.IsControlJustPressed(GTA.Control.VehicleAccelerate))
             {
@@ -374,22 +373,22 @@ namespace BackToTheFutureV
                 {
                     CurrentMode = RcModes.FromCarCamera;
 
-                    Function.Call(Hash.CLEAR_FOCUS);
+                    Streaming.ClearOverriddenFocus();
 
                     _camera?.Delete();
                     _camera = null;
                     Camera.StopRenderingScriptedCamera();
 
-                    Function.Call(Hash.SET_FOLLOW_VEHICLE_CAM_VIEW_MODE, 0);
+                    GameplayCamera.FollowVehicleCameraViewMode = CameraViewMode.ThirdPersonNear;
                 }
-                else if (Function.Call<int>(Hash.GET_FOLLOW_VEHICLE_CAM_VIEW_MODE) == 1)
+                else if (GameplayCamera.FollowVehicleCameraViewMode == CameraViewMode.ThirdPersonMedium)
                 {
                     CurrentMode = RcModes.FromPlayerCamera;
 
-                    Function.Call(Hash.SET_FOCUS_ENTITY, TimeMachine.OriginalPed);
+                    Streaming.FocusEntity = TimeMachine.OriginalPed;
 
                     _camera = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, GameplayCamera.Position, GameplayCamera.Rotation, GameplayCamera.FieldOfView);
-                    Function.Call(Hash.ATTACH_CAM_TO_PED_BONE, _camera, TimeMachine.OriginalPed, Bone.SkelHead, 0, 0, 0, true);
+                    _camera.AttachTo(TimeMachine.OriginalPed.Bones[Bone.SkelHead], Vector3.Zero);
                     _camera.PointAt(Vehicle);
                     _camera.IsActive = true;
                     Camera.StartRenderingScriptedCamera();

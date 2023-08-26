@@ -325,17 +325,17 @@ namespace BackToTheFutureV
                     _refuelText = true;
                     if (HasFuel() && Properties.ReactorCharge < Constants.MaxReactorCharge)
                     {
-                        TextHandler.Me.ShowHelp("RefuelReactor");
+                        TextHandler.Me.ShowHelp("RefuelReactor", 32);
                     }
                     else
                     {
-                        TextHandler.Me.ShowHelp("CloseReactor");
+                        TextHandler.Me.ShowHelp("CloseReactor", 32);
                     }
 
                     break;
                 case ReactorState.Closed:
                     _refuelText = true;
-                    TextHandler.Me.ShowHelp("OpenReactor");
+                    TextHandler.Me.ShowHelp("OpenReactor", 32);
                     break;
             }
         }
