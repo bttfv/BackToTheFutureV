@@ -291,7 +291,7 @@ namespace BackToTheFutureV
 
         public void AttachTargetVehicle()
         {
-            TargetVehicle.AttachToPhysically(AttachVehicle, AttachOffset, Vector3.Zero);
+            TargetVehicle.AttachToMatrixPhysically(AttachVehicle, AttachOffset, Vector3.Zero, Vector3.Zero, 1000000.0f, true, true, false, false);
             TargetVehicle.Rotation = RotationVehicle.Rotation;
 
             if (IsReadyToAttach)
