@@ -2,7 +2,6 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using GTA.Native;
 using System.Collections.Generic;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -88,7 +87,7 @@ namespace BackToTheFutureV
             if (IsDMC12)
             {
                 Vehicle.Mods.InstallModKit();
-                Function.Call(Hash.SET_HYDRAULICS_CONTROL, Vehicle, false);
+                Vehicle.SetHydraulicsControl(false);
 
                 Vehicle.ToggleExtra(10, true);
 
@@ -96,7 +95,7 @@ namespace BackToTheFutureV
                 Vehicle.Mods.SecondaryColor = VehicleColor.MetallicBlackSteel;
                 Vehicle.Mods.TrimColor = VehicleColor.PureWhite; // Gray Interior
 
-                Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, 0f);
+                Vehicle.EnvEffLevel = 0f;
                 Vehicle.DirtLevel = 0f;
 
                 //Seats

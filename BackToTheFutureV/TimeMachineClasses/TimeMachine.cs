@@ -274,7 +274,7 @@ namespace BackToTheFutureV
             //In certain situations car can't be entered after hover transformation, here is forced enter task.
             if (FusionUtils.PlayerVehicle == null && Game.IsControlJustPressed(GTA.Control.Enter) && TimeMachineHandler.ClosestTimeMachine == this && TimeMachineHandler.SquareDistToClosestTimeMachine <= 15 && World.GetClosestVehicle(FusionUtils.PlayerPed.Position, TimeMachineHandler.SquareDistToClosestTimeMachine) == this)
             {
-                if (Function.Call<Vehicle>(Hash.GET_VEHICLE_PED_IS_ENTERING, FusionUtils.PlayerPed) != Vehicle || Vehicle.Driver != null)
+                if (FusionUtils.PlayerPed.VehicleTryingToEnter != Vehicle || Vehicle.Driver != null)
                 {
                     if (Vehicle.Driver != null)
                     {

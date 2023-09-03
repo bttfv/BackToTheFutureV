@@ -4,7 +4,6 @@ using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
 using GTA;
 using GTA.Math;
-using GTA.Native;
 using System;
 
 namespace BackToTheFutureV
@@ -126,7 +125,7 @@ namespace BackToTheFutureV
 
             spawnSuspension = true;
 
-            Function.Call(Hash.ENABLE_VEHICLE_EXHAUST_POPS, Vehicle, false);
+            Vehicle.AreExhaustPopsEnabled = false;
 
             DMC12Handler.AddDelorean(this);
         }
@@ -158,8 +157,8 @@ namespace BackToTheFutureV
                 }
                 else if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((IsTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !IsTimeMachine) && isDucking && !FusionUtils.IsCameraInFirstPerson())
                 {
-                    Function.Call(Hash.SET_ENTITY_ANIM_SPEED, FusionUtils.PlayerPed, duckAnim.ClipDictionary.Name, duckAnim.AnimationName, 0f);
-                    Function.Call(Hash.SET_ENTITY_ANIM_CURRENT_TIME, FusionUtils.PlayerPed, duckAnim.ClipDictionary.Name, duckAnim.AnimationName, 0f);
+                    FusionUtils.PlayerPed.SetAnimationSpeed(duckAnim, 0f);
+                    FusionUtils.PlayerPed.SetAnimationCurrentTime(duckAnim, 0f);
                 }
                 else if (!duckEnded && !(Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && !FusionUtils.IsCameraInFirstPerson())
                 {
@@ -174,7 +173,7 @@ namespace BackToTheFutureV
                     {
                         duckCameraStart = duckCameraEnd = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, FusionUtils.PlayerPed.Bones[Bone.IKHead].Position + new Vector3(0f, 0.03f, 0.12f), GameplayCamera.Rotation, GameplayCamera.FieldOfView, true);
                         steeringCamera = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, Vehicle.Position, Vehicle.Rotation, 50f, true);
-                        steeringCamera?.AttachToVehicle(Vehicle, "", Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), FusionUtils.DirectionToRotation(Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), Vehicle.Bones["steeringwheel"].RelativePosition, 0));
+                        steeringCamera?.AttachToVehicleBone(Vehicle.Bones[""], Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), FusionUtils.DirectionToRotation(Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f), Vehicle.Bones["steeringwheel"].RelativePosition, 0), true);
                         duckCameraStart.IsActive = true;
                         Camera.StartRenderingScriptedCamera();
                         duckCameraStart?.InterpTo(steeringCamera, 50);

@@ -120,8 +120,8 @@ namespace BackToTheFutureV
 
         private Vector3 GetWindForce()
         {
-            Vector3 dir = Function.Call<Vector3>(Hash.GET_WIND_DIRECTION);
-            float scalar = Function.Call<float>(Hash.GET_WIND_SPEED);
+            Vector3 dir = World.WindDirection;
+            float scalar = World.WindSpeed;
 
             return dir * scalar;
         }
@@ -333,8 +333,8 @@ namespace BackToTheFutureV
                 {
                     TimeHandler.MissionTraffic = true;
                     FusionUtils.IsTrafficAlive = false;
-                    Function.Call(Hash.SET_PED_PATHS_IN_AREA, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f, 1);
-                    Function.Call(Hash.SET_PED_POPULATION_BUDGET, 0);
+                    PathFind.SwitchPedPathsInArea(new Vector3(-800.0f, 5500.0f, -1000.0f), new Vector3(500.0f, 7000.0f, 1000.0f), false, true);
+                    Streaming.SetPedPopulationBudget(0);
                 }
 
                 Vector3 leftRope = LeftStreetPole.GetOffsetPosition(Vector3.Zero.GetSingleOffset(Coordinate.Z, 3.42f));
@@ -427,8 +427,8 @@ namespace BackToTheFutureV
             if (TimeHandler.MissionTraffic)
             {
                 TimeHandler.MissionTraffic = false;
-                Function.Call(Hash.SET_PED_PATHS_BACK_TO_ORIGINAL, -800.0f, 5500.0f, -1000.0f, 500.0f, 7000.0f, 1000.0f);
-                Function.Call(Hash.SET_PED_POPULATION_BUDGET, 3);
+                PathFind.SetPedPathsBackToOriginal(new Vector3(-800.0f, 5500.0f, -1000.0f), new Vector3(500.0f, 7000.0f, 1000.0f), true);
+                Streaming.SetPedPopulationBudget(3);
             }
 
             IsPlaying = false;

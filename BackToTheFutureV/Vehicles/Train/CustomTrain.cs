@@ -100,7 +100,7 @@ namespace BackToTheFutureV
 
         public void SetHorn(bool state)
         {
-            Function.Call(Hash.SET_HORN_ENABLED, Train, state);
+            Train.IsHornEnabled = state;
 
             if (CarriageCount == 0)
             {
@@ -109,7 +109,7 @@ namespace BackToTheFutureV
 
             for (int i = 1; i <= CarriageCount; i++)
             {
-                Function.Call(Hash.SET_HORN_ENABLED, Carriage(i), state);
+                Carriage(i).IsHornEnabled = state;
             }
         }
 
@@ -305,7 +305,7 @@ namespace BackToTheFutureV
 
         public void DetachTargetVehicle()
         {
-            Function.Call(Hash.DETACH_ENTITY, TargetVehicle, false, false);
+            TargetVehicle.Detach(false, false);
 
             PrepareTargetVehicle(false);
 

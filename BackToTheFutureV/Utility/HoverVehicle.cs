@@ -83,7 +83,7 @@ namespace BackToTheFutureV
 
                 Decorator.SetBool(BTTFVDecors.AllowHoverMode, value);
 
-                Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_ALLOWED, Vehicle, value);
+                Vehicle.SetSpecialFlightModeAllowed(value);
             }
         }
 
@@ -279,7 +279,7 @@ namespace BackToTheFutureV
 
                 if (Vehicle.HeightAboveGround < 2f)
                 {
-                    HoverVehicle.GetFromVehicle(FusionUtils.PlayerVehicle)?.SetMode(false, true);
+                    GetFromVehicle(FusionUtils.PlayerVehicle)?.SetMode(false, true);
                 }
 
                 return;
@@ -407,15 +407,7 @@ namespace BackToTheFutureV
             }
 
             VehicleControl.SetDeluxoTransformation(Vehicle, state ? 1f : 0f);
-
-            if (state)
-            {
-                Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, Vehicle, "DELUXO");
-            }
-            else
-            {
-                Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, Vehicle, Vehicle.Model.ToString());
-            }
+            Vehicle.ForceUseAudioGameObject(state ? "DELUXO" : Vehicle.Model.ToString());
 
             IsInHoverMode = state;
             OnSwitchHoverMode?.Invoke(state);

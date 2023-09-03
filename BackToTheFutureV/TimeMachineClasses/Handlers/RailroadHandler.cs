@@ -254,11 +254,11 @@ namespace BackToTheFutureV
 
                     if (!_exploded)
                     {
-                        if (Vehicle.SameDirection(_train, 90f) && _train.RelativeVelocity().Y.ToMPH() - Vehicle.RelativeVelocity().Y.ToMPH() > 25)
+                        if (Vehicle.SameDirection(_train, 90f) && _train.GetSpeedVector(true).Y.ToMPH() - Vehicle.GetSpeedVector(true).Y.ToMPH() > 25)
                         {
                             Explode();
                         }
-                        else if (!Vehicle.SameDirection(_train, 90f) && _train.RelativeVelocity().Y.ToMPH() + Vehicle.RelativeVelocity().Y.ToMPH() > 25)
+                        else if (!Vehicle.SameDirection(_train, 90f) && _train.GetSpeedVector(true).Y.ToMPH() + Vehicle.GetSpeedVector(true).Y.ToMPH() > 25)
                         {
                             Explode();
                         }

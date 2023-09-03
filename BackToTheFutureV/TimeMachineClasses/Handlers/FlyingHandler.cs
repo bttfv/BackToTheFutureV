@@ -282,7 +282,7 @@ namespace BackToTheFutureV
 
             if (Mods.IsDMC12)
             {
-                Function.Call(Hash.FORCE_USE_AUDIO_GAME_OBJECT, Vehicle, Properties.IsFlying ? "DELUXO" : "VIRGO");
+                Vehicle.ForceUseAudioGameObject(Properties.IsFlying ? "DELUXO" : "VIRGO");
                 Function.Call(Hash.OVERRIDE_VEH_HORN, Vehicle, true, _defaultHorn);
             }
 

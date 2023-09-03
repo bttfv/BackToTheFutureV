@@ -1,7 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using GTA.Native;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -143,7 +142,7 @@ namespace BackToTheFutureV
             }
             else
             {
-                Function.Call(Hash.FORCE_LIGHTNING_FLASH);
+                World.ForceLightningFlash();
 
                 if (Properties.IsFlying)
                 {

@@ -422,7 +422,7 @@ namespace BackToTheFutureV
             }
 
             // Play deceleration sound
-            if (Vehicle.BrakePower > 0 && Speed > 15 && Vehicle.RelativeVelocity().Y > 0)
+            if (Vehicle.BrakePower > 0 && Speed > 15 && Vehicle.GetSpeedVector(true).Y > 0)
             {
                 if (!_engineDecelSound.IsAnyInstancePlaying || _engineDecelSound.Last?.PlayPosition > 1000)
                 {

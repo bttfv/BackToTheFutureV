@@ -1,6 +1,5 @@
 ﻿using FusionLibrary;
 using GTA;
-using GTA.Native;
 using GTA.UI;
 using KlangRageAudioLibrary;
 using System;
@@ -117,7 +116,7 @@ namespace BackToTheFutureV
                 }
 
                 //Disable fake shake of the cars.
-                Function.Call(Hash.SET_CAR_HIGH_SPEED_BUMP_SEVERITY_MULTIPLIER, 0);
+                World.VehicleHighSpeedBumpMultiplier(0f);
 
                 FusionUtils.RandomTrains = ModSettings.RandomTrains;
                 TimeHandler.RealTime = ModSettings.RealTime;

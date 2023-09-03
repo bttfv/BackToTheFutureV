@@ -1,6 +1,5 @@
 ﻿using FusionLibrary;
 using GTA;
-using GTA.Native;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -71,7 +70,7 @@ namespace BackToTheFutureV
                 Properties.IceValue = Mods.Reactor == ReactorType.Nuclear ? 0.4f : 0.15f;
             }
 
-            Function.Call<float>(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, Properties.IceValue);
+            Vehicle.EnvEffLevel = Properties.IceValue;
 
             Properties.IsFreezed = true;
 
@@ -86,7 +85,7 @@ namespace BackToTheFutureV
         {
             if (!Properties.IsFreezed)
             {
-                Function.Call<float>(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, 0f);
+                Vehicle.EnvEffLevel = 0f;
                 return;
             }
 
@@ -97,7 +96,7 @@ namespace BackToTheFutureV
             }
 
             // 0 is no ice
-            float iceScale = Function.Call<float>(Hash.GET_VEHICLE_ENVEFF_SCALE, Vehicle);
+            float iceScale = Vehicle.EnvEffLevel;
 
             if (iceScale > 0f)
             {
@@ -116,7 +115,7 @@ namespace BackToTheFutureV
                     Properties.IsDefrosting = false;
                 }
 
-                Function.Call<float>(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, newIce);
+                Vehicle.EnvEffLevel = newIce;
 
                 _iceDisappearVal += Game.LastFrameTime;
             }
@@ -142,7 +141,7 @@ namespace BackToTheFutureV
                     Events.StartFuelGaugeGoDown?.Invoke(_fuelNotif && !_wasStruck && Mods.Reactor == ReactorType.Nuclear);
 
                     // Set the ice
-                    Function.Call(Hash.SET_VEHICLE_ENVEFF_SCALE, Vehicle, Properties.IceValue);
+                    Vehicle.EnvEffLevel = Properties.IceValue;
 
                     if (Mods.Reactor == ReactorType.Nuclear)
                     {

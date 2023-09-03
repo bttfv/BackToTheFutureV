@@ -164,7 +164,7 @@ namespace BackToTheFutureV
                 FusionUtils.HideGUI = false;
                 PlayerSwitch.Disable = false;
                 Game.Player.IgnoredByPolice = false;
-                Function.Call(Hash.ENABLE_ALL_CONTROL_ACTIONS, 0);
+                Game.EnableAllControlsThisFrame();
             }
 
             if (!Properties.WasOnTracks)

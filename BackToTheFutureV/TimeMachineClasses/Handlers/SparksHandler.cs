@@ -1,6 +1,5 @@
 ﻿using FusionLibrary;
 using GTA;
-using GTA.Native;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -30,7 +29,7 @@ namespace BackToTheFutureV
 
                 Properties.TimeTravelPhase = TimeTravelPhase.OpeningWormhole;
 
-                Function.Call(Hash.SPECIAL_ABILITY_DEACTIVATE_FAST, Game.Player);
+                Game.Player.DeactivateSpecialAbilityInstantly();
                 Game.Player.IsSpecialAbilityEnabled = false;
 
                 if (Properties.IsFueled)
@@ -228,7 +227,7 @@ namespace BackToTheFutureV
                 Game.Player.IsSpecialAbilityEnabled = false;
             }
 
-            Function.Call(Hash.DETACH_VEHICLE_FROM_ANY_TOW_TRUCK, Vehicle.Handle);
+            Vehicle.DetachFromTowTruck();
 
             Events.StartTimeTravel?.Invoke(delay);
         }

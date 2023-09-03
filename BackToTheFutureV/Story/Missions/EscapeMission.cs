@@ -2,7 +2,6 @@
 using FusionLibrary.Extensions;
 using GTA;
 using GTA.Math;
-using GTA.Native;
 using System.Drawing;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
@@ -80,9 +79,9 @@ namespace BackToTheFutureV
             Driver.KeepTaskWhenMarkedAsNoLongerNeeded = true;
 
             Driver?.Task?.ChaseWithGroundVehicle(FusionUtils.PlayerPed);
-            Function.Call(Hash.SET_TASK_VEHICLE_CHASE_BEHAVIOR_FLAG, Driver, VehicleDrivingFlags.ForceStraightLine | VehicleDrivingFlags.SwerveAroundAllVehicles | VehicleDrivingFlags.PreferNavmeshRoute | VehicleDrivingFlags.AllowGoingWrongWay | VehicleDrivingFlags.UseShortCutLinks, true);
-            Function.Call(Hash.SET_TASK_VEHICLE_CHASE_IDEAL_PURSUIT_DISTANCE, Driver, 0f);
-            Function.Call(Hash.SET_DRIVER_AGGRESSIVENESS, Driver, 1.0f);
+            Driver?.SetVehicleChaseBehaviorFlags(VehicleChaseFlags.CantRam, true);
+            Driver?.SetVehicleChaseIdealPursuitDistance(0f);
+            Driver.DrivingAggressiveness = 1.0f;
 
             Shooter = Vehicle.CreateRandomPedOnSeat(VehicleSeat.Passenger);
             Shooter?.Weapons?.Give(WeaponHash.Pistol, 999, true, true);
