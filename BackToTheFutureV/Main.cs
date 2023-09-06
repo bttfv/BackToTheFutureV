@@ -50,7 +50,7 @@ namespace BackToTheFutureV
 
         private void Main_Aborted(object sender, EventArgs e)
         {
-            Camera.StopRenderingScriptedCamera();
+            ScriptCameraDirector.StopRendering();
 
             Screen.FadeIn(1000);
 

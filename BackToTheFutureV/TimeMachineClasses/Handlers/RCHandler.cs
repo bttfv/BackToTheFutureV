@@ -199,7 +199,7 @@ namespace BackToTheFutureV
                 _camera.AttachTo(TimeMachine.OriginalPed.Bones[Bone.SkelHead], Vector3.Zero);
                 _camera.PointAt(Vehicle);
                 _camera.IsActive = true;
-                Camera.StartRenderingScriptedCamera();
+                ScriptCameraDirector.StartRendering();
             }
         }
 
@@ -241,11 +241,11 @@ namespace BackToTheFutureV
 
                 _camera?.Delete();
                 _camera = null;
-                Camera.StopRenderingScriptedCamera();
+                ScriptCameraDirector.StopRendering();
 
                 if (CurrentMode == RcModes.FromPlayerCamera)
                 {
-                    GameplayCamera.FollowPedCameraViewMode = CameraViewMode.FirstPerson;
+                    GameplayCamera.FollowPedCamViewMode = CamViewMode.FirstPerson;
                 }
 
                 Properties.IsRemoteControlled = false;
@@ -377,11 +377,11 @@ namespace BackToTheFutureV
 
                     _camera?.Delete();
                     _camera = null;
-                    Camera.StopRenderingScriptedCamera();
+                    ScriptCameraDirector.StopRendering();
 
-                    GameplayCamera.FollowVehicleCameraViewMode = CameraViewMode.ThirdPersonNear;
+                    GameplayCamera.FollowPedCamViewMode = CamViewMode.ThirdPersonNear;
                 }
-                else if (GameplayCamera.FollowVehicleCameraViewMode == CameraViewMode.ThirdPersonMedium)
+                else if (GameplayCamera.FollowVehicleCamViewMode == CamViewMode.ThirdPersonMedium)
                 {
                     CurrentMode = RcModes.FromPlayerCamera;
 
@@ -391,7 +391,7 @@ namespace BackToTheFutureV
                     _camera.AttachTo(TimeMachine.OriginalPed.Bones[Bone.SkelHead], Vector3.Zero);
                     _camera.PointAt(Vehicle);
                     _camera.IsActive = true;
-                    Camera.StartRenderingScriptedCamera();
+                    ScriptCameraDirector.StartRendering();
                 }
             }
         }

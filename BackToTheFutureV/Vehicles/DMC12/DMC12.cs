@@ -175,7 +175,7 @@ namespace BackToTheFutureV
                         steeringCamera = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, Vehicle.Position, Vehicle.Rotation, 50f, true);
                         steeringCamera?.AttachToVehicleBone(Vehicle.Bones[""], Vehicle.Bones["steeringwheel"].RelativePosition + new Vector3(0f, -0.25f, 0f));
                         duckCameraStart.IsActive = true;
-                        Camera.StartRenderingScriptedCamera();
+                        ScriptCameraDirector.StartRendering();
                         duckCameraStart?.InterpTo(steeringCamera, 50);
                         isDucking = true;
                         fpsSetup = true;
@@ -191,7 +191,7 @@ namespace BackToTheFutureV
                     }
                     if (Game.GameTime > duckTime && fpsEnded)
                     {
-                        Camera.StopRenderingScriptedCamera();
+                        ScriptCameraDirector.StopRendering();
                         duckCameraStart?.Delete();
                         duckCameraEnd?.Delete();
                         steeringCamera?.Delete();

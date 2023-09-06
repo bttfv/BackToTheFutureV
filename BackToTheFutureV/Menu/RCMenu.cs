@@ -111,7 +111,7 @@ namespace BackToTheFutureV
             CarCam = Camera.Create(ScriptedCameraNameHash.DefaultScriptedCamera, CurrentTimeMachine.Vehicle.GetOffsetPosition(new Vector3(0.0f, -5.0f, 3.0f)), Vector3.Zero, 75f);
             CarCam.PointAt(CurrentTimeMachine.Vehicle);
             CarCam.IsActive = true;
-            Camera.StartRenderingScriptedCamera();
+            ScriptCameraDirector.StartRendering();
 
             Streaming.ClearOverriddenFocus();
             Streaming.FocusEntity = CurrentTimeMachine.Vehicle;
@@ -122,7 +122,7 @@ namespace BackToTheFutureV
             Streaming.ClearOverriddenFocus();
             CarCam?.Delete();
             CarCam = null;
-            Camera.StopRenderingScriptedCamera();
+            ScriptCameraDirector.StopRendering();
         }
 
         public override void Tick()

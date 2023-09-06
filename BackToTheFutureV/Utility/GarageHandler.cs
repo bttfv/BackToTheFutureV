@@ -324,7 +324,7 @@ namespace BackToTheFutureV
 
             garageCamera = camera;
             garageCamera.IsActive = true;
-            Camera.StartRenderingScriptedCamera();
+            ScriptCameraDirector.StartRendering();
         }
 
         private static void DestroyCamera()
@@ -332,7 +332,7 @@ namespace BackToTheFutureV
             garageCamera?.Delete();
             garageCamera = null;
 
-            Camera.StopRenderingScriptedCamera();
+            ScriptCameraDirector.StopRendering();
         }
     }
 }
