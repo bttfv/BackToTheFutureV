@@ -79,7 +79,7 @@ namespace BackToTheFutureV
             Driver.KeepTaskWhenMarkedAsNoLongerNeeded = true;
 
             Driver?.Task?.ChaseWithGroundVehicle(FusionUtils.PlayerPed);
-            Driver?.SetVehicleChaseBehaviorFlags(VehicleChaseFlags.CantRam, true);
+            Driver?.SetVehicleChaseBehaviorFlags(VehicleChaseBehaviorFlags.CantRam, true);
             Driver?.SetVehicleChaseIdealPursuitDistance(0f);
             Driver.DrivingAggressiveness = 1.0f;
 

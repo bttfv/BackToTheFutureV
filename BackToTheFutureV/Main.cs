@@ -130,7 +130,7 @@ namespace BackToTheFutureV
                     Enabled = true,
                     Model = ModelHandler.DMC12,
                     VehicleType = VehicleType.Automobile,
-                    VehicleClass = VehicleClass.Sports,
+                    VehicleClass = VehicleClass.SportsClassics,
                     DateBased = true,
                     StartProductionDate = new DateTime(1981, 1, 21, 0, 0, 0),
                     EndProductionDate = new DateTime(1982, 12, 24, 23, 59, 59),
