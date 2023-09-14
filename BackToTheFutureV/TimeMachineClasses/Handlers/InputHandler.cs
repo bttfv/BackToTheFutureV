@@ -10,7 +10,7 @@ namespace BackToTheFutureV
 {
     internal class InputHandler : HandlerPrimitive
     {
-        private readonly ClipDictAndAnimNamePair inputAnim = new ClipDictAndAnimNamePair(clipDictName: "veh@low@front_ds@base", animName: "change_station");
+        private readonly CrClipAsset inputAnim = new CrClipAsset(clipDictName: "veh@low@front_ds@base", animName: "change_station");
         public bool InputMode { get; private set; }
 
         public Keys lastInput = Keys.None;
@@ -113,7 +113,7 @@ namespace BackToTheFutureV
         {
             if (Mods.IsDMC12 && Driver != null && Driver == FusionUtils.PlayerPed)
             {
-                Driver?.Task?.PlayAnimation(inputAnim.ClipDictionary.Name, inputAnim.AnimationName, 8f, -1, AnimationFlags.Secondary);
+                Driver?.Task?.PlayAnimation(inputAnim.ClipDictionary.Name, inputAnim.ClipName, 8f, -1, AnimationFlags.Secondary);
             }
 
             // If its not a valid length/mode

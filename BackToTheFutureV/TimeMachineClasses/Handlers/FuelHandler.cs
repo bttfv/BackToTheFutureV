@@ -22,7 +22,7 @@ namespace BackToTheFutureV
         private float _reactorGlowingTime = 0;
         private float _refuelTime = 0;
 
-        private readonly ClipDictAndAnimNamePair refuelAnim = new ClipDictAndAnimNamePair(clipDictName: "anim@narcotics@trash", animName: "drop_front");
+        private readonly CrClipAsset refuelAnim = new CrClipAsset(clipDictName: "anim@narcotics@trash", animName: "drop_front");
         private readonly NativeInput InteractPressed;
 
         private TaskSequence refuelSequence;

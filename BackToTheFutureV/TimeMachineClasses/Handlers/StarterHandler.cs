@@ -16,7 +16,7 @@ namespace BackToTheFutureV
         private int _nextCheck;
         private int _headCheck;
 
-        private readonly ClipDictAndAnimNamePair restartAnim = new ClipDictAndAnimNamePair(clipDictName: "veh@low@front_ds@base", animName: "start_engine");
+        private readonly CrClipAsset restartAnim = new CrClipAsset(clipDictName: "veh@low@front_ds@base", animName: "start_engine");
         private readonly TimedEventHandler timedEventManager;
 
         private bool _lightsOn;
@@ -205,7 +205,7 @@ namespace BackToTheFutureV
                     if (!_isRestarting)
                     {
                         //Would be cool to loop this animation at the key-turning step...
-                        Driver?.Task?.PlayAnimation(restartAnim.ClipDictionary.Name, restartAnim.AnimationName, 8f, -1, AnimationFlags.Loop);
+                        Driver?.Task?.PlayAnimation(restartAnim.ClipDictionary.Name, restartAnim.ClipName, 8f, -1, AnimationFlags.Loop);
                         Sounds.EngineRestarter?.Play();
 
                         _restartAt = Game.GameTime + FusionUtils.Random.Next(3000, 10000);

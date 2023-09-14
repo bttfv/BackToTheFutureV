@@ -40,7 +40,7 @@ namespace BackToTheFutureV
         private readonly AnimateProp suspensionRightFront;
         private readonly AnimateProp suspensionRightRear;
 
-        private readonly ClipDictAndAnimNamePair duckAnim = new ClipDictAndAnimNamePair(clipDictName: "veh@low@front_ds@idle_duck", animName: "sit");
+        private readonly CrClipAsset duckAnim = new CrClipAsset(clipDictName: "veh@low@front_ds@idle_duck", animName: "sit");
 
         private Vector3 InteriorLightOnPose;
         private Vector3 InteriorLightOffPose = new Vector3(0f, 0f, -2500f);
@@ -151,7 +151,7 @@ namespace BackToTheFutureV
             {
                 if ((Game.IsControlPressed(Control.VehicleDuck) || forcedDucking) && FusionUtils.PlayerPed.IsFullyInVehicle() && ((IsTimeMachine && TimeMachineHandler.CurrentTimeMachine.NotNullAndExists() && TimeMachineHandler.CurrentTimeMachine.Mods.HoverUnderbody == InternalEnums.ModState.Off) || !IsTimeMachine) && GarageHandler.Status != InternalEnums.GarageStatus.Busy && !MenuHandler.IsAnyMenuOpen() && !isDucking && !FusionUtils.IsCameraInFirstPerson())
                 {
-                    FusionUtils.PlayerPed.Task?.PlayAnimation(duckAnim.ClipDictionary.Name, duckAnim.AnimationName, 3.5f, 3.5f, -1, AnimationFlags.Secondary, 1f);
+                    FusionUtils.PlayerPed.Task?.PlayAnimation(duckAnim.ClipDictionary.Name, duckAnim.ClipName, 3.5f, 3.5f, -1, AnimationFlags.Secondary, 1f);
                     isDucking = true;
                     duckEnded = false;
                 }
