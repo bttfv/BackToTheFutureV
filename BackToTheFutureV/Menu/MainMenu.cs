@@ -2,6 +2,7 @@
 using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Chrono;
 using LemonUI.Menus;
 using System;
 using System.ComponentModel;
@@ -127,7 +128,7 @@ namespace BackToTheFutureV
                 if (spawnBTTF.SelectedIndex == 5)
                 {
                     timeMachine.Mods.Wheel = WheelType.RailroadInvisible;
-                    timeMachine.Properties.PreviousTime = new DateTime(1885, 9, 7, 10, 00, 0);
+                    timeMachine.Properties.PreviousTime = new GameClockDateTime(GameClockDate.FromYmd(1885, 9, 7), GameClockTime.FromHms(10, 00, 0));
                 }
             }
 

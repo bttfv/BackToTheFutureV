@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Chrono;
 using GTA.Native;
 using GTA.UI;
 using KlangRageAudioLibrary;
@@ -237,8 +238,8 @@ namespace BackToTheFutureV
 
             bool active = CurrentTimeMachine.NotNullAndExists();
 
-            transformInto.Enabled = !active && FusionUtils.CurrentTime >= new DateTime(1985, 10, 25);
-            hoverConvert.Enabled = FusionUtils.CurrentTime.Year >= 2015;
+            transformInto.Enabled = !active && GameClock.Now >= new GameClockDateTime(GameClockDate.FromYmd(1985, 10, 25), GameClockTime.FromHms(0, 0, 0));
+            hoverConvert.Enabled = GameClock.Now.Year >= 2015;
 
             if (hoverConvert.Enabled)
             {
@@ -248,13 +249,13 @@ namespace BackToTheFutureV
                     hoverConvert.Enabled = false;
             }
 
-            installMrFusion.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && CurrentTimeMachine.Mods.IsDMC12;
-            repairTC.Enabled = active && ((FusionUtils.CurrentTime.Year >= 1952 && CurrentTimeMachine.Properties.AreTimeCircuitsBroken && CurrentTimeMachine.Mods.Hoodbox == ModState.Off) || (FusionUtils.CurrentTime.Year >= 1985 && CurrentTimeMachine.Mods.Hoodbox == ModState.On));
-            repairFC.Enabled = active && FusionUtils.CurrentTime.Year >= 2015 && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
-            repairEngine.Enabled = active && FusionUtils.CurrentTime.Year >= 1912 && CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst;
+            installMrFusion.Enabled = active && GameClock.Now.Year >= 2015 && CurrentTimeMachine.Mods.Reactor == ReactorType.Nuclear && CurrentTimeMachine.Mods.IsDMC12;
+            repairTC.Enabled = active && ((GameClock.Now.Year >= 1952 && CurrentTimeMachine.Properties.AreTimeCircuitsBroken && CurrentTimeMachine.Mods.Hoodbox == ModState.Off) || (GameClock.Now.Year >= 1985 && CurrentTimeMachine.Mods.Hoodbox == ModState.On));
+            repairFC.Enabled = active && GameClock.Now.Year >= 2015 && CurrentTimeMachine.Properties.AreFlyingCircuitsBroken;
+            repairEngine.Enabled = active && GameClock.Now.Year >= 1912 && CurrentTimeMachine.Vehicle.EngineHealth <= 0 && CurrentTimeMachine.Mods.Wheels.Burst;
             washCar.Enabled = active && CurrentTimeMachine.Mods.IsDMC12 && CurrentTimeMachine.Vehicle.DirtLevel >= 1f;
 
-            buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 12 && FusionUtils.CurrentTime.Year > 1985 && FusionUtils.CurrentTime.Year < 2015;
+            buyPlutonium.Enabled = InternalInventory.Current.Plutonium < 12 && GameClock.Now.Year > 1985 && GameClock.Now.Year < 2015;
             buyPlutonium.AltTitle = $"{InternalInventory.Current.Plutonium}/12";
 
             customMenu.Enabled = active && !CurrentTimeMachine.Constants.FullDamaged;

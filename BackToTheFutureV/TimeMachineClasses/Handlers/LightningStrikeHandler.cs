@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Chrono;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -107,33 +108,34 @@ namespace BackToTheFutureV
                     {
                         TimeMachineClone timeMachineClone = TimeMachine.Clone();
 
-                        int _cloneYears = FusionUtils.CurrentTime.Year - timeMachineClone.Properties.DestinationTime.Year;
+                        int _cloneYears = GameClock.Now.Year - timeMachineClone.Properties.DestinationTime.Year;
+                        GameClockDateTime _tempDest = timeMachineClone.Properties.DestinationTime;
 
                         if (_cloneYears == 0)
                         {
-                            try
+                            if (_tempDest.Year + 70 < 9999)
                             {
-                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(70);
+                                timeMachineClone.Properties.DestinationTime = new GameClockDateTime(GameClockDate.FromYmd(_tempDest.Year + 70, _tempDest.Month, _tempDest.Day), _tempDest.Time);
                             }
-                            catch (System.ArgumentOutOfRangeException)
+                            else
                             {
-                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(-70);
+                                timeMachineClone.Properties.DestinationTime = new GameClockDateTime(GameClockDate.FromYmd(_tempDest.Year - 70, _tempDest.Month, _tempDest.Day), _tempDest.Time);
                             }
                         }
                         else
                         {
-                            try
+                            if (_tempDest.Year + (_cloneYears * 2) < 9999)
                             {
-                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(_cloneYears * 2);
+                                timeMachineClone.Properties.DestinationTime = new GameClockDateTime(GameClockDate.FromYmd(_tempDest.Year + (_cloneYears * 2), _tempDest.Month, _tempDest.Day), _tempDest.Time);
                             }
-                            catch (System.ArgumentOutOfRangeException)
+                            else
                             {
-                                timeMachineClone.Properties.DestinationTime = timeMachineClone.Properties.DestinationTime.AddYears(_cloneYears / 2);
+                                timeMachineClone.Properties.DestinationTime = new GameClockDateTime(GameClockDate.FromYmd(_tempDest.Year + (_cloneYears / 2), _tempDest.Month, _tempDest.Day), _tempDest.Time);
                             }
                         }
 
                         timeMachineClone.Vehicle.Position = timeMachineClone.Vehicle.Position.InvertCoordinate(FusionEnums.Coordinate.X).InvertCoordinate(FusionEnums.Coordinate.Y).SetToGroundHeight();
-                        timeMachineClone.Properties.PreviousTime = FusionUtils.CurrentTime;
+                        timeMachineClone.Properties.PreviousTime = GameClock.Now;
                         RemoteTimeMachineHandler.AddRemote(timeMachineClone);
                     }
                 }

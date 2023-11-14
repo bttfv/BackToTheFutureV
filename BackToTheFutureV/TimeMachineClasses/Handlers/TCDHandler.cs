@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Chrono;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -11,7 +12,7 @@ namespace BackToTheFutureV
 {
     internal class TCDHandler : HandlerPrimitive
     {
-        private static readonly DateTime errorDate = new DateTime(1885, 1, 1, 0, 0, 0);
+        private static readonly GameClockDateTime errorDate = new GameClockDateTime(GameClockDate.FromYmd(1885, 1, 1), GameClockTime.FromHms(0, 0, 0));
 
         private static readonly Dictionary<int, double> _probabilities = new Dictionary<int, double>()
         {
@@ -56,7 +57,7 @@ namespace BackToTheFutureV
 
         private int nextTick;
 
-        private DateTime lastTime;
+        private GameClockDateTime lastTime;
         private int nextCheck;
 
         public bool IsDoingTimedVisible => destinationSlot.IsDoingTimedVisible;
@@ -158,7 +159,7 @@ namespace BackToTheFutureV
             }
 
             destinationSlot.SetDate(Properties.DestinationTime);
-            presentSlot.SetDate(FusionUtils.CurrentTime);
+            presentSlot.SetDate(GameClock.Now);
             previousSlot.SetDate(Properties.PreviousTime);
         }
 
@@ -179,7 +180,7 @@ namespace BackToTheFutureV
                 previousSlot.SetVisible(false);
                 previousSlot.SetVisibleAt(true, 500, 600);
 
-                presentSlot.SetDate(FusionUtils.CurrentTime);
+                presentSlot.SetDate(GameClock.Now);
                 presentSlot.SetVisible(false);
                 presentSlot.SetVisibleAt(true, 500, 600);
 
@@ -231,7 +232,7 @@ namespace BackToTheFutureV
                 previousSlot.SetDate(Properties.PreviousTime);
             }
 
-            lastTime = FusionUtils.CurrentTime;
+            lastTime = GameClock.Now;
             StopGlitch();
             Particles.LightningSparks?.Stop();
         }
@@ -240,7 +241,7 @@ namespace BackToTheFutureV
         {
             if (Vehicle != null)
             {
-                presentSlot.SetDate(FusionUtils.CurrentTime);
+                presentSlot.SetDate(GameClock.Now);
             }
         }
 
@@ -416,9 +417,10 @@ namespace BackToTheFutureV
         {
             if (Game.GameTime > nextCheck)
             {
-                DateTime time = FusionUtils.CurrentTime;
+                GameClockDateTime time = GameClock.Now;
 
-                if (Math.Abs((time - lastTime).TotalMilliseconds) > 600 && !presentSlot.IsDoingTimedVisible)
+                // (Math.Abs((time - lastTime).TotalMilliseconds) > 600 && !presentSlot.IsDoingTimedVisible)
+                if (Math.Abs((time - lastTime).WholeSeconds) > 1 && !presentSlot.IsDoingTimedVisible)
                 {
                     if (Vehicle != null)
                     {

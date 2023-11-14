@@ -1,13 +1,14 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using System;
+using GTA.Chrono;
+using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
 {
     internal class WaybackRecord
     {
-        public DateTime Time { get; }
+        public GameClockDateTime Time { get; }
         public float FrameTime { get; }
 
         public WaybackPed Ped { get; set; }
@@ -15,7 +16,7 @@ namespace BackToTheFutureV
 
         public WaybackRecord(Ped ped, Vehicle vehicle = null)
         {
-            Time = FusionUtils.CurrentTime;
+            Time = GameClock.Now;
             FrameTime = Game.LastFrameTime;
 
             Ped = new WaybackPed(ped);

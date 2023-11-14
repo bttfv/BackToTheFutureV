@@ -1,9 +1,9 @@
 ﻿using FusionLibrary;
+using GTA.Chrono;
 using GTA.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -12,12 +12,12 @@ namespace BackToTheFutureV
     {
         public TCD2DScaleform() : base("bttf_2d_gui")
         {
-            dates["red"] = new DateTime();
-            dates["green"] = new DateTime();
-            dates["yellow"] = new DateTime();
+            dates["red"] = new GameClockDateTime();
+            dates["green"] = new GameClockDateTime();
+            dates["yellow"] = new GameClockDateTime();
         }
 
-        private readonly Dictionary<string, DateTime> dates = new Dictionary<string, DateTime>();
+        private readonly Dictionary<string, GameClockDateTime> dates = new Dictionary<string, GameClockDateTime>();
 
         public void Draw2D()
         {
@@ -40,7 +40,7 @@ namespace BackToTheFutureV
             }
         }
 
-        public void SetDate(string type, DateTime date)
+        public void SetDate(string type, GameClockDateTime date)
         {
             dates[type] = date;
 
@@ -51,9 +51,9 @@ namespace BackToTheFutureV
             CallFunction("SET_" + type.ToUpper() + "_MINUTE", date.Minute);
 
             if (ModSettings.TCDBackground != TCDBackground.BTTF3)
-                CallFunction("SET_AM_PM", type.ToLower(), date.ToString("tt", CultureInfo.InvariantCulture) == "AM" ? 1 : 2);
+                CallFunction("SET_AM_PM", type.ToLower(), date.Hour12.isPM ? 2 : 1);
             else
-                CallFunction("SET_AM_PM", type.ToLower(), date.ToString("tt", CultureInfo.InvariantCulture) == "AM" ? 2 : 1);
+                CallFunction("SET_AM_PM", type.ToLower(), date.Hour12.isPM ? 1 : 2);
         }
 
         public void SetSpeedoBackground(bool state)

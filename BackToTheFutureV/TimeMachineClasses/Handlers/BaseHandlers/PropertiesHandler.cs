@@ -1,4 +1,5 @@
-﻿using FusionLibrary;
+﻿using GTA;
+using GTA.Chrono;
 using GTA.Math;
 using System;
 using static BackToTheFutureV.InternalEnums;
@@ -11,12 +12,12 @@ namespace BackToTheFutureV
         //Persistent properties
         public Guid GUID { get; private set; }
         public bool AreTimeCircuitsOn { get; set; }
-        public DateTime AlarmTime { get; set; }
+        public GameClockDateTime AlarmTime { get; set; }
         public bool AlarmSet { get; set; } = false;
         public bool SyncWithCurTime { get; set; } = true;
-        public DateTime ClockTime { get; set; } = FusionUtils.CurrentTime;
-        public DateTime DestinationTime { get; set; } = BTTFImportantDates.GetRandom();
-        public DateTime PreviousTime { get; set; } = new DateTime(1985, 10, 26, 1, 20, 00);
+        public GameClockDateTime ClockTime { get; set; } = GameClock.Now;
+        public GameClockDateTime DestinationTime { get; set; } = GameClockDateTime.FromSystemDateTime(BTTFImportantDates.GetRandom());
+        public GameClockDateTime PreviousTime { get; set; } = new GameClockDateTime(GameClockDate.FromYmd(1985, 10, 26), GameClockTime.FromHms(1, 20, 00));
         public Vector3 LastVelocity { get; set; }
         public TimeTravelType TimeTravelType { get; set; } = TimeTravelType.Cutscene;
         public bool AreTimeCircuitsBroken { get; set; }

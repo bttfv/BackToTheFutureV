@@ -1,6 +1,7 @@
 ﻿using BackToTheFutureV;
 using FusionLibrary;
 using FusionLibrary.Extensions;
+using GTA.Chrono;
 using GTA.Math;
 using System;
 using static FusionLibrary.FusionEnums;
@@ -14,7 +15,7 @@ namespace BackToTheFutureV
         public PropertiesHandler Properties { get; }
         public VehicleReplica Vehicle { get; }
 
-        public DateTime ExistsUntil { get; set; } = DateTime.MaxValue;
+        public GameClockDateTime ExistsUntil { get; set; } = GameClockDateTime.MaxValue;
 
         public TimeMachineClone(TimeMachine timeMachine)
         {

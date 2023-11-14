@@ -129,7 +129,7 @@ namespace BackToTheFutureV
             Decorators = new DecoratorsHandler(this);
 
             LastDisplacementClone = this.Clone();
-            LastDisplacementClone.Properties.DestinationTime = FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second);
+            LastDisplacementClone.Properties.DestinationTime = GameClock.Now.WithSecond(0);
 
             Events.OnWormholeTypeChanged += UpdateBlip;
 
@@ -504,7 +504,7 @@ namespace BackToTheFutureV
         {
             if (timeCircuits)
             {
-                if (FusionUtils.CurrentTime.Year >= 1985)
+                if (GameClock.Now.Year >= 1985)
                 {
                     if (Mods.Hoodbox == ModState.On)
                     {
@@ -513,7 +513,7 @@ namespace BackToTheFutureV
                     }
                     Properties.AreTimeCircuitsBroken = false;
                 }
-                else if (FusionUtils.CurrentTime.Year >= 1952)
+                else if (GameClock.Now.Year >= 1952)
                 {
                     Mods.Hoodbox = ModState.On;
                 }
@@ -523,7 +523,7 @@ namespace BackToTheFutureV
 
             if (flyingCircuits)
             {
-                if (FusionUtils.CurrentTime.Year >= 2015)
+                if (GameClock.Now.Year >= 2015)
                 {
                     Properties.AreFlyingCircuitsBroken = false;
                 }
@@ -535,7 +535,7 @@ namespace BackToTheFutureV
             {
                 if (Mods.Wheels.Burst)
                 {
-                    if (FusionUtils.CurrentTime.Year < 1981)
+                    if (GameClock.Now.Year < 1981)
                     {
                         Mods.Wheel = WheelType.Red;
                         Mods.SuspensionsType = SuspensionsType.LiftFront;

@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Chrono;
 using GTA.Graphics;
 using GTA.Native;
 using GTA.UI;
@@ -23,10 +24,10 @@ namespace BackToTheFutureV
         private readonly string FirstBlock = $"BTTF V TEAM\nPresents";
         private readonly string SecondBlock = $"A\nBACK TO THE FUTURE\nMod";
 
-        private DateTime date;
-        private string DayBlock => date.ToString("dddd", dateFormat);
-        private string DateBlock => "\n" + date.ToString("MMMM d, yyyy", dateFormat);
-        private string TimeBlock => "\n\n" + date.ToString("h:mm tt", dateFormat);
+        private GameClockDateTime date;
+        private string DayBlock => date.IsoDayOfWeek.ToString();
+        private string DateBlock => "\n" + FusionUtils.GameClockDateToMdy(date.Date);
+        private string TimeBlock => "\n\n" + FusionUtils.GameClockTimeToHmt(date.Time);
 
         public IntroHandler()
         {
@@ -142,7 +143,7 @@ namespace BackToTheFutureV
             TimedEventHandler.RunEvents();
         }
 
-        public void Start(bool shortIntro = false, DateTime forceDate = default)
+        public void Start(bool shortIntro = false, GameClockDateTime forceDate = default)
         {
             if (IsPlaying)
                 return;
@@ -153,7 +154,7 @@ namespace BackToTheFutureV
 
             Screen.FadeOut(0);
 
-            date = forceDate == default ? FusionUtils.CurrentTime : forceDate;
+            date = forceDate == default ? GameClock.Now : forceDate;
 
             if (shortIntro)
             {
@@ -186,7 +187,7 @@ namespace BackToTheFutureV
             TimedEventHandler.ResetExecution();
             IsPlaying = false;
 
-            FusionUtils.CurrentTime = date;
+            GameClock.Now = date;
             FusionUtils.HideGUI = false;
         }
 

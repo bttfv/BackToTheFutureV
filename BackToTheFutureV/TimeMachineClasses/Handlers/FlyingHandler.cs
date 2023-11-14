@@ -394,7 +394,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (FusionUtils.CurrentTime.Year >= 2015)
+            if (GameClock.Now.Year >= 2015)
             {
                 Function.Call(Hash.SUPPRESS_SHOCKING_EVENTS_NEXT_FRAME);
             }

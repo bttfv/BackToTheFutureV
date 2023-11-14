@@ -1,5 +1,5 @@
 ﻿using FusionLibrary;
-using System;
+using GTA.Chrono;
 using System.Collections.Generic;
 
 namespace BackToTheFutureV
@@ -32,7 +32,7 @@ namespace BackToTheFutureV
             fireTrails.ForEach(x => x.Tick());
         }
 
-        public static void OnTimeChanged(DateTime time)
+        public static void OnTimeChanged(GameClockDateTime time)
         {
             Abort();
         }

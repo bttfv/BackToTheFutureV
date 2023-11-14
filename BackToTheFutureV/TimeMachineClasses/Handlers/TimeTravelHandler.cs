@@ -1,8 +1,8 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Chrono;
 using GTA.Math;
-using System;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -38,7 +38,7 @@ namespace BackToTheFutureV
             }
         }
 
-        public static void TimeChanged(DateTime time)
+        public static void TimeChanged(GameClockDateTime time)
         {
             TimeMachineHandler.ExistenceCheck(time);
             RemoteTimeMachineHandler.ExistenceCheck(time);
@@ -105,16 +105,16 @@ namespace BackToTheFutureV
 
                     if (remoteTimeMachine != null)
                     {
-                        if (Properties.DestinationTime > FusionUtils.CurrentTime)
-                            remoteTimeMachine.TimeMachineClone.ExistsUntil = DateTime.MaxValue;
+                        if (Properties.DestinationTime > GameClock.Now)
+                            remoteTimeMachine.TimeMachineClone.ExistsUntil = GameClockDateTime.MaxValue;
                         else
-                            remoteTimeMachine.TimeMachineClone.ExistsUntil = FusionUtils.CurrentTime;
+                            remoteTimeMachine.TimeMachineClone.ExistsUntil = GameClock.Now;
                     }
 
                     Properties.LastVelocity = Vehicle.Velocity;
 
                     // Set previous time
-                    Properties.PreviousTime = FusionUtils.CurrentTime;
+                    Properties.PreviousTime = GameClock.Now;
 
                     // Invoke delegate
                     Events.OnTimeTravelStarted?.Invoke();
@@ -198,7 +198,7 @@ namespace BackToTheFutureV
                             RemoteTimeMachineHandler.AddRemote(TimeMachine.Clone());
                         }
 
-                        if (Properties.DestinationTime <= FusionUtils.CurrentTime)
+                        if (Properties.DestinationTime <= GameClock.Now)
                             TimeMachine.Vehicle.SetAlpha(AlphaLevel.L0);
                         else
                             Vehicle.SetVisible(false);
@@ -250,7 +250,7 @@ namespace BackToTheFutureV
                             RemoteTimeMachineHandler.StopRemoteControl();
                         }
 
-                        if (Properties.DestinationTime <= FusionUtils.CurrentTime)
+                        if (Properties.DestinationTime <= GameClock.Now)
                         {
                             TimeMachine.StartTurnVisible();
                             Events.OnTimeTravelEnded?.Invoke();
@@ -294,11 +294,13 @@ namespace BackToTheFutureV
 
                     if (TimeHandler.RealTime)
                     {
-                        TimeHandler.TimeTravelTo(Properties.DestinationTime.AddSeconds(-4));
+                        Properties.DestinationTime.TryAdd(GameClockDuration.FromSeconds(-4), out GameClockDateTime temp);
+                        TimeHandler.TimeTravelTo(temp);
                     }
                     else
                     {
-                        TimeHandler.TimeTravelTo(Properties.DestinationTime.AddMinutes(-2));
+                        Properties.DestinationTime.TryAdd(GameClockDuration.FromMinutes(-2), out GameClockDateTime temp);
+                        TimeHandler.TimeTravelTo(temp);
                     }
 
                     if (Properties.TimeTravelDestPos != Vector3.Zero)

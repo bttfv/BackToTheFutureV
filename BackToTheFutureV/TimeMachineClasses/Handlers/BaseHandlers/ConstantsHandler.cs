@@ -1,7 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using System;
+using GTA.Chrono;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 
@@ -227,7 +227,7 @@ namespace BackToTheFutureV
 
         public CustomModel WheelRearModel => IsStockWheel ? ModelHandler.RearWheelProp : ModelHandler.RedWheelProp;
 
-        public bool ReadyForLightningRun => FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 22, 3, 0), new DateTime(1955, 11, 12, 22, 4, 10)) && !Properties.IsFlying && (Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet || Vehicle.GetStreetInfo().Crossing == LightningRun.LightningRunStreet);
+        public bool ReadyForLightningRun => GameClock.Now.Between(new GameClockDateTime(GameClockDate.FromYmd(1955, 11, 12), GameClockTime.FromHms(22, 3, 0)), new GameClockDateTime(GameClockDate.FromYmd(1955, 11, 12), GameClockTime.FromHms(22, 4, 10))) && !Properties.IsFlying && (Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet || Vehicle.GetStreetInfo().Crossing == LightningRun.LightningRunStreet);
 
         //public bool DeluxoProto => Main.DeluxoProtoSupport && Vehicle.Model == "dproto";
 

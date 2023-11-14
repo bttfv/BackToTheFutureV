@@ -1,10 +1,9 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Chrono;
 using GTA.Math;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace BackToTheFutureV
@@ -21,7 +20,7 @@ namespace BackToTheFutureV
 
         public string SlotType { get; private set; }
 
-        private DateTime date;
+        private GameClockDateTime date;
 
         public bool IsDoingTimedVisible { get; private set; }
         private bool toggle;
@@ -45,7 +44,7 @@ namespace BackToTheFutureV
                 Scaleforms.TCDRowsRT[slotType].OnRenderTargetDraw += OnRenderTargetDraw;
             }
 
-            date = new DateTime();
+            date = new GameClockDateTime();
 
             if (Mods.IsDMC12)
             {
@@ -70,7 +69,7 @@ namespace BackToTheFutureV
             }
         }
 
-        public void SetDate(DateTime dateToSet)
+        public void SetDate(GameClockDateTime dateToSet)
         {
             if (!TcdEditer.IsEditing)
             {
@@ -79,8 +78,8 @@ namespace BackToTheFutureV
             }
 
             ScaleformsHandler.TCDRowsScaleforms[SlotType]?.SetDate(dateToSet);
-            amProp?.SetState(dateToSet.ToString("tt", CultureInfo.InvariantCulture) == "AM");
-            pmProp?.SetState(dateToSet.ToString("tt", CultureInfo.InvariantCulture) != "AM");
+            amProp?.SetState(!dateToSet.Hour12.isPM);
+            pmProp?.SetState(dateToSet.Hour12.isPM);
 
             date = dateToSet;
             toggle = true;
@@ -109,8 +108,8 @@ namespace BackToTheFutureV
             }
             else if ((!toggleTo && !amPm) || (toggleTo && amPm))
             {
-                amProp?.SetState(date.ToString("tt", CultureInfo.InvariantCulture) == "AM");
-                pmProp?.SetState(date.ToString("tt", CultureInfo.InvariantCulture) != "AM");
+                amProp?.SetState(!date.Hour12.isPM);
+                pmProp?.SetState(date.Hour12.isPM);
             }
 
             toggle = toggleTo;

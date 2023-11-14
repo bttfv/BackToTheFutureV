@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Chrono;
 using GTA.Math;
 using GTA.UI;
 using System;
@@ -15,11 +16,11 @@ namespace BackToTheFutureV
         public float Heading { get; }
         public WormholeType WormholeType { get; }
         public SpawnFlags SpawnFlags { get; }
-        public DateTime SpawnDate { get; }
-        public DateTime DeleteDate { get; }
+        public GameClockDateTime SpawnDate { get; }
+        public GameClockDateTime DeleteDate { get; }
         public bool IsInvincible { get; }
-        public DateTime DestinationTime { get; } = default;
-        public DateTime PreviousTime { get; } = default;
+        public GameClockDateTime DestinationTime { get; } = default;
+        public GameClockDateTime PreviousTime { get; } = default;
         public bool IsOnTracks { get; }
 
         public TimeMachine TimeMachine { get; private set; }
@@ -34,7 +35,7 @@ namespace BackToTheFutureV
 
         private bool delaySet;
 
-        public StoryTimeMachine(Vector3 position, float heading, WormholeType wormholeType, SpawnFlags spawnFlags, DateTime spawnDate, DateTime deleteDate, bool isInvincible = false, DateTime destinationTime = default, DateTime previousTime = default, bool isOnTracks = false)
+        public StoryTimeMachine(Vector3 position, float heading, WormholeType wormholeType, SpawnFlags spawnFlags, GameClockDateTime spawnDate, GameClockDateTime deleteDate, bool isInvincible = false, GameClockDateTime destinationTime = default, GameClockDateTime previousTime = default, bool isOnTracks = false)
         {
             Position = position;
             Heading = heading;
@@ -84,7 +85,7 @@ namespace BackToTheFutureV
             return TimeMachine;
         }
 
-        public bool Exists(DateTime time)
+        public bool Exists(GameClockDateTime time)
         {
             return time >= SpawnDate && time <= DeleteDate;
         }
@@ -118,7 +119,9 @@ namespace BackToTheFutureV
 
                     if (!WarningMessageShowed && TimeMachine.Constants.FullDamaged)
                     {
-                        DateTime diff = new DateTime((FusionUtils.CurrentTime - SpawnDate).Ticks);
+                        DateTime spawnDate = new DateTime(SpawnDate.Year, SpawnDate.Month, SpawnDate.Day, SpawnDate.Hour, SpawnDate.Minute, SpawnDate.Second);
+                        DateTime nowDate = new DateTime(GameClock.Year, GameClock.Month, GameClock.Day, GameClock.Hour, GameClock.Minute, GameClock.Second);
+                        DateTime diff = new DateTime((nowDate - spawnDate).Ticks);
 
                         int years = diff.Year - 1;
                         int months = diff.Month - 1;
@@ -165,20 +168,20 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!Exists(FusionUtils.CurrentTime) && Spawned && !IsUsed)
+            if (!Exists(GameClock.Now) && Spawned && !IsUsed)
             {
                 TimeMachine.Dispose(true);
                 return;
             }
 
-            if (Exists(FusionUtils.CurrentTime) && !Spawned && !FirstTime)
+            if (Exists(GameClock.Now) && !Spawned && !FirstTime)
             {
                 Spawn();
                 FirstTime = true;
                 return;
             }
 
-            if (Exists(FusionUtils.CurrentTime) && !Spawned && FirstTime)
+            if (Exists(GameClock.Now) && !Spawned && FirstTime)
             {
                 if (!delaySet)
                 {

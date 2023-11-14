@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Chrono;
 using GTA.UI;
 using KlangRageAudioLibrary;
 using System;
@@ -19,7 +20,7 @@ namespace BackToTheFutureV
 
         public static CustomStopwatch CustomStopwatch { get; } = new CustomStopwatch();
 
-        public static DateTime NewGameTime { get; } = new DateTime(2003, 12, 15, 5, 0, 0);
+        public static GameClockDateTime NewGameTime { get; } = new GameClockDateTime(GameClockDate.FromYmd(2003, 12, 15), GameClockTime.FromHms(5, 0, 0));
 
         public static bool FirstMission { get; private set; }
 
@@ -92,7 +93,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (FirstTick && FusionUtils.CurrentTime == NewGameTime && Game.IsMissionActive)
+            if (FirstTick && GameClock.Now == NewGameTime && Game.IsMissionActive)
             {
                 LoadingPrompt.Hide();
                 Screen.FadeIn(0);
@@ -132,8 +133,8 @@ namespace BackToTheFutureV
                     VehicleType = VehicleType.Automobile,
                     VehicleClass = VehicleClass.SportsClassics,
                     DateBased = true,
-                    StartProductionDate = new DateTime(1981, 1, 21, 0, 0, 0),
-                    EndProductionDate = new DateTime(1982, 12, 24, 23, 59, 59),
+                    StartProductionDate = new GameClockDateTime(GameClockDate.FromYmd(1981, 1, 21), GameClockTime.FromHms(0, 0, 0)),
+                    EndProductionDate = new GameClockDateTime(GameClockDate.FromYmd(1982, 12, 24), GameClockTime.FromHms(23, 59, 59)),
                     MaxInWorld = 25,
                     MaxSpawned = 3,
                     WaitBetweenSpawns = 180000,

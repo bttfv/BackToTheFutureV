@@ -1,4 +1,4 @@
-﻿using System;
+﻿using GTA.Chrono;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -40,7 +40,7 @@ namespace BackToTheFutureV
     internal delegate void SetPedAI(bool state);
     internal delegate void SetEngineStall(bool state);
     internal delegate void StartLightningStrike(int delay);
-    internal delegate void SimulateInputDate(DateTime dateTime);
+    internal delegate void SimulateInputDate(GameClockDateTime dateTime);
     internal delegate void SimulateHoverBoost(bool state);
     internal delegate void SimulateHoverGoingUpDown(bool state);
     internal delegate void SetSIDLedsState(bool on, bool instant = false);

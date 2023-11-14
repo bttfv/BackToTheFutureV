@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GTA.Chrono;
+using System;
 using static BackToTheFutureV.InternalEnums;
 
 namespace BackToTheFutureV
@@ -8,7 +9,7 @@ namespace BackToTheFutureV
     {
         public int[] CurrentHeight = new int[10];
 
-        public DateTime[] Date = new DateTime[3];
+        public GameClockDateTime[] Date = new GameClockDateTime[3];
 
         public bool IsHUDVisible { get; set; } = false;
         public bool IsTickVisible { get; set; } = false;
@@ -37,7 +38,7 @@ namespace BackToTheFutureV
             }
         }
 
-        public void SetDate(string type, DateTime date)
+        public void SetDate(string type, GameClockDateTime date)
         {
             int row = RowNameToInt(type);
 

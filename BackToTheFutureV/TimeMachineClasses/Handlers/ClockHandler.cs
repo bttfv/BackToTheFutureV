@@ -1,7 +1,7 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Chrono;
 using System;
-using System.Globalization;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -16,7 +16,7 @@ namespace BackToTheFutureV
 
         private bool save;
 
-        private DateTime tempTime;
+        private GameClockDateTime tempTime;
         public static int finishTime;
 
         private static readonly InstrumentalMenu InstrumentalMenu;
@@ -61,12 +61,12 @@ namespace BackToTheFutureV
 
                 if (IsPlaying)
                 {
-                    tempTime = Properties.ClockTime.AddSeconds(-Properties.ClockTime.Second);
+                    tempTime = Properties.ClockTime.WithSecond(0);
                     save = false;
 
                     if (Properties.AlarmSet)
                     {
-                        TextHandler.Me.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss", CultureInfo.InvariantCulture));
+                        TextHandler.Me.ShowHelp("Clock_AlarmSetTo", false, FusionUtils.GameClockTimeToString(Properties.AlarmTime.Time));
                     }
                 }
                 else
@@ -93,16 +93,17 @@ namespace BackToTheFutureV
 
             if (Game.GameTime < finishTime)
             {
-                Game.DisableControlThisFrame(GTA.Control.VehicleCinCam);
+                Game.DisableControlThisFrame(Control.VehicleCinCam);
             }
 
             if (Properties.SyncWithCurTime)
             {
-                Properties.ClockTime = FusionUtils.CurrentTime;
+                Properties.ClockTime = GameClock.Now;
             }
             else
             {
-                Properties.ClockTime = Properties.ClockTime.Add(TimeSpan.FromSeconds(Game.LastFrameTime * (TimeHandler.RealTime ? 1 : 30)));
+                Properties.ClockTime.TryAdd(GameClockDuration.FromTimeSpan(TimeSpan.FromSeconds(Game.LastFrameTime * (TimeHandler.RealTime ? 1 : 30))), out GameClockDateTime temp);
+                Properties.ClockTime = temp;
             }
 
             if (IsPlaying)
@@ -131,7 +132,7 @@ namespace BackToTheFutureV
 
                     if (Game.IsControlPressed(Control.PhoneUp))
                     {
-                        tempTime = tempTime.AddMinutes(1);
+                        tempTime.TryAdd(GameClockDuration.FromMinutes(1), out tempTime);
                         pressedTime++;
 
                         if (pressedTime > 5)
@@ -146,7 +147,7 @@ namespace BackToTheFutureV
 
                     if (Game.IsControlPressed(Control.PhoneDown))
                     {
-                        tempTime = tempTime.AddMinutes(-1);
+                        tempTime.TryAdd(GameClockDuration.FromMinutes(-1), out tempTime);
                         pressedTime++;
 
                         if (pressedTime > 5)
@@ -170,10 +171,10 @@ namespace BackToTheFutureV
                             second = 0;
                         }
 
-                        tempTime = tempTime.AddSeconds(-tempTime.Second).AddSeconds(second);
+                        tempTime = tempTime.WithSecond(second);
                         pressedTime++;
 
-                        TextHandler.Me.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString(CultureInfo.InvariantCulture));
+                        TextHandler.Me.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString("00"));
 
                         if (pressedTime > 5)
                         {
@@ -196,10 +197,10 @@ namespace BackToTheFutureV
                             second = 59;
                         }
 
-                        tempTime = tempTime.AddSeconds(-tempTime.Second).AddSeconds(second);
+                        tempTime = tempTime.WithSecond(second);
                         pressedTime++;
 
-                        TextHandler.Me.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString(CultureInfo.InvariantCulture));
+                        TextHandler.Me.ShowHelp("Clock_CurSecond", false, tempTime.Second.ToString("00"));
 
                         if (pressedTime > 5)
                         {
@@ -216,7 +217,7 @@ namespace BackToTheFutureV
                         Properties.AlarmTime = tempTime;
                         Properties.AlarmSet = true;
 
-                        TextHandler.Me.ShowHelp("Clock_AlarmSetTo", false, Properties.AlarmTime.ToString("hh:mm:ss", CultureInfo.InvariantCulture));
+                        TextHandler.Me.ShowHelp("Clock_AlarmSetTo", false, FusionUtils.GameClockTimeToString(Properties.AlarmTime.Time));
 
                         TextHandler.Me.ShowNotification("Clock_AlarmSet");
                     }
@@ -231,7 +232,7 @@ namespace BackToTheFutureV
 
             if (TimeHandler.RealTime)
             {
-                if (Properties.AlarmSet && Properties.AlarmTime.ToString("hh", CultureInfo.InvariantCulture) == Properties.ClockTime.ToString("hh", CultureInfo.InvariantCulture) && Properties.ClockTime.Minute == Properties.AlarmTime.Minute && Properties.ClockTime.Second >= Properties.AlarmTime.Second && Properties.ClockTime.Second <= Properties.AlarmTime.Second + 5)
+                if (Properties.AlarmSet && Properties.AlarmTime.Hour12.hour == Properties.ClockTime.Hour12.hour && Properties.ClockTime.Minute == Properties.AlarmTime.Minute && Properties.ClockTime.Second >= Properties.AlarmTime.Second && Properties.ClockTime.Second <= Properties.AlarmTime.Second + 5)
                 {
                     if (!Props.BulovaClockRing.IsPlaying)
                     {
@@ -258,7 +259,7 @@ namespace BackToTheFutureV
             }
             else
             {
-                if (Properties.AlarmSet && Properties.AlarmTime.ToString("hh", CultureInfo.InvariantCulture) == Properties.ClockTime.ToString("hh", CultureInfo.InvariantCulture) && Properties.ClockTime.Minute >= Properties.AlarmTime.Minute && Properties.ClockTime.Minute <= Properties.AlarmTime.Minute + 2)
+                if (Properties.AlarmSet && Properties.AlarmTime.Hour12.hour == Properties.ClockTime.Hour12.hour && Properties.ClockTime.Minute >= Properties.AlarmTime.Minute && Properties.ClockTime.Minute <= Properties.AlarmTime.Minute + 2)
                 {
                     if (!Props.BulovaClockRing.IsPlaying)
                     {

@@ -1,5 +1,5 @@
 ﻿using FusionLibrary;
-using System;
+using GTA.Chrono;
 
 namespace BackToTheFutureV
 {
@@ -8,14 +8,14 @@ namespace BackToTheFutureV
         public TCD3DRowScaleform(string type) : base("bttf_3d_gui_" + type)
         {
             Type = type;
-            date = new DateTime();
+            date = new GameClockDateTime();
         }
 
-        private DateTime date;
+        private GameClockDateTime date;
 
         public string Type { get; }
 
-        public void SetDate(DateTime date)
+        public void SetDate(GameClockDateTime date)
         {
             this.date = date;
 

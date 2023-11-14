@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Chrono;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace BackToTheFutureV
 
         static WaybackSystem()
         {
-            TimeHandler.OnTimeChanged += (DateTime dateTime) => Stop();
+            TimeHandler.OnTimeChanged += (GameClockDateTime dateTime) => Stop();
         }
 
         public static void Tick()

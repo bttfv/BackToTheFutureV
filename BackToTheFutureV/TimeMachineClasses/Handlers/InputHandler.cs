@@ -1,7 +1,7 @@
 ﻿using FusionLibrary;
 using GTA;
+using GTA.Chrono;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using static FusionLibrary.FusionEnums;
@@ -18,7 +18,7 @@ namespace BackToTheFutureV
         private string _destinationTimeRaw;
         private int _nextReset;
 
-        private DateTime _simulateDate;
+        private GameClockDateTime _simulateDate;
         private int _simulateDatePos = -1;
         private int _simulateDateCheck;
 
@@ -27,7 +27,7 @@ namespace BackToTheFutureV
             Events.SimulateInputDate += SimulateDateInput;
         }
 
-        public void InputDate(DateTime date, InputType inputType)
+        public void InputDate(GameClockDateTime date, InputType inputType)
         {
             Sounds.InputEnter?.Play();
             Properties.DestinationTime = date;
@@ -84,7 +84,7 @@ namespace BackToTheFutureV
             }
         }
 
-        private void SimulateDateInput(DateTime dateTime)
+        private void SimulateDateInput(GameClockDateTime dateTime)
         {
             if (_simulateDatePos > -1)
             {
@@ -116,7 +116,7 @@ namespace BackToTheFutureV
                 Driver?.Task?.PlayAnimation(inputAnim.ClipDictionary.Name, inputAnim.ClipName, 8f, -1, AnimationFlags.Secondary);
             }
 
-            // If its not a valid length/mode
+            // If it's not a valid length/mode
             if (_destinationTimeRaw.Length != 12 && _destinationTimeRaw.Length != 4 && _destinationTimeRaw.Length != 8)
             {
                 Sounds.InputEnterError?.Play();
@@ -125,13 +125,8 @@ namespace BackToTheFutureV
                 _destinationTimeRaw = string.Empty;
                 return;
             }
-            // If player tries to set Jan 1 0001 through Jan 3 0001 or year 9999 script breaks; set these dates to invalid to error out TCD input
-            if ((_destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(0, 8) == "01010001") || (_destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(0, 8) == "01020001") || (_destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(0, 8) == "01030001") || (_destinationTimeRaw.Length >= 8 && _destinationTimeRaw.Substring(4, 4) == "9999"))
-            {
-                _destinationTimeRaw = string.Empty;
-            }
 
-            DateTime? dateTime = FusionUtils.ParseFromRawString(_destinationTimeRaw, Properties.DestinationTime, out InputType inputType);
+            GameClockDateTime? dateTime = FusionUtils.ParseFromRawString(_destinationTimeRaw, Properties.DestinationTime, out InputType inputType);
 
             if (dateTime == null)
             {
@@ -146,9 +141,10 @@ namespace BackToTheFutureV
             }
         }
 
-        private string DateToInput(DateTime dateTime, int pos)
+        private string DateToInput(GameClockDateTime dateTime, int pos)
         {
-            return dateTime.ToString("MMddyyyyHHmm", CultureInfo.InvariantCulture)[pos].ToString(CultureInfo.InvariantCulture);
+            // Returns a single character from the DateTime string at a time in MMddyyyyHHmm format
+            return FusionUtils.ParseToRawString(dateTime)[pos].ToString();
         }
 
         public override void Tick()
@@ -169,6 +165,7 @@ namespace BackToTheFutureV
                 {
                     if (_simulateDateCheck < Game.GameTime)
                     {
+                        // What happens if I type too many numbers, enter it, then go back and watch Wayback?
                         if (_simulateDatePos > 11)
                         {
                             _simulateDatePos = -1;

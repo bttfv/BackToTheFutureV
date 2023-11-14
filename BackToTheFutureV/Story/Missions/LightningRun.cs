@@ -1,10 +1,10 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Chrono;
 using GTA.Math;
 using GTA.Native;
 using KlangRageAudioLibrary;
-using System;
 using System.Linq;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
@@ -63,9 +63,9 @@ namespace BackToTheFutureV
 
         private Vector3 checkPos = new Vector3(-143.6626f, 6390.0047f, 30.7007f);
 
-        public static DateTime StartTime { get; } = new DateTime(1955, 11, 12, 20, 0, 0);
-        public static DateTime EndTime { get; } = new DateTime(1955, 11, 13, 6, 0, 0);
-        public static DateTime StrikeTime { get; } = new DateTime(1955, 11, 12, 22, 4, 0);
+        public static GameClockDateTime StartTime { get; } = new GameClockDateTime(GameClockDate.FromYmd(1955, 11, 12), GameClockTime.FromHms(20, 0, 0));
+        public static GameClockDateTime EndTime { get; } = new GameClockDateTime(GameClockDate.FromYmd(1955, 11, 13), GameClockTime.FromHms(6, 0, 0));
+        public static GameClockDateTime StrikeTime { get; } = new GameClockDateTime(GameClockDate.FromYmd(1955, 11, 12), GameClockTime.FromHms(22, 4, 0));
 
         private bool setup;
 
@@ -77,7 +77,7 @@ namespace BackToTheFutureV
         public LightningRun()
         {
             Thunder = Main.CommonAudioEngine.Create("general/thunder.wav", Presets.No3D);
-            TimeHandler.OnTimeChanged += (DateTime time) =>
+            TimeHandler.OnTimeChanged += (GameClockDateTime time) =>
             {
                 OnEnd();
             };
@@ -105,7 +105,7 @@ namespace BackToTheFutureV
 
             /*if (key.KeyCode == Keys.O)
             {
-                FusionUtils.CurrentTime = StrikeTime.AddMinutes(-1);
+                GameClock.Now = StrikeTime.AddMinutes(-1);
             }*/
         }
 
@@ -169,7 +169,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (!setup || (FusionUtils.CurrentTime >= StartTime && FusionUtils.CurrentTime <= EndTime && StreetRope == null) || (FusionUtils.CurrentTime < StartTime || FusionUtils.CurrentTime > EndTime) && StreetRope != null)
+            if (!setup || (GameClock.Now >= StartTime && GameClock.Now <= EndTime && StreetRope == null) || (GameClock.Now < StartTime || GameClock.Now > EndTime) && StreetRope != null)
             {
                 OnEnd();
                 Setup();
@@ -198,7 +198,7 @@ namespace BackToTheFutureV
                 World.DrawSpotLight(_lightPos, springUp, System.Drawing.Color.Yellow, 3.05f, 5f, 0f, 10f, 0f);
             }
 
-            if (FusionUtils.CurrentTime == StrikeTime && !IsPlaying)
+            if (GameClock.Now == StrikeTime && !IsPlaying)
             {
                 IsPlaying = true;
             }
@@ -327,7 +327,7 @@ namespace BackToTheFutureV
             Pole = World.CreateProp(poleModel, polePosition, true, false);
             Pole.IsPositionFrozen = true;
 
-            if (FusionUtils.CurrentTime >= StartTime && FusionUtils.CurrentTime <= EndTime)
+            if (GameClock.Now >= StartTime && GameClock.Now <= EndTime)
             {
                 if (FusionUtils.IsTrafficAlive)
                 {

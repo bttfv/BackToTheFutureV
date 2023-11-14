@@ -1,7 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
-using System;
+using GTA.Chrono;
 using System.Windows.Forms;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
@@ -144,11 +144,14 @@ namespace BackToTheFutureV
                 Properties.PhotoEngineStallActive = true;
             }
 
-            if (Constants.ReadyForLightningRun && Properties.AlarmSet && Properties.AlarmTime.Between(new DateTime(1955, 11, 12, 22, 03, 40), new DateTime(1955, 11, 12, 22, 3, 50)) && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && FusionUtils.CurrentTime == Properties.AlarmTime.AddSeconds(-30))
+            Properties.AlarmTime.TryAdd(GameClockDuration.FromSeconds(-30), out GameClockDateTime _testTime);
+
+            if (Constants.ReadyForLightningRun && Properties.AlarmSet && Properties.AlarmTime.Between(new GameClockDateTime(GameClockDate.FromYmd(1955, 11, 12), GameClockTime.FromHms(22, 03, 40)), new GameClockDateTime(GameClockDate.FromYmd(1955, 11, 12), GameClockTime.FromHms(22, 3, 50))) && !Properties.IsEngineStalling && Vehicle.GetMPHSpeed() == 0 && GameClock.Now == _testTime)
             {
                 Properties.PhotoEngineStallActive = true;
                 Properties.BlockEngineRecover = true;
-                Properties.AlarmTime = Properties.AlarmTime.AddSeconds(-11);
+                Properties.AlarmTime.TryAdd(GameClockDuration.FromSeconds(-11), out GameClockDateTime _newTime);
+                Properties.AlarmTime = _newTime;
             }
 
             if (_headHorn && Game.GameTime < _headCheck)
@@ -171,7 +174,7 @@ namespace BackToTheFutureV
                 return;
             }
 
-            if (Vehicle.Speed == 0 && !(Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && Constants.TimeTravelCooldown == -1 && !Properties.IsEngineStalling && !Properties.IsFueled && !Properties.IsRemoteControlled && Driver != null && !(FusionUtils.CurrentTime.Between(new DateTime(1955, 11, 12, 20, 0, 0), new DateTime(1955, 11, 12, 22, 4, 10)) && (Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet || Vehicle.GetStreetInfo().Crossing == LightningRun.LightningRunStreet)))
+            if (Vehicle.Speed == 0 && !(Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)) && Constants.TimeTravelCooldown == -1 && !Properties.IsEngineStalling && !Properties.IsFueled && !Properties.IsRemoteControlled && Driver != null && !(GameClock.Now.Between(new GameClockDateTime(GameClockDate.FromYmd(1955, 11, 12), GameClockTime.FromHms(20, 0, 0)), new GameClockDateTime(GameClockDate.FromYmd(1955, 11, 12), GameClockTime.FromHms(22, 4, 10))) && (Vehicle.GetStreetInfo().Street == LightningRun.LightningRunStreet || Vehicle.GetStreetInfo().Crossing == LightningRun.LightningRunStreet)))
             {
                 if (FusionUtils.Random.NextDouble() < 0.25)
                 {
@@ -219,7 +222,9 @@ namespace BackToTheFutureV
                         return;
                     }
 
-                    if (Properties.BlockEngineRecover && Properties.PhotoEngineStallActive && FusionUtils.CurrentTime == Properties.AlarmTime.AddSeconds(+11) && (Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)))
+                    Properties.AlarmTime.TryAdd(GameClockDuration.FromSeconds(11), out GameClockDateTime _origTime);
+
+                    if (Properties.BlockEngineRecover && Properties.PhotoEngineStallActive && GameClock.Now == _origTime && (Game.IsControlPressed(GTA.Control.VehicleAccelerate) || Game.IsControlPressed(GTA.Control.VehicleBrake)))
                     {
                         _headCheck = Game.GameTime + 500;
                         _headHorn = true;

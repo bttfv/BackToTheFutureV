@@ -67,7 +67,7 @@ namespace BackToTheFutureV
             {
                 case 0:
 
-                    if ((FusionUtils.CurrentTime.AddSeconds(-FusionUtils.CurrentTime.Second) - Properties.DestinationTime).TotalMinutes > 0)
+                    if ((GameClock.Now.WithSecond(0) - Properties.DestinationTime).TotalMinutes > 0)
                     {
                         _currentStep = 3;
                         break;

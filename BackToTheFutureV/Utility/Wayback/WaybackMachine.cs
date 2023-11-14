@@ -1,6 +1,7 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Chrono;
 using System;
 using System.Collections.Generic;
 using static BackToTheFutureV.InternalEnums;
@@ -84,8 +85,8 @@ namespace BackToTheFutureV
             }
         }
 
-        public DateTime StartTime { get; private set; }
-        public DateTime EndTime { get; private set; }
+        public GameClockDateTime StartTime { get; private set; }
+        public GameClockDateTime EndTime { get; private set; }
 
         public Guid WaitForTimeMachineGUID { get; }
 
@@ -141,7 +142,7 @@ namespace BackToTheFutureV
             switch (Status)
             {
                 case WaybackStatus.Idle:
-                    if (FusionUtils.CurrentTime.Between(StartTime, EndTime))
+                    if (GameClock.Now.Between(StartTime, EndTime))
                     {
                         if (WaitForTimeMachineGUID != Guid.Empty)
                         {
@@ -153,7 +154,7 @@ namespace BackToTheFutureV
                             Ped = timeMachine.Vehicle.Driver;
                         }
 
-                        CurrentIndex = Records.FindIndex(x => x.Time >= FusionUtils.CurrentTime);
+                        CurrentIndex = Records.FindIndex(x => x.Time >= GameClock.Now);
 
                         Status = WaybackStatus.Playing;
 
@@ -176,7 +177,7 @@ namespace BackToTheFutureV
 
         private void Record()
         {
-            if ((IsPlayer && !FusionUtils.PlayerPed.IsAlive) || (!IsPlayer && !Ped.ExistsAndAlive()) || FusionUtils.CurrentTime < StartTime || Game.IsMissionActive)
+            if ((IsPlayer && !FusionUtils.PlayerPed.IsAlive) || (!IsPlayer && !Ped.ExistsAndAlive()) || GameClock.Now < StartTime || Game.IsMissionActive)
             {
                 Stop();
                 return;
@@ -263,9 +264,15 @@ namespace BackToTheFutureV
             {
                 StartTime = Records[0].Time;
                 if (ModSettings.RealTime)
-                    EndTime = LastRecord.Time.AddSeconds(-2);
+                {
+                    LastRecord.Time.TryAdd(GameClockDuration.FromSeconds(-2), out GameClockDateTime temp);
+                    EndTime = temp;
+                }
                 else
-                    EndTime = LastRecord.Time.AddMinutes(-1);
+                {
+                    LastRecord.Time.TryAdd(GameClockDuration.FromMinutes(-1), out GameClockDateTime temp);
+                    EndTime = temp;
+                }
             }
 
             CurrentIndex = 0;

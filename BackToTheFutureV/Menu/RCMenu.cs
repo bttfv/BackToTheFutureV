@@ -84,7 +84,7 @@ namespace BackToTheFutureV
         {
             FuelChamberDescription.Checked = CurrentTimeMachine.Properties.IsFueled;
             TimeCircuitsOnDescription.Checked = CurrentTimeMachine.Properties.AreTimeCircuitsOn;
-            DestinationTimeDescription.Title = $"{GetItemTitle("Destination")} {CurrentTimeMachine.Properties.DestinationTime:MM/dd/yyyy hh:mm tt}";
+            DestinationTimeDescription.Title = $"{GetItemTitle("Destination")} {FusionUtils.GameClockDateTimeToMdyhmt(CurrentTimeMachine.Properties.DestinationTime)}";
 
             if (FusionUtils.PlayerPed.DistanceToSquared2D(CurrentTimeMachine, RemoteTimeMachineHandler.MAX_DIST) && CurrentTimeMachine.Vehicle.Driver == null && !CurrentTimeMachine.Properties.IsWayback)
             {

@@ -1,5 +1,6 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
+using GTA.Chrono;
 using LemonUI.TimerBars;
 using System;
 using System.Collections.Generic;
@@ -93,7 +94,7 @@ namespace BackToTheFutureV
             return timeMachine;
         }
 
-        public static void ExistenceCheck(DateTime time)
+        public static void ExistenceCheck(GameClockDateTime time)
         {
             RemoteTimeMachines.ForEach(x => x.ExistenceCheck(time));
         }

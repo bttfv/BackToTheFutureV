@@ -1,8 +1,8 @@
 ﻿using FusionLibrary;
 using FusionLibrary.Extensions;
 using GTA;
+using GTA.Chrono;
 using KlangRageAudioLibrary;
-using System;
 using static BackToTheFutureV.InternalEnums;
 using static FusionLibrary.FusionEnums;
 
@@ -43,7 +43,8 @@ namespace BackToTheFutureV
 
             if (!TimeMachineClone.Properties.HasBeenStruckByLightning && !TimeMachineClone.Properties.IsWayback)
             {
-                if (!_hasPlayedWarningSound && ((!TimeHandler.RealTime && IsTimeBeforeSeconds(60)) || (TimeHandler.RealTime && IsTimeBeforeMilliseconds(2500))))
+                // (!_hasPlayedWarningSound && ((!TimeHandler.RealTime && IsTimeBeforeSeconds(60)) || (TimeHandler.RealTime && IsTimeBeforeMilliseconds(2500))))
+                if (!_hasPlayedWarningSound && ((!TimeHandler.RealTime && IsTimeBeforeSeconds(60)) || (TimeHandler.RealTime && IsTimeBeforeSeconds(3))))
                 {
                     if (!FusionUtils.PlayerPed.IsInVehicle())
                     {
@@ -57,7 +58,8 @@ namespace BackToTheFutureV
                 }
             }
 
-            if ((!TimeHandler.RealTime && IsTimeBeforeSeconds(37)) || (TimeHandler.RealTime && IsTimeBeforeMilliseconds(1250)))
+            // ((!TimeHandler.RealTime && IsTimeBeforeSeconds(37)) || (TimeHandler.RealTime && IsTimeBeforeMilliseconds(1250)))
+            if ((!TimeHandler.RealTime && IsTimeBeforeSeconds(37)) || (TimeHandler.RealTime && IsTimeBeforeSeconds(1)))
             {
                 Spawn(ReenterType.Normal);
 
@@ -68,13 +70,14 @@ namespace BackToTheFutureV
 
         private bool IsTimeBeforeSeconds(int value)
         {
-            return FusionUtils.CurrentTime.Between(TimeMachineClone.Properties.DestinationTime.AddSeconds(-value), TimeMachineClone.Properties.DestinationTime);
+            TimeMachineClone.Properties.DestinationTime.TryAdd(GameClockDuration.FromSeconds(-value), out GameClockDateTime temp);
+            return GameClock.Now.Between(temp, TimeMachineClone.Properties.DestinationTime);
         }
 
-        private bool IsTimeBeforeMilliseconds(int value)
+        /*private bool IsTimeBeforeMilliseconds(int value)
         {
             return FusionUtils.CurrentTime.Between(TimeMachineClone.Properties.DestinationTime.AddMilliseconds(-value), TimeMachineClone.Properties.DestinationTime);
-        }
+        }*/
 
         public TimeMachine Spawn(ReenterType reenterType)
         {
@@ -93,7 +96,9 @@ namespace BackToTheFutureV
                 case ReenterType.Spawn:
                     TimeMachineClone timeMachineClone = TimeMachineClone;
 
-                    bool spawnElsewhere = WaybackSystem.GetWaybackMachineFromGUID(timeMachineClone.Properties.GUID) == null && FusionUtils.CurrentTime >= TimeMachineClone.Properties.DestinationTime.AddMinutes(10);
+                    TimeMachineClone.Properties.DestinationTime.TryAdd(GameClockDuration.FromMinutes(10), out GameClockDateTime temp);
+
+                    bool spawnElsewhere = WaybackSystem.GetWaybackMachineFromGUID(timeMachineClone.Properties.GUID) == null && GameClock.Now >= temp;
 
                     if (spawnElsewhere)
                     {
@@ -135,9 +140,9 @@ namespace BackToTheFutureV
             return TimeMachine;
         }
 
-        public void ExistenceCheck(DateTime time)
+        public void ExistenceCheck(GameClockDateTime time)
         {
-            if (time.Between(TimeMachineClone.Properties.DestinationTime.AddMinutes(1), TimeMachineClone.ExistsUntil) && !Spawned && !TimeMachineClone.Properties.PlayerUsed)
+            if (time.Between(TimeMachineClone.Properties.DestinationTime.WithMinute(TimeMachineClone.Properties.DestinationTime.Minute + 1), TimeMachineClone.ExistsUntil) && !Spawned && !TimeMachineClone.Properties.PlayerUsed)
             {
                 Spawn(ReenterType.Spawn);
             }

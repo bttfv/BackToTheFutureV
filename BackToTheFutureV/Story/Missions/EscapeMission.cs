@@ -141,7 +141,7 @@ namespace BackToTheFutureV
 
         public override void Tick()
         {
-            if (FusionUtils.CurrentTime.Year == 1985 && InternalInventory.Current.Plutonium <= 0 && !IsPlaying)
+            if (GameClock.Now.Year == 1985 && InternalInventory.Current.Plutonium <= 0 && !IsPlaying)
             {
                 World.DrawMarker(MarkerType.VerticalCylinder, plutoniumPos, Vector3.Zero, Vector3.Zero, new Vector3(1, 1, 1), Color.Yellow);
 
@@ -166,7 +166,7 @@ namespace BackToTheFutureV
 
             if (!IsPlaying)
             {
-                if (plutoniumBlip != null && plutoniumBlip.Exists() && FusionUtils.CurrentTime.Year != 1985)
+                if (plutoniumBlip != null && plutoniumBlip.Exists() && GameClock.Now.Year != 1985)
                 {
                     plutoniumBlip.Delete();
                 }
