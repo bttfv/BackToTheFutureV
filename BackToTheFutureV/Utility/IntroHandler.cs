@@ -5,7 +5,6 @@ using GTA.Graphics;
 using GTA.Native;
 using GTA.UI;
 using System;
-using System.Globalization;
 using System.Media;
 
 namespace BackToTheFutureV
@@ -14,8 +13,6 @@ namespace BackToTheFutureV
     {
         public static IntroHandler Me { get; private set; }
         public bool IsPlaying { get; private set; }
-
-        private readonly CultureInfo dateFormat = CultureInfo.CreateSpecificCulture("en-US");
 
         private TimedEventHandler TimedEventHandler { get; } = new TimedEventHandler();
         readonly SoundPlayer timeParadoxShort = new SoundPlayer("scripts\\BackToTheFutureV\\Sounds\\story\\bttf_subtitle1.wav");
