@@ -142,7 +142,8 @@ namespace BackToTheFutureV
 
         public void ExistenceCheck(GameClockDateTime time)
         {
-            if (time.Between(TimeMachineClone.Properties.DestinationTime.WithMinute(TimeMachineClone.Properties.DestinationTime.Minute + 1), TimeMachineClone.ExistsUntil) && !Spawned && !TimeMachineClone.Properties.PlayerUsed)
+            TimeMachineClone.Properties.DestinationTime.TryAdd(GameClockDuration.FromMinutes(1), out GameClockDateTime tempDest);
+            if (time.Between(tempDest, TimeMachineClone.ExistsUntil) && !Spawned && !TimeMachineClone.Properties.PlayerUsed)
             {
                 Spawn(ReenterType.Spawn);
             }
