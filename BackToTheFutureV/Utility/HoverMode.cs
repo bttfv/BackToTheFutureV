@@ -42,10 +42,10 @@ namespace BackToTheFutureV
                 if (hoverVehicle == null || !hoverVehicle.IsInHoverMode)
                     return;
 
-                //if (TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).NotNullAndExists() && TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).Properties.AreFlyingCircuitsBroken)
-                //{
-                //    return;
-                //}
+                /*if (TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).NotNullAndExists() && TimeMachineHandler.GetTimeMachineFromVehicle(FusionUtils.PlayerVehicle).Properties.AreFlyingCircuitsBroken)
+                {
+                    return;
+                }*/
 
                 hoverVehicle.IsAltitudeHolding = !hoverVehicle.IsAltitudeHolding;
                 TextHandler.Me.ShowHelp("AltitudeHoldChange", true, TextHandler.Me.GetOnOff(hoverVehicle.IsAltitudeHolding));
@@ -63,17 +63,11 @@ namespace BackToTheFutureV
             {
                 foreach (Vehicle Vehicle in World.GetAllVehicles())
                 {
-                    if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12)
+                    if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12 || Vehicle.Model == ModelHandler.Deluxo || Vehicle.Type != VehicleType.Automobile)
                         continue;
 
                     /*if (_hoverTraffic)
                     {
-                        if (Vehicle.IsBoat || Vehicle.IsBicycle || Vehicle.IsBike || Vehicle.IsBlimp || Vehicle.IsAircraft || Vehicle.IsHelicopter || Vehicle.IsMotorcycle)
-                            continue;
-
-                        if (Vehicle.Model == ModelHandler.Deluxo || Vehicle.Model == ModelHandler.DMC12)
-                            continue;
-
                         if (Vehicle.Driver.ExistsAndAlive() && Vehicle != FusionUtils.PlayerVehicle)
                         {
                             HoverVehicle hoverVehicle = HoverVehicle.GetFromVehicle(Vehicle);

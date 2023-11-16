@@ -52,7 +52,7 @@ namespace BackToTheFutureV
         private void Main_Aborted(object sender, EventArgs e)
         {
             ScriptCameraDirector.StopRendering();
-
+            LoadingPrompt.Hide();
             Screen.FadeIn(1000);
 
             if (RemoteTimeMachineHandler.IsRemoteOn)
