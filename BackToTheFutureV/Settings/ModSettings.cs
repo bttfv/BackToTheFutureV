@@ -38,12 +38,13 @@ namespace BackToTheFutureV
         public static bool EngineStallEvent { get; set; } = true;
         public static bool TurbulenceEvent { get; set; } = true;
         public static bool LandingSystem { get; set; } = true;
+        public static bool HoverAllCars { get; set; } = true;
         public static bool TerroristsEvent { get; set; } = true;
         public static bool TrainEvent { get; set; } = true;
         public static bool RandomTrains { get; set; } = true;
         public static bool WaybackSystem { get; set; } = false;
         public static bool RealTime { get; set; } = true;
-        public static bool YearTraffic { get; set; } = false;
+        public static bool YearTraffic { get; set; } = true;
         public static bool TimeParadox { get; set; } = false;
         //public static bool DeluxoProto { get; set; } = true;
         public static int MaxRecordedMachines { get; set; } = 10;
@@ -107,6 +108,7 @@ namespace BackToTheFutureV
             TimeParadox = settings.GetValue("General", "TimeParadox", TimeParadox);
             RandomTrains = settings.GetValue("General", "RandomTrains", RandomTrains);
             LandingSystem = settings.GetValue("General", "LandingSystem", LandingSystem);
+            HoverAllCars = settings.GetValue("General", "HoverAllCars", HoverAllCars);
             RealTime = settings.GetValue("General", "RealTime", RealTime);
             YearTraffic = settings.GetValue("General", "YearTraffic", YearTraffic);
             //DeluxoProto = settings.GetValue("General", "DeluxoProto", DeluxoProto);
@@ -116,7 +118,7 @@ namespace BackToTheFutureV
             EngineStallEvent = settings.GetValue("Events", "EngineStall", EngineStallEvent);
             TurbulenceEvent = settings.GetValue("Events", "Turbulence", TurbulenceEvent);
             TerroristsEvent = settings.GetValue("Events", "Terrorists", TerroristsEvent);
-            TrainEvent = settings.GetValue("Events", "Train", TrainEvent);
+            TrainEvent = settings.GetValue("Events", "TrainEvent", TrainEvent);
 
             ModControls.LoadControls(settings);
 
@@ -157,6 +159,7 @@ namespace BackToTheFutureV
             settings.SetValue("General", "CutsceneMode", CutsceneMode);
             settings.SetValue("General", "RandomTrains", RandomTrains);
             settings.SetValue("General", "LandingSystem", LandingSystem);
+            settings.SetValue("General", "HoverAllCars", HoverAllCars);
             settings.SetValue("General", "RealTime", RealTime);
             settings.SetValue("General", "YearTraffic", YearTraffic);
             //settings.SetValue("General", "DeluxoProto", DeluxoProto);
@@ -166,7 +169,7 @@ namespace BackToTheFutureV
             settings.SetValue("Events", "EngineStall", EngineStallEvent);
             settings.SetValue("Events", "Turbulence", TurbulenceEvent);
             settings.SetValue("Events", "Terrorists", TerroristsEvent);
-            settings.SetValue("Events", "Train", TrainEvent);
+            settings.SetValue("Events", "TrainEvent", TrainEvent);
 
             settings.Save();
 
