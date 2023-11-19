@@ -9,6 +9,7 @@ using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
+    [ScriptAttributes(NoDefaultInstance = true)]
     internal class TimeParadox : Script
     {
         private WaybackRecord StartRecord;

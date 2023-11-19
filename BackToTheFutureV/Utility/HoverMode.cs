@@ -7,6 +7,7 @@ using static FusionLibrary.FusionEnums;
 
 namespace BackToTheFutureV
 {
+    [ScriptAttributes(NoDefaultInstance = true)]
     internal class HoverMode : Script
     {
         private bool _firstTick = true;
@@ -61,16 +62,16 @@ namespace BackToTheFutureV
         {
             if (!_firstTick)
             {
-                foreach (Vehicle Vehicle in World.GetAllVehicles())
+                foreach (Vehicle vehicle in World.GetNearbyVehicles(FusionUtils.PlayerPed, 500f))
                 {
-                    if (!Vehicle.IsFunctioning() || Vehicle.Model == ModelHandler.DMC12 || Vehicle.Model == ModelHandler.Deluxo || Vehicle.Type != VehicleType.Automobile)
+                    if (!vehicle.IsFunctioning() || vehicle.Model == ModelHandler.DMC12 || vehicle.Model == ModelHandler.Deluxo || vehicle.Type != VehicleType.Automobile)
                         continue;
 
                     /*if (_hoverTraffic)
                     {
-                        if (Vehicle.Driver.ExistsAndAlive() && Vehicle != FusionUtils.PlayerVehicle)
+                        if (Vehicle.Driver.ExistsAndAlive() && vehicle != FusionUtils.PlayerVehicle)
                         {
-                            HoverVehicle hoverVehicle = HoverVehicle.GetFromVehicle(Vehicle);
+                            HoverVehicle hoverVehicle = HoverVehicle.GetFromVehicle(vehicle);
 
                             if (!hoverVehicle.IsHoverModeAllowed)
                             {
@@ -80,14 +81,12 @@ namespace BackToTheFutureV
                         }
                     }*/
 
-                    HoverVehicle.GetFromVehicle(Vehicle)?.Tick();
+                    HoverVehicle.GetFromVehicle(vehicle)?.Tick();
                 }
 
                 HoverVehicle.Clean();
-            }
-
-            if (Game.IsLoading || !_firstTick)
                 return;
+            }
 
             Decorator.Register(BTTFVDecors.AllowHoverMode, DecorType.Bool);
             Decorator.Register(BTTFVDecors.IsInHoverMode, DecorType.Bool);

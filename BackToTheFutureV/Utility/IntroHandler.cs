@@ -9,6 +9,7 @@ using System.Media;
 
 namespace BackToTheFutureV
 {
+    [ScriptAttributes(NoDefaultInstance = true)]
     internal class IntroHandler : Script
     {
         public static IntroHandler Me { get; private set; }
@@ -133,7 +134,7 @@ namespace BackToTheFutureV
 
         private void TimeText_Tick(object sender, EventArgs e)
         {
-            if (Game.IsLoading || Main.FirstMission || !IsPlaying)
+            if (Main.FirstMission || !IsPlaying)
                 return;
 
             Function.Call(Hash.HIDE_LOADING_ON_FADE_THIS_FRAME);

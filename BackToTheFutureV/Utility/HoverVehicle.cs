@@ -147,7 +147,7 @@ namespace BackToTheFutureV
 
             GlobalHoverVehicles.Add(this);
 
-            if (Decorator.Exists(BTTFVDecors.AllowHoverMode))
+            if (Decorator.Exists(BTTFVDecors.AllowHoverMode) || !Vehicle.IsFunctioning())
                 return;
 
             IsHoverModeAllowed = false;

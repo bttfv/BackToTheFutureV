@@ -126,6 +126,9 @@ namespace BackToTheFutureV
                 DecoratorsHandler.Register();
                 WeatherHandler.Register();
 
+                InstantiateScript<IntroHandler>();
+                InstantiateScript<TimeParadox>();
+
                 TrafficHandler.ModelSwaps.Add(new ModelSwap
                 {
                     Enabled = true,
@@ -159,6 +162,11 @@ namespace BackToTheFutureV
 
             if (FirstTick)
             {
+                if (ModSettings.HoverAllCars)
+                {
+                    InstantiateScript<HoverMode>();
+                }
+
                 TimeMachine temp = TimeMachineHandler.Create(position: new GTA.Math.Vector3(0, 0, 2400));
                 while (!temp.IsReady)
                 {
