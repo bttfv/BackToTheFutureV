@@ -322,8 +322,18 @@ namespace BackToTheFutureV
             RightStreetPole = World.CreateProp(streetPoleModel, new Vector3(41.5676f, 6585.7378f, 30.3686f), true, false);
 
             Mast = World.CreateProp(mastModel, new Vector3(63.0749f, 6582.1401f, 30.5130f), true, false);
-            Mast.IsPositionFrozen = true;
-
+            try
+            {
+                // Some users experience a null reference here; let's catch it
+                Mast.IsPositionFrozen = true;
+            }
+            catch
+            {
+                LeftStreetPole?.Delete();
+                RightStreetPole?.Delete();
+                Mast?.Delete();
+                return;
+            }
             Pole = World.CreateProp(poleModel, polePosition, true, false);
             Pole.IsPositionFrozen = true;
 

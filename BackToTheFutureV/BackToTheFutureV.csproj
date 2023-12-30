@@ -59,6 +59,10 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FusionLibrary, Version=1.6.8763.5550, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(GTAPath)\scripts\FusionLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="irrKlang.NET4, Version=1.0.6617.18847, Culture=neutral, PublicKeyToken=a854741bd80517c7, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(GTAPath)\scripts\irrKlang.NET4.dll</HintPath>
@@ -67,13 +71,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(GTAPath)\scripts\KlangRageAudioLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="FusionLibrary, Version=1.6.8617.29980, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(GTAPath)\scripts\FusionLibrary.dll</HintPath>
+    <Reference Include="LemonUI.SHVDN3, Version=2.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\LemonUI.SHVDN3.2.0.0\lib\net48\LemonUI.SHVDN3.dll</HintPath>
     </Reference>
-    <Reference Include="ScriptHookVDotNet3, Version=3.6.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(GTAPath)\scripts\ScriptHookVDotNet3.dll</HintPath>
+    <Reference Include="ScriptHookVDotNet3">
+      <HintPath>$(GTAPath)\ScriptHookVDotNet3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -203,11 +205,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="LemonUI.SHVDN3">
-      <Version>1.10.0</Version>
-    </PackageReference>
+    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT "%25GTAPath%25" == "" (

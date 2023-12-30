@@ -3,6 +3,7 @@ using FusionLibrary;
 using FusionLibrary.Extensions;
 using FusionLibrary.Memory;
 using GTA;
+using GTA.Chrono;
 using GTA.Math;
 using GTA.Native;
 using System;

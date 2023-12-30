@@ -79,17 +79,19 @@ namespace BackToTheFutureV
 
         private void Main_Tick(object sender, EventArgs e)
         {
-            if (Game.Version < GameVersion.v1_0_2372_0_Steam)
-            {
-                Screen.ShowHelpText("~r~ERROR:~s~ ~y~BackToTheFutureV~s~ is ~o~not~s~ compatible with the currently installed version of the GTAV.~n~Please ~b~update~s~ your game to version ~g~2372~s~ or newer.", 100);
-
-                return;
-            }
-
             if (Game.IsLoading || FusionUtils.FirstTick)
             {
                 LoadingPrompt.Show("Loading BTTFV");
                 Screen.FadeOut(0);
+                return;
+            }
+
+            if (!new Model("deluxo").IsInCdImage && !FirstMission)
+            {
+                Screen.FadeIn(0);
+                LoadingPrompt.Hide();
+                Screen.ShowHelpText("~r~ERROR:~s~ ~y~BackToTheFutureV~s~ is ~o~not~s~ compatible with the currently installed version of the GTAV.~n~Please ~b~update~s~ your game to version ~g~2372~s~ or newer.");
+                FirstMission = true;
                 return;
             }
 
