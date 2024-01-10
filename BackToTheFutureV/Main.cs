@@ -90,7 +90,7 @@ namespace BackToTheFutureV
             {
                 Screen.FadeIn(0);
                 LoadingPrompt.Hide();
-                Screen.ShowHelpText("~r~ERROR:~s~ ~y~BackToTheFutureV~s~ is ~o~not~s~ compatible with the currently installed version of the GTAV.~n~Please ~b~update~s~ your game to version ~g~2372~s~ or newer.");
+                Screen.ShowHelpText("~r~ERROR:~s~ ~y~BackToTheFutureV~s~ is ~o~not~s~ compatible with the currently installed version of GTAV.~n~Please ~b~update~s~ your game to version ~g~2372~s~ or newer.");
                 FirstMission = true;
                 return;
             }
