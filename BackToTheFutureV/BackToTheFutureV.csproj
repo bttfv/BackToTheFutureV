@@ -72,7 +72,7 @@
       <HintPath>$(GTAPath)\scripts\KlangRageAudioLibrary.dll</HintPath>
     </Reference>
     <Reference Include="LemonUI.SHVDN3, Version=2.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\LemonUI.SHVDN3.2.0.0\lib\net48\LemonUI.SHVDN3.dll</HintPath>
+      <HintPath>$(GTAPath)\LemonUI.SHVDN3.dll</HintPath>
     </Reference>
     <Reference Include="ScriptHookVDotNet3">
       <HintPath>$(GTAPath)\ScriptHookVDotNet3.dll</HintPath>
