@@ -14,7 +14,7 @@ Version 2 30
 	BTTFV_Menu_Controls_Item_HoverAltitudeHold_Description = Touche pour le maintien d'altitude en mode aéroglisseur (clavier).
 	BTTFV_Menu_Controls_Item_HoverAltitudeHold_Title = Maintien d'altitude
 	BTTFV_Menu_Controls_Item_HoverBoost_Description = Touche du boost en mode aéroglisseur.
-	BTTFV_Menu_Controls_Item_HoverBoost_Title = Boost en mode aéroglisseur.
+	BTTFV_Menu_Controls_Item_HoverBoost_Title = Boost en mode aéroglisseur
 	BTTFV_Menu_Controls_Item_HoverVTOL_Description = Touche pour activer/désactiver l'ADAV en mode aéroglisseur.
 	BTTFV_Menu_Controls_Item_HoverVTOL_Title = ADAV
 	BTTFV_Menu_Controls_Item_InputToggle_Description = Touche pour activer/désactiver le clavier numérique des circuits temporels (clavier).
@@ -63,7 +63,7 @@ Version 2 30
 	BTTFV_Menu_Custom_Item_Plate_Value_Outatime_Title = OUTATIME
 	BTTFV_Menu_Custom_Item_Plate_Value_Timeless_Title = TIMELESS
 	BTTFV_Menu_Custom_Item_Plate_Value_Timeless2_Title = TIMELESS (alt)
-	BTTFV_Menu_Custom_Item_Reactor_Description = Choisir une source d'alimentation des circuits.
+	BTTFV_Menu_Custom_Item_Reactor_Description = Choisir la source d'alimentation des circuits temporels.
 	BTTFV_Menu_Custom_Item_Reactor_Title = Source d'alim.
 	BTTFV_Menu_Custom_Item_Reactor_Value_MrFusion_Title = Mr. Fusion
 	BTTFV_Menu_Custom_Item_Reactor_Value_Nuclear_Title = Réacteur nucléaire
@@ -190,7 +190,7 @@ Version 2 30
 	BTTFV_Menu_Override_Item_TT_Description = Définit la vitesse à laquelle le trou de ver apparaît.
 	BTTFV_Menu_Override_Item_TT_Title = Trou de ver
 	BTTFV_Menu_Override_Item_TTSfx_Description = Définit la vitesse à laquelle les effets du voyage dans le temps s'activent.
-	BTTFV_Menu_Override_Item_TTSfx_Title = Eff. de dépl. temp.
+	BTTFV_Menu_Override_Item_TTSfx_Title = Eff. de voy. dans le t.
 	BTTFV_Menu_Override_Item_WormholeLength_Description = Définit le temps entre l'apparition du trou de ver et du voyage dans le temps (en millisecondes).
 	BTTFV_Menu_Override_Item_WormholeLength_Title = Durée du trou de ver
 	BTTFV_Menu_Override_Subtitle = Menu Personnaliser
@@ -347,7 +347,7 @@ Version 2 30
 	BTTFV_Text_Cutscene = Cinématique
 	BTTFV_Text_Days = jours
 	BTTFV_Text_DMC12 = DMC-12
-	BTTFV_Text_FoundMe = Oh, mon Dieu. Et moi qui pensais les avoir semés, ils m'ont retrouvé.
+	BTTFV_Text_FoundMe = Oh mon Dieu. Et moi qui pensais les avoir semés, ils m'ont retrouvé.
 	BTTFV_Text_FoundTrash = Juste des ordures inutiles... ({0})
 	BTTFV_Text_HoverDamaged = Les instruments de vol sont trop endommagés.
 	BTTFV_Text_InputMode = La touche du clavier numérique est {0}
