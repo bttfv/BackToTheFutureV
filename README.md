@@ -7,7 +7,7 @@
 - [FusionLibrary Nightly](https://github.com/nomakewan/FusionLibrary/tree/nightlyshvdn)
 - [Script Hook V](https://www.dev-c.com/gtav/scripthookv/)
 - [Script Hook V .NET Nightly](https://github.com/scripthookvdotnet/scripthookvdotnet-nightly/releases)
-- [LemonUI v1.10](https://github.com/justalemon/LemonUI)
+- [LemonUI v2.0](https://github.com/justalemon/LemonUI)
 - [HeapAdjuster](https://www.gta5-mods.com/tools/heapadjuster)
 - [RageAm](https://github.com/ranstar74/rageAm)
 
