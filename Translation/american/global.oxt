@@ -339,8 +339,8 @@
 	BTTFV_Text_Clock_CurSecond = Current Seconds: {0}
 	BTTFV_Text_Clock_DisableAlarm = Disable Alarm
 	BTTFV_Text_Clock_SetAlarm = Set Alarm Time
-	BTTFV_Text_Clock_SubMinutes = Substract Minutes
-	BTTFV_Text_Clock_SubSeconds = Substract Seconds
+	BTTFV_Text_Clock_SubMinutes = Subtract Minutes
+	BTTFV_Text_Clock_SubSeconds = Subtract Seconds
 	BTTFV_Text_Clock_Sync = Sync With Current Time
 	BTTFV_Text_Clock_SyncToggle = Sync with current time is {0}
 	BTTFV_Text_CloseReactor = Hold ~INPUT_CONTEXT~ to close fuel chamber.
