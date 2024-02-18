@@ -293,9 +293,9 @@ Version 2 30
 	BTTFV_Menu_TCD_Item_External_Description = Active/désactive l'interface externe.
 	BTTFV_Menu_TCD_Item_External_Title = Interface externe
 	BTTFV_Menu_TCD_Item_HideHUD_Description = Affiche/cache l'interface du mod.
-	BTTFV_Menu_TCD_Item_HideHUD_Title = Affiche/cache l'interface
+	BTTFV_Menu_TCD_Item_HideHUD_Title = Afficher/cacher l'interface
 	BTTFV_Menu_TCD_Item_HideSID_Description = Affiche/cache l'affichage du système de confinement du champ sur l'interface.
-	BTTFV_Menu_TCD_Item_HideSID_Title = Affiche/cache l'ASCC
+	BTTFV_Menu_TCD_Item_HideSID_Title = Afficher/cacher l'ASCC
 	BTTFV_Menu_TCD_Item_Remote_Description = Active/désactive l'interface de la radiocommande.
 	BTTFV_Menu_TCD_Item_Remote_Title = Interface de la radiocommande
 	BTTFV_Menu_TCD_Item_Reset_Description = Réinitialise la position et la taille de l'interface des circuits temporels par défaut.
