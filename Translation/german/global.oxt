@@ -386,7 +386,7 @@
 	BTTFV_Text_UnableRC = Du kannst diese Zeitmaschine im Moment nicht fernsteuern.
 	BTTFV_Text_UnableRepairEngine = Motor können nicht repariert werden. Eine Tankstelle wird es erst 1912 geben.
 	BTTFV_Text_UnableRepairFC = Flugkreise können nicht repariert werden. Geeignete Ersatzteile werden erst 2015 erfunden.
-	BTTFV_Text_UnableRepairTC = Zeitkreise können nicht repariert werden. Geeignete Ersatzteile sind erst 1952 verfügbar.
+	BTTFV_Text_UnableRepairTC = Zeitkreise können nicht repariert werden. Geeignete Ersatzteile werden erst 1952 verfügbar sein.
 	BTTFV_Text_VTOLTip = Halten {0} und ~INPUT_VEH_FLY_THROTTLE_DOWN~ zur Landung.
 	BTTFV_Text_Warmup = Drücke ~INPUT_CONTEXT~, um das Aufwärmen der Zeitleitungs-Steuerrohre zu starten.
 	BTTFV_Text_WarmupComplete = Die Zeitleitungs-Steuerröhre sind aufgewärmt.
