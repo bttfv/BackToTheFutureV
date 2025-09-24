@@ -54,7 +54,7 @@
 	BTTFV_Menu_Custom_Item_Hover_Description = Fügt dem aktuellen Fahrzeug den Hovermodus hinzu.
 	BTTFV_Menu_Custom_Item_Hover_Title = Hover-Modus
 	BTTFV_Menu_Custom_Item_Plate_Description = Wähle ein Kennzeichen.
-	BTTFV_Menu_Custom_Item_Plate_Title = Nummernschild
+	BTTFV_Menu_Custom_Item_Plate_Title = Kennzeichen
 	BTTFV_Menu_Custom_Item_Plate_Value_DMCFactory2_Title = Werks-DMC (alt)
 	BTTFV_Menu_Custom_Item_Plate_Value_DMCFactory_Title = Werks-DMC
 	BTTFV_Menu_Custom_Item_Plate_Value_Empty_Title = Leer
@@ -200,7 +200,7 @@
 	BTTFV_Menu_Photo_Item_Coils_Title = Glühende Spulen
 	BTTFV_Menu_Photo_Item_Engine_Description = Bringt den Motor zum Abwürgen.
 	BTTFV_Menu_Photo_Item_Engine_Title = Motorabwürgung
-	BTTFV_Menu_Photo_Item_FluxCapacitor_Description = Aktiviert den Fluxkondensator auf der Zeitmaschine.
+	BTTFV_Menu_Photo_Item_FluxCapacitor_Description = Aktiviert den Fluxkompensator auf der Zeitmaschine.
 	BTTFV_Menu_Photo_Item_FluxCapacitor_Title = Fluxkompensator
 	BTTFV_Menu_Photo_Item_HideHUD_Description = Blendet das gesamte Spiel- und Mod-HUD aus.
 	BTTFV_Menu_Photo_Item_HideHUD_Title = HUD ausblenden
@@ -272,15 +272,15 @@
 	BTTFV_Menu_Settings_Item_YearTraffic_Title = Jahres-basierter Verkehr
 	BTTFV_Menu_Settings_Subtitle = Einstellungen
 	BTTFV_Menu_Settings_Title = Konfigurationsmenü
-	BTTFV_Menu_Sounds_Description = Öffnet das Sound-Effekt-Menü.
+	BTTFV_Menu_Sounds_Description = Öffnet das Sound-Effekte-Menü.
 	BTTFV_Menu_Sounds_Item_CircuitsBeep_Description = Erlaubt es den Piepton der Zeitleitungs-Diode zu aktivieren/deaktivieren.
 	BTTFV_Menu_Sounds_Item_CircuitsBeep_Title = Zeitleitungs Dioden Geräusche
 	BTTFV_Menu_Sounds_Item_Engine_Description = Wenn das Skript aktiviert ist, wird ein benutzerdefiniertes Motorensoundsystem für die BTTF-DeLoreans verwendet.
 	BTTFV_Menu_Sounds_Item_Engine_Title = Benutzerdefinierte Motorengeräusche
-	BTTFV_Menu_Sounds_Item_FluxCapacitor_Description = Ermöglicht das Aktivieren/Deaktivieren des Fluxkondensator-Tons.
-	BTTFV_Menu_Sounds_Item_FluxCapacitor_Title = Flusskondensator Ton
+	BTTFV_Menu_Sounds_Item_FluxCapacitor_Description = Ermöglicht das Aktivieren/Deaktivieren des Fluxkompensator-Tons.
+	BTTFV_Menu_Sounds_Item_FluxCapacitor_Title = Fluxkompensator Ton
 	BTTFV_Menu_Sounds_Item_SpeedoBeep_Description = Ermöglicht das Aktivieren/Deaktivieren des Tacho-Pieptons, wenn dieser als zu störend empfunden wird.
-	BTTFV_Menu_Sounds_Item_SpeedoBeep_Title = Tacho-Signalton
+	BTTFV_Menu_Sounds_Item_SpeedoBeep_Title = Tacho-Piepton
 	BTTFV_Menu_Sounds_Subtitle = Soundeffekte
 	BTTFV_Menu_Sounds_Title = Soundeffekte
 	BTTFV_Menu_TCD_Description = Ändert verschiedene Einstellungen in Bezug auf die Anzeige der Zeitleitung.
@@ -361,7 +361,7 @@
 	BTTFV_Text_Off = AUS
 	BTTFV_Text_On = AN
 	BTTFV_Text_OpenReactor = Halte ~INPUT_CONTEXT~, um den Reaktor zu öffnen.
-	BTTFV_Text_RCBrakeTip = Halte ~INPUT_VEH_DUCK~ gedrückt und drücke {0} um die RC Handbremse umzuschalten.
+	BTTFV_Text_RCBrakeTip = Halte ~INPUT_VEH_DUCK~ gedrückt und drücke {0} um die RC Handbremse an/auszuschalten.
 	BTTFV_Text_RefuelReactor = Drücke ~INPUT_CONTEXT~ zum Tanken oder halte ~INPUT_CONTEXT~ zum Schließen des Reaktors.
 	BTTFV_Text_RemovedAllTimeMachines = Entfernt alle Zeitmaschinen!
 	BTTFV_Text_RemovedOtherTimeMachines = Entfernt alle anderen Zeitmaschinen!
