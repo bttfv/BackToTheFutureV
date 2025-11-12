@@ -124,7 +124,7 @@
 	BTTFV_Menu_Garage_Item_Custom_Title = Benutzerdefiniertes Menü
 	BTTFV_Menu_Garage_Item_InstallHover_Description = Aktuelles Auto mit Flugschaltkreisen ausstatten, jetzt brauchst du dir keine Sorgen mehr über den Verkehr zu machen!
 	BTTFV_Menu_Garage_Item_InstallHover_Title = Flugschaltkreise Nachrüsten (39.995 $)
-	BTTFV_Menu_Garage_Item_InstallMrFusion_Description = Ersetze den Kernreaktor durch eine tragbare Version des Kernreaktors von Fusion Home Energy.
+	BTTFV_Menu_Garage_Item_InstallMrFusion_Description = Ersetze den Kernreaktor durch eine tragbare Version des Fusionsreaktors von Fusion Home Energy.
 	BTTFV_Menu_Garage_Item_InstallMrFusion_Title = Mr. Fusion installieren (100.000 $)
 	BTTFV_Menu_Garage_Item_RepairEngine_Description = Repariere den Motor.
 	BTTFV_Menu_Garage_Item_RepairEngine_Title = Motor reparieren (750 $)
@@ -200,7 +200,7 @@
 	BTTFV_Menu_Photo_Item_Coils_Title = Glühende Spulen
 	BTTFV_Menu_Photo_Item_Engine_Description = Bringt den Motor zum Abwürgen.
 	BTTFV_Menu_Photo_Item_Engine_Title = Motorabwürgung
-	BTTFV_Menu_Photo_Item_FluxCapacitor_Description = Aktiviert den Fluxkompensator auf der Zeitmaschine.
+	BTTFV_Menu_Photo_Item_FluxCapacitor_Description = Aktiviert den Fluxkompensator in der Zeitmaschine.
 	BTTFV_Menu_Photo_Item_FluxCapacitor_Title = Fluxkompensator
 	BTTFV_Menu_Photo_Item_HideHUD_Description = Blendet das gesamte Spiel- und Mod-HUD aus.
 	BTTFV_Menu_Photo_Item_HideHUD_Title = HUD ausblenden
